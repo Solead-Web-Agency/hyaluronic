@@ -1,0 +1,1 @@
+Allow the module to import orders with inactive product statuses.

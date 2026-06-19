@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>rg_locationdetection</name>
+    <displayName><![CDATA[Advanced Location Detection]]></displayName>
+    <version><![CDATA[2.6.0]]></version>
+    <description><![CDATA[Detect the country and language of your visitors and configure redirects, default customer language, currency and carrier, besides other actions.]]></description>
+    <author><![CDATA[Rolige]]></author>
+    <tab><![CDATA[i18n_localization]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

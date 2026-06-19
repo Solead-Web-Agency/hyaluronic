@@ -1,0 +1,10 @@
+[/{shop_url}]
+
+Bonjour {firstname} {lastname},
+
+Votre colis est actuellement :  "{current_status}"
+
+Vous pouvez suivre la livraison ici [/{track_link}]
+
+Cordialement,
+{shop_name} [/{shop_url}]

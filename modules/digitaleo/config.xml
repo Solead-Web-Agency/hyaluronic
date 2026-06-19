@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>digitaleo</name>
+    <displayName><![CDATA[Digitaleo]]></displayName>
+    <version><![CDATA[1.4.7]]></version>
+    <description><![CDATA[Communicate easily with SMS and Email with your customers and boost your business with Digitaleo and PrestaShop!]]></description>
+    <author><![CDATA[Digitaleo]]></author>
+    <tab><![CDATA[emailing]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

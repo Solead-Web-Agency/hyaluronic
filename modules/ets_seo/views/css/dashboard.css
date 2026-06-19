@@ -1,0 +1,20 @@
+.nvtooltip {
+    background: rgba(0,0,0, .8) !important;
+    z-index: 1;
+    position: absolute;
+    border: none !important;
+    padding: 0 !important;
+    color: #fff !important;
+}
+.nvtooltip h3 {
+    margin: 0!important;
+    font-size: 12px!important;
+    text-transform: none!important;
+    background: rgba(51, 51, 51, .8) !important;
+    color: #fff;
+    padding: 0px 5px!important;
+    line-height: 2!important;
+    border-radius: 0!important;
+    height: auto!important;
+    border-bottom: 1px solid rgba(255,255,255,0.2)!important;
+}

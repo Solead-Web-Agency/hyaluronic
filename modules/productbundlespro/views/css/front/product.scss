@@ -1,0 +1,565 @@
+/**
+ * NOTICE OF LICENSE
+ *
+ * This file is licenced under the Software License Agreement.
+ * With the purchase or the installation of the software in your application
+ * you accept the licence agreement.
+ *
+ * You must not modify, adapt or create derivative works of this source code
+ *
+ * @author    Musaffar Patel
+ * @copyright 2016-2019 Musaffar Patel
+ * @license   LICENSE.txt
+ */
+
+// shared styles ----------------------------------------
+
+.pbp-widget {
+
+	margin-bottom: 20px;
+
+	.tab-links {
+		a {
+			display: inline-block;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border-bottom: none;
+			color: #666;
+			padding: 15px 50px;
+			cursor: pointer;
+			border-top-left-radius: 3px;
+			border-top-right-radius: 3px;
+		}
+
+		a.active {
+			color: #333;
+			font-weight: bold;
+			border-top: 2px solid #2fb5d2;
+		}
+	}
+
+	.tab-content {
+		margin-top: 0px;
+		overflow-y: scroll;
+		background-color: #f1f1f1;
+	}
+
+
+	.bundle:not(:nth-of-type(1)) {
+		.title {
+			display: none;
+		}
+
+		@media only screen and (max-width: 900px) {
+			display: none !important;
+		}
+	}
+
+	.bundle.visible:not(:nth-of-type(1)) {
+		@media only screen and (max-width: 900px) {
+			display: block !important;
+		}
+	}
+
+	/* The container */
+	.container-checkbox {
+		display: inline;
+		position: relative;
+		padding-left: 22px;
+		top: 10px;
+		cursor: pointer;
+		font-size: 22px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	/* Hide the browser's default checkbox */
+	.container-checkbox input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	/* Create a custom checkbox */
+	.container-checkbox .checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 18px;
+		width: 18px;
+		background-color: #ccc;
+	}
+
+	/* On mouse-over, add a grey background color */
+	.container-checkbox:hover input ~ .checkmark {
+		background-color: #ccc;
+	}
+
+	/* When the checkbox is checked, add a blue background */
+	.container-checkbox input:checked ~ .checkmark {
+		background-color: #2fb5d2;
+	}
+
+	/* Create the checkmark/indicator (hidden when not checked) */
+	.container-checkbox .checkmark:after {
+		content: "";
+		position: absolute;
+		display: none;
+	}
+
+	/* Show the checkmark when checked */
+	.container-checkbox input:checked ~ .checkmark:after {
+		display: block;
+	}
+
+	/* Style the checkmark/indicator */
+	.container-checkbox .checkmark:after {
+		left: 7px;
+		top: 3px;
+		width: 5px;
+		height: 10px;
+		border: solid white;
+		border-width: 0 3px 3px 0;
+		-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		transform: rotate(45deg);
+	}
+
+	.btn-show-more-bundles {
+		display: none;
+
+		@media only screen and (max-width: 900px) {
+			display: block;
+			background-color: #dedede;
+			width: 100%;
+			padding: 10px;
+			text-align: center;
+			margin-top: 12px;
+		}
+	}
+
+	.saving-label {
+		border: 1px solid #FF6D5D;
+		color: #FF6D5D;
+		text-align: center;
+		padding: 12px;
+		width: 100%;
+		font-weight: bold;
+		margin-bottom: 6px;
+	}
+
+	.pbp_add_quantity_wrapper {
+		width: 100%;
+		text-align: center;
+		display: flex;
+		flex-direction: row;
+
+		.pbp-quantity-wrapper {
+			margin-right: 5px;
+
+			input[name='pbp_quantity'] {
+				height: 100%;
+				text-align: center;
+			}
+
+			.bootstrap-touchspin {
+				float: none;
+				box-shadow: none;
+				display: flex;
+				flex-direction: row;
+				height: 100%;
+			}
+
+			.input-group-btn-vertical {
+				float: none;
+			}
+
+
+			.btn-default {
+				margin-top: 0;
+				height: 50%;
+			}
+		}
+	}
+
+	.title {
+		font-size: 18px;
+		font-weight: bold;
+		margin-bottom: 20px;
+		flex: 0 1 100%;
+		margin-top: 10px;
+	}
+}
+
+// pbp-widget-half-width -------------------
+.pbp-widget-half-width {
+
+	.tab-content {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		flex-wrap: wrap;
+
+		@media only screen and (max-width: 900px) {
+			display: block;
+		}
+	}
+
+	.saving-label-child {
+		font-size: 13px;
+		font-weight: bold;
+		color: #fff;
+		background-color: #FF6D5D;
+		display: block;
+		position: absolute;
+		padding: 4px;
+		left: 50%;
+		top:-10px;
+		transform: translateX(-50%);
+	}
+
+	.bundle {
+		background-color:#fff;
+		border:1px solid #cdcdcd;
+		width: calc(50% - 14px);
+		padding: 20px;
+
+		@media only screen and (max-width: 900px) {
+			width: 100%;
+		}
+
+		.title {
+			font-size: 16px;
+			color:#555;
+			font-weight: bold;
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		.parent-product {
+			width: 100%;
+			text-align: center;
+			position: relative;
+			padding-bottom: 20px;
+
+			.image {
+				position: relative;
+				height: 140px;
+
+				img {
+					max-height: 140px;
+				}
+			}
+
+			.name {
+				font-weight: bold;
+				font-size: 14px;
+				display: block;
+				margin: 10px 0px;
+			}
+
+			.parent_product_ipa {
+				width: 100%;
+				padding: 4px;
+				font-size: 13px;
+			}
+		}
+
+		.parent-product::after {
+			position: absolute;
+			left: calc(50% - 20px);
+			top: calc(100% - 20px);
+			content: '+';
+			width: 30px;
+			font-size: 26px;
+			font-weight: bold;
+			color: #888;
+		}
+
+		.child-product {
+			float: left;
+			width: calc(50% - 7px);
+
+			@media only screen and (max-width: 900px) {
+				width: 100%;
+				float: none;
+				display: flex;
+				flex-wrap: wrap;
+			}
+
+			.image {
+				width: 100%;
+				text-align: center;
+				position: relative;
+
+				@media only screen and (max-width: 900px) {
+					width: 80px;
+					flex: 1 0 0;
+				}
+
+				img {
+					max-width: 100px;
+
+					@media only screen and (max-width: 900px) {
+						max-width: 80px;
+					}
+				}
+			}
+
+			.name {
+				text-align: center;
+				width: 100%;
+				font-size: 13px;
+				font-weight: bold;
+				margin: 10px 0;
+			}
+
+			.options {
+
+				@media only screen and (max-width: 900px) {
+					width: 50%;
+				}
+
+				select {
+					width: 100%;
+					font-size: 13px;
+					padding: 4px;
+				}
+			}
+
+			.prices {
+
+				@media only screen and (max-width: 900px) {
+					width: 50%;
+				}
+
+				.pbp-discount {
+					width: 100%;
+					text-align: center;
+					display: block;
+					margin: 10px 0;
+				}
+
+				.pbp-original-price {
+					text-decoration: line-through;
+				}
+			}
+		}
+
+		.child-product:nth-child(odd) {
+			margin-left: 14px;
+		}
+
+		.bundle-prices {
+			font-size:22px;
+			margin: 10px 0;
+		}
+
+		.saving-label {
+
+		}
+
+		.bundle-action {
+			clear: both;
+			width: 100%;
+			margin: 10px 0px;
+			text-align: center;
+
+			.pbp_bundle_total {
+				font-weight: bold;
+			}
+
+			.saving-label {
+				font-weight: bold;
+				color:#FF6D5D;
+			}
+
+			.btn_add_bundle_cart {
+				width: 100%;
+			}
+		}
+
+	}
+}
+
+
+
+// pbp-widget-full-width -------------------
+
+.pbp-widget-full-width, .pbp-widget-mini-width {
+
+	.tab-content {
+		overflow: auto !important;
+	}
+
+	.bundle {
+		padding: 0 !important;
+		overflow: auto;
+
+		.title {
+			font-size:22px;
+			margin-bottom: 0px;
+			background: none;
+			padding: 10px;
+		}
+
+		.bundle-inner {
+			display: flex;
+			flex-direction: row;
+			background-color:#fff;
+			padding: 20px;
+			border:1px solid #ccc;
+
+			@media only screen and (max-width: 900px) {
+				display: block;
+			}
+		}
+
+		.products {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: row;
+			flex-flow: wrap;
+
+			@media only screen and (max-width: 900px) {
+				display: block;
+			}
+
+			.product {
+				position: relative;
+				width: 200px;
+				padding: 10px;
+
+				@media only screen and (max-width: 900px) {
+					width : 100%;
+				}
+
+				.image {
+					text-align: center;
+					position: relative;
+
+					img {
+						max-width: 100%;
+						max-height: 150px;
+					}
+
+					.saving-label-child {
+						background-color:#FF6D5D;
+						position: absolute;
+						right: 0;
+						top: 0;
+						color:#fff;
+						font-weight: bold;
+						padding: 4px;
+						font-size: 13px;
+					}
+				}
+
+				.name, .prices {
+					width: 100%;
+					text-align: center;
+					font-size: 14px;
+					padding:10px 0px;
+				}
+
+				.prices {
+					.pbp-original-price {
+						text-decoration: line-through;
+					}
+				}
+
+				select {
+					width: 100%;
+					font-size: 13px;
+					padding: 4px;
+				}
+			}
+
+			.product:first-child::before {
+				content:'';
+				display: none;
+			}
+
+			.product::before {
+				position: absolute;
+				left: 0;
+				top: calc(30% - 10px);
+				content: '+';
+				width: 30px;
+				font-size:26px;
+				font-weight: bold;
+				color:#888;
+
+				@media only screen and (max-width: 900px) {
+					width: 30px;
+					height: 30px;
+					text-align: center;
+					color:#fff;
+					left: calc(50% - 10px);
+					top: 0px;
+					z-index: 9;
+					background-color:#2fb5d2;
+					border-radius: 15px;
+					line-height: 27px;
+					padding-left: 2px;
+				}
+			}
+		}
+
+		.bundle-action {
+			width: 300px;
+			text-align: center;
+			padding: 20px;
+			/*align-self: flex-end;*/
+
+			@media only screen and (max-width: 1024px) {
+				width: 250px;
+			}
+
+			@media only screen and (max-width: 900px) {
+				width: 100%;
+				display: block;
+			}
+
+			.bundle-prices {
+				padding: 10px 0;
+				font-size: 22px;
+
+				.pbp_bundle_total {
+					font-weight: bold;
+				}
+			}
+
+			.btn_add_bundle_cart {
+				width: 100%;
+			}
+		}
+	}
+}
+
+// Location below add to cart
+.pbp-widget.product-addcart {
+
+	.bundle {
+		width: 100%;
+	}
+}
+
+// Slider
+
+.pbp-widget {
+	.splide__pagination__page.is-active {
+		background: #2fb5d2;
+		transform: none;
+	}
+}
+
+// Quick view
+
+.modal.quickview {
+	.pbp-widget {
+		padding: 0 20px;
+	}
+}

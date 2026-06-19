@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>Delivered.</statuscode>
+			<statuscode>Entregado.</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode>Delivery attempted</statuscode>
+			<statuscode>Intento de entrega</statuscode>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>Admitted</statuscode>
+			<statuscode>Admitido</statuscode>
+			<statuscode>In transit.</statuscode>
+			<statuscode>En tránsito..</statuscode>
+			<statuscode>Exited the foreign exchange office.</statuscode>
+			<statuscode>Salida de la Oficina Internacional de origen</statuscode>
+			<statuscode>Arrived at International Destination Office.</statuscode>
+			<statuscode></statuscode>
+			<statuscode>Sent from International Destination Office in country of origin</statuscode>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode>Pre registration</statuscode>
+			<statuscode>Pre registro</statuscode>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>Being delivered</statuscode>
+			<statuscode>En proceso de entrega</statuscode>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<statuscode>Access to information concerning your delivery status is currently unavailable.</statuscode>
+	</step>
+
+</document>

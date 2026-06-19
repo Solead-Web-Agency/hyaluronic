@@ -1,0 +1,3 @@
+Auto clear log files after x days.
+
+x equal 90 as default.

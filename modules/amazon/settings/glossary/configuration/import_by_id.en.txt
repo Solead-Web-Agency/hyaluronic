@@ -1,0 +1,1 @@
+Use the product ID and combination ID to import orders when there is no matching Reference/SKU.

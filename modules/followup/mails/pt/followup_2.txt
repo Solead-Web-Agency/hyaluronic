@@ -1,0 +1,11 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+Muito obrigado pela sua encomenda em {shop_name}.
+
+As our way of saying thanks, we want to give you a discount of {amount}% off your next order! This offer is valid for {days} days, so do not waste a moment!
+
+Aqui está o seu cupão: {voucher_num}
+
+Digite este código no seu carrinho de compras para obter o desconto.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

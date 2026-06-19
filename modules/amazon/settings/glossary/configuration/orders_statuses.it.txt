@@ -1,0 +1,1 @@
+Nota: per impostare lo stato di annullamento, abilitare la funzione Ordini > Annullamento ordine nella scheda Funzionalità.

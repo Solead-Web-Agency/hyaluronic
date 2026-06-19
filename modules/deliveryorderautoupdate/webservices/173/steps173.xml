@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<status>R</status>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<status>AI</status>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<status>T</status>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<status>A</status>
+	</step>
+	<step>
+			<id_status>103</id_status>
+			<status>You are doing too many requests!!</status>
+	</step>
+</document>

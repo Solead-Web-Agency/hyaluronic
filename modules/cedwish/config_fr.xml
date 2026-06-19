@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>cedwish</name>
+    <displayName><![CDATA[Int&eacute;gration Wish par CedCommerce]]></displayName>
+    <version><![CDATA[3.0.1]]></version>
+    <description><![CDATA[Wish Integration by CedCommerce Facilitates Users to sync their items on Wish marketplace and sell there.]]></description>
+    <author><![CDATA[CedCommerce]]></author>
+    <tab><![CDATA[market_place]]></tab>
+	<confirmUninstall><![CDATA[Voulez-vous vraiment désinstaller l'intégration Wish par Cedcommerce]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

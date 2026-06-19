@@ -1,0 +1,12 @@
+
+[{shop_url}] 
+
+CRON has finished importing products in rule "{rule_name}" at {shop_name}. 
+
+Error Log: 
+{error_log}
+
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/] 
+

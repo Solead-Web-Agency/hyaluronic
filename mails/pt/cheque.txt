@@ -1,0 +1,17 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+Obrigado por fazer compras na {shop_name}!
+
+Your order with the reference {order_name} has been placed successfully and will be shipped as soon as we receive your payment.
+
+Selecionou pagamento por cheque.
+
+Estes são os dados bancários para o seu cheque:
+Quantia: {total_paid}
+Pagar à ordem de: {check_name}
+Por favor, envie o seu cheque para: {check_address}
+
+Follow your order and download your invoice on our shop, go to the [Histórico de encomendas e detalhes]({history_url}) section of your customer account.
+If you have a guest account, you can follow your order via the [Rastreio de Visitantes]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

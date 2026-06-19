@@ -1,0 +1,115 @@
+_A001034 Token could not be Null
+_A000002 Token invalid, information not found
+_A001000 system abnormity
+_A001002 customs information could not be null
+_A001017 company ID could not be null
+_A001035 request parameter is wrong, could not be Null or no data.
+_A001037 Failed to obtain Australia post number
+_A001048 POD service unavailable in this country.
+_A001049 declare value cannot be less than 2.5USD
+_A001050 Chinese name of declare product name cannot more than 25 characters.
+_A001051 customs code error
+_A001052 number of customs code must be between 6 and 10
+_A001053 customs Chinese name cannot be null and at least two characters
+_A001056 length of declare cargo name cannot be more than 50 characters.
+_A002001 customer order No. cannot be null
+_A002002 format of customer order No. is incorrect
+_A002003 customer order No. is already existed.
+_A002004 format of service provider No. is incorrect
+_A002005 service provider No. is already existed.
+_A002006 cargo type code is unidentified.
+_A002007 format of cargo pieces is incorrect
+_A002008 length of buyer ID cannot be more than 60 characters.
+_A002009 format of transaction Id is incorrect
+_A002010 length of order note cannot be more than 256 characters
+_A002011 transportation mode cannot be null
+_A002012 transportation mode code is unidentified.
+_A002013 country of consignee cannot be null
+_A002014 country of consignee two character code is not exist.
+_A002015 payment method is unidentified.
+_A002016 format of customer weight is incorrect.
+_A002017 consigner's name cannot be null
+_A002018 name of consigner cannot be more than 30 characters.
+_A002019 company name of consigner cannot be null
+_A002020 company name of consigner cannot be more than 90 characters.
+_A002021 telephone number of consigner cannot be null.
+_A002022 format of consigner's phone No. is incorrect.
+_A002023 address of consigner cannot be null
+_A002024 length of address of consigner's address must be between 10 and 240 characters.
+_A002025 post format of consigner is incorrect
+_A002026 format of consigner fax is incorrect
+_A002027 consignee's name cannot be null
+_A002028 name of dhl consigner cannot exceed 30 characters
+_A002029 name of consigner cannot exceed 60 characters.
+_A002030 company name of consignee cannot exceed 90 characters.
+_A002031 postcode must be 4 characters for postlink to australia
+_A002032 postcode must be6 characters for Singapore EMS to Singapore.
+_A002033 postcode must be 5 characters for post link to France.
+_A002034 format of USA postcode is incorrect
+_A002035 postcode cannot be null
+_A002036 format of postcode is incorrect
+_A002037 consignee address1 (street)cannot be null
+_A002038 length of consignee address1 (street) cannot exceed 120 characters 
+_A002039 consigner telephone No. cannot be null
+_A002040 format of consignee telephone is incorrect.
+_A002041 format of consignee fax is incorrect
+_A002042 format of consignee email is incorrect
+_A002043 declare cargo name cannot be null
+_A002044 format of declare cargo is incorrect
+_A002045 cargo name cannot exceed 100 characters
+_A002046 declare unit type code is unidentified.
+_A002047 format of declare pieces is incorrect
+_A002048 declare unit price cannot be null
+_A002049 format of declare unit price cannot
+_A002050 cargo note cannot exceed 256 characters.
+_A002052 butter setting of transportation mode to consignee country exist abnormally
+_A002053 transportation mode unavailable in this country
+_A002054 insurance type unidentified
+_A002055 format of insurance money format is incorrect
+_A002056 insurance type cannot be null, but insurance money can be null
+_A002057 insurance type can be null, but insurance money cannot be null
+_A002058 transportation mode cannot support this insurance type
+_A002059 insurance error
+_A002060 consignee address 3(state) cannot be null
+_A002061 consignee address 2(city) cannot be null
+_A002062 state is not exist
+_A002063 city is not exist in this state
+_A002065 transportation mode cannot support return service
+_A002066 return sign cannot identified
+_A002067 length of consigner's name (exclude DHL) cannot exceed 60 characters
+_A002068 length of consigner's telephone (exclude DHL) cannot exceed 30 characters
+_A002069_length of consigner's address (exclude DHL) cannot exceed 180 characters
+_A002075 length of consigner's address 2(city) cannot exceed 60 characters
+_A002076_length of consignee's address 3(state ) cannot exceed 60 characters
+_A002078 total length of fedex consignee's address (street, city and state) cannot exceed 70 characters
+_A002081 5 RMB and 8RMS insurance services are unavailable for post packet to Russia.
+_A002082 distribution orderNO. OF FBA amazon can not exceed 18 characters.
+_A002083 distribution orderNO. OF FBA amazon must start with FBA
+_A002084 State is not exist, confirm if the state is abbreviation of state.
+_A002085 the second word or the third word must be gate No. for postlink registered and parcel.
+_A002087 content type code cannot be null
+_A002088 content type code identified
+_A002089 consigner information typing format is incorrect.
+_A002091 consigner city format is incorrect
+_A002093 consigner province format is incorrect
+_A002094 consignee telephone cannot be null
+_A002095 consignee telephone format cannot be null
+_A002096 consignee postcode cannot be null
+_A002097 consignee postcode format cannot be null
+_A002098 consignee postcode cannot indentified
+_A002099 the length of consignee name cannot exceed 45 characters.
+_A002100 the length of consigner name cannot exceed 45 characters.
+_A002101 the state length of consignee cannot exceed 120
+_A002102 the state length of consigner cannot exceed 45
+_A002103 the city length of consignee cannot exceed 120
+_A002104 the city length of consigner cannot exceed 45
+_A002105 the address length of consignee cannot exceed 120
+_A002106 the address length of consigner cannot exceed 90
+_A002107 consigner telephone format is incorrect
+_A002108 the length of declare cargo name cannot exceed 50
+_A002109 destination country cannot purchase insurance.
+_A002111 service unavailable in this country or postcode.
+_A002112 typing format is incorrect
+_A002113 format of cosigner name is incorrect
+_A002114 typing format is incorrect
+_A002115 Israel postcode format should be 5 or 7 characters number

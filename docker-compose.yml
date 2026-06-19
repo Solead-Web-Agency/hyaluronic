@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mariadb:10.6
+    container_name: hyaluronic-db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: admin_
+      MYSQL_USER: mamzallag
+      MYSQL_PASSWORD: "Bb1940045034000."
+    command:
+      - --max_allowed_packet=512M
+      - --innodb_buffer_pool_size=1G
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+    volumes:
+      - hyaluronic-dbdata:/var/lib/mysql
+
+volumes:
+  hyaluronic-dbdata:

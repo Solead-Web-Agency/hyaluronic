@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ets_seo</name>
+    <displayName><![CDATA[SEO Audit]]></displayName>
+    <version><![CDATA[2.4.2]]></version>
+    <description><![CDATA[SEO Audit facilite le SEO pour tout le monde ! Un module SEO PrestaShop tout-en-un qui comprend tout le n&eacute;cessaire pour le SEO, y compris l&#039;analyse du r&eacute;f&eacute;rencement avec algorithme de classement SEO de Google, une URL conviviale pour le r&eacute;f&eacute;rencement (supprimer les ID), les m&eacute;dias sociaux, sitemap automatique, le RSS, le m&eacute;ta-mod&egrave;le et plus encore !]]></description>
+    <author><![CDATA[ETS-Soft]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

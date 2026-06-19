@@ -1,0 +1,33 @@
+
+[{shop_url}]
+
+Bonjour {firstname} {lastname},
+
+Merci d'avoir choisi GLS pour la livraison de vos achats chez {shop_name}.
+
+COMMANDE : {order_name} passée le {date}
+
+PAIEMENT : {payment}
+
+TRANSPORTEUR : {carrier}
+
+ADRESSE DU RELAIS GLS :
+
+{address_delivery_formatted_txt}
+
+HORAIRES DU RELAIS GLS :
+
+{address_delivery_hours}
+
+Vous pouvez accéder à tout moment au suivi de votre commande et
+télécharger votre facture dans "Historique des commandes"
+[{history_url}] de la rubrique "Mon
+compte" [{my_account_url}] sur notre
+site.
+
+Si vous avez un compte invité, vous pouvez suivre votre commande
+dans la section "Suivi invité"
+[{guest_tracking_url}?id_order={order_name}]
+de notre site.
+
+{shop_name} [{shop_url}]

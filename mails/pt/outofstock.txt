@@ -1,0 +1,10 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+Obrigado pela sua encomenda com a referência {order_name} da loja {shop_name}.
+
+Infelizmente, um ou mais itens encontram-se atualmente esgotados o que poderá causar um ligeiro atraso na sua entrega. Queira por isso aceitar as nossas desculpas. Gostaríamos de lhe assegurar que estamos a fazer os possíveis para retificar esta situação de modo a que tenha o mínimo impacto possível.
+
+Follow your order and download your invoice on our shop, go to the [Histórico de encomendas e detalhes]({history_url}) section of your customer account.
+If you have a guest account, you can follow your order via the [Rastreio de Visitantes]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="admin281zccpdi" source-language="it-IT" target-language="it-IT" datatype="plaintext">
+    <body>
+      <trans-unit id="a210aaa95176558c4b999f195b0404c4">
+        <source>Order Editor</source>
+        <target>Editor degli ordini</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="ba02c00cfd07968d5d103531eb81dd4c">
+        <source>Order editor since PrestaShop 1.7.7.* versions</source>
+        <target>Editor degli ordini dalle versioni PrestaShop 1.7.7. *</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="b6b6c56cc0cb551813eb60c496261cfd">
+        <source>Find the order</source>
+        <target>Trova l'ordine</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="04af58aca913acd789eca811cb570571">
+        <source>type the order name or product name</source>
+        <target>digitare il nome dell'ordine o il nome del prodotto</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="017aed07388b1e3724298efe7d96ab23">
+        <source>Product detail was successfully updated!</source>
+        <target>Il dettaglio del prodotto è stato aggiornato con successo!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="8de854eb0c31de25ec947b238a8caaa8">
+        <source>Cannot save your changes!</source>
+        <target>Impossibile salvare le modifiche!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="3bfb1431f67657f56af9bb82b3a28bba">
+        <source>Order history removed!</source>
+        <target>Storia dell'ordine rimossa!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="601132d76f9cda8ebe9777dee14010b9">
+        <source>Cannot delete order history!</source>
+        <target>Impossibile cancellare la cronologia degli ordini!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="daee2cfea89ab36795f8f80c6ba7aa5e">
+        <source>Order document removed!</source>
+        <target>Documento d'ordine rimosso!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="c5fc8e4c7b2ff6ee27987232f23f15b9">
+        <source>Cannot delete order document!</source>
+        <target>Impossibile cancellare il documento d'ordine!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="cf6f63c239b18430b075942c228bb083">
+        <source>Order payment removed!</source>
+        <target>Pagamento dell'ordine rimosso!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="bbf3b8bc696538e80e0779f5ba144abd">
+        <source>Cannot delete order payment!</source>
+        <target>Impossibile cancellare il pagamento dell'ordine!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="26beb437d3323bd4bfb0811b3e891315">
+        <source>%d image(s)</source>
+        <target>%d image(s)</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="c2808546f3e14d267d798f4e0e6f102e">
+        <source>Customized</source>
+        <target>Personalizzato</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="f3566b62fb3dddee617860e949c692f9">
+        <source>Voucher name:</source>
+        <target>Nome del buono:</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="ed13b3693357ebed3751cb71cb639e65">
+        <source>No carrier</source>
+        <target>Nessun vettore</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="ac32eb3619340a6b6aff41d9797665d4">
+        <source>Order changed</source>
+        <target>Ordine cambiato</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="3ba3ae2cd9c2b3ed519ba5bb6ef4571c">
+        <source>The email about the changed order has been sent!</source>
+        <target>L'e-mail relativa all'ordine modificato è stata inviata!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="afafc77c78d4cc5f0c744ce7bfb3b176">
+        <source>The email cannot be sent!</source>
+        <target>L'e-mail non può essere inviata!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="da1cc6b774c581ab465358925dca29fc">
+        <source>Order shipping has been changed!</source>
+        <target>La spedizione degli ordini è stata cambiata!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="caf4bb31341fafb005c08ca81d8fbcce">
+        <source>Cannot change this shipping!</source>
+        <target>Non si può cambiare questa spedizione!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="80106c70cecfce59d11cd5e854c3c8cc">
+        <source>Order detail removed!</source>
+        <target>Dettaglio dell'ordine rimosso!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="7625509fe7ad41940371ceaef560089c">
+        <source>Cannot delete order detail!</source>
+        <target>Impossibile cancellare i dettagli dell'ordine!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="761219bd1cca3d056f93801ea49a39dc">
+        <source>Extra charge after a change of order</source>
+        <target>Supplemento dopo un cambio d'ordine</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="65d9447e11e547540987c2bbb6560740">
+        <source>Email to customer sent!</source>
+        <target>Email al cliente inviata!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="0c240896c50ce95770c3c4e6e3dc0a19">
+        <source>Cannot send the email!</source>
+        <target>Impossibile inviare l'e-mail!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="77b3e6af0cc25f25c59e8f51725539a1">
+        <source>Order wrapping changed!</source>
+        <target>L'involucro dell'ordine è cambiato!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="97f041a9511335ec8f97c376e7d7bf47">
+        <source>Cannot to change the order wrapping!</source>
+        <target>Impossibile cambiare l'ordine di confezionamento!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="465effede7a482b8e752f0223a248ac7">
+        <source>Order main data was changed!</source>
+        <target>I dati principali dell'ordine sono stati cambiati!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="50c9363d08af2270be9cb6538faca3a9">
+        <source>Cannot to change the order main data!</source>
+        <target>Impossibile cambiare l'ordine dei dati principali!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="028a1ce56120035cd87d847631e42ffc">
+        <source>Shipping removed!</source>
+        <target>Spedizione rimossa!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="dd58b4f5ece95702094c5b7b8da331b5">
+        <source>Cannot delete current shipping!</source>
+        <target>Impossibile cancellare la spedizione attuale!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="7f33a6d2bccd34308c15a755920c47c7">
+        <source>Payment saved!</source>
+        <target>Pagamento salvato!</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="0a1127e950ebed7745d21c225fd24e7f">
+        <source>Cannot save payment!</source>
+        <target>Impossibile salvare il pagamento!</target>
+        <note>Line: </note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

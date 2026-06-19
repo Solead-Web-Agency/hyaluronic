@@ -1,0 +1,101 @@
+customer;id_order;reference;total_paid_tax_incl;paid;osname;id_currency;iso_code;current_state;id_customer;deleted_customer;color;payment;shop_name;date_add;company;country_name;invoice_number;delivery_number;new
+"P. Vargas";5294;VPCNDVHRH;217.840000;1;"Paiement accepté";1;EUR;2;4905;0;#3498D8;Atos;fillerdistribution;"2021-10-25 22:47:12";;Espagne;4565;4081;0
+"Y. Zedmia";5293;TZKBVGEWT;114.260000;1;"Paiement accepté";1;EUR;2;8848;0;#3498D8;Atos;fillerdistribution;"2021-10-25 22:28:59";;France;4564;4080;1
+"É. Khatchadourian";5292;NIQCDFOSI;96.000000;1;"Paiement accepté";1;EUR;2;7295;0;#3498D8;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-25 20:06:26";;France;4562;4078;0
+"A. Pais";5291;GHMOCICAG;110.500000;1;"Paiement accepté";1;EUR;2;8844;0;#3498D8;Atos;fillerdistribution;"2021-10-25 20:05:59";;France;4561;4077;1
+"A. Pucci ";5290;FROIJHPAJ;283.790000;1;"Paiement accepté";1;EUR;2;8843;0;#3498D8;Atos;fillerdistribution;"2021-10-25 20:05:11";;France;4560;4076;1
+"M. Honrubia";5289;AXDWSOTIY;176.400000;1;"Paiement accepté";1;EUR;2;8841;0;#3498D8;Atos;fillerdistribution;"2021-10-25 19:56:10";;Espagne;4559;4075;1
+"T. Descamps";5288;FYJHQNOFA;64.480000;1;"Paiement accepté";1;EUR;2;8739;0;#3498D8;Atos;fillerdistribution;"2021-10-25 19:51:53";;France;4558;4074;1
+"M. amzallag";5287;QEQWRYFDT;25.800000;0;Annulé;1;EUR;6;60;0;#2C3E50;Atos;fillerdistribution;"2021-10-25 19:09:55";;Italie;4557;4073;0
+"M. Chaves";5286;GZVRTZVET;44.800000;1;"Paiement accepté";1;EUR;2;4252;0;#3498D8;Atos;fillerdistribution;"2021-10-25 19:07:46";;Espagne;4556;4072;0
+"B. PHARMA LAS";5285;BRCDQXMUI;97.800000;1;"Paiement accepté";1;EUR;2;8840;0;#3498D8;Atos;fillerdistribution;"2021-10-25 18:34:56";;France;4555;4071;1
+"J. Aveline";5284;KTCXWNIHA;115.180000;1;"Paiement accepté";1;EUR;2;6178;0;#3498D8;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-25 18:24:42";;France;4554;4070;0
+"A. Cloarec";5283;KNIEADBJP;90.800000;0;"En cours d’expédition";1;EUR;20;8835;0;#e6600c;Atos;fillerdistribution;"2021-10-25 17:42:28";;France;4553;4069;1
+"A. Benarroch";5282;NHIXQGAOD;83.880000;1;"Paiement accepté";1;EUR;2;8838;0;#3498D8;Atos;fillerdistribution;"2021-10-25 17:42:11";;Espagne;4563;4079;1
+"L. Chantal";5281;HGPGTSCGL;163.260000;1;"Traitement de l'expédition en cours";1;EUR;31;8730;0;#ffcc00;Atos;fillerdistribution;"2021-10-25 17:40:53";;France;4552;4068;0
+"N. Chebli";5280;LBLEXNAJD;193.500000;0;"En cours d’expédition";1;EUR;20;8834;0;#e6600c;Atos;fillerdistribution;"2021-10-25 17:36:16";;France;4551;4067;1
+"S. Menadjlia";5279;OFNJTGQRX;233.000000;1;Expédié;1;EUR;4;8837;0;#01B887;Atos;fillerdistribution;"2021-10-25 16:33:35";;France;4550;4066;1
+"C. Devia Jimenez";5278;MMYQQHRHH;62.800000;1;Expédié;1;EUR;4;6452;0;#01B887;Atos;fillerdistribution;"2021-10-25 16:17:19";;Espagne;4549;4065;0
+"M. Dieudonne";5277;FSRMSAADL;239.790000;1;Expédié;1;EUR;4;8836;0;#01B887;Atos;fillerdistribution;"2021-10-25 16:07:08";;France;4548;4064;1
+"C. Prasser";5276;OTOMMUDNM;283.700000;1;Expédié;1;EUR;4;6844;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-25 15:38:06";;France;4547;4063;0
+"M. Mondoloni";5275;QWSEKCQCI;192.000000;0;Annulé;1;EUR;6;6613;0;#2C3E50;Atos;fillerdistribution;"2021-10-25 15:22:19";;France;4546;4062;0
+"B. Ribeiro";5274;SEXJGUSAS;67.900000;1;Expédié;1;EUR;4;8831;0;#01B887;Atos;fillerdistribution;"2021-10-25 12:24:34";;France;4545;4061;1
+"M. Lecouturier";5273;NHMQPHKIN;96.000000;1;Expédié;1;EUR;4;8830;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-25 11:58:00";;France;4544;4060;1
+"S. KUM";5272;MVBLXCAQW;574.790000;1;Expédié;1;EUR;4;3321;0;#01B887;Atos;fillerdistribution;"2021-10-25 11:57:52";;France;4543;4059;0
+"R. Guastafierro";5271;FMUGTQTVF;143.500000;1;Expédié;1;EUR;4;8824;0;#01B887;Atos;fillerdistribution;"2021-10-25 11:44:11";;Italie;4542;4058;0
+"S. Le Minse";5270;SHTRFPVRX;64.480000;1;Expédié;1;EUR;4;6966;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-25 11:25:01";;Belgique;4541;4057;1
+"S. Jean-baptiste";5269;OQEFYEPRX;82.300000;1;"Paiement accepté";1;EUR;2;8829;0;#3498D8;Atos;fillerdistribution;"2021-10-25 10:51:26";;France;4540;4056;1
+"T. Melab";5268;KYZJFUUJR;355.490000;1;Expédié;1;EUR;4;8827;0;#01B887;Atos;fillerdistribution;"2021-10-25 00:59:32";;France;4539;4055;1
+"R. Guastafierro";5267;YCIAMOAHD;143.500000;0;"En attente de virement bancaire";1;EUR;10;8824;0;#34209E;"Bonifico bancario";fillerdistribution;"2021-10-24 21:13:36";;Italie;0;0;1
+"M. Alvarez Suárez";5266;SYGJCONDC;1334.990000;1;"Paiement accepté";1;EUR;2;8821;0;#3498D8;Atos;fillerdistribution;"2021-10-24 20:51:52";;Espagne;4538;4054;1
+"l. lg";5265;VXFKPDUYW;19.750000;1;Expédié;1;EUR;4;8820;0;#01B887;Atos;fillerdistribution;"2021-10-24 20:34:05";;France;4537;4053;1
+"G. Brus";5264;IIHAXEWYC;55.300000;1;Expédié;1;EUR;4;8819;0;#01B887;Atos;fillerdistribution;"2021-10-24 19:45:18";;France;4536;4052;1
+"C. Portal";5263;KPEBLRKMT;179.500000;1;Expédié;1;EUR;4;8818;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-24 19:36:23";;France;4535;4051;1
+"c. Lopez Castillo";5262;RCNVDJDTJ;228.880000;1;Expédié;1;EUR;4;8814;0;#01B887;Atos;fillerdistribution;"2021-10-24 19:06:36";;Espagne;4534;4050;1
+"M. Medjahed";5261;YHPAEVVOV;1949.790000;1;"Paiement accepté";1;EUR;2;8816;0;#3498D8;Atos;fillerdistribution;"2021-10-24 18:45:06";;France;4533;4049;1
+"S. Günay ";5260;YLGRRYYKK;563.950000;0;"En attente de réapprovisionnement (non payé)";1;EUR;12;8795;0;#34209E;Banküberweisung;fillerdistribution;"2021-10-24 18:38:56";;Allemagne;0;0;1
+"m. gipoulou";5259;WCOLVYBXG;84.000000;1;"En attente de réapprovisionnement (payé)";1;EUR;9;8813;0;#3498D8;Atos;fillerdistribution;"2021-10-24 18:13:42";;France;4532;4048;1
+"T. Soullier";5258;YEKYAWZZO;64.480000;1;Expédié;1;EUR;4;8812;0;#01B887;Atos;fillerdistribution;"2021-10-24 17:36:07";;France;4531;4047;1
+"M. Noguera";5257;OXHHGYPQZ;63.300000;1;Expédié;1;EUR;4;8811;0;#01B887;Atos;fillerdistribution;"2021-10-24 17:26:03";;Espagne;4530;4046;1
+"J. Datez";5256;DUKCDIEVZ;177.500000;1;Expédié;1;EUR;4;8810;0;#01B887;Atos;fillerdistribution;"2021-10-24 17:04:07";;France;4529;4045;1
+"E. Santos Guillamot";5255;TIFDEKREN;129.300000;0;"En attente de virement bancaire";1;EUR;10;6548;0;#34209E;"Pagos por transferencia bancaria";fillerdistribution;"2021-10-24 16:31:26";;Espagne;0;0;1
+"J. Mayer";5254;MMHLBDXMX;96.780000;0;"En attente de virement bancaire";1;EUR;10;8806;0;#34209E;Banküberweisung;fillerdistribution;"2021-10-24 15:31:22";;Allemagne;0;0;1
+"L. Velásquez";5253;LGGSBYANJ;510.290000;0;"En attente de virement bancaire";1;EUR;10;8803;0;#34209E;"Pagos por transferencia bancaria";fillerdistribution;"2021-10-24 13:37:50";;Espagne;0;0;1
+"O. Hutnyk Levchenko ";5252;MCRYTFMQI;181.000000;1;Expédié;1;EUR;4;6847;0;#01B887;Atos;fillerdistribution;"2021-10-24 13:16:46";;Espagne;4528;4044;0
+"R. Pialot";5251;PBUAXGIOE;407.060000;1;Expédié;1;EUR;4;7733;0;#01B887;Atos;fillerdistribution;"2021-10-24 11:50:06";;France;4527;4043;0
+"B. Gil";5250;FSSLRICGB;180.410000;1;Expédié;1;EUR;4;8799;0;#01B887;Atos;fillerdistribution;"2021-10-24 05:41:22";;États-Unis;4526;4042;1
+"N. Latelier ";5249;QVVFWASFC;409.290000;1;"En attente de réapprovisionnement (payé)";1;EUR;9;8796;0;#3498D8;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-23 23:39:05";;France;4525;4041;1
+"M. Legay";5248;WLUVOKQEU;124.500000;1;Expédié;1;EUR;4;8794;0;#01B887;Atos;fillerdistribution;"2021-10-23 21:09:40";;France;4524;4040;1
+"A. Rizzini";5247;QRVAMXHSW;123.500000;1;Expédié;1;EUR;4;8793;0;#01B887;Atos;fillerdistribution;"2021-10-23 18:45:35";"Studio dentistico Rizzini";Italie;4523;4039;1
+"Z. Ejlalmanesh";5246;ECCYTMTJT;57.910000;1;Expédié;1;EUR;4;8791;0;#01B887;Atos;fillerdistribution;"2021-10-23 17:27:08";;France;4522;4038;1
+"M. Mieses";5245;EMRCAOBGX;73.470000;1;Expédié;1;EUR;4;8790;0;#01B887;Atos;fillerdistribution;"2021-10-23 17:26:50";;États-Unis;4521;4037;1
+"H. Chaouch";5244;FTZVJUFAE;85.800000;1;"En attente de réapprovisionnement (payé)";1;EUR;9;8789;0;#3498D8;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-23 16:46:37";;France;4520;4036;1
+"F. Calin";5243;BEUXMDOJH;163.450000;0;"En attente de virement bancaire";1;EUR;10;8788;0;#34209E;Banküberweisung;fillerdistribution;"2021-10-23 15:17:28";;Allemagne;0;0;1
+"T. Vignon";5242;MNLBDZAMI;62.680000;1;Expédié;1;EUR;4;8787;0;#01B887;Atos;fillerdistribution;"2021-10-23 14:35:26";;France;4519;4035;1
+"L. Evrard";5241;EUCJAVMVZ;113.000000;1;Expédié;1;EUR;4;6201;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-23 14:24:05";;France;4518;4034;1
+"m. mansouri";5240;TMUYXSZFY;617.030000;1;Expédié;1;EUR;4;3604;0;#01B887;Atos;fillerdistribution;"2021-10-23 14:17:00";;France;4517;4033;0
+"E. Arnoux";5239;IZPGWJTJG;294.390000;1;Expédié;1;EUR;4;8785;0;#01B887;Atos;fillerdistribution;"2021-10-23 14:02:51";;France;4516;4032;1
+"N. Zimmermann";5238;PZDWLUAMS;59.710000;0;"En attente de virement bancaire";1;EUR;10;8783;0;#34209E;Banküberweisung;fillerdistribution;"2021-10-23 12:32:59";;Allemagne;0;0;1
+"S. Nouali";5237;QICJIVWQZ;315.790000;1;Expédié;1;EUR;4;7579;0;#01B887;Atos;fillerdistribution;"2021-10-23 12:12:29";;France;4515;4031;0
+"R. Douache";5236;QJBGWJBFC;72.940000;1;Expédié;1;EUR;4;8781;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-23 12:05:56";;France;4514;4030;1
+"D. Lombardo";5235;UZXCDELOI;44.950000;1;Expédié;1;EUR;4;8782;0;#01B887;Atos;fillerdistribution;"2021-10-23 12:03:34";;Italie;4513;4029;1
+"S. Pecorari";5234;GLVEGLKYC;47.650000;0;"En attente de virement bancaire";1;EUR;10;8780;0;#34209E;"Bonifico bancario";fillerdistribution;"2021-10-23 10:49:37";;Italie;0;0;1
+"G. Limondin";5233;IKSQXUDMY;115.700000;1;"Paiement accepté";1;EUR;2;7542;0;#3498D8;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-23 10:30:53";;France;4512;4028;0
+"M. Usclade.";5232;HDJCRGLDH;193.500000;1;Expédié;1;EUR;4;3934;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-23 10:11:13";;France;4511;4027;0
+"B. Zerdin";5231;YWTKBTNXU;186.380000;0;"En attente de virement bancaire";1;EUR;10;8777;0;#34209E;Banküberweisung;fillerdistribution;"2021-10-23 10:00:46";;Allemagne;0;0;1
+"S. Bendia";5230;YTGACOLSW;130.000000;1;Expédié;1;EUR;4;8776;0;#01B887;Atos;fillerdistribution;"2021-10-23 09:19:31";;France;4510;4026;1
+"M. Muntaner";5229;HMWSSTEIX;73.800000;1;Expédié;1;EUR;4;8775;0;#01B887;Atos;fillerdistribution;"2021-10-23 03:53:48";;Espagne;4509;4025;1
+"K. manai";5228;UUZNHLKKF;910.850000;1;"En attente de réapprovisionnement (payé)";1;EUR;9;8774;0;#3498D8;Atos;fillerdistribution;"2021-10-23 01:01:34";;France;4508;4024;1
+"F. Boudour";5227;EYXEVLHDR;109.000000;1;Expédié;1;EUR;4;8773;0;#01B887;Atos;fillerdistribution;"2021-10-22 22:00:18";;France;4507;4023;1
+"E. Arrighi";5226;JGUVAGLEV;61.150000;0;"En attente de virement bancaire";1;EUR;10;8772;0;#34209E;"Bonifico bancario";fillerdistribution;"2021-10-22 21:41:58";;Italie;0;0;1
+"O. Ursu";5225;JXMJGLKGW;223.790000;1;Expédié;1;EUR;4;8454;0;#01B887;Atos;fillerdistribution;"2021-10-22 21:31:46";;Italie;4506;4022;0
+"M. Parrotta";5224;ZIOKFAIJA;126.260000;1;Expédié;1;EUR;4;8769;0;#01B887;Atos;fillerdistribution;"2021-10-22 18:33:44";;France;4505;4021;1
+"M. Stephan";5223;JWIXVLGJC;64.480000;1;Livré;1;EUR;5;8767;0;#01B887;Atos;fillerdistribution;"2021-10-22 15:53:27";;France;4504;4020;1
+"C. Pinard";5222;IHYFWHJJD;64.480000;1;Expédié;1;EUR;4;8766;0;#01B887;Atos;fillerdistribution;"2021-10-22 15:43:12";;France;4503;4019;1
+"R. Settanni";5221;ZRJPAPNUT;44.950000;1;Expédié;1;EUR;4;8763;0;#01B887;Atos;fillerdistribution;"2021-10-22 15:42:01";;Italie;4502;4018;1
+"S. Ben Salah";5220;ZDMHQABEH;126.260000;1;Expédié;1;EUR;4;8764;0;#01B887;Atos;fillerdistribution;"2021-10-22 14:41:20";;France;4501;4017;1
+"O. Oberti";5219;XFBGYAPFL;96.000000;1;Expédié;1;EUR;4;8762;0;#01B887;Atos;fillerdistribution;"2021-10-22 13:59:37";;France;4500;4016;1
+"c. PALLUT";5218;XFFRMOOYN;162.460000;1;Expédié;1;EUR;4;3826;0;#01B887;Atos;fillerdistribution;"2021-10-22 13:55:09";;France;4499;4015;0
+"C. Unger";5217;TPROJTSGF;110.500000;1;Expédié;1;EUR;4;8761;0;#01B887;Atos;fillerdistribution;"2021-10-22 10:49:59";;France;4498;4014;1
+"A. Pichon";5216;PJCFCMHPL;186.760000;1;"En cours de livraison";1;EUR;30;7230;0;#ffcc00;Atos;fillerdistribution;"2021-10-22 10:42:25";;France;4497;4013;0
+"G. Cochard";5215;XQZSEIZHO;131.500000;1;Expédié;1;EUR;4;8477;0;#01B887;Atos;fillerdistribution;"2021-10-22 07:49:34";;France;4496;4012;1
+"J. Concy";5214;TOTZMMYSW;75.010000;1;Expédié;1;EUR;4;6625;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-22 02:37:06";;France;4495;4011;0
+"B. Lamaille";5213;VGMRAIHGH;61.500000;1;Expédié;1;EUR;4;8757;0;#01B887;Atos;fillerdistribution;"2021-10-22 00:36:15";;France;4494;4010;1
+"Z. Thevenet";5212;TAMHDDTWR;64.480000;1;Expédié;1;EUR;4;8424;0;#01B887;Atos;fillerdistribution;"2021-10-21 23:38:39";;France;4493;4009;0
+"D. Rudowicz";5211;ZCVMYZFNC;45.400000;1;Expédié;1;EUR;4;8755;0;#01B887;Atos;fillerdistribution;"2021-10-21 22:29:05";;Allemagne;4492;4008;1
+"P. Nataliya";5210;BNUPGDXZT;87.700000;0;"En attente de virement bancaire";1;EUR;10;8754;0;#34209E;Banküberweisung;fillerdistribution;"2021-10-21 21:52:39";;Allemagne;0;0;1
+"E. Martinez";5209;ITFJRJQKJ;85.800000;1;"Paiement accepté";1;EUR;2;6488;0;#3498D8;Atos;fillerdistribution;"2021-10-21 21:18:08";;France;4491;4007;0
+"M. Gimenes";5208;ZZWTWAVYQ;181.000000;1;Expédié;1;EUR;4;8752;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-21 19:35:55";;France;4490;4006;1
+"E. Jung";5207;QUDAFNSTR;238.260000;1;Expédié;1;EUR;4;8751;0;#01B887;Atos;fillerdistribution;"2021-10-21 19:10:03";;France;4489;4005;1
+"K. Salomon";5206;AJMNSVIYT;297.790000;1;Expédié;1;EUR;4;5249;0;#01B887;Atos;fillerdistribution;"2021-10-21 18:20:21";;France;4488;4004;0
+"J. Zhu";5205;JBJYHBGRB;553.000000;1;Expédié;1;EUR;4;8748;0;#01B887;Atos;fillerdistribution;"2021-10-21 17:50:50";;France;4487;4003;1
+"C. Nadia";5204;QFKLBTRQC;85.800000;1;"Paiement accepté";1;EUR;2;8745;0;#3498D8;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-21 16:23:49";;France;4486;4002;1
+"L. Chantal";5203;NDXXKHMJX;150.260000;1;Expédié;1;EUR;4;8730;0;#01B887;Atos;fillerdistribution;"2021-10-21 16:18:57";;France;4485;4001;1
+"M. Druon";5202;WKZSLYLYW;75.010000;1;Expédié;1;EUR;4;8744;0;#01B887;Atos;fillerdistribution;"2021-10-21 16:16:48";;France;4484;4000;1
+"M. Dahmosh";5201;EYEIXTHXG;114.500000;1;Expédié;1;EUR;4;8743;0;#01B887;Atos;fillerdistribution;"2021-10-21 15:40:30";;Allemagne;4483;3999;0
+"M. Dahmosh";5200;FHGVHMGWC;55.300000;1;Expédié;1;EUR;4;8743;0;#01B887;Atos;fillerdistribution;"2021-10-21 15:35:00";;Allemagne;4482;3998;1
+"L. Diaw";5199;ROMTGFLOB;164.880000;1;Expédié;1;EUR;4;8741;0;#01B887;"Alma - Paiement en 4 fois";fillerdistribution;"2021-10-21 15:08:01";;Belgique;4481;3997;1
+"M. Demazoin";5198;YRALOVWNN;67.900000;1;Expédié;1;EUR;4;8740;0;#01B887;"Alma - Paiement en 1 fois";fillerdistribution;"2021-10-21 15:00:22";;France;4480;3996;1
+"S. Alcaide";5197;ERLYIEVLB;95.800000;1;Expédié;1;EUR;4;8737;0;#01B887;Atos;fillerdistribution;"2021-10-21 12:30:29";;Espagne;4479;3995;1
+"C. Peruzzo Viapiana";5196;CRRXWVQBY;18.800000;1;Expédié;1;EUR;4;8464;0;#01B887;Atos;fillerdistribution;"2021-10-21 12:16:33";;Espagne;4478;3994;1
+"A. Martinez";5195;MHSJROUZV;64.480000;1;Expédié;1;EUR;4;8736;0;#01B887;Atos;fillerdistribution;"2021-10-21 12:15:49";;France;4477;3993;1

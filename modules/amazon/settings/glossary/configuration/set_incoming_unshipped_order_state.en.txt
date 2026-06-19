@@ -1,0 +1,2 @@
+Choose the default status for the Unshipped order.
+If not selected, It will take the value of Incoming order status.

@@ -1,0 +1,32 @@
+/**
+ * Advanced Location Detection
+ *
+ * @author    Rolige <www.rolige.com>
+ * @copyright 2011-2019 Rolige - All Rights Reserved
+ * @license   Proprietary and confidential
+ */
+
+.top-config > .img-responsive,
+.top-config > p {
+  display: inline-block;
+  vertical-align: middle; }
+.top-config > p {
+  margin-left: 10px; }
+
+
+/* PS 1.5 styles */
+.margin-form label.no-float {
+  float: none;
+  font-weight: normal; }
+.margin-form .preference_description code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 3px; }
+.panel.toolbarBox {
+  padding: 5px 15px; }
+  .panel.toolbarBox.bottom {
+    margin-top: 10px; }
+.toolbar-placeholder {
+  margin-top: 20px; }

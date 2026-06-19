@@ -1,0 +1,2 @@
+Per la scheda Mappatura, attiva o disattiva il valore personalizzato "Funzioni".
+Nota: in alcuni casi, potresti vedere la funzione con un valore duplicato. Prova ad abilitare questa impostazione.

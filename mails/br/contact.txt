@@ -1,0 +1,11 @@
+[{shop_name}]({shop_url})
+Mensagem do cliente da {shop_name}
+
+Endereço de e-mail do cliente: {email}
+
+Mensagem do cliente: {message}
+
+ID do pedido: {order_name}
+Arquivo anexo: {attached_file}
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

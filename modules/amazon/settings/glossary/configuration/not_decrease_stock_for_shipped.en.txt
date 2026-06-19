@@ -1,0 +1,1 @@
+Do not decrease the stock when importing the MFN order with Shipped status.

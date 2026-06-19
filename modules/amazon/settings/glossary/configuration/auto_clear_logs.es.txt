@@ -1,0 +1,3 @@
+Borrar automáticamente los archivos de registro después de x días.
+
+x es igual a 90 por defecto.

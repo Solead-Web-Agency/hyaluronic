@@ -1,0 +1,2 @@
+Supprime les espaces entre les caractères du numéro de téléphone.
+Exemple : "01 23 45 67 89" à "0123456789".

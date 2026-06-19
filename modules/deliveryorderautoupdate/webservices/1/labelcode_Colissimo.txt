@@ -1,0 +1,8 @@
+_0_Pas d’erreur
+_101_Numéro de colis invalide
+_103_Numéro de colis datant de plus de 30 jours
+_104_Numéro de colis hors plage client
+_105_Numéro de colis inconnu
+_201_Identifiant / mot de passe invalide
+_202_Service non autorisé pour cet identifiant 
+_1000_Erreur système

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>gmerchantcenter</name>
+	<displayName><![CDATA[Google Merchant Center (Google Shopping + Actions)]]></displayName>
+	<version><![CDATA[4.7.28]]></version>
+	<description><![CDATA[Export your products on Google Merchant Center. Show them on Google Shopping &amp; partners, manage Shopping Actions orders from PrestaShop]]></description>
+	<author><![CDATA[Business Tech]]></author>
+	<tab><![CDATA[seo]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to remove Google Merchant Center ?]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

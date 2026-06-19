@@ -1,0 +1,2 @@
+Wählen Sie den Standardstatus für die Bestellung „Nicht versandt“.
+Wenn nicht ausgewählt, nimmt es den Wert des Status der eingehenden Bestellung an.

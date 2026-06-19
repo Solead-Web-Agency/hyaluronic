@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<AmazonEnvelope xsi:noNamespaceSchemaLocation="amzn-envelope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>A157UIZAGXXXXX</MerchantIdentifier>
+    </Header>
+    <MessageType>Product</MessageType>
+    <Message>
+        <MessageID>1</MessageID>
+        <OperationType>Delete</OperationType>
+        <Product>
+            <SKU>B09X4XXXXX</SKU>
+        </Product>
+    </Message>
+</AmazonEnvelope>

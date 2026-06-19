@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ets_seo</name>
+    <displayName><![CDATA[SEO Audit]]></displayName>
+    <version><![CDATA[2.4.2]]></version>
+    <description><![CDATA[Make SEO easy for everyone! All you need for On-Page SEO including SEO analysis with up-to-date rank math, SEO-friendly URL (remove IDs), ratings &amp; snippet, social media, auto sitemap, RSS, meta template and more!]]></description>
+    <author><![CDATA[ETS-Soft]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>adminmobapp</name>
+    <displayName><![CDATA[Application Mobile d&#039;administration Prestashop]]></displayName>
+    <version><![CDATA[1.0.6]]></version>
+    <description><![CDATA[Acc&eacute;dez au tableau de bord d&#039;administration de votre boutique PrestaShop et g&eacute;rez facilement les commandes, les produits et les clients depuis votre appareil mobile &agrave; l&#039;aide de ce module. ]]></description>
+    <author><![CDATA[FMM Modules]]></author>
+    <tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[Es-tu sûr ?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

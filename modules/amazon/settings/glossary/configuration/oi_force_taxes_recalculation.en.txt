@@ -1,0 +1,4 @@
+When it's not a business order, Comply EU VAT Rules is disabled and no tax is included in
+Amazon Order, taxes are calculated based on PS tax rules.
+
+Example: A product is not created by you but has wrong tax on Amazon.

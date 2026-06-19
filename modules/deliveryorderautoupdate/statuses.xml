@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+<status>
+   		<id_status>0</id_status>
+		<EN>Unknown status</EN>
+		<DE>Unbekannter Status</DE>
+		<FR>Status inconnu</FR>
+		<ES>Estado desconocido</ES>
+		<PT>Estatuto desconhecido</PT>
+		<IT>Stato sconosciuto</IT>
+		<NL>Onbekende status</NL>
+		<color>#C8C8C8</color>		
+</status>
+<status>
+   		<id_status>1</id_status>
+		<EN>Delivered</EN>
+		<DE>Geliefert</DE>
+		<FR>Livré</FR>
+		<ES>Entregado</ES>
+		<PT>Entregue</PT>
+		<IT>Consegnato</IT>
+		<NL>geleverd</NL>
+		<color>#008000</color>
+</status>
+<status>
+   		<id_status>2</id_status>
+		<EN>Could not be delivered</EN>
+		<DE>Konnte nicht geliefert werden</DE>
+		<FR>N'as pu être livré</FR>
+		<ES>No pudo ser entregado</ES>
+		<PT>Não pôde ser entregue</PT>
+		<IT>Non può essere consegnato</IT>
+		<NL>Kan niet worden bezorgd</NL>
+		<color>#C10000</color>
+</status>
+<status>
+   		<id_status>3</id_status>
+		<EN>In transit</EN>
+		<DE>Im transit</DE>
+		<FR>En cours d'acheminement</FR>
+		<ES>En progreso</ES>
+		<PT>Em curso</PT>
+		<IT>In corso</IT>
+		<NL>In uitvoering</NL>
+		<color>#3045FF</color>
+</status>
+<status>
+   		<id_status>4</id_status>
+		<EN>Ready to ship</EN>
+		<DE>Versandbereit</DE>
+		<FR>Prêt pour l'expédition</FR>
+		<ES>Listo para enviar</ES>
+		<PT>Pronto para envio</PT>
+		<IT>Pronto per la spedizione</IT>
+		<NL>Klaar om te verzenden</NL>
+		<color>#99CCFF</color>
+</status>
+<status>
+   		<id_status>5</id_status>
+		<EN>Delivered to shipper</EN>
+		<DE>An den Absender geliefert</DE>
+		<FR>Remis à l'expéditeur</FR>
+		<ES>Entregado al remitente</ES>
+		<PT>Entregue ao remetente</PT>
+		<IT>Consegnato al mittente</IT>
+		<NL>Bezorgd aan de afzender</NL>
+		<color>#8D95A0</color>
+</status>
+<status>
+   		<id_status>6</id_status>
+		<EN>Available at pick-up point</EN>
+		<DE>Erhältlich im Paketladen</DE>
+		<FR>Disponible en point retrait</FR>
+		<ES>Disponible en punto de recogida</ES>
+		<PT>Disponível no ponto de recolha</PT>
+		<IT>Consegnato a un punto di raccolta</IT>
+		<NL>Verkrijgbaar in de pakketwinkel</NL>
+		<color>#FF6600</color>
+</status>
+<status>
+   		<id_status>7</id_status>
+		<EN>Returning to shipper</EN>
+		<DE>zum Spediteur zurückgeben</DE>
+		<FR>En retour vers l'expéditeur</FR>
+		<ES>Vuelta al remitente</ES>
+		<PT>Voltar para o remetente</PT>
+		<IT>Ritorno al mittente</IT>
+		<NL>Terug naar de afzender</NL>
+		<color>#808080</color>
+</status>
+<status>
+   		<id_status>8</id_status>
+		<EN>Out for delivery</EN>
+		<DE>raus zur Lieferung</DE>
+		<FR>En tournée pour livraison</FR>
+		<ES>En proceso de entrega</ES>
+		<PT>Em processo de entrega</PT>
+		<IT>In consegna</IT>
+		<NL>Uit voor levering</NL>
+		<color>#FF6600</color>
+</status>
+<status>
+   		<id_status>9</id_status>
+		<EN>Refused by recipient</EN>
+		<DE>Vom Empfänger abgelehnt</DE>
+		<FR>Refusé par le destinataire</FR>
+		<ES>Refused by recipient</ES>
+		<PT>Recusado pelo destinatário</PT>
+		<IT>Rifiutato dal destinatario</IT>
+		<NL>Geweigerd door ontvanger</NL>
+		<color>#C10000</color>		
+</status>
+<status>
+   		<id_status>10</id_status>
+		<EN>Awaiting for your instructions</EN>
+		<DE>Warten auf Ihre Anweisungen</DE>
+		<FR>En attente d'instructions</FR>
+		<ES>Esperando tus instrucciones</ES>
+		<PT>À espera de instruções</PT>
+		<IT>Aspettando le tue istruzioni</IT>
+		<NL>Wachten op uw instructies</NL>
+		<color>#C10000</color>		
+</status>
+<status>
+   		<id_status>11</id_status>
+		<EN>Shipment cancelled</EN>
+		<DE>Versand storniert</DE>
+		<FR>Envoi annulé</FR>
+		<ES>Envío cancelado</ES>
+		<PT>Enviado cancelado</PT>
+		<IT>Spedizione annullata</IT>
+		<NL>Verzending geannuleerd</NL>
+		<color>#C8C8C8</color>		
+</status>
+<status>
+   		<id_status>12</id_status>
+		<EN>Refused by carrier</EN>
+		<DE>Vom Spediteur abgelehnt</DE>
+		<FR>Refusé par le transporteur</FR>
+		<ES>Rechazado por el transportista</ES>
+		<PT>Recusado pelo transportador</PT>
+		<IT>Rifiutato dal corriere</IT>
+		<NL>Geweigerd door vervoerder</NL>
+		<color>#C8C8C8</color>		
+</status>
+<status>
+   		<id_status>13</id_status>
+		<EN>Carrier notification</EN>
+		<DE>Benachrichtigung des Betreibers</DE>
+		<FR>Notification transporteur</FR>
+		<ES>Notificación al transportista</ES>
+		<PT>Notificação de portador</PT>
+		<IT>Notifica del vettore</IT>
+		<NL>Kennisgeving vervoerder</NL>
+		<color>#BA0BF4</color>		
+</status>
+<status>
+   		<id_status>14</id_status>
+		<EN>Suspended transit</EN>
+		<DE>Ausgesetzter Transit</DE>
+		<FR>Acheminement suspendu</FR>
+		<ES>Tránsito suspendido</ES>
+		<PT>trânsito suspenso</PT>
+		<IT>Transito sospeso</IT>
+		<NL>Onderbroken doorvoer</NL>
+		<color>#C10000</color>		
+</status>
+<status>
+   		<id_status>15</id_status>
+		<EN>Partially delivered</EN>
+		<DE>Teilweise geliefert</DE>
+		<FR>Partiellement livré</FR>
+		<ES>Entregado parcialmente</ES>
+		<PT>Parcialmente entregue</PT>
+		<IT>Parzialmente consegnato</IT>
+		<NL>Gedeeltelijk geleverd</NL>
+		<color>#00FF00</color>		
+</status>
+<status>
+   		<id_status>100</id_status>
+		<EN>Unknown error</EN>
+		<DE>Unbekannter Fehler</DE>
+		<FR>Erreur inconnue</FR>
+		<ES>Error desconocido</ES>
+		<PT>Erro desconhecido</PT>
+		<IT>Errore sconosciuto</IT>
+		<NL>Onbekende fout</NL>
+		<color>#EC0000</color>		
+</status>
+<status>
+   		<id_status>101</id_status>
+		<EN>No response</EN>
+		<DE>Keine Antwort</DE>
+		<FR>Pas de réponse</FR>
+		<ES>Sin respuesta</ES>
+		<PT>Sem resposta</PT>
+		<IT>Nessuna risposta</IT>
+		<NL>Geen antwoord</NL>
+		<color>#EC0000</color>		
+</status>
+<status>
+   		<id_status>102</id_status>
+		<EN>Wrong credentials</EN>
+		<DE>Falsche Anmeldeinformationen</DE>
+		<FR>Identifiants incorrects</FR>
+		<ES>Credenciales incorrectas</ES>
+		<PT>Identificadores incorrectos</PT>
+		<IT>Credenziali errate</IT>
+		<NL>Verkeerde inloggegevens</NL>
+		<color>#EC0000</color>		
+</status>
+<status>
+   		<id_status>103</id_status>
+		<EN>Access denied</EN>
+		<DE>Zugriff verweigert</DE>
+		<FR>Access refusé</FR>
+		<ES>Acceso denegado</ES>
+		<PT>Acesso negado</PT>
+		<IT>Accesso negato</IT>
+		<NL>Toegang geweigerd</NL>
+		<color>#EC0000</color>		
+</status>
+<status>
+   		<id_status>104</id_status>
+		<EN>Service unavailable</EN>
+		<DE>Dienst nicht verfügbar</DE>
+		<FR>Service indisponible</FR>
+		<ES>Servicio no disponible</ES>
+		<PT>Serviço indisponível</PT>
+		<IT>Servizio non disponibile</IT>
+		<NL>Service onbeschikbaar</NL>
+		<color>#EC0000</color>		
+</status>
+<status>
+   		<id_status>105</id_status>
+		<EN>Invalid number</EN>
+		<DE>Ungültige Nummer</DE>
+		<FR>Numéro non valide</FR>
+		<ES>Número invalido</ES>
+		<PT>Número inválido</PT>
+		<IT>Numero non valido</IT>
+		<NL>Ongeldig nummer</NL>
+		<color>#EC0000</color>
+</status>
+<status>
+   		<id_status>106</id_status>
+		<EN>Unknown number</EN>
+		<DE>Unbekannte Nummer</DE>
+		<FR>Numéro inconnu</FR>
+		<ES>Numero desconocido</ES>
+		<PT>Número desconhecido</PT>
+		<IT>Numero sconosciuto</IT>
+		<NL>Onbekend nummer</NL>
+		<color>#EC0000</color>
+</status>
+<status>
+   		<id_status>107</id_status>
+		<EN>Incorrect parameters</EN>
+		<DE>Falsche Parameter</DE>
+		<FR>Paramètres incorrects</FR>
+		<ES>Parámetros incorrectos</ES>
+		<PT>Definições incorrectas</PT>
+		<IT>Parametri errati</IT>
+		<NL>Onjuiste parameters</NL>
+		<color>#EC0000</color>
+</status>
+<status>
+   		<id_status>108</id_status>
+		<EN>Too many requests</EN>
+		<DE>Zu viele Anfragen</DE>
+		<FR>Trop de requêtes</FR>
+		<ES>Demasiadas solicitudes</ES>
+		<PT>Demasiados pedidos</PT>
+		<IT>Troppe richieste</IT>
+		<NL>Te veel verzoeken</NL>
+		<color>#EC0000</color>
+</status>
+<status>
+   		<id_status>500</id_status>
+		<EN>internal error</EN>
+		<DE>interner Fehler</DE>
+		<FR>erreur interne</FR>
+		<ES>error interno</ES>
+		<PT>erro interno</PT>
+		<IT>errore interno</IT>
+		<NL>interne fout</NL>
+		<color>#EC0000</color>		
+</status>
+<status>
+   		<id_status>999</id_status>
+		<EN>No tracking yet</EN>
+		<DE>Noch kein Tracking</DE>
+		<FR>Pas encore de suivi</FR>
+		<ES>Sin seguimiento todavía</ES>
+		<PT>ainda sem seguimento</PT>
+		<IT>Nessun tracciamento ancora</IT>
+		<NL>Nog geen tracking</NL>
+		<color>#e2eaf5</color>		
+</status>
+</list>

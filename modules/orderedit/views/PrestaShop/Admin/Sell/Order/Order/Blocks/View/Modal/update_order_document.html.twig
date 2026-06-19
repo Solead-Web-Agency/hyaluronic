@@ -1,0 +1,52 @@
+{# **
+ * OrderEdit
+ *
+ * @author    silbersaiten <info@silbersaiten.de>
+ * @copyright 2021 silbersaiten
+ * @license   See joined file licence.txt
+ * @support   silbersaiten <support@silbersaiten.de>
+ * @category  Module
+ * @version   2.0.34
+ * @link      https://www.silbersaiten.de
+ * #}
+
+{% if  orderForViewing.documents.documents is not empty %}
+    {% for document in orderForViewing.documents.documents %}
+        <div class="modal fade" id="updateOrderDocument_{{ document.type }}_{{ document.id }}" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ 'Order document'|trans({}, 'Modules.Orderedit.Admin') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="{{ 'Close'|trans({}, 'Admin.Actions') }}">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-control-label" for="document_date">
+                                {{ 'Invoice date'|trans({}, 'Modules.Orderedit.Admin') }}
+                            </label>
+                            <input type="text" id="document_date" name="document_date" class="form-control"
+                                   value="{{ document.createdAt|date_format_full }}"
+                            >
+                        </div>
+                        <div class="d-none">
+                            <input type="hidden" name="id_order" value="{{ orderForViewing.id }}"/>
+                            <input type="hidden" name="document_type" value="{{ document.type }}"/>
+                            <input type="hidden" name="document_id" value="{{ document.id }}"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                            {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+                        </button>
+                        <a href="" class="btn btn-primary" id="update_order_document">
+                            {{ 'Update'|trans({}, 'Admin.Actions') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

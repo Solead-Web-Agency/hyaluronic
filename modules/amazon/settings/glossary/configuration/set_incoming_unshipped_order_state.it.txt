@@ -1,0 +1,2 @@
+Scegli lo stato predefinito per l'ordine Non spedito.
+Se non selezionato, prenderà il valore di Stato dell'ordine in entrata.

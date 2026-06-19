@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>dpdfrance</name>
+    <displayName><![CDATA[DPD France]]></displayName>
+    <version><![CDATA[5.3.4]]></version>
+    <description><![CDATA[Offer DPD&#039;s fast and reliable delivery services to your customers - France vendors only]]></description>
+    <author><![CDATA[DPD France S.A.S.]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+	<confirmUninstall><![CDATA[Warning: all the data saved in your database will be deleted. Are you sure you want uninstall this module?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

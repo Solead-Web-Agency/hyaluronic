@@ -1,0 +1,9 @@
+[{shop_name}]({shop_url})
+{lastname} {firstname} 様
+
+{reply}
+
+Please do not reply directly to this email, we will not receive it.
+In order to reply, please use the following link: {link}
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

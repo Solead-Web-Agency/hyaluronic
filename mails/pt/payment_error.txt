@@ -1,0 +1,10 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+
+Ocorreu um problema com o pagamento da encomenda com a referência {order_name} da loja {shop_name}. Por favor contacte-nos assim que lhe for possível.
+Não podemos fazer o envio da sua encomenda enquanto o pagamento não for concluído.
+
+Follow your order and download your invoice on our shop, go to the [Histórico de encomendas e detalhes]({history_url}) section of your customer account.
+If you have a guest account, you can follow your order via the [Rastreio de Visitantes]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

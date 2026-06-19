@@ -1,0 +1,1 @@
+Non diminuire lo stock durante l'importazione dell'ordine MFN con stato Spedito.

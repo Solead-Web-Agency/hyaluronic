@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+    <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>A1ND8F8KKXXXXX</MerchantIdentifier>
+    </Header>
+    <MessageType>Price</MessageType>
+    <Message>
+        <MessageID>1</MessageID>
+        <Price>
+            <SKU>8SPXXXXX</SKU>
+            <StandardPrice currency="USD">3500.00</StandardPrice>
+        </Price>
+    </Message>
+</AmazonEnvelope>

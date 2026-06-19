@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Alerte PricesTracker</title>
+</head>
+<body>
+<p><strong>Nom de la règle :</strong> {regle}<br>
+  <strong>Date :</strong> {date}<br>
+<strong>ID de la règle : </strong>{idProduct}</p>
+<p><strong>Nom du produit du concurrent : </strong>{nomProduit}<br>
+  <strong>URL du concurrent : </strong><a href="{competitorUrl}">{competitorUrl}</a><br>
+<strong>ID du concurrent :</strong> {competitorId}</p>
+<p><strong>Prix du concurrent :</strong> {competitorPrice}<br>
+  <strong>Ancien prix de votre produit :</strong> {oldPrice}<br>
+  <strong>Nouveau prix de votre produit :</strong> {newPrice}<br>
+$newPrice = {var_newPrice}</p>
+{message}
+</body>
+</html>

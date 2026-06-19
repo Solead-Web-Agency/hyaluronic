@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>Votre colis a été livré</statuscode>
+			<statuscode>Votre colis vous a été remis au relais</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode>Votre colis n a pas pu être déposé au point relais prévu.</statuscode>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>Votre colis est arrivé sur notre agence régionale</statuscode>
+			<statuscode>Votre colis est en cours d acheminement vers la Poste</statuscode>
+			<statuscode>Votre colis est arrivé sur notre agence régionale, il va être remis à votre livreur</statuscode>
+			<statuscode>Votre colis est pris en charge par Colis Privé. Il va être expédié sur notre agence régionale</statuscode>
+			<statuscode>Votre colis a été remis à un confrère. Nous vous invitons à prendre contact avec lui.</statuscode>
+			<statuscode>Votre colis a subi un retard, nous faisons le nécessaire pour vous livrer dans les meilleurs délais. Veuillez nous excuser</statuscode>
+			<statuscode>Votre colis a subi un retard. Nous mettons tout en oeuvre pour vous livrer dans les meilleurs délais. Veuillez nous en excuser</statuscode>
+			<statuscode>Votre colis a été remis à Colissimo. Il vous sera livré dans les prochains jours.</statuscode>
+			<statuscode>Votre colis a été remis à un confrère. Nous vous invitons à prendre contact avec lui.</statuscode>
+			<statuscode>Votre colis va être livré dans un autre relais. Vous serez informé de l adresse et horaires par mail.</statuscode>
+			<statuscode>Votre colis est prévu en relais le</statuscode>
+			<statuscode>Votre rdv est confirmé le</statuscode>
+			<statuscode>Votre colis est arrivé sur notre agence régionale, il va être remis à votre  livreur</statuscode>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode>Votre colis a été expédié par votre webmarchand, mais n a pas encore été pris en charge par Colis Privé</statuscode>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<statuscode>Vous n avez pas récupéré votre colis, il a été retourné à l expéditeur</statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode>Votre colis vous attend au relais</statuscode>
+			<statuscode>Colis déposé en relais par le livreur</statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode>Votre colis n a pas été récupéré dans un délai d instance de 10 jours. Il a été retourné à l expéditeur</statuscode>
+			<statuscode>Votre colis n a pas été récupéré dans le délai de 10 jours. Il a été retourné à l expéditeur</statuscode>
+			<statuscode>Votre colis à été récupéré et va être retourné à l expéditeur</statuscode>
+			<statuscode>Votre colis a été retourné à l expéditeur</statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>Votre colis est en cours de livraison</statuscode>
+	</step>
+	<step>
+			<id_status>10</id_status>
+			<statuscode>Nous avons tenté de vous livrer. Cliquez ci-dessous pour convenir d une nouvelle date de présentation.</statuscode>
+			<statuscode>Les informations disponibles ne nous ont pas permis de livrer votre colis. Cliquez ci-dessous pour convenir d une date en complétant le champ adresse.</statuscode>
+			<statuscode>Les informations à notre disposition ne nous ont pas permis d assurer la livraison. Merci de nous contacter au 0806000250 (No gratuit + prix appel).</statuscode>
+			<statuscode>Les informations à notre disposition ne nous ont pas permis d assurer la livraison. Merci de contacter le Service Client.</statuscode> 
+			<statuscode>Incident - veuillez contacter votre expéditeur</statuscode> 	
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<statuscode>105</statuscode>
+	</step>
+</document>

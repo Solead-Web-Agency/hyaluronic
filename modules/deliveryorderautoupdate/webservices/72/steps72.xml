@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+		<id_status>1</id_status>
+		<statuscode>DELIVERED</statuscode>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>2</id_status>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>3</id_status>
+		<statuscode>IN_TRANSIT</statuscode>
+	</step>
+	<step>
+		<id_status>4</id_status>
+		<statuscode>PRE_NOTIFIED</statuscode>
+	</step>
+	<step>
+		<id_status>5</id_status>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>6</id_status>
+		<statuscode>READY_FOR_PICKUP</statuscode>
+	</step>
+	<step>
+		<id_status>7</id_status>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>8</id_status>
+		<statuscode>TRANSPORT_TO_RECIPIENT</statuscode>
+	</step>
+	<step>
+			<id_status>13</id_status>
+			<statuscode>NOTIFICATION_SENT</statuscode>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<statuscode>404</statuscode>
+	</step>
+</document>

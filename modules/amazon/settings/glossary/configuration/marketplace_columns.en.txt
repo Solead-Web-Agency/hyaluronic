@@ -1,0 +1,1 @@
+Show or hide the marketplace columns of the Amazon module in the Order Management grid.

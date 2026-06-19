@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="admin281zccpdi" source-language="nl-NL" target-language="nl-NL" datatype="plaintext">
+    <body>
+      <trans-unit id="b3b60b7a5e7f9977461d42a94bf2c761">
+        <source>Created date</source>
+        <target>Datum aangemaakt</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="552a0d8c17d95d5dbdc0c28217024f5a">
+        <source>Shipping cost</source>
+        <target>Verzendingskosten</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="bf28e6f890e50a6e8e775e72d544be23">
+        <source>Shipping cost without tax</source>
+        <target>Verzendkosten zonder belasting</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="0f8d526a7ef837f7a9cb2b9c6866e308">
+        <source>Shipping tax</source>
+        <target>Verzendingsbelasting</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="1ed94d36d645c22f77807b47707e309b">
+        <source>Order detail</source>
+        <target>Detail bestelling</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="c28d6d4409f06914e34b543144cb9f03">
+        <source>Updated date</source>
+        <target>Bijgewerkte datum</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="63d5049791d9d79d86e9a108b0a999ca">
+        <source>Reference</source>
+        <target>Referentie</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="d37c2bf1bd3143847fca087b354f920e">
+        <source>Customer ID</source>
+        <target>Klant ID</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="8cc610fe1a14cf29a41b8a5ec81f1fec">
+        <source>Type the customer id, just a number</source>
+        <target>Type de klant id, gewoon een nummer</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="c5d6da0556135d071a171c3513d64d16">
+        <source>Edit order main data</source>
+        <target>Change main order data</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="df644ae155e79abf54175bd15d75f363">
+        <source>Product name</source>
+        <target>Naam van het product</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="8284ae5df53e6e7ffc1f2cc67ae68765">
+        <source>Supplier reference</source>
+        <target>Referentie leverancier</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="da2bb89a04f94f9cfd371a40e0674cae">
+        <source>Product weight</source>
+        <target>Gewicht van het product</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="0837f08db2d21d30fcef6c4d0eff7dc7">
+        <source>Reduction percent</source>
+        <target>Verminderingspercentage</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="20a34c4e30c5bbe1d3f870ac55f0d831">
+        <source>Tax rate</source>
+        <target>Belastingtarief</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="77b71aa8a608093df377e9cae009e676">
+        <source>Are you sure to send the email to the customer?</source>
+        <target>Ben je zeker dat je de e-mail naar de klant moet sturen?</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="0599ec82c53cfecdaf0ed5f5343cd831">
+        <source>Re-send order confirmation after necessary modifications</source>
+        <target>Opnieuw verzenden van orderbevestiging na noodzakelijke wijzigingen</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="a654827d9920bbe3eb3d8c10266290ee">
+        <source>Re-send order confirmation</source>
+        <target>Bestellingsbevestiging opnieuw verzenden</target>
+        <note>Line: </note>
+      </trans-unit>
+      <trans-unit id="221abb6dcfa68cdafdf966d3986e3202">
+        <source>Message about surcharge</source>
+        <target>Bericht over toeslag</target>
+        <note>Line: </note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

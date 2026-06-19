@@ -1,0 +1,86 @@
+/**
+ * NOTICE OF LICENSE
+ *
+ * This file is licenced under the Software License Agreement.
+ * With the purchase or the installation of the software in your application
+ * you accept the licence agreement.
+ *
+ * You must not modify, adapt or create derivative works of this source code
+ *
+ * @author    Musaffar Patel
+ * @copyright 2016-2019 Musaffar Patel
+ * @license   LICENSE.txt
+ */
+
+#product-search-results {
+	max-height:260px;
+	overflow-y: auto;
+}
+
+#pbp-bundle_existing #pbp-bundles-existing-list {
+	padding:20px;
+	height:380px;
+	overflow-y: auto;
+}
+
+	#pbp-bundle_existing .pbp-bundle {
+		border:1px solid #ccc;
+		padding:10px;
+		overflow: hidden;
+		cursor: pointer;
+	}
+
+	#pbp-bundle_existing .pbp-bundle:hover {
+		background-color: #fafafa;
+	}
+
+	#pbp-bundle_existing .pbp-bundle.selected {
+		background-color: #fafafa;
+	}
+
+	#pbp-bundle_existing .pbp-bundle .id-bundle {
+		width:50px;
+		float: left;
+		color:#999;
+	}
+
+	#pbp-bundle_existing .pbp-bundle .pbp-products {
+		float: left;
+	}
+
+	#pbp-bundle_existing .pbp-bundle .pbp-product {
+		display: block;
+		margin-bottom:6px;
+	}
+
+.pbp-main {
+
+	.hidden {
+		display: none;
+	}
+
+	.simpletable {
+
+		th, td {
+			padding: 5px;
+			height: auto;
+		}
+	}
+
+	#panel2 .form-group-discount {
+		input, select {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+
+
+
+#product-search-results {
+	display: none;
+	th, td {
+		padding: 5px;
+	}
+}
+

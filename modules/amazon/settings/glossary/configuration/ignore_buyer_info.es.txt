@@ -1,0 +1,2 @@
+Para resolver problemas con la información del Comprador y la Dirección de Envío.
+Si esta configuración está habilitada, debe cambiar la dirección a mano.

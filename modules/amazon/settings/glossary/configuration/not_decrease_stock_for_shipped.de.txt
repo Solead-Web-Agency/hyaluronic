@@ -1,0 +1,1 @@
+Verringern Sie den Lagerbestand nicht, wenn Sie die MFN-Bestellung mit dem Status „Versendet“ importieren.

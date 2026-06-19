@@ -1,0 +1,65 @@
+.tab-pane.panel {
+	margin: 0px;
+}
+
+.adv-table table tr td {
+	padding: 10px;
+}
+
+.adv-table table.display thead th {
+	border-bottom: 1px solid #DDDDDD;
+	padding: 10px;
+}
+
+.adv-table table.display tr.odd.gradeA {
+	background-color: #F9F9F9;
+}
+
+.adv-table table.display tr.even.gradeA {
+	background-color: #FFFFFF;
+}
+
+.adv-table .dataTables_filter label input {
+	float: right;
+	margin-left: 10px;
+	width: 78%;
+}
+
+.adv-table .dataTables_filter label {
+	line-height: 33px;
+	width: 100%;
+}
+
+.adv-table .dataTables_length select {
+	display: inline-block;
+	margin: 0 10px 0 0;
+	padding: 5px 8px;
+	width: 65px;
+}
+
+.adv-table .dataTables_info,.dataTables_paginate {
+	padding: 15px 0;
+}
+
+.adv-table .dataTables_length,.adv-table .dataTables_filter {
+	padding: 15px 0;
+}
+
+.hidden-table-info i {
+	border: 1px solid #dbdce4;
+	color: #1fb5ad;
+	padding: 5px;
+}
+
+.hidden-table-info i.icon-minus {
+	color: #DF7B7B;
+}
+
+.hidden-table-info {
+	width: 10px;
+	cursor: pointer;
+}
+
+.alert-success {
+    background-color: #dff0d8 !important;
+}

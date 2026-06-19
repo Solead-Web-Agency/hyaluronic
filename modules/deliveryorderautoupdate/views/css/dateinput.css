@@ -1,0 +1,69 @@
+
+.uimenu {
+    position: absolute;
+    z-index: 1;
+    padding: 0;
+    top: 0;
+}
+.openmenu {
+    position: absolute;
+    right: 10px;
+    top: calc(100%-15px);
+    top: 50%;
+    margin-top: -8px;
+    opacity: 0.5;
+}
+.uimenu input {
+    height: 100%!important;
+}
+.dateinput {
+    position: relative;
+    padding-right: 30px!important;
+    overflow: visible!important;
+}
+.dateinput .input-container {
+    min-width: 100px;
+}
+.table-shipment i.openmenu, .AdmindeliveryorderautoupdateDashboard i.openmenu {
+    display: none;
+}
+.issue-status i.openmenu {
+    display: inline-block;
+    opacity: 0;
+}
+.tr_cols:hover .issue-status i.openmenu {
+    opacity: 1;
+}
+.tr_cols i.openmenu.track_history {
+    display: inline-block;
+}
+.tr_cols:hover i.openmenu {
+    display: inline-block;
+}
+.editable {
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+}
+.editable:hover {
+	border-radius: 5px;
+	background: linear-gradient(to bottom, #E5F3FF 50%, #deecf9 50%);
+    border: 1px solid lightblue;
+}
+.not-allowed {
+    cursor: not-allowed;
+}
+.no-connector {
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #E5F3FF 50%, #deecf9 50%);
+    border: 1px solid red!important;
+}
+.no-connector .connector_name {
+    color: red;
+}
+.no-connector i.openmenu {
+    display: inline-block!important;
+}

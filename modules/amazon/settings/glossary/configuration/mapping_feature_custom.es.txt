@@ -1,0 +1,2 @@
+Para la pestaña Mapeo, habilite o deshabilite el valor personalizado "Características".
+Nota: En algunos casos, es posible que vea que la función tiene un valor duplicado. Intente habilitar esta configuración.

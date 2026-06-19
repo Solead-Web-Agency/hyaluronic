@@ -1,0 +1,175 @@
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Software License Agreement
+ * that is bundled with this package in the file LICENSE.txt.
+ *
+ *  @author    Peter Sliacky (Prestasmart)
+ *  @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+
+section#checkout-personal-information-step,
+section#checkout-addresses-step,
+section#checkout-delivery-step,
+#block-reassurance,
+#checkout #checkout-payment-step span.step-number {
+    display: none;
+}
+
+
+body#checkout section.checkout-step.-current .step-title {
+    text-align: center;
+    padding: 10px 0 20px;
+}
+
+div#payment-confirmation .ps-shown-by-js {
+    display: flex;
+    clear: both;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+#separate-payment-order-review {
+    width: 100%;
+    margin-bottom: 20px;
+    & .review-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+#separate-payment-order-review .customer-block-container,
+#separate-payment-order-review #edit-button-block{
+    flex-basis: 100%;
+    text-align: center;
+    padding: 20px 0;
+}
+
+#separate-payment-order-review .address-block-container {
+    flex-basis: 50%;
+}
+
+.address-block-container .address-block,
+.customer-block-container,
+.shipping-method-container
+{
+    padding: 15px;
+    margin: 5px;
+    border: 2px solid #78cfe138;
+}
+
+#separate-payment-order-review #customer-block {
+    font-size: 1.2em;
+}
+
+.address-block .address-block-header,
+#shipping-method .shipping-method-header,
+#delivery-message .delivery-message-header{
+    font-weight: bold;
+    padding: 5px 0;
+    display: block;
+}
+
+.shipping-method-container {
+    flex-basis: 100%;
+}
+
+#shipping-method img {
+    max-height: 60px;
+}
+
+.payment-options #amazonPayCheckoutEmbedded {
+    display: none;
+}
+
+.payment-options.amazon_ongoing_session > div:not(.amazon-visible) {
+    display: none;
+}
+
+/* generic iframe (only single payment method visible) */
+body.p3i-option-set .payment-options > :not(.p3i-visible-only) {
+    display: none;
+}
+body.p3i-option-set
+:is(section#separate-payment-order-review, header, footer, #conditions-to-approve, h1.step-title),
+body.p3i-option-set .cart-grid-body ~ *{
+    display: none;
+}
+
+body.p3i-option-set
+:is(.cart-grid-body, #wrapper, .container, #content, .p3i-visible-only),
+body.p3i-option-set #checkout-payment-step > .content,
+body.p3i-option-set #content .row{
+    padding: 0!important;
+    margin: 0!important;
+}
+
+body.p3i-option-set
+:is(.container, #content, .cart-grid-body, #checkout-payment-step) {
+    width: 100%;
+}
+
+body.p3i-option-set section#checkout-payment-step {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin: 0!important;
+    /*height: 100vh;*/
+    align-items: center;
+}
+
+/* scrollbar begin */
+body.p3i-option-set::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+body.p3i-option-set::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px rgb(0 0 0 / 16%);
+}
+
+body.p3i-option-set::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+}
+/* scrollbar end */
+
+/* checkout steps */
+#checkout-step-btn-container {
+    display: flex;
+    width: 100%;
+    padding: 10px 5px;
+
+    & .checkout-step-btn {
+        position: relative;
+        height: calc(30px * 1.414);
+        flex-grow: 1;
+        line-height: 30px;
+        text-align: center;
+        color: #7a7a89;
+        cursor: pointer;
+        display: inline-block;
+        padding: 7px 15px;
+        background: #e6e6e6;
+        /* highlight (always) the last step */
+        &:last-of-type {
+            color: #26272d!important;
+            cursor: default;
+        }
+
+        &:not(:first-child):before {
+            content: '';
+            display: inline-block;
+            border-width: 3px 3px 0 0;
+            border-style: solid;
+            border-color: white;
+            transform: rotate(45deg);
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 5px;
+            left: calc(-18px * 1.414);
+            box-sizing: content-box;
+        }
+    }
+}
+

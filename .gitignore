@@ -1,0 +1,48 @@
+# ---- PrestaShop : runtime / cache (régénérable) ----
+/var/cache/
+/var/logs/
+/var/sessions/
+/cache/
+/log/
+/app/cache/
+/app/logs/
+/translations/export/
+
+# ---- Images & médias volumineux (sur le serveur/CDN, pas dans le code) ----
+/img/
+/upload/
+/download/
+
+# ---- Flux / sitemaps générés ----
+/*_sitemap.xml
+/*sitemap*.xml
+/gmerchantcenter*.xml
+/gmerchantcenter*.xml.php
+*.cache
+
+# ---- Archives & dumps ----
+*.zip
+*.tar
+*.tar.gz
+*.gz
+*.sql
+
+# ---- Logs ----
+*.log
+/modules/*/logs/
+
+# ---- Données géoIP / IP (re-téléchargeables) ----
+/app/Resources/geoip/
+/modules/rg_locationdetection/libraries/databases/
+
+# ---- Outil de mise à jour (téléchargements/sauvegardes lourds) ----
+/admin*/autoupgrade/
+/modules/autoupgrade/
+/modules/autoupgrade_v4_backup/
+
+# ---- Dépendances JS ----
+node_modules/
+
+# ---- Divers ----
+.DS_Store
+**/.DS_Store

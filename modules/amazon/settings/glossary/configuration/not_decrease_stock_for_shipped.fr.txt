@@ -1,0 +1,1 @@
+Ne diminuez pas le stock lors de l'importation de la commande MFN avec le statut Expédié.

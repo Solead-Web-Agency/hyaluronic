@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>Your item was delivered</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode></statuscode>
+			<statuscode></statuscode>
+			<statuscode></statuscode>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>Your item arrived at</statuscode>
+			<statuscode>Your item departed our USPS facility</statuscode>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode>Shipping Label Created</statuscode>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>Your item is out for delivery</statuscode>
+	</step>
+	<step>
+			<id_status>106</id_status>
+			<statuscode>The Postal Service could not locate the tracking information for your request</statuscode>
+	</step>
+</document>

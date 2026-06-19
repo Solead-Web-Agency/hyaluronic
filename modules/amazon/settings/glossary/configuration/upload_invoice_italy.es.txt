@@ -1,0 +1,1 @@
+Permite la carga de todas las facturas, incluidas las facturas de pedidos no comerciales

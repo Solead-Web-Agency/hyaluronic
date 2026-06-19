@@ -1,0 +1,13 @@
+
+"2026-06-19 11:20:11",INFO,--,"Creating new order state: partial_refund",84,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"State created with id: 71",116,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"Creating new order state: partial_refund",84,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"State created with id: 72",116,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"Creating new order state: email_link",84,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"State created with id: 73",116,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"Creating new order state: email_link",84,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"State created with id: 74",116,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"Creating new order state: sms_link",84,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"State created with id: 75",116,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"Creating new order state: sms_link",84,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php
+"2026-06-19 11:20:11",INFO,--,"State created with id: 76",116,/Users/nathancaudeli/Github/hyaluronic/modules/payplug/src/repositories/OrderStateRepository.php

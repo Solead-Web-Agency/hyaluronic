@@ -1,0 +1,1 @@
+Each transparency code is a unique, alphanumeric, non-sequential code that is printed as a small square barcode on your product's packaging. Transparency is the only entity that owns and has access to the code generation log. In addition, Transparency records each generated code along with the product for which it was generated and uses the information to authenticate products.

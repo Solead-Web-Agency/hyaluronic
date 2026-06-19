@@ -1,0 +1,14 @@
+.sp-modal .tingle-modal-box {
+    text-align: center;
+}
+
+.sp-modal .tingle-modal-box img.forbidden{
+    width: 250px;
+    margin-bottom: 25px;
+}
+
+@media screen and (min-width: 981px) {
+    .sp-modal .tingle-modal-box {
+        width: 40%;
+    }
+}

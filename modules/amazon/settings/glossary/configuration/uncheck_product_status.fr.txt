@@ -1,0 +1,1 @@
+Autoriser le module à importer des commandes avec des statuts de produits inactifs.

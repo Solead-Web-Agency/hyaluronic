@@ -1,0 +1,7 @@
+[{shop_url}] 
+
+Salut.
+
+Clientul a solicitat sa il apela la data de {date}.
+
+Te rog sa il apelezi cat mai curand posibil {phone}

@@ -1,0 +1,15 @@
+v1.0.1--------------------------
+- Fix bug add cart
+- Fix template "Volume discount"
+- Add "Most Popular" item.
+V1.0.2-------------------------
+- Fix bug discount template.
+- FIx bug ajax select product.
+- Big bug Price product.
+- New option "Offer products already in cart/order"
+V1.0.3-------------------------
+- Fix bug multishop
+- Fix bug search product + Collection in offers page backend
+- Fix bug template Volume
+- fix bug css frontend
+- Fix bug cartegory Image 

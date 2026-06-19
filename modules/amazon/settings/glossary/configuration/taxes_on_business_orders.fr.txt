@@ -1,0 +1,2 @@
+Obtenez la taxe sur les produits/expéditions d'Amazon si elle est incluse dans les informations de commande,
+ou Calculer la taxe pour la commande commerciale en fonction de la règle PS.

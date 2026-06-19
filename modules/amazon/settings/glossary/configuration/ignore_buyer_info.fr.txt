@@ -1,0 +1,2 @@
+Pour résoudre les problèmes avec les informations sur l'acheteur et l'adresse de livraison.
+Si ce paramètre est activé, vous devez modifier l'adresse à la main.

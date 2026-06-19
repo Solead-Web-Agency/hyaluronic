@@ -1,0 +1,2 @@
+Erhalten Sie die Produkt-/Versandsteuer von Amazon, wenn sie in den Bestellinformationen enthalten ist,
+oder Berechnen Sie die Steuer für den Geschäftsauftrag basierend auf der PS-Regel.

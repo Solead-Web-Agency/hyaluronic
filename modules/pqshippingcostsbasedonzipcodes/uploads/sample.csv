@@ -1,0 +1,4 @@
+id_country,id_zone,filter,zipcode_min,zipcode_max,<- you have to remove this row in the file you want to import
+1,1,range,405200,405300,
+1,1,equal,405200,,
+1,1,starts,ERTW1,,

@@ -1,0 +1,387 @@
+.ar-blocked{
+    position: relative;
+}
+.ar-loading{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.5);
+}
+.ar-loading .ar-loading-inner{
+    position: absolute;
+    width: 140px;
+    height: 49px;
+    padding: 15px 15px 15px 40px;
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    border: 1px solid #AAAAAA;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: url('../img/ring-alt.gif') no-repeat 6px 8px scroll  #FFFFFF;
+}
+
+.form-group .errors{
+    display: none;
+}
+.form-group.has-error .errors{
+    display: block;
+}
+.arcu-icon-list li{
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+.arcu-icon-list li:hover div{
+    background: #EEEEEE;
+}
+.arcu-icon-list li.active div{
+    background: #00aff0;
+    color: #FFFFFF;
+}
+.arcu-icon-list li svg{
+    display: inline-block;
+}
+.arcu-icon-list li>div{
+    padding: 8px 0;
+    text-align: center;
+    height: 90px;
+    border: 1px solid #DDDDDD;
+}
+.arcu-icon-list li svg{
+    width: 48px;
+    height: 48px;
+}
+
+#arcontactus-table svg,
+#arcontactus-table img,
+#arcontactus-table span > i{
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 24px;
+}
+#arcontactus-table .lbl-color{
+    padding: 0 3px;
+    border-radius: 3px;
+    color: #FFFFFF;
+}
+#arcontactus-config-tabs .panel .form-wrapper .section-head{
+    margin: 0;
+    border-bottom: 0 none;
+    padding: 0;
+    text-transform: none;
+    font-size: 19px;
+}
+
+#arcontactus-config-tabs .panel .form-wrapper hr{
+    margin: 10px 0;
+}
+
+#arcontactus-config-tabs .field_tawk_to_head, 
+#arcontactus-config-tabs .field_crisp_head,
+#arcontactus-config-tabs .field_intercom_head,
+#arcontactus-config-tabs .field_fb_head,
+#arcontactus-config-tabs .field_vk_head,
+#arcontactus-config-tabs .field_zopim_head,
+#arcontactus-config-tabs .field_skype_head,
+#arcontactus-config-tabs .field_zalo_head,
+#arcontactus-config-tabs .field_lhc_head,
+#arcontactus-config-tabs .field_ss_head,
+#arcontactus-config-tabs .field_lc_head,
+#arcontactus-config-tabs .field_tidio_head,
+#arcontactus-config-tabs .field_lcp_head,
+#arcontactus-config-tabs .field_lz_head,
+#arcontactus-config-tabs .field_jivosite_head,
+#arcontactus-config-tabs .field_jivosite_head,
+#arcontactus-config-tabs .field_zoho_head,
+#arcontactus-config-tabs .field_fc_head,
+#arcontactus-config-tabs .field_phplive_head,
+#arcontactus-config-tabs .field_paldesk_head,
+#arcontactus-config-tabs .field_hubspot_head,
+#arcontactus-config-tabs .field_socialintents_head
+{
+    margin-bottom: 0;
+}
+#arcontactus-config .modal-title{
+    font-size: 19px;
+}
+#arcontactus-config .tab-pane .panel-heading{
+    display: none;
+}
+#arcontactus-config .tab-pane .panel{
+    border-radius: 0 0 5px 5px;
+}
+#areama-modules .areama-modules{
+    text-align: left;
+    list-style: none outside none;
+    margin: 20px 0 0 0;
+    padding: 0;
+}
+#areama-modules .areama-modules li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    padding: 10px 0 10px 100px;
+    min-height: 100px;
+    border-bottom: 1px solid #DDDDDD;
+}
+#areama-modules .areama-modules li:last-child{
+    border-bottom: 0 none;
+}
+#areama-modules .areama-modules li a{
+    text-decoration: none;
+    display: block;
+}
+#areama-modules .areama-modules li a:hover{
+    text-decoration: none;
+}
+#areama-modules .areama-modules li a .areama-module-logo{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 80px;
+    height: 80px;
+}
+#areama-modules .areama-modules li a .areama-module-logo img{
+    max-width: 100%;
+    margin: auto;
+    display: block;
+}
+.ar-modules-title{
+    text-align: center;
+    font-size: 22px;
+    margin: 20px 0 10px;
+}
+.areama-module-title{
+    font-size: 18px;
+    font-weight: normal;
+}
+.areama-module-content{
+    margin-right: 120px;
+}
+.areama-module-price{
+    position: absolute;
+    width: 120px;
+    top: 10px;
+    right: 0;
+    text-align: center;
+}
+.areama-module-price p{
+    font-weight: normal;
+    font-size: 22px;
+}
+.areama-module-price p.sm{
+    font-size: 16px;
+    line-height: 18px;
+}
+.areama-module-price svg{
+    height: 36px;
+    width: 36px;
+    display: inline-block;
+}
+.areama-module-description{
+    color: #444444;
+}
+.areama-module-rate .ar-stars{
+    display: block;
+    background: url('../img/stars.png') no-repeat scroll 0 0 transparent;
+    width: 139px;
+    height: 24px;
+    float: left;
+}
+.areama-module-rate .ar-votes{
+    font-size: 14px;
+    float: left;
+    display: block;
+    margin: 6px 0 0 5px;
+}
+.areama-module-rate{
+    line-height: 24px;
+    overflow: hidden;
+}
+.ar-stars.module-rate-500{
+    background-position: 0 0;
+}
+.ar-stars.module-rate-450{
+    background-position: 0 -27px;
+}
+.ar-stars.module-rate-400{
+    background-position: 0 -54px;
+    width: 112px;
+}
+.ar-stars.module-rate-350{
+    background-position: 0 -81px;
+    width: 112px;
+}
+.ar-stars.module-rate-300{
+    background-position: 0 -108px;
+    width: 85px;
+}
+.ar-stars.module-rate-250{
+    background-position: 0 -135px;
+    width: 85px;
+}
+.ar-stars.module-rate-200{
+    background-position: 0 -162px;
+    width: 56px;
+}
+.ar-stars.module-rate-150{
+    background-position: 0 -189px;
+    width: 56px;
+}
+.ar-stars.module-rate-100{
+    background-position: 0 -216px;
+    width: 27px;
+}
+#form-arcu-callbacks-container .filter[name="callbacksFilter_phone"]{
+    width: 160px;
+}
+#form-arcu-callbacks-container .filter[name="callbacksFilter_status"]{
+    width: 160px;
+}
+#form-arcu-callbacks-container .filter[name="callbacksFilter_id"]{
+    width: 40px;
+}
+#form-arcu-callbacks-container .panel-heading{
+    display: none;
+}
+#form-arcu-callbacks-container #form-callbacks .panel{
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+}
+#form-arcu-callbacks-container .dropdown-menu li svg{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-top: 0;
+    position: relative;
+    top: 3px;
+    margin-right: 2px;
+}
+.arcu-feature-list{
+    font-size: 16px;
+}
+.arcu-feature-list .row{
+    margin-bottom: 6px;
+}
+.arcu-qr-code-buttons{
+    margin-bottom: 5px;
+    text-align: center;
+}
+.arcu-qr-code-buttons .btn{
+    position: relative;
+    padding-left: 24px;
+}
+.arcu-qr-code-buttons .btn svg{
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+}
+
+#arcu-qr-modal{
+    background: #FFFFFF;
+    position: fixed;
+    width: 290px;
+    top: 40%;
+    left: 50%;
+    margin-top: -145px;
+    margin-left: -145px;
+    z-index: 99999;
+    transition: 0.2s all;
+    opacity: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+#arcu-qr-modal img{
+    width: 100%;
+}
+#arcu-qr-modal-backdrop{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #000000;
+    opacity: 0;
+    z-index: 99998;
+    transition: 0.2s all;
+}
+
+#arcu-qr-modal-backdrop.active{
+    opacity: 0.4;
+}
+
+#arcu-qr-modal.active{
+    opacity: 1;
+    top: 50%;
+}
+#arcu-qr-modal h4{
+    padding: 7px 10px;
+    margin: 0;
+    text-align: center;
+    border-bottom: 1px solid #DDD;
+}
+.arcu-close-btn{
+    position: absolute;
+    top: 0;
+    right: -28px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    border: 0 none;
+    background: url('../img/close.svg') no-repeat scroll 50% 50% #333;
+}
+.arcu-blur{
+    /*filter: blur(10px);*/
+}
+.ar-qr-preview{
+    cursor: pointer;
+}
+#ar-static-loader{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999999;
+}
+#ar-static-loader .ar-loading-inner{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 99999999;
+    width: 48px;
+    height: 48px;
+    margin-top: -24px;
+    margin-left: -24px;
+    background: url('../img/loading.svg') no-repeat 50% 50% scroll #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+#arcontactus-config .img-preview{
+    background: url('../img/trbg.png') repeat 0 0 scroll transparent;
+    width: 64px;
+    height: 64px;
+}
+#arcontactus-config .img-upload .form-group{
+    margin: 0;
+}
+#arcontactus-config .img-upload .well{
+    margin: 5px 0;
+}
+#arcontactus_uploaded_img_list{
+    margin-top: 5px;
+}

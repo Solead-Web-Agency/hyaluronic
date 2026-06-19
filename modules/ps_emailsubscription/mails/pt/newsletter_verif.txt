@@ -1,0 +1,7 @@
+[{shop_name}]({shop_url})
+Olá,
+
+Obrigado por subscrever a nossa newsletter, por favor confirme o seu pedido clicando no link abaixo:
+{verif_url}
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,10 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+
+Foi criado um vale-desconto em seu nome de acordo com seu pedido com a referência {order_name}.
+
+Vale-desconto: {voucher_num} no total de {voucher_amount}
+
+Na próxima compra basta inserir o código do cupom na tela de pagamento.
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

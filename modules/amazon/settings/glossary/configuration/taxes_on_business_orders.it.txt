@@ -1,0 +1,2 @@
+Ottieni la tassa di prodotto/spedizione da Amazon se è inclusa nelle informazioni sull'ordine,
+o Calcola l'imposta per l'ordine commerciale in base alla regola PS.

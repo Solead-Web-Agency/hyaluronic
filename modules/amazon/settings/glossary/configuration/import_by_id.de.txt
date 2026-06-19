@@ -1,0 +1,1 @@
+Verwenden Sie die Produkt-ID und die Kombinations-ID, um Bestellungen zu importieren, wenn es keine übereinstimmende Referenz/SKU gibt.

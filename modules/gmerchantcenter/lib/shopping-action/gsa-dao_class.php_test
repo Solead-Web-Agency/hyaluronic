@@ -1,0 +1,734 @@
+<?php
+
+/**
+ * Google Merchant Center
+ *
+ * @author    BusinessTech.fr - https://www.businesstech.fr
+ * @copyright Business Tech 2020 - https://www.businesstech.fr
+ * @license   Commercial
+ *
+ *           ____    _______
+ *          |  _ \  |__   __|
+ *          | |_) |    | |
+ *          |  _ <     | |
+ *          | |_) |    | |
+ *          |____/     |_|
+ */
+
+class BT_GmcGsaDao
+{
+    /**
+     * get the product id from the gtin code
+     *
+     * @param string $sGtin
+     * @param string $sMpn
+     * @return array
+     */
+    public static function getProductIdFromGsa($sGtin, $sMpn)
+    {
+        // sometimes Google can return GTIN with 14 digit ( adds 0 and the begenning of the GTIN)
+        if (strlen($sGtin) == 14) {
+            $sGtin = substr($sGtin, 1);
+        }
+        //We check first on the combination check on EAN 13 field
+        $sQuery = 'SELECT pa.id_product_attribute, pa.id_product'
+            . ' FROM `' . _DB_PREFIX_ . 'product_attribute` pa'
+            . ' WHERE `ean13` = "' . pSQL($sGtin) . '"';
+
+        $aData = Db::getInstance()->getRow($sQuery);
+
+        //Check on upc
+        if (empty($aData)) {
+            $sQuery = 'SELECT pa.id_product_attribute, pa.id_product'
+                . ' FROM `' . _DB_PREFIX_ . 'product_attribute` pa'
+                . ' WHERE `upc` = "' . pSQL($sGtin) . '"';
+
+            $aData = Db::getInstance()->getRow($sQuery);
+        }
+
+        //Check on isbn
+        if(!empty(GMerchantCenter::$bCompare17)) {
+            if (empty($aData)) {
+                $sQuery = 'SELECT pa.id_product_attribute, pa.id_product'
+                    . ' FROM `' . _DB_PREFIX_ . 'product_attribute` pa'
+                    . ' WHERE `isbn` = "' . pSQL($sGtin) . '"';
+
+                $aData = Db::getInstance()->getRow($sQuery);
+            }
+        }
+
+        if (empty($aData)) {
+            $sQuery = 'SELECT pa.id_product_attribute, pa.id_product'
+                . ' FROM `' . _DB_PREFIX_ . 'product_attribute` pa'
+                . ' WHERE `reference` = "' . pSQL($sMpn) . '"';
+
+            $aData = Db::getInstance()->getRow($sQuery);
+        }
+
+        //Check on product data ean code
+        if (empty($aData)) {
+            $sQuery = 'SELECT p.id_product'
+                . ' FROM `' . _DB_PREFIX_ . 'product` p'
+                . ' WHERE `ean13` = "' . pSQL($sGtin) . '"';
+
+            $aData = Db::getInstance()->getRow($sQuery);
+        }
+
+        //Check on product data upc code
+        if (empty($aData)) {
+            $sQuery = 'SELECT p.id_product'
+                . ' FROM `' . _DB_PREFIX_ . 'product` p'
+                . ' WHERE `upc` = "' . pSQL($sGtin) . '"';
+
+            $aData = Db::getInstance()->getRow($sQuery);
+        }
+
+        //Check on product data isbn code
+        if(!empty(GMerchantCenter::$bCompare17)) {
+            if (empty($aData)) {
+                $sQuery = 'SELECT p.id_product'
+                    . ' FROM `' . _DB_PREFIX_ . 'product` p'
+                    . ' WHERE `isbn` = "' . pSQL($sGtin) . '"';
+
+                $aData = Db::getInstance()->getRow($sQuery);
+            }
+        }
+
+        if (empty($aData)) {
+            $sQuery = 'SELECT p.id_product'
+                . ' FROM `' . _DB_PREFIX_ . 'product` p'
+                . ' WHERE `reference` = "' . pSQL($sMpn) . '"';
+
+            $aData = Db::getInstance()->getRow($sQuery);
+        }
+
+        return $aData;
+    }
+
+    /**
+     * add order data : log the order data from GSA
+     *
+     * @param int $iOrderId
+     * @param string $sGsaOrderId
+     * @param string $sStatus 
+     * @param string $sShopStatus 
+     * @param int $isPaid
+     * @param int $isShipped
+     * @param int $isShippedSynch
+     * @param int $isPrepared
+     * @param int $isRefunded
+     * @param int $isRefundedSynch
+     * @param int $isProductRefunded
+     * @param int $isProductRefundedSynch
+     * @param int $bAcknowledge
+     * @param int $isDelivered
+     * @param int $isDeliveredSynch
+     * @param int $isCanceledSynch
+     * @param int $isReturned
+     * @param int $isReturnedSynch
+     * @param int $iShopId
+     * @return bool
+     */
+    public static function addOrderData($iOrderId, $sGsaOrderId, $sStatus, $ShopStatus, $iShopId, $isPaid = 0, $isShipped = 0, $isShippedSynch = 0,  $isPrepared = 0, $isRefunded = 0, $isRefundedSynch = 0, $isProductRefunded = 0, $isProductRefundedSynch = 0, $bAcknowledge = 0, $isDelivered = 0, $isDeliveredSynch = 0, $isCanceledSynch = 0, $isReturned = 0, $isReturnedSynch = 0)
+    {
+        $sQuery = 'INSERT INTO `' . _DB_PREFIX_ . 'gmc_gsa_orders_data` (`id_order`, `id_gsa_order`, `gsa_status` , `order_status`, `is_paid`, `is_shipped`, `is_shipped_synch`, `is_prepared`, `is_refunded`,`is_refunded_synch`, `is_product_refunded`, `is_product_refunded_synch`, `acknowledge`, `is_delivered`, `is_delivered_synch`, `is_canceled_synch`, `is_returned`, `is_returned_synch`,`id_shop`) 
+        VALUES (' . (int) $iOrderId . ',"' . pSQL($sGsaOrderId) . '", "' . pSQL($sStatus) . '", "' . pSQL($ShopStatus) . '", ' . (int) $isPaid . ', ' . (int) $isShipped . ', ' . (int) $isShippedSynch . ', ' . (int) $isPrepared . ', ' . (int) $isRefunded . ', ' . (int) $isRefundedSynch . ', ' . (int) $isProductRefunded . ', ' . (int) $isProductRefundedSynch . ', ' . (int) $bAcknowledge . ', ' . (int) $isDelivered . ', ' . (int) $isDeliveredSynch . ', ' . (int) $isReturned .  ', ' . (int) $isReturnedSynch . ', ' . (int) $isCanceledSynch . ',' . (int) $iShopId . ')';
+
+        return Db::getInstance()->Execute($sQuery);
+    }
+
+    /**
+     * add the the association between shop product id and gsa order id for one order
+     *
+     * @param string $sGsaOrderId
+     * @param int $iShopProductId 
+     * @param int $iShopProductIdAttribute 
+     * @param string $sGsaProductId
+     * @param int $iOrderedQty
+     * @param int $iRefundedQty
+     * @param int $iReturnQty
+     * @param int $iShopId
+     * @return bool
+     */
+    public static function addProductsOrderData($sGsaOrderId, $iShopProductId, $iShopProductIdAttribute, $sGsaProductId, $iOrderedQty, $iRefundedQty, $iReturnQty, $iShopId)
+    {
+        $sQuery = 'INSERT INTO `' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data` ( `id_gsa_order`,  `shop_product_id`,  `shop_product_attribute_id`, `gsa_product_id`, `quantity_ordered`, `quantity_refunded`, `quantity_returned`, `id_shop`) 
+        VALUES ("' . pSQL($sGsaOrderId) . '", ' . (int) $iShopProductId . ',' . (int) $iShopProductIdAttribute . ',"' .  pSQL($sGsaProductId) . '",' . (int) $iOrderedQty . ',' . (int) $iRefundedQty . ',' . (int) $iReturnQty . ',' . (int) $iShopId . ')';
+
+        return Db::getInstance()->Execute($sQuery);
+    }
+
+    /**
+     * add the generic email and real email association : 
+     *
+     * @param string $sGenericEmail
+     * @param string $sRealEmail 
+     * @param int $iShopId
+     * @return bool
+     */
+    public static function addEmailData($sGenericEmail, $sRealEmail, $iShopId)
+    {
+        $sQuery = 'INSERT INTO `' . _DB_PREFIX_ . 'gmc_gsa_emails` (`generic_email`, `real_email`,`id_shop`) 
+        VALUES ("' . pSQL($sGenericEmail) . '","' . pSQL($sRealEmail) . '",' . (int) $iShopId . ')';
+
+        return Db::getInstance()->Execute($sQuery);
+    }
+
+    /**
+     * get if the gsa order already exist
+     *
+     * @param $sGsaOrderId
+     * @return bool
+     */
+    public static function isGsaOrderExist($sGsaOrderId)
+    {
+        $sQuery = 'SELECT `id_gsa_order`'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `id_gsa_order` = "' . $sGsaOrderId . '"';
+
+        return !empty(Db::getInstance()->getValue($sQuery)) ? true : false;
+    }
+
+    /**
+     * get gsa line item
+     *
+     * @param string $sGsaOrderId
+     * @param int $iShopProductId 
+     * @param int $iShopProductIdAttribute 
+     * @param int $iShopiD
+     * @return bool
+     */
+    public static function getGsaLineItemId($sGsaOrderId, $iShopProductId, $iShopProductIdAttribute, $iShopiD)
+    {
+        $sQuery = 'SELECT gsa_product_id'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data`'
+            . ' WHERE `id_gsa_order` = "' . $sGsaOrderId . '"'
+            . ' AND  `shop_product_id` = ' . (int) $iShopProductId
+            . ' AND  `id_shop` = ' . (int) $iShopiD;
+
+        // Use case for product with attribute
+        if (!empty($iShopProductIdAttribute)) {
+            $sQuery .= ' AND `shop_product_attribute_id` = ' . (int) $iShopProductIdAttribute;
+        }
+
+        return Db::getInstance()->getValue($sQuery);
+    }
+
+    /**
+     * get the gsa order id by using order id from PS
+     *
+     * @param int $iOrderId
+     * @return array
+     */
+    public static function getGsaOrderFromPsOrder($iOrderId)
+    {
+        $sQuery = 'SELECT id_gsa_order'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `id_order` = ' . (int) $iOrderId;
+
+        return Db::getInstance()->getValue($sQuery);
+    }
+
+    /**
+     * get the ps order id from the gsa order id
+     *
+     * @param int $sGsaOrderId
+     * @return array
+     */
+    public static function getPsOrderFromGsa($sGsaOrderId)
+    {
+        $sQuery = 'SELECT id_order'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `id_gsa_order` = "' . $sGsaOrderId  . '"';
+
+        return Db::getInstance()->getValue($sQuery);
+    }
+
+    /**
+     * get all orders synched with GSA 
+     *
+     * @return array
+     */
+    public static function getOrders()
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`';
+
+        return  Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the data with the status
+     *
+     * @param string $sOrderStatus
+     * @return array
+     */
+    public static function getOrdersByStatus($sOrderStatus)
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `gsa_status` = "' . pSQL($sOrderStatus) . '"';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the ids order by status
+     *
+     * @return array
+     * @param string $sStatus
+     */
+    public static function getIdsOrderbyStatus($sStatus)
+    {
+        $sQuery = 'SELECT `id_gsa_order`,  `id_order`'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `gsa_status` = "' . pSQL($sStatus) . '"';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the data with paid status
+     *
+     * @param int $isPaid
+     * @return array
+     */
+    public static function getPaidStatus($isPaid)
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `is_paid` = ' . (int) $isPaid;
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the data with shipping status
+     *
+     * @param int $isShipped
+     * @return array
+     */
+    public static function isShipped($isShipped)
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data` pa'
+            . ' WHERE `is_shipped` = ' . (int) $isShipped;
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the data with shipping sync status for a specific order
+     *
+     * @param int $sOrderId
+     * @param int $isShipped
+     * @return array
+     */
+    public static function isOrderShippedSync($sOrderId, $isShipped)
+    {
+        $sQuery = 'SELECT id_sync'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data` pa'
+            . ' WHERE `is_shipped_synch` = ' . (int) $isShipped
+            . ' AND `id_gsa_order` = "' . pSQL($sOrderId) . '"';
+
+        return (int) Db::getInstance()->getValue($sQuery);
+    }
+
+    /**
+     * get the data with prepared status
+     *
+     * @param int $isPrepared
+     * @return array
+     */
+    public static function isPrepared($isPrepared)
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `is_prepared` = ' . (int) $isPrepared;
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the data with refund status
+     *
+     * @param int $isRefunded
+     * @return array
+     */
+    public static function isRefunded($isRefunded)
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `is_refunded` = ' . (int) $isRefunded;
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the data with product refund status
+     *
+     * @param int $isProductRefunded
+     * @return array
+     */
+    public static function isProductRefunded($isProductRefunded)
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `is_product_refunded` = ' . (int) $isProductRefunded;
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the order have to be refunded in GSA
+     *
+     * @return array
+     */
+    public static function haveToBeRefunded()
+    {
+        $sQuery = 'SELECT `id_gsa_order`'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `is_refunded` = 1 AND `is_refunded_synch` = 0 AND `gsa_status` = "pendingShipment" AND order_status != "partial refund"';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the order line with product line to refund from order detail
+     *
+     * @param int $iOrderId
+     * @return array
+     */
+    public static function haveOrderLineToRefund($iOrderId)
+    {
+        $sQuery = 'SELECT `product_id`, `product_attribute_id`, `product_quantity_refunded`'
+            . ' FROM `' . _DB_PREFIX_ . 'order_detail`'
+            . ' WHERE `id_order` = ' . (int) $iOrderId
+            . ' AND `product_quantity_refunded` > 0';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the order line with product line to returned from order detail
+     *
+     * @param int $iOrderId
+     * @return array
+     */
+    public static function haveOrderLineToReturn($iOrderId)
+    {
+        $sQuery = 'SELECT `product_id`, `product_attribute_id`, `product_quantity_return`'
+            . ' FROM `' . _DB_PREFIX_ . 'order_detail`'
+            . ' WHERE `id_order` = ' . (int) $iOrderId
+            . ' AND `product_quantity_return` > 0';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * return product detail for a GSA order and specific item id 
+     *
+     * @param int $iOrderId
+     * @return array
+     */
+    public static function getOrderGsaProductDetails($sGsaOrderId, $sProductGsaId)
+    {
+        $sQuery = 'SELECT * '
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data`'
+            . ' WHERE `id_gsa_order` = "' .  pSQL($sGsaOrderId) . '"'
+            . ' AND `gsa_product_id` = "' . pSQL($sProductGsaId) . '"';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the order detail id from PS with the link of gsa order details
+     *
+     * @param int $iOrderId
+     * @param int $iProductId
+     * @param int $iProductAttributeId
+     * @param string $sProductGsaId
+     * @return array
+     */
+    public static function getOrderDetailId($iOrderId, $iProductId, $iProductAttributeId, $sProductGsaId)
+    {
+        $sQuery = 'SELECT `id_order_detail`'
+            . ' FROM `' . _DB_PREFIX_ . 'order_detail` od'
+            . ' LEFT JOIN ' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data god ON od.product_id = god.shop_product_id AND od.product_attribute_id = god.shop_product_attribute_id'
+            . ' WHERE `id_order` = ' . (int) $iOrderId
+            . ' AND `product_id` = ' . (int) $iProductId
+            . ' AND `gsa_product_id` = "' . pSQL($sProductGsaId) . '"';
+
+        if (!empty($iProductAttributeId)) {
+            $sQuery .= ' AND `product_attribute_id` = ' . (int) $iProductAttributeId;
+        }
+
+        return Db::getInstance()->getRow($sQuery);
+    }
+
+    /**
+     * get the order line with product line to return from module table BE CAREFULL only shipped order can be send to Google
+     *
+     * @param int $iOrderId
+     * @return array
+     */
+    public static function haveReturnedOrderLine()
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM ' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data gopd'
+            . ' LEFT JOIN ' . _DB_PREFIX_ . 'gmc_gsa_orders_data god ON gopd.id_gsa_order = god.id_gsa_order'
+            . ' WHERE gopd.quantity_returned > 0 AND god.is_returned = 1 AND god.is_product_refunded_synch = 0 AND god.is_shipped = 1 AND god.is_shipped_synch = 1 AND god.gsa_status != "partialReturned"';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the order line with product line to refund from module table
+     *
+     * @param int $iOrderId
+     * @return array
+     */
+    public static function haveRefundOrderLine()
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM ' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data gopd'
+            . ' LEFT JOIN ' . _DB_PREFIX_ . 'gmc_gsa_orders_data god ON gopd.id_gsa_order = god.id_gsa_order'
+            . ' WHERE gopd.quantity_refunded > 0 AND god.is_product_refunded = 1 AND god.is_product_refunded_synch = 0'
+            . ' AND god.gsa_status = "pendingShipment"'
+            . ' AND god.order_status = "partial refund"'
+            . ' AND god.acknowledge = 1';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the data with acknowledge status
+     *
+     * @param int $isAcknowledge
+     * @return array
+     */
+    public static function isAcknowledge($isAcknowledge)
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `acknowledge` = ' . (int) $isAcknowledge;
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the order can be cancel by a customer
+     *
+     * @return array
+     */
+    public static function checkOrdersCanBeCancel()
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmcp_gsa_orders_data`'
+            . ' WHERE `gsa_status` = "inProgress"';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the data with acknowledge status
+     *
+     * @param int $isDelivered
+     * @return array
+     */
+    public static function isDelivered($isDelivered)
+    {
+        $sQuery = 'SELECT *'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `is_delivered` = ' . (int) $isDelivered;
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get the order have to be shipped in GSA
+     *
+     * @return array
+     */
+    public static function haveToBeShipped()
+    {
+        $sQuery = 'SELECT `id_gsa_order`'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `is_shipped` = 1 AND `is_shipped_synch` = 0 AND `gsa_status` = "pendingShipment"';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * get shipping required data for GSA
+     *
+     * @param int $iOrderId
+     * @return array
+     */
+    public static function getShopShippingData($iOrderId)
+    {
+        $sQuery = 'SELECT `id_carrier`, `tracking_number`'
+            . ' FROM `' . _DB_PREFIX_ . 'order_carrier`'
+            . ' WHERE `id_order` =' . (int) $iOrderId;
+
+        return Db::getInstance()->getRow($sQuery);
+    }
+
+    /**
+     * get the order have to be delivered in GSA
+     *
+     * @return array
+     */
+    public static function haveToBeDelivered()
+    {
+        $sQuery = 'SELECT `id_gsa_order`'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `is_delivered` = 1 AND `is_delivered_synch` = 0 AND `gsa_status` = "shipped"';
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+    /**
+     * update gsa orders 
+     *
+     * @param string $sColumnName
+     * @param string $sValue
+     * @param string $sGsaOrderId
+     * @param int $iPsOrderId 
+     * @return bool
+     */
+    public static function updateGsaOrders($sColumnName, $sValue, $sGsaOrderId = null, $iPsOrderId = null)
+    {
+        $bExecute = true;
+
+        $sQuery = 'UPDATE `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' SET `' . $sColumnName . '` = "' . pSQL($sValue);
+        // Use case for update on sGsaOrderId
+        if (!empty($sGsaOrderId) && empty($iPsOrderId)) {
+            $sQuery .=  '" WHERE `id_gsa_order` = "' . pSQL($sGsaOrderId) . '"';
+        } elseif (empty($sGsaOrderId) && !empty($iPsOrderId)) { // Use case update based on PS order id
+            $sQuery .=  '" WHERE `id_order` = ' . (int) $iPsOrderId;
+        } elseif (!empty($sGsaOrderId) && !empty($iPsOrderId)) { // Use case for update with the 2 orders values
+            $sQuery .=  '" WHERE `id_order` = ' . (int) $iPsOrderId . 'AND `id_gsa_order` = "' . pSQL($sGsaOrderId) . '"';
+        } else {
+            $bExecute = false;
+        }
+
+        if (!empty($bExecute)) {
+            return Db::getInstance()->Execute($sQuery);
+        }
+    }
+
+    /**
+     * update gsa orders product
+     *
+     * @param string $sColumnName
+     * @param string $sValue
+     * @param string $sGsaOrderId
+     * @param int $iProductId
+     * @param int $iProductAttributeId
+     * @return bool
+     */
+    public static function updateGsaOrdersProducts($sColumnName, $sValue, $sGsaOrderId, $iProductId, $iProductAttributeId = 0)
+    {
+        $sQuery = 'UPDATE `' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data`'
+            . ' SET `' . $sColumnName . '` = "' . pSQL($sValue) . '"'
+            . ' WHERE `id_gsa_order` = "' . pSQL($sGsaOrderId) . '"'
+            . ' AND `shop_product_id` = ' . (int) $iProductId;
+
+        if (!empty($iProductAttributeId)) {
+            $sQuery .= ' AND `shop_product_attribute_id` = ' . (int) $iProductAttributeId;
+        }
+
+        return Db::getInstance()->Execute($sQuery);
+    }
+
+    /**
+     * update gsa orders product with the gsa product id
+     *
+     * @param string $sColumnName
+     * @param string $sValue
+     * @param string $sGsaOrderId
+     * @param int $sGsaProductId
+     * @return bool
+     */
+    public static function updateGsaOrdersProductsByGsaProductId($sColumnName, $sValue, $sGsaOrderId, $sGsaProductIds)
+    {
+        $sQuery = 'UPDATE `' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data`'
+            . ' SET `' . $sColumnName . '` = "' . pSQL($sValue) . '"'
+            . ' WHERE `id_gsa_order` = "' . pSQL($sGsaOrderId) . '"'
+            . ' AND `gsa_product_id` = "' . pSQL($sGsaProductIds) . '"';
+
+        return Db::getInstance()->Execute($sQuery);
+    }
+
+    /**
+     * get previous returned product quantity
+     *
+     * @param string $sGsaOrderId
+     * @param int $sGsaProductId
+     * @return int
+     */
+    public static function getPreviousProductReturned($sGsaOrderId, $sGsaProductIds)
+    {
+        $sQuery = 'SELECT `quantity_returned`'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_products_data`'
+            . ' WHERE `id_gsa_order` = "' . pSQL($sGsaOrderId) . '"'
+            . ' AND `gsa_product_id` = "' . pSQL($sGsaProductIds) . '"';
+
+        return Db::getInstance()->getValue($sQuery);
+    }
+
+    /**
+     * mehod return one specific column value 
+     *
+     * @param string $sValueToReturn
+     * @param string $sColumnName
+     * @param string $sCondition
+     * @return array
+     */
+    public static function getSimpleData($sValueToReturn, $sColumnName, $sCondition)
+    {
+        $sQuery = 'SELECT ' . $sValueToReturn
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_orders_data`'
+            . ' WHERE `' . $sColumnName . '` = ' . $sCondition;
+
+        return Db::getInstance()->executeS($sQuery);
+    }
+
+
+    /**
+     * manage the returned order data
+     *
+     * @param string $sGsaReturnId
+     * @param int $iOrderId 
+     * @param string $sGsaOrderId 
+     * @param string $sProductData
+     * @param int $iShopId
+     * @return bool
+     */
+    public static function addReturnData($sGsaReturnId, $iOrderId, $sGsaOrderId, $sProductData, $iShopId)
+    {
+        $sProductData = serialize($sProductData);
+
+        $sQuery = 'INSERT INTO `' . _DB_PREFIX_ . 'gmc_gsa_returns_data` ( `id_gsa_return`,  `id_order`,  `id_gsa_order`, `product_data`, `id_shop`) 
+        VALUES ("' . pSQL($sGsaReturnId) . '", ' . (int) $iOrderId . ',"' . pSQL($sGsaOrderId) . '","' .  pSQL($sProductData) . '",' . (int) $iShopId . ')';
+
+        return Db::getInstance()->Execute($sQuery);
+    }
+
+    /**
+     * get if the gsa return already exist
+     *
+     * @param $sGsaReturnId
+     * @return bool
+     */
+    public static function isAlreadyReturned($sGsaReturnId)
+    {
+        $sQuery = 'SELECT `id_gsa_return`'
+            . ' FROM `' . _DB_PREFIX_ . 'gmc_gsa_returns_data`'
+            . ' WHERE `id_gsa_return` = "' . $sGsaReturnId . '"';
+
+        return !empty(Db::getInstance()->getValue($sQuery)) ? true : false;
+    }
+}

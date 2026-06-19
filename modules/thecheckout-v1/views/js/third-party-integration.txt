@@ -1,0 +1,27 @@
+### [shipping] fedexdotcom
+
+Add postcode to Shipping required fields (The Checkout configuration)
+
+Edit /modules/fedexdotcom/classes/FedExDotComHandler.php, in method getShippingAddresses(...)
+
+Change:
+  if (!Validate::isLoadedObject($customer)) {
+    return false;
+  }
+
+To:
+  if (!Validate::isLoadedObject($customer)) {
+    $customer_email = '';
+    // return false;
+  } else {
+    $customer_email = $customer->email;
+  }
+
+
+And few lines below:
+
+Change: (notice customer->email vs. customer_email)
+  'EMailAddress' => (isset($this->destination_address['EMailAddress']) ? $this->destination_address['EMailAddress'] : $customer->email),
+
+To:
+  'EMailAddress' => (isset($this->destination_address['EMailAddress']) ? $this->destination_address['EMailAddress'] : $customer_email),

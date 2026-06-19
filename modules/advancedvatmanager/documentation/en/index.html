@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Advanced VAT Manager (EN)</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+      <link rel="stylesheet" href="assets/css/prism.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/skin-blue.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- All dynamic styles -->
+        <style type="text/css">
+            .social,.content-header .version, .steps > li,aside::after{
+          background: #ff5100;
+        }
+        .main-header .sidebar-toggle::before,.skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a,.nav > li > a:hover, .nav > li > a:active, .nav > li > a:focus{
+          color: #ff5100        }
+        .nav.treeview-menu{
+            border-color:#ff5100 ;
+        }
+            .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
+      background: #332e20;
+    }
+ 
+  
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+              <style>
+            .xdocs-pre-loader{
+                background: url(https://documentation.liewebs.com/wp-content/plugins/xdocs/assets/img/loader1.gif) center no-repeat #fff;
+            }
+        </style>
+
+                    <link rel="stylesheet" href="assets/css/logo_modulo-11.png">
+          </head>
+  <body class="skin-blue fixed" data-spy="scroll" data-target="#scrollspy">
+
+
+    
+    <div class="xdocs-pre-loader"></div>    <div class="wrapper">
+      <header class="main-header">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+      </header>
+      <!-- Left side column. contains the logo and sidebar --><aside class="main-sidebar">
+                  <div class="logo">
+                  <img src="https://documentation.liewebs.com/wp-content/uploads/module_box150px-8.png" alt="" />
+              </div>
+        
+  <!-- sidebar: style can be found in sidebar.less -->
+  <div class="sidebar" id="scrollspy">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="nav sidebar-menu">
+      <li class="active"><a href="#introduction">Introduction</a>
+
+                  
+                             
+
+               <li class=""><a href="#minimum-requirements">Minimum requirements</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#installation">Installation</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#configuration">Configuration</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#module-sections-in-admin-panel">Module Sections in Admin Panel</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#customer-vat-management">Customer VAT Management</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#customer-exemption-management">Customer Exemption Management</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#orders-management">Orders Management</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#vat-check-tool">VAT check Tool</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#tax-exemption-system">Tax exemption system</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#compatibility-and-integration-with-third-party-modules">Compatibility and integration with third party modules</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#uninstallation">Uninstallation</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#troubleshootings">Troubleshootings</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#license-agreement">License agreement</a>
+
+                    
+              
+            </ul>
+          </div>
+    </aside>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <div class="content body">
+
+
+         <!-- Introduction Section -->
+          <section id="introduction">
+            <div class='section-content'>
+              <div class="content-header">
+                <h1>Advanced VAT Manager (EN)</h1>
+                              <div class="version"> Version 1.5.3</div>
+                       </div>
+              <div class="row">
+                <div class="col-sm-12">
+                                   </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                     <p style="text-align: center;"><img decoding="async" loading="lazy" class="aligncenter wp-image-2419 size-medium" src="https://documentation.liewebs.com/wp-content/uploads/module_box-6-260x300.png" alt="" width="260" height="300" srcset="https://documentation.liewebs.com/wp-content/uploads/module_box-6-260x300.png 260w, https://documentation.liewebs.com/wp-content/uploads/module_box-6.png 504w" sizes="(max-width: 260px) 100vw, 260px" /></p>
+<p>&nbsp;</p>
+<p style="text-align: justify;">The <strong>Advanced VAT Manager</strong> module is a module specially designed to manage customers who have a valid VAT number for intra-community operations and eliminate the collection of taxes on their purchases. Validation of the European or UK VAT number is done through the official VIES or GOV.UK system.</p>
+<p style="text-align: justify;">Furthermore, it is a very complete module that includes many advanced configuration options. The most prominent are:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li>Eliminate tax charges for customers who have a valid VAT number set up through validation by format or via the VIES and GOV.UK API.</li>
+<li>Updated with the Brexit regulations and the collection of taxes with the threshold of 135 pounds.</li>
+<li>Validation option for the Front-Office and Back-Office.</li>
+<li>Choice of countries for VAT validation.</li>
+<li>Choice of local country for tax collection.</li>
+<li>VAT number formatting system (converts VAT numbers entered by customers to the correct format)</li>
+<li>It shows the prices without taxes in the product sheets, product list, shopping cart and cart summary.</li>
+<li>Automatic assignment of specific customer group for customers who register with a valid VAT number.</li>
+<li>Automatic assignment of client group by country.</li>
+<li>Tax exemption for customer groups.</li>
+<li>Option to configure the VAT number field as optional or mandatory.</li>
+<li>Validation of company name registered in the official system.</li>
+<li>Customization of the label and description of the VAT nAutomatically insert the name of the company: If this option is activated, the system will extract the data of the company name that is registered in the official bodies VIES or GOV.UK, when the client inserts his VAT number and will save it in the field «company name». In the event that a client has entered a different company name than the one registered with official bodies, this will be replaced by the correct name. In this way, the customer&#8217;s address will always contain the name of the correct and officially registered company.umber field in the form.</li>
+<li>Email alert system.</li>
+<li>Address analysis system and verification of VAT numbers stored in the store&#8217;s database.</li>
+</ul>
+<p style="text-align: justify;">The Advanced VAT Manager module is the most complete module that has been developed to manage customer addresses for intra-community operations.</p>
+                  </div>
+              </div>
+            </div>
+          </section>
+          <!-- End Introduction Section -->
+
+
+  <section id="minimum-requirements" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#minimum-requirements' class='header-link'><i class='fa fa-link'></i></a>Minimum requirements</h2><p style="text-align: justify;">The requirements of the values in the parameters for this module to work correctly are the following:</p>
+<h4 style="text-align: justify;">Minimum requirements</h4>
+<table class=" aligncenter" style="height: auto; width: 100%; border-collapse: collapse; border-style: none;" border="0">
+<tbody>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>PHP version</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;"><strong>5.6.0</strong></td>
+</tr>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>PHP extensión</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;"><strong>php_soap, php_curl</strong></td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: justify;"><div class="alert alert-info">The module uses a SOAP-type webservice to connect to the VIES service in the VAT number validation process and uses the CURL extension to connect to the GOV.UK service in charge of validating UK VAT numbers. It is a minimum requirement to have the php_soap and php_curl extension installed on the server. Check with your hosting provider to install if necessary.</div></p>
+<h4 style="text-align: justify;">Recommended Requirements (For the use of the database address scanning system)</h4>
+<table class=" aligncenter" style="height: 100%; width: 100%; border-collapse: collapse; border-style: none;" border="0">
+<tbody>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>Memory limit (memory_limit)</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;">512M</td>
+</tr>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>Maximum input time (max_input_time)</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;">300 seconds or higher</td>
+</tr>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>Maximum execution time (max_execution_time)</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;">300 seconds or higher</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+</div>  </section>
+
+  <section id="installation" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#installation' class='header-link'><i class='fa fa-link'></i></a>Installation</h2><h2 style="text-align: justify;"><strong>1. Upload the module</strong></h2>
+<p style="text-align: justify;">The first step in the module installation is to upload the module folder to the Prestashop platform. For this procedure, you have two options to follow:</p>
+<h3 style="text-align: justify;">From FTP</h3>
+<p style="text-align: justify;">You have to unzip the module file and using FTP software such as FileZilla or similar, upload it to the Modules folder located in the root directory of the store.</p>
+<h3 style="text-align: justify;">From the Prestashop Back-office</h3>
+<p style="text-align: justify;">Depending on the version of Prestashop installed (1.6 or 1.7) the procedure may vary a bit, however the principle of the process is the same.</p>
+<p style="text-align: justify;">You can find more information about this process at the following link:</p>
+<p style="text-align: justify;"><a href="https://addons.prestashop.com/en/content/13-installing-modules" target="_blank" rel="noopener noreferrer">https://addons.prestashop.com/en/content/13-installing-modules</a></p>
+<h4 style="text-align: justify;"><strong>Prestashop 1.6</strong></h4>
+<p style="text-align: justify;">You have to access the <strong>Modules and Services</strong> tab, click on <strong>Add a new module</strong>, then select the compressed file of the module that you have previously downloaded from the official page of Prestashop Addons, and click on <strong>Upload this module</strong>.</p>
+<p style="text-align: justify;">Once the upload process is finished, you will be able to view the module in the list of available modules and with the option to install.</p>
+<h4 style="text-align: justify;"><strong>Prestashop 1.7</strong></h4>
+<p style="text-align: justify;">In this case you have to access the <strong>Modules</strong> tab and click on <strong>Module Catalog</strong>. In the upper right corner you will find a button that says Install a module, click on it and you will be able to select or drag the compressed file of the module that you have downloaded from the Prestashop Addons page. You can install the module from the moment you have uploaded it or by accessing the list of modules in <strong>Module management </strong>within the same <strong>Modules</strong> section.</p>
+<p>&nbsp;</p>
+<h2 style="text-align: justify;"><strong>2. Installation</strong></h2>
+<p style="text-align: justify;">Once uploaded, you have to access the list of modules, search for the module and click on the <strong>INSTALL</strong> button</p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2475 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/install-10.png" alt="" width="336" height="426" srcset="https://documentation.liewebs.com/wp-content/uploads/install-10.png 336w, https://documentation.liewebs.com/wp-content/uploads/install-10-237x300.png 237w" sizes="(max-width: 336px) 100vw, 336px" /></p>
+<p>Once the installation process is finished, you can access the module configuration page by clicking on <strong>CONFIGURE</strong></p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2473 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/configure-10.png" alt="" width="1394" height="112" srcset="https://documentation.liewebs.com/wp-content/uploads/configure-10.png 1394w, https://documentation.liewebs.com/wp-content/uploads/configure-10-300x24.png 300w, https://documentation.liewebs.com/wp-content/uploads/configure-10-1024x82.png 1024w, https://documentation.liewebs.com/wp-content/uploads/configure-10-768x62.png 768w" sizes="(max-width: 1394px) 100vw, 1394px" /></p>
+</div>  </section>
+
+  <section id="configuration" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#configuration' class='header-link'><i class='fa fa-link'></i></a>Configuration</h2><p><img decoding="async" loading="lazy" class="size-full wp-image-2512 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/Settings-7.png" alt="" width="1920" height="1541" srcset="https://documentation.liewebs.com/wp-content/uploads/Settings-7.png 1920w, https://documentation.liewebs.com/wp-content/uploads/Settings-7-300x241.png 300w, https://documentation.liewebs.com/wp-content/uploads/Settings-7-1024x822.png 1024w, https://documentation.liewebs.com/wp-content/uploads/Settings-7-768x616.png 768w, https://documentation.liewebs.com/wp-content/uploads/Settings-7-1536x1233.png 1536w, https://documentation.liewebs.com/wp-content/uploads/Settings-7-1568x1258.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<h4> </h4>
+<h4>Activation settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2477 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/activation_settings.png" alt="" width="1402" height="735" srcset="https://documentation.liewebs.com/wp-content/uploads/activation_settings.png 1402w, https://documentation.liewebs.com/wp-content/uploads/activation_settings-300x157.png 300w, https://documentation.liewebs.com/wp-content/uploads/activation_settings-1024x537.png 1024w, https://documentation.liewebs.com/wp-content/uploads/activation_settings-768x403.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Back-office validation:</strong> This option enables or disables the validation of VAT numbers in the Back-office address form and also from CRON tasks or driver requests executed from the admin part to import customers or orders.</li>
+<li style="text-align: justify;"><strong>Front-office validation:</strong> This option activates or deactivates the validation of VAT numbers in the Front-office address and checkout form.<br />
+Countries for validation: Select the countries for which the system will perform the validation of VAT numbers. According to the legislative framework, they have to be countries that are within the European Union.<br />
+<div class="alert alert-info">This option comes predefined with all the countries of the European Union selected. Under normal conditions you should not modify this option.</div></li>
+</ul>
+<p style="text-align: justify;"><div class="alert alert-info">The United Kingdom country is also selected by default, since Northern Ireland belongs to the United Kingdom but is within the European Union, and United Kingdom must be selected in order to validate UK VAT numbers to comply with the option » Brexit» with the regulation of the collection of taxes at the threshold of 135 pounds.</div></p>
+<h4>General settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2478 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/general_settings-1.png" alt="" width="1402" height="414" srcset="https://documentation.liewebs.com/wp-content/uploads/general_settings-1.png 1402w, https://documentation.liewebs.com/wp-content/uploads/general_settings-1-300x89.png 300w, https://documentation.liewebs.com/wp-content/uploads/general_settings-1-1024x302.png 1024w, https://documentation.liewebs.com/wp-content/uploads/general_settings-1-768x227.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Merchant VAT:</strong> Insert the merchant&#8217;s VAT number. This data is necessary for the activation of the 2-way validation type. For an invoice to be fully legal for tax exemption in intra-community transactions, both the merchant and the customer must have a valid VAT number registered. For this reason, 2-way validation is the safest and most correct way to validate intra-community transactions.<br />
+In case of selecting the type of validation by 1 route, it would not be necessary to insert the VAT number in this option.</li>
+</ul>
+<h4>Advanced settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2479 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/advanced_settings-1.png" alt="" width="1402" height="579" srcset="https://documentation.liewebs.com/wp-content/uploads/advanced_settings-1.png 1402w, https://documentation.liewebs.com/wp-content/uploads/advanced_settings-1-300x124.png 300w, https://documentation.liewebs.com/wp-content/uploads/advanced_settings-1-1024x423.png 1024w, https://documentation.liewebs.com/wp-content/uploads/advanced_settings-1-768x317.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Display warning messages in the address:</strong> Shows warning messages in the addresses section of the account when the client has created addresses that have not been validated yet or that have an invalid company or VAT number field. This serves to notify the client that they must modify these addresses. The warning messages depend on the options chosen within the module configuration page (VAT field, Company Validation&#8230;).
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2482 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/warning_addreses.png" alt="" width="1920" height="571" srcset="https://documentation.liewebs.com/wp-content/uploads/warning_addreses.png 1920w, https://documentation.liewebs.com/wp-content/uploads/warning_addreses-300x89.png 300w, https://documentation.liewebs.com/wp-content/uploads/warning_addreses-1024x305.png 1024w, https://documentation.liewebs.com/wp-content/uploads/warning_addreses-768x228.png 768w, https://documentation.liewebs.com/wp-content/uploads/warning_addreses-1536x457.png 1536w, https://documentation.liewebs.com/wp-content/uploads/warning_addreses-1568x466.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /><br />
+<img decoding="async" loading="lazy" class="aligncenter wp-image-2484 size-large" src="https://documentation.liewebs.com/wp-content/uploads/warning_addr-1024x909.png" alt="" width="640" height="568" srcset="https://documentation.liewebs.com/wp-content/uploads/warning_addr-1024x909.png 1024w, https://documentation.liewebs.com/wp-content/uploads/warning_addr-300x266.png 300w, https://documentation.liewebs.com/wp-content/uploads/warning_addr-768x681.png 768w, https://documentation.liewebs.com/wp-content/uploads/warning_addr.png 1144w" sizes="(max-width: 640px) 100vw, 640px" /></li>
+<li style="text-align: justify;"><strong>Do not allow checkout when the address is incomplete:</strong> Shows an error message during the purchase process so that the customer enters the address and updates the data when he has an incomplete address because he has not yet validated his VAT number, company or has a wrong value in these fields. The error messages depend on the options chosen within the module configuration page (VAT field, Company validation&#8230;).<br />
+<img decoding="async" loading="lazy" class="aligncenter wp-image-2483 size-large" src="https://documentation.liewebs.com/wp-content/uploads/error_checkout_address-986x1024.png" alt="" width="640" height="665" srcset="https://documentation.liewebs.com/wp-content/uploads/error_checkout_address-986x1024.png 986w, https://documentation.liewebs.com/wp-content/uploads/error_checkout_address-289x300.png 289w, https://documentation.liewebs.com/wp-content/uploads/error_checkout_address-768x797.png 768w, https://documentation.liewebs.com/wp-content/uploads/error_checkout_address.png 1131w" sizes="(max-width: 640px) 100vw, 640px" /><br />
+<div class="alert alert-warning">The customer will not be able to continue with the purchase process until the error in their addresses is resolved.</div></li>
+<li style="text-align: justify;"><strong>Custom Price Block:</strong> Option to display custom text on the product page [below the price] when a customer has a registered address with a valid VAT number and is exempt from paying taxes.
+<p><img decoding="async" loading="lazy" class="aligncenter wp-image-2485 size-large" src="https://documentation.liewebs.com/wp-content/uploads/price_block-1024x887.png" alt="" width="640" height="554" srcset="https://documentation.liewebs.com/wp-content/uploads/price_block-1024x887.png 1024w, https://documentation.liewebs.com/wp-content/uploads/price_block-300x260.png 300w, https://documentation.liewebs.com/wp-content/uploads/price_block-768x665.png 768w, https://documentation.liewebs.com/wp-content/uploads/price_block.png 1162w" sizes="(max-width: 640px) 100vw, 640px" /></li>
+</ul>
+<h4>Validation settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2562 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/validation_settings-1.png" alt="" width="1400" height="1209" srcset="https://documentation.liewebs.com/wp-content/uploads/validation_settings-1.png 1400w, https://documentation.liewebs.com/wp-content/uploads/validation_settings-1-300x259.png 300w, https://documentation.liewebs.com/wp-content/uploads/validation_settings-1-1024x884.png 1024w, https://documentation.liewebs.com/wp-content/uploads/validation_settings-1-768x663.png 768w" sizes="(max-width: 1400px) 100vw, 1400px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Validation system:</strong> Select the validation system for VIES or GOV.UK. The 1-way option validates the customer&#8217;s VAT numbers without verifying that the merchant has a valid VAT number. The 2-way option verifies that the merchant has a valid VAT number before verifying the customer&#8217;s VAT number. In the event that both have valid VAT numbers, then the validation process is completed successfully.<br />
+<div class="alert alert-info">To make use of the 2-way validation system, a valid merchant VAT number must be inserted in the «General Settings» section</div></li>
+<li style="text-align: justify;"><strong>Validation mode:</strong> You can choose between strict or smart validation system.<br />
+<span style="text-decoration: underline;">Strict validation system:</span> The system verifies that the format of the VAT number is correct and does not contain invalid characters. Example of invalid format: FR-25.458.473, FR 25 458 473, FR25.458.473<br />
+Valid format example: FR25458473<br />
+<span style="text-decoration: underline;">Intelligent validation system:</span> The system validates the format of the VAT number even if it contains the invalid characters of the previous example. These characters will be removed and the VAT number will be extracted with its correct format. Example: FR-25.458.473 will be converted to the correct FR25458473 format.</li>
+<li style="text-align: justify;"><strong>Validation type:</strong> You can choose between «Format Validation» and «Format + API»<br />
+<span style="text-decoration: underline;">Format validation:</span> The system only validates VAT numbers according to their format in the numbering with their ISO code. But this type of validation does not perform the official validation through the validation API system, so it is not guaranteed that the inserted VAT number is registered in the VIES or GOV.UK system for intra-community operations.<br />
+<span style="text-decoration: underline;">Format + API:</span> The system performs a complete validation procedure, starting with the number format validation and followed by the official VIES or GOV.UK validation (if you have the Brexit option activated and it is a UK VAT number) . This option is the safest and most reliable to be able to validate the correct VAT numbers, ensuring that they are officially registered with VIES or GOV.UK.</li>
+<li style="text-align: justify;"><strong>Company Validation:</strong> If this option is enabled, the system will check the company name entered by the customer against the company name that is registered with the VIES or GOV.UK official bodies when the customer enters their VAT number . If they do not match, it will not allow you to continue with the address creation process.</li>
+<li style="text-align: justify;"><strong>Auto-insert company name:</strong> If this option is activated, the system will extract the data of the company name that is registered in the official bodies VIES or GOV.UK, when the client inserts his VAT number and will save it in the field «company name». In the event that a client has entered a different company name than the one registered with official bodies, this will be replaced by the correct name. In this way, the customer&#8217;s address will always contain the name of the correct and officially registered company.</li>
+<li style="text-align: justify;"><strong>Allow duplicate VAT:</strong> This option allows the registration of different customers with the same VAT numbers.</li>
+<li style="text-align: justify;"><strong>Skip API system fail:</strong> This option allows you to skip validation in case the VIES validation system fails during its verification process. It rarely happens that the VIES system fails, but it is a long shot.</li>
+<li style="text-align: justify;"><strong>Save in uppercase:</strong> The system saves the VAT number with its ISO code in uppercase when a customer registers a valid address.<br />
+Blacklist: Set VAT numbers on a blacklist to disallow the registration of customers with some of these numbers. Write one by one separated by commas.</li>
+</ul>
+<h4>Order status management</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2514 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/order_state_manager.png" alt="" width="1412" height="510" srcset="https://documentation.liewebs.com/wp-content/uploads/order_state_manager.png 1412w, https://documentation.liewebs.com/wp-content/uploads/order_state_manager-300x108.png 300w, https://documentation.liewebs.com/wp-content/uploads/order_state_manager-1024x370.png 1024w, https://documentation.liewebs.com/wp-content/uploads/order_state_manager-768x277.png 768w" sizes="(max-width: 1412px) 100vw, 1412px" /></p>
+<p style="text-align: justify;">The module creates two predefined order statuses during the installation phase:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li><strong>VAT number pending validation</strong></li>
+<li><strong>VAT number validated</strong></li>
+</ul>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2518 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/order_states_.png" alt="" width="1663" height="95" srcset="https://documentation.liewebs.com/wp-content/uploads/order_states_.png 1663w, https://documentation.liewebs.com/wp-content/uploads/order_states_-300x17.png 300w, https://documentation.liewebs.com/wp-content/uploads/order_states_-1024x58.png 1024w, https://documentation.liewebs.com/wp-content/uploads/order_states_-768x44.png 768w, https://documentation.liewebs.com/wp-content/uploads/order_states_-1536x88.png 1536w, https://documentation.liewebs.com/wp-content/uploads/order_states_-1568x90.png 1568w" sizes="(max-width: 1663px) 100vw, 1663px" /></p>
+<p style="text-align: justify;">In this section you can enable the option to display these order statuses when a customer places an order and one of these two situations occurs:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li style="text-align: justify;"><strong>Order status when VAT is validated:</strong> When a customer has placed an order and their VAT number has been validated correctly. In this case, the configured order status will be displayed at the beginning and then the predefined order status for the payment method used by the customer will be displayed.</li>
+<li style="text-align: justify;"><strong>Order status when the API system fails:</strong> When a customer has placed an order and their VAT number could not be validated due to a failure in the API validation system and the «Skip validation» option is activated in the «Validation Settings» section. In this case, the customer will be able to continue with the purchase process and will be able to place the order, however, the status defined in this option will be displayed to notify the customer that their order is pending validation of their VAT number when service is restored. You must perform the validation of the VAT number manually from the «Customer VAT management» section and once the validation has been completed, manually change to another desired order status.</li>
+</ul>
+<p style="text-align: justify;">You can also use any available order status to use in either of these two situations by selecting it from the dropdown available in each option.</p>
+<h4>Customer group assignation by country</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2516 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/group_asignment.png" alt="" width="1400" height="3357" srcset="https://documentation.liewebs.com/wp-content/uploads/group_asignment.png 1400w, https://documentation.liewebs.com/wp-content/uploads/group_asignment-125x300.png 125w, https://documentation.liewebs.com/wp-content/uploads/group_asignment-427x1024.png 427w, https://documentation.liewebs.com/wp-content/uploads/group_asignment-768x1842.png 768w, https://documentation.liewebs.com/wp-content/uploads/group_asignment-641x1536.png 641w, https://documentation.liewebs.com/wp-content/uploads/group_asignment-854x2048.png 854w" sizes="(max-width: 1400px) 100vw, 1400px" /></p>
+<p style="text-align: justify;">In this section you can select the allocation of customer groups by country. If you select the value «disabled» no group will be assigned to the client.</p>
+<p style="text-align: justify;">Customer group assignment is only made when a customer creates a new address or modifies a previously created address and that address contains a system-validated VAT number.</p>
+<p style="text-align: justify;"><div class="alert alert-info">If a customer has several addresses from different countries with valid VAT numbers, the system will assign as many groups as you have configured by country in this section. As soon as the client eliminates the address and does not have more addresses related to the same country, the system will eliminate it from the group corresponding to that country.</div></p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li style="text-align: justify;"><strong>Use as default group:</strong> If this option is activated, the group assigned to the client will be configured as the default group of this client. If the client adds more addresses with valid VAT numbers from different countries, the default group will change to the one corresponding to the last added address. The default group will be eliminated and changed to the next validated address whenever the client eliminates an address corresponding to a country and does not have more addresses from the same country.</li>
+<li style="text-align: justify;"><strong>Change default group with address:</strong> This option allows you to change the default customer group associated with the country in this section when the customer selects a default address or during checkout. If the selected address does not have a valid VAT number, the system will switch to the default customer group that has been configured in Prestashop customer settings (By default it is in «Customers» group). This option only changes the default client group, it does not assign or remove the client from the groups to which it is assigned.</li>
+<li style="text-align: justify;"><strong>Remove customer from another groups:</strong> When the customer creates a specific address with a valid VAT number, the system will assign them to the customer group selected by the country of their address and in turn will remove them from the rest of the groups where they were already assigned, including the Prestashop default group «customers». It will also assign the group to which it has been assigned as the default group.</li>
+</ul>
+<p style="text-align: justify;">Practical example for a better understanding of the options</p>
+<p style="text-align: justify;">Client: John DOE</p>
+<p style="text-align: justify;"><span style="text-decoration: underline;">Conditions</span></p>
+<ul style="list-style-type: square; text-align: justify;">
+<li><strong>Group assignment by country Germany:</strong> Selected with the group «VAT Customers from Germany»</li>
+<li><strong>Group assignment by country Spain:</strong> Selected with the group «VAT Clients of Spain»</li>
+<li>Other group options by country «Disabled»</li>
+<li>Option «Use default group» activated.</li>
+<li><strong>Default customer group in Prestashop for customers:</strong> «Customers»</li>
+<li>Option «Remove client from other groups» disabled.</li>
+</ul>
+<ol style="text-align: justify;">
+<li>The customer registers for the first time in the store and automatically already belongs to the «Customers» group and this same group is selected by default.</li>
+<li>The customer creates a new address in Germany with a valid VAT number. The system adds you to the group «VAT Customers from Germany» and selects this group as the default group. Now the customer belongs to two groups: «Customers» and «German VAT Customers».</li>
+<li>The customer modifies this address and changes the country to Sweden. The system removes you from the «German VAT Customers» group and returns you to the default «Customers» group, which is the only group you are assigned to.</li>
+<li>The client adds two more addresses, one from Germany and later another from Spain. The system adds it to the group «VAT Customers from Germany» and «VAT Customers from Spain» and assigns it to the last created default group «VAT Customers from Spain».</li>
+<li>The client eliminates the address of Spain. The system removes it from the «VAT Clients of Spain» group and assigns it to the default group «VAT Clients of Germany» since it is the next address that has been created.</li>
+<li>The client decides to remove all addresses. The system removes it from all assigned groups and reassigns it to the default Prestashop group «Customers» so that it continues to belong to a default group.</li>
+</ol>
+<p style="text-align: justify;">In any case, and as long as the «Remove customer from other groups» option is not activated, the customer will always belong to the group that was previously assigned and is not one of those configured by country in the module. The system will never alter the assignment of that group. Only assign or deallocate the group selected by country in this module.</p>
+<h4>VAT exemption settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2488 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/vat_exemption_settings.png" alt="" width="1402" height="744" srcset="https://documentation.liewebs.com/wp-content/uploads/vat_exemption_settings.png 1402w, https://documentation.liewebs.com/wp-content/uploads/vat_exemption_settings-300x159.png 300w, https://documentation.liewebs.com/wp-content/uploads/vat_exemption_settings-1024x543.png 1024w, https://documentation.liewebs.com/wp-content/uploads/vat_exemption_settings-768x408.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;">VAT exemption: Activate this option if you want taxes to be eliminated both in the display of prices and in the calculation of prices in the shopping cart for customers with valid VAT numbers.</li>
+<li style="text-align: justify;"><strong>Address Type:</strong> Select the type of address for tax exemption. The options are «Delivery address», «Billing address», «Billing and delivery address». The client will be exempt from taxes if he has a valid VAT number in the type of address selected, or in one of them in the case of selecting both types of addresses.</li>
+<li style="text-align: justify;"><strong>Local country:</strong> This option allows you to assign the local country where prices and purchases are taxed regardless of whether you have a valid VAT number or not. <strong>The module does not validate the VAT number of customers with addresses corresponding to the local country</strong>.</li>
+<li style="text-align: justify;"><strong>Exemption of customer groups:</strong> This option allows you to eliminate taxes for certain groups of customers, even if the VAT number is valid or not. Leave it empty to disable it for all customer groups. If you check any groups, the tax exemption will only apply for customers in the selected groups. This option is completely independent of the [VAT exemption] option</li>
+</ul>
+<h4>Invoice settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2489 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/invoice_settings.png" alt="" width="1402" height="474" srcset="https://documentation.liewebs.com/wp-content/uploads/invoice_settings.png 1402w, https://documentation.liewebs.com/wp-content/uploads/invoice_settings-300x101.png 300w, https://documentation.liewebs.com/wp-content/uploads/invoice_settings-1024x346.png 1024w, https://documentation.liewebs.com/wp-content/uploads/invoice_settings-768x260.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Invoice Legal Text:</strong> Insert content to be displayed within the legal text section of the invoice, only in invoices related to VAT exemption. The field is multi language.</li>
+<li style="text-align: justify;"><strong>Invoice note:</strong> Insert content to be displayed within the invoice note section, only in invoices related to VAT exemption. The field is multi-language and with a rich text editor.</li>
+</ul>
+<h4>VAT field settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2490 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/vat_field_settings.png" alt="" width="1402" height="756" srcset="https://documentation.liewebs.com/wp-content/uploads/vat_field_settings.png 1402w, https://documentation.liewebs.com/wp-content/uploads/vat_field_settings-300x162.png 300w, https://documentation.liewebs.com/wp-content/uploads/vat_field_settings-1024x552.png 1024w, https://documentation.liewebs.com/wp-content/uploads/vat_field_settings-768x414.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>VAT field:</strong> You can make this field mandatory or optional.</li>
+<li style="text-align: justify;"><strong>Show only for company:</strong> If this option is activated, the VAT number field will remain hidden until the company name field is filled.<div class="alert alert-info">If you have selected the field as mandatory and have the option to show only for the company activated, when the VAT number field is hidden, it will become optional.</div></li>
+<li style="text-align: justify;"><strong>Label:</strong> Insert the content that will be displayed as a label in the VAT number field. This field is multi language.</li>
+<li style="text-align: justify;"><strong>Legend:</strong> Insert the content that will be displayed as a description/legend in the VAT number field. This field is multi language.</li>
+</ul>
+<p style="text-align: justify;"><div class="alert alert-info">These options may not work if you have installed a module that manages the checkout page. This happens with most checkout modules. However, there are some modules that can support some of these options (Example: SUNNYTOO.COM Easy Checkout Module or Presteamshop One Page Checkout Prestashop Module). If the module being used to manage the checkout page has options for the VAT number field, you must use the module&#8217;s own settings.</div></p>
+<h4>Brexit settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2491 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/brexit_settings.png" alt="" width="1402" height="831" srcset="https://documentation.liewebs.com/wp-content/uploads/brexit_settings.png 1402w, https://documentation.liewebs.com/wp-content/uploads/brexit_settings-300x178.png 300w, https://documentation.liewebs.com/wp-content/uploads/brexit_settings-1024x607.png 1024w, https://documentation.liewebs.com/wp-content/uploads/brexit_settings-768x455.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Brexit:</strong> Activate the option to comply with the Brexit regulations to apply taxes at the point of sale on purchases equal to or less than £135 if the customer has a valid UK VAT number.</li>
+<li style="text-align: justify;"><strong>Business VAT Exemption:</strong> This option allows businesses with a valid VAT number to be tax exempt for purchases equal to or less than 135GBP.</li>
+<li><strong>Do not allow orders:</strong> This option enables the store to not allow orders whose amount in the shopping cart exceeds or is less than 135 pounds. Select «Disabled» to disable this option.</li>
+</ul>
+<p style="text-align: justify;">This system works in accordance with the Brexit regulations. If a customer wants to make a purchase with a United Kingdom address with a valid UK VAT number, if the total amount of the cart (Only your products) is equal to or less than 135 pounds, then the store will apply the taxes corresponding to that country. If the customer adds products to the cart and exceeds the threshold of 135 pounds, then the system will remove the taxes for that purchase.</p>
+<p style="text-align: justify;"><div class="alert alert-info">The system calculates the total of the shopping cart in real time each time the customer updates their shopping cart.</div></p>
+<p style="text-align: justify;"><div class="alert alert-warning">For this option to work, the currency of the United Kingdom must be installed through the corresponding option in the BO, currency section (it does not have to be activated in the FO, it is enough to have the currency installed and the exchange rate updated) . To have the exchange rate updated, the corresponding option must be executed within the currency section or through the CRON task.
+<p style="text-align: justify;"><img decoding="async" loading="lazy" class="size-full wp-image-2492 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/currency.png" alt="" width="1920" height="919" srcset="https://documentation.liewebs.com/wp-content/uploads/currency.png 1920w, https://documentation.liewebs.com/wp-content/uploads/currency-300x144.png 300w, https://documentation.liewebs.com/wp-content/uploads/currency-1024x490.png 1024w, https://documentation.liewebs.com/wp-content/uploads/currency-768x368.png 768w, https://documentation.liewebs.com/wp-content/uploads/currency-1536x735.png 1536w, https://documentation.liewebs.com/wp-content/uploads/currency-1568x751.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;"></p></div></p>
+<p style="text-align: justify;"><div class="alert alert-info"><strong>During the installation phase of the module, the country of United Kingdom will be configured so that it shows the provinces that will previously be inserted by the module. About 232 provinces will be inserted. In this way, the system ensures that when a customer buys from Northern Ireland, which belongs to the United Kingdom, the general system of intra-community purchases is applied, like the other countries of the European Union.</strong></div></p>
+<h4>Email settings</h4>
+<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2520" src="https://documentation.liewebs.com/wp-content/uploads/email_settings-1.png" alt="" width="1402" height="542" srcset="https://documentation.liewebs.com/wp-content/uploads/email_settings-1.png 1402w, https://documentation.liewebs.com/wp-content/uploads/email_settings-1-300x116.png 300w, https://documentation.liewebs.com/wp-content/uploads/email_settings-1-1024x396.png 1024w, https://documentation.liewebs.com/wp-content/uploads/email_settings-1-768x297.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Email addresses:</strong> You can configure different email addresses to receive email from this module. You must enter a correct email address. For multiple addresses, you must write them separated with commas (Ex: test@test.com, test2@test2.com&#8230;).</li>
+<li style="text-align: justify;"><strong>API Alert Email:</strong> Send an alert email to the selected addresses, when the customer registers and the VAT validation by the API system fails.</li>
+<li style="text-align: justify;"><strong>Send email to client when API fails:</strong> Sends an email to the customer when they have placed an order with an address created where VAT number validation failed due to API system failure and the «Skip validation» option from the «Validation Settings» section has been activated.</li>
+<li style="text-align: justify;"><strong>Customer validation email:</strong> Send email informing when the customer registers and the VAT validation by VIES or GOV.UK is successful.</li>
+</ul>
+<h4>CRON settings</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2563 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/cron_settings.png" alt="" width="1400" height="1569" srcset="https://documentation.liewebs.com/wp-content/uploads/cron_settings.png 1400w, https://documentation.liewebs.com/wp-content/uploads/cron_settings-268x300.png 268w, https://documentation.liewebs.com/wp-content/uploads/cron_settings-914x1024.png 914w, https://documentation.liewebs.com/wp-content/uploads/cron_settings-768x861.png 768w, https://documentation.liewebs.com/wp-content/uploads/cron_settings-1371x1536.png 1371w" sizes="(max-width: 1400px) 100vw, 1400px" /></p>
+<p style="text-align: justify;">In this section you will be able to configure the options to execute with the CRON task of analyzing addresses and validating customer VAT numbers. This CRON task is exactly the same as the module scanning system in the «VAT Management» section. It is very useful to schedule the scanning system automatically and on a daily basis to ensure that customers continue to keep their VAT number valid at all times. In this way, the merchant ensures that the tax-exempt purchase operations are carried out in accordance with the regulations on intra-community operations with a valid VAT number.</p>
+<p style="text-align: justify;"><strong>This scheduled task will update the list of customers in the «VAT Management» section.</strong></p>
+<p style="text-align: justify;"><div class="alert alert-warning">In the event that the CRON task process is interrupted for some reason or you want to start the scan from the last address previously scanned, activate the option <strong>«Continue the scanning process from the last scanned address»</strong>. The system will start the scan from the last scanned address and not from the beginning.</div></p>
+<p style="text-align: justify;"><div class="alert alert-info">It is recommended that you run this scheduled task at night or during off-peak hours in the store to avoid performance issues.</div></p>
+<p>&nbsp;</p>
+</div>  </section>
+
+  <section id="module-sections-in-admin-panel" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#module-sections-in-admin-panel' class='header-link'><i class='fa fa-link'></i></a>Module Sections in Admin Panel</h2><h4>Admin Menu Tabs</h4>
+<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2537" src="https://documentation.liewebs.com/wp-content/uploads/admin_tabsen.png" alt="" width="209" height="245" /></p>
+<p style="text-align: justify;">When the module is installed, the system incorporates some sections in the administration panel:</p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Customer VAT Number Management:</strong> This section shows a list of customers who have registered an address and the result of the validation of the VAT and company fields. Actions can also be carried out such as scanning addresses, sending emails to clients to notify them that they have an invalid VAT number, checking the VAT number in official systems, etc&#8230;</li>
+<li style="text-align: justify;"><strong>Customer VAT Exemption Management:</strong> This section shows a list with the customers who have been granted manually, who are exempt or forced to paying taxes in the store.</li>
+<li style="text-align: justify;"><strong>Order management:</strong> This section shows a list of the orders made by customers who have a valid VAT number and are exempt from taxes or belong to Brexit.</li>
+<li style="text-align: justify;"><strong>VAT Check Tool:</strong> With this tool you can make queries about the VAT numbers to the platforms of official bodies and thus check if the VAT number is valid and know details such as the name of the company registered with that number.</li>
+</ul>
+</div>  </section>
+
+  <section id="customer-vat-management" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#customer-vat-management' class='header-link'><i class='fa fa-link'></i></a>Customer VAT Management</h2><h4>Customer VAT Management</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2495 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/customer_vat_management.png" alt="" width="1920" height="1407" srcset="https://documentation.liewebs.com/wp-content/uploads/customer_vat_management.png 1920w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_management-300x220.png 300w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_management-1024x750.png 1024w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_management-768x563.png 768w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_management-1536x1126.png 1536w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_management-1568x1149.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;">In this section, on the one hand we have the list of all the clients that have addresses that meet the criteria (countries for validation) to be able to have a VAT number, and on the other hand we have a scanning system that checks all the addresses stored in the database and that meet the same criteria and performs the validation of their VAT numbers.</p>
+<p style="text-align: justify;">Every time a customer registers an address that meets the VAT number validation requirements, it will be automatically inserted in this list with all the details indicated in the table.</p>
+<p style="text-align: justify;">A statistics table is also available so you can view the total numbers of addresses that have a valid or invalid VAT number and company field.</p>
+<p style="text-align: justify;"><div class="alert alert-info"><strong>If the module has been installed for the first time, a first scan must be carried out to validate the VAT numbers and insert them in the list.</strong></div></p>
+<h4 style="text-align: justify;">Customer VAT list</h4>
+<p style="text-align: justify;"><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2496" src="https://documentation.liewebs.com/wp-content/uploads/customer_vat_list.png" alt="" width="1685" height="164" srcset="https://documentation.liewebs.com/wp-content/uploads/customer_vat_list.png 1685w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_list-300x29.png 300w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_list-1024x100.png 1024w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_list-768x75.png 768w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_list-1536x149.png 1536w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_list-1568x153.png 1568w" sizes="(max-width: 1685px) 100vw, 1685px" /></p>
+<p style="text-align: justify;">In this list we can obtain, among others, the following useful information for the client:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li style="text-align: justify;"><strong>Customer Name:</strong> This is the name of the customer registered on the address form</li>
+<li style="text-align: justify;"><strong>Address:</strong> The customer&#8217;s address.</li>
+<li style="text-align: justify;"><strong>Country:</strong> The client&#8217;s country of registration.</li>
+<li style="text-align: justify;"><strong>Default Client Group:</strong> The default group that the registered client belongs to.</li>
+<li style="text-align: justify;"><strong>VAT number:</strong> The registered VAT number.</li>
+<li style="text-align: justify;"><strong>VAT Validation:</strong> Shows an icon to know if the VAT number is valid or not after the validation process.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2464" src="https://documentation.liewebs.com/wp-content/uploads/icono_vat_no.png" alt="" width="40" height="40" /> Invalid VAT<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2465" src="https://documentation.liewebs.com/wp-content/uploads/icono_vat_ok.png" alt="" width="40" height="40" /> Valid VAT<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2524" src="https://documentation.liewebs.com/wp-content/uploads/icono_vat_pending.png" alt="" width="61" height="42" /> VAT number validated by default of the validation system by failure of the API system when option «Skip validation» is enabled.</p>
+</li>
+<li style="text-align: justify;"><strong>Company validation:</strong> Shows an icon to know if the company name has been validated or not (If the Company Validation option is activated).<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2462" src="https://documentation.liewebs.com/wp-content/uploads/icono_ompany_no.png" alt="" width="40" height="40" /> Invalid company name.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2466" src="https://documentation.liewebs.com/wp-content/uploads/icono_company_checked.png" alt="" width="40" height="40" /> Valid company name.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2467" src="https://documentation.liewebs.com/wp-content/uploads/icono_company_nocheck.png" alt="" width="40" height="40" /> Company name not verified by the system (When the Company Validation option is disabled).</li>
+<li style="text-align: justify;"><strong>System check:</strong> Shows an icon to find out if the API validation process has worked correctly or there has been a connection problem with the system to validate the VAT numbers and company name.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2468" src="https://documentation.liewebs.com/wp-content/uploads/icono_comprobacion_novalido.png" alt="" width="40" height="40" /> Failed API validation process<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2463" src="https://documentation.liewebs.com/wp-content/uploads/icono_server_status.png" alt="" width="40" height="40" /> Successful API validation process</li>
+<li style="text-align: justify;"><strong>Status:</strong> Information on the status of the VAT number and the validation process.</li>
+<li style="text-align: justify;"><strong>Registration Date:</strong> The date and time when the customer has registered that address.</li>
+</ul>
+<p><span style="text-decoration: underline;"><strong><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2461" src="https://documentation.liewebs.com/wp-content/uploads/icono_info.png" alt="" width="40" height="40" /> Status</strong></span></p>
+<p style="text-align: justify;">Once the validation of the VAT number is carried out, it can present different statuses:</p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Invalid VAT number format:</strong> This means that an attempt was made to validate the VAT number format but it did not pass the format validation process.</li>
+<li style="text-align: justify;"><strong>Format validation:</strong> The VAT number has successfully passed the format validation process.</li>
+<li style="text-align: justify;"><strong>VAT number empty but VAT number field is optional:</strong> It has been detected that a VAT number has not been registered and the field is empty, but depending on the configured option, the field is optional. Therefore it passes the validation successfully.</li>
+<li style="text-align: justify;"><strong>VAT number empty:</strong> The VAT number field is empty and the field is required. In this case the validation does not pass.</li>
+<li style="text-align: justify;"><strong>[HTTP code (response code number) | VIES/GOV.UK 1-Way Validation]:</strong> Displayed when the chosen validation system type is VIES/GOV.UK 1-Way. The response code is displayed and ends with a message with the validation result.</li>
+<li style="text-align: justify;"><strong>[HTTP code (response code number) | VIES/GOV.UK 2-Way Validation]:</strong> Displayed when the chosen validation system type is VIES/GOV.UK 2-Way. The response code is displayed and ends with a message with the validation result.</li>
+<li style="text-align: justify;"><strong>The VAT number is duplicated:</strong> Indicates that there are other different customer addresses that have the same VAT number. In this case, it is validated even if it is a duplicate as long as the option to allow duplicate VAT numbers has been selected.</li>
+<li style="text-align: justify;"><strong>The company name (company name) does not match the company name registered with VIES/GOV.UK:</strong> The company name has not been validated because it does not match the name registered with official bodies.</li>
+<li style="text-align: justify;"><strong>The company name field is empty:</strong> The company name field is empty and must be indicated, for that reason it could not be validated correctly.</li>
+</ul>
+<h5 style="text-align: justify;">Options within the listing</h5>
+<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2497" src="https://documentation.liewebs.com/wp-content/uploads/customer_vat_list_options.png" alt="" width="244" height="234" /></p>
+<p>A series of actions can be performed on each record in the list, just as they can be performed in bulk when more than one record is selected.</p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>View customer details:</strong> Redirects to the customer details page.</li>
+<li style="text-align: justify;"><strong>Check VAT on VIES/GOV.UK:</strong> Checks the VAT number through the official APIs and displays the result in a popup window.
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2499 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/check_vat.png" alt="" width="650" height="500" srcset="https://documentation.liewebs.com/wp-content/uploads/check_vat.png 650w, https://documentation.liewebs.com/wp-content/uploads/check_vat-300x231.png 300w" sizes="(max-width: 650px) 100vw, 650px" /></li>
+<li style="text-align: justify;"><strong>Validate VAT manually:</strong> Validates the VAT number manually indicating that it is valid without going through any validation process.</li>
+<li style="text-align: justify;"><strong>Validate VAT with VIES/GOV.UK:</strong> Performs the validation process using the VIES or GOV.UK system (in the case of a UK VAT number) and displays the result, validating the number or not.</li>
+<li style="text-align: justify;"><strong>Send VAT validation request email:</strong> Sends an email to the customer requesting that they have to insert a valid VAT number in the address so that it can be validated.</li>
+<li style="text-align: justify;"><strong>Remove VAT:</strong> Empty the VAT number field for that address.</li>
+<li style="text-align: justify;"><strong>Delete:</strong> Delete the record from the database.</li>
+</ul>
+<h5 style="text-align: justify;">Edit and validate the VAT number</h5>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2500 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/edit_vat.png" alt="" width="1685" height="373" srcset="https://documentation.liewebs.com/wp-content/uploads/edit_vat.png 1685w, https://documentation.liewebs.com/wp-content/uploads/edit_vat-300x66.png 300w, https://documentation.liewebs.com/wp-content/uploads/edit_vat-1024x227.png 1024w, https://documentation.liewebs.com/wp-content/uploads/edit_vat-768x170.png 768w, https://documentation.liewebs.com/wp-content/uploads/edit_vat-1536x340.png 1536w, https://documentation.liewebs.com/wp-content/uploads/edit_vat-1568x347.png 1568w" sizes="(max-width: 1685px) 100vw, 1685px" /></p>
+<p style="text-align: justify;">You can manually modify the VAT number registered by the customer and validate it or not manually. The validation process is manual, that means that it will be valid or not depending on the option you choose without going through any format validation process or VIES.</p>
+<p style="text-align: justify;"><div class="alert alert-info">If the VAT number is changed, it will also be changed from the customer address section.</div></p>
+<p style="text-align: justify;"><div class="alert alert-info">If the address is removed from the addresses section, the record for that address will also be removed from this listing.</div></p>
+<h4 style="text-align: justify;">Customer VAT Scanner</h4>
+<p style="text-align: justify;">The function of the scanner is to carry out a complete scan of the database and extract the addresses of the clients that meet the conditions so that they can or must have the VAT number registered. It depends on the addresses that correspond to the countries chosen for validation.</p>
+<p style="text-align: justify;">During the scanning process, the validation process of the VAT number inserted in the address is also executed using the method selected in the validation options from the module configuration page.</p>
+<h5>Scan options</h5>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2564 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/scan_popup-2.png" alt="" width="662" height="919" srcset="https://documentation.liewebs.com/wp-content/uploads/scan_popup-2.png 662w, https://documentation.liewebs.com/wp-content/uploads/scan_popup-2-216x300.png 216w" sizes="(max-width: 662px) 100vw, 662px" /></p>
+<p style="text-align: justify;">Before performing the scan, a pop-up window will open to choose the options that you want the system to perform during the scan:</p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Continue the scanning process from the last scanned address:</strong> The system will start the scanning process from the last address scanned. This is very useful if for whatever reason the previous scan ended before the process was complete or if you want the system to start the scan from the last address instead of the beginning.</li>
+<li style="text-align: justify;"><strong>Skip API system fail:</strong> If you enable this option, the system will skip address VAT number validation when the VIES/GOV.UK API system fails and will give the VAT number as valid. In the system status, the icon will appear in red warning that there was an error during validation.</li>
+<li style="text-align: justify;"><strong>Delete address with empty VAT number field:</strong> Delete the customer address that has an empty VAT number field.</li>
+<li style="text-align: justify;"><strong>Delete address with invalid VAT number field:</strong> Delete the customer address that contains an invalid VAT number.</li>
+<li style="text-align: justify;"><strong>Delete address with duplicate VAT number:</strong> Delete the customer&#8217;s address that has a duplicate VAT number. The system is smart and only removes addresses that have entered a duplicate VAT number, keeping the addresses of the first original customer who first registered with that VAT number.</li>
+<li style="text-align: justify;"><strong>Send email to customers with invalid VAT number field:</strong> Send an email to customers who have the invalid VAT number on file.</li>
+<li style="text-align: justify;"><strong>Send email to customers with empty VAT number field:</strong> Send an email to customers who have the VAT number field empty.</li>
+<li style="text-align: justify;"><strong>Email customers with duplicate VAT number field:</strong> Send an email to customers who have a duplicate VAT number on file with another customer.</li>
+<li style="text-align: justify;"><strong>Assign customers with a valid VAT number to the group selected by country:</strong> Assigns the groups selected by countries in the «Customer group assignment» section to customers who have a valid VAT number.</li>
+<li style="text-align: justify;"><strong>Complete the company field in the address with the company registered in VIES or GOV.UK when the VAT number is valid:</strong> During the scanning process, the system will insert in the customer&#8217;s address, the company name that is registered in official bodies according to the indicated VAT number.</li>
+<li style="text-align: justify;"><strong>Email customers with an invalid business name on file:</strong> Send an email to the customer with the invalid business name. This option will be available if the «Company validation» option is activated in the module configuration.</li>
+<li style="text-align: justify;"><strong>Send email to customers with empty company name:</strong> Send an email to the customer who has the empty company name field. This option will be available if the «Company validation» option is activated in the module configuration.</li>
+</ul>
+<p style="text-align: justify;"><strong>Once the scanner is done, a button will appear to refresh the page and thus be able to view the updated list. You can also download the excel list of customers with VAT numbers from a button.</strong></p>
+<p style="text-align: justify;"><div class="alert alert-warning">Depending on the number of addresses stored in the database, the scanning process could take a few minutes, even hours. We recommend that in the case of having thousands of addresses stored in the database, the scanning process is run at appropriate times with little activity in the store, to avoid performance problems.</div></p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2502 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/scan_result.png" alt="" width="1653" height="561" srcset="https://documentation.liewebs.com/wp-content/uploads/scan_result.png 1653w, https://documentation.liewebs.com/wp-content/uploads/scan_result-300x102.png 300w, https://documentation.liewebs.com/wp-content/uploads/scan_result-1024x348.png 1024w, https://documentation.liewebs.com/wp-content/uploads/scan_result-768x261.png 768w, https://documentation.liewebs.com/wp-content/uploads/scan_result-1536x521.png 1536w, https://documentation.liewebs.com/wp-content/uploads/scan_result-1568x532.png 1568w" sizes="(max-width: 1653px) 100vw, 1653px" /></p>
+</div>  </section>
+
+  <section id="customer-exemption-management" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#customer-exemption-management' class='header-link'><i class='fa fa-link'></i></a>Customer Exemption Management</h2><h4 style="text-align: justify;">Customer VAT Exemption Management</h4>
+<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2539" src="https://documentation.liewebs.com/wp-content/uploads/customer_vat_exemption.png" alt="" width="1920" height="919" srcset="https://documentation.liewebs.com/wp-content/uploads/customer_vat_exemption.png 1920w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_exemption-300x144.png 300w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_exemption-1024x490.png 1024w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_exemption-768x368.png 768w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_exemption-1536x735.png 1536w, https://documentation.liewebs.com/wp-content/uploads/customer_vat_exemption-1568x751.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;">In this section, customers can be added manually to whom the tax exemption or imposition will be applied, regardless of whether they have an address with a valid VAT number or not, or meet the other conditions. This configuration will always have priority over the rest.</p>
+<p style="text-align: justify;">If a customer is added to this list and qualified for tax exemption. Both the prices of the products and the orders can be made exempt from taxes in any condition, and vice versa in the event that you are forced to pay taxes.</p>
+<p style="text-align: justify;">This is very useful when you want to apply the exemption or the obligation to pay taxes to certain customers who meet a series of conditions or by express wish.</p>
+<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2528" src="https://documentation.liewebs.com/wp-content/uploads/add_customer_exemption.png" alt="" width="1685" height="632" srcset="https://documentation.liewebs.com/wp-content/uploads/add_customer_exemption.png 1685w, https://documentation.liewebs.com/wp-content/uploads/add_customer_exemption-300x113.png 300w, https://documentation.liewebs.com/wp-content/uploads/add_customer_exemption-1024x384.png 1024w, https://documentation.liewebs.com/wp-content/uploads/add_customer_exemption-768x288.png 768w, https://documentation.liewebs.com/wp-content/uploads/add_customer_exemption-1536x576.png 1536w, https://documentation.liewebs.com/wp-content/uploads/add_customer_exemption-1568x588.png 1568w" sizes="(max-width: 1685px) 100vw, 1685px" /></p>
+<p style="text-align: justify;">If you have activated the multi-store mode, you can add the exemption or obligation to pay taxes to the customer in certain stores or for all stores.</p>
+<p style="text-align: justify;"><div class="alert alert-warning">When the client is included in this list, one of the conditions chosen for the payment of taxes will be applied to him in a forced manner and as a priority with respect to the other options configured in the module. If you want the customer to apply the tax exemption according to the general conditions of the module (Have a valid VAT number and belong to the European Union) you must remove it from this list</div></p>
+</div>  </section>
+
+  <section id="orders-management" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#orders-management' class='header-link'><i class='fa fa-link'></i></a>Orders Management</h2><h4>Orders Management</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2503 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/orders_management.png" alt="" width="1920" height="1482" srcset="https://documentation.liewebs.com/wp-content/uploads/orders_management.png 1920w, https://documentation.liewebs.com/wp-content/uploads/orders_management-300x232.png 300w, https://documentation.liewebs.com/wp-content/uploads/orders_management-1024x790.png 1024w, https://documentation.liewebs.com/wp-content/uploads/orders_management-768x593.png 768w, https://documentation.liewebs.com/wp-content/uploads/orders_management-1536x1186.png 1536w, https://documentation.liewebs.com/wp-content/uploads/orders_management-1568x1210.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;">In this section they manage all the orders that are placed in the store and are subject to tax exemption for having a valid VAT number or are subject to Brexit regulation.</p>
+<p style="text-align: justify;">It contains a section for statistics, showing the total amounts of sales, both those that are exempt from taxes and those subject to Brexit regulations, with the function of filtering by dates.</p>
+<p style="text-align: justify;">The options available to view each record are:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li><strong>View order:</strong> View the order data.</li>
+<li><strong>Download invoice:</strong> You can download the invoice related to this order as long as it has been generated.</li>
+</ul>
+<h5 style="text-align: justify;">Export of invoices</h5>
+<p style="text-align: justify;">In this section you can massively download the invoices generated by these orders by date ranges. The date range refers to the creation of the order and not to the invoice generation date, which may be different from the previous one.</p>
+</div>  </section>
+
+  <section id="vat-check-tool" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#vat-check-tool' class='header-link'><i class='fa fa-link'></i></a>VAT check Tool</h2><h4>VAT Check Tool</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2504 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/check_vat_tool.png" alt="" width="1920" height="919" srcset="https://documentation.liewebs.com/wp-content/uploads/check_vat_tool.png 1920w, https://documentation.liewebs.com/wp-content/uploads/check_vat_tool-300x144.png 300w, https://documentation.liewebs.com/wp-content/uploads/check_vat_tool-1024x490.png 1024w, https://documentation.liewebs.com/wp-content/uploads/check_vat_tool-768x368.png 768w, https://documentation.liewebs.com/wp-content/uploads/check_vat_tool-1536x735.png 1536w, https://documentation.liewebs.com/wp-content/uploads/check_vat_tool-1568x751.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;">This section provides a VAT number checking tool that connects directly to the APIs of the official VIES or GOV.UK VAT checking systems (for UK VAT numbers).</p>
+<p style="text-align: justify;">You must insert the VAT number to check and press the «Check VAT» button. The module system will connect via API with the official systems to check if the inserted VAT number is valid or not and will display a table with the data related to this number (country, registered company name, company address, ISO code of the country, validity of the VAT number and date and time of the request)</p>
+<p style="text-align: justify;"><div class="alert alert-info">There is no limitation on the number of queries to be made and the service is completely free.</div></p>
+</div>  </section>
+
+  <section id="tax-exemption-system" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#tax-exemption-system' class='header-link'><i class='fa fa-link'></i></a>Tax exemption system</h2><p style="text-align: justify;">Once the customer registers an address with a valid VAT number, the system will remove the tax calculation and display the prices without tax in the following places:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li>Product sheet</li>
+<li>Product List</li>
+<li>Shopping cart</li>
+<li>Cart Summary</li>
+<li>Order details in the Back-office</li>
+<li>Purchase invoices</li>
+<li>Corrective invoices</li>
+</ul>
+<p style="text-align: justify;">The tax exemption system works even with discounts, cart rules, specific prices, etc&#8230;</p>
+<p style="text-align: justify;"><div class="alert alert-info">It may be the case that the customer has two addresses, one with a valid VAT number and one without a VAT number. As long as the customer chooses or has predefined the address with the valid VAT number as the shipping address, the system will eliminate the taxes in the prices.</div></p>
+<p style="text-align: justify;"><div class="alert alert-info">If a customer already had a registered address with an invalid VAT number before installing the module. The system will notify you in a warning message when you go to make the purchase or when you access the section of your addresses.</div></p>
+<h4 style="text-align: justify;">Invoices and order slip invoices</h4>
+<p style="text-align: justify;">Invoices issued on orders with registered customers with a valid VAT number will be exempt from taxes and are not shown in the invoice breakdown.</p>
+<p><strong>Tax exempt invoice</strong></p>
+<p style="text-align: justify;"><img decoding="async" loading="lazy" class="size-full wp-image-2505" src="https://documentation.liewebs.com/wp-content/uploads/notax_invoice.png" alt="" width="808" height="860" srcset="https://documentation.liewebs.com/wp-content/uploads/notax_invoice.png 808w, https://documentation.liewebs.com/wp-content/uploads/notax_invoice-282x300.png 282w, https://documentation.liewebs.com/wp-content/uploads/notax_invoice-768x817.png 768w" sizes="(max-width: 808px) 100vw, 808px" /></p>
+<p>&nbsp;</p>
+<p><strong>Brexit regulated invoice</strong></p>
+<p style="text-align: justify;"><img decoding="async" loading="lazy" class="size-full wp-image-2506" src="https://documentation.liewebs.com/wp-content/uploads/brexit_invoice.png" alt="" width="732" height="817" srcset="https://documentation.liewebs.com/wp-content/uploads/brexit_invoice.png 732w, https://documentation.liewebs.com/wp-content/uploads/brexit_invoice-269x300.png 269w" sizes="(max-width: 732px) 100vw, 732px" /></p>
+<p>In the invoices where the client is exempt from taxes, several details are shown:</p>
+<ul style="list-style-type: circle;">
+<li>«Exempt from VAT in accordance with section 259B of the general tax code.»</li>
+<li>Custom note configured in the «Invoice Settings» section in the module options.</li>
+<li>Custom legal text configured in the «Invoice Settings» section in the module options.</li>
+<li>In the case of invoices regulated by Brexit, if they are exempt from taxes, the message «Reverse charge: client to account for VAT to HMRC» will be displayed to comply with the regulations that regulate operations within the framework of Brexit.</li>
+</ul>
+<p>&nbsp;</p>
+</div>  </section>
+
+  <section id="compatibility-and-integration-with-third-party-modules" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#compatibility-and-integration-with-third-party-modules' class='header-link'><i class='fa fa-link'></i></a>Compatibility and integration with third party modules</h2><h4>Compatibility and integration with third party modules</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2530 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/compatibility_chart.png" alt="" width="1400" height="1060" srcset="https://documentation.liewebs.com/wp-content/uploads/compatibility_chart.png 1400w, https://documentation.liewebs.com/wp-content/uploads/compatibility_chart-300x227.png 300w, https://documentation.liewebs.com/wp-content/uploads/compatibility_chart-1024x775.png 1024w, https://documentation.liewebs.com/wp-content/uploads/compatibility_chart-768x581.png 768w" sizes="(max-width: 1400px) 100vw, 1400px" /></p>
+<p style="text-align: justify;">The module has available a section showing the modules that are fully compatible and have been tested, and also the modules that have been fully integrated with ours through a special collaboration between the agencies that have developed these modules. modules.</p>
+<p style="text-align: justify;">The fact that a module does not appear in the compatible list does not mean that it is not compatible with our module, but rather that its compatibility has not been tested.</p>
+<p style="text-align: justify;">Actually our module is compatible with 99% of the modules on the market. Only the modules developed to manage the checkout page of the store may present incompatibilities with ours.</p>
+<p style="text-align: justify;">However, from our technical department we are constantly developing new versions of our module with compatibility implementations with the other modules once we test them. Therefore, this list will be updated as we implement compatibilities.</p>
+<h5 style="text-align: justify;">Integration with One Page Checkout Prestashop module from Presteamshop</h5>
+<p style="text-align: justify;">Thanks to a close collaboration with the developers of this module, we have been able to implement a complete integration with Presteamshop&#8217;s One Page Checkout module, which manages the store&#8217;s checkout page. Both modules are perfectly integrated and all the options of our module work in the checkout environment displayed by the Preteamshop module.</p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2509 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps.png" alt="" width="1402" height="843" srcset="https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps.png 1402w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps-300x180.png 300w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps-1024x616.png 1024w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps-768x462.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2508 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps_2.png" alt="" width="1920" height="1303" srcset="https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps_2.png 1920w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps_2-300x204.png 300w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps_2-1024x695.png 1024w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps_2-768x521.png 768w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps_2-1536x1042.png 1536w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_ps_2-1568x1064.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+</div>  </section>
+
+  <section id="uninstallation" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#uninstallation' class='header-link'><i class='fa fa-link'></i></a>Uninstallation</h2><p><img decoding="async" loading="lazy" class="size-full wp-image-2474 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/uninstall-13.png" alt="" width="1453" height="215" srcset="https://documentation.liewebs.com/wp-content/uploads/uninstall-13.png 1453w, https://documentation.liewebs.com/wp-content/uploads/uninstall-13-300x44.png 300w, https://documentation.liewebs.com/wp-content/uploads/uninstall-13-1024x152.png 1024w, https://documentation.liewebs.com/wp-content/uploads/uninstall-13-768x114.png 768w" sizes="(max-width: 1453px) 100vw, 1453px" /></p>
+<p style="text-align: justify;">The process of uninstalling this module is very simple. You have to access the list of modules and access this module. In the drop-down options, click <strong>«Uninstall»</strong></p>
+<p style="text-align: justify;"><div class="alert alert-warning">During the uninstallation process, all the data stored in the list of customer VAT numbers in the «VAT Management» and «Order Management» sections will be deleted.</div></p>
+<p style="text-align: justify;"><div class="alert alert-warning">The UK provinces that the module installed during the installation phase will not be removed in the uninstall process.</div></p>
+</div>  </section>
+
+  <section id="troubleshootings" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#troubleshootings' class='header-link'><i class='fa fa-link'></i></a>Troubleshootings</h2><p style="text-align: justify;">In this section we indicate the most common problems and the way to check the problem and solve it. However, if your incident is not indicated in the list, we recommend that you contact our technical support.</p>
+</div>  </section>
+
+  <section id="license-agreement" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#license-agreement' class='header-link'><i class='fa fa-link'></i></a>License agreement</h2><div>
+<h2 style="text-align: justify;">LICENSE AGREEMENT</h2>
+</div>
+<p style="text-align: justify;">This License Agreement represents a legal agreement between you (either whether an individual or an entity) and the company developing the software, Liewebs.</p>
+<p>WITH THE PURCHASE, INSTALLATION, COPYING OR ANY OTHER USE OF THE SOFTWARE, YOU AGREE TO BE BOUND BY ALL THE TERMS AND CONDITIONS OF THE AGREEMENT OF LICENSE.<br />
+GRANT OF LICENSE</p>
+<p>Provided you comply with all the terms and conditions of this agreement, Liewebs grants you a non-exclusive license that includes the following rights:</p>
+<ol style="text-align: justify;">
+<li>You can install and use a copy of the product in any store whose owner is the same as the one who acquired the module.</li>
+<li>You can make copies of the Backup and Archive Product.</li>
+</ol>
+<p style="text-align: justify;">Liewebs reserves all rights not expressly granted in this agreement.</p>
+<h4 style="text-align: justify;">RESTRICTIONS</h4>
+<p style="text-align: justify;">Unless the prior written consent of Liewebs is not possible: your reproduction, distribution or transfer of the product or parts of it same to third parties. Sell, rent, lease, assign or sublet the software or part thereof.</p>
+<ol style="text-align: justify;">
+<li>Grant rights to any other person.</li>
+<li>It is strictly forbidden to modify the source code of the Software, as well as any of its components, images, logos, etc…</li>
+</ol>
+<p style="text-align: justify;">NOTE : Liewebs does not support no form of software piracy.</p>
+<h4 style="text-align: justify;">WARRANTY DISCLAIMER</h4>
+<p style="text-align: justify;">During the period of warranty (time that depends on the platform where the product was purchased) software), the client will have a complete support service technician to solve any incidence, failure, or problems of compatibility not described in the product details. After this period, you will not be able to use the technical support service. During the warranty period, the customer may purchase the product updates.</p>
+<h4 style="text-align: justify;">LICENSE LIMITATIONS</h4>
+<p style="text-align: justify;">The license is associated to each unit of the Software and domain. You can install the product is all stores owned by you as long as you purchase a license per domain.</p>
+<h4 style="text-align: justify;">TECHNICAL SUPPORT</h4>
+<p style="text-align: justify;">Technical support includes Sending Support Tickets through the Prestashop platform Addons. In order to provide the technical support service, the customer You must provide provisional credentials to access the back-office of your store, FTP access and access to the database.</p>
+<p>The technical support service is provided during office hours (from Monday to Friday from 9:00 a.m. to 2:00 p.m. and from 4:00 p.m. to 7:00 p.m.) and whose priority is Managed on a first-come, first-served basis. No urgent support outside of office hours.</p>
+<h4 style="text-align: justify;">WARRANTY AND EXTENDED SUPPORT</h4>
+<p style="text-align: justify;">You will be able to buy a extension of the warranty period and support offered by the platform Prestashop Addons or Liewebs depending on the option chosen in the time of purchase of Software.</p>
+<h4 style="text-align: justify;">RETURNS</h4>
+<p style="text-align: justify;">Only the cost of software and support service contracted in case the product does not work on the website ONLY for causes attributable to the product, as long as there is no compatibility problem that has been previously indicated in the detail of the product, and only in the event that the service of technical support cannot make the timely modification to get the product to work.</p>
+<p>NOTE: Any type of refund will cause the license to be revoked and you may not use, modify or otherwise use the purchased software.</p>
+<h4 style="text-align: justify;">DELIVERY PRODUCT</h4>
+<p style="text-align: justify;">All products Liewebs: documentation and related materials are delivered electronically over the Internet.</p>
+<h4 style="text-align: justify;">INSTALLATION AND CONFIGURATION</h4>
+<p style="text-align: justify;">The installation service and configuration is available so free, as long as it is in the period of support or WARRANTY AND EXTENDED SUPPORT. Liewebs reserves the right to charge for this service in the future.</p>
+<h4 style="text-align: justify;">UPDATES OF PRODUCTS</h4>
+<p style="text-align: justify;">The client receives the free product update (Downloads) within the period of the warranty and support service technical. Product updates (downloads) after that date will be available provided that the section WARRANTY AND EXTENDED SUPPORT.</p>
+<p>In the event of any attempt to obtain updates from a inappropriate manner, distribute or market them, Liewebs reserves the right to stop providing support and disable all licenses of the products developed by Liewebs until the cost total update service is amortized.</p>
+<p>Liewebs is under no obligation to provide you with any details that has not been released for general distribution or as update. Nothing in this license is shall be construed as Liewebs&#8217; obligation to provide updates to you under any circumstances.</p>
+<h4 style="text-align: justify;">POLICY OF LIFE CYCLE</h4>
+<p style="text-align: justify;">Liewebs reserves the right to modify the life cycle of each of its products in general or particularly. Liewebs reserves the right to terminate development and support of its products, without prior notice but always respecting the times of Guarantee, Support and WARRANTY AND EXTENDED SUPPORT that are active. The products of Liewebs would terminate their distribution, support and warranty in the event that PrestaShop also end the distribution, development or support of versions.</p>
+<h4 style="text-align: justify;">VERSION OF EVALUATION / DEMO</h4>
+<p style="text-align: justify;">Liewebs does not offer version evaluation of any of its products and the commercialization and/or distribution of copies of products such as evaluation version by third parties are unauthorized and are considered illegal. Demonstrations of your products can be view online from the Liewebs website (https://demo.liewebs.com) and can be accessed from the page of description of each product.</p>
+<h4 style="text-align: justify;">POLICY OF PRIVACY</h4>
+<p style="text-align: justify;">On some Liewebs sites will ask you to provide us with information such as your e-mail address, name, home address or work or phone number. We may also collect information demographic, such as your zip code, age, gender, preferences, interests and favourites. If you decide to make a purchase or sign up for a paid subscription service, we will ask you for additional information, such as your credit card number and billing address used to create a Liewebs billing account.</p>
+<p>In addition, we collect certain standard information that your browser sends to each website you visit, such as your IP address, type of browser and language, access times and site addresses Website.</p>
+<p><strong>Use of your personal information:</strong> Liewebs collects and uses your personal information to operate and improve its sites and services. We also use your personal information to communicate with you. We send certain service communications, make calls to offer better technical support and announcements of updates or news.</p>
+<p>This does not include any personal information, such as your identity, browsing history, contacts or family information and friends. We use this information to improve the software, support technical and the development of a better product that satisfies its needs .</p>
+<p>Except as described in this statement, we will not disclose your personal information outside of Liewebs without your consent.</p>
+<p>You are free to change your personal information. Note that your email is used as a unique identifier. Must notify Liewebs if you would like them to change it, as you may require some additional actions from our side.</p>
+<p><strong>Modifications to this Declaration of Privacy:</strong> Occasionally We will update this privacy statement to reflect changes. on our services and customer feedback. When We post changes to this statement, we will revise the posting date. «last updated» at the top of this statement. Yes there are material changes to this statement or to how Liewebs will use your personal information, we will notify you either prominently post notice of such changes before implementing them or by sending you a notification directly. We recommend that you review periodically this statement to be informed of how Liewebs protects your information .</p>
+<h4 style="text-align: justify;">LIMITATION OF RESPONSIBILITY</h4>
+<p style="text-align: justify;">In no case and under no legal theory, tort, contract or otherwise However, shall Liewebs be liable to you or any other person for indirect, special, incidental or consequential damages of any nature including, without limitation, damages for loss of goodwill, work stoppage, computer failure, system failure website or malfunction, or any other commercial damage or loss.</p>
+<h4 style="text-align: justify;">CONVENIENCE</h4>
+<p style="text-align: justify;">The person or company that uses this product is solely responsible to fully test to make sure it works for you. satisfaction before purchasing a license and/or incorporating it into your site Web. By obtaining a license, the holder indicates that the product has met your expectations and works to your satisfaction.</p>
+<h4 style="text-align: justify;">TERMINATION</h4>
+<p style="text-align: justify;">This agreement terminates, lose all rights to your license, and you must stop using the product if you do not comply with any term or condition of this License Agreement.</p>
+<p>Liewebs reserves the right to modify this license in the future.</p>
+</div>  </section>
+
+    </div><!-- /.content -->
+</div><!-- /.content-wrapper -->
+      
+
+  <footer class="main-footer">
+
+      <div class="pull-right hidden-xs">
+                        <div class="version"> Version 1.5.3</div>
+               </div>
+
+    <div class="copyrights">Copyright © 2023 Liewebs. All Rights reserved.</div>  </footer>
+
+
+</div><!-- ./wrapper -->
+
+
+    <script src="assets/js/jQuery-2.2.0.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/jquery.stickem.js"></script>
+    <script src="assets/js/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/prism.js"></script>
+    <script src="assets/js/docs.js"></script>
+    </body>
+</html>

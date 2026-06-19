@@ -1,0 +1,41 @@
+{shop_url}
+
+Salve {firstname} {lastname},
+
+Grazie per aver ordinato su {shop_name}!
+
+Dettagli dell'ordine
+
+Ordine: {order_name} Effettuato il {date}
+
+Pagamento: {payment}
+
+Riferimento	Prodotto	Prezzo unitario	Quantità	Prezzo totale  {products_txt} {discounts_txt}
+Prodotti	{total_products}
+Buoni sconto	{total_discounts}
+Confezione regalo	{total_wrapping}
+Spedizione	{total_shipping}
+Incluse le imposte complessive	{total_tax_paid}
+Totale pagato	{total_paid}
+
+Spedizione
+
+Corriere: {carrier}
+
+Pagamento: {payment}
+
+Indirizzo di consegna
+
+{delivery_block_txt}
+
+Indirizzo di fatturazione
+
+{invoice_block_txt}
+
+Segui il tuo ordine e scarica la fattura dal nostro negozio, vai alla sezione [Storico e dettagli degli ordini]({history_url}) della tua area cliente.
+
+Se hai un account ospite, puoi seguire le fasi del tuo ordine tramite la sezione [Tracciamento Ospite]({guest_tracking_url}) nel nostro negozio.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

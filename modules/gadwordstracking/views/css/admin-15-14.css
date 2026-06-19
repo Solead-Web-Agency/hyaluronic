@@ -1,0 +1,13 @@
+.fbpscClearAdmin {	height: 0;	margin: 15px 0;	padding: 0;	clear: both;	width: 100%;	border-bottom: 1px solid #CCC;	border-top: 1px solid #FFF;}
+.bootstrap .nav-tabs{	border-bottom: 1px solid #dddddd;}
+#content .alert {	width: 100%;}
+#content .alert-info{	padding-left: 50px;  padding-bottom: 15px;	position: relative;	border: none;	border-left: solid 3px #81cfe6;	color: #31b0d5;	border: solid 1px #c5e9f3;	background-color: #f8fcfe;}
+#content .alert-warning{	padding-left: 50px;	padding-bottom: 15px;	position: relative;	border: none;	border-left: solid 3px #f4c178;	background-color: #fcf8e3;	/*border-color: #faebcc;*/	color: #8a6d3b;}
+#content .alert-danger{	padding-left: 50px;	padding-bottom: 15px;	position: relative;	border: none;	border-left: solid 3px #a94442;	/*border-color: #ebccd1;*/	color: #a94442;}
+#content .alert-success{	padding-left: 50px;	padding-bottom: 15px;	position: relative;	border: none;	border-left: solid 3px #90cb5c;	background-color: #dff0d8;	/*border-color: #d6e9c6;*/	/*color: #3c763d;*/}
+.bootstrap .dropdown-menu > .active > a, .bootstrap .dropdown-menu > .active > a:hover, .bootstrap .dropdown-menu > .active > a:focus{	color:#00aff0;}.bootstrap .dropdown-menu > li > a:hover{	color:#415260;	background-color:#00aff0 ;}
+.nobootstrap label{	text-shadow: none;}
+.bootstrap a {	color: black;	text-decoration: none !important;}
+.bootstrap a{	color: #000000 !important;}
+.nobootstrap label{	text-shadow: none;}
+#btn-javascript{	color: white !important;}

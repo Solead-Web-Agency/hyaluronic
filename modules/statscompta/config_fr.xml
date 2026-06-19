@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>statscompta</name>
+    <displayName><![CDATA[Synth&egrave;se comptable]]></displayName>
+    <version><![CDATA[2.5.019]]></version>
+    <description><![CDATA[Ce module vous permet d&#039;afficher des tableaux de synth&egrave;se afin de contr&ocirc;ler votre comptabilit&eacute;. Id&eacute;al pour les d&eacute;clarations de TVA ! Apr&egrave;s l&#039;installation, les r&eacute;sultats sont affich&eacute;s dans la page STATISTIQUES &agrave; la section SYNTHESE COMPTABLE]]></description>
+    <author><![CDATA[RouGe Services]]></author>
+    <tab><![CDATA[analytics_stats]]></tab>
+    <is_configurable>0</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

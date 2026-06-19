@@ -1,0 +1,10 @@
+.container {
+    margin: 50px auto;
+    text-align: center;
+}
+.row {
+    margin-bottom: 50px;
+}
+h4{
+	line-height: 34px;
+}

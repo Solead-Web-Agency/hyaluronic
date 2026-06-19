@@ -1,0 +1,1 @@
+Send product updates with the VAT of each country.

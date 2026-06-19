@@ -1,0 +1,1 @@
+Remarque : Pour définir le statut d'annulation, activez la fonctionnalité Commandes > Annulation de commande dans l'onglet Fonctionnalités.

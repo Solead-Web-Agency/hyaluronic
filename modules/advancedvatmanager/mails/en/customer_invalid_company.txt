@@ -1,0 +1,12 @@
+[/{shop_url}]
+
+MODULE ADVANCED VAT MANAGER
+Company Validation
+
+Hi [/{customer_name}],
+
+Your company is not valid and not registered in VIES or GOV.UK system. Please go to your address details and insert a valid company name that you registered in VIES or GOV.UK
+[{customer_account_addr}]
+
+Email sent by Advanced VAT Manager module, developed by Liewebs [http://www.prestashop.com/] 
+

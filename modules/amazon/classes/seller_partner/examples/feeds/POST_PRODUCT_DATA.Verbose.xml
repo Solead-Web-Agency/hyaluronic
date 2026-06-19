@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+    <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>A1ND8F8KKXXXXX</MerchantIdentifier>
+    </Header>
+    <MessageType>Product</MessageType>
+    <Message>
+        <MessageID>1</MessageID>
+        <OperationType>PartialUpdate</OperationType>
+        <Product>
+            <SKU>8SPXXXXX</SKU>
+            <StandardProductID>
+                <Type>ASIN</Type>
+                <Value>B07VSJ7DFS</Value>
+            </StandardProductID>
+            <Condition>
+                <ConditionType>New</ConditionType>
+            </Condition>
+            <DescriptionData>
+                <Title>Abstinence Spirits Cape Spice | Award Winning Alcohol-Free Spirit | Calorie-free, Sugar-free | 750ml</Title>
+                <Brand>Curated Beverages Ltd</Brand>
+                <Description/>
+                <ItemDimensions>
+                    <Length unitOfMeasure="CM">30.48</Length>
+                    <Width unitOfMeasure="CM">15.24</Width>
+                    <Height unitOfMeasure="CM">12.70</Height>
+                </ItemDimensions>
+                <PackageDimensions>
+                    <Length unitOfMeasure="CM">30.48</Length>
+                    <Width unitOfMeasure="CM">15.24</Width>
+                    <Height unitOfMeasure="CM">12.70</Height>
+                </PackageDimensions>
+                <Manufacturer>Curated Beverages Ltd</Manufacturer>
+                <SearchTerms>abstinence spirits award winning spirit 750ml cape calorie free sugar spice alcohol</SearchTerms>
+                <IsGiftWrapAvailable>false</IsGiftWrapAvailable>
+                <IsGiftMessageAvailable>false</IsGiftMessageAvailable>
+                <RecommendedBrowseNode>16310211</RecommendedBrowseNode>
+                <MerchantShippingGroupName>Versand Frankreich Vedes</MerchantShippingGroupName>
+            </DescriptionData>
+            <ProductData>
+                <FoodAndBeverages>
+                    <ProductType>
+                        <Spirits>
+                            <UnitCount>1</UnitCount>
+                        </Spirits>
+                    </ProductType>
+                </FoodAndBeverages>
+            </ProductData>
+        </Product>
+    </Message>
+    <Message>
+        <MessageID>2</MessageID>
+        <OperationType>PartialUpdate</OperationType>
+        <Product>
+            <SKU>7735912825073</SKU>
+            <DescriptionData>
+                <Title>Hummingbird printed t-shirt</Title>
+                <Brand>Studio Design</Brand>
+                <Description>Symbol of lightness and delicacy, the hummingbird evokes curiosity and joy. Studio Design' PolyFaune collection features classic products with colorful patterns, inspired by the traditional japanese origamis. To wear with a chino or jeans. The sublimation textile printing process provides an exceptional color rendering and a color, guaranteed overtime.&lt;br /&gt;</Description>
+                <Manufacturer>Studio Design</Manufacturer>
+                <MerchantShippingGroupName>Versand Frankreich Vedes</MerchantShippingGroupName>
+            </DescriptionData>
+            <ProductData>
+                <FoodAndBeverages>
+                    <ProductType>
+                        <Spirits>
+                            <VariationData>
+                                <Parentage>parent</Parentage>
+                                <VariationTheme>Size</VariationTheme>
+                            </VariationData>
+                        </Spirits>
+                    </ProductType>
+                </FoodAndBeverages>
+            </ProductData>
+        </Product>
+    </Message>
+    <Message>
+        <MessageID>3</MessageID>
+        <OperationType>PartialUpdate</OperationType>
+        <Product>
+            <SKU>demo_1_1</SKU>
+            <Condition>
+                <ConditionType>New</ConditionType>
+            </Condition>
+            <DescriptionData>
+                <Title>Hummingbird printed t-shirt - S, White</Title>
+                <Brand>Studio Design</Brand>
+                <Description>Symbol of lightness and delicacy, the hummingbird evokes curiosity and joy. Studio Design' PolyFaune collection features classic products with colorful patterns, inspired by the traditional japanese origamis. To wear with a chino or jeans. The sublimation textile printing process provides an exceptional color rendering and a color, guaranteed overtime.&lt;br /&gt;</Description>
+                <PackageWeight unitOfMeasure="KG">0.30</PackageWeight>
+                <ShippingWeight unitOfMeasure="KG">0.30</ShippingWeight>
+                <Manufacturer>Studio Design</Manufacturer>
+                <IsGiftWrapAvailable>false</IsGiftWrapAvailable>
+                <IsGiftMessageAvailable>false</IsGiftMessageAvailable>
+                <RecommendedBrowseNode>16310211</RecommendedBrowseNode>
+                <MerchantShippingGroupName>Versand Frankreich Vedes</MerchantShippingGroupName>
+            </DescriptionData>
+            <ProductData>
+                <FoodAndBeverages>
+                    <ProductType>
+                        <Spirits>
+                            <VariationData>
+                                <Parentage>child</Parentage>
+                                <VariationTheme>Size</VariationTheme>
+                                <Size>S</Size>
+                            </VariationData>
+                            <UnitCount>1</UnitCount>
+                        </Spirits>
+                    </ProductType>
+                </FoodAndBeverages>
+            </ProductData>
+        </Product>
+    </Message>
+    <Message>
+        <MessageID>4</MessageID>
+        <OperationType>PartialUpdate</OperationType>
+        <Product>
+            <SKU>NK-01-blue-l</SKU>
+            <StandardProductID>
+                <Type>EAN</Type>
+                <Value>401234567891</Value>
+            </StandardProductID>
+            <Condition>
+                <ConditionType>New</ConditionType>
+            </Condition>
+            <DescriptionData>
+                <Title>Hummingbird printed t-shirt - L, Black</Title>
+                <Brand>Studio Design</Brand>
+                <Description>Symbol of lightness and delicacy, the hummingbird evokes curiosity and joy. Studio Design' PolyFaune collection features classic products with colorful patterns, inspired by the traditional japanese origamis. To wear with a chino or jeans. The sublimation textile printing process provides an exceptional color rendering and a color, guaranteed overtime.&lt;br /&gt;</Description>
+                <PackageWeight unitOfMeasure="KG">0.30</PackageWeight>
+                <ShippingWeight unitOfMeasure="KG">0.30</ShippingWeight>
+                <Manufacturer>Studio Design</Manufacturer>
+                <IsGiftWrapAvailable>false</IsGiftWrapAvailable>
+                <IsGiftMessageAvailable>false</IsGiftMessageAvailable>
+                <RecommendedBrowseNode>16310211</RecommendedBrowseNode>
+                <MerchantShippingGroupName>Versand Frankreich Vedes</MerchantShippingGroupName>
+            </DescriptionData>
+            <ProductData>
+                <FoodAndBeverages>
+                    <ProductType>
+                        <Spirits>
+                            <VariationData>
+                                <Parentage>child</Parentage>
+                                <VariationTheme>Size</VariationTheme>
+                                <Size>L</Size>
+                            </VariationData>
+                            <UnitCount>1</UnitCount>
+                        </Spirits>
+                    </ProductType>
+                </FoodAndBeverages>
+            </ProductData>
+        </Product>
+    </Message>
+    <Message>
+        <MessageID>5</MessageID>
+        <OperationType>PartialUpdate</OperationType>
+        <Product>
+            <SKU>NK-01-blue-xl</SKU>
+            <StandardProductID>
+                <Type>EAN</Type>
+                <Value>401234567892</Value>
+            </StandardProductID>
+            <Condition>
+                <ConditionType>New</ConditionType>
+            </Condition>
+            <DescriptionData>
+                <Title>Hummingbird printed t-shirt - XL, Black</Title>
+                <Brand>Studio Design</Brand>
+                <Description>Symbol of lightness and delicacy, the hummingbird evokes curiosity and joy. Studio Design' PolyFaune collection features classic products with colorful patterns, inspired by the traditional japanese origamis. To wear with a chino or jeans. The sublimation textile printing process provides an exceptional color rendering and a color, guaranteed overtime.&lt;br /&gt;</Description>
+                <PackageWeight unitOfMeasure="KG">0.30</PackageWeight>
+                <ShippingWeight unitOfMeasure="KG">0.30</ShippingWeight>
+                <Manufacturer>Studio Design</Manufacturer>
+                <IsGiftWrapAvailable>false</IsGiftWrapAvailable>
+                <IsGiftMessageAvailable>false</IsGiftMessageAvailable>
+                <RecommendedBrowseNode>16310211</RecommendedBrowseNode>
+                <MerchantShippingGroupName>Versand Frankreich Vedes</MerchantShippingGroupName>
+            </DescriptionData>
+            <ProductData>
+                <FoodAndBeverages>
+                    <ProductType>
+                        <Spirits>
+                            <VariationData>
+                                <Parentage>child</Parentage>
+                                <VariationTheme>Size</VariationTheme>
+                                <Size>XL</Size>
+                            </VariationData>
+                            <UnitCount>1</UnitCount>
+                        </Spirits>
+                    </ProductType>
+                </FoodAndBeverages>
+            </ProductData>
+        </Product>
+    </Message>
+</AmazonEnvelope>

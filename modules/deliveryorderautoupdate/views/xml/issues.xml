@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+   <issues>
+		<issue>
+			<id_issue>1</id_issue>
+			<en>Missing parcels</en>
+			<fr>Colis manquants</fr>
+			<de>Missing parcels</de>
+			<nl>Missing parcels</nl>
+			<es>Missing parcels</es>
+			<pt>Missing parcels</pt>
+		</issue>
+		<issue>
+			<id_issue>2</id_issue>
+			<en>Outstanding parcels</en>
+			<fr>Colis en souffrance</fr>
+			<de>Outstanding parcels</de>
+			<nl>Outstanding parcels</nl>
+			<es>Outstanding parcels</es>
+			<pt>Outstanding parcels</pt>
+		</issue>
+		<issue>
+			<id_issue>3</id_issue>
+			<en>Out-of-time parcels</en>
+			<fr>Colis hors-délais</fr>
+			<de>Out-of-time parcels</de>
+			<nl>Out-of-time parcels</nl>
+			<es>Out-of-time parcels</es>
+			<pt>Out-of-time parcels</pt>
+		</issue>
+		<issue>
+			<id_issue>4</id_issue>
+			<en>Lost parcels</en>
+			<fr>Colis perdus</fr>
+			<de>Lost parcels</de>
+			<nl>Lost parcels</nl>
+			<es>Lost parcels</es>
+			<pt>Lost parcels</pt>
+		</issue>
+		<issue>
+			<id_issue>5</id_issue>
+			<en>Incorrectly addressed parcels</en>
+			<fr>Colis en erreur d’adresse</fr>
+			<de>Incorrectly addressed parcels</de>
+			<nl>Incorrectly addressed parcels</nl>
+			<es>Incorrectly addressed parcels</es>
+			<pt>Incorrectly addressed parcels</pt>
+		</issue>
+		<issue>
+			<id_issue>6</id_issue>
+			<en>Damaged/looted parcels</en>
+			<fr>Colis détériorés/spoliés</fr>
+			<de>Damaged/looted parcels</de>
+			<nl>Damaged/looted parcels</nl>
+			<es>Damaged/looted parcels</es>
+			<pt>Damaged/looted parcels</pt>
+		</issue>
+		<issue>
+			<id_issue>7</id_issue>
+			<en>Objection to receipt</en>
+			<fr>Contestation de réception</fr>
+			<de>Objection to receipt</de>
+			<nl>Objection to receipt</nl>
+			<es>Objection to receipt</es>
+			<pt>Objection to receipt</pt>
+		</issue>
+	</issues>
+   <statuses>
+		<status>
+			<id_status>1</id_status>
+			<en>Initiated</en>
+			<fr>Initié</fr>
+			<de>Initiated</de>
+			<nl>Initiated</nl>
+			<es>Initiated</es>
+			<pt>Initiated</pt>
+		</status>
+		<status>
+			<id_status>2</id_status>
+			<en>Claim sent to carrier</en>
+			<fr>Réclamation envoyée</fr>
+			<de>Claim sent to carrier</de>
+			<nl>Claim sent to carrier</nl>
+			<es>Claim sent to carrier</es>
+			<pt>Claim sent to carrier</pt>
+		</status>
+		<status>
+			<id_status>3</id_status>
+			<en>Compensation accepted by carrier</en>
+			<fr>Indemnisation acceptée par le transporteur</fr>
+			<de>Compensation accepted by carrier</de>
+			<nl>Compensation accepted by carrier</nl>
+			<es>Compensation accepted by carrier</es>
+			<pt>Compensation accepted by carrier</pt>
+		</status>
+		<status>
+			<id_status>4</id_status>
+			<en>Compensation refused by carrier</en>
+			<fr>Indemnisation refusée par le transporteur</fr>
+			<de>Compensation refused by carrier</de>
+			<nl>Compensation refused by carrier</nl>
+			<es>Compensation refused by carrier</es>
+			<pt>Compensation refused by carrier</pt>
+		</status>
+		<status>
+			<id_status>5</id_status>
+			<en>Closed</en>
+			<fr>Fermé</fr>
+			<de>Closed</de>
+			<nl>Closed</nl>
+			<es>Closed</es>
+			<pt>Closed</pt>
+		</status>
+		<status>
+			<id_status>6</id_status>
+			<en>Cancelled</en>
+			<fr>Annulé</fr>
+			<de>Cancelled</de>
+			<nl>Cancelled</nl>
+			<es>Cancelled</es>
+			<pt>Cancelled</pt>
+		</status>
+	</statuses>
+</document>
+

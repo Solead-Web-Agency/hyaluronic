@@ -1,0 +1,17 @@
+[{shop_name}]({shop_url})
+{lastname} {firstname} 様
+{shop_name} にご登録ありがとうございます。
+
+Here is your login email address:
+メールアドレス: {email}
+
+セキュリティに関する重要なヒント:
+
+- アカウント情報を安全な場所に保管してください。
+- ログイン情報は誰にも公開しないでください。
+- パスワードは定期的に変更してください。
+- アカウントが誰かに不正利用されたかもしれない場合、すぐにご連絡ください。
+
+これで当店でご注文になることができます。 [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

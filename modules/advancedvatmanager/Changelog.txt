@@ -1,0 +1,220 @@
+#1.5.5 (13/02/2023)
+- [FIX] Bug in php code affecting to OPC module by Presteamshop.
+- [IMP] Improvements in validation system.
+
+#1.5.4 (02/02/2023)
+- [FIX] Minor bugs.
+- [FIX] Issue removing customer group in countries where VAT validation is not included.
+
+#1.5.3 (19/01/2023)
+- [IMP] PHP code.
+- [IMP] Minor improvements.
+- [IMP] Warning messages in addresses section and address form.
+- [IMP] Warning messages in checkout process.
+- [NEW] Warning messages not allowing order in One Page Checkout Prestashop module by Presteamshop.
+- [ADD] Compatibility with module Minimum and maximum purchase product quantity by Idnovate.
+- [ADD] Compatibility with module Hide the product prices and disallow purchases by categories, groups, and more by Idnovate.
+- [ADD] Option to skip validation when API system fails in CRON task.
+- [FIX] BUG in cron url format.
+- [DEL] TaxRulesTaxManager class override only for Prestashop versions 1.7 or higher.
+- [DEL] Product class override to avoid issue with thirty party modules using getPriceStatic() methods to display prices without taxes.
+- [DEL] Address class override for unuseless.
+- [DEL] Cart class override for unuseless.
+
+#1.5.2 (16/12/2022)
+- [IMP] Some improvements for compatibility with Prestashop 8.
+
+#1.5.1 (13/12/2022)
+- [FIX] Minor bugs with Prestashop 1.6 compatibility.
+- [FIX] Search issue in Customer exemption section when try to search a customer.
+- [FIX] Some issues in VAT validation and company validation process.
+- [FIX] Issue in compatibility with module Payment With Fee by ETS-Soft.
+- [FIX] Bug displaying zero amount in shipping cost tax breakdown table from invoices.
+- [IMP] Cron task options.
+- [IMP] Code for integration with the module One Page Checkout Prestashop by Presteamshop.
+- [IMP] Minor improvements.
+- [DEL] Option to override customer VAT address table in CRON task and Customer VAT management section.
+
+#1.5.0 (02/12/2022)
+- [FIX] Minor bugs.
+- [IMP] Some visual and validation system improvements.
+- [IMP] Validation system to avoid issues validating wrong VAT numbers in wrong countries what happens in the execution of cron tasks to import orders in third-party modules.
+- [IMP] PHP source code to improve behaviours and security.
+- [IMP] Translations and adding more information text to understand better the options and features.
+- [NEW] Option to remove the client from the previously assigned groups and assign it only to the group configured by country in this module.
+- [NEW] Customer exemption management section to add VAT exempt by customers.
+- [NEW] Option to set custom order states option to add when customer make orders with a valid VAT number or when API sytem fails after VAT validation process.
+- [NEW] Option to send email to customer when make an order and API system fails after VAT validation process during address creation in checkout process.
+- [ADD] Compatibility with Prestashop 8.
+
+#1.4.5 (23/11/2022)
+- [FIX] Minor bugs during update process.
+
+#1.4.4 (04/11/2022)
+- [FIX] Minor bugs.
+- [FIX] Some issues in integration with module One Page Checkout Presteashop by Presteamshop.
+- [FIX] Issue in multi-shop with vat exempt when customer validates VAT in one shop and buy from another shop within multishop mode.
+- [FIX] Bug trying to filter customer VAT list by customer email.
+- [FIX] Critical Bug with compatibility with module Payment With Fee by ETS-Soft.
+- [IMP] Multishop mode features in Orders management and Customer VAT management sections.
+- [IMP] PHP code.
+- [ADD] Compatibility with module PayPal Plus (multi, fees, refunds, card, buy now / pay later,...) by Idnovate.
+
+#1.4.3 (27/10/2022)
+- [FIX] Minor bugs.
+- [FIX] Bug validating VAT number in Address form from BO when VAT field is not required and value is empty or not valid.
+- [ADD] Compatibility with free module Ei Captcha by hhennes.
+- [ADD] Compatibility with reCaptcha module by Charlie.
+
+#1.4.2 (19/10/2022)
+- [FIX] Minor bugs.
+- [ADD] Check compatibility with module Promotions and discounts - (3x2, reductions, campaigns) module by Idnovate.
+
+#1.4.1 (13/10/2022)
+- [FIX] Critical BUG in Cart.php override calculating orders with tax but in removing tax in invoices.
+- [FIX] Issues when loading some JS files in AdminModuleController for some Prestashop versions.
+
+#1.4.0 (12/10/2022)
+- [IMP] PHP and JS source code.
+- [IMP] Some visual enhancements.
+- [IMP] Invalid VAT detection enhancements.
+- [IMP] Customer groups assignation system.
+- [IMP] PHP code adjustements to allow add address and validate VAT in Customer VAT Management section of the module when execute cron or process from another modules as ManoMano module or similar using its own class extending Address class.
+- [IMP] Multi-shop features in database queries.
+- [IMP] Rich text in invoice notes option.
+- [FIX] Issue with Paypal Checkout with cart total amount.
+- [FIX] Wrong email variables.
+- [FIX] Tooltips not visible due popup small width.
+- [FIX] Prestashop product price label displaying "Tax incl." for customers when price is tax exempt due valid VAT number.
+- [FIX] URL request to check VAT in VIES because of server updated.
+- [FIX] Issue cron task returning "Forbidden call".
+- [FIX] BUG assigning default tax for customers with tax exempt when creating orders from BO.
+- [FIX] BUG assigning customer groups without deleting old one when customer change country of same address previously saved in other customer group.
+- [FIX] BUG deleting addresses, system is not deleting customer VAT records in table.
+- [FIX] BUG validating VAT before inserting in the Blacklist option.
+- [FIX] Deleting address process.
+- [FIX] Issue executing CRON task for Prestashop 1.6 versions.
+- [ADD] Detection during installation if minimum requeriments of php extensions are not installed or loaded.
+- [ADD] Full compatibility of option to not allow orders with module Prestashop One Page Checkout Prestashop by Presteamshop.
+- [ADD] New Columns to database table.
+- [ADD] New section to check third party modules compatibility and integration.
+- [ADD] Option to insert custom text in product price block when customer has a valid VAT number.
+- [ADD] System to check VAT number from VAT Management table.
+- [ADD] Option to check company name registered in VIES  or GOV.UK for registered valid VAT number. Not allow registration for wrong companies names.
+- [ADD] Option to auto-insert company name registered in VIES or GOV.UK for registered valid VAT number.
+- [ADD] Compatibility with module Payment With Fee by ETS-Soft
+- [ADD] Compatibility with module ManoMano Module (MonEchelle) by Scale-DEV
+- [NEW] New admin sections designed.
+- [NEW] Orders management section.
+- [NEW] Check VAT tool.
+
+#1.3.1 (12/09/2022)
+- [FIX] JS issues.
+- [IMP] Implemented compatibility with option to not allow orders for Prestashop version from 1.6.
+- [ADD] Select option to not allow orders which amount exceed 135GBP or below to 135GBP.
+
+#1.3.0 (06/09/2022)
+- [IMP] PHP code.
+- [IMP] Compatibility with third party modules.
+- [FIX] CSS issue in address form labels during checkout process when option to display with company is enabled.
+- [FIX] Error message in addresses step (checkout) when vat_number field is optional in module but required in Prestashop option.
+- [FIX] Error message during installation in Prestashop 1.6 due missing function getConversionRate().
+- [ADD] Compatibility with module Advanced Rounding (Swiss Round 5ct, 10ct, and more) by Idnovate.
+- [ADD] Content for compatibility instructions in module configuration page.
+- [ADD] Legend in company field (Address form) when option to display VAT with company is enabled.
+- [NEW] Brexit option to not allow orders which amount exceed of 135GBP.
+
+#1.2.4 (20/07/2022)
+- [FIX] Minor bugs in files to get PHP 7.4 compatibility.
+- [ADD] Full compatibility integrated with module One Page Checkout PS from version 5.0.0 by Presteamshop.
+
+#1.2.3 (13/07/2022)
+- [FIX] Error 500 when "display only for company" option is enabled.
+
+#1.2.2 (04/07/2022)
+- [FIX] Minor bugs.
+
+#1.2.1 (13/06/2022)
+- [FIX] Minor bugs.
+
+#1.2.0 (06/06/2022)
+- [ADD] Compatibility with module One Page Checkout Prestashop by Presteamshop since version 4.1.5.
+- [ADD] Compatibility with module Easy checkout by SUNNYTOO.COM.
+- [ADD] Compatibility with module Free Shipping / Delivery by Zone, Carrier, Price and Weight by Linea Gráfica.
+
+#1.1.2 (30/05/2022)
+- [FIX] BUG because of function missing getSymbol() in Prestashop version 1.7.5.2 and older.
+
+#1.1.1 (14/05/2022)
+- [FIX] Bug sending bad URL with iso code included in vat number through mails to verify VAT number via VIES.
+
+#1.1.0 (07/05/2022)
+- [FIX] Minor bugs in files to get PHP 7.4 compatibility.
+
+#1.0.9 (05/05/2022)
+- [FIX] Minor bugs in override files to get PHP 7.4 compatibility.
+- [FIX] Issue with displaying price with tax when customer group is displaying price without tax.
+- [FIX] Bug when UK country is removed and Brexit option is enabled.
+
+#1.0.8 (23/04/2022)
+- [FIX] Minor BUG when modify address from order details because of hookActionCartSave.
+
+#1.0.7 (12/04/2022)
+- [FIX] BUG redirecting to address form in checkout process when type something on company field.
+- [FIX] Minor BUG.
+- [IMP] PHP code.
+
+#1.0.6 (05/04/2022)
+- [IMP] Warning message for not valid VT number when option "display for companies" are enabled.
+- [FIX] Error in override file CustomerAddressForm.php for no defined function when module DNI Verificator is enabled.
+- [FIX] Issues in Admin VAT verificator when VAt number is empty and field is optional.
+- [FIX] Css issues in VAT Management section.
+- [IMP] Performance in VAT number scanner.
+
+#1.0.5 (30/03/2022)
+- [FIX] Issue not displaying ID column in VAT Management table.
+- [FIX] Issue changing customer group by default when address is changed within same country.
+- [FIX] Error 500 when adding products in cart.
+- [IMP] PHP code.
+- [IMP] Display Warning Message in addresses only when a customer has a invalid VAT number registered in one of his addresses.
+- [IMP] Brexit feature meeting UK law for exportations to UK country.
+- [ADD] Compatibility with overrides used in "DNI Verificator" and "RUT Validator" modules.
+- [ADD] Historic table to save orders and notax records. 
+
+#1.0.4 (25/02/2022)
+- [ADD] Feature to select type of address for VAT exempt (invoice or delivery address).
+- [FIX] Issue displaying taxes in Order Slips when customer made purchase with VAT exempt.
+- [FIX] Tax details issues in Order slips and invoices.
+
+#1.0.3 (10/02/2022)
+- [ADD] Feature to disable CRON options depends on incompatible option selected.
+- [ADD] Compatibility with modules DNI Verificator and RUT Validator.
+- [ADD] Feature to continue scanner process from last id address scanned (Useful when last scanner process finished with errors).
+- [FIX] Issue not formatting VAT number in scanner process or cron process.
+- [FIX] Minor BUGS.
+- [FIX] BUG with hookActionCartSave.
+- [FIX] BUG in Credit Slips displaying shipping tax amount in orders with tax exempt.
+- [FIX] Issue in order details and validate order displaying taxes when customer is VAT exempt.
+- [FIX] Customer VAT list filtering issues in some columns.
+- [IMP] Abort scanner process code enhancement.
+
+#1.0.2 (05/01/2022)
+- [FIX] Override issue by calling a function.
+- [FIX] minor bugs.
+- [FIX] Issue because of Prestashop cache displaying prices with TAX in homepage instead without TAX when customer has a address with valid VAT number.
+- [FIX] Issue displaying incomplete address error message when VAT number field is optional and customer has empty this field.
+- [NEW] Brexit rules for VAT exemption in amounts over 135 pounds.
+- [NEW] Client group assignation by countries.
+- [NEW] Client default group assignation by countries.
+- [NEW] Assign client default group when address is change or selected in checkout process.
+- [NEW] CRON task to check and validate customers VAT numbers.
+- [ADD] System to validates UK VAT numbers for Brexit with GOV.UK API system.
+- [ADD] feature to remove customer group assignation if the customer deletes or modifies his address with another one with no VAT valid or after modification, the customer has not a valid VAT number is one of his addresses.
+- [IMP] Visual Popup for scanner in VAT management section.
+
+#1.0.1 (22/12/2021)
+- [ADD] Override compatibility with modules DNI Verificator and RUT Validator.
+- [IMP] PHP code.
+
+#1.0.0 (01/12/2021)
+- First version developed.

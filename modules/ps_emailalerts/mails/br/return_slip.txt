@@ -1,0 +1,25 @@
+[{shop_name}]({shop_url})
+Olá,
+
+Você recebeu uma nova solicitação de devolução da loja {shop_name}.
+
+Detalhes da solicitação de devolução
+
+Pedido: Pedido {order_name} realizado em {date}
+Cliente: {firstname} {lastname}, ({email})
+
+Referência	Produto	Quantidade    {items}
+
+Endereço de entrega
+
+{delivery_block_html}
+
+Endereço de cobrança
+
+{invoice_block_html}
+
+Mensagem do cliente:
+
+{message}
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>qov</name>
+    <displayName><![CDATA[Quick Order View]]></displayName>
+    <version><![CDATA[2.0.0]]></version>
+    <description><![CDATA[Display list of ordered products quickly with Quick Order View module. Module increase usability of back office to quickly preview orders in &quot;orders&quot; section.]]></description>
+    <author><![CDATA[MyPresta.eu]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

@@ -1,0 +1,1 @@
+Muestre u oculte las columnas del mercado del módulo de Amazon en la cuadrícula de Gestión de pedidos.

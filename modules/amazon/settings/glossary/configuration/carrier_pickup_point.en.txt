@@ -1,0 +1,1 @@
+Carrier pickup point for incoming orders.

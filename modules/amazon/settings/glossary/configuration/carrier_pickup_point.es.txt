@@ -1,0 +1,1 @@
+Punto de recogida del transportista para pedidos entrantes.

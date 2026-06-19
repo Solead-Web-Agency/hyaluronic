@@ -1,0 +1,1 @@
+Auto create product if the order detail from amazon don't have that product.

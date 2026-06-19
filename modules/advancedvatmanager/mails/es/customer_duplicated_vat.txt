@@ -1,0 +1,12 @@
+[/{shop_url}]
+
+MÓDULO ADVANCED VAT MANAGER
+Validación de IVA
+
+Hola [/{customer_name}],
+
+Su campo de número de IVA está duplicado con otra cuenta de cliente. Si ha creado dos cuentas diferentes en nuestra tienda con el mismo número de IVA, elimine una de ellas o establezca un número de IVA válido diferente en una de ellas. Vaya a sus direcciones haciendo clic en el siguiente enlace:
+[{customer_account_addr}]
+
+Correo electrónico enviado por el módulo Advanced VAT Manager, desarrollado por Liewebs [http://www.prestashop.com/] 
+

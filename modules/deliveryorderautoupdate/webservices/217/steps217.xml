@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+		<id_status>1</id_status>
+		<statuscode>CONSEGNA EFFETTUATA</statuscode>
+		<statuscode>SCONOSCIUTO ALL'INDIRIZZO</statuscode>
+		<statuscode>CONSEGNATO</statuscode>
+		<statuscode>DELIVERED</statuscode>
+	</step>
+	<step>
+		<id_status>2</id_status>
+		<statuscode>CLIENTE ASSENTE</statuscode>
+	</step>
+	<step>
+		<id_status>3</id_status>
+		<statuscode>In progress</statuscode>
+		<statuscode>In transito</statuscode>
+		<statuscode>IN MAGAZZINO</statuscode>
+		<statuscode>MANCA MERCE</statuscode>
+		<statuscode>MISSING GOODS</statuscode>
+		<statuscode>MISSING</statuscode>
+		<statuscode>MANCANTE</statuscode>
+		<statuscode>IN BRANCH</statuscode>
+		<statuscode>IN VIAGGIO</statuscode>
+		<statuscode>TRAVELLING</statuscode>
+		<statuscode>PIANIFICATO AL CARICO</statuscode>
+		<statuscode>PLANNED FOR LOADING</statuscode>
+		<statuscode>CARICATO</statuscode>
+		<statuscode>LOADED</statuscode>
+		<statuscode>SCARICO IN CORSO</statuscode>
+		<statuscode>UNLOADING</statuscode>
+		<statuscode>WAITING FOR A NEW DELIVERY</statuscode>
+		<statuscode>IN ATTESA DI RICONSENGA</statuscode>
+		<statuscode>CONSEGNA ALTROVE</statuscode>
+		<statuscode>REFUSED NEW ADDR</statuscode>
+		<statuscode>RITARDO AUTISTA</statuscode>
+		<statuscode>DRIVER DELAY</statuscode>
+		<statuscode>RICH EXTRASERVICE</statuscode>
+		<statuscode>REQ EXTRASERVICE</statuscode>
+		<statuscode>PROBL TRAGITTO ON WAY</statuscode>
+		<statuscode>PROBLEM ON WAY</statuscode>
+	</step>
+	<step>
+		<id_status>4</id_status>
+		<statuscode>ORDINE CREATO - IN ATTESA DI AFFIDAMENTO</statuscode>
+		<statuscode>ORDER CREATED - WAITING TO RECEIVE THE GOODS</statuscode>
+		<statuscode>DATI RICEVUTI</statuscode>
+		<statuscode>DATA RECEIVED</statuscode>
+	</step>
+	<step>
+		<id_status>5</id_status>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>6</id_status>
+		<statuscode></statuscode>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>7</id_status>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>8</id_status>
+		<statuscode>IN CONSEGNA</statuscode>
+		<statuscode>ON DELIVERY</statuscode>
+	</step>
+	<step>
+		<id_status>9</id_status>
+		<statuscode>GOODS REJECTED</statuscode>
+		<statuscode>ORDINE RESPINTO</statuscode>
+	</step>
+	<step>
+		<id_status>105</id_status>
+		<statuscode>Tracking was not found</statuscode>
+	</step>
+	<step>
+		<id_status>103</id_status>
+		<statuscode></statuscode>
+	</step>
+</document>

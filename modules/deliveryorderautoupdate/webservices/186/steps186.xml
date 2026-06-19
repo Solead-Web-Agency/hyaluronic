@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>POD</statuscode>
+			<statuscode>002</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode>500</statuscode>
+			<statuscode>403</statuscode>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>706</statuscode>
+			<statuscode>700</statuscode>
+			<statuscode>PEC</statuscode>
+			<statuscode>COL</statuscode>
+			<statuscode>HUB</statuscode>
+			<statuscode>INB</statuscode>
+			<statuscode>703</statuscode>
+			<statuscode>410</statuscode>
+			<statuscode>509</statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode>001</statuscode>
+			<statuscode>008</statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode>012</statuscode>
+			<statuscode>611</statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>OFD</statuscode>
+			<statuscode>414</statuscode>
+	</step>
+	<step>
+			<id_status>14</id_status>
+			<statuscode>420</statuscode>
+	</step>
+	<step>
+			<id_status>106</id_status>
+			<statuscode>PARCEL NOT FOUND</statuscode>
+			<statuscode>Não encontrámos resultados para</statuscode>
+	</step>
+</document>

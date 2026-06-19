@@ -1,0 +1,16 @@
+{
+    "config": {
+        "preferred-install": "dist",
+        "platform": {
+            "php": "5.3.3"
+        },
+        "prepend-autoloader": false
+    },
+    "require-dev": {
+        "php": ">=5.3",
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "classmap": ["classes/", "controllers/"]
+    }
+}

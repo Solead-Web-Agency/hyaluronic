@@ -1,0 +1,10 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+
+Há um problema com seu pagamento na loja {shop_name} para o pedido com referência {order_name}. Entre em contato conosco o mais breve possível.
+Enviaremos o seu pedido assim que o pagamento for confirmado.
+
+Acompanhe seu pedido e baixe sua fatura em nossa loja, na seção [Histórico e detalhes dos pedidos]({history_url}) de sua conta de cliente.
+Se você tem uma conta de convidado pode acompanhar seu pedido através da seção [Rastreamento para Visitante]({guest_tracking_url}) em nossa loja.
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

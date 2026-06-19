@@ -1,0 +1,2 @@
+Obtain product/shipping tax from Amazon if it's included in order info,
+or Calculate tax for business order based on PS rule.

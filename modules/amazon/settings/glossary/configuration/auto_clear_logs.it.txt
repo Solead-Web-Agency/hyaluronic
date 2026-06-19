@@ -1,0 +1,3 @@
+Cancella automaticamente i file di registro dopo x giorni.
+
+x è uguale a 90 come predefinito.

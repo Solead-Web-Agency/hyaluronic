@@ -1,0 +1,17 @@
+{shop_url}
+
+Salve {firstname} {lastname},
+
+Il tuo messaggio è stato inviato con successo, grazie per averci dedicato del tempo!
+
+ID Ordine:  {order_name}
+
+Prodotto:  {product_name}
+
+File allegato: {attached_file}
+
+Ti risponderemo appena possibile.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

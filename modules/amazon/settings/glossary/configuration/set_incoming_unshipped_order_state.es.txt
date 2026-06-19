@@ -1,0 +1,2 @@
+Elija el estado predeterminado para el pedido No enviado.
+Si no se selecciona, tomará el valor de Estado de pedido entrante.

@@ -1,0 +1,87 @@
+body{
+    padding:0;
+    margin: 0;
+}
+.ets_abancart_preview_info.bar span.ets_abancart_count_down_clock,
+.ets_abancart_preview_info.bar span.ets_abancart_count_down_clock * {
+    color: inherit;
+    border-color: inherit;
+}
+
+.ets_abancart_count_down_clock > span:last-child{
+    margin-right: 0!important;
+}
+span.ets_abancart_shot_code_content.count_down_clock {
+    display: inline-block;
+}
+
+.ets_abancart_count_down_clock,
+.ets_ac_evt_countdown2 {
+    display: flex;
+    display: -webkit-flex;
+    margin-top: 5px;
+    width: auto;
+    display: inline-block;
+    font-family: arial;
+}
+
+.ets_abancart_count_down_clock .ets_abancart_countdown,
+.ets_ac_evt_countdown2 .ets_ac_countdown2 {
+    border: 1px solid #ddd;
+    padding: 0 2px 4px;
+    display: inline-block;
+    font-size: 11px;
+    margin-right: 6px;
+    width: 42px;
+    text-align: center;
+    margin-bottom: 6px;
+}
+.ets_abancart_countdown span,
+.ets_ac_countdown2 span {
+    display: block;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 4px 0 1px;
+    line-height: 1;
+}
+.ets_abancart_preview_info:not(.bar) .ets_abancart_preview .ets_abancart_add_discount:hover,
+.ets_abancart_checkout:hover,
+.ets_abancart_shop_button:hover,
+.ets_abancart_preview_info:not(.bar) .ets_abancart_preview .ets_abancart_add_discount:focus,
+.ets_abancart_checkout:focus,
+.ets_abancart_add_discount:hover,
+.ets_abancart_shop_button:focus{
+    color: #fff!important;
+    background: #008abd!important;
+}
+.ets_abancart_product_grid .product_grid {
+    display: flex;
+    width: 100%;
+    border: none!important;
+}
+
+.ets_abancart_product_grid .product_grid .product-item {
+    width: 33.33%;
+    padding: 0 15px;
+    float: left;
+    text-align: center;
+}
+
+.ets_abancart_product_grid .product_grid .product-item a {
+    text-align: center!important;
+    line-height: 1;
+    font-family: Arial;
+    font-size: 13px;
+}
+
+.ets_abancart_product_grid .product_grid span.quantity {
+    display: none!important;
+}
+
+.ets_abancart_product_grid .product_grid span.total {
+    display: none!important;
+}
+
+.ets_abancart_product_grid .product_grid img {
+    width: 100%;
+}

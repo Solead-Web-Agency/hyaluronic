@@ -1,0 +1,183 @@
+{#**
+* 2007-2021 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please, contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2021 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+*#}
+{% extends 'PrestaShopBundle:Admin/Product/ProductPage:product.html.twig' %}
+{% block product_panel_seo %}
+    {{ parent() }}
+    {% if etsCzfFormProduct is defined and etsCzfFormProduct %}
+        <div role="tabpanel" class="form-contenttab tab-pane" id="ets_czf">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="container-fluid">
+                        {% if etsCzfFormProduct is defined %}
+                            {{ etsCzfFormProduct | raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if etsEptExtraTabs is defined and etsEptExtraTabs %}
+        <div role="tabpanel" class="form-contenttab tab-pane" id="ets_ept">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="container-fluid">
+                        {% if etsEptExtraTabs is defined %}
+                            {{ etsEptExtraTabs | raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if ets_seo_product_seo_analysis is defined %}
+        {{ include('@Product/ProductPage/Panels/ets_seo_analysis.html.twig', {
+            'productId': id_product
+        }) }}
+    {% endif %}
+{% endblock %}
+{% block product_panel_modules %}
+    {% if ets_seo_product_seo_analysis is defined %}
+        {% if hookcount('displayAdminProductsExtra') > 0 %}
+            <div role="tabpanel" class="form-contenttab tab-pane" id="hooks">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="container-fluid">
+                            <div class="row">
+
+                                {# LEFT #}
+                                <div class="col-md-12">
+                                    {% set hooks = renderhooksarray('displayAdminProductsExtra', { 'id_product': id_product }) %}
+
+                                    <div class="row module-selection" style="display: none;">
+                                        <div class="col-md-12 col-lg-7">
+                                            {% for module in hooks %}
+                                                <div class="module-render-container module-{{ module.attributes.name }}">
+                                                    <div>
+                                                        <img class="top-logo" src="{{ module.attributes.img }}"
+                                                             alt="{{ module.attributes.displayName }}">
+                                                        <h2 class="text-ellipsis module-name-grid">
+                                                            {{ module.attributes.displayName }}
+                                                        </h2>
+                                                        <div class="text-ellipsis small-text module-version">
+                                                            {{ module.attributes.version }}
+                                                            by {{ module.attributes.author }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="small no-padding">
+                                                        {{ module.attributes.description }}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12 col-lg-5">
+                                            <h2>{{ 'Module to configure'|trans({}, 'Admin.Catalog.Feature') }}</h2>
+                                            <select class="modules-list-select" data-toggle="select2">
+                                                {% for module in hooks %}
+                                                    <option value="module-{{ module.attributes.name }}">{{ module.attributes.displayName }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="module-render-container all-modules">
+                                        <p>
+                                        <h2>{{ 'Choose a module to configure'|trans({}, 'Admin.Catalog.Feature') }}</h2>
+                                        {{ 'These modules are relative to the product page of your shop.'|trans({}, 'Admin.Catalog.Feature') }}
+                                        <br/>
+                                        {{ 'To manage all your modules go to the [1]Installed module page[/1]'|trans({}, 'Admin.Catalog.Feature')|replace({'[1]': '<a href="' ~ path("admin_module_manage") ~ '">', '[/1]': '</a>'})|raw }}
+                                        </p>
+                                        <div class="row">
+                                            {% for module in hooks %}
+                                                <div class="col-md-12 col-lg-6 col-xl-4">
+                                                    <div class="module-item-wrapper-grid">
+                                                        <div class="module-item-heading-grid">
+                                                            <img class="module-logo-thumb-grid"
+                                                                 src="{{ module.attributes.img }}"
+                                                                 alt="{{ module.attributes.displayName }}">
+                                                            <h3 class="text-ellipsis module-name-grid">
+                                                                {{ module.attributes.displayName }}
+                                                            </h3>
+                                                            <div class="text-ellipsis small-text module-version-author-grid">
+                                                                {{ module.attributes.version }}
+                                                                by {{ module.attributes.author }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="module-quick-description-grid small no-padding">
+                                                            {{ module.attributes.description }}
+                                                        </div>
+                                                        <div class="module-container">
+                                                            <div class="module-quick-action-grid clearfix">
+                                                                <button class="modules-list-button btn btn-outline-primary pull-xs-right"
+                                                                        data-target="module-{{ module.id }}">
+                                                                    {{ 'Configure'|trans({}, 'Admin.Actions') }}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    {% for module in hooks %}
+                                        <div
+                                                id="module_{{ module.id }}"
+                                                class="module-render-container module-{{ module.attributes.name }}"
+                                                style="display: none;"
+                                        >
+                                            <div>
+                                                {{ module.content|raw }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        {% if ets_seo_preview_analysis is defined %}
+                            {{ ets_seo_preview_analysis | raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+     {% else %}
+        {{ parent() }}
+    {% endif %}
+    {% if ets_wholesale_product is defined %}
+        <div id="ets_wholesale" class="form-contenttab tab-pane" role="tabpanel">
+            {% set hooks = renderhooksarray('displayAdminProductsExtraWholeSale', { 'id_product': id_product }) %}
+            {% for module in hooks %}
+                {{ module.content|raw }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {%if ets_extraoptions_product is defined %}
+        <div id="ets_extraoptions" class="form-contenttab tab-pane" role="tabpanel">
+            {% set hooks = renderhooksarray('displayAdminProductsExtraCustomAttribute', { 'id_product': id_product }) %}
+            {% for module in hooks %}
+                {{ module.content|raw }}
+            {% endfor %}
+        </div>
+   {% endif %}
+{% endblock %}

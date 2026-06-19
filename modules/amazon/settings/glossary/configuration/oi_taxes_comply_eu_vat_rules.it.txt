@@ -1,0 +1,2 @@
+Le tasse e le tariffe di spedizione sono calcolate in base all'imposta sul prezzo del prodotto
+e aliquota (definita nella regola fiscale PS).

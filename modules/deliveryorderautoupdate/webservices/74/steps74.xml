@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+		<id_status>1</id_status>
+		<status>DELIVERED</status>
+		<status></status>
+	</step>
+	<step>
+		<id_status>2</id_status>
+		<status></status>
+	</step>
+	<step>
+		<id_status>3</id_status>
+		<status>IN_TRANSPORT</status>
+	</step>
+	<step>
+		<id_status>4</id_status>
+		<status></status>
+	</step>
+	<step>
+		<id_status>5</id_status>
+		<status></status>
+	</step>
+	<step>
+		<id_status>6</id_status>
+		<status>READY_FOR_PICKUP</status>
+	</step>
+	<step>
+		<id_status>7</id_status>
+		<status>RETURNED_TO_SENDER</status>
+	</step>
+	<step>
+		<id_status>8</id_status>
+		<status>OUT_FOR_DELIVERY</status>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<status></status>
+	</step>
+</document>

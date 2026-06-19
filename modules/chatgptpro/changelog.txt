@@ -1,0 +1,235 @@
+######################################## Initial release v1.0.0 – February 11 2023 ########################################
+
+
+
+#### Minor Update v1.0.2 – February 25 2023 ####
+
+Added Playground feature
+
+Added CTA Button on backoffice top bar
+
+
+
+######################################## Major Update v1.0.5 – March 10 2023 ########################################
+
+Added dedicated links on backend left menu
+
+Added page for mass content generation
+
+Added option to mass generate product descriptions, short descriptions, meta title, meta descriptions
+
+Added option to filter products for which can be generated content using the mass option: category, brand, status, product ids, product reference codes
+
+Added option to target the updated field (descriptions, short descriptions, meta title, meta descriptions) when generating mass content
+
+Added option to target the updated field by language when generating mass content
+
+Added option to use shortcodes({product_name}, {product_tags}, {product_reference}, {product_weight}) within the prompt when generating mass content
+
+Added option to select the behavior of the script if certain fields already have content (Keep existing data and add new generated content at the top, Keep existing data and add new generated content at the end, Keep existing data and skip product, Remove data and add new generated content)
+
+Added debug mode option
+
+Added support for gpt-3.5-turbo model
+
+Added Dedicated page where user can check the usage based on the selected date
+
+
+
+######################################## Minor Update v1.0.6 – March 13 2023 ########################################
+
+Added new shortcodes within the prompt when generating mass content: {product_description}, {product_description_short}
+
+Added API KEY password mask on backend are for increased security
+
+
+
+######################################## Major Update v1.0.7 – March 14 2023 ########################################
+
+Fixed small issue on product edit page: Associated cateogries listing
+
+Fixed small issue on product filter for mass content generation
+
+Added new shortcodes within the prompt when generating mass content: {product_description_short}, {product_tags}, {product_reference}, {product_weight}, {shop_name}, {shop_url}, {shop_language}, {shop_country}, {shop_currency}, {product_default_category}, {product_categories}, {product_attributes}, {product_features}, {product_feature_values}
+
+Added option to select specific products on the mass content generation form
+
+
+
+######################################## Minor Update v1.0.8 – March 15 2023 ########################################
+
+Added multiple translations: bg, de, es, fr, it, nl, pl, pt, ro, uk
+
+Added small improvements and bugfixes
+
+Added module zip size optimization
+
+
+######################################## Minor Update v1.0.9 – March 20 2023 ########################################
+
+Added small improvements and bugfixes
+
+
+
+######################################## Minor Update v1.1.2 – March 24 2023 ########################################
+
+Added option to Add, edit and Delete Prompt Templates
+Added Prompt template list on product edit page, mass content generation page, top bar popup
+Added new filter options on mass content generation page: Product Add Date From
+Added new filter options on mass content generation page: Product Add Date To
+Added new filter options on mass content generation page: Update only (Products that have not been updated with OpenAi content, Products that already have been updated with OpenAi content, Update all)
+
+
+######################################## Minor Update v1.1.3 – March 25 2023 ########################################
+
+Added small improvements and bugfixes
+
+
+
+######################################## Minor Update v1.1.4 – March 27 2023 ########################################
+
+Added Cron Job features
+Added Cron Job options to filter and target products to update
+Added Cron Job option to define which fields will be updated when using Cron Jobs
+
+
+
+######################################## Minor Update v1.1.5 – March 27 2023 ########################################
+
+Fixed shortcode bug on product edit page
+
+
+
+######################################## Minor Update v1.1.6 – March 28 2023 ########################################
+
+Added new Cron Job option to filter products using category ID list
+Improved the method of filtering products by category
+Fixed console log JavaScript error
+Fixed meta title & meta description saving error
+
+
+
+######################################## Minor Update v1.1.7 – March 30 2023 ########################################
+
+Added possibility to create Prompt templates containing html code
+
+
+
+######################################## Minor Update v1.1.8 – March 31 2023 ########################################
+
+Fixed issue on Mass Content Generation: filter products that were not updated by the module
+Fixed issue on Cron Job execution: filter products that were not updated by the module
+
+
+
+######################################## Major Update v1.2.0 – April 4 2023 ########################################
+
+Added option to update product title via product page edit, mass update form, cron job
+Added new shortcodes: {product_brand}, {product_category_description}
+Added support for gpt-4 model
+Added new Prompt Templates examples
+Added option to clear History log
+
+
+
+######################################## Minor Update v1.2.1 – April 10 2023 ########################################
+
+Added product update history log on edit page
+Added product option to restore a past data (title, descriptions, metas)
+Added language field to logs table
+Added option to generate mass content for categories
+Added shortcodes to be used on category mass content generate: {category_name}, {category_description}, {category_parent_name}, {shop_name}, {shop_url}, {shop_language}, {shop_country}, {shop_currency}
+Added option to generate content for single category
+Added option to generate content for single CMS Page
+Added module changelog dedicated page
+
+
+
+######################################## Minor Update v1.2.2 – April 14 2023 ########################################
+
+Added manufacturer id on history log listing table
+Added small improvements
+Fixed issue on Product Mass Content Generator page: undefined getAttribute
+
+
+
+######################################## Minor Update v1.2.3 – May 8 2023 ########################################
+
+Added option to generate meta title and meta description content on product edit page
+Added confirmation messages regarding generating status on product edit page
+Added fix for GPT-4 model
+
+
+
+######################################## Minor Update v1.2.4 – May 9 2023 ########################################
+
+Added option to generate category content using Cron Job
+
+
+
+######################################## Minor Update v1.2.5 – May 10 2023 ########################################
+
+Added option to set API Call Delay on Mass Content Generator
+Added current module version information on module Changelog Page
+Added more pre-defined prompt templates
+Fixed issue with prompt list - display only active prompts
+
+
+
+######################################## Minor Update v1.2.6 – May 30 2023 ########################################
+
+Added option to target only products in stock on the Mass Content Generator page
+
+
+
+######################################## Minor Update v1.2.7 – May 31 2023 ########################################
+
+Added option to store product history edits from the product edit page
+Fixed issue with wrong language updated on the Mass Content Generator Page
+Fixed issue when using category and Brand filter on the Mass Content Generator Page
+
+
+######################################## Minor Update v1.2.8 – June 13 2023 ########################################
+
+Added compatibility with PrestaShop 1.6
+Fixed issue with shortcodes: {product_features}, {product_feature_values}
+
+
+
+######################################## Minor Update v1.2.9 – June 19 2023 ########################################
+
+Added support for gpt-3.5-turbo-0613 and gpt-3.5-turbo-16k models
+Improved module security
+
+
+######################################## Minor Update v1.3.0 – July 10 2023 ########################################
+
+Fixed bug with new lines
+
+
+######################################## Minor Update v1.3.1 – July 18 2023 ########################################
+
+Fixed bug when disabling the top bar CTA button
+
+
+######################################## Minor Update v1.3.2 – July 31 2023 ########################################
+
+Added the possibility to generate product tags
+Added new product shortcode {product_images}
+Added option to delete multiple prompt templates at once
+
+
+######################################## Minor Update v1.3.3 – August 10 2023 ########################################
+
+Fixed bug on Top Bar CTA Popup
+Fixed issue on some PS versions when using product shortcodes
+
+
+######################################## Minor Update v1.3.4 – September 7 2023 ########################################
+
+Added detailed message on failed executions
+
+
+######################################## Minor Update v1.3.5 – October 3 2023 ########################################
+
+Added option to set a product number limit on the Mass Product Generation Page, in order to avoid timeouts when processing large number of products

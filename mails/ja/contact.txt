@@ -1,0 +1,11 @@
+[{shop_name}]({shop_url})
+お客からのメッセージ
+
+顧客メールアドレス： {email}
+
+顧客メッセージ： {message}
+
+注文ID: {order_name}
+添付ファイル: {attached_file}
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

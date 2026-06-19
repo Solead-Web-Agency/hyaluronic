@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>masseditproduct</name>
+    <displayName><![CDATA[Mass modifier le produit]]></displayName>
+    <version><![CDATA[2.0.15]]></version>
+    <description><![CDATA[Mass modifier le produit]]></description>
+    <author><![CDATA[SeoSa]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

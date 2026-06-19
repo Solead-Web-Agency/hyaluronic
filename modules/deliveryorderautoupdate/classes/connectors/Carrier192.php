@@ -1,0 +1,111 @@
+<?php
+/**
+* 2007-2023 PrestaShop
+*
+* deliveryorderautoupdate
+*
+*  @author    Helloshop <modules@helloshop.com>
+*  @copyright 2007-2023 Helloshop
+*  @license   license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+*  @Website: http://www.Helloshop.com
+*/
+
+class Carrier192 extends deliveryorderautoupdate\Carrier
+{
+    public function getResponse()
+    {
+        $data = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:sled="http://sledzenie.pocztapolska.pl">
+        <soapenv:Header>
+        <wsse:Security
+        soapenv:mustUnderstand="1"
+        xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+        <wsse:UsernameToken wsu:Id="UsernameToken-2"
+        xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        <wsse:Username>sledzeniepp</wsse:Username>
+        <wsse:Password
+        Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">
+        PPSA</wsse:Password>
+        <wsse:Nonce
+        EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">
+        X41PkdzntfgpowZsKegMFg==</wsse:Nonce>
+        <wsu:Created>2011-12-08T07:59:28.656Z</wsu:Created>
+        </wsse:UsernameToken>
+        </wsse:Security>
+        </soapenv:Header>
+        <soapenv:Body>
+        <sled:sprawdzPrzesylke>
+        <sled:numer>'.$this->tracking_number.'</sled:numer>
+        </sled:sprawdzPrzesylke>
+        </soapenv:Body>
+        </soapenv:Envelope>';
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://tt.poczta-polska.pl/Sledzenie/services/Sledzenie.SledzenieHttpSoap11Endpoint/',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => $data ,
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: text/plain'
+          ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        return $response;
+    }
+    public function track()
+    {
+        $response = $this->getResponse();
+        $response = str_ireplace(['soapenv:', 'ns:', 'ax21:', 'xsi:'], '', $response);
+        $xml = simplexml_load_string($response);
+        $json = json_Decode(json_Encode($xml), true);
+        $body = $json['Body']['sprawdzPrzesylkeResponse']['return']['danePrzesylki'];
+        $success = false;
+        $events = array();
+        $id_status = 0;
+        if (isset($body['zdarzenia'])) {
+            $track = $body['zdarzenia']['zdarzenie'];
+            $events = array_map(function ($e) {
+                $date = DateTime::createFromFormat('Y-m-d H:i', $e['czas']);
+                return array(
+                    'event_code' => $e['kod'],
+                    'event_description' => $e['nazwa'],
+                    'event_date' => $date->format("y-m-d H:i:s"),
+                    'id_status' => TrackingModel::searchIdStatus(192, $e['kod'])
+                );
+            }, $track);
+            if (count($events)) {
+                $success = true;
+                $event = end($events);
+                $status = $event['event_code'];
+                $desc = $event['event_description'];
+                $date = $event['event_date'];
+                $id_status = $event['id_status'];
+            }
+        } else {
+            $status = $json['Body']['sprawdzPrzesylkeResponse']['return']['status'];
+            $desc = '';
+            $date = date('Y-m-d H:i:s');
+            $id_status = TrackingModel::searchIdStatus(192, $status);
+        }
+        $status = new Status(array(
+            'id_order' => $this->id_order_carrier,
+            'success' => $success,
+            'status' => $status,
+            'desc' => $desc,
+            'date' => $date,
+            'id_status' => $id_status,
+            'events' => $events
+        ));
+        return $status;
+    }
+}

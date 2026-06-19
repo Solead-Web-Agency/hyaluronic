@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>pqshippingcostsbasedonzipcodes</name>
+    <displayName><![CDATA[Frais d&#039;envoi en fonction des codes postaux Pro]]></displayName>
+    <version><![CDATA[3.0.1]]></version>
+    <description><![CDATA[Appliquer diff&eacute;rents frais de transport bas&eacute;s sur les codes postaux de vos clients.]]></description>
+    <author><![CDATA[ProQuality]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+	<confirmUninstall><![CDATA[Etes-vous sûr que vous souhaitez désinstaller?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

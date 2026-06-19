@@ -1,0 +1,101 @@
+id_product;reference;price;id_shop_default;is_virtual;name;link_rewrite;active;shopname;id_image;name_category;price_final;nb_downloadable;sav_quantity;badge_danger;seo_score;readability_score;key_phrase
+1;9999900007145;189.833333;1;0;"JUVEDERM VOLBELLA avec Lidocaine (2x1ml)";juvederm-volbella-avec-lidocaine-2x1ml;1;"Hyaluronic Filler Market";802;"Dermal Filler";0;;874;0;166;57;"JUVEDERM VOLBELLA"
+8;9999900006018;189.833333;1;0;"JUVEDERM VOLIFT avec Lidocaïne (2x1ml)";juvederm-volift-avec-lidocaine-2x1ml;1;"Hyaluronic Filler Market";804;"Dermal Filler";0;;941;0;158;57;"JUVEDERM VOLIFT"
+9;9999900001709;199.000000;1;0;"JUVEDERM VOLUMA avec Lidocaïne (2x1ml)";juvederm-voluma-avec-lidocaine;1;"Hyaluronic Filler Market";261;"Dermal Filler";0;;947;0;0;57;
+11;9999900002676;94.000000;1;0;"JUVEDERM ULTRA 2 (2x0,55ml)";juvederm-ultra-2;1;"Hyaluronic Filler Market";262;"Dermal Filler";0;;10;0;170;57;JUVEDERM
+13;9999900001716;159.916667;1;0;"JUVEDERM ULTRA 3 (2x1ml)";juvederm-ultra-3;1;"Hyaluronic Filler Market";167;"Dermal Filler";0;;35;0;168;57;Juvederm
+14;9999900001686;159.916667;1;0;"JUVEDERM ULTRA 4 (2x1ml)";juvederm-ultra-4;1;"Hyaluronic Filler Market";805;"Dermal Filler";0;;13;0;124;57;"JUVEDERM ULTRA 4"
+20;9999900004441;49.166667;1;0;"STYLAGE Special Lips - VIVACY";stylage-special-lips;1;"Hyaluronic Filler Market";561;"Dermal Filler";0;;502;0;0;57;
+21;9999900001785;138.333333;1;0;"STYLAGE XL (2x1ml)";stylage-xl-2x1ml;1;"Hyaluronic Filler Market";562;"Dermal Filler";0;;935;0;144;57;"Stylage XL"
+22;9999900005240;30.833333;1;0;"STYLAGE HYDRO";stylage-hydro;1;"Hyaluronic Filler Market";563;"Dermal Filler";0;;789;0;0;57;
+23;9999900002744;42.083333;1;0;"STYLAGE HYDRO MAX";stylage-hydro-max;1;"Hyaluronic Filler Market";564;MESOTHERAPIE;0;;859;0;0;60;
+25;;141.666667;1;0;"TEOSYAL Deep Lines";teosyal-deep-lines;0;"Hyaluronic Filler Market";174;"Dermal Filler";0;;30;0;4;57;
+26;;16.510000;1;0;"TEOSYAL Kiss";teosyal-kiss;0;"Hyaluronic Filler Market";175;Teoxane;0;;199;0;13;57;
+27;;154.166667;1;0;"TEOSYAL Ultra Deep";teosyal-ultra-deep;0;"Hyaluronic Filler Market";176;Teoxane;0;;30;0;1;57;
+28;;16.510000;1;0;"TEOSYAL Global Action";teosyal-global-action;0;"Hyaluronic Filler Market";177;Teoxane;0;;199;0;4;57;
+29;;16.510000;1;0;"TEOSYAL Ultimate";teosyal-ultimate;0;"Hyaluronic Filler Market";178;Teoxane;0;;199;0;7;57;
+30;;58.333333;1;0;"TEOSYAL Meso";teosyal-meso;0;"Hyaluronic Filler Market";179;Teoxane;0;;9;0;10;57;
+31;;16.510000;1;0;"TEOSYAL Touch Up";teosyal-touch-up;0;"Hyaluronic Filler Market";180;Teoxane;0;;200;0;4;63;
+32;;91.666667;1;0;"TEOSYAL PureSense First Lines";teosyal-puresense-first-lines;0;"Hyaluronic Filler Market";264;Teoxane;0;;30;0;4;57;
+33;;145.833333;1;0;"TEOSYAL PureSense Kiss";teosyal-puresense-kiss;0;"Hyaluronic Filler Market";152;Teoxane;0;;30;0;4;57;
+34;;158.333333;1;0;"TEOSYAL PureSense Ultra Deep";teosyal-puresense-ultra-deep;0;"Hyaluronic Filler Market";148;Teoxane;0;;30;0;7;57;
+35;;145.833333;1;0;"TEOSYAL PureSense Global Action";teosyal-puresense-global-action;0;"Hyaluronic Filler Market";153;Teoxane;0;;30;0;4;57;
+36;;145.833333;1;0;"TEOSYAL PureSense Ultimate 2ml";teosyal-puresense-ultimate-2ml;0;"Hyaluronic Filler Market";149;Teoxane;0;;39;0;4;57;
+37;;69.083333;1;0;"Teosyal Puresense Redensity I (2x1ml)";teosyal-puresense-redensity-i;1;"Hyaluronic Filler Market";151;"Dermal Filler";0;;942;0;157;57;"Teosyal Puresense Redensity I"
+38;;139.908333;1;0;"Teosyal Puresense Redensity II (2x1ml)";teosyal-puresense-redensity-ii;1;"Hyaluronic Filler Market";150;"Dermal Filler";0;;926;0;159;57;"Teosyal Puresense Redensity II "
+47;9999900008739;72.500000;1;0;"RESTYLANE REFYNE lidocaine (1x1ml)";restylane-refyne-lidocaine-1x1ml;1;"Hyaluronic Filler Market";321;"Dermal Filler";0;;966;0;164;57;RESTYLANE
+48;9999900007503;93.333333;1;0;"RESTYLANE VOLYME Lidocaine (1x1ml)";restylane-volyme-lidocaine-1x1ml;1;"Hyaluronic Filler Market";322;"Dermal Filler";0;;833;0;167;57;"RESTYLANE VOLYME"
+49;9999900009408;80.000000;1;0;"RESTYLANE KYSSE lidocaine (1x1ml)";restylane-kysse;1;"Hyaluronic Filler Market";323;"Dermal Filler";0;;655;0;159;57;"Restylane kysse"
+52;9999900002997;78.500000;1;0;"RESTYLANE Lidocaïne (1x1ml)";restylane-avec-lidocaine-1x1ml;1;"Hyaluronic Filler Market";560;"Dermal Filler";0;;834;0;175;57;"RESTYLANE Lidocaïne"
+53;9999900002683;81.616667;1;0;"RESTYLANE Lyft Lidocaïne (1x1ml)";restylane-lyft-lidocaine-ex-perlane-1x1ml;1;"Hyaluronic Filler Market";588;"Dermal Filler";0;;807;0;204;57;RESTYLANE
+54;9999900020472;56.666667;1;0;"RESTYLANE Vital skinbooster (1X1ml)";restylane-vital-skinbooster-1x1ml;0;"Hyaluronic Filler Market";272;"Dermal Filler";0;;105;0;4;63;
+55;9999900003635;61.500000;1;0;"RESTYLANE SKINBOOSTER Lidocaïne (1x1ml)";restylane-vital-skinbooster-lidocaine-1x1ml;1;"Hyaluronic Filler Market";138;MESOTHERAPIE;0;;867;0;162;57;"RESTYLANE SKINBOOSTER"
+62;3401048417077;149.000000;1;0;"FILORGA  NCTF 135 HA [FillMed]";filorga-nctf-135-ha-fillmed-;1;"Hyaluronic Filler Market";577;Filorga;0;;0;1;0;60;
+63;9999900006056;70.833333;1;0;"FILORGA NCTF 135 [FillMed]";nctf-135;0;"Hyaluronic Filler Market";578;Filorga;0;;50;0;4;57;
+64;9999900005547;81.666667;1;0;"FILORGA M-HA 10 (3x3ml) - FillMed";m-ha-10;1;"Hyaluronic Filler Market";579;"Dermal Filler";0;;0;1;0;63;
+65;9999900007367;37.500000;1;0;"FILORGA M-HA 18 (1x1ml) - FillMed";m-ha-18;1;"Hyaluronic Filler Market";580;"Dermal Filler";0;;0;1;0;57;
+66;;129.166667;1;0;"X-HA VOLUME";x-ha-volume;0;"Hyaluronic Filler Market";193;"Dermal Filler";0;;24;0;10;63;
+67;;125.000000;1;0;"X-HA 3";x-ha-3;0;"Hyaluronic Filler Market";162;"Dermal Filler";0;;30;0;7;63;
+93;;62.500000;1;0;"PERFECTHA DEEP";perfectha-deep;0;"Hyaluronic Filler Market";129;"Dermal Filler";0;;20;0;10;57;
+94;;54.166667;1;0;"PERFECTHA DERM";perfectha-derm;0;"Hyaluronic Filler Market";130;"Dermal Filler";0;;29;0;10;57;
+95;;29.166667;1;0;"PERFECTHA FINE LINES";perfectha-fine-lines;0;"Hyaluronic Filler Market";216;Accueil;0;;200;0;7;57;
+96;;150.000000;1;0;"PERFECTHA SUBSKIN";perfectha-subskin;0;"Hyaluronic Filler Market";136;"Dermal Filler";0;;30;0;4;57;
+97;;50.000000;1;0;"PERFECTHA COMPLEMENT";perfectha-complement;0;"Hyaluronic Filler Market";217;"Dermal Filler";0;;200;0;4;63;
+98;;150.000000;1;0;"ELLANSÉ ™ S";ellanse-s;0;"Hyaluronic Filler Market";220;"Dermal Filler";0;;9;0;13;57;
+99;;200.000000;1;0;"ELLANSÉ ™ M";ellanse-m;0;"Hyaluronic Filler Market";137;"Dermal Filler";0;;16;0;7;57;
+100;9999900002812;353.333333;1;0;"Sculptra 2 flacons de 5ml";sculptra-2-flacons;1;"Hyaluronic Filler Market";1191;"Dermal Filler";0;;81;0;0;57;
+101;;159.166667;1;0;"CytoCare ® 502 (10x5ml)";cytocare-502-10x5ml;1;"Hyaluronic Filler Market";135;"Dermal Filler";0;;185;0;0;51;
+103;;181.333333;1;0;"CytoCare ® 516 (10x5ml)";cytocare-516-10x5ml;1;"Hyaluronic Filler Market";128;Cytocare;0;;93;0;0;51;
+104;;223.833333;1;0;"CytoCare 532 (10x5ml)";cytocare-532-10x5ml;1;"Hyaluronic Filler Market";131;"Dermal Filler";0;;95;0;174;57;"Cytocare 532"
+111;;102.666667;1;0;"CytoCare ® 516 (5x5ml)";cytocare-516-5x5ml;1;"Hyaluronic Filler Market";223;"Dermal Filler";0;;0;1;0;51;
+113;;203.750000;1;0;"CytoCare ® HairCare (10x5ml)";cytocare-haircare;1;"Hyaluronic Filler Market";283;"Dermal Filler";0;;63;0;0;57;
+114;9999900013252;67.083332;1;0;"RESTYLANE FYNESSE 1x1ml - GALDERMA";restylane-fynesse-1x1ml;1;"Hyaluronic Filler Market";324;"Dermal Filler";0;;947;0;180;57;RESTYLANE
+115;9999900009576;73.666667;1;0;"RESTYLANE DEYFINE lido (1x1ml)";restylane-deyfine-lido-1x1ml;1;"Hyaluronic Filler Market";325;"Dermal Filler";0;;915;0;159;57;RESTYLANE
+116;9999900003390;61.500000;1;0;"RESTYLANE SKINBOOSTERS Vital Light lidocaine 1x1ml";restylane-vital-light-skinbooster-lidocaine-1x1ml;1;"Hyaluronic Filler Market";267;MESOTHERAPIE;0;;866;0;162;57;"RESTYLANE SKINBOOSTERS Vital Light"
+118;;208.333333;1;0;"TEOSYAL PureSense Ultimate 3ml";teosyal-puresense-ultimate-3ml;0;"Hyaluronic Filler Market";265;Teoxane;0;;63;0;7;57;
+119;9999900003024;110.833333;1;0;"STYLAGE L (2x1ml)";stylage-l-2x1ml;1;"Hyaluronic Filler Market";565;"Dermal Filler";0;;878;0;0;57;
+120;9999900003031;125.833333;1;0;"STYLAGE L Lidocaine (2x1ml)";stylage-l-lidocaine-2x1ml;1;"Hyaluronic Filler Market";566;"Dermal Filler";0;;965;0;0;57;
+121;9999900001808;99.150000;1;0;"Stylage M (2x1ml) - VIVACY";stylage-m;1;"Hyaluronic Filler Market";567;"Dermal Filler";0;;674;0;165;57;"Stylage M"
+122;9999900004205;115.833333;1;0;"STYLAGE M Lidocaïne (2x1ml) - VIVACY";stylage-m-lidocaine-2x1ml;1;"Hyaluronic Filler Market";573;"Dermal Filler";0;;886;0;0;57;
+123;9999900004137;149.083333;1;0;"STYLAGE XL Lidocaine (2x1ml)";stylage-xl-lidocaine-2x1ml;1;"Hyaluronic Filler Market";572;"Dermal Filler";0;;989;0;0;57;
+124;9999900004892;90.000000;1;0;"STYLAGE S (2x0,8ml) - VIVACY";stylage-s-2x1ml;1;"Hyaluronic Filler Market";568;"Dermal Filler";0;;1951;0;156;57;"STYLAGE S"
+125;9999900008159;105.000000;1;0;"STYLAGE S Lidocaïne (2x0,8ml)";stylage-s-lidocaine-2x1ml;1;"Hyaluronic Filler Market";571;"Dermal Filler";0;;474;0;0;57;
+126;9999900001792;150.833333;1;0;"STYLAGE XXL  (2x1ml)";stylage-xxl-2x1ml;1;"Hyaluronic Filler Market";569;"Dermal Filler";0;;1975;0;0;57;
+127;9999900005882;135.000000;1;0;"DESIRIAL (stylage) (2x1ml)";stylage-desirial-2x1ml;1;"Hyaluronic Filler Market";663;Accueil;0;;21;0;0;51;
+128;;70.750000;1;0;"STYLAGE LIPS MEPIVACAINE (1x1ml)";stylage-lips-lidocaine-1x1ml;0;"Hyaluronic Filler Market";575;"Dermal Filler";0;;28;0;0;57;
+129;;716.666667;1;0;"Silhouette Soft 8 Cones – Sinclair Pharma";silhouette-soft-8-cones;1;"Hyaluronic Filler Market";254;"FILS TENSEURS / THREADS";0;;97;0;0;57;
+130;;800.000000;1;0;"Silhouette Soft 12 Cones – Sinclair Pharma";silhouette-soft-8-cones;1;"Hyaluronic Filler Market";255;"FILS TENSEURS / THREADS";0;;100;0;0;57;
+131;;1170.833333;1;0;"Silhouette Soft 16 Cones – Sinclair Pharma";silhouette-soft-16-cones;1;"Hyaluronic Filler Market";256;"FILS TENSEURS / THREADS";0;;100;0;0;57;
+132;9999900006766;210.000000;1;0;"DESIRIAL PLUS (stylage) (1x2ml)";stylage-desirial-plus-1x2ml;1;"Hyaluronic Filler Market";664;Accueil;0;;25;0;0;51;
+142;;108.333333;1;0;"etermis 3";glytone-3-1x1ml;0;"Hyaluronic Filler Market";342;"Dermal Filler";0;;100;0;10;57;
+143;;108.333333;1;0;"etermis 4";glytone-4-2x1ml;0;"Hyaluronic Filler Market";343;"Dermal Filler";0;;48;0;0;0;
+144;;57.500000;1;0;"RADIESSE (1x0,8ml)";radiesse-1x08ml;0;"Hyaluronic Filler Market";303;"Dermal Filler";0;;21;0;4;57;
+145;;95.500000;1;0;"RADIESSE (1x1.5ml)";radiesse-1x15ml;1;"Hyaluronic Filler Market";1141;"Dermal Filler";0;;4;0;177;57;"RADIESSE "
+146;;179.166667;1;0;"RADIESSE (1x3ml)";radiesse-1x3ml;0;"Hyaluronic Filler Market";307;"Dermal Filler";0;;8;0;0;0;
+147;;65.000000;1;0;"Belotero Soft 1ml";belotero-soft;1;"Hyaluronic Filler Market";344;"Dermal Filler";0;;41;0;0;51;
+148;;68.058333;1;0;"BELOTERO Balance";belotero-balance;1;"Hyaluronic Filler Market";311;"Dermal Filler";0;;63;0;0;57;
+149;;71.666667;1;0;"BELOTERO Intense";belotero-intense;1;"Hyaluronic Filler Market";976;"Dermal Filler";0;;75;0;174;60;"belotero intense"
+150;;156.250000;1;0;"BELOTERO Volume";belotero-volume;1;"Hyaluronic Filler Market";1029;"Dermal Filler";0;;26;0;0;51;
+151;;45.833333;1;0;"BELOTERO Hydro";belotero-hydro;0;"Hyaluronic Filler Market";317;"Dermal Filler";0;;29;0;10;57;
+152;;45.000000;1;0;"Revitalash Revitabrow Soin pour les Sourcils 3 ml";revitalash-revitabrow-soin-pour-les-sourcils-3-ml;0;"Hyaluronic Filler Market";318;RevitaLash;0;;200;0;0;0;
+168;;60.083333;1;0;"NEAUVIA Organic Intense 1ml";hydro-deluxe;1;"Hyaluronic Filler Market";351;"Dermal Filler";0;;69;0;0;57;
+170;;60.125000;1;0;"NEAUVIA Organic Intense LV 1ml";intense-lv;1;"Hyaluronic Filler Market";352;"Dermal Filler";0;;75;0;0;57;
+171;;58.750000;1;0;"NEAUVIA Organic Intense Lips 1ml";intense-lips-;1;"Hyaluronic Filler Market";353;"Dermal Filler";0;;73;0;0;57;
+172;;60.208333;1;0;"Neauvia Organic Intense Rhéology 1ml";intense-rheology;1;"Hyaluronic Filler Market";354;"Dermal Filler";0;;95;0;0;57;
+173;;63.750000;1;0;"NEAUVIA Organic Stimulate 1ml";neauvia-organic-stimulate;1;"Hyaluronic Filler Market";355;"Dermal Filler";0;;63;0;0;57;
+174;;65.416667;1;0;"NEAUVIA Organic Rose intense";rose-intense;1;"Hyaluronic Filler Market";356;"Dermal Filler";0;;88;0;0;57;
+179;;80.000000;1;0;"HYDRO DELUXE 2 (2 x 2,5 ml)";hydro-deluxe-2-x-25-ml;1;"Hyaluronic Filler Market";361;"Dermal Filler";0;;57;0;0;57;
+188;;231.666667;1;0;"VCARBON PEELING BIOREVITALISANT ";vcarbon-peeling;0;"Hyaluronic Filler Market";376;Peeling;0;;200;0;30;57;
+194;;79.000000;1;0;"FIGURHA INTENSO ( 1x1.25ml )";figurha-initio;0;"Hyaluronic Filler Market";382;"Dermal Filler";0;;10;0;0;0;
+195;;206.333333;1;0;"JUVEDERM VOLITE (2x1ml)";juvederm-volite;1;"Hyaluronic Filler Market";377;MESOTHERAPIE;0;;969;0;192;57;JUVEDERM
+197;9999900014785;40.958333;1;0;"HYAMIRA BASIC 1ML";hyamira-basic;1;"Hyaluronic Filler Market";615;"Dermal Filler";0;;398;0;160;57;HYAMIRA
+198;;108.333333;1;0;"FIGURHA VOLUMO ( 2x1.25 ml)";figurha-volumo-2x125-ml;0;"Hyaluronic Filler Market";384;"Dermal Filler";0;;9;0;4;57;
+199;;65.900000;1;0;"FIGURHA INITIO  ( 1x1.25ml )";figurha-initio-1x125ml-;0;"Hyaluronic Filler Market";383;"Dermal Filler";0;;10;0;0;0;
+200;;69.000000;1;0;"FIGURHA LIP CONTOUR   ( 1x1.25ml )";figurha-lip-contour-1x125ml-;0;"Hyaluronic Filler Market";385;"Dermal Filler";0;;10;0;0;0;
+201;;55.000000;1;0;"FIGURHA EYELIGHTS  ( 1x1.25 ml)";figurha-eyelights-2x125-ml;0;"Hyaluronic Filler Market";386;"Dermal Filler";0;;106;0;0;0;
+202;;54.083333;1;0;"SIMETRO 1.25 ML ( Equivalent à RADIESSE)";simetro-125-ml-equivalent-a-radiesse;1;"Hyaluronic Filler Market";387;"Dermal Filler";0;;0;1;0;57;
+203;9999900014778;40.166667;1;0;"HYAMIRA SOFT 1ML";hyamira-soft;1;"Hyaluronic Filler Market";616;"Dermal Filler";0;;140;0;0;57;
+204;;75.000000;1;0;"SkinFill Silver Plus 2x1ml";skinfill-silver-plus-2-seringues;0;"Hyaluronic Filler Market";389;"Dermal Filler";0;;100;0;31;57;
+205;;83.333333;1;0;"SkinFill Gold Plus 2x1ml";skinfill-gold-plus-2-seringues-1-ml;0;"Hyaluronic Filler Market";390;"Dermal Filler";0;;100;0;31;57;
+206;;95.833333;1;0;"SkinFill Diamond Plus 2x1ml";skinfill-diamant-forte-2-seringues;0;"Hyaluronic Filler Market";391;"Dermal Filler";0;;99;0;0;57;
+207;;197.500000;1;0;"Aqualyx 10x8ml";aqualyx;1;"Hyaluronic Filler Market";392;MESOTHERAPIE;0;;16;0;0;57;

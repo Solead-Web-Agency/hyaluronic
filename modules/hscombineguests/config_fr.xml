@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>hscombineguests</name>
+    <displayName><![CDATA[Combine guests]]></displayName>
+    <version><![CDATA[2.1.0]]></version>
+    <description><![CDATA[Combine guests into a customer]]></description>
+    <author><![CDATA[PrestaMonster]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

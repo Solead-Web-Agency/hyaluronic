@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>elegantaleasyimport</name>
+    <displayName><![CDATA[Easy Import Products From CSV, EXCEL, XML, JSON, TXT Files]]></displayName>
+    <version><![CDATA[7.2.2]]></version>
+    <description><![CDATA[Import/Export products and combinations easily with just a few clicks. You can automate this process by using CRON Job and import product data from directory path, HTTP or FTP location.]]></description>
+    <author><![CDATA[ELEGANTAL]]></author>
+    <tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[Êtes-vous sûr de vouloir désintaller?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

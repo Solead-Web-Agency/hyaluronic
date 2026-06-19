@@ -1,0 +1,8 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+
+Nós atualizamos o seu pedido de devolução Nº.{id_order_return}, o seu novo status é: "{state_order_return}"
+
+Acompanhe seu pedido e baixe sua fatura em nossa loja, na seção [Histórico e detalhes dos pedidos]({history_url}) de sua conta de cliente.
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,37 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{shopprotector}prestashop>shopprotector_b6de959d100c5eb1cf2de62985ec8faa'] = 'Protection Boutique';
+$_MODULE['<{shopprotector}prestashop>shopprotector_ee08e881ef4c74ffeced3a6cba29cc98'] = 'Protégez votre boutique contre les vols d\'images, de textes et autres contenus de votre boutique web';
+$_MODULE['<{shopprotector}prestashop>shopprotector_0a82705dcdaa121851782cf64810a6de'] = 'Êtes-vous sûr de vouloir désinstaller le module Protection Boutique ?';
+$_MODULE['<{shopprotector}prestashop>inputform_f4f70727dc34561dfde1a3c529b6205c'] = 'Options';
+$_MODULE['<{shopprotector}prestashop>inputform_c9cc8cce247e49bae79f15173ce97354'] = 'Sauver';
+$_MODULE['<{shopprotector}prestashop>inputform_5ac87635eaac12ac64fac7649064cb2a'] = 'Interdire le clic droit';
+$_MODULE['<{shopprotector}prestashop>inputform_00496ee41539b890f8f29c8151428be6'] = 'Empêche le clic droit sur votre boutique';
+$_MODULE['<{shopprotector}prestashop>inputform_00d23a76e43b46dae9ec7aa9dcbebb32'] = 'Activer';
+$_MODULE['<{shopprotector}prestashop>inputform_b9f5c797ebbf55adccdd8539a65a0241'] = 'Désactiver';
+$_MODULE['<{shopprotector}prestashop>inputform_d6f17cdc2cb938a40ebef37e5b2fd0d3'] = 'Adresses IPs autorisées';
+$_MODULE['<{shopprotector}prestashop>inputform_f5c6a09e8a10a83ac8decc26c2522f21'] = 'Les adresses IP que vous indiquez dans ce champ sont autorisées à effectuées les actions interdites. Séparer les adresses IP avec des virgules. Exemples: 127.0.0.1,195.124.11.21,210.141.154.1';
+$_MODULE['<{shopprotector}prestashop>inputform_2db2fe0a4d237cb9933f3dbb3dac591c'] = 'Interdire seulement sur les images';
+$_MODULE['<{shopprotector}prestashop>inputform_1689693556942b5f0e4fc00a0c8d5d25'] = 'Empêche le clic droit uniquement sur les images de votre boutique';
+$_MODULE['<{shopprotector}prestashop>inputform_1f22a0c6d6bcbe6a39c77e3eb4a52725'] = 'Interdire la selection';
+$_MODULE['<{shopprotector}prestashop>inputform_daaf0bab42da0c4efcd97a705eb07dd9'] = 'Empêche la selection de textes et d\'images à la souris';
+$_MODULE['<{shopprotector}prestashop>inputform_a65554fdd0a77fa3186ab27fffda503b'] = 'Interdire le Glisser&Déposer';
+$_MODULE['<{shopprotector}prestashop>inputform_64aa6f3f15ee994d8243ba979f014e1d'] = 'Empêche d\'effectuer des Glisser&Déposer à la souris pour protèger vos images et vos textes';
+$_MODULE['<{shopprotector}prestashop>inputform_0123ee5e7caaea3f0ca76ba5b8dd823c'] = 'Activer la fenêtre d\'alerte';
+$_MODULE['<{shopprotector}prestashop>inputform_db1d86b3c9928486b7cf031aa98841d5'] = 'Une fenêtre d\'alerte s\'affiche lorsque un utilisateur tente d\'effectuer une action interdite';
+$_MODULE['<{shopprotector}prestashop>inputform_b78a3223503896721cca1303f776159b'] = 'Titre';
+$_MODULE['<{shopprotector}prestashop>inputform_3fdc57cdddbb914047906ff6340973a0'] = 'Vous pouvez choisir le titre pour votre fenêtre d\'alerte';
+$_MODULE['<{shopprotector}prestashop>inputform_b5a7adde1af5c87d7fd797b6245c2a39'] = 'Description';
+$_MODULE['<{shopprotector}prestashop>inputform_98b9ebafe98eaa92b2d43deea4b975cc'] = 'Vous pouvez choisir le message qui s\'affichera sur votre fenêtre d\'alerte';
+$_MODULE['<{shopprotector}prestashop>inputform_e90b6975348f041bd0c18fef03b3402d'] = 'Interdire le raccourci clavier';
+$_MODULE['<{shopprotector}prestashop>inputform_bdf67b7ba9f30790cb21e99c34881f0b'] = 'Empêche l\'utilisation du raccourci clavier ';
+$_MODULE['<{shopprotector}prestashop>inputform_fd66d6dd5f4699676f2a307bdc916b1a'] = 'Action interdite !';
+$_MODULE['<{shopprotector}prestashop>inputform_461dd5cc7e00e05347d1c4916b8b9a18'] = 'Cette action est bloquée sur ce site.';
+$_MODULE['<{shopprotector}prestashop>configure_b6de959d100c5eb1cf2de62985ec8faa'] = 'Protection Boutique';
+$_MODULE['<{shopprotector}prestashop>configure_ec3ac14af8a4ece5cd301375cb823d84'] = 'Protégez-vous des vol de contenus sur votre boutique !';
+$_MODULE['<{shopprotector}prestashop>configure_f4f39f1807f77127b8fc44aa25ecf147'] = 'Si une fonctionnalité pertinente semble manquer au module, Cliquez sur ce lien pour nous soumettre vos idées';
+$_MODULE['<{shopprotector}prestashop>configure_c888438d14855d7d96a2724ee9c306bd'] = 'Configuration mise à jour';
+$_MODULE['<{shopprotector}prestashop>configure_900087de007a83141efa353e3e66a524'] = 'Une erreur s\'est produite lors de la validation de votre configuration, veuillez les informations du formulaire';
+$_MODULE['<{shopprotector}prestashop>footer_d3d2e617335f08df83599665eef8a418'] = 'Fermer';

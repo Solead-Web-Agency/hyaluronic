@@ -1,0 +1,164 @@
+
+.left-content .col-lg-3{
+    background:#F8F8F8;
+}
+.left-content .title{
+    font-size:16px;
+    font-weight:bold;
+}
+
+.left-content .title span{
+    display:inline-block;
+    padding:5px;
+    border-radius:5px;
+}
+.flex-box {
+    display:inline-flex;
+}
+.left-content .step-list .item-rows .icon {
+    position:relative;
+}
+.left-content .step-list .item-rows .text {
+    padding-left:15px;
+}
+.tracking-box .event-detail {
+    overflow: auto;
+}
+.tracking-box {
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+}
+.tracking-box .row {
+    display: flex;
+}
+.tracking-box .step-list .action-truck,.tracking-box .step-list .action-truck8, .dl_dashboard .action-truck i, .dl_dashboard .action-truck8 i{
+    transform: scale(-1, 1);
+}
+.dl_dashboard .dashboard_history a.list-action-enable {
+    border-radius: 5px;
+    padding: 6px;
+    color:#fff
+}
+.tracking-box .row {
+    margin: inherit;
+}
+.tracking-box .row-info {
+    border-bottom: 1px solid #ffffff;
+    background-color: #eeedf1;
+    min-height: 35px;
+    line-height: 35px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.tracking-box .header-info {
+    border: none;
+    background-color: #0d0366;
+    text-align: center;
+    min-height: 45px;
+    line-height: 45px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.tracking-box .header-info .expand {
+    padding: 0px 20px 0px 0px;
+    font-size: 24px;
+}
+.tracking-box .header-info .shipment {
+    flex: 1;
+    justify-content: center;
+}
+.tracking-box .status {
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 45px;
+    line-height: 45px;
+}
+.tracking-box .carrier-name {
+    float: right;
+    width: 85%;
+    line-height: normal;
+}
+.tracking-box .carrier img {
+    max-width: 30%;
+    max-height: 35px;
+    padding: 3px 5px 3px 0;
+}
+
+.tracking-box .action-truck {
+    background:
+    #499FFE !important;
+}
+.tracking-box .time {
+    font-size: 12px;
+    color: #afacac;
+    margin-left: 5px;
+}
+.tracking-box td.date {
+    white-space: nowrap;
+    width: 1%;
+}
+@media (max-width: 420px) {
+    .tracking-box td.date {
+        white-space: normal;
+        width: unset;
+    }
+    .tracking-box .event-list td {
+        padding:  8px 5px;
+    }
+}
+.tracking-box .step-list .action-truck,.tracking-box .step-list .action-truck8, .dl_dashboard .action-truck i, .dl_dashboard .action-truck8 i{
+    transform: scale(-1, 1);
+}
+.tracking-box .action-barcode {
+    background:
+    #99CCFF !important;
+}
+.tracking-box .row-info {
+    background-color: #eeedf1;
+    min-height: 35px;
+    line-height: 35px;
+}
+.tracking-box .header-info {
+    border: none;
+    background-color: #0d0366;
+    text-align: center;
+    min-height: 45px!important;
+    line-height: 45px!important;
+    color: white;
+}
+.tracking-box .header-row {
+    min-height: 45px!important;
+    line-height: 45px!important;
+}
+.orderdetail_form {
+    margin-bottom: 20px;
+}
+
+.more-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+.tracking-box .accordion {
+    margin: auto;
+    max-width: 600px;
+}
+.tracking-box .show {
+    padding: 0;
+    background-color: #eee;
+    min-height: 45px;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.tracking-box button.show div {
+    pointer-events: none;
+}

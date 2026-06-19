@@ -1,0 +1,10 @@
+[/{shop_url}]
+
+Hi {firstname} {lastname},
+
+Your parcel is :  "{current_status}"
+
+You can check shipping steps here [/{track_link}]
+
+Best regards
+{shop_name} [/{shop_url}]

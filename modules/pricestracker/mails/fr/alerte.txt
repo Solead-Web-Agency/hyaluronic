@@ -1,0 +1,14 @@
+Nom de la règle : {regle}
+Date : {date}
+ID de la règle : {idProduct}
+
+Nom du produit du concurrent : {nomProduit}
+URL du concurrent : {competitorUrl}
+ID du concurrent : {competitorId}
+
+Prix du concurrent : {competitorPrice}
+Ancien prix de votre produit : {oldPrice}
+Nouveau prix de votre produit : {newPrice}
+$newPrice = {var_newPrice}
+
+{message}

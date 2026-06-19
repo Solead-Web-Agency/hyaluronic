@@ -1,0 +1,310 @@
+Change history for Google Remarketing + Dynamic
+-----------------------------------------------
+
+===========================
+Version 1.6.4 (24/09/2020)|
+===========================
+
+Added
+-----
+- Optimization for ecomm_prod_id detection for countries with multiple lang and currencies
+- Added ecomm_prod_id categories pages
+- Added option to handle the separator between product id and attribute id get from Google Merchant & Pro modules
+- Added missing translation
+
+
+===========================
+Version 1.6.4 (05/02/2019)|
+===========================
+
+Added
+-----
+- Management for simple ID on the tag
+- Auto close on success message when configuration is updated
+- Reworked the BO ( removed useless content )
+
+
+Fix
+-----
+- Bad call on for the attribute ID on the purchase page
+- Missing call for attribute ID on the cart page
+
+
+
+===========================
+Version 1.6.3 (10/12/2018)|
+===========================
+Added
+-----
+- Use the hook header to manage the remarketing code and avoid all issues around overrides or the displayFooter hook when is not executed
+
+
+===========================
+Version 1.6.2 (22/10/2018)|
+===========================
+Fixed
+-----
+- The way to format the product combination ID when the export by combination is applied on GMC side in order to get the default product attribute ID when we can't detect the BT param (PS 1.6) or the id_product_attrobiute (PS 1.7)
+- Product IDs on the purchase page, the matching product id format wasn't set well, now we take into account the combination ID if necessary
+
+
+===========================
+Version 1.6.1 (12/10/2018)|
+===========================
+Added
+-----
+- Handle new param given by Google Merchant Center module to handle product's combinations on PS 1.6 and display the remarketing dynamic tag with the combination data
+- Take into account the product attribute ID for PS 1.7 and manage the combination data around the remarketing dynamic tag
+
+
+===========================
+Version 1.6.0 (22/08/2018)|
+===========================
+Added
+-----
+- New element on the interface ( footer link for FAQ and new FAQ link )
+- Message for old Google merchant center version 
+- Compatible for remarketing with combination 1.6 & 1.7
+- user_id value on the tag
+- Added option for user_id to force a fake value because the user_id is mandatory for sources migrated from Adwords to Google Ads
+
+
+===========================
+Version 1.5.8 (20/12/2017)|
+===========================
+Fixed
+-----
+- JS code for no dynamic remarketing code
+- Some other little fix
+
+
+===========================
+Version 1.5.7 (02/11/2017)|
+===========================
+Added
+-----
+- Best management of the code with the option Move Javascript at the end
+
+
+===========================
+Version 1.5.6 (02/11/2017)|
+===========================
+Added
+-----
+- New remarketing code
+
+Fixed
+-----
+-
+
+===========================
+Version 1.5.5 (22/06/2017)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Bug fix for remarketing tag on the product page, the code didn't control if the data are valid for the country / lang / currency
+
+Files
+-----
+-
+
+===========================
+Version 1.5.4 (10/05/2017)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Remove ModuleTemplate Class
+
+Files
+-----
+-
+
+
+===========================
+Version 1.5.3 (03/05/2017)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Compatibility for Google merchant center PRO version 1.5.0
+
+Files
+-----
+-
+
+===========================
+Version 1.5.2 (03/04/2017)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Compatibility for Google merchant center version 4.6.0
+
+Files
+-----
+-
+
+
+
+===========================
+Version 1.5.1 (13/01/2017)|
+===========================
+Added
+-----
+- New text for ONE page checkout and the last funnel step in the Adwords conversion tracking module
+
+Fixed
+-----
+- Tab character was added just before the open php tag, on some server configurations it could make a PHP warning.
+
+Files
+-----
+- lib/admin/admin-ctrl_class.php
+- views/templates/admin/basics.tpl
+- lib/admin/admin-display_class.php
+
+
+===========================
+Version 1.5.0 (10/10/2016)|
+===========================
+Added
+-----
+- Compatibilty for PS 1.7
+
+Fixed
+-----
+- N.A
+
+
+===========================
+Version 1.4.6 (17/06/2016)|
+===========================
+Added
+-----
+- Warnings about using Google Adwords Conversion Tracking Pro module when the "Move JavaScript to the End" is activetd on PS1.6 => FAQ's link has been added
+
+Fixed
+-----
+- N.A
+
+Files
+-----
+- lib/admin/admin-display_class.php
+- lib/admin/admin-update_class.php
+- views/templates/admin/technical-check.tpl
+- views/templates/admin/basics.tpl
+
+
+Version 1.4.5 (11/05/2016)
+- Update function add JS Definition for PS 1.6 according to their defer Inline JS function to handle the simple quote
+
+
+Version 1.4.4 (09/04/2016)
+- Update function setCategoryName in BT_DynCategoryTags and BT_DynProductTags to handle the case with "
+
+
+Version 1.4.3 (09/02/2016)
+- Added info box for documentation
+- Updated API URL
+
+
+Version 1.4.2 (18/12/2015):
+- Small bug fix for technical prerequisistes about the export by combination
+
+
+Version 1.4.1 (01/12/2015):
+- Small bug fix for number format when price use coma
+- Small bug fix for prerequisites check with Google Merchant Center Pro
+
+
+Version 1.4.0 (09/10/2015):
+- Changed the way to handle the totalvalue without quotes
+- Added the new tag category for product and category pages
+- Added the new tag on a sale for product pages which defines if the price is discounted
+- Added the new tag return customer for cart pages which defines if the customer has already placed a valid order on the shop
+
+
+Version 1.3.3 (24/07/2015):
+- Bug fix for the new Google Merchant Center around the link made with product IDs - property of main class of Merchant Center has changed with the new version
+
+
+Version 1.3.2 (31/03/2015):
+- Change sentence for JS at the end of the page
+- Allow remove tag from order confirmation page for all version
+- Update module for validator
+
+
+Version 1.3.1(04/09/2014):
+- Added warning message for Google Analytics account
+
+
+Version 1.3.0 (05/05/2014):
+- Made the back-office module's layout compatible with bootstrap PS 1.6
+- Added different warnings around Google Merchant Center and Google Remarketing together when the export value in the data feed option is "export one product per combination".
+- Updated the module's doc
+
+
+Version 1.2.6 (30/07/2014):
+- Bug fix for Javascript inline variable on PS 1.6.0.8 with "move Javascript to the end" option deactivated. addJsDef() function for PS 1.6 is no longer used from PS 1.6.0.8 instead of Javascript Inline is used.
+
+
+Version 1.2.5 (09/07/2014):
+- Added "activate remarketing tag on order confirmation page" option for solving the conflict between this module and Google Adwords Conversion Tracking.
+
+
+Version 1.2.4 (09/05/2014):
+- Small bug fix for testing Google Merchant Center's PREFIX ID, and display the warning text in back-office.
+
+
+Version 1.2.3 (28/04/2014):
+- Bug fix for javascript when Google Conversion ID isn't already filled out. Add test for display or not JS inline. Change the way to manage JS inline for PS 1.6 and PS 1.4 / 1.5
+- bug fix for duplicate tag on order confirmation page with smarty on PS 1.5
+
+
+Version 1.2.2 (18/04/2014):
+- Bug fix for Javascript inline variable added by addJSDef() method for PrestaShop 1.6 only. google_conversion_id variable is a numeric, and it is defined as string for this method. We cast the variable's type
+
+
+Version 1.2.1 (28/03/2014):
+- Bug fix for warnings::run() function. Forgot to remove Warning::run() function call into construct of main class.
+
+
+Version 1.2.0 (24/03/2014):
+- Made the module compatible with PS 1.6.
+- Changed back-office layout.
+- Added order confirmation hook as PayPal uses this own order conformation page. Module used to detect each page with URL or GET parameters returned by rewriterules.
+
+
+Version 1.1.0 (03/03/2014):
+- Made the module compatible with one page checkout feature.
+
+
+Version 1.0.3 (11/02/2014):
+- Small bug fix for checking if Google Merchant center is activated for PS under 1.4.4 because PrestaShop instantiate module object and if the module is loaded first, you've got a PHP Fatal error around class including. Deactivate warning under PS 1.4.4
+
+
+Version 1.0.2 (18/01/2014):
+- Added technical check in order to warm merchants about warnings or suggestions that Google Tag Assistant can report.
+
+
+Version 1.0.1 (13/01/2014):
+- Small bug fix for including common.conf.php for PS under 1.4.4
+- Small bug fix for checking if Google Merchant center is activated for PS under 1.4.4 because PrestaShop instantiate module object and if the module is loaded first, you've got a PHP Fatal error around class including. Deactivate warning under PS 1.4.4
+
+
+Version 1.0.0 (13/12/2013):
+- Original release

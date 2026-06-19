@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>pbc</name>
+    <displayName><![CDATA[Increase / decrease price by country]]></displayName>
+    <version><![CDATA[1.5.4]]></version>
+    <description><![CDATA[Module allows to increase / decrease product prices by country based on geolocation (ip identification)]]></description>
+    <author><![CDATA[MyPresta.eu]]></author>
+    <tab><![CDATA[administratior]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

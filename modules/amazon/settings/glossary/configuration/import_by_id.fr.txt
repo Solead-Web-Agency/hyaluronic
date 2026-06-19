@@ -1,0 +1,1 @@
+Utilisez l'ID de produit et l'ID de combinaison pour importer des commandes lorsqu'il n'y a pas de référence/SKU correspondant.

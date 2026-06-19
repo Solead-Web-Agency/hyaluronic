@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+	 		<status>KB</status>
+			<status>9E</status>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<status></status>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<status>AR</status>
+			<status>DP</status>
+			<status>OR</status>
+			<status>IP</status>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<status>MP</status>
+			<status>PU</status>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<status></status>
+
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<status>OF</status>
+	</step>
+</document>

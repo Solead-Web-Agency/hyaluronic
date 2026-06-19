@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>worldline</name>
+    <displayName><![CDATA[Worldline]]></displayName>
+    <version><![CDATA[3.2.0]]></version>
+    <description><![CDATA[Use WORLDLINE to allow your customers to pay by Credit Card]]></description>
+    <author><![CDATA[PrestaShop]]></author>
+    <tab><![CDATA[payments_gateways]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

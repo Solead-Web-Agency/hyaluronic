@@ -1,0 +1,2 @@
+Aktivieren oder deaktivieren Sie für die Registerkarte „Zuordnung“ den benutzerdefinierten Wert „Features“.
+Hinweis: In einigen Fällen kann es vorkommen, dass die Funktion einen doppelten Wert hat. Versuchen Sie, diese Einstellung zu aktivieren.

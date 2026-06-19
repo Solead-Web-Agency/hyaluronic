@@ -1,0 +1,19 @@
+{
+  "name": "silbersaiten/orderedit",
+  "description": "OrderEdit - native controller decorating",
+  "autoload": {
+    "psr-4": {
+      "OrderEdit\\": "src/"
+    },
+    "classmap": [
+      "src/"
+    ]
+  },
+  "config": {
+    "prepend-autoloader": false
+  },
+  "type": "prestashop-module",
+  "require": {
+    "ext-json": "*"
+  }
+}

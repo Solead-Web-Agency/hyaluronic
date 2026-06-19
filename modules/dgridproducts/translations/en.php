@@ -1,0 +1,35 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{dgridproducts}prestashop>dgridproducts_0dd33106ca65cbb489d2df9596d0f316'] = 'Supplier ref';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_9009e311fd84bab412265cdeb5c2c909'] = 'Launch module';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_0d4491ed94dbde8b1037a4717a633d23'] = 'Editing products';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_32a22c40086189b04650df3c7418de47'] = 'Column editing in one click';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_6d2a29cc27183488053b7be4b7339cf0'] = 'Editing Images';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_ed9c33b511ab951af478fc4e73ac672d'] = 'Editing Combinations';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_9b01fd1181c52f9114861250fe6df508'] = 'Editing Features';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_781b6f93df1716ad0a247b90e63fb8cb'] = 'Editing Meta';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_60d54f9d04256bec354e47f21c26c143'] = 'Editing Specific prices';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_45645421f11b1f1bb6f18df32a14999f'] = 'Additional parameters';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_154fcac3346fb23708f2fc39d05ffee3'] = 'Adding products';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_04478aa42a70da0f632dc2b9b1f5b4c8'] = 'Bulk Actions';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_81f5c2287e1fbeaa6fd38a4791752c47'] = 'Reindex Products';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_2d70b277e75cd5d40eb72b4dd43fb67c'] = 'Search products';
+$_MODULE['<{dgridproducts}prestashop>translate_dynamic_dbecc0af3fca5bfcbbacf5f8d6a4dc58'] = 'Setting grid';
+$_MODULE['<{dgridproducts}prestashop>tree_069904009ff05e00cd0fea91e46c0196'] = 'All subcategories are automatically marked';
+$_MODULE['<{dgridproducts}prestashop>tree_0f1eb026db26b1848889490df6a27793'] = 'Products with the selected category are found as the default category.';
+$_MODULE['<{dgridproducts}prestashop>tree_a742484f8505c20a7035e4897a635aca'] = 'Including subcategories';
+$_MODULE['<{dgridproducts}prestashop>adminproductgridcontroller_0dd33106ca65cbb489d2df9596d0f316'] = 'Supplier ref';
+$_MODULE['<{dgridproducts}prestashop>adminproductgridcontroller_8284ae5df53e6e7ffc1f2cc67ae68765'] = 'Supplier reference';
+$_MODULE['<{dgridproducts}prestashop>documentation_links_dec385223a3e2eac93cbf67db1447dd3'] = 'The enable confirmation';
+$_MODULE['<{dgridproducts}prestashop>documentation_links_19d0187eb72e68191e173b278c2d9dd2'] = 'Enable product?';
+$_MODULE['<{dgridproducts}prestashop>documentation_links_3acb239fdc9facecec73fb0bd59867ef'] = 'The disable confirmation';
+$_MODULE['<{dgridproducts}prestashop>documentation_links_6e9e49b6a0cfdea39fadcc66091ce044'] = 'Disable product?';
+$_MODULE['<{dgridproducts}prestashop>documentation_links_8b4732ea9b0db6cd6630c4db9e3211d1'] = 'Successfully disabled';
+$_MODULE['<{dgridproducts}prestashop>documentation_links_932d878e0bdec5200fcae3af0eb4df28'] = 'Successfully enabled';
+$_MODULE['<{dgridproducts}prestashop>documentation_links_ffbcd7606c5068cf689aad560dca75b3'] = 'Cancel';
+$_MODULE['<{dgridproducts}prestashop>adminproductgridcontroller_1b8d193f9ec717498f3a82886a510c97'] = 'Low stock level';
+$_MODULE['<{dgridproducts}prestashop>list_header_1b8d193f9ec717498f3a82886a510c97'] = 'Low stock level';
+$_MODULE['<{dgridproducts}prestashop>list_header_c5cfc5754fc12779bc4a4863c44fde17'] = 'Custom feature';
+$_MODULE['<{dgridproducts}prestashop>list_header_b75f777c1e0956dd79328d52dac430f1'] = 'Exact';

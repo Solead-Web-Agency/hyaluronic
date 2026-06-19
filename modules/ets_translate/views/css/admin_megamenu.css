@@ -1,0 +1,50 @@
+/**
+ * 2007-2020 ETS-Soft
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is not open source! Each license that you purchased is only available for 1 wesite only.
+ * If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+ * You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please contact us for extra customization service at an affordable price
+ *
+ *  @author ETS-Soft <contact@etssoft.net>
+ *  @copyright  2007-2020 ETS-Soft
+ *  @license    Valid for 1 website (or project) for each purchase of license
+ *  International Registered Trademark & Property of ETS-Soft
+ */
+
+button.btn.btn-default.js-ets-trans-mm-all {
+    margin-right: 7px;
+    opacity: 1!important;
+}
+.ets_megamenu .btn.btn-default.js-ets-trans-mm-all:focus {
+    -webkit-box-shadow: none;
+    background-color: #00aff0;
+    border-color: #008abd;
+    box-shadow: none;
+    color: #fff;
+}
+.ets_megamenu .btn.btn-default.js-ets-trans-mm-all:focus i:before{
+    color: #fff;
+}
+.ets_megamenu .btn.btn-default.js-ets-trans-mm-all:focus i:after{
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}
+div#etsTransPopupTranslatingField.ets-trans-popup-translating-field .text-loading {
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+

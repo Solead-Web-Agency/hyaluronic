@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<catalogue>
+   <carrier>
+		<id_carrier>1</id_carrier>
+		<name>Colissimo</name>
+		<api_name>Colissimo Suivi</api_name>
+		<country>FR</country>
+		<credentials>
+			<info>Veuillez demander l'activation du webservice "Suivi" via votre espace client Coliposte</info>
+			<credential>
+				<credname>HL_CARRIER1_id1</credname>
+				<credpublicname>Compte Coliposte</credpublicname>
+			</credential>
+			<credential>
+				<credname>HL_CARRIER1_id2</credname>
+				<credpublicname>Mot de passe</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	   <carrier>
+		<id_carrier>2</id_carrier>
+		<name>Chronopost</name>
+		<api_name>Chronopost Suivi</api_name>
+		<country>FR</country>
+		<credentials>
+		<info>L'API de suivi Chronopost fonctionne sans identifiants</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>3</id_carrier>
+		<name>GLS FR/DE/PL/PT</name>
+		<api_name>Rest API</api_name>
+		<country>FR</country>
+		<country>PT</country>
+		<country>DE</country>
+		<country>PL</country>
+		<country>SE</country>
+		<country>DK</country>
+		<country>NO</country>
+		<credentials>
+		<info>L'API de suivi GLS fonctionne sans identifiants</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>4</id_carrier>
+		<name>GLS NL</name>
+		<api_name>Rest API</api_name>
+		<country>NL</country>
+		<credentials>
+		<info>GLS tracking API works without credentials</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>5</id_carrier>
+		<name>GLS API</name>
+		<api_name>Rest API</api_name>
+		<country>FR</country>
+		<country>PT</country>
+		<country>DE</country>
+		<country>PL</country>
+		<country>SE</country>
+		<country>DK</country>
+		<country>NO</country>
+		<credentials>
+			<info>Please ask your technical contact to provide credentials for tracking API</info>
+			<credential>
+					<credposition>1</credposition>
+					<credname>HL_CARRIER5_id1</credname>
+					<credpublicname>User</credpublicname>
+			</credential>
+			<credential>
+					<credposition>2</credposition>
+					<credname>HL_CARRIER5_id2</credname>
+					<credpublicname>Password</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+		<carrier>
+		<id_carrier>6</id_carrier>
+		<name>TNT France</name>
+		<api_name></api_name>
+		<country>FR</country>
+			<credentials>
+			<info>Fonctionne sans identifiants</info>
+			</credentials>
+	</carrier>
+		<carrier>
+		<id_carrier>7</id_carrier>
+		<name>La Poste</name>
+		<api_name>La Poste V2</api_name>
+		<detail>Lettre suivie, Colissimo, Chronopost</detail>
+		<country>FR</country>
+		<credentials>
+			<info>API La Poste V2 : suit les expéditions Colissimo, Lettre suivie et Chronopost. Fonctionne avec notre clé x77MXVzcOKE9Sz/9Mrt1aQrg2byZ/85HY2VzuxZ13a6IqfGbXyKvCRcWNHg36vVy ou votre propre clé à demander sur le site https://developer.laposte.fr/get-started/consumer</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER7_id1</credname>
+				<credpublicname>Clé API La Poste V2 </credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+			<carrier>
+		<id_carrier>8</id_carrier>
+		<name>DPD France ( sans identifiants)</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+		<info>Fonctionne avec une clé développeur déjà incluse</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>9</id_carrier>
+		<name>UPS - Rest Json</name>
+		<api_name>UPS - Rest Json</api_name>
+		<country>ALL</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER9_id1</credname>
+				<credpublicname>User Id</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER9_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			<credential>
+				<credposition>3</credposition>
+				<credname>HL_CARRIER9_id3</credname>
+				<credpublicname>AccessLicenseNumber</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>10</id_carrier>
+		<name>Mondial Relay</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+		<info>Vous trouverez vos identifiants dans votre espace client Mondial Relay, dans la section Mes paramètres de connection, puis Webservices</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER10_id1</credname>
+				<credpublicname>Code Enseigne</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER10_id2</credname>
+				<credpublicname>Clé privée</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>11</id_carrier>
+		<name>GLS/ASM Spain</name>
+		<country>ES</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER11_id1</credname>
+				<credpublicname>GUID</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>13</id_carrier>
+		<name>GLS SOAP</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER13_id1</credname>
+				<credpublicname>Account</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER13_id2</credname>
+				<credpublicname>password</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>14</id_carrier>
+		<name>Colis Privé</name>
+		<country>FR</country>
+		<credentials>
+		<info>L'API de suivi Colis Privé fonctionne sans identifiants</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>16</id_carrier>
+		<name>DHL Express UK</name>
+		<api_name></api_name>
+		<country>GB</country>
+	</carrier>
+		<carrier>
+		<id_carrier>19</id_carrier>
+		<name>UPS - Soap</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER19_id1</credname>
+				<credpublicname>User Id</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER19_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			<credential>
+				<credposition>3</credposition>
+				<credname>HL_CARRIER19_id3</credname>
+				<credpublicname>AccessLicenseNumber</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>20</id_carrier>
+		<name>UPS - Rest XML</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER20_id1</credname>
+			<credpublicname>User Id</credpublicname>
+		</credential>
+		<credential>
+			<credposition>2</credposition>
+			<credname>HL_CARRIER20_id2</credname>
+			<credpublicname>Password</credpublicname>
+		</credential>
+		<credential>
+			<credposition>3</credposition>
+			<credname>HL_CARRIER20_id3</credname>
+			<credpublicname>AccessLicenseNumber</credpublicname>
+		</credential>
+	</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>25</id_carrier>
+		<name>DPD France (avec identifiants)</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+		<info>Le connecteur utilise vos identifiants DPD que vous avez entrés dans le module DPD France</info>
+		<credential></credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>26</id_carrier>
+		<name>DPD DE/BE/CH/NL</name>
+		<api_name></api_name>
+		<country>DE</country>
+		<country>NL</country>
+		<country>BE</country>
+		<country>CH</country>
+		<credentials>
+			<info>Works without credentials</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>30</id_carrier>
+		<name>Canada Post</name>
+		<api_name></api_name>
+		<country>CA</country>
+		<credentials>
+			<info>Developer credentials are already included</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>35</id_carrier>
+		<name>USPS</name>
+		<api_name></api_name>
+		<country>US</country>
+		<credentials>
+			<info>Developer credentials are already included</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>38</id_carrier>
+		<name>Australian Post</name>
+		<api_name></api_name>
+		<country>AU</country>
+		<credentials>
+		<info>Please apply for an API Key via Developer Portal, here https://developers.auspost.com.au/apis/st-registration</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER38_id1</credname>
+				<credpublicname>API Key</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER38_id2</credname>
+				<credpublicname>API Password</credpublicname>
+			</credential>
+			<credential>
+				<credposition>3</credposition>
+				<credname>HL_CARRIER38_id3</credname>
+				<credpublicname>Account Number</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>56</id_carrier>
+		<name>DB Schenker</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+		<info>Please ask your Schenker technical contact to provide you an access key</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER56_id1</credname>
+			<credpublicname>Access key</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>66</id_carrier>
+		<name>Kuehne + Nagel</name>
+		<api_name></api_name>
+		<country>DE</country>
+		<credentials>
+			<info>Tracking API works without credentials</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>68</id_carrier>
+		<name>DX Courier (SFTP)</name>
+		<api_name></api_name>
+		<country>GB</country>
+	</carrier>
+	<carrier>
+		<id_carrier>70</id_carrier>
+		<name>Royal Mail</name>
+		<api_name></api_name>
+		<country>GB</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER70_id1</credname>
+				<credpublicname>Certificate Id</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER70_id2</credname>
+				<credpublicname>Application Id</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+		<carrier>
+		<id_carrier>72</id_carrier>
+		<name>Bring</name>
+		<country>SE</country>
+		<country>NO</country>
+		<country>DK</country>
+		<credentials>
+			<info>Il connettore funziona senza identificatori</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>73</id_carrier>
+		<name>PostNord</name>
+		<api_name></api_name>
+		<country>SE</country>
+		<country>NO</country>
+		<country>DK</country>
+		<credentials>
+		<info>Please sign up in Carrier developper site here https://developer.postnord.com/admin/apps, then create an app to get an API Key, you can also use our own API Key : 2a300702fd1f1f2c33e7e674e026a98b</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER73_id1</credname>
+			<credpublicname>API Key</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>74</id_carrier>
+		<name>Posti</name>
+		<api_name></api_name>
+		<country>FI</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER74_id1</credname>
+				<credpublicname>Client_Id</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER74_id2</credname>
+				<credpublicname>Client Secret</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>75</id_carrier>
+		<name>DSV Generic</name>
+		<country>DK</country>
+		<credentials>
+			<info>De connector werkt zonder ID's</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER75_id1</credname>
+				<credpublicname>User</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER75_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>76</id_carrier>
+		<name>DSV Xpress</name>
+		<api_name></api_name>
+		<country>DK</country>
+	</carrier>
+	<carrier>
+		<id_carrier>77</id_carrier>
+		<name>Matkahuolto</name>
+		<api_name></api_name>
+		<country>FI</country>
+		<credentials>
+		<info>Please ask your technical contact to provide credentials for tracking API</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER77_id1</credname>
+			<credpublicname>User</credpublicname>
+		</credential>
+		<credential>
+			<credposition>2</credposition>
+			<credname>HL_CARRIER77_id2</credname>
+			<credpublicname>Password</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>100</id_carrier>
+		<name>Fedex</name>
+		<api_name></api_name>
+		<country>ALL</country>
+		<credentials>
+			<info>Please ask a production access to tracking webservice here https://www.fedex.com/us/developer </info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER100_id1</credname>
+				<credpublicname>Key</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER100_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			<credential>
+				<credposition>3</credposition>
+				<credname>HL_CARRIER100_id3</credname>
+				<credpublicname>Account Number</credpublicname>
+			</credential>
+			<credential>
+				<credposition>4</credposition>
+				<credname>HL_CARRIER100_id4</credname>
+				<credpublicname>Meter Number</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>122</id_carrier>
+		<name>Estafeta</name>
+		<api_name></api_name>
+		<country>MX</country>
+		<credentials>
+			<info>Contact Estafeta IT for a user account. The information required is:  
+		 Company Name, Company or external system name that is going to Access the Web Service. 
+		Estafeta will provide the SubscriberId, Login and Password. </info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER122_id1</credname>
+				<credpublicname>SuscriberId</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER122_id2</credname>
+				<credpublicname>Login</credpublicname>
+			</credential>
+			<credential>
+				<credposition>3</credposition>
+				<credname>HL_CARRIER122_id3</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>124</id_carrier>
+		<name>Swiss Post</name>
+		<api_name></api_name>
+		<country>CH</country>
+		<credentials>
+			<info>Vous devez entrer vos identifiants d'utilisateur technique, si vous ne les possédez pas, veuillez faire une demande via votre espace client</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER124_id1</credname>
+				<credpublicname>Username</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER124_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+			<carrier>
+		<id_carrier>125</id_carrier>
+		<name>Correos de España</name>
+		<api_name></api_name>
+		<country>ES</country>
+		<credentials>
+			<info>Correos tracking API works without account credentials</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>126</id_carrier>
+		<name>GLS ES/PT</name>
+		<api_name></api_name>
+		<country>ES</country>
+		<country>PT</country>
+		<credentials>
+			<info>API works without credentials</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>127</id_carrier>
+		<name>Correos Express</name>
+		<api_name></api_name>
+		<country>ES</country>
+		<credentials>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER127_id1</credname>
+			<credpublicname>Username</credpublicname>
+		</credential>
+		<credential>
+			<credposition>2</credposition>
+			<credname>HL_CARRIER127_id2</credname>
+			<credpublicname>Password</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>128</id_carrier>
+		<name>MRW</name>
+		<api_name></api_name>
+		<country>ES</country>
+		<country>PT</country>
+		<credentials>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER128_id1</credname>
+			<credpublicname>Franchise</credpublicname>
+		</credential>
+		<credential>
+			<credposition>2</credposition>
+			<credname>HL_CARRIER128_id2</credname>
+			<credpublicname>Subscriber</credpublicname>
+		</credential>
+		<credential>
+				<credposition>3</credposition>
+				<credname>HL_CARRIER128_id3</credname>
+				<credpublicname>Password</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>130</id_carrier>
+		<name>Via Directa</name>
+		<api_name></api_name>
+		<country>PT</country>
+		<credentials>
+		<info>Please ask your API to your commercial contact</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER130_id1</credname>
+			<credpublicname>Key</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>131</id_carrier>
+		<name>Envialia</name>
+		<api_name></api_name>
+		<country>PT</country>
+		<credentials>
+			<info>Nenhum login é necessário para conectar</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>132</id_carrier>
+		<name>NACEX</name>
+		<api_name></api_name>
+		<country>PT</country>
+		<credentials>
+		<info>Please ask your credentials to your commercial contact</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER132_id1</credname>
+			<credpublicname>User</credpublicname>
+		</credential>
+		<credential>
+			<credposition>2</credposition>
+			<credname>HL_CARRIER132_id2</credname>
+			<credpublicname>Password</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>133</id_carrier>
+		<name>CTT Express</name>
+		<api_name></api_name>
+		<country>PT</country>
+		<credentials>
+		<info>Please ask an Autentication ID to your commercial contact</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER133_id1</credname>
+			<credpublicname>Autentication ID</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>134</id_carrier>
+		<name>CTT</name>
+		<api_name></api_name>
+		<country>PT</country>
+		<credentials>
+		<info>Please ask below credentials to your commercial contact</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER134_id1</credname>
+			<credpublicname>Client Secret</credpublicname>
+		</credential>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER134_id2</credname>
+			<credpublicname>Client ID</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>148</id_carrier>
+		<name>Âncoras e Margens</name>
+		<api_name></api_name>
+		<country>PT</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER148_id1</credname>
+				<credpublicname>Client_Id</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER148_id2</credname>
+				<credpublicname>Client Secret</credpublicname>
+			</credential>
+			<credential>
+				<credposition>3</credposition>
+				<credname>HL_CARRIER148_id3</credname>
+				<credpublicname>Username</credpublicname>
+			</credential>
+			<credential>
+				<credposition>4</credposition>
+				<credname>HL_CARRIER148_id4</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+		<carrier>
+		<id_carrier>152</id_carrier>
+		<name>SEUR ES/PT</name>
+		<api_name></api_name>
+		<country>PT</country>
+		<country>ES</country>
+		<credentials>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER152_id1</credname>
+			<credpublicname>Usuario</credpublicname>
+		</credential>
+		<credential>
+			<credposition>2</credposition>
+			<credname>HL_CARRIER152_id2</credname>
+			<credpublicname>Password</credpublicname>
+		</credential>
+		<credential>
+			<credposition>3</credposition>
+			<credname>HL_CARRIER152_id3</credname>
+			<credpublicname>Client ID</credpublicname>
+		</credential>
+		<credential>
+			<credposition>4</credposition>
+			<credname>HL_CARRIER152_id4</credname>
+			<credpublicname>Client Secret</credpublicname>
+		</credential>
+		<credential>
+			<credposition>5</credposition>
+			<credname>HL_CARRIER152_id5</credname>
+			<credpublicname>Id Number</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>160</id_carrier>
+		<name>DHL Tracking Unified</name>
+		<api_name>DHL Tracking Unified</api_name>
+		<country>FR</country>
+		<credentials>
+			<info>Create a developper account here https://developer.dhl.com/api-reference/shipment-tracking , create an app that use DHL Tracking Unified API, and enter the DHL API Key here</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER160_id1</credname>
+				<credpublicname>DHL API Key</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+		<carrier>
+		<id_carrier>171</id_carrier>
+		<name>DHL Express XML</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER171_id1</credname>
+				<credpublicname>Site Id</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER171_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>173</id_carrier>
+		<name>DHL Parcel Iberia</name>
+		<api_name></api_name>
+		<country>ES</country>
+		<country>PT</country>
+		<credentials>
+		<info>Please ask you user and password to your DHL technical contact</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER173_id1</credname>
+			<credpublicname>Username</credpublicname>
+		</credential>
+		<credential>
+			<credposition>2</credposition>
+			<credname>HL_CARRIER173_id2</credname>
+			<credpublicname>Password</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+		<carrier>
+		<id_carrier>172</id_carrier>
+		<name>DHL Parcel BE/ES/LU/NL/PT</name>
+		<api_name></api_name>
+		<country>BE</country>
+		<country>ES</country>
+		<country>LU</country>
+		<country>NL</country>
+		<country>PT</country>
+		<credentials>
+		<info>This official DHL API works without credentials</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>174</id_carrier>
+		<name>DHL Parcel DE/AT/CH/IT</name>
+		<api_name></api_name>
+		<country>DE</country>
+		<country>AT</country>
+		<country>CH</country>
+		<country>IT</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER174_id1</credname>
+				<credpublicname>Username</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER174_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>175</id_carrier>
+		<name>PostNL</name>
+		<api_name></api_name>
+		<country>NL</country>
+		<credentials>
+			<info>Please ask your api key from https://developer.postnl.nl/</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER175_id1</credname>
+				<credpublicname>MyParcel APA-Key</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>177</id_carrier>
+		<api_name></api_name>
+		<name>BPost</name>
+		<country>BE</country>
+		<credentials>
+			<info>Veuillez entrer vos identifiants spécifiques au tracking, que vous pouvez demander par email à SMB_TXP_SHIPPINGMANAGER@bpost.be</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER177_id1</credname>
+				<credpublicname>Username</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER177_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>179</id_carrier>
+		<api_name></api_name>
+		<name>DPD Romania</name>
+		<country>RO</country>
+		<credentials>
+			<info>Aucun idientifiant n'est nécessaire pour ce connecteur</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>180</id_carrier>
+		<name>DPD Estonia</name>
+		<api_name></api_name>
+		<country>EE</country>
+		<credentials>
+			<info>Access token will become mandatory in 2020, Please ask an acces key to your customer support : teenindus@dpd.ee</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER180_id1</credname>
+				<credpublicname>Acces key</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>181</id_carrier>
+		<name>DPD Latvia</name>
+		<api_name></api_name>
+		<country>LV</country>
+		<credentials>
+			<info>Access token will become mandatory in 2020, Please ask an access key to your customer support : teenindus@dpd.ee</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER181_id1</credname>
+				<credpublicname>Access key</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>182</id_carrier>
+		<name>DPD Lithuania</name>
+		<api_name></api_name>
+		<country>LT</country>
+		<credentials>
+			<info>Access token will become mandatory in 2020, Please ask an acces key to your customer support : teenindus@dpd.ee</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER182_id1</credname>
+				<credpublicname>Acces key</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>183</id_carrier>
+		<name>DPD Hungary</name>
+		<api_name></api_name>
+		<country>HU</country>
+		<credentials>
+			<info>API Key is included within the connector</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>184</id_carrier>
+		<name>DPD UK</name>
+		<country>GB</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER184_id1</credname>
+				<credpublicname>User</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER184_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>185</id_carrier>
+		<name>DPD LOCAL - Interlink Express UK</name>
+		<api_name></api_name>
+		<country>GB</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER185_id1</credname>
+				<credpublicname>User</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER185_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>186</id_carrier>
+		<api_name></api_name>
+		<name>DPD Portugal</name>
+		<country>PT</country>
+		<credentials>
+			<info>Fonctionne sans identifiants</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>187</id_carrier>
+		<api_name></api_name>
+		<name>DPD Poland</name>
+		<country>PL</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER187_id1</credname>
+				<credpublicname>Login</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER187_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>192</id_carrier>
+		<api_name></api_name>
+		<name>Poczta Polska</name>
+		<country>PL</country>
+		<credentials>
+			<info>Identyfikatory są już osadzone w kodzie</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>200</id_carrier>
+		<name>TNT Express</name>
+		<api_name>ExpressConnect Tracking V3.1</api_name>
+		<country>FR</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER200_id1</credname>
+				<credpublicname>Username</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER200_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>201</id_carrier>
+		<name>TNT France</name>
+		<api_name></api_name>
+		<country>FR</country>
+		<credentials>
+			<info>Fonctionne sans identifiants</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>210</id_carrier>
+		<name>TNT Italy</name>
+		<api_name></api_name>
+		<country>IT</country>
+		<credentials>
+			<info>This API works without credentials</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>212</id_carrier>
+		<name>Nexive</name>
+		<api_name></api_name>
+		<country>IT</country>
+		<credentials>
+			<info>Il connettore funziona senza identificatori</info>
+		</credentials>
+	</carrier>
+		<carrier>
+		<id_carrier>213</id_carrier>
+		<name>GLS Italy</name>
+		<api_name></api_name>
+		<country>IT</country>
+		<credentials>
+			<info>Il numero di contratto si trova nell'area clienti GLS.</info>
+			<credential>
+					<credposition>1</credposition>
+					<credname>HL_CARRIER213_id1</credname>
+					<credpublicname>Contratto</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>214</id_carrier>
+		<name>Poste Italiane API</name>
+		<api_name></api_name>
+		<country>IT</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER214_id1</credname>
+				<credpublicname>Client_Id</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER214_id2</credname>
+				<credpublicname>Client Secret</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>215</id_carrier>
+		<name>Poste Italiane</name>
+		<country>IT</country>
+		<credentials>
+			<info>Il connettore funziona senza identificatori</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>216</id_carrier>
+		<name>SDA Italy</name>
+		<country>IT</country>
+		<credentials>
+			<info>Il connettore funziona senza identificatori</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>217</id_carrier>
+		<name>Fercam</name>
+		<api_name></api_name>
+		<country>IT</country>
+		<credentials>
+		<info>Il connettore funziona senza identificatori</info>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER217_id1</credname>
+				<credpublicname>CodiceCliente</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>220</id_carrier>
+		<name>BRT by ID Spedizione</name>
+		<api_name></api_name>
+		<country>IT</country>
+		<credentials>
+			<info>Il servizio web funziona senza identificatori</info>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>221</id_carrier>
+		<name>BRT by ID Collo</name>
+		<country>IT</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER221_id1</credname>
+				<credpublicname>Id Collo</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>250</id_carrier>
+		<name>ARAMEX</name>
+		<api_name></api_name>
+		<country>AE</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER250_id1</credname>
+				<credpublicname>Username</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER250_id2</credname>
+				<credpublicname>Password</credpublicname>
+			</credential>
+			<credential>
+				<credposition>3</credposition>
+				<credname>HL_CARRIER250_id3</credname>
+				<credpublicname>Version</credpublicname>
+			</credential>
+			<credential>
+				<credposition>4</credposition>
+				<credname>HL_CARRIER250_id4</credname>
+				<credpublicname>AccountNumber</credpublicname>
+			</credential>
+			<credential>
+				<credposition>6</credposition>
+				<credname>HL_CARRIER250_id5</credname>
+				<credpublicname>AccountPin</credpublicname>
+			</credential>
+			<credential>
+				<credposition>7</credposition>
+				<credname>HL_CARRIER250_id6</credname>
+				<credpublicname>AccountEntity</credpublicname>
+			</credential>
+			<credential>
+				<credposition>8</credposition>
+				<credname>HL_CARRIER250_id7</credname>
+				<credpublicname>AccountCountryCode</credpublicname>
+			</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+		<id_carrier>252</id_carrier>
+		<name>TAROFF</name>
+		<api_name></api_name>
+		<country>IR</country>
+		<credentials>
+		<info>Please ask an API key to your technical contact</info>
+		<credential>
+			<credposition>1</credposition>
+			<credname>HL_CARRIER252_id1</credname>
+			<credpublicname>API Key</credpublicname>
+		</credential>
+		</credentials>
+	</carrier>
+	<carrier>
+	<id_carrier>260</id_carrier>
+		<name>4PX</name>
+		<api_name></api_name>
+		<country>CN</country>
+		<credentials>
+			<credential>
+				<credposition>1</credposition>
+				<credname>HL_CARRIER260_id1</credname>
+				<credpublicname>App key</credpublicname>
+			</credential>
+			<credential>
+				<credposition>2</credposition>
+				<credname>HL_CARRIER260_id2</credname>
+				<credpublicname>Key secret</credpublicname>
+			</credential>
+			</credentials>
+	</carrier>
+</catalogue>
+

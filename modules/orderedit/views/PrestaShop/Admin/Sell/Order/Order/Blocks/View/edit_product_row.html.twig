@@ -1,0 +1,58 @@
+{#**
+ * OrderEdit
+ *
+ * @author    silbersaiten <info@silbersaiten.de>
+ * @copyright 2021 silbersaiten
+ * @license   See joined file licence.txt
+ * @support   silbersaiten <support@silbersaiten.de>
+ * @category  Module
+ * @version   2.0.1
+ * @link      https://www.silbersaiten.de
+ *#}
+
+<tr id="editProductTableRowTemplate" class="d-none editProductRow">
+  <td class="cellProductImg"></td>
+  <td class="ProductName">{{ form_row(editProductRowForm.product_name) }}</td>
+  <td class="ProductReference">{{ form_row(editProductRowForm.product_reference) }}</td>
+  <td class="ProductSupplierReference">{{ form_row(editProductRowForm.product_supplier_reference) }}</td>
+  <td class="ProductWeight">{{ form_row(editProductRowForm.product_weight) }}</td>
+  <td class="ReductionPercent">{{ form_row(editProductRowForm.reduction_percent) }}</td>
+  <td class="TaxRate">{{ form_row(editProductRowForm.tax_rate) }}</td>
+  <td class="cellProductTaxes pr-5">
+    {{ form_row(editProductRowForm.price_tax_excluded) }}
+    {{ form_row(editProductRowForm.price_tax_included) }}
+  </td>
+  <td class="cellProductQuantity pr-5">
+    {{ form_row(editProductRowForm.quantity, {'type':'number'}) }}
+  </td>
+  <td class="editProductLocation cellProductLocation"></td>
+  <td class="editProductRefunded cellProductRefunded"></td>
+  <td class="editProductAvailable"></td>
+  <td class="editProductTotalPrice"></td>
+  {% if orderForViewing.hasInvoice() %}
+    <td class="cellProductInvoice">
+      {{ form_row(editProductRowForm.invoice, {
+        'attr': {
+          'data-modal-edit-price-title': 'Edit the price'|trans({}, 'Admin.Orderscustomers.Feature'),
+          'data-modal-edit-price-apply': 'Update'|trans({}, 'Admin.Actions'),
+          'data-modal-edit-price-cancel': 'Cancel'|trans({}, 'Admin.Actions'),
+          'data-modal-edit-price-body': 'Are you sure you want to edit this product price? It will be applied to all invoices of this order.'|trans({}, 'Admin.Orderscustomers.Notification'),
+        }})
+      }}
+    </td>
+  {% endif %}
+  <td class="editProductActions text-right">
+    <div class="editProductActions-container btn-group">
+      {{ form_row(editProductRowForm.cancel) }}
+      {# {{ form_row(editProductRowForm.save) }} #} {# Because we don't remove the handler functions from this button #}
+      <div class="form-group">
+        <button type="button"
+                name="edit_product_row[save]"
+                class="btn btn-sm btn-primary js-product-edit-action-btn mt-2 mb-2 productEditSaveBtn_custom btn"
+                data-update-message="{{ 'Are you sure?'|trans({}, 'Admin.Actions') }}">
+          {{ 'Save'|trans({}, 'Admin.Actions') }}
+        </button>
+      </div>
+    </div>
+  </td>
+</tr>

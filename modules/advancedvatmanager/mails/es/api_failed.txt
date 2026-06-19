@@ -1,0 +1,18 @@
+[/{shop_url}]
+
+MÓDULO ADVANCED VAT MANAGER
+Validación de IVA por VIES o sistema API GOV.UK
+
+Un cliente intentó validar su número de IVA y el proceso del sistema API VIES o GOV.UK fue
+ha fallado.
+
+Por favor, compruebe los detalles a continuación:
+
+ID de cliente: [{customer_id}]
+ID de dirección: [{id_address}]
+Nombre del cliente: [{customer_name}]
+Número de IVA: [{vat}]
+País: [{country}]
+Fecha y hora: [{date}]
+
+Correo electrónico enviado por el módulo Advanced VAT Manager, desarrollado por Liewebs [http://www.prestashop.com/]

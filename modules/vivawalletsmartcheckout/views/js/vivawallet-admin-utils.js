@@ -1,0 +1,28 @@
+/**
+ * Copyright since 2007 Viva Wallet
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@vivawallet.com so we can send you a copy immediately.
+ *
+ * @author    Viva Wallet <support@vivawallet.com>
+ * @copyright Since 2007 Viva Wallet
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ */
+function vivawalletsmartcheckout_showError(message) {
+    $('#vivawalletsmartcheckout_capture_form_submit').prop('disabled', false);
+    $('#vivawalletsmartcheckout_refund_form_submit').prop('disabled', false);
+    $('#vivawalletsmartcheckout_partial_refund_form_submit').prop('disabled', false);
+    $('.vivawalletsmartcheckout-transaction-error').text(message).show();
+}
+
+function vivawalletsmartcheckout_getFormattedAmount(requested_amount) {
+    requested_amount = Number.parseFloat(requested_amount) * 100;
+    return requested_amount.toFixed(0);
+}

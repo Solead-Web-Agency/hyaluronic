@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>revolutpayment</name>
+    <displayName><![CDATA[Revolut]]></displayName>
+    <version><![CDATA[2.2.4]]></version>
+    <description><![CDATA[Revolut Business&rsquo; payment gateway has the unique advantage of being integrated 
+        directly with your Revolut Business account]]></description>
+    <author><![CDATA[Revolut]]></author>
+    <tab><![CDATA[payments_gateways]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall this module?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

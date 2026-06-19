@@ -1,0 +1,130 @@
+{#**
+ * OrderEdit
+ *
+ * @author    silbersaiten <info@silbersaiten.de>
+ * @copyright 2021 silbersaiten
+ * @license   See joined file licence.txt
+ * @support   silbersaiten <support@silbersaiten.de>
+ * @category  Module
+ * @version   2.0.24
+ * @link      https://www.silbersaiten.de
+ *#}
+
+<div class="modal fade" id="updateOrderShippingModal" tabindex="-1" role="dialog">
+  {{ form_start(updateOrderShippingForm, {
+    'action': path('admin_orders_update_shipping', {'orderId': orderForViewing.id})
+  }) }}
+  <div class="modal-dialog" role="document">
+    <div class="modal-content update_order_shipping_container">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'Edit shipping details'|trans({}, 'Admin.Orderscustomers.Feature') }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'Close'|trans({}, 'Admin.Actions') }}">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% if not 'PS_ORDER_RECALCULATE_SHIPPING'|configuration %}
+          <div class="alert alert-info" role="alert">
+            <p class="alert-text">
+              {{ 'Please note that carrier change will not recalculate your shipping costs, if you want to change this please visit Shop Parameters > Order Settings'|trans({}, 'Admin.Orderscustomers.Notification') }}
+            </p>
+          </div>
+        {% endif %}
+
+        <div class="form-group">
+          <label class="form-control-label" for="update_order_shipping_date">
+            {{ 'Created date'|trans({}, 'Modules.Orderedit.Admin') }}
+          </label>
+          <input type="text" id="update_order_shipping_date" name="shipping_date_add" class="form-control" value="{% if orderCarriersRaw.date_add is defined %}{{ orderCarriersRaw.date_add }}{% endif %}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="{{ updateOrderShippingForm.tracking_number.vars.id }}">
+            {{ 'Tracking number'|trans({}, 'Admin.Shipping.Feature') }}
+          </label>
+
+          {{ form_widget(updateOrderShippingForm.tracking_number) }}
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="update_order_shipping_new_carrier_id">
+            {{ 'Carrier'|trans({}, 'Admin.Global') }}
+          </label>
+          <select id="update_order_shipping_new_carrier_id" name="shipping_new_carrier_id" class="custom-select">
+            {% for carrier in carrierListRaw %}
+              <option
+                      value="{{ carrier.id_carrier }}"
+                      data-carrier_price="{{ carrier.price }}"
+                      data-carrier_price_wt="{{ carrier.price_wt }}"
+                      data-carrier_tax_rate="{{ carrier.tax_rate }}"
+                      {%  if orderCarriersRaw.id_carrier is defined and orderCarriersRaw.id_carrier == carrier.id_carrier %} selected="selected" {% endif %}
+              >
+                {{ carrier.name }} ({{ carrier.delay }})
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="update_order_shipping_cost">
+            {{ 'Shipping cost'|trans({}, 'Modules.Orderedit.Admin') }}
+          </label>
+          <div class="input-group">
+            <input type="text" id="update_order_shipping_cost" name="shipping_cost_tax_incl" class="form-control" value="{% if orderCarriersRaw.shipping_cost_tax_incl is defined %}{{ orderCarriersRaw.shipping_cost_tax_incl }}{% endif %}">
+            <div class="input-group-append">
+              <span class="input-group-text">{{ orderCurrency.sign }} {{ 'tax incl.'|trans({}, 'Admin.Global') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="update_order_shipping_cost_wot">
+            {{ 'Shipping cost without tax'|trans({}, 'Modules.Orderedit.Admin') }}
+          </label>
+          <div class="input-group">
+            <input type="text" id="update_order_shipping_cost_wot" name="shipping_cost_tax_excl" class="form-control" value="{% if orderCarriersRaw.shipping_cost_tax_excl is defined %}{{ orderCarriersRaw.shipping_cost_tax_excl }}{% endif %}">
+            <div class="input-group-append">
+              <span class="input-group-text">{{ orderCurrency.sign }} {{ 'tax excl.'|trans({}, 'Admin.Global') }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="update_order_shipping_cost_tax_rate">
+            {{ 'Shipping tax'|trans({}, 'Modules.Orderedit.Admin') }}
+          </label>
+          <div class="input-group">
+            <input type="text" id="update_order_shipping_cost_tax_rate" name="shipping_cost_tax_rate" class="form-control" value="{% if orderCarriersRaw.tax_rate is defined %}{{  orderCarriersRaw.tax_rate }}{% endif %}">
+            <div class="input-group-append">
+              <span class="input-group-text">%</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="update_order_shipping_weight">
+            {{ 'Weight'|trans({}, 'Admin.Global') }}
+          </label>
+          <div class="input-group">
+            <input type="text" id="update_order_shipping_weight" name="shipping_weight" class="form-control" value="{% if orderCarriersRaw.weight is defined %}{{ orderCarriersRaw.weight }}{% endif %}">
+            <div class="input-group-append">
+              <span class="input-group-text"> {{ 'kg.'|trans({}, 'Admin.Global') }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-none">
+          {{ form_rest(updateOrderShippingForm) }}
+          <input type="hidden" name="id_order" value="{{ orderForViewing.id }}"/>
+{#          <input type="hidden" name="shipping_cost_tax_excl" class="form-control" value="{{ orderCarriersRaw.shipping_cost_tax_excl }}">#}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+          {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+        </button>
+        <a href="" class="btn btn-primary order_shipping_update">
+          {{ 'Update'|trans({}, 'Admin.Actions') }}
+        </a>
+      </div>
+    </div>
+  </div>
+  {{ form_end(updateOrderShippingForm) }}
+</div>

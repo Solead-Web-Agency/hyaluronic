@@ -1,0 +1,6 @@
+[{shop_name}]({shop_url})
+Olá,
+
+Por se cadastrar na nossa newsletter, nós temos o prazer de lhe oferecer o seguinte cupom de desconto: {discount}
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

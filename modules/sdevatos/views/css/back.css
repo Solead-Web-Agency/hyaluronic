@@ -1,0 +1,123 @@
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to a commercial license from ScaleDEV.
+ * Use, copy, modification or distribution of this source file without written
+ * license agreement from the SARL SMC is strictly forbidden.
+ * In order to obtain a license, please contact us: contact@scaledev.fr
+ * ...........................................................................
+ * INFORMATION SUR LA LICENCE D'UTILISATION
+ *
+ * L'utilisation de ce fichier source est soumise a une licence commerciale
+ * concédée par la société ScaleDEV.
+ * Toute utilisation, reproduction, modification ou distribution du présent
+ * fichier source sans contrat de licence écrit de la part de la ScaleDEV est
+ * expressement interdite.
+ * Pour obtenir une licence, veuillez contacter ScaleDEV a l'adresse: contact@scaledev.fr
+ * ...........................................................................
+ *
+ * @author ScaleDEV
+ * @copyright Copyright (c) 2019 ScaleDEV - 12 RUE BEGAND - 10000 TROYES - FRANCE
+ * @license Commercial license
+ * @package SdevAtos
+ * Support by mail : contact@scaledev.fr
+ */
+
+#module-sdevatos .list-group-item {
+    cursor: pointer;
+}
+
+#module-sdevatos #sdevatos-scaledev-logo {
+    height: 100px;
+}
+
+#module-sdevatos #sdevatos-module-logo {
+    height: 100px;
+}
+
+#module-sdevatos .panel-footer {
+    height: auto;
+}
+
+#module-sdevatos .form-group {
+    margin-bottom: 0;
+}
+
+#module-sdevatos .control-label {
+    font-weight: bold;
+}
+
+#module-sdevatos .help-block {
+    margin: 0;
+}
+
+/* UTILITIES */
+#module-sdevatos .sdev-no-margin {
+    margin: 0 !important;
+}
+#module-sdevatos .sdev-no-mt {
+    margin-top: 0 !important;
+}
+#module-sdevatos .sdev-no-mr {
+    margin-right: 0 !important;
+}
+#module-sdevatos .sdev-no-mb {
+    margin-bottom: 0 !important;
+}
+#module-sdevatos .sdev-no-ml {
+    margin-left: 0 !important;
+}
+
+#module-sdevatos .sdev-no-padding {
+    padding: 0 !important;
+}
+#module-sdevatos .sdev-no-pt {
+    padding-top: 0 !important;
+}
+#module-sdevatos .sdev-no-pr {
+    padding-right: 0 !important;
+}
+#module-sdevatos .sdev-no-pb {
+    padding-bottom: 0 !important;
+}
+#module-sdevatos .sdev-no-pl {
+    padding-left: 0 !important;
+}
+
+#module-sdevatos .sdev-no-border-radius {
+    border-radius: 0 !important;
+}
+#module-sdevatos .sdev-no-btlr {
+    border-top-left-radius: 0 !important;
+}
+#module-sdevatos .sdev-no-btrr {
+    border-top-right-radius: 0 !important;
+}
+#module-sdevatos .sdev-no-bbrr {
+    border-bottom-right-radius: 0 !important;
+}
+#module-sdevatos .sdev-no-bblr {
+    border-bottom-left-radius: 0 !important;
+}
+
+#module-sdevatos .sdev-table-layout-auto {
+    table-layout: auto !important;
+}
+#module-sdevatos .sdev-table-layout-auto td {
+    white-space: nowrap !important;
+}
+#module-sdevatos .sdev-table-layout-auto .sdev-table-th-full-width {
+    width: 100% !important;
+}
+#module-sdevatos .sdev-table-layout-auto .sdev-table-th-full-width-2 {
+    width: 50% !important;
+}
+
+#module-sdevatos .sdev-window-to-close {
+    position: relative;
+}
+#module-sdevatos .sdev-window-btns {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}

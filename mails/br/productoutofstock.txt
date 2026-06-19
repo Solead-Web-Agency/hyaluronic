@@ -1,0 +1,10 @@
+[{shop_name}]({shop_url})
+Olá,
+
+O estoque remanescente é agora menor do que o mínimo especificado de {last_qty}.
+
+Estoque restante: {qty}
+
+Reabasteça seu inventário, entre na seção Catálogo > Estoques de sua área de administração para gerenciar seu estoque.
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

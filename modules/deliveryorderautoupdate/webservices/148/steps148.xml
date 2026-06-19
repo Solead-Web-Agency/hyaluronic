@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<status>5</status>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<status>9</status>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<status>25</status>
+			<status>3</status>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<status>1</status>
+			<status>2</status>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<status>7</status>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<status>4</status>
+	</step>
+	<step>
+			<id_status>103</id_status>
+			<status>unauthenticated customer</status>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<status>-001</status>
+	</step>
+	<step>
+			<id_status>106</id_status>
+			<status>-001</status>
+	</step>
+</document>

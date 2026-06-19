@@ -1,0 +1,10 @@
+[/{shop_url}]
+
+Hallo {firstname} {lastname},
+
+Ihr Paket ist :  "{current_status}"
+
+Hier können Sie die Versandschritte überprüfen [/{track_link}]
+
+Freundliche Grüße
+{shop_name} [/{shop_url}]

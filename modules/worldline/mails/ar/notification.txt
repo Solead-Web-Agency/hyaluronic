@@ -1,0 +1,3 @@
+Error in the payment of cart id_cart   
+Error code : error_code   
+Message : error_error

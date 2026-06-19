@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+    <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>A1ND8F8KKXXXXX</MerchantIdentifier>
+    </Header>
+    <MessageType>Override</MessageType>
+    <Message>
+        <MessageID>1</MessageID>
+        <OperationType>Update</OperationType>
+        <Override>
+            <SKU>8SPXXXXX</SKU>
+            <ShippingOverride>
+                <ShipOption>Exp US D2D Dom</ShipOption>
+                <Type>Exclusive</Type>
+                <ShipAmount currency="USD">2.5</ShipAmount>
+            </ShippingOverride>
+        </Override>
+    </Message>
+</AmazonEnvelope>

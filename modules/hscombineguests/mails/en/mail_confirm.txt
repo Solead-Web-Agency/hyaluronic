@@ -1,0 +1,12 @@
+Dear {firstname}
+This email is to inform you that we have combined all your guest accounts and customer account (if any) into one single account.
+
+Your orders if placed on separate accounts will now all appear under one customer account.
+
+Log in with email: {email}
+Password: {password}
+Or reset your password at: {forgot_password_url}.
+
+We just want to give you better experience when shopping with us, and we hope you will like it!
+
+Kind regards, 

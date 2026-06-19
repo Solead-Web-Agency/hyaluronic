@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+		<id_status>1</id_status>
+		<statuscode>Delivered</statuscode>
+		<statuscode>Entregue</statuscode>
+		<statuscode>Entregado</statuscode>
+	</step>
+	<step>
+		<id_status>2</id_status>
+		<statuscode>Absent</statuscode>
+		<statuscode>Ausente</statuscode>
+		<statuscode>Incorrect address</statuscode>
+	</step>
+	<step>
+		<id_status>3</id_status>
+		<statuscode>Missing data</statuscode>
+		<statuscode>Next day scheduled delivery</statuscode>
+		<statuscode>Parcel picked up by GLS</statuscode>
+		<statuscode>Envio recolhido pela GLS</statuscode>
+		<statuscode>Envío recogido por GLS</statuscode>	
+		<statuscode>In transit</statuscode>
+		<statuscode>Em trânsito a destino</statuscode>
+		<statuscode>En tránsito a destino</statuscode>
+	</step>
+	<step>
+		<id_status>4</id_status>
+		<statuscode>Label created. The shipment has not yet been delivered to GLS by the sender</statuscode>
+		<statuscode>Etiqueta criada. O envio ainda não foi entregue á GLS pelo remetente</statuscode>
+		<statuscode>Etiqueta creada. El envío aún no ha sido entregado a GLS por el remitente</statuscode>
+	</step>
+	<step>
+		<id_status>5</id_status>
+		<statuscode>Parcel returned to the shipper</statuscode>
+	</step>
+	<step>
+		<id_status>6</id_status>
+		<statuscode>Pending pick up at GLS location</statuscode>
+		<statuscode>At GLS location</statuscode>
+		<statuscode>Deposited in ParcelShop. Ready to be picked up.</statuscode>
+		<statuscode>Entregue em Parcel Shop, preparado para ser recolhido pelo destinatário.</statuscode>
+		<statuscode>Depositado en ParcelShop. Listo para ser recogido por destinatario</statuscode>
+	</step>
+	<step>
+		<id_status>7</id_status>
+		<statuscode>Return delivery process</statuscode>
+		<statuscode>Return requested</statuscode>
+	</step>
+	<step>
+		<id_status>8</id_status>
+		<statuscode>Out for delivery</statuscode>
+		<statuscode>Em distribuição</statuscode>
+		<statuscode>En reparto</statuscode>
+	</step>
+	<step>
+		<id_status>105</id_status>
+		<statuscode>105</statuscode>
+	</step>
+</document>

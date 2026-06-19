@@ -1,0 +1,1 @@
+Agregue 0 delante del número de teléfono si no comienza con 0 o +

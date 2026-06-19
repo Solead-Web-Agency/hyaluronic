@@ -1,0 +1,1 @@
+Permita que el módulo importe pedidos para los cuales el stock está en cero.

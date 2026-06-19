@@ -1,0 +1,124 @@
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+#subtab-EtsAbandonedCartDashboard a.link i:first-child,
+#subtab-AdminEtsACDashboard a.link i:first-child,
+#subtab-EtsAbandonedCartCampaign a.link i:first-child,
+#subtab-AdminEtsACCampaign a.link i:first-child,
+#subtab-EtsAbandonedCartCart a.link i:first-child,
+#subtab-AdminEtsACCart a.link i:first-child,
+#subtab-EtsAbandonedCartEmailTemplate a.link i:first-child,
+#subtab-AdminEtsACEmailTemplate a.link i:first-child,
+#subtab-EtsAbandonedCartTracking a.link i:first-child,
+#subtab-AdminEtsACTracking a.link i:first-child,
+#subtab-EtsAbandonedCartMailConfigs a.link i:first-child,
+#subtab-AdminEtsACMailConfigs a.link i:first-child,
+#subtab-EtsAbandonedCartConfigs a.link i:first-child,
+#subtab-AdminEtsACConfigs a.link i:first-child,
+#maintab-AdminEtsAC i.icon-AdminEtsAC:first-child,
+i.icon-AdminEtsAC:first-child,
+#subtab-AdminEtsACConvertedCarts a.link i:first-child,
+#subtab-AdminEtsACLeads a.link i:first-child,
+#subtab-EtsAbandonedCartOtherConfigs a.link i:first-child,
+#subtab-AdminEtsACOtherConfigs a.link i:first-child{
+    font-size: 0;
+    font-family: Fontawesome;
+    width: 16px;
+    height: 16px;
+}
+#subtab-AdminEtsACConvertedCarts a.link i:first-child:before,
+#subtab-EtsAbandonedCartDashboard a.link i:first-child:before,
+#subtab-AdminEtsACDashboard a.link i:first-child:before,
+#subtab-EtsAbandonedCartCampaign a.link i:first-child:before,
+#subtab-AdminEtsACCampaign a.link i:first-child:before,
+#subtab-EtsAbandonedCartCart a.link i:first-child:before,
+#subtab-AdminEtsACCart a.link i:first-child:before,
+#subtab-EtsAbandonedCartEmailTemplate a.link i:first-child:before,
+#subtab-AdminEtsACEmailTemplate a.link i:first-child:before,
+#subtab-EtsAbandonedCartTracking a.link i:first-child:before,
+#subtab-AdminEtsACTracking a.link i:first-child:before,
+#subtab-EtsAbandonedCartMailConfigs a.link i:first-child:before,
+#subtab-AdminEtsACMailConfigs a.link i:first-child:before,
+#subtab-EtsAbandonedCartConfigs a.link i:first-child:before,
+#subtab-AdminEtsACConfigs a.link i:first-child:before,
+#subtab-EtsAbandonedCartOtherConfigs a.link i:first-child:before,
+#maintab-AdminEtsAC i.icon-AdminEtsAC:first-child:before,
+#subtab-AdminEtsACLeads a.link i:first-child:before,
+i.icon-AdminEtsAC:first-child:before,
+#subtab-AdminEtsACOtherConfigs a.link i:first-child:before{
+    font-family: Fontawesome;
+    font-size: 16px;
+    color: #ffffff;
+}
+.has_submenu .title:not(:hover) i.icon-AdminEtsAC:first-child:before,
+#nav-topbar ul.menu li.maintab:not(:hover) >a i.icon-AdminEtsAC:before, 
+#nav-topbar ul.menu li.subtab:not(:hover) >a i.icon-AdminEtsAC:before{
+    color: #333333;
+}
+#subtab-AdminEtsACConvertedCarts a.link i:first-child:before {content: "\f291";}
+#subtab-EtsAbandonedCartDashboard a.link i:first-child:before{content:"\f0e4"}
+#subtab-AdminEtsACDashboard a.link i:first-child:before{content:"\f0e4"}
+#subtab-EtsAbandonedCartCampaign a.link i:first-child:before{content:"\f017"}
+#subtab-AdminEtsACCampaign a.link i:first-child:before{content:"\f017"}
+#subtab-EtsAbandonedCartCart a.link i:first-child:before{content:"\f07a"}
+#subtab-AdminEtsACCart a.link i:first-child:before{content:"\f07a"}
+#subtab-EtsAbandonedCartEmailTemplate a.link i:first-child:before{content:"\f02d"}
+#subtab-AdminEtsACEmailTemplate a.link i:first-child:before{content:"\f02d"}
+#subtab-EtsAbandonedCartTracking a.link i:first-child:before{content:"\f01e"}
+#subtab-AdminEtsACTracking a.link i:first-child:before{content:"\f01e"}
+#subtab-EtsAbandonedCartMailConfigs a.link i:first-child:before{content:"\f003"}
+#subtab-AdminEtsACMailConfigs a.link i:first-child:before{content:"\f003"}
+#subtab-EtsAbandonedCartConfigs a.link i:first-child:before{content:"\f0ae"}
+#subtab-AdminEtsACConfigs a.link i:first-child:before{content:"\f0ae"}
+#subtab-EtsAbandonedCartOtherConfigs a.link i:first-child:before{content:"\f085"}
+#subtab-AdminEtsACOtherConfigs a.link i:first-child:before{content:"\f085"}
+#subtab-AdminEtsACLeads a.link i:first-child:before{content:"\f2bb"}
+#maintab-AdminEtsAC i.icon-AdminEtsAC:first-child:before,i.icon-AdminEtsAC:first-child:before {content: "\f217";}
+
+.main-menu .link-levelone>.link span,
+.main-menu .link-leveltwo>.link span,
+.link-leveltwo>.link{
+    text-transform: capitalize;
+}
+
+
+
+li#tab-AdminEtsAC.category-title {
+    display: block!important;
+}
+body.mobile li#tab-AdminEtsAC > .title:before {
+    content: "";
+    border-top: 2px solid #6c868e;
+    border-right: 2px solid #6c868e;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    float: right;
+    margin-right: 32px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+.mobile #subtab-AdminEtsACDashboard,
+.mobile #subtab-AdminEtsACCampaign,
+.mobile #subtab-AdminEtsACCart,
+.mobile #subtab-AdminEtsACConvertedCarts,
+.mobile #subtab-AdminEtsACEmailTemplate,
+.mobile #subtab-AdminEtsACTracking,
+.mobile #subtab-AdminEtsACMailConfigs,
+.mobile #subtab-AdminEtsACConfigs,
+.mobile #subtab-AdminEtsACOtherConfigs{
+    display:none;
+}
+.mobile #subtab-AdminEtsACDashboard.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsACCampaign.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsACCart.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsACConvertedCarts.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsACEmailTemplate.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsACTracking.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsACMailConfigs.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsACConfigs.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsACOtherConfigs.ets_sidebar_menu_show{
+    display: block;
+}
+
+
+
+

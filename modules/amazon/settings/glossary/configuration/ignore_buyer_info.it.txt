@@ -1,0 +1,2 @@
+Per risolvere problemi con le informazioni sull'acquirente e l'indirizzo di spedizione.
+Se questa impostazione è abilitata, è necessario modificare manualmente l'indirizzo.

@@ -1,0 +1,129 @@
+
+.step-list .border {
+    padding: 5px;
+    border-radius: 50%;
+    border: none!important;
+}
+.step-list .current_status .border {
+    background-color: #0080ff;
+}
+.step-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.step-list .item-rows {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+    overflow: hidden;
+    background-color: #fff;
+}
+.step-list .item-rows .wrapper{
+    text-align: center;
+    z-index: 0;
+}
+.step-list .item-rows .icon {
+    position:relative;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.step-list .item-rows .icon img{
+    max-width: 35px;
+    max-height: 40px;
+    vertical-align: baseline;
+    padding: 5px;
+}
+.step-list .item-rows .icon span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:35px;
+    height:35px;
+    line-height:45px;
+    border-radius:50%;
+    position:relative;
+    background:#0080ff;
+    z-index:2;
+}
+.step-list .item-rows .icon:before {
+    content:"";
+    position:absolute;
+    top:20px;
+    height: 5px;
+    width: 300px;
+    display:block;
+    background:#0080ff;
+    left:  calc(100% - 5px);
+    z-index: -1;
+}
+.step-list .item-rows .wrapper:last-child .icon:before {
+    background:#fff!important;
+}
+.step-list .item-rows .wrapper.current_status .icon:before {
+    background:#C8C8C8;
+}
+.step-list .item-rows .icon.not-reach:before {
+    background:#C8C8C8;
+}
+.gray {
+    background-color: #C8C8C8!important;
+}
+.step-list .item-rows .text {
+    display: inline-block;
+    padding-left:15px;
+    padding-top: 5px;
+}
+
+
+.event-list .status {
+    font-size: 1.3em;
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    height: 30px;
+    width: 30px;
+    min-height: 30px;
+    line-height: initial;
+    display: inline-block;
+    cursor: default;
+    padding: 0;
+	margin: 0px 0px 0px 10px;
+}
+.event-list .status img {
+    padding: 6px;
+    width: 100%;
+}
+.event-list thead tr th {
+    font-weight: 600;
+	padding: 5px 20px 5px 0px;
+}
+.event-list td {
+    vertical-align: unset;
+	padding: 5px 20px 5px 0px;
+	font-size: 0.9em;
+	line-height: 1.4em;
+}
+.event-list td:nth-child(1) {
+    width: 1%;
+    white-space: nowrap;
+}
+.event-list .date {
+    white-space: nowrap;
+    margin-right: 10px;
+}
+.event-list .event {
+    display: flex;
+}
+.event-list tr {
+    border-bottom: 1px solid #e8dbdb;
+}
+@media (max-width: 500px) {
+    .event-list .event {
+        display: block;
+    }
+}

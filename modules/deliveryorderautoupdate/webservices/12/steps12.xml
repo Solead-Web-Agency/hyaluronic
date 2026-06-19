@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<carrierstatus>40</carrierstatus>
+			<carrierstatus>400</carrierstatus>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<carrierstatus></carrierstatus>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<carrierstatus>10</carrierstatus>
+			<carrierstatus>20</carrierstatus>
+			<carrierstatus>28</carrierstatus>
+			<carrierstatus>89</carrierstatus>
+			<carrierstatus>26</carrierstatus>
+			<carrierstatus>27</carrierstatus>
+			<carrierstatus>29</carrierstatus>
+			<carrierstatus>120</carrierstatus>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<carrierstatus>8</carrierstatus>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<carrierstatus></carrierstatus>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<carrierstatus></carrierstatus>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<carrierstatus></carrierstatus>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<carrierstatus>30</carrierstatus>
+			<carrierstatus>31</carrierstatus>
+	</step>
+</document>

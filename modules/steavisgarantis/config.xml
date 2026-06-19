@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+        <name>steavisgarantis</name>
+        <displayName><![CDATA[Guaranteed Reviews Company]]></displayName>
+        <version><![CDATA[5.3.8]]></version>
+        <description><![CDATA[Collect, guarantee and publish your customers reviews. Increase your sales fastly and easily.]]></description>
+        <author><![CDATA[Société des Avis Garantis]]></author>
+        <tab><![CDATA[advertising_marketing]]></tab>
+        <is_configurable>1</is_configurable>
+        <need_instance>0</need_instance>
+        <limited_countries></limited_countries>
+</module>

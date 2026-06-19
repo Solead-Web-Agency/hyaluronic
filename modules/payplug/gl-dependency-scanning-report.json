@@ -1,0 +1,248 @@
+{
+  "version": "15.1.4",
+  "vulnerabilities": [
+    {
+      "id": "e14083fa3e0dc0f909941fccff3b0faa932e2af5a252e0d04d9ca5b375554981",
+      "name": "Symfony vulnerable to command execution hijack on Windows with Process class",
+      "description": "On Window, when an executable file named `cmd.exe` is located in the current working directory it will be called by the `Process` class when preparing command arguments, leading to possible hijacking.",
+      "severity": "High",
+      "solution": "Upgrade to versions 5.4.46, 6.4.14, 7.1.7 or above.",
+      "location": {
+        "file": "dev/dist/payplug/composer.lock",
+        "dependency": {
+          "package": {
+            "name": "symfony/process"
+          },
+          "version": "v3.4.47"
+        }
+      },
+      "identifiers": [
+        {
+          "type": "gemnasium",
+          "name": "Gemnasium-c5235f4a-448b-4685-aa02-4afc6f00d5e6",
+          "value": "c5235f4a-448b-4685-aa02-4afc6f00d5e6",
+          "url": "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/blob/master/packagist/symfony/process/CVE-2024-51736.yml"
+        },
+        {
+          "type": "cve",
+          "name": "CVE-2024-51736",
+          "value": "CVE-2024-51736",
+          "url": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-51736"
+        },
+        {
+          "type": "ghsa",
+          "name": "GHSA-qq5c-677p-737q",
+          "value": "GHSA-qq5c-677p-737q",
+          "url": "https://github.com/advisories/GHSA-qq5c-677p-737q"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "NVD",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/process/CVE-2024-51736.yaml"
+        },
+        {
+          "url": "https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2024-51736.yaml"
+        },
+        {
+          "url": "https://github.com/advisories/GHSA-qq5c-677p-737q"
+        },
+        {
+          "url": "https://github.com/symfony/symfony"
+        },
+        {
+          "url": "https://github.com/symfony/symfony/commit/18ecd03eda3917fdf901a48e72518f911c64a1c9"
+        },
+        {
+          "url": "https://github.com/symfony/symfony/security/advisories/GHSA-qq5c-677p-737q"
+        },
+        {
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-51736"
+        },
+        {
+          "url": "https://symfony.com/cve-2024-51736"
+        }
+      ],
+      "details": {
+        "vulnerable_package": {
+          "type": "text",
+          "name": "Vulnerable Package",
+          "value": "symfony/process:v3.4.47"
+        }
+      }
+    },
+    {
+      "id": "62eb11b74e4acf9567bf637c98b5c2d060ea96c7a3ff37d269014c987c3d5135",
+      "name": "Regular Expression Denial of Service (ReDoS) in cross-spawn",
+      "description": "Versions of the package cross-spawn before 7.0.5 are vulnerable to Regular Expression Denial of Service (ReDoS) due to improper input sanitization. An attacker can increase the CPU usage and crash the program by crafting a very large and well crafted string.",
+      "severity": "High",
+      "solution": "Upgrade to versions 6.0.6, 7.0.5 or above.",
+      "location": {
+        "file": "dev/dist/payplug/package-lock.json",
+        "dependency": {
+          "package": {
+            "name": "cross-spawn"
+          },
+          "version": "7.0.3"
+        }
+      },
+      "identifiers": [
+        {
+          "type": "gemnasium",
+          "name": "Gemnasium-1e377302-7a52-4d4d-ad6f-599284561780",
+          "value": "1e377302-7a52-4d4d-ad6f-599284561780",
+          "url": "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/blob/master/npm/cross-spawn/CVE-2024-21538.yml"
+        },
+        {
+          "type": "cve",
+          "name": "CVE-2024-21538",
+          "value": "CVE-2024-21538",
+          "url": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21538"
+        },
+        {
+          "type": "ghsa",
+          "name": "GHSA-3xgq-45jj-v275",
+          "value": "GHSA-3xgq-45jj-v275",
+          "url": "https://github.com/advisories/GHSA-3xgq-45jj-v275"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "NVD",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://github.com/advisories/GHSA-3xgq-45jj-v275"
+        },
+        {
+          "url": "https://github.com/moxystudio/node-cross-spawn"
+        },
+        {
+          "url": "https://github.com/moxystudio/node-cross-spawn/commit/5ff3a07d9add449021d806e45c4168203aa833ff"
+        },
+        {
+          "url": "https://github.com/moxystudio/node-cross-spawn/commit/640d391fde65388548601d95abedccc12943374f"
+        },
+        {
+          "url": "https://github.com/moxystudio/node-cross-spawn/commit/d35c865b877d2f9ded7c1ed87521c2fdb689c8dd"
+        },
+        {
+          "url": "https://github.com/moxystudio/node-cross-spawn/issues/165"
+        },
+        {
+          "url": "https://github.com/moxystudio/node-cross-spawn/pull/160"
+        },
+        {
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-21538"
+        },
+        {
+          "url": "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-8366349"
+        },
+        {
+          "url": "https://security.snyk.io/vuln/SNYK-JS-CROSSSPAWN-8303230"
+        }
+      ],
+      "details": {
+        "vulnerable_package": {
+          "type": "text",
+          "name": "Vulnerable Package",
+          "value": "cross-spawn:7.0.3"
+        }
+      }
+    },
+    {
+      "id": "eeafc427fc75f191617a576772cad92376b885677c3635a79067f9230788c844",
+      "name": "ReDoS vulnerability in vue package that is exploitable through inefficient regex evaluation in the parseHTML function",
+      "description": "The ReDoS can be exploited through the `parseHTML` function in the `html-parser.ts` file. This flaw allows attackers to slow down the application by providing specially crafted input that causes inefficient processing of regular expressions, leading to excessive resource consumption.\n\nTo demonstrate this vulnerability, here's an example. In a Vue client-side application, create a new Vue instance with a template string that includes a `\u003cscript\u003e` tag but closes it incorrectly with something like `\u003c/textarea\u003e`.\n\n```javascript\nnew Vue({\nel: '#app',\ntemplate: '\n\u003cdiv\u003e\nHello, world!\n\u003cscript\u003e${'\u003c'.repeat(1000000)}\u003c/textarea\u003e\n\u003c/div\u003e'\n});\n```\nNext, set up a basic HTML page (e.g., index.html) to load this JavaScript and mount the Vue instance:\n\n```html\n\u003c!DOCTYPE html\u003e\n\u003chtml\u003e\n\u003chead\u003e\n\u003ctitle\u003eMy first Vue app\u003c/title\u003e\n\u003c/head\u003e\n\u003cbody\u003e\n\u003cdiv id=\\\"app\\\"\u003eLoading...\u003c/div\u003e\n\u003c/body\u003e\n\u003c/html\u003e\n```\n\nWhen you visit the app in your browser at http://localhost:3000, you'll notice that the time taken to parse and mount the Vue application increases significantly due to the ReDoS vulnerability, demonstrating how the flaw can affect performance.",
+      "severity": "Low",
+      "solution": "Upgrade to version 3.0.0-alpha.0 or above.",
+      "location": {
+        "file": "dev/dist/payplug/package-lock.json",
+        "dependency": {
+          "package": {
+            "name": "vue"
+          },
+          "version": "2.6.14"
+        }
+      },
+      "identifiers": [
+        {
+          "type": "gemnasium",
+          "name": "Gemnasium-3b54736b-5dff-4fab-8010-85b74f84127f",
+          "value": "3b54736b-5dff-4fab-8010-85b74f84127f",
+          "url": "https://gitlab.com/gitlab-org/security-products/gemnasium-db/-/blob/master/npm/vue/CVE-2024-9506.yml"
+        },
+        {
+          "type": "cve",
+          "name": "CVE-2024-9506",
+          "value": "CVE-2024-9506",
+          "url": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-9506"
+        },
+        {
+          "type": "ghsa",
+          "name": "GHSA-5j4c-8p2g-v4jx",
+          "value": "GHSA-5j4c-8p2g-v4jx",
+          "url": "https://github.com/advisories/GHSA-5j4c-8p2g-v4jx"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "NVD",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://github.com/advisories/GHSA-5j4c-8p2g-v4jx"
+        },
+        {
+          "url": "https://github.com/vuejs/core"
+        },
+        {
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-9506"
+        },
+        {
+          "url": "https://www.herodevs.com/vulnerability-directory/cve-2024-9506"
+        }
+      ],
+      "details": {
+        "vulnerable_package": {
+          "type": "text",
+          "name": "Vulnerable Package",
+          "value": "vue:2.6.14"
+        }
+      }
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "gemnasium",
+      "name": "Gemnasium",
+      "url": "https://gitlab.com/gitlab-org/security-products/analyzers/gemnasium",
+      "vendor": {
+        "name": "GitLab"
+      },
+      "version": "5.8.0"
+    },
+    "scanner": {
+      "id": "gemnasium",
+      "name": "Gemnasium",
+      "url": "https://gitlab.com/gitlab-org/security-products/analyzers/gemnasium",
+      "vendor": {
+        "name": "GitLab"
+      },
+      "version": "5.8.0"
+    },
+    "type": "dependency_scanning",
+    "start_time": "2024-11-25T09:15:36",
+    "end_time": "2024-11-25T09:15:40",
+    "status": "success"
+  }
+}

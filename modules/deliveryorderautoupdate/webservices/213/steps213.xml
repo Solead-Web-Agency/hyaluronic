@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+		<id_status>1</id_status>
+		<statuscode>CONSEGNATA</statuscode>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>2</id_status>
+		<statuscode>Destinatario chiuso per turno. Consegna prevista per il giorno lavorativo successivo</statuscode>
+		<statuscode>Consegna non riuscita. Consegna prevista per il giorno lavorativo successivo</statuscode>
+		<statuscode>Destinatario chiuso per ferie. Consegna prevista alla data di riapertura</statuscode>
+		<statuscode>Importo contrassegno non disponibile. Consegna prevista per il giorno lavorativo successivo</statuscode>
+	</step>
+	<step>
+		<id_status>3</id_status>
+		<statuscode>In transito.</statuscode>
+		<statuscode>Arrivata nella Sede GLS locale.</statuscode>
+		<statuscode>Zona servita in 48 ore. Consegna prevista per il giorno lavorativo successivo.</statuscode>
+		<statuscode>In transito. Non in consegna in data odierna in quanto non arrivata alla Sede GLS locale.</statuscode>
+		<statuscode>Partita dalla sede mittente. In transito.</statuscode>
+		<statuscode>Consegna prevista per il giorno lavorativo successivo.</statuscode>
+		<statuscode>Consegna prevista entro il giorno lavorativo successivo.</statuscode>
+		<statuscode>Consegna concordata con il destinatario</statuscode>
+		<statuscode>Spedizione inoltrata al corretto indirizzo. Non in consegna in data odierna</statuscode>
+		<statuscode>Chiusura esercizio. Consegna prevista per il giorno di riapertura del destinatario</statuscode>
+		<statuscode>Spedizione affidata al distributore di zona. Consegna prevista entro i prossimi tre giorni lavorativi</statuscode>
+		<statuscode>FERMO DEPOSITO</statuscode>
+		<statuscode>Zona servita in 72 ore. Consegna prevista entro i prossimi due giorni lavorativi.</statuscode>
+		<statuscode>Destinatario assente al primo passaggio. Consegna prevista per il giorno lavorativo successivo</statuscode>
+	</step>
+	<step>
+		<id_status>4</id_status>
+		<statuscode>Spedizione registrata nei nostri sistemi ma non ancora partita</statuscode>
+	</step>
+	<step>
+		<id_status>5</id_status>
+		<statuscode>Spedizione restituita al mittente</statuscode>
+	</step>
+	<step>
+		<id_status>6</id_status>
+		<statuscode>Disponibile per il ritiro presso la sede destinataria</statuscode>
+		<statuscode>Richiesto dal destinatario il ritiro della spedizione presso la sede</statuscode>
+	</step>
+	<step>
+		<id_status>7</id_status>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>8</id_status>
+		<statuscode>Consegna prevista nel corso della giornata odierna</statuscode>
+	</step>
+	<step>
+		<id_status>9</id_status>
+		<statuscode>Rifiutata dal destinatario. In attesa di istruzioni dal mittente</statuscode>
+		<statuscode>Rifiutata dal destinatario. In attesa di istruzioni dal mittente per eventuale riconsegna</statuscode>
+	</step>
+	<step>
+		<id_status>10</id_status>
+		<statuscode>Indirizzo errato. In attesa di istruzioni dal mittente per eventuale riconsegna</statuscode>
+		<statuscode>Destinatario sconosciuto. In attesa di istruzioni dal mittente per eventuale riconsegna</statuscode>
+		<statuscode>Destinatario assente al secondo passaggio. In attesa di istruzioni dal mittente per eventuale riconsegna</statuscode>
+		<statuscode>Importo contrassegno non disponibile. In attesa di istruzioni dal mittente per eventuale riconsegna</statuscode>
+		<statuscode>Non in consegna. In attesa di istruzioni dal mittente per eventuale riconsegna</statuscode>
+		<statuscode>Destinatario assente al secondo passaggio. In attesa di istruzio</statuscode>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<statuscode>105</statuscode>
+	</step>
+</document>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>hotjar</name>
+    <displayName><![CDATA[Hotjar]]></displayName>
+    <version><![CDATA[1.0.0]]></version>
+    <description><![CDATA[This module adds the HotJar tracking code to the header template.]]></description>
+    <author><![CDATA[logicalit.com]]></author>
+    <tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall module?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

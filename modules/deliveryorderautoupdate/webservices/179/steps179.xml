@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>Livrat</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode></statuscode>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>Tranzit</statuscode>
+			<statuscode>Ridicare curier</statuscode>
+			<statuscode>Receptie la sediu</statuscode>
+			<statuscode>Procesat la sediu</statuscode>
+			<statuscode>Intrare in depozit</statuscode>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode>Receptionare informatii colet</statuscode>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>Iesire in livrare</statuscode>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<statuscode>404</statuscode>
+	</step>
+	<step>
+			<id_status>106</id_status>
+			<statuscode></statuscode>
+	</step>
+</document>

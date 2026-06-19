@@ -1,0 +1,12 @@
+[/{shop_url}]
+
+MÓDULO ADVANCED VAT MANAGER
+Validación de IVA
+
+Hola [/{customer_name}],
+
+Su número de IVA aún no está validado. Es necesario validar para poder estar exento de impuestos en tus compras con nosotros dentro de la Unión Europea. Vaya a los detalles de su dirección e inserte un número de IVA válido
+[{customer_account_addr}]
+
+Correo electrónico enviado por el módulo Advanced VAT Manager, desarrollado por Liewebs [http://www.prestashop.com/] 
+

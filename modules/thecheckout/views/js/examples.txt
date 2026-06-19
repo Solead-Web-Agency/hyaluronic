@@ -1,0 +1,402 @@
+// ##### Example 1 #####
+// Make 'dni' field required only for Italy - add this Custom JS:
+
+tc_confirmOrderValidations['dni_required_for_italy'] = function () {
+      var italyCountryId = 2;
+      var errorMsg = 'Required field';
+      $('#thecheckout-address-invoice input[name=dni]').removeClass('-error');
+      removeError('#thecheckout-address-invoice .error-msg');
+      if (
+        italyCountryId == $('#thecheckout-address-invoice select[name=id_country]').val() && 
+        $('#thecheckout-address-invoice input[name=dni]').is(':visible') &&
+        '' == jQuery.trim($('#thecheckout-address-invoice input[name=dni]').val())
+      ) {
+        $('#thecheckout-address-invoice input[name=dni]').addClass('-error');
+        $('#thecheckout-address-invoice input[name=dni]').after('<div class="field error-msg">' + errorMsg + '</div>');
+        scrollToError();
+        return false;
+      } else {
+        return true;
+      }
+};
+
+// ##### Example 2 #####
+// Make 'dni' field required only for Italy and only when 'I am a business customer' is *unticked*,
+// including *-mark next to field - add this Custom JS:
+
+tc_confirmOrderValidations['dni_required_for_italy_non_business'] = function () {
+      var italyCountryId = 2;
+      var errorMsg = 'Required field';
+      $('#thecheckout-address-invoice input[name=dni]').removeClass('-error');
+      removeError('#thecheckout-address-invoice .error-msg');
+      if (
+        italyCountryId == $('#thecheckout-address-invoice select[name=id_country]').val() &&
+        $('#thecheckout-address-invoice input[name=dni]').is(':visible') &&
+        '' == jQuery.trim($('#thecheckout-address-invoice input[name=dni]').val()) &&
+        !$('#i_am_business').is(':checked')
+      ) {
+        $('#thecheckout-address-invoice input[name=dni]').addClass('-error');
+        $('#thecheckout-address-invoice input[name=dni]').after('<div class="field error-msg">' + errorMsg + '</div>');
+        scrollToError();
+        return false;
+      } else {
+        return true;
+      }
+};
+
+$('body').on('change', '[data-link-action=x-i-am-business]', function () {
+        let dniLabelEl = $('#thecheckout-address-invoice input[name=dni]').closest('label');
+        if ($(this).prop('checked')) {
+            dniLabelEl.removeClass('required');
+        } else {
+            dniLabelEl.addClass('required');
+        }
+
+        return false;
+});
+
+$(document).ready(function() {
+        // Initial setup - set field required (visually) when above conditions are met
+        $('[data-link-action=x-i-am-business]').trigger('change');
+});
+
+// ##### Example 3 #####
+// Hide certain fields for virtual cart
+// Add this to custom CSS (choose which fields and in which block; !important flag is due to postcode being managed from JS)
+body.is-virtual-cart #thecheckout-address-invoice
+:is(.form-group.firstname, .form-group.city, .form-group.postcode) {
+    display: none!important;
+}
+
+// ##### Example 4 #####
+// Add 2nd email (verification) field
+1/ Add Custom CSS in checkout module settings:
+
+/* Custom CSS for emails verification */
+.form-group.email-verification .field-label:before  {
+    display: inline-block;
+    float: right;
+    font-weight: normal;
+    padding-left: 5px;
+}
+.lang-en .email-verification .field.error-msg {
+    display: block;
+}
+
+/* // ---------------> Update labels here */
+/* English and Danish versions, for other languages, add new rules .lang-xx prefix instead of .lang-en */
+.lang-en .email-verification .field.error-msg.emails-do-not-match:before {
+    content: 'Emails do not match';
+}
+.lang-da .email-verification .field.error-msg.emails-do-not-match:before {
+    content: 'E-mail adresserne er ikke ens';
+}
+
+2/ Add Custom JS in checkout module settings:
+
+document.addEventListener('DOMContentLoaded', function(event) {
+    //jQuery shall be loaded now
+    var email_selector = '.account-fields .form-group.email:not(.email-verification)';
+    var email_verif_selector = '.account-fields .form-group.email-verification';
+
+    tc_confirmOrderValidations['email_verification'] = function() {
+        $(email_verif_selector +' .error-msg').remove();
+        if (
+            $(email_verif_selector + ' input[name=email-verification]:visible').length  &&
+            $(email_selector + ' input[name=email]').val() != $(email_verif_selector + ' input[name=email-verification]').val()
+        ) {
+            $(email_verif_selector + ' label input').addClass('-error');
+            $(email_verif_selector + ' label input').after('<div class="field error-msg emails-do-not-match"></div>');
+            scrollToElement($(email_verif_selector));
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    $('.account-fields .form-group.email:visible').clone().addClass('email-verification').insertAfter('.account-fields .form-group.email');
+    $('.email-verification input[name=email]').attr('name', 'email-verification');
+    $('.account-fields').on('input', 'input[name=email-verification]', function() {
+        $(email_verif_selector + ' .error-msg').remove();
+        $(email_verif_selector + ' label input').removeClass('-error');
+    });
+
+    // ---------------> Update labels here
+    if (prestashop.language.iso_code == 'en') {
+        $(email_verif_selector + ' .field-label').html('Confirm e-mail ');
+    } else if (prestashop.language.iso_code == 'da') {
+        $(email_verif_selector + ' .field-label').html('Bekræft e-mail ');
+    }
+});
+
+
+// ##### Example 5 - checkout steps #####
+// Validation expression (JS) to check filled in address
+$('.address-fields, .account-fields').find('input.form-control[required]:visible').filter((k,v) => $(v).val() == '').length == 0
+
+// Display cart-summary on each step, but have it styled differently in step 1 (full-width), add custom CSS:
+.checkout-step-1 .checkout-area-4 {
+  display: block;
+}
+
+
+// ##### Example 6 - pre-tick checkboxes (on page load) #####
+// Add to custom JS:
+document.addEventListener('DOMContentLoaded', function(event) {
+   // Pre-tick terms and conditions and psgdpr checkboxes
+   $('[name^=conditions_to_approve], [name=psgdpr]').prop('checked', true);
+});
+
+
+// ##### Example 7 - validate phone input (9 numbers) #####
+tc_confirmOrderValidations['phone_9_numbers'] = function () {
+      var phoneFields = $('.address-fields input[type=tel]:visible');
+      var errorMsg = 'Phone must have 9 digits';
+      phoneFields.removeClass('-error');
+      removeError(phoneFields.siblings('.error-msg'));
+
+      var allPhoneFieldsOK = true;
+
+      phoneFields.each(function() {
+        var phoneVal = $(this).val().trim();
+        if (phoneVal && phoneVal.replace(/[^0-9]/g, '').length !== 9) {
+          allPhoneFieldsOK = false;
+          $(this).addClass('-error');
+          $(this).after('<div class="field error-msg">' + errorMsg + '</div>');
+        }
+      });
+
+      if (!allPhoneFieldsOK) {
+        scrollToError();
+      }
+      return allPhoneFieldsOK;
+};
+
+// ##### Example 8 - validate address1 (street) to have 2+ non-numeric characters and 1 number #####
+tc_confirmOrderValidations['street_non_numeric'] = function () {
+      var addressFields = $('.address-fields input[name=address1]:visible');
+      var errorMsg = 'Street name must be at least 2 characters and number';
+      addressFields.removeClass('-error');
+      removeError(addressFields.siblings('.error-msg'));
+
+      var allAddressFieldsOK = true;
+
+      addressFields.each(function() {
+        var addressVal = $(this).val();
+        if (addressVal !== '' && (addressVal.replace(/[^a-zA-Z]/g, '').length < 2 || addressVal.replace(/[^0-9]/g, '').length < 1)) {
+          allAddressFieldsOK = false;
+          $(this).addClass('-error');
+          $(this).after('<div class="field error-msg">' + errorMsg + '</div>');
+        }
+      });
+
+      if (!allAddressFieldsOK) {
+        scrollToError();
+      }
+      return allAddressFieldsOK;
+};
+
+// ##### Example 9 - using craftyclick module (for the UK) + shipping parcel points module #####
+// Add custom JS
+document.addEventListener('DOMContentLoaded', function(event) {
+  $('body').off('click.crafty').on('click.crafty', '[id$=_cp_button_id]', function() { setTimeout(function() { $('.address-fields [name=city]:visible').change(); }, 200); })
+});
+
+// ##### Example 10 - Add payment logos
+// 1. Firstly, find and add logos to PS file structure, e.g. to /modules/thecheckout/views/img folder
+// 2. Add custom CSS, this is example for ps_wirepayment method:
+
+/* ps_wirepayment logo */
+[data-payment-module=ps_wirepayment] .payment-logo {
+    background: left / contain no-repeat url('../modules/thecheckout/views/img/wirepayment.png');
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+// ##### Example 10 - limit delivery countries based on invoice country #####
+document.addEventListener('DOMContentLoaded', function(event) {
+    //jQuery shall be loaded now
+    tc_confirmOrderValidations['restrict_delivery_country'] = function() {
+        const invoiceCountry = $('#thecheckout-address-invoice select[name=id_country]:visible option:selected').data('iso-code');
+        const deliveryCountry = $('#thecheckout-address-delivery select[name=id_country]:visible option:selected').data('iso-code') ?? invoiceCountry;
+        const deliveryBlockVisible = $('#thecheckout-address-delivery').is(':visible');
+
+        if (!deliveryBlockVisible) {
+            return true;
+        }
+
+        var canShip = true;
+        var errorMsg = 'Wrong delivery / invoice country combination';
+
+        if (invoiceCountry == 'CH' && deliveryCountry != 'CH') {
+            canShip = false;
+            errorMsg = 'Invoice address in Switzerland -> cannot ship outside of Switzerland.'
+        }
+
+        if (invoiceCountry != 'PL' && deliveryCountry == 'PL') {
+            canShip = false;
+            errorMsg = 'Delivery in Poland -> invoice must be in Poland.'
+        }
+
+        if (invoiceCountry == 'PL' && deliveryCountry != 'PL') {
+            canShip = false;
+            errorMsg = 'Invoice in Poland -> shipping must be in Poland.'
+        }
+
+        $('#thecheckout-address-delivery [name=id_country]').removeClass('-error');
+        removeError('#thecheckout-address-delivery .error-msg');
+
+        if (!canShip) {
+            $('#thecheckout-address-delivery [name=id_country]').addClass('-error');
+            $('#thecheckout-address-delivery [name=id_country]').after('<div class="field error-msg">' + errorMsg + '</div>');
+            scrollToError();
+            return false;
+        } else {
+            return true;
+        }
+    }
+});
+
+//# sourceURL=tc-custom.js
+
+// ##### Example 11 - make one of business/private checkboxes always required #####
+document.addEventListener('DOMContentLoaded', function(event) {
+    //jQuery shall be loaded now
+    tc_confirmOrderValidations['business_private_required'] = function() {
+        // do this check for both .business-private-checkboxes in #thecheckout-address-delivery and #thecheckout-address-invoice
+        let result = true;
+        ['#thecheckout-address-delivery', '#thecheckout-address-invoice'].forEach(function (selector) {
+            const businessPrivateVisible = $(selector + ' .business-private-checkboxes input[type=checkbox]:visible').length > 0;
+            const businessPrivateChecked = $(selector + ' .business-private-checkboxes input[type=checkbox]:checked').length > 0;
+            $(selector + ' .business-private-checkboxes').removeClass('-error');
+            removeError(selector + ' .business-private-checkboxes .error-msg');
+
+            let errorMsg = 'Please select one of the options';
+            switch (prestashop?.language?.iso_code) {
+                case 'it':
+                   errorMsg = 'Seleziona una delle opzioni';
+                   break;
+            }
+
+            if (businessPrivateVisible && !businessPrivateChecked) {
+                $(selector + ' .business-private-checkboxes').addClass('-error');
+                // Add error in front of checkboxes
+                $(selector + ' .business-private-checkboxes').prepend('<div class="field error-msg">' + errorMsg + '</div>');
+                scrollToError();
+                result = false;
+            }
+        });
+        return result;
+    }
+});
+//# sourceURL=tc-custom.js
+
+// ##### Example 12 - create custom (required) checkbox purely in JS #####
+1. Create HTML (e.g. box-4) block with content:
+<div class="form-group checkbox">
+    <label class="required">
+        <span class="custom-checkbox">
+            <input name="plus-18" type="checkbox" value="1" />
+            <span><i class="material-icons rtl-no-flip checkbox-checked check-icon"></i></span>
+            <span class="label js-terms">I am 18+</span>
+        </span>
+    </label>
+</div>
+
+
+2. Add custom JS (validation):
+document.addEventListener('DOMContentLoaded', function(event) {
+    //jQuery shall be loaded now
+    tc_confirmOrderValidations['plus-18-validation'] = function () {
+        const errorMsg = 'Required field';
+        const checkboxEl = $('.custom-checkbox [name=plus-18]')
+        removeError('#thecheckout-html-box-4 .error-msg');
+        if (
+            checkboxEl.is(':visible') &&
+            checkboxEl.prop('checked') === false
+        ) {
+            checkboxEl.closest('label').after('<div class="field error-msg">' + errorMsg + '</div>');
+            scrollToError();
+            return false;
+        } else {
+            return true;
+        }
+    };
+});
+//# sourceURL=tc-custom.js
+
+3. Bonus - show/hide the checkbox based on cart content, e.g. if there are products with feature 'plus18' (id=3)
+Add this custom JS:
+const hasFeature = (featureId) => {
+    return prestashop.cart.products.some(product => product.embedded_attributes.features.some(feature=>feature.id_feature==featureId));
+};
+
+prestashop.on('thecheckout_updateCart', function() {
+    if (hasFeature(3)) {
+        $('#thecheckout-html-box-4').show();
+    } else {
+        $('#thecheckout-html-box-4').hide();
+    }
+})
+
+
+// ##### Example 13 - move cart-totals section outside the cart-summary block #####
+Custom JS:
+prestashop.on('thecheckout_updateCart', function() {
+  $('#thecheckout-moved-summary').remove();
+  $('#thecheckout-payment').after('<div id="thecheckout-moved-summary" class="checkout-block"></div>');
+  $('#thecheckout-cart-summary .cart-grid .cart-summary').appendTo('#thecheckout-moved-summary');
+});
+
+Custom CSS:
+#thecheckout-moved-summary {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 0 10px;
+    padding: 0;
+    & > .card {
+        margin-bottom: 0;
+    }
+    & .cart-detailed-totals {
+      background-color: #e9e9e9;
+    }
+}
+#thecheckout-cart-summary .card.cart-summary {
+    display: none;
+}
+
+// ##### Example 14 - checkout steps with country selection before carriers #####
+1. Set address-invoice (or delivery, whatever is primary) block to same step as shipping (+also on separate step)
+2. Change order of blocks, move address-invoice (or delivery, whatever is primary) block before carriers block
+3. Add Custom CSS:
+.checkout-step-2 {
+    &.logged-in {
+        #thecheckout-address-invoice {
+            display: none;
+        }
+    }
+    & #thecheckout-address-invoice {
+      &.checkout-block.no-header {
+          margin-top: 0;
+      }
+      & .inner-area {
+          border: none;
+          padding: 0;
+      }
+      & .address-fields {
+         & .form-group:not(.id_country) {
+             display: none!important;
+         }
+         .has-float-label {
+             margin: 0;
+         }
+         & .field-label, & .error-msg {
+             display: none;
+         }
+      }
+      & .second-address, & .block-header, & .business-private-checkboxes, & .address-is-used  {
+          display: none;
+      }
+  }
+}

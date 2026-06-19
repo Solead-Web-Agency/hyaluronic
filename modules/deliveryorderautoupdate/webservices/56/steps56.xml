@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<status>DI1</status>
+			<status>DLV</status>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<status>DO3</status>
+			<status>PB1</status>
+			<status>ND1</status>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<status>MAN</status>
+			<status>ENM</status>
+			<status>DIS</status>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<status>DOT</status>
+	</step>
+	<step>
+			<id_status>103</id_status>
+			<status>Access denied</status>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<status>Forbidden reference number pattern: </status>
+	</step>
+</document>

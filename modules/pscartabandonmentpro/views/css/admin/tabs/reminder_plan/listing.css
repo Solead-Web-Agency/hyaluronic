@@ -1,0 +1,81 @@
+/**
+*   Table 
+*/
+.listing-table {
+    margin: 25px 0px;
+}
+.listing-head {
+    /* text-align: center; */
+    font-weight: bold;
+    border-bottom: 2px solid #25b9d7;
+    padding: 11px 0;
+}
+.listing-general-rol{
+    border-bottom: 1px solid #b6ccd2;
+}
+.listing-row div {
+    padding: 18px 0;
+    line-height: 30px;
+}
+.listing-row div:last-child{
+    text-align: right;
+}
+.listing-row div:last-child i {
+    cursor: pointer;
+}
+.listing-row div:first-child{
+    display: flex;
+    font-weight: 600;
+}
+.listing-general-rol:hover,
+.listing-general-rol.active{
+    background-color: #f2f9fb;
+    transition: background .3s;
+}
+.listing-general-rol {
+    background-color: #fff;
+    transition: background .3s;
+}
+.listing-row .show-more {
+    cursor: pointer;
+    margin-right: 6px;
+    color: #aec0c4;
+    font-size: 32px;
+}
+.listing-row div:nth-child(-n+4){
+    cursor: pointer;
+}
+.listing-row div:nth-child(3){
+    text-transform: capitalize;
+}
+.listing-row div:nth-child(4){
+    text-transform: uppercase;
+}
+
+
+.more_info {
+    display: none;
+}
+.reminder_info{
+    margin-bottom: 25px;
+    margin-top: 15px;
+}
+.reminder_info div:first-child img{
+    max-width: 100%;
+}
+.reminder_info div::first-letter{
+    text-transform: capitalize;
+}
+.ajax_return {
+    font-size: 12px;
+}
+.ajax_return .align_right {
+    text-align: right;
+    font-weight: bold;
+}
+.ajax_return .align_left {
+    text-align: left;
+}
+.ajax_return section {
+    margin-bottom: 15px;
+}

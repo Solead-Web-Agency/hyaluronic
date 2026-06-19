@@ -1,0 +1,3 @@
+Effacer automatiquement les fichiers journaux après x jours.
+
+x est égal à 90 par défaut.

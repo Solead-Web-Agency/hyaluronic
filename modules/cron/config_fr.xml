@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>cron</name>
+    <displayName><![CDATA[Crontab pour prestashop]]></displayName>
+    <version><![CDATA[2.3.0]]></version>
+    <description><![CDATA[Permet aux modules de planifier des t&acirc;ches qui s&#039;ex&eacute;cuteront automatiquement &agrave; une certaine heure ou date.]]></description>
+    <author><![CDATA[Samdha]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

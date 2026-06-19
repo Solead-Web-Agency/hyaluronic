@@ -1,0 +1,2 @@
+Remarque : Cette option est risquée. Tout problème futur sera difficile à trouver et à résoudre.
+Réfléchissez bien avant d'activer cette option.

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>amazonpay</name>
+    <displayName><![CDATA[Amazon Pay (Checkout v2)]]></displayName>
+    <version><![CDATA[4.2.5]]></version>
+    <description><![CDATA[Int&eacute;gration Amazon Pay pour votre Prestashop]]></description>
+    <author><![CDATA[patworx multimedia GmbH]]></author>
+    <tab><![CDATA[payments_gateways]]></tab>
+	<confirmUninstall><![CDATA[Vous êtes sûr de vouloir supprimer ce module?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

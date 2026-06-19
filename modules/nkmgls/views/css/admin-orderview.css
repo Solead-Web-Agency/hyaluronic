@@ -1,0 +1,326 @@
+/**
+ *  Module made by Nukium
+ *
+ *  @author    Nukium
+ *  @copyright 2023 Nukium SAS
+ *  @license   All rights reserved
+ *
+ * ███    ██ ██    ██ ██   ██ ██ ██    ██ ███    ███
+ * ████   ██ ██    ██ ██  ██  ██ ██    ██ ████  ████
+ * ██ ██  ██ ██    ██ █████   ██ ██    ██ ██ ████ ██
+ * ██  ██ ██ ██    ██ ██  ██  ██ ██    ██ ██  ██  ██
+ * ██   ████  ██████  ██   ██ ██  ██████  ██      ██
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+.gls-heading,
+.gls-search {
+    padding: 1rem;
+}
+
+.gls-search {
+    margin-bottom: 1rem;
+}
+
+.gls-search.bg-faded {
+    background-color: #f7f7f9;
+}
+
+#gls-search-form {
+    margin-top: 1rem;
+}
+
+#gls-search-form .input-group {
+    column-gap: 2px;
+}
+
+#gls-search-form .input-group > input[name="gls_search_postcode"] {
+    flex: 0 1 30%;
+}
+
+#gls-search-form .gls-search-relay {
+	margin-top: 2px;
+}
+
+#gls-search-form .form-group {
+    margin-bottom: 0;
+}
+
+.gls-search.bg-faded .form-control {
+    background-color: #fff;
+}
+
+#gls-search-form .gls-search-relay .search {
+    font-size: 20px;
+    line-height: 0.75;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+#order-view-page #orderReturnsTabContent .gls-order-detail {
+     display: none;
+}
+
+#glsChangeRelayModal .gls-relay-list .card {
+    margin-bottom: 5px;
+}
+
+#glsChangeRelayModal .gls-relay-list .col-select-relay {
+    text-align: center;
+}
+
+#glsChangeRelayModal .gls-relay-list .card-title {
+    margin-bottom: 0.25rem;
+}
+
+#glsChangeRelayModal .gls-relay-list .card-body {
+    line-height: 1.5;
+    padding: 0.5rem 0.75rem;
+}
+
+#glsChangeRelayModal .gls-relay-list .card-body .row {
+    margin-right: -5px;
+    margin-left: -5px;
+}
+
+#glsChangeRelayModal .gls-relay-list .card-body .row > div[class*="col-"],
+#glsChangeRelayModal .gls-relay-list .card-body .row > label[class*="col-"] {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.gls-relay-infos label,
+.gls-relay-infos .gls-relay-distance {
+    font-size: 0.8rem;
+}
+
+.gls-relay-infos label {
+    clear: none;
+    font-weight: 400;
+    margin: 0;
+    text-align: inherit;
+}
+
+#gls-map {
+    height: 400px;
+    width: 100%;
+}
+
+#gls-map.leaflet-container .leaflet-marker-pane .gls-marker-wrapper {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+#gls-map.leaflet-container .leaflet-marker-pane .gls-marker-wrapper:before {
+    color: #ffd100;
+    content: attr(data-marker-id);
+    display: block;
+    font-weight: 600;
+    height: 16px;
+    line-height: 16px;
+    margin-top: -5px;
+    position: absolute; left: 50%; top: 50%;
+    text-align: center;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    width: 16px;
+    z-index: 1;
+}
+
+#gls-map .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
+}
+
+#gls-map .leaflet-popup-content {
+    line-height: 1.4;
+    margin: 13px 19px;
+    padding: 0;
+}
+
+#gls-map .leaflet-popup-tip-container {
+    height: 20px;
+    margin: 0 0 0 -20px;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute; left: 50%;
+    width: 40px;
+}
+
+#gls-map .leaflet-popup-tip {
+    border: none;
+    box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
+    height: 17px;
+    margin: -10px auto 0;
+    padding: 1px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 17px;
+}
+
+#gls-map .leaflet-container.dark .map-tooltip .close,
+#gls-map .leaflet-control-attribution:after,
+#gls-map .leaflet-control-layers-toggle,
+#gls-map .leaflet-control-zoom-in,
+#gls-map .leaflet-control-zoom-out,
+#gls-map .leaflet-popup-close-button {
+    background-image: none;
+    opacity: 1;
+    text-indent: 0;
+}
+
+.gls-relay-info-open-hours {
+    margin: 0 -0.5rem;
+    width: 100%;
+}
+
+.gls-relay-info-open-hours th,
+.gls-relay-info-open-hours td {
+    padding: 0.1875rem 0.5rem;
+}
+
+.gls-relay-info-open-hours th {
+    font-weight: 400;
+    vertical-align: top;
+}
+
+.gls-relay-info-open-hours td {
+    white-space: nowrap;
+}
+
+.gls-relay-info-open-hours .today th,
+.gls-relay-info-open-hours .today td {
+    font-weight: 600;
+}
+
+.modal-footer .alert-danger {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.btn.GlsChangeRelayModalLoader {
+    background-color: white;
+    border-color: #E6E8EB;
+    border-width: 3px;
+    border-left-color: #00aff0;
+    border-radius: 40px;
+    color: white;
+    font-size: 0;
+    height: 40px;
+    outline: none;
+    width: 40px;
+    -webkit-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+}
+
+/* Begin Loader part */
+
+#gls-relay-container {
+    min-height: 400px;
+    position: relative;
+}
+
+.gls-france-loader-wrapper {
+    background-color: rgba(255, 255, 255, 0.6);
+    height: 100%;
+    position: absolute; left: 0; top: 0;
+    width: 100%;
+    z-index: 524288;
+}
+
+.gls-france-loader-wrapper svg {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.gls-france-loader-wrapper svg circle {
+    animation: gls-france-loader-keyframes 2s linear infinite;
+    fill: transparent;
+    stroke: #061ab1;
+    stroke-dasharray: 125;
+    stroke-linecap: round;
+    stroke-width: 4;
+    transform-origin: 20px 20px 0;
+}
+
+#gls-admin-order-print-label .form-group {
+    max-width: 100%;
+}
+
+@keyframes gls-france-loader-keyframes {
+    0% {
+        stroke-dashoffset: 26.4;
+        transform: rotate(0deg);
+    }
+    50% {
+        stroke-dashoffset: 125.6;
+        transform: rotate(720deg);
+    }
+    100% {
+        stroke-dashoffset: 26.4;
+        transform: rotate(1080deg);
+    }
+}
+
+/* End loader part */
+
+@-webkit-keyframes rotating {
+    from {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+}
+
+@keyframes rotating {
+    from {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 576px) {
+
+    .gls-search-relay .search {
+        margin-right: 0;
+    }
+
+    .gls-search-relay .btn-text {
+        display: none;
+    }
+
+}
+
+@media (min-width: 576px) and (max-width: 1199px) {
+
+    .gls-relay-infos .gls-relay-distance {
+        text-align: right;
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .gls-relay-list {
+        overflow-y: auto;
+        max-height: 400px;
+    }
+
+}

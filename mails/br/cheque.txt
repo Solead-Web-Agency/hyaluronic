@@ -1,0 +1,17 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+Muito obrigado por comprar na {shop_name}!
+
+Seu pedido com a referência {order_name} foi registrado com sucesso e será enviado assim que recebermos seu pagamento.
+
+Você selecionou o pagamento por cheque.
+
+Por favor incluia esses dados no cheque:
+Total: {total_paid}
+Pagamento do pedido: {check_name}
+Por favor enviei um email para: {check_address}
+
+Acompanhe seu pedido e baixe sua fatura em nossa loja, na seção [Histórico e detalhes dos pedidos]({history_url}) de sua conta de cliente.
+Se você tem uma conta de convidado pode acompanhar seu pedido através da seção [Rastreamento para Visitante]({guest_tracking_url}) em nossa loja.
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,1 @@
+No disminuya el stock al importar el pedido NMF con estado Enviado.

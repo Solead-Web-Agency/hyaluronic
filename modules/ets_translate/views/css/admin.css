@@ -1,0 +1,141 @@
+/**
+ * 2007-2020 ETS-Soft
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is not open source! Each license that you purchased is only available for 1 wesite only.
+ * If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+ * You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please contact us for extra customization service at an affordable price
+ *
+ *  @author ETS-Soft <contact@etssoft.net>
+ *  @copyright  2007-2020 ETS-Soft
+ *  @license    Valid for 1 website (or project) for each purchase of license
+ *  International Registered Trademark & Property of ETS-Soft
+ */
+.ets-trans-tree-web-page li a[data-toggle="collapse"]:not(.collapsed) i {
+    transform: rotate(-225deg);
+    -webkit-transform: rotate(-225deg);
+    vertical-align: 0px;
+}
+.ets-trans-btn-check-api{
+    display: block !important;
+}
+.ets-trans-checkbox-dropdown{
+    border: 1px solid #ddd;
+    padding: 10px;
+    display: inline-block;
+    min-width: 160px;
+}
+.panel .form-group .help-block {
+    margin-bottom: 0;
+}
+.mm_menu_form.mm_pop_up .panel {
+    margin-bottom: 0!important;
+}
+.trans-lang-options_dropdown_content button .text-html img {
+    vertical-align: -1px;
+}
+.help-block {
+    font-size: 12px;
+    color: #999;
+    font-style: italic;
+}
+.ets-trans-checkbox-dropdown input[type="checkbox"] {
+    position: absolute;
+    left: 6px;
+    top: 4px;
+}
+.ets-trans-checkbox-dropdown label {
+    font-weight: 400;
+    padding: 3px 10px;
+    display: block;
+    margin-bottom: 0;
+    color: #666;
+    width: 100%;
+    border-radius: 2px;
+    padding-left: 25px;
+    cursor: pointer;
+}
+.ets-trans-checkbox-dropdown .checkbox-item{
+    margin: 0;
+    padding: 1px 0px;
+    display: flex;
+    display: -webkit-flex;
+    position: relative;
+}
+.ets-trans-checkbox-dropdown ul.dropdown-menu li {
+    position: relative;
+    padding: 0px 5px;
+}
+.ets-trans-checkbox-dropdown .checkbox-all{
+    position: relative;
+}
+.ets-trans-checkbox-dropdown .checkbox-all i{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.ets-lang-target-hide{
+    display: none;
+}
+button.ets-ets-trans-btn-inter-trans-field-item.ml-2{
+    min-height: 35px;
+}
+.ets-trans-logs .pagination-box{
+    display: flex;
+}
+.ets-trans-logs .pagination-box .log-info{
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+}
+.ets-trans-target-lang-config label.control-label:before{
+    content: "*";
+    color: red;
+    margin-right: 5px;
+}
+input#ETS_TRANS_GOOGLE_API_KEY,
+.ets-trans-rate-setting .input-group{
+    width: 100%;
+    max-width: 400px;
+}
+.ets-trans-btn-back i.process-icon-arrow-left:before {
+    content: "\f060";
+    font-size: 24px;
+    line-height: 24px;
+    display: inline-block;
+    vertical-align: top;
+}
+.ets-trans-rate-setting .input-group-addon{
+    padding: 0;
+}
+.ets-trans-rate-setting .input-suffix{
+    width: 50px !important;
+    border: none !important;
+    height: 28px !important;
+}
+body ul.ets-trans-tree-web-page > li {
+    padding-left: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+body ul.ets-trans-tree-web-page {
+    border: 1px solid #ddd;
+}
+body .ets-trans-tree-web-page ul.sub-tree {
+    border: none;
+}
+body .ets-trans-tree-web-page ul.sub-tree li {
+    padding-top: 5px;
+    width: 100%;
+    padding-bottom: 2px;
+}
+body .ets-trans-tree-web-page li li input {
+    margin-top: 2px!important;
+}

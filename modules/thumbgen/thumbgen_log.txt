@@ -1,0 +1,32 @@
+[I] [2021-06-17 20:16:58] Start thumbnail generation for skipped images. Total number of images to process: 0.
+[I] [2021-06-17 20:18:00] Start thumbnail generation for skipped images. Total number of images to process: 0.
+[I] [2021-06-17 20:24:37] Start thumbnail generation for skipped images. Total number of images to process: 0.
+[I] [2021-06-17 20:49:41] Start thumbnail generation for skipped images. Total number of images to process: 0.
+[I] [2021-06-17 20:50:30] Start thumbnail generation for group Catégories. Total number of images to process: 36.
+[I] [2021-06-17 20:50:34] Thumbnail generation for group Catégories finished.
+[I] [2021-06-17 20:50:42] Start thumbnail generation for skipped images. Total number of images to process: 0.
+[I] [2021-06-17 20:50:55] Start thumbnail generation for group Manufacturers. Total number of images to process: 37.
+[I] [2021-06-17 20:51:00] Thumbnail generation for group Manufacturers finished.
+[I] [2021-06-17 20:51:04] Start thumbnail generation for group Products. Total number of images to process: 463.
+[I] [2021-06-17 20:53:09] Thumbnail generation for group Products finished.
+[I] [2021-06-17 20:58:55] Start thumbnail generation for group Products. Total number of images to process: 463.
+[I] [2021-06-17 20:59:58] Thumbnail generation for group Products finished.
+[I] [2021-06-20 15:47:16] Start thumbnail generation for group Catégories. Total number of images to process: 36.
+[I] [2021-06-20 15:47:20] Thumbnail generation for group Catégories finished.
+[I] [2021-06-20 15:47:24] Start thumbnail generation for group Manufacturers. Total number of images to process: 37.
+[I] [2021-06-20 15:47:32] Thumbnail generation for group Manufacturers finished.
+[I] [2021-06-20 15:47:35] Start thumbnail generation for group Suppliers. Total number of images to process: 25.
+[I] [2021-06-20 15:47:37] Thumbnail generation for group Suppliers finished.
+[I] [2021-06-20 15:47:41] Start thumbnail generation for group Stores. Total number of images to process: 0.
+[I] [2021-06-20 15:47:58] Start thumbnail generation for group Products. Total number of images to process: 468.
+[I] [2021-06-20 15:55:16] Thumbnail generation for group Products finished.
+[I] [2021-06-20 18:27:14] Start thumbnail generation for group Catégories. Total number of images to process: 36.
+[I] [2021-06-20 18:27:17] Thumbnail generation for group Catégories finished.
+[I] [2021-06-20 18:27:20] Start thumbnail generation for group Manufacturers. Total number of images to process: 37.
+[I] [2021-06-20 18:27:27] Thumbnail generation for group Manufacturers finished.
+[I] [2021-06-20 18:27:31] Start thumbnail generation for group Products. Total number of images to process: 468.
+[I] [2021-06-20 18:33:26] Thumbnail generation for group Products finished.
+[I] [2021-06-20 18:34:49] Start thumbnail generation for group Suppliers. Total number of images to process: 25.
+[I] [2021-06-20 18:34:51] Thumbnail generation for group Suppliers finished.
+[I] [2021-08-17 20:16:19] Start thumbnail generation for group Products. Total number of images to process: 465.
+[I] [2021-08-18 00:46:51] Start thumbnail generation for group Products. Total number of images to process: 465.

@@ -1,0 +1,88 @@
+/**
+* 2007-2024 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author    PrestaShop SA <contact@prestashop.com>
+*  @copyright 2007-2024 PrestaShop SA
+*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*
+* Don't forget to prefix your containers with your own identifier
+* to avoid any conflicts with others containers.
+*/
+/* Custom CSS for checkbox styling */
+/* Custom CSS for checkbox styling */
+/* Custom CSS for checkbox styling */
+.card {
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+}
+
+.card-body {
+    padding: 20px;
+    padding-top: 5px;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+.custom-control-input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.custom-control-label {
+    position: relative;
+    padding-left: 2.5rem;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.custom-control-label::before {
+    content: '';
+    position: absolute;
+    top: 0.25rem;
+    left: 0;
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid #adb5bd;
+    background-color: #fff;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 1px #007bff, 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+

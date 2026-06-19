@@ -1,0 +1,2 @@
+For the Mapping tab, enable or disable the "Features" custom value.
+Note: In some cases, you may see the feature having a duplicate value. Try to enable this setting.

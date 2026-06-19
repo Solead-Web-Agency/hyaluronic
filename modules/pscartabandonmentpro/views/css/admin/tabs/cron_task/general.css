@@ -1,0 +1,56 @@
+/**
+*  CRON TASK tab
+*/
+
+#cron .panel-body {
+    font-size: 14px;
+}
+#cron .panel-body section {
+    margin: 15px 0px;
+}
+#cron .panel-body .section-title{
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+#cron .panel-body .section-title .col-lg-11 {
+    padding: 0;
+}
+#cron .panel-body .col-lg-1 {
+    text-align: center;
+}
+#cron .panel-body .col-lg-1 .puce{
+    color: #6c868e;
+    font-weight: bold;
+    background: #eaebec;
+    padding: 8px 14px;
+    text-align: center;
+    border-radius: 50%;
+}
+#cron .panel-body .url {
+    font-weight: bold;
+    margin: 15px 0;
+}
+#cron .panel-body .url .url_to_call {
+    font-weight: normal;
+    display: inline-block;
+    background: #f1f5f6;
+    border: 1px solid #bbcdd2;
+    color: #6c868e;
+    padding: 7px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: auto;
+    vertical-align: middle;
+    width: 40%;
+}
+#cron .panel-body .url .url_to_call::-webkit-scrollbar { 
+    display: none; 
+}
+#cron .panel-body .url .btn{
+    margin-top: -3px;
+}
+#cron .btn-secondary {
+    border: 1px solid #b6ccd2;
+}

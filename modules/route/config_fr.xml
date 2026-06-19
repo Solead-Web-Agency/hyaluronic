@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>route</name>
+    <displayName><![CDATA[Route]]></displayName>
+    <version><![CDATA[1.0.8]]></version>
+    <description><![CDATA[Route has developed a PrestaShop Addon that adds secure shipping insurance to your orders.]]></description>
+    <author><![CDATA[Route]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

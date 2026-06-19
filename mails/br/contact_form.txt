@@ -1,0 +1,12 @@
+[{shop_name}]({shop_url})
+Sua mensagem para {shop_name} via Serviço de atendimento ao cliente
+
+Sua mensagem foi enviada com sucesso.
+
+ID do pedido: {order_name}
+Produto: {product_name}
+Arquivo anexo: {attached_file}
+
+Nós responderemos o mais rápido possivel.
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

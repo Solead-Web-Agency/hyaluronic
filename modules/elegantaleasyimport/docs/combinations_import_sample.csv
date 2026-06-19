@@ -1,0 +1,16 @@
+Product Reference;Attribute (Name:Type:Position);Value (Value:Position);Supplier reference;Combination Reference;EAN13;UPC;Wholesale price;Impact on price;Ecotax;Quantity;Minimal quantity;Impact on weight;Default (0/1);Available date;Images (x,y,z…)
+demo_1;Color:color:0, Disk space:select:1;Blue:0, 16GB:1;RF-Nano-Blue-16GB;RP-Nano-Blue-16GB;80446392;116052426077;100;40;0;10;1;0;0;2019-01-01;http://yourdomain.com/img.jpg
+demo_1;Color:color:0, Disk space:select:1;Blue:0, 8GB:1;RF-Nano-Blue-8GB;RP-Nano-Blue-8GB;80446393;457698445011;80;0;0;10;1;0;0;2019-01-02;http://yourdomain.com/img.jpg
+demo_1;Color:color:0, Disk space:select:1;Yellow:0, 16GB:1;RF-Nano-Yellow-16GB;RP-Nano-Yellow-16GB;80446394;541661772012;100;40;0;10;1;0;0;2019-01-03;http://yourdomain.com/img.jpg
+demo_1;Color:color:0, Disk space:select:1;Yellow:0, 8GB:1;RF-Nano-Yellow-8GB;RP-Nano-Yellow-8GB;80446395;80064075921;80;0;0;10;1;0;1;2019-01-04;http://yourdomain.com/img.jpg
+demo_1;Color:color:0, Disk space:select:1;Metal:0, 16GB:1;RF-Nano-Metal-16GB;RP-Nano-Metal-16GB;80446396;943284585394;100;40;0;10;1;0;0;2019-01-05;http://yourdomain.com/img.jpg
+demo_1;Color:color:0, Disk space:select:1;Metal:0, 8GB:1;RF-Nano-Metal-8GB;RP-Nano-Metal-8GB;80446397;779589194980;80;0;0;10;1;0;0;2019-01-06;http://yourdomain.com/img.jpg
+demo_1;Color:color:0, Disk space:select:1;Black:0, 16GB:1;RF-Nano-Black-16GB;RP-Nano-Black-16GB;80446398;633319125866;100;40;0;10;1;0;0;2019-01-07;http://yourdomain.com/img.jpg
+demo_1;Color:color:0, Disk space:select:1;Black:0, 8GB:1;RF-Nano-Black-8GB;RP-Nano-Black-8GB;80446399;397444719890;80;0;0;10;1;0;0;2019-01-08;http://yourdomain.com/img.jpg
+demo_2;Color:color:0, Disk space:select:1, ICU:select:2;Metal:0, 80GB Parallel ATA Drive @ 4200 rpm:1, 1.60GHz Intel Core 2 Duo:2;RF-MacBookAir80GB-1.6MHz;RP-MacBookAir80GB-1.6MHz;123457000000;959149242374;0;750;0;10;1;0;0;2019-01-21;http://yourdomain.com/img.jpg
+demo_2;Color:color:0, Disk space:select:1, ICU:select:2;Metal:0, 80GB Parallel ATA Drive @ 4200 rpm:1, 1.80GHz Intel Core 2 Duo:2;RF-MacBookAir80GB-1.6MHz;RP-MacBookAir80GB-1.6MHz;123457000000;110179337894;0;0;0;10;1;0;1;2019-01-22;http://yourdomain.com/img.jpg
+demo_2;Color:color:0, Disk space:select:1, ICU:select:2;Metal:0, Optional 64GB solid-state drive:1, 1.60GHz Intel Core 2 Duo:2;RF-MacBookAir64GB-1.8MHz;RP-MacBookAir64GB-1.8MHz;123457000000;576786535242;0;225;0;10;1;0;0;2019-01-23;http://yourdomain.com/img.jpg
+demo_2;Color:color:0, Disk space:select:1, ICU:select:2;Metal:0, Optional 64GB solid-state drive:1, 1.60GHz Intel Core 2 Duo:2;RF-MacBookAir64GB-1.8MHz;RP-MacBookAir64GB-1.8MHz;123457000000;288200093419;0;975;0;10;1;0;0;2019-01-24;http://yourdomain.com/img.jpg
+demo_2;Disk space:select:1;8GB:0;RF-IpodTouch8GB;RP-IpodTouch8GB;8456120000000;626733005930;200;0;0;10;1;0;1;2019-01-25;http://yourdomain.com/img.jpg
+demo_2;Disk space:select:1;16GB:0;RF-IpodTouch16GB;RP-IpodTouch16GB;8456120000000;604116319829;250;75;0;10;1;0;0;2019-01-26;http://yourdomain.com/img.jpg
+demo_2;Disk space:select:1;32GB:0;RF-IpodTouch32GB;RP-IpodTouch32GB;8456120000000;635894030063;300;150;0;10;1;0;0;2019-01-27;http://yourdomain.com/img.jpg

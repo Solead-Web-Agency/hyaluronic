@@ -1,0 +1,1 @@
+Limpie todos los archivos sin procesar de VCS/PDF.

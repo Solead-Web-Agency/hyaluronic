@@ -1,0 +1,12 @@
+[/{shop_url}]
+
+VAT validation system has failed
+
+Hi [/{customer_name}],
+
+Your VAT number [/{vat}] has not been validated because the shop's API system has failed. As soon as the system is restored, we will validate your VAT number and the order with reference [/{order_reference] will be able to be processed correctly.
+
+We are sorry for the inconvenience caused.
+
+This email has been sent automatically by the Advanced VAT Manager module developed by Liewebs.
+

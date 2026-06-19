@@ -1,0 +1,2 @@
+Zur Lösung von Problemen mit Käuferinformationen und Lieferadresse.
+Wenn diese Einstellung aktiviert ist, müssen Sie die Adresse manuell ändern.

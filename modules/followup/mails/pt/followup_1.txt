@@ -1,0 +1,13 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+
+Percebemos que, durante a sua última visita à {shop_name}, não completou a encomenda que tinha começado.
+
+O carrinho foi guardado, pode continuar as suas compras na nossa loja: {shop_url}
+
+As an incentive, we can give you a discount of {amount}% off your next order! This offer is valid for {days} days, so do not waste a moment!
+
+Aqui está o seu cupão: {voucher_num}
+Digite este código no seu carrinho de compras para obter o desconto.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

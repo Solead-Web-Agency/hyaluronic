@@ -1,0 +1,67 @@
+.ps-panel {
+	text-align:center;
+	font-weight:700;
+	font-size:medium
+}
+
+.ps-panel img {
+	margin:0 auto
+}
+
+
+.ps-panel .addons-products {
+	border-top:1px solid #999;
+	padding-top:1em
+}
+
+.ps-panel .addons-products div {
+	margin-bottom:1em;
+	padding:1em
+}
+
+.ps-panel a.addons-link {
+	color:inherit
+}
+
+.ps-panel a.addons-link:hover {
+	color:#0077a4;
+	text-decoration:none
+}
+
+.ps-panel a.addons-link:hover h4 {
+	color:#900
+}
+
+a.addons-link span.rate {
+	direction:ltr;
+	font-size:1.2em;
+	unicode-bidi:bidi-override
+}
+
+a.addons-link span.rate span.avgrate {
+	font-size:.8em
+}
+
+a.addons-link span.rate span.star {
+	display:inline-block;
+	font-family:FontAwesome;
+	font-style:normal;
+	font-weight:400
+}
+
+a.addons-link .rate span.star::before {
+	color:#bbb;
+	content:"";
+	padding-right:3px
+}
+
+a.addons-link span.rate span.star.hover::before {
+	color:#e3cf7a;
+	content:""
+}
+
+a.addons-link.ps15 {
+	float:left;
+	width:33%
+}
+

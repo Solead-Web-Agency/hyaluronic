@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+		<id_status>1</id_status>
+		<status>Consegnata</status>
+		<status>La spedizione e' stata consegnata</status>
+	</step>
+	<step>
+		<id_status>2</id_status>
+		<status>Mancata consegna per destinatario assente</status>
+		<status>Mancata consegna per dati incompleti</status>
+		<status>Non consegnata per mancato pagamento dei diritti da parte del destinatario. Spedizione inviata presso il Centro Operativo SDA per la giacenza</status>
+	</step>
+	<step>
+		<id_status>3</id_status>
+		<status>In transito</status>
+		<status>In lavorazione presso il Centro Operativo Postale</status>
+		<status>In transito presso il Centro Operativo Postale</status>
+		<status>In lavorazione presso il Centro Scambi Internazionale</status>
+		<status>Presa in carico a domicilio</status>
+		<status>In transito presso il Centro Operativo SDA</status>
+		<status>Presa in carico da Ufficio Postale</status>
+	</step>
+	<step>
+		<id_status>4</id_status>
+		<status></status>
+	</step>
+	<step>
+		<id_status>5</id_status>
+		<status></status>
+	</step>
+	<step>
+		<id_status>6</id_status>
+		<status>Disponibile per il ritiro presso il Centro Operativo SDA</status>
+		<status>Disponibile per il ritiro presso l'Ufficio Postale</status>
+	</step>
+	<step>
+		<id_status>7</id_status>
+		<status></status>
+	</step>
+	<step>
+		<id_status>8</id_status>
+		<status>In consegna</status>
+	</step>
+	<step>
+		<id_status>9</id_status>
+		<status>Mancata consegna per rifiuto del destinatario. Spedizione in restituzione al mittente</status>
+	</step>
+	<step>
+		<id_status>105</id_status>
+		<status>1</status>
+	</step>
+	<step>
+		<id_status>103</id_status>
+		<status>error</status>
+	</step>
+</document>

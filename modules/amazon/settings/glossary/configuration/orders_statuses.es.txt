@@ -1,0 +1,1 @@
+Nota: Para configurar el estado de cancelación, habilite la función Pedidos > Cancelación de pedidos en la pestaña Funciones.

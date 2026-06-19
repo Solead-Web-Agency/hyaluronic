@@ -1,0 +1,12 @@
+[/{shop_url}]
+
+MODULE ADVANCED VAT MANAGER
+VAT Validation
+
+Hi [/{customer_name}],
+
+Your VAT number field is empty. It is necessary to fill this data and validate it to be able to be exempt from taxes on your purchases with us within the European Union. Please go to your address details and insert a valid VAT number
+[{customer_account_addr}]
+
+Email sent by Advanced VAT Manager module, developed by Liewebs [http://www.prestashop.com/] 
+

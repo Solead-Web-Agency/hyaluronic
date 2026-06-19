@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+		<id_status>1</id_status>
+		<status>LUO</status>
+	</step>
+	<step>
+		<id_status>2</id_status>
+		<status>LYR</status>
+	</step>
+	<step>
+		<id_status>3</id_status>
+		<status>LAJ</status>
+		<status>LAT</status>
+		<status>POI</status>
+		<status>IN_TRANSPORT</status>
+	</step>
+	<step>
+		<id_status>4</id_status>
+		<status>EDI</status>
+	</step>
+	<step>
+		<id_status>5</id_status>
+		<status></status>
+	</step>
+	<step>
+		<id_status>6</id_status>
+		<status>HYL</status>
+		<status>SSI</status>
+	</step>
+	<step>
+		<id_status>7</id_status>
+		<status>TOI</status>
+	</step>
+	<step>
+		<id_status>8</id_status>
+		<status>JOT</status>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<status></status>
+	</step>
+</document>

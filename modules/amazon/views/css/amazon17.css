@@ -1,0 +1,15 @@
+/**/
+.cron-img {
+    max-width: 18px;
+}
+
+.group-inline-checkbox {
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.group-inline-checkbox label {
+    margin-bottom: 0;
+    margin-left: 10px;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>PICKUP_FROM_PARCELSHOP_BY_CONSIGNEE</statuscode>
+			<statuscode>DELIVERED</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode></statuscode>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>ON_THE_ROAD</statuscode>
+			<statuscode>AT_DELIVERY_DEPOT</statuscode>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode>ACCEPTED</statuscode>
+			<statuscode>DATA_TRANSMITTED</statuscode>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode>HANDOVER_TO_PARCELSHOP</statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode>RETURN_TO_SENDER</statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>OUT_FOR_DELIVERY</statuscode>
+	</step>
+	<step>
+			<id_status>102</id_status>
+			<statuscode>Sender</statuscode>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<statuscode>404</statuscode>
+			<statuscode>shipmentnumber is invalid</statuscode>
+			<statuscode>countrycode not valid</statuscode>
+			<statuscode>Error on reading data from database: 100 - No data found</statuscode>
+	</step>
+</document>

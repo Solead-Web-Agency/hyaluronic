@@ -1,0 +1,4 @@
+4.2.258: Add Amazon configuration table `amazon_configuration`, `amazon_configuration_lang`
+4.2.259: Context migration: Get context config from db (ps_marketplace_configuration), save it with new format to new table (ps_amazon_configuration)
+4.2.279: Add column to store customization for each item in Amazon order
+4.2.282: Add table `marketplace_stats`

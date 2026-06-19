@@ -1,0 +1,2 @@
+Obtenga el impuesto sobre el producto/envío de Amazon si está incluido en la información del pedido,
+o Calcule el impuesto para la orden comercial según la regla PS.

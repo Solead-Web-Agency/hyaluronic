@@ -1,0 +1,50 @@
+/*
+These styles are using styling variables set through module BO configuration page.
+Variables themselves are injected through inline <style> in front.tpl
+*/
+
+.page-content .checkout-block[class*='num-'] .block-header:before,
+.page-content .custom-checkbox input[type=checkbox] + span .checkbox-checked,
+.mark-required .page-content .form-group.text label.required .field-label::after,
+.mark-required .page-content .form-group.text.need-dni label .field-label::after,
+.mark-required .page-content .form-group.email label.required .field-label::after,
+.mark-required .page-content .form-group.password label.required .field-label::after,
+.mark-required .page-content .form-group.tel label.required .field-label::after,
+.mark-required .page-content .form-group.select label.required .field-label::after,
+.mark-required .page-content .form-group.countrySelect label.required .field-label::after,
+.page-content span.carrier-delay,
+.page-content .product-price {
+    color: var(--tc-color-base);
+}
+
+body#checkout:is(.cute) .page-content .checkout-block .inner-area .offer-login a,
+body#checkout:is(.cute) .checkout-block .inner-area .offer-login a:hover,
+.has-discount .discount,
+.reassurance-section>.icon::after,
+.checkout-block .has-discount .discount {
+    background-color: var(--tc-color-base);
+}
+
+#content.page-content .custom-checkbox input[type=checkbox] + span,
+.reassurance-section.security:after,
+.reassurance-section.delivery:after {
+    border-color: var(--tc-color-base);
+}
+
+/* color of checkmark */
+#content.page-content .custom-checkbox input[type=checkbox]:checked + span {
+    &::after {
+        background-color: var(--tc-color-base);
+    }
+}
+
+#content.page-content .custom-radio input[type=radio]:checked + span {
+    border-color: var(--tc-color-base);
+    &::after {
+        background-color: var(--tc-color-base);
+    }
+}
+
+body:not(.cute) #content.page-content .custom-radio input[type=radio]:checked + span {
+    background-color: var(--tc-color-base);
+}

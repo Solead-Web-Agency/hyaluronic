@@ -1,0 +1,62 @@
+{# **
+ * OrderEdit
+ *
+ * @author    silbersaiten <info@silbersaiten.de>
+ * @copyright 2021 silbersaiten
+ * @license   See joined file licence.txt
+ * @support   silbersaiten <support@silbersaiten.de>
+ * @category  Module
+ * @version   2.0.9
+ * @link      https://www.silbersaiten.de
+ * #}
+
+<div class="modal fade" id="updateWrappingModal" tabindex="-1" role="dialog">
+    <form>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content update_wrapping_modal">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ 'Wrapping'|trans({}, 'Admin.Orderscustomers.Feature') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ 'Close'|trans({}, 'Admin.Actions') }}">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-control-label" for="update_wrapping_cost">
+                            {{ 'Wrapping cost'|trans({}, 'Admin.Global') }}
+                        </label>
+                        <div class="input-group">
+                            <input type="text" id="total_wrapping_tax_excl" name="total_wrapping_tax_excl" class="form-control"
+                                   value="{{ orderRaw.total_wrapping_tax_excl }}"
+                            >
+                            <div class="input-group-append">
+                                <span class="input-group-text">{{ orderCurrency.sign }} {{ 'tax excl.'|trans({}, 'Admin.Global') }}</span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <input type="text" id="total_wrapping_tax_incl" name="total_wrapping_tax_incl" class="form-control"
+                                   value="{{ orderRaw.total_wrapping_tax_incl }}"
+                            >
+                            <div class="input-group-append">
+                                <span class="input-group-text">{{ orderCurrency.sign }} {{ 'tax incl.'|trans({}, 'Admin.Global') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-none">
+                        <input type="hidden" name="id_order" value="{{ orderForViewing.id }}"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                        {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+                    </button>
+                    <a href="" class="btn btn-primary" id="update_wrapping">
+                        {{ 'Save wrapping'|trans({}, 'Admin.Actions') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

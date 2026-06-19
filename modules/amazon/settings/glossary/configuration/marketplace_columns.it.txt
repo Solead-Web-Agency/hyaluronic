@@ -1,0 +1,1 @@
+Mostra o nascondi le colonne del marketplace del modulo Amazon nella griglia di gestione degli ordini.

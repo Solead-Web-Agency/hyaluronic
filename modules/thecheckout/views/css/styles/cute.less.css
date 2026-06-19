@@ -1,0 +1,522 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+#content {
+  background: white;
+}
+.input-effects-flash .has-float-label input:focus ~ .effects-helper::after,
+.input-effects-flash .has-float-label select:focus ~ .effects-helper::after {
+  -webkit-animation: none;
+  animation: none;
+}
+.offer-login {
+  font-size: 16px;
+  color: #767676;
+}
+.mark-required .form-group.text label.required .field-label::after,
+.mark-required .form-group.text.need-dni label .field-label::after,
+.mark-required .form-group.email label.required .field-label::after,
+.mark-required .form-group.password label.required .field-label::after,
+.mark-required .form-group.tel label.required .field-label::after,
+.mark-required .form-group.select label.required .field-label::after,
+.mark-required .form-group.countrySelect label.required .field-label::after {
+  color: #36b4d2;
+}
+#wrapper :is(.label, label) {
+  color: #232323;
+  text-align: left;
+  font-size: 13.5px;
+}
+.form-group.radio-buttons {
+  font-weight: bold;
+  opacity: .8;
+}
+.static-customer-info {
+  border-bottom: 1px solid transparent;
+}
+.customer-name {
+  font-size: 1.3em;
+}
+a.edit-customer-info:hover .static-customer-info:after {
+  content: attr(data-edit-label);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: #2fb5d2;
+  color: white;
+  padding: 2px 6px;
+  font-size: 0.9em;
+  opacity: 0.6;
+}
+a.edit-customer-info:hover .static-customer-info {
+  border-bottom: 1px solid #2fb5d2;
+}
+span.carrier-delay {
+  color: #36b4d2;
+  padding-right: 50px;
+}
+.delivery-options,
+.payment-options {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+#thecheckout-shipping .inner-area,
+#thecheckout-payment .inner-area {
+  border: 0 solid #e9e9e9;
+}
+.available-values.id_gender {
+  display: table;
+}
+.custom-radio input[type=radio] {
+  opacity: 0;
+  cursor: pointer;
+}
+.error-msg {
+  font-size: 12px;
+  border-radius: 5px;
+}
+.-error ~ .error-msg {
+  margin-top: -9px;
+  padding: 15px 5px 7px;
+}
+.using-material-icons .custom-radio {
+  display: inline-block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  margin-right: 1.25rem;
+  margin-top: 0;
+}
+.using-material-icons .custom-radio input[type=radio] + span {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border: 2px solid #7a7a7a;
+  box-sizing: border-box;
+  border-radius: 50%;
+  position: static;
+  margin-top: 0;
+  float: left;
+  opacity: 1;
+  background: transparent;
+}
+.using-material-icons .custom-radio input[type=radio]:checked + span {
+  border-color: #2fb5d2;
+  position: relative;
+}
+.using-material-icons .custom-radio input[type=radio]:checked + span::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  /* Checkmark size inside radio button */
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background-color: #2fb5d2;
+  /* Checkmark color */
+  -webkit-mask-image: url('../../img/checkmark.svg');
+  mask-image: url('../../img/checkmark.svg');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+.customer-addresses {
+  margin-bottom: 30px;
+  font-size: 0.85em;
+}
+.customer-addresses select {
+  border-radius: 5px;
+  border-color: #e5e5e5;
+  color: #6d6d6d;
+}
+.customer-addresses option[disabled] {
+  background: #f3f3f3;
+}
+.radio-inline span.custom-radio {
+  margin-left: 0px;
+  text-align: center;
+}
+label.radio-inline {
+  padding-right: 40px;
+  padding-top: 5px;
+}
+@media (min-width: 768px) {
+  .form-group,
+  .account_creation.shaim_gdpr_checkbox {
+    padding-left: 5px;
+    padding-right: 5px;
+    flex-grow: 1;
+    flex-basis: 100%;
+  }
+}
+.has-float-label input.form-control,
+.has-float-label select.form-control.form-control-select {
+  font-size: 0.95em;
+  margin-bottom: 2px;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+  padding: 6px;
+  line-height: 1.3em;
+  height: 2.5em;
+  color: #6d6d6d;
+  position: relative;
+  background-color: white;
+}
+.has-float-label {
+  margin-bottom: 15px;
+}
+.has-float-label :not(:placeholder-shown):not(:focus) {
+  border-color: #e5e5e5;
+}
+.thecheckout-reassurance {
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+}
+.has-float-label input:placeholder-shown:not(:focus)::placeholder,
+.has-float-label select:placeholder-shown:not(:focus)::placeholder {
+  opacity: 0.8;
+}
+.has-float-label input:placeholder-shown:not(:focus) ~ span.field-label,
+.has-float-label select:placeholder-shown:not(:focus) ~ span.field-label {
+  font-size: 0.95em;
+  opacity: 0.8;
+  padding-left: 0;
+}
+.has-float-label.required span.field-label,
+.need-dni .has-float-label span.field-label,
+.has-float-label span.field-label {
+  cursor: text;
+  font-weight: bold;
+  font-size: 0.95em;
+  opacity: 0.8;
+  top: -20px;
+  color: #101010;
+  position: absolute;
+}
+.block-header {
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: #313131;
+  font-weight: bold;
+}
+.reassurance-section {
+  margin: 20px auto 30px;
+}
+.reassurance-section.security:after,
+.reassurance-section.delivery:after {
+  content: "";
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-bottom: 2px solid #85cad9;
+}
+.has-float-label input:placeholder-shown:not(:focus) ~ span.field-label,
+.has-float-label select:placeholder-shown:not(:focus) ~ span.field-label {
+  top: -20px;
+  cursor: text;
+  opacity: 0.6;
+}
+.block-header {
+  margin-bottom: 0px;
+  padding: 20px 0px;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+section.form-fields {
+  padding-top: 25px;
+}
+/* Cart summary section */
+.product-line-info .label {
+  font-size: 18px;
+  line-height: 1.3em;
+  width: 100%;
+}
+.product-line-info {
+  font-size: 17px;
+}
+.cart-item .product-line-info.product-attribute span {
+  font-size: 12px;
+  line-height: 12px;
+}
+.qty-section {
+  text-align: left;
+}
+.product-line-image img {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 1px 0;
+}
+.icon-remove-red-eye {
+  margin-top: -4px;
+}
+.checkout-block[class*='num-'] .block-header:before {
+  font-weight: bold;
+  border: 2px solid #ccc;
+  color: #2fb5d2;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  margin: 0px 0px 12px 0px;
+  padding: 0;
+  text-align: center;
+  display: block;
+  font-size: 27px;
+  -webkit-box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.08);
+}
+body#checkout .checkout-block .inner-area .offer-login a {
+  background: #2fb5d2;
+  max-width: 219px;
+  padding: 15px;
+  border-radius: 40px;
+  color: white;
+  margin: 10px auto;
+  font-size: 20px;
+}
+body#checkout .checkout-block .inner-area .offer-login a:hover {
+  text-decoration: none;
+  background: #037d9a;
+}
+.product-line-grid .product-line-body {
+  margin-left: 20px;
+}
+.definition-list dl dt {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 45%;
+  flex: 0 0 100%;
+  background: white;
+  padding: 0;
+  margin: .125rem;
+  font-size: 13.5px;
+  letter-spacing: 1px;
+}
+.definition-list dl dd {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 45%;
+  flex: 0 0 100%;
+  background: white;
+  padding: .500rem;
+  margin: .125rem;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+}
+img#OffAmazonPaymentsWidgets0 {
+  margin: 10px auto;
+}
+.ps-shown-by-js button.btn.btn-primary.center-block {
+  border-radius: 25px;
+  padding: 12px;
+  max-width: 330px;
+  width: 100%;
+  height: auto;
+}
+.page-content .custom-checkbox input[type=checkbox] + span {
+  border-radius: 3px;
+  border: 2px solid #36b4d2;
+}
+.custom-checkbox input[type=checkbox] + span {
+  min-width: 16px;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+.custom-checkbox {
+  position: relative;
+}
+.custom-checkbox input[type=checkbox] {
+  position: absolute;
+  margin-top: -1px;
+  margin-left: -2px;
+  opacity: 0;
+  cursor: pointer;
+  min-width: 16px;
+  min-height: 16px;
+}
+.product-line-body .product-line-info span.label,
+.value {
+  color: #171717a8;
+}
+.custom-checkbox input[type=checkbox] + span .checkbox-checked {
+  color: #36b4d2;
+}
+.page-content .custom-checkbox input[type=checkbox]:checked + span {
+  background-color: transparent;
+  border-color: #36b4d2;
+}
+.page-content .custom-checkbox input[type=checkbox]:checked + span > i {
+  display: none;
+}
+#delivery_message,
+#gift_message {
+  min-height: 100px;
+  border-radius: 5px;
+  padding: 8px;
+}
+.mark-required .form-group.checkbox label.required span.label::before {
+  color: #36b4d2;
+}
+span.custom-checkbox span.label {
+  font-weight: bold;
+}
+span.custom-checkbox span.label em {
+  font-weight: normal;
+}
+.width-below-50pct .cart-detailed-totals {
+  left: 0;
+  width: 100%;
+}
+.checkout-block .cart-summary-line .label,
+.checkout-block .cart-summary-line .value {
+  font-size: 16px;
+}
+.checkout-block a.cart-line-product-quantity-up,
+.checkout-block a.cart-line-product-quantity-down {
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  background-color: transparent;
+  background-size: 60%;
+}
+.checkout-block a.cart-line-product-quantity-up {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23777" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>');
+}
+.checkout-block a.cart-line-product-quantity-down {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="%23777" viewBox="0 0 24 24"><path d="M24 10h-24v4h24z"/></svg>');
+}
+.checkout-block a.cart-line-product-quantity-up:hover,
+.checkout-block a.cart-line-product-quantity-down:hover {
+  background-color: inherit;
+  background-size: auto;
+  background-size: 60%;
+}
+.checkout-block .qty-section .qty {
+  box-shadow: none;
+}
+.checkout-block a.remove-from-cart {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+}
+.checkout-block .has-discount .discount {
+  background: #36b4d2;
+}
+.checkout-block .product-price {
+  color: #2fb5d2;
+  display: inline-block;
+}
+.checkout-block .cart-line-product-actions-section {
+  text-align: center;
+  background: red;
+  max-width: 120px;
+  padding: 4px;
+  border: 1px solid red;
+  border-radius: 25px;
+  width: 100%;
+}
+.checkout-block input.cart-line-product-quantity {
+  position: relative;
+  height: 30px;
+  margin-right: 0;
+  border-width: 1px 0 1px 0;
+  border-color: gray;
+}
+.checkout-block .product-price-section .product-price,
+.checkout-block .product-price-section a {
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+}
+.checkout-block .card-block:first-child {
+  border-bottom: 1px dotted #c6c6c6;
+}
+.checkout-block .cart-item:first-child {
+  border-top: 0px solid #c1c1c1;
+}
+.checkout-block .cart-item:not(:last-child) {
+  border-bottom: 1px solid #eeeeee;
+}
+.checkout-block .cart-item:last-child {
+  border-bottom: 1px solid #c1c1c1;
+}
+.checkout-block .card.cart-container,
+.checkout-block .card.cart-summary {
+  box-shadow: none;
+  border: none;
+}
+.checkout-block .card.cart-summary {
+  border-bottom: 1px solid #ccc;
+}
+.block-header.shopping-cart-header {
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding-top: 20px;
+}
+.thecheckout-reassurance,
+.delivery-options,
+.payment-options {
+  border-radius: 5px;
+}
+.delivery-options,
+.payment-options {
+  margin-bottom: 20px;
+}
+.card-block.block-promo {
+  padding-top: 10px;
+}
+/* Media responsive width thresholds:
+576
+768
+991
+992
+1200
+*/
+@media screen and (max-width: 767px) {
+  .block-header {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .product-line-info .label {
+    font-size: 14px;
+    line-height: 2;
+    width: 100%;
+  }
+  .value {
+    font-size: 14px;
+  }
+  .checkout-block[class*='num-'] .block-header:before {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 22px;
+  }
+  .delivery-options,
+  .payment-options {
+    padding: 20px 10px;
+  }
+  .checkout-block .cart-detailed-totals {
+    width: 100%;
+    left: 0;
+  }
+}
+@media (max-width: 576px) {
+  .cart-detailed-totals {
+    width: 100%;
+    left: 0;
+  }
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22home%5C%2Fpeter%5C%2Fwww%5C%2Fpresta_178%5C%2Fmodules%5C%2Fthecheckout%5C%2Fviews%5C%2Fcss%5C%2Fstyles%5C%2Fcute.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22YAAY%3BAAIZ%3BEACE%3B%3BAAGF%2CoBAAqB%2CiBAAiB%2CMAAK%2CMAAS%2CkBAAe%3BAACnE%2CoBAAqB%2CiBAAiB%2COAAM%2CMAAS%2CkBAAe%3BEAClE%3BEACA%3B%3BAAGF%3BEACE%3BEACA%3B%3BAAGF%2CcAAe%2CYAAW%2CKAAM%2CMAAK%2CSAAU%2CaAAY%3BAAC3D%2CcAAe%2CYAAW%2CKAAK%2CSAAU%2CMAAM%2CaAAY%3BAAC3D%2CcAAe%2CYAAW%2CMAAO%2CMAAK%2CSAAU%2CaAAY%3BAAC5D%2CcAAe%2CYAAW%2CSAAU%2CMAAK%2CSAAU%2CaAAY%3BAAC%5C%2FD%2CcAAe%2CYAAW%2CIAAK%2CMAAK%2CSAAU%2CaAAY%3BAAC1D%2CcAAe%2CYAAW%2COAAQ%2CMAAK%2CSAAU%2CaAAY%3BAAC7D%2CcAAe%2CYAAW%2CcAAe%2CMAAK%2CSAAU%2CaAAY%3BEAClE%3B%3BAAGF%2CQAAS%2CIAAG%3BEACV%3BEACA%3BEACA%3B%3BAAGF%2CWAAW%3BEACT%3BEACA%3B%3BAAOF%3BEACE%2CoCAAA%3B%3BAAGF%3BEACE%3B%3BAAGF%2CCAAC%2CmBAAmB%2CMAAO%2CsBAAqB%3BEAC9C%2CSAAS%2CqBAAT%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%2CgBAAA%3BEACA%3BEACA%3B%3BAAGF%2CCAAC%2CmBAAmB%2CMAAO%3BEACzB%2CgCAAA%3B%3BAAGF%2CIAAI%3BEACF%3BEACA%3B%3BAAGF%3BAAAmB%3BEACjB%3BEACA%2CsBAAA%3BEACA%3B%3BAAGF%2CqBAAsB%3BAAAa%2CoBAAqB%3BEACtD%2CuBAAA%3B%3BAAGF%2CiBAAiB%3BEACf%3B%3BAAGF%2CaAAc%2CMAAK%3BEACjB%3BEACA%3B%3BAAGF%3BEACE%3BEACA%3B%3BAAGF%2COAAU%3BEACR%3BEACA%2CqBAAA%3B%3BAAGF%2CqBAAsB%3BEACpB%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BAAGF%2CqBAAsB%2CcAAc%2CMAAK%2CYAAe%3BEACtD%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%2CyBAAA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BAAGF%2CqBAAsB%2CcAAc%2CMAAK%2CYAAY%2CQAAW%3BEAC9D%3BEACA%3B%3BAAGF%2CqBAAsB%2CcAAc%2CMAAK%2CYAAY%2CQAAW%2COAAI%3BEAClE%2CSAAS%2CEAAT%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BEACA%3BEACA%2CWAAW%2CqBAAX%3BEACA%3B%3BEACA%2CwBAAwB%2C0BAAxB%3BEACA%2CgBAAgB%2C0BAAhB%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BAAGF%3BEACE%3BEACA%3B%3BAAGF%2CmBAAoB%3BEAClB%3BEACA%3BEACA%3B%3BAAGF%2CmBAAoB%2COAAM%3BEACxB%3B%3BAAGF%2CaAAc%2CKAAI%3BEAEhB%3BEACA%3B%3BAAGF%2CKAAK%3BEACH%3BEACA%3B%3BAAYF%2CQAT0B%3BEACxB%3BEAAa%2CiBAAiB%3BIAC5B%3BIACA%3BIACA%3BIACA%3B%3B%3BAAIJ%2CgBAAiB%2CMAAK%3BAAAe%2CgBAAiB%2COAAM%2CaAAa%3BEACvE%3BEACA%3BEACA%3BEACA%2CyBAAA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BAAEF%3BEACE%3B%3BAAGF%2CgBAAiB%2CKAAI%2CoBAAoB%2CIAAI%3BEAC3C%3B%3BAAGF%3BEACE%2CsBAAA%3BEACA%3BEACA%3B%3BAAGF%2CgBAAiB%2CMAAK%2CkBAAkB%2CIAAI%2CQAAQ%3BAACpD%2CgBAAiB%2COAAM%2CkBAAkB%2CIAAI%2CQAAQ%3BEACnD%3B%3BAAGF%2CgBAAiB%2CMAAK%2CkBAAkB%2CIAAI%2CQAAW%2COAAI%3BAAC3D%2CgBAAiB%2COAAM%2CkBAAkB%2CIAAI%2CQAAW%2COAAI%3BEAC1D%3BEACA%3BEACA%3B%3BAAGF%2CgBAAgB%2CSAAU%2CKAAI%3BAAC9B%2CSAAU%2CiBAAiB%2CKAAI%3BAAC%5C%2FB%2CgBAAiB%2CKAAI%3BEACnB%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BAAGF%3BEACE%3BEACA%3BEACA%3BEACA%3B%3BAAGF%3BEACE%2CsBAAA%3B%3BAAGF%2CoBAAoB%2CSAAS%3BAAAQ%2CoBAAoB%2CSAAS%3BEAChE%2CSAAS%2CEAAT%3BEACA%3BEACA%3BEACA%2CcAAA%3BEACA%3BEACA%2CgCAAA%3B%3BAAGF%2CgBAAiB%2CMAAK%2CkBAAkB%2CIAAI%2CQAAW%2COAAI%3BAAAc%2CgBAAiB%2COAAM%2CkBAAkB%2CIAAI%2CQAAW%2COAAI%3BEACnI%3BEACA%3BEACA%3B%3BAAGF%3BEACE%3BEACA%2CiBAAA%3BEACA%3BEACA%3B%3BAAGF%2COAAO%3BEACL%3B%3B%3BAASF%2CkBAAmB%3BEACjB%3BEACA%3BEACA%3B%3BAAGF%3BEACE%3B%3BAAGF%2CUAAW%2CmBAAkB%2CkBAAmB%3BEAC9C%3BEACA%3B%3BAAGF%3BEACE%3B%3BAAGF%2CmBAAoB%3BEAClB%2CsBAAA%3BEACA%3BEACA%2CaAAA%3B%3BAAGF%3BEACE%3B%3BAAGF%2CeAAe%2CeAAgB%2CcAAa%3BEAC1C%3BEACA%2CsBAAA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%2CwBAAA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%2CwDAAA%3BEACA%2CqDAAA%3BEACA%2CgDAAA%3B%3BAAGF%2CIAAI%2CSAAU%2CgBAAgB%2CYAAY%2CaAAa%3BEACrD%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%2CiBAAA%3BEACA%3B%3BAACA%2CIARE%2CSAAU%2CgBAAgB%2CYAAY%2CaAAa%2CEAQpD%3BEACC%3BEACA%3B%3BAAIJ%2CkBAAmB%3BEACjB%3B%3BAAGF%2CgBAAiB%2CGAAG%3BEAClB%3BEACA%2CiBAAA%3BEACA%2CcAAA%3BEACA%3BEACA%3BEACA%3BEAEA%3BEACA%3B%3BAAGF%2CgBAAiB%2CGAAG%3BEAClB%3BEACA%2CiBAAA%3BEACA%2CcAAA%3BEACA%3BEACA%3BEACA%3BEACA%2CsBAAA%3BEACA%3B%3BAAGF%2CGAAG%3BEACD%2CiBAAA%3B%3BAAGF%2CeAAgB%2COAAM%2CIAAI%2CYAAY%3BEACpC%3BEACA%3BEAEA%3BEACA%3BEACA%3B%3BAAGF%2CaAAc%2CiBAAiB%2CMAAK%2CeAAkB%3BEACpD%3BEACA%2CyBAAA%3B%3BAAGF%2CgBAAiB%2CMAAK%2CeAAkB%3BEACtC%3BEACA%3BEACA%3BEACA%3B%3BAAGF%3BEACE%3B%3BAAGF%2CgBAAiB%2CMAAK%3BEACpB%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BAAGF%2CkBAAmB%2CmBAAmB%2CKAAI%3BAAAQ%3BEAChD%3B%3BAAGF%2CgBAAiB%2CMAAK%2CeAAkB%2COAAK%3BEAC3C%3B%3BAAGF%2CaAAc%2CiBAAiB%2CMAAK%2CeAAe%2CQAAW%3BEAC5D%3BEACA%3B%3BAAGF%2CaAAc%2CiBAAiB%2CMAAK%2CeAAe%2CQAAW%2COAAO%3BEACnE%3B%3BAAGF%3BAAAmB%3BEACjB%3BEACA%3BEACA%3B%3BAAGF%2CcAAe%2CYAAW%2CSAAU%2CMAAK%2CSAAU%2CKAAI%2CMAAM%3BEAC3D%3B%3BAAGF%2CIAAI%2CgBAAiB%2CKAAI%3BEACvB%3B%3BAAGF%2CIAAI%2CgBAAiB%2CKAAI%2CMAAO%3BEAC9B%3B%3BAAGF%2CkBAAmB%3BEACjB%3BEACA%3B%3BAAGF%2CeACE%2CmBAAmB%3BAADrB%2CeAC6B%2CmBAAmB%3BEAC5C%3B%3BAAFJ%2CeAKE%2CEAAC%3BAALH%2CeAKmC%2CEAAC%3BEAChC%3BEACA%3BEACA%2CsBAAA%3BEACA%3BEACA%3B%3BAAVJ%2CeAaE%2CEAAC%3BEACC%2CsBAAsB%2CwLAAtB%3B%3BAAdJ%2CeAiBE%2CEAAC%3BEACC%2CsBAAsB%2C8JAAtB%3B%3BAAlBJ%2CeAqBE%2CEAAC%2C8BAA8B%3BAArBjC%2CeAqByC%2CEAAC%2CgCAAgC%3BEACtE%3BEACA%3BEACA%3B%3BAAxBJ%2CeA2BE%2CaAAa%3BEACX%3B%3BAA5BJ%2CeA%2BBE%2CEAAC%3BEACC%3BEACA%3BEACA%3B%3BAAlCJ%2CeAqCE%2CcAAc%3BEACZ%3B%3BAAtCJ%2CeAyCE%3BEACE%3BEACA%3B%3BAA3CJ%2CeA8CE%3BEACE%3BEACA%3BEACA%3BEACA%3BEACA%2CqBAAA%3BEACA%3BEACA%3B%3BAArDJ%2CeAwDE%2CMAAK%3BEACH%3BEACA%3BEACA%3BEACA%2CyBAAA%3BEACA%3B%3BAA7DJ%2CeAgEE%2CuBAAuB%3BAAhEzB%2CeAgEyC%2CuBAAuB%3BEAC5D%3BEACA%3BEACA%3B%3BAAnEJ%2CeA6EE%2CYAAW%3BEACT%2CiCAAA%3B%3BAA9EJ%2CeAiFE%2CWAAU%3BEACR%2C6BAAA%3B%3BAAlFJ%2CeAqFE%2CWAAU%2CIAAI%3BEACZ%2CgCAAA%3B%3BAAtFJ%2CeAyFE%2CWAAU%3BEACR%2CgCAAA%3B%3BAA1FJ%2CeA6FE%2CMAAK%3BAA7FP%2CeA6FwB%2CMAAK%3BEACzB%3BEACA%3B%3BAA%5C%2FFJ%2CeAiGE%2CMAAK%3BEACH%2C6BAAA%3B%3BAAGJ%2CaAAa%3BEACX%2C0BAAA%3BEACA%3BEACA%3BEACA%3B%3BAAGF%3BAAA0B%3BAAAmB%3BEAC3C%3B%3BAAGF%3BAAAmB%3BEACjB%3B%3BAAGF%2CWAAW%3BEACT%3B%3B%3B%3B%3B%3B%3B%3B%3BAA6CF%2CmBAjCqC%3BEACnC%3BIACE%3BIACA%3B%3BEAGF%2CkBAAmB%3BIACjB%3BIACA%3BIACA%3B%3BEAGF%3BIACE%3B%3BEAGF%2CeAAe%2CeAAgB%2CcAAa%3BIAC1C%3BIACA%3BIACA%3BIACA%3B%3BEAGF%3BEAAmB%3BIACjB%2CkBAAA%3B%3BEAGF%2CeAAgB%3BIACd%3BIACA%3B%3B%3BAAUJ%2CQAN0B%3BEACxB%3BIACE%3BIACA%22%7D */

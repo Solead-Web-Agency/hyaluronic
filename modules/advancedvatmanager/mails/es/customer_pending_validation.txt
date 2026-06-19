@@ -1,0 +1,12 @@
+[/{shop_url}]
+
+Sistema de validación de IVA ha fallado
+
+Hola [/{customer_name}],
+
+Su número de IVA [/{vat}] no ha sido validado debido a que el sistema API de la tienda ha fallado. Tan pronto como se restablezca el sistema, validaremos su número de IVA y el pedido con referencia [/{order_reference] se podrá procesar correctamente.
+
+Sentimos las molestias causadas.
+
+Este email ha sido enviado automáticamente por el módulo Advanced VAT Manager desarrollado por Liewebs.
+

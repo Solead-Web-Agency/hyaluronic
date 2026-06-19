@@ -1,0 +1,17 @@
+
+[{shop_url}] 
+
+Bonjour {firstname} {lastname}, 
+
+Votre demande de retour de la commande ayant pour référence {order_name} a été acceptée.
+Vous trouverez ci-joint votre étiquette de retour à coller sur votre colis.
+
+Vous pourrez suivre la progression de votre retour à l'adresse suivante : {followup} 
+[{followup}]          
+
+Vous pouvez accéder à tout moment au détail de votre commande dans "Historique des commandes"
+[{history_url}] de la rubrique "Mon compte"
+[{my_account_url}] sur notre site. 
+
+{shop_name} [{shop_url}] powered by
+PrestaShop(tm) [http://www.prestashop.com/] 

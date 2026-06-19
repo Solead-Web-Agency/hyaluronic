@@ -1,0 +1,26 @@
+/**
+*   Test your reminders
+*/
+
+#reminder_tests .panel-body{
+    font-size: 14px;
+}
+#reminder_tests .panel-body .top {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#reminder_tests .panel-body .ajax_return {
+    display: none;
+    margin-top: 20px;
+}
+#reminder_tests button,
+#reminder_tests button span,
+#reminder_tests button i {
+    vertical-align: middle;
+}
+#reminder_tests button i {
+    margin-right: 8px;
+}
+#reminder_tests button span{
+    text-transform: capitalize;
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<status>Delivered to Consignee</status>
+			<status>Picked up by Consignee from Pickup point</status>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<status>En route</status>
+			<status>Dropped in Pickup Point</status>
+			<status>Picked up by Courier</status>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<status>Returned to Sender</status>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<status>Delivered to Pickup Point</status>
+			<status>Delivered by driver to Pickup point</status>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<status>Returning to Sender</status>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<status>400</status>
+	</step>
+	<step>
+			<id_status>106</id_status>
+			<status>200</status>
+	</step>
+</document>

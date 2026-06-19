@@ -1,0 +1,11 @@
+{shop_url}
+
+Salve {firstname} {lastname},
+
+Un nuovo ordine è stato generato per te.
+
+Per favore, clicca sul seguente link {order_link} per completare il pagamento.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

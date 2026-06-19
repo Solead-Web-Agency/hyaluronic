@@ -1,0 +1,47 @@
+/**
+ * 2017-2023 liewebs - Prestashop module developers and website designers.
+ *
+ * NOTICE OF LICENSE
+ *  @author    liewebs <info@liewebs.com>
+ *  @copyright 2017-2023 www.liewebs.com - Liewebs
+ * 	@module Advanced VAT Manager
+ */
+
+select#id_customer {
+    width: 100% !important;
+}
+.avm_customers.dropdown-menu {
+    display: inline-grid;
+    position: relative;
+    bottom: 2px;
+    width: 100%;
+    max-height: 350px;
+    border-radius: 0%;
+    padding: 10px;
+    overflow-y: auto;
+}
+a.avm_customer {
+    margin-top: 10px;
+    text-decoration: none;
+    color: #000;
+}
+a.avm_customer:hover {
+    font-weight: bold;
+    color: #25b9d7;
+}  
+
+/* Spinner */
+.loader {
+border: 3px solid #f3f3f3;
+    border-top: 3px solid #363a41;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    animation: spin 2s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

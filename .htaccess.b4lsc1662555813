@@ -1,0 +1,290 @@
+# ~~start-jprestaspeedpack~~ Do not remove this comment, Jprestaspeedpack will update it automatically
+
+# Allow webp files to be sent by Apache 2.2
+<IfModule !mod_authz_core.c>
+	<Files ~ "\.(webp)$">
+		Allow from all
+	</Files>
+</IfModule>
+
+# Allow webp files to be sent by Apache 2.4
+<IfModule mod_authz_core.c>
+	<Files ~ "\.(webp)$">
+		Require all granted
+		allow from all
+	</Files>
+</IfModule>
+
+# Send WEBP image if browser accept and if file exists
+# Otherwise, redirect to the controller that will genererate the WEBP image
+<IfModule mod_rewrite.c>
+<IfModule mod_env.c>
+SetEnv HTTP_MOD_REWRITE On
+</IfModule>
+RewriteEngine on
+
+#Domain: hyaluronicfillermarket.com
+RewriteRule . - [E=REWRITEBASE:/]
+
+# Images of products
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$1$2$3.webp -s
+RewriteRule ^([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/p/$1/$1$2$3.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$1$2$3.webp !-s
+RewriteRule ^([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/p/$1/$1$2$3.jpg [B,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$1$2$3$4.webp -s
+RewriteRule ^([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/p/$1/$2/$1$2$3$4.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$1$2$3$4.webp !-s
+RewriteRule ^([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/p/$1/$2/$1$2$3$4.jpg [B,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$1$2$3$4$5.webp -s
+RewriteRule ^([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$1$2$3$4$5.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$1$2$3$4$5.webp !-s
+RewriteRule ^([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/p/$1/$2/$3/$1$2$3$4$5.jpg [B,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$1$2$3$4$5$6.webp -s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$1$2$3$4$5$6.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$1$2$3$4$5$6.webp !-s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/p/$1/$2/$3/$4/$1$2$3$4$5$6.jpg [B,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$5/$1$2$3$4$5$6$7.webp -s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$5/$1$2$3$4$5$6$7.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$5/$1$2$3$4$5$6$7.webp !-s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/p/$1/$2/$3/$4/$5/$1$2$3$4$5$6$7.jpg [B,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$5/$6/$1$2$3$4$5$6$7$8.webp -s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$5/$6/$1$2$3$4$5$6$7$8.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$5/$6/$1$2$3$4$5$6$7$8.webp !-s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/p/$1/$2/$3/$4/$5/$6/$1$2$3$4$5$6$7$8.jpg [B,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$5/$6/$7/$1$2$3$4$5$6$7$8$9.webp -s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$5/$6/$7/$1$2$3$4$5$6$7$8$9.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$5/$6/$7/$1$2$3$4$5$6$7$8$9.webp !-s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/p/$1/$2/$3/$4/$5/$6/$7/$1$2$3$4$5$6$7$8$9.jpg [B,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$5/$6/$7/$8/$1$2$3$4$5$6$7$8$9$10.webp -s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$5/$6/$7/$8/$1$2$3$4$5$6$7$8$9$10.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/p/$1/$2/$3/$4/$5/$6/$7/$8/$1$2$3$4$5$6$7$8$9$10.webp !-s
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/p/$1/$2/$3/$4/$5/$6/$7/$8/$1$2$3$4$5$6$7$8$9$10.jpg [B,L]
+
+# Images of categories
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/c/$1$2$3.webp -s
+RewriteRule ^c/([0-9]+)(\-[\.*_a-zA-Z0-9-]*)(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/c/$1$2$3.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/c/$1$2$3.webp !-s
+RewriteRule ^c/([0-9]+)(\-[\.*_a-zA-Z0-9-]*)(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/c/$1$2$3.jpg [B,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/c/$1$2.webp -s
+RewriteRule ^c/([a-zA-Z_-]+)(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}img/c/$1$2.webp [T=image/webp,L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}/img/c/$1$2.webp !-s
+RewriteRule ^c/([a-zA-Z_-]+)(-[0-9]+)?/.+\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=img/c/$1$2.jpg [B,L]
+
+# Other images of modules or theme
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteCond %{DOCUMENT_ROOT}%{ENV:REWRITEBASE}$1.webp !-s
+RewriteRule ^(.+)\.webp$ %{ENV:REWRITEBASE}modules/jprestaspeedpack/controllers/front/webp.php?src=$1.jpg [B,L]
+#/Domain: hyaluronicfillermarket.com
+</IfModule>
+
+# Make Apache handle image/webp content type
+<IfModule mod_mime.c>
+	AddType image/webp .webp
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp "access plus 1 month"
+</IfModule>
+
+# ~~end-jprestaspeedpack~~ Do not remove this comment, Jprestaspeedpack will update it automatically
+
+# ~~start~~ Do not remove this comment, Prestashop will keep automatically the code outside this comment when .htaccess will be generated again
+# .htaccess automaticaly generated by PrestaShop e-commerce open-source solution
+# http://www.prestashop.com - http://www.prestashop.com/forums
+
+<IfModule mod_security.c>
+SecFilterEngine Off
+SecFilterScanPOST Off
+</IfModule>
+
+<IfModule mod_rewrite.c>
+<IfModule mod_env.c>
+SetEnv HTTP_MOD_REWRITE On
+</IfModule>
+
+RewriteEngine on
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule . - [E=HTTP_AUTHORIZATION:%1]
+
+
+
+#Domain: hyaluronicfillermarket.com
+RewriteRule . - [E=REWRITEBASE:/]
+RewriteRule ^api(?:/(.*))?$ %{ENV:REWRITEBASE}webservice/dispatcher.php?url=$1 [QSA,L]
+
+# Images
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/$1/$1$2$3.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/$1/$2/$1$2$3$4.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$1$2$3$4$5.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$1$2$3$4$5$6.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$5/$1$2$3$4$5$6$7.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$5/$6/$1$2$3$4$5$6$7$8.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$5/$6/$7/$1$2$3$4$5$6$7$8$9.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/$1/$2/$3/$4/$5/$6/$7/$8/$1$2$3$4$5$6$7$8$9$10.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^c/([0-9]+)(\-[\.*_a-zA-Z0-9-]*)(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/c/$1$2$3.jpg [L]
+RewriteCond %{HTTP_HOST} ^hyaluronicfillermarket.com$
+RewriteRule ^c/([a-zA-Z_-]+)(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/c/$1$2.jpg [L]
+# AlphaImageLoader for IE and fancybox
+RewriteRule ^images_ie/?([^/]+)\.(jpe?g|png|gif)$ js/jquery/plugins/fancybox/images/$1.$2 [L]
+
+# Dispatcher
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ %{ENV:REWRITEBASE}index.php [NC,L]
+</IfModule>
+
+AddType application/vnd.ms-fontobject .eot
+AddType font/ttf .ttf
+AddType font/otf .otf
+AddType application/font-woff .woff
+AddType font/woff2 .woff2
+<IfModule mod_headers.c>
+	<FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|svg)$">
+		Header set Access-Control-Allow-Origin "*"
+	</FilesMatch>
+
+    <FilesMatch "\.pdf$">
+      Header set Content-Disposition "Attachment"
+      Header set X-Content-Type-Options "nosniff"
+    </FilesMatch>
+</IfModule>
+
+<Files composer.lock>
+    # Apache 2.2
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+
+    # Apache 2.4
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</Files>
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType image/gif "access plus 1 month"
+	ExpiresByType image/jpeg "access plus 1 month"
+	ExpiresByType image/png "access plus 1 month"
+	ExpiresByType text/css "access plus 1 week"
+	ExpiresByType text/javascript "access plus 1 week"
+	ExpiresByType application/javascript "access plus 1 week"
+	ExpiresByType application/x-javascript "access plus 1 week"
+	ExpiresByType image/x-icon "access plus 1 year"
+	ExpiresByType image/svg+xml "access plus 1 year"
+	ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+	ExpiresByType application/font-woff "access plus 1 year"
+	ExpiresByType application/x-font-woff "access plus 1 year"
+	ExpiresByType font/woff2 "access plus 1 year"
+	ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+	ExpiresByType font/opentype "access plus 1 year"
+	ExpiresByType font/ttf "access plus 1 year"
+	ExpiresByType font/otf "access plus 1 year"
+	ExpiresByType application/x-font-ttf "access plus 1 year"
+	ExpiresByType application/x-font-otf "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header unset Etag
+</IfModule>
+FileETag none
+<IfModule mod_deflate.c>
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/x-javascript font/ttf application/x-font-ttf font/otf application/x-font-otf font/opentype image/svg+xml
+    </IfModule>
+</IfModule>
+
+#If rewrite mod isn't enabled
+ErrorDocument 404 /index.php?controller=404
+
+# ~~end~~ Do not remove this comment, Prestashop will keep automatically the code outside this comment when .htaccess will be generated again
+
+# ~gzip_googlepagespeed_bottom~
+
+<IfModule mod_deflate.c>
+#Compress HTML, CSS, JavaScript, Text, XML and fonts
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+AddOutputFilterByType DEFLATE application/x-font
+AddOutputFilterByType DEFLATE application/x-font-opentype
+AddOutputFilterByType DEFLATE application/x-font-otf
+AddOutputFilterByType DEFLATE application/x-font-truetype
+AddOutputFilterByType DEFLATE application/x-font-ttf
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE font/opentype
+AddOutputFilterByType DEFLATE font/otf
+AddOutputFilterByType DEFLATE font/ttf
+AddOutputFilterByType DEFLATE image/svg+xml
+AddOutputFilterByType DEFLATE image/x-icon
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/javascript
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/xml
+</IfModule>
+
+# ~gzip_googlepagespeed_bottom_end~
+
+# ~Browser_googlepagespeed_bottom~
+# EXPIRES CACHING #
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg 'access 1 year'
+ExpiresByType image/jpeg 'access 1 year'
+ExpiresByType image/gif 'access 1 year'
+ExpiresByType image/png 'access 1 year'
+ExpiresByType text/css 'access 1 month'
+ExpiresByType application/pdf 'access 1 month'
+ExpiresByType text/x-javascript 'access 1 month'
+ExpiresByType application/x-shockwave-flash 'access 1 month'
+ExpiresByType image/x-icon 'access 1 year'
+ExpiresDefault 'access 1 month'
+</IfModule>
+# EXPIRES CACHING #
+
+# ~Browser_googlepagespeed_bottom_end~
+
+# ~googlepagespeed_bottom~
+
+# Google PageSpeed Module
+<IfModule googlepagespeed_module>
+ModPagespeed Off
+</IfModule>
+# END Google PageSpeed Module
+
+# ~googlepagespeed_bottom_end~

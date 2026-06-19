@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>nkmgls</name>
+    <displayName><![CDATA[GLS, votre partenaire transport]]></displayName>
+    <version><![CDATA[3.1.0]]></version>
+    <description><![CDATA[Donnez le choix &agrave; vos clients du mode de livraison qui leur convient.]]></description>
+    <author><![CDATA[Nukium]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

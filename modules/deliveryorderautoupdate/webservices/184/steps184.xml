@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<status>1</status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<status>4</status>
+			<status>52</status>
+			<status>9</status>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<status>0</status>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<status></status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<status></status>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<status>15</status>
+	</step>
+	<step>
+			<id_status>102</id_status>
+			<status>USERNAME INVALID</status>
+			<status>PASSWORD INVALID</status>
+	</step>
+	<step>
+			<id_status>106</id_status>
+			<status>PARCEL NOT FOUND</status>
+	</step>
+</document>

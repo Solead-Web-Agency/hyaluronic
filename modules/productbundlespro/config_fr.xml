@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>productbundlespro</name>
+    <displayName><![CDATA[Product Bundles Pro]]></displayName>
+    <version><![CDATA[2.1.9]]></version>
+    <description><![CDATA[Product Bundles Pro]]></description>
+    <author><![CDATA[Musaffar Patel]]></author>
+    <tab><![CDATA[others]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

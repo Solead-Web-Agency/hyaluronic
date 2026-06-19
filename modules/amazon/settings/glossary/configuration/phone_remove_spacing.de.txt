@@ -1,0 +1,2 @@
+Entfernt Leerzeichen zwischen Telefonnummern.
+Beispiel: „01 23 45 67 89“ bis „0123456789“

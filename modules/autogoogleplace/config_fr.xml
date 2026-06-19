@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>autogoogleplace</name>
+    <displayName><![CDATA[Suggestion d&#039;adresses (par Google)]]></displayName>
+    <version><![CDATA[1.8.06]]></version>
+    <description><![CDATA[Propose de compl&eacute;ter et corriger l&#039;adresse d&#039;un utilisateur lorsqu&#039;il indique la sienne !]]></description>
+    <author><![CDATA[Agence Malttt]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

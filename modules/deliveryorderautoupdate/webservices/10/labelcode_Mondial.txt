@@ -1,0 +1,18 @@
+1_Enseigne invalide 
+24_Incorrect shipment number
+84_(Reserved tracking code)
+85_(Reserved tracking code)
+86_(Reserved tracking code)
+87_(Reserved tracking code)
+88_(Reserved tracking code)
+89_(Reserved tracking code)
+90_
+91_
+92_The Point Relais country code and the consignee’s country code are different.
+93_No information given by the sorting plan.
+94_Colis inconnu
+95_Compte Marchand non activé
+96_Type d'enseigne incorrect en Base
+97_IClé de sécurité incorrecte
+98_Generic error (Incorrect parameters)
+99_Generic error of service system

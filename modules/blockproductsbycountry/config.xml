@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>blockproductsbycountry</name>
+    <displayName><![CDATA[Block products by country]]></displayName>
+    <version><![CDATA[1.0.2]]></version>
+    <description><![CDATA[The modules allows you to block products based on customer&#039;s country. You can build rules based on: Individual product, category, manufacturer, supplier.]]></description>
+    <author><![CDATA[Active Design]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

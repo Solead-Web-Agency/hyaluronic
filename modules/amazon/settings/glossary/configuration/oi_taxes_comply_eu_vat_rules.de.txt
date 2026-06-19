@@ -1,0 +1,2 @@
+Versandsteuern und -sätze werden basierend auf der Steuer und dem Satz
+des Produktpreises berechnet (definiert in der PS-Steuerregel).

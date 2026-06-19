@@ -1,0 +1,77 @@
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+i.icon-AdminGeolocationParent{
+    display: inline-block;
+    text-align: center !important;
+}
+#subtab-AdminGeoLocationCronjob .material-icons {
+    font-size: 0;
+}
+#subtab-AdminGeoLocationCronjob .material-icons:before {
+    font-size: 14px;
+    vertical-align: middle;
+    font-family: Fontawesome;
+}
+#subtab-AdminGeoLocationStatistics i,
+#subtab-AdminGeoLocationSettings i,
+#subtab-AdminGeoLocationRules i,
+#subtab-AdminGeoLocationMessages i,
+#subtab-AdminGeoLocationHelp i{
+    height: 16px;
+    font-family: Fontawesome;
+    font-size: 0;
+}
+#subtab-AdminGeoLocationStatistics i:before,
+#subtab-AdminGeoLocationSettings i:before,
+#subtab-AdminGeoLocationRules i:before,
+#subtab-AdminGeoLocationMessages i:before,
+#subtab-AdminGeoLocationHelp i:before{
+    font-size: 16px;
+    line-height: 1;
+}
+i.icon-AdminGeolocationParent:before {
+    font-family: Fontawesome;
+    content: "\f041";
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
+}
+#conf_id_ETS_GEO_CRONJOB_TOKEN {
+    display: flex;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+.mobile li#tab-AdminGeolocationParent {
+    display: block;
+}
+.mobile li#tab-AdminGeolocationParent.actived > span.title:after {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin-top: 3px;
+}
+.mobile li#tab-AdminGeolocationParent > span.title:after {
+    content: "";
+    border-top: 2px solid #6c868e;
+    border-right: 2px solid #6c868e;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    float: right;
+    margin-right: 32px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.mobile #subtab-AdminGeoLocationStatistics,
+.mobile #subtab-AdminGeoLocationHelp,
+.mobile #subtab-AdminGeoLocationMessages,
+.mobile #subtab-AdminGeoLocationRules,
+.mobile #subtab-AdminGeoLocationSettings{
+    display:none;
+}
+.mobile #subtab-AdminGeoLocationStatistics.ets_sidebar_menu_show,
+.mobile #subtab-AdminGeoLocationHelp.ets_sidebar_menu_show,
+.mobile #subtab-AdminGeoLocationMessages.ets_sidebar_menu_show,
+.mobile #subtab-AdminGeoLocationRules.ets_sidebar_menu_show,
+.mobile #subtab-AdminGeoLocationSettings.ets_sidebar_menu_show{
+    display: block;
+}

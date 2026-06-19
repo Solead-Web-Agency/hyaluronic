@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<AmazonEnvelope xsi:noNamespaceSchemaLocation="amzn-envelope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>A157UIZAGXXXXX</MerchantIdentifier>
+    </Header>
+    <MessageType>OrderAcknowledgement</MessageType>
+    <Message>
+        <MessageID>1</MessageID>
+        <OrderAcknowledgement>
+            <AmazonOrderID>114-0934734-5311111</AmazonOrderID>
+            <MerchantOrderID>7</MerchantOrderID>
+            <StatusCode>Success</StatusCode>
+        </OrderAcknowledgement>
+    </Message>
+</AmazonEnvelope>

@@ -1,0 +1,197 @@
+/**
+ * @author    Jamoliddin Nasriddinov <jamolsoft@gmail.com>
+ * @copyright (c) 2020, Jamoliddin Nasriddinov
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html  GNU General Public License, version 2
+ */
+
+.radio_button {
+    float: left !important;
+    margin: 0 25px 15px 0 !important;
+}
+
+textarea {
+    resize: vertical !important;
+}
+
+.help-block {
+    clear: both !important;
+}
+
+.bootstrap select[multiple] {
+    width: auto !important;
+    height: auto !important;
+    min-width: 400px;
+    min-height: 120px;
+}
+
+.bootstrap .fixed-width-xl {
+    width: 250px !important;
+}
+
+.number_field {
+    max-width: 267px;
+}
+
+.elegantal_hidden, .elegantaleasyimportJsDef {
+    display: none;
+}
+
+.bootstrap .elegantalBootstrapWrapper .panel-body {
+    padding: 15px 0;
+}
+
+#content.bootstrap .elegantalBootstrapWrapper .panel-heading .panel-heading-action a.list-toolbar-btn {
+    color: #fefefe;
+}
+#content.bootstrap .elegantalBootstrapWrapper .panel-heading .panel-heading-action a.list-toolbar-btn:hover {
+    color: #dddddd;
+}
+
+.elegantal_panel_footer {
+    height: auto !important; 
+    min-height: 70px !important;
+}
+
+.elegantal_panel_footer>.btn, .elegantal_panel_footer>.btn-group {
+    margin: 5px 5px 12px 0px;
+}
+
+.elegantal_panel_footer .btn {
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+.elegantalSteps {
+    display: table;     
+    width: 100%;
+    position: relative;
+}
+
+.elegantalSteps p {
+    margin-top: 10px;    
+}
+
+.elegantalSteps-row {
+    display: table-row;
+}
+
+.elegantalSteps-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.elegantalSteps-row:before {
+    top: 25px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 2px;
+    background-color: #e0e0e0;
+}
+
+.elegantalSteps-step {    
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.elegantalBootstrapWrapper .btn-circle {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 37px;
+    border-radius: 100%;
+    outline: none;
+    opacity: 1 !important;
+}
+
+.elegantalBootstrapWrapper .btn-circle:active,
+.elegantalBootstrapWrapper .btn-circle:active:focus,
+.elegantalBootstrapWrapper .btn-circle:focus {
+    outline: none;
+}
+
+.vertical-step {
+    background: #57d8ba;
+    color: #fff;
+    border-radius: 3px;
+    padding: 10px 10px 20px 10px;
+    text-align: center;
+}
+
+.vertical-step h2 {
+    margin: 8px 0;
+    text-transform: uppercase;
+    font-size: 23px;
+}
+
+.cron_label {
+    font-size: 10px !important;
+    padding: 2px 5px !important;
+    margin-left: 15px !important;
+}
+
+.bootstrap .panel .panel-footer .btn.pull-left {
+    margin-right: 5px;
+}
+
+#elegantal_header_row {
+    position: relative;
+    display: none;
+    width: 185px;
+    float: right;
+    text-transform: uppercase;
+}
+#elegantal_header_row input[type="text"] {
+    text-align: center;
+    height: 27px;
+    margin-top: 2px;    
+    cursor: default;
+}
+#elegantal_header_row a.btn {
+    top: auto !important;
+}
+.ignore_all_columns {
+    position: absolute;
+    display: inline-block;
+    bottom: -40px;
+    right: 10px;
+    z-index: 99;
+}
+
+.elegantal_categories_map {
+    margin-bottom: 10px;
+}
+
+.elegantalBootstrapWrapper div div.tooltip-inner {
+    max-width: 300px;
+}
+
+.elegantal_ajax_loader {
+    text-align: center;
+}
+
+.elegantalBootstrapWrapper .alert.alert-info.alert_with_link_icon {
+    font-size: 11px;
+    padding: 12px 12px 12px 35px;
+}
+.elegantalBootstrapWrapper .alert.alert-info.alert_with_link_icon:before {
+    content: "\F0C1";
+    font-size: 2em;
+    top: 10px;
+}
+
+.elegantalBootstrapWrapper a.checkUncheckAllColumns {
+    float: right;
+    padding: 0 10px;
+}
+.elegantalBootstrapWrapper a.checkUncheckAllColumns.checkedAllColumns {
+    color: #00aff0;
+}
+.elegantalBootstrapWrapper a.checkUncheckAllColumns.uncheckedAllColumns {
+    color: #aaaaaa;
+}

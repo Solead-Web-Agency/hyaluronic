@@ -1,0 +1,2 @@
+Choisissez le statut par défaut pour la commande non expédiée.
+S'il n'est pas sélectionné, il prendra la valeur du statut de la commande entrante.

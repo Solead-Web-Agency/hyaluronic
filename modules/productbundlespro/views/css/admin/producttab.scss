@@ -1,0 +1,146 @@
+/**
+ * NOTICE OF LICENSE
+ *
+ * This file is licenced under the Software License Agreement.
+ * With the purchase or the installation of the software in your application
+ * you accept the licence agreement.
+ *
+ * You must not modify, adapt or create derivative works of this source code
+ *
+ * @author    Musaffar Patel
+ * @copyright 2016-2019 Musaffar Patel
+ * @license   LICENSE.txt
+ */
+
+#pbp-mass-assign-content {
+
+	.mass-assign-progress-wrapper {
+		.progress-bar {
+			width: 100%;
+			height: 15px;
+			background-color:#eaeaea;
+			margin-bottom: 10px;
+			position: relative;
+		}
+
+		.progress {
+			position: absolute;
+			left: 0;
+			width: 0%;
+			height: 15px;
+			background-color:#00aff0;
+			transition: width 0.3s ease-in-out;
+		}
+	}
+}
+
+
+#product-search-results {
+	max-height:260px;
+	overflow-y: auto;
+}
+
+.pbp-disabled {
+	opacity: 0.5;
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.pbp-main {
+
+	.hidden {
+		display: none;
+	}
+
+	.simpletable {
+
+		th, td {
+			padding: 5px;
+			height: auto;
+		}
+	}
+
+	#panel2 .form-group-discount {
+		input, select {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+
+#pbp-popup-editbundle {
+	.translatable-field {
+		.col-lg-7 {
+			float: left;
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+
+		.col-lg-2 {
+			float: left;
+		}
+	}
+}
+
+#pbp-bundle_existing {
+	.form-full-label {
+		margin-bottom: 10px;
+	}
+
+	.form-group-search {
+		i {
+			opacity: 0.5;
+			position: relative;
+			top: 4px;
+			margin-left: 4px;
+		}
+	}
+
+	#pbp-bundles-existing-list {
+		height: 380px;
+		overflow-y: auto;
+
+		.pbp-bundle {
+			border: 1px solid #ccc;
+			padding: 10px;
+			overflow: hidden;
+			cursor: pointer;
+		}
+
+		.pbp-bundle:hover {
+			background-color: #fafafa;
+		}
+
+		.pbp-bundle.selected {
+			background-color: #25b9d7;
+			color:#fff;
+			* {
+				color:#fff !important;
+			}
+		}
+
+		.pbp-bundle .id-bundle {
+			width: 50px;
+			float: left;
+			color: #999;
+		}
+
+		.pbp-bundle .pbp-products {
+			float: left;
+		}
+
+		.pbp-bundle .pbp-product {
+			display: block;
+			margin-bottom: 6px;
+		}
+	}
+}
+
+
+#product-search-results {
+	display: none;
+	th, td {
+		padding: 5px;
+	}
+}
+

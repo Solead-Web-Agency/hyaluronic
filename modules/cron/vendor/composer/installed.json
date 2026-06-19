@@ -1,0 +1,30 @@
+[
+    {
+        "name": "samdha/module",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://samdha@bitbucket.org/samdha/module.git",
+            "reference": "fc6d66742dfffb7eccc698a00edc340c84b621ce"
+        },
+        "time": "2020-03-02T15:40:30+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Samdha\\Module\\": "src/"
+            }
+        },
+        "license": [
+            "AFL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Georges Cubas",
+                "email": "contact@samdha.net"
+            }
+        ],
+        "description": "Commons library for PrestaShop modules"
+    }
+]

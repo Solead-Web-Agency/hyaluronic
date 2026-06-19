@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>cdc_googletagmanager</name>
+    <displayName><![CDATA[CdC Google Tag Manager E-commerce avanc&eacute;]]></displayName>
+    <version><![CDATA[5.7.3]]></version>
+    <description><![CDATA[Integration of Google Tag Manager - Enhanced Ecommerce (GA4 + UA) Tracking and Google Customer reviews]]></description>
+    <author><![CDATA[Comptoir du Code]]></author>
+    <tab><![CDATA[analytics_stats]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

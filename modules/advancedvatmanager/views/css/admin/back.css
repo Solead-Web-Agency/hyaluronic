@@ -1,0 +1,137 @@
+/**
+ * 2017-2023 liewebs - Prestashop module developers and website designers.
+ *
+ * NOTICE OF LICENSE
+ *  @author    liewebs <info@liewebs.com>
+ *  @copyright 2017-2023 www.liewebs.com - Liewebs
+ * 	@module Advanced VAT Manager
+ */
+ 
+.advancedvatmanager_country_selector {
+    min-height: 120px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+select#ADVANCEDVATMANAGER_DISPLAY_VAT_VALIDATION_PENDING_STATUS {
+    min-width: 300px;
+}
+button[name='submit_advancedvatmanager'] i {
+    font-size: 30px;
+    display: block;
+    padding-bottom: 2px;
+}
+.language_flag {
+    display: inline-block;
+}
+.legend {
+    border: 2px solid #dbe6e9;
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 350px;
+}
+.changelog_content {
+    max-height: 500px;
+    overflow-x: auto;
+    border: 2px solid #eff1f2;
+    padding: 15px;
+}
+.compatibility_list {
+    max-height: 300px;
+    overflow-x: auto;
+    border: 1px solid #eff1f2;
+    padding: 15px;
+}
+.faq_content, .troubleshooting_content {
+    max-height: 500px;
+    overflow-x: auto;
+    border: 2px solid #eff1f2;
+    padding: 15px;
+}
+h4.faq_title {
+    font-weight: 600;
+    color: #0fafcf;
+    font-size: 15px;
+}
+h4.troubleshooting_title {
+    font-weight: 600;
+    color: #f7220d;
+    font-size: 15px;
+}
+h4.faq_title:before {
+    content: "\f059";
+    font-family: "Font Awesome 5 Pro";
+    margin-right: 5px;
+}
+.troubleshooting_list li:before {
+    content: "\f058";
+    font-family: "Font Awesome 5 Pro";
+    margin-right: 5px;
+}
+.troubleshooting_list li {
+    list-style: none;
+}
+h4.troubleshooting_title:before {
+    content: "\f071";
+    font-family: "Font Awesome 5 Pro";
+    margin-right: 5px;
+}
+
+div.faq_item, div.troubleshooting_item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+div.faq_item {
+    border: 2px solid #0fafcf;
+}
+div.troubleshooting_item {
+    border: 2px solid #f7220d;
+}
+div.compatibility.content a:hover {
+    color: #25b9d7 !important;
+}
+h4.compatibility_title {
+    font-weight: 900;
+    background: #25b9d7;
+    color: #fff;
+    padding: 10px;
+}
+h4.compatibility_title_2 {
+    font-weight: 900;
+    background: #363a41;
+    color: #fff;
+    padding: 10px;
+}
+h5.module_compatible_item {
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: grid;
+    border: 1px solid #edebeb;
+    padding: 5px;
+    max-width: 580px;
+    word-break: break-word;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+.integration_mod_container {
+    border: 2px solid #ddd;
+    width: max-content;  
+}
+.integration_mod_container .integration_body {
+    padding: 10px;    
+}
+.integration_header {
+    background: #ddd;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.advancedvatmanager_form span.label-tooltip {
+    font-weight: 600;
+    color: #25b9d7 !important;
+    text-decoration: none;
+    display: inline-block;
+}
+.advancedvatmanager_form span.label-tooltip:before {
+    content: '\f05a';
+    font-family: "Font Awesome 5 Pro"; 
+}

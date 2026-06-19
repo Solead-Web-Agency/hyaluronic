@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>DELIVERED</statuscode>
+			<statuscode>L001</statuscode>
+			<statuscode>L003</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode>I531</statuscode>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>UPDATED DEPARTURE</statuscode>
+			<statuscode>HAS LEFT INTERNATIONAL</statuscode>
+			<statuscode>INTERNATIONAL TRANSIT</statuscode>
+			<statuscode>RECEIVED AT DESTINATION BRANCH</statuscode>
+			<statuscode>INTERNATIONAL DELIVERY</statuscode>
+			<statuscode>I567</statuscode>
+			<statuscode>W999</statuscode>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>C003</statuscode>
+	</step>
+	<step>
+			<id_status>102</id_status>
+			<statuscode>CEXP_0001</statuscode>
+	</step>
+	<step>
+			<id_status>103</id_status>
+			<statuscode>CEXP_0002</statuscode>
+	</step>
+	<step>
+			<id_status>106</id_status>
+			<statuscode>0</statuscode>
+	</step>
+	<step>
+			<id_status>107</id_status>
+			<statuscode>CEXP_0003</statuscode>
+			<statuscode>CEXP_0004</statuscode>
+			<statuscode>CEXP_0005</statuscode>
+	</step>
+</document>

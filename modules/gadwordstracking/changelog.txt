@@ -1,0 +1,209 @@
+Google Adwords Conversion Tracking
+
+
+Change history for Google Adwords Conversion Tracking
+------------------------------------------------------
+
+===========================
+Version 2.2.9 (10/12/2018)|
+===========================
+Added
+-----
+
+Fixed
+-----
+- Changed the way to include the tag via the header in order to avoid issues around overrides or when the displayFooter hook is not executed
+
+===========================
+Version 2.2.8 (22/08/2018)|
+===========================
+Added
+-----
+- Transaction id on the tag
+- Update for validator
+
+Fixed
+-----
+
+===========================
+Version 2.2.7 (10/11/2017)|
+===========================
+Added
+-----
+- Best management of the code with the option Move Javascript at the end
+
+Fixed
+-----
+- Bug fix for the option the last step funnel
+
+
+===========================
+Version 2.2.6 (31/10/2017)|
+===========================
+Fixed
+-----
+- Manage new code for tracking
+
+===========================
+Version 2.2.5 (12/05/2017)|
+===========================
+Fixed
+-----
+- Remove a var_dump
+
+
+===========================
+Version 2.2.4 (01/05/2017)|
+===========================
+Added
+-----
+- Hide preview button code
+- Manage order id on the order confirmation page for tags
+
+
+Fixed
+-----
+- Remove moduleTemplate code
+- Compatibilty for PHP 7
+
+Files
+-----
+- conf/common.conf.php
+- lib/hook/hook-display_class.php
+- views/templates/admin/body.tpl
+
+
+===========================
+Version 2.2.3 (19/01/2017)|
+===========================
+Added
+-----
+- make the module compatible with the One Page Checkout for PS 1.5 to 1.7 when the option "display code in the last funnel step" is activated.
+
+Fixed
+-----
+- The FAQ url in the left menu was using a FB Pixel constant, and the module ID to pinpoint to our FAQ was wrong
+
+Files
+-----
+- conf/common.conf.php
+- lib/hook/hook-display_class.php
+- views/templates/admin/body.tpl
+
+
+===========================
+Version 2.2.2 (02/01/2017)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Interface display with multishop
+
+Files
+-----
+- body.tpl
+
+
+===========================
+Version 2.2.1 (20/10/2016)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Support link
+
+Files
+-----
+- N.A
+
+
+===========================
+Version 2.2.0 (11/10/2016)|
+===========================
+Added
+-----
+- New layout
+- Compatibility for PS 1.7
+
+Fixed
+-----
+- N.A
+
+Files
+-----
+- N.A
+
+
+===========================
+Version 2.1.0 (14/06/2016)|
+===========================
+Added
+-----
+- New option to decide where you want to position your conversion code, between "funnel's last step" or "order confirmation page"
+
+Fixed
+-----
+- N.A
+
+Files
+-----
+- N.A
+
+
+Version 2.0.3 (04/05/2016)
+- Bug fix to do not execute the display Footer code out of the order confirmation step
+
+
+Version 2.0.2 (29/02/2016)
+- Updated some translations
+- Update orders tab
+
+
+Version 2.0.1(24/02/2016)
+- Bug fix for update basics tab
+
+
+Version 2.0.0 (29/01/2016) :
+- Added new method the have the conversion amount ( with tax or not, with shipping or not, with wrapping or not)
+- Warning fix due to space a the beginning of the file in admin-ctrl_class.php
+- Added feature to handle order that doesn't redirect on the order confirmation page
+- Updated API URL
+- Update logo
+
+
+Version 1.1.1 (12/10/2015) :
+- Added small feature to check if the order is really available
+
+
+Version 1.0.6 (08/10/2014) :
+- Added small feature to handle the conversion currency of the cart on the order confirmation page
+
+
+Version 1.0.5 (08/09/2014) :
+- Bug fix modal
+
+
+Version 1.0.4 (22/08/2014):
+- Added bootstrap design
+
+
+Version 1.0.3 (30/07/2014):
+- Bug fix for Javascript inline variable on PS 1.6.0.8 with "move Javascript to the end" option deactivated. addJsDef() function for PS 1.6 is no longer used from PS 1.6.0.8 instead of Javascript Inline is used.
+
+
+Version 1.0.2 (19/05/2014):
+- Bug fix for Javascript inline variable added by addJSDef() method for PrestaShop 1.6 only. Some Google tag options (google_conversion_format / google_conversion_color / google_remarketing_only) have been forgot, but this wasn't a critical issue, just a warning.
+
+
+Version 1.0.1 (18/04/2014):
+- Bug fix for Javascript inline variable added by addJSDef() method for PrestaShop 1.6 only. google_conversion_id variable is a numeric, and it is defined as string for this method. We cast the variable's type
+
+
+Version 1.0.0 (31/03/2014):
+- Original release

@@ -1,0 +1,92 @@
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    Revolut
+ * @copyright Since 2020 Revolut
+ * @license   https://opensource.org/licenses/AFL-3.0  Academic Free License (AFL 3.0)
+ */
+
+.bootstrap .switch.switch-mode input:last-of-type:checked ~ a {
+	background-color: #2eacce;
+	border: solid 1px #279cbb;
+}
+.bootstrap .form-checkbox input[type="checkbox"] + label {
+	display: inline;
+	margin-left: 5px;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+.bootstrap .btn.btn-primary#btnResetWebhook { text-transform: none; }
+.bootstrap .help-block .text-red { color: red; }
+
+.revolut-help-block p { margin-bottom: 0; }
+.revolut-help-block ul { margin-bottom: 0; }
+
+.revolut-instruction {
+	background-color: #fff;
+	padding: 15px;
+	border: 1px solid #d3d8db;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.revolut-instruction .ri-image {
+	width: 25%;
+	padding-right: 15px;
+}
+.revolut-instruction .ri-image img {
+	max-width: 45%;
+	margin: 0 auto;
+}
+.revolut-instruction .ri-text {
+	width: 75%;
+	padding-left: 15px;
+}
+@media only screen and (max-width: 1919px) {
+	.revolut-instruction .ri-image img { max-width: 65%; }
+}
+@media only screen and (max-width: 1399px) {
+	.revolut-instruction .ri-image img { max-width: 85%; }
+}
+@media only screen and (max-width: 991px) {
+	.revolut-instruction .ri-image img { max-width: 100%; }
+}
+@media only screen and (max-width: 767px) {
+	.revolut-instruction { display: block; }
+	.revolut-instruction .ri-image {
+		width: 100%;
+		padding-right: 0;
+		margin-bottom: 20px;
+	}
+	.revolut-instruction .ri-image img { max-width: 50%; }
+	.revolut-instruction .ri-text {
+		width: 100%;
+		padding-left: 0;
+	}
+}
+@media only screen and (max-width: 479px) {
+	.revolut-instruction .ri-image img { max-width: 100%; }
+}

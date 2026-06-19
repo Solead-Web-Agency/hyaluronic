@@ -1,0 +1,1 @@
+Utilizza l'ID prodotto e l'ID combinazione per importare gli ordini quando non ci sono riferimenti/SKU corrispondenti.

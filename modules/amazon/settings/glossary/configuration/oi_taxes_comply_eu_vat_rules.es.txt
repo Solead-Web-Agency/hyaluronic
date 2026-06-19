@@ -1,0 +1,2 @@
+Los impuestos y tarifas de envío se calculan en función del impuesto al precio del producto
+y tasa (definida en la regla fiscal PS).

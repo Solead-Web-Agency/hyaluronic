@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ets_abandonedcart</name>
+    <displayName><![CDATA[Relance des paniers abandonn&eacute;s + E-mails automatiques]]></displayName>
+    <version><![CDATA[4.3.1]]></version>
+    <description><![CDATA[Un module de relance des paniers abandonn&eacute;s PrestaShop et un outil d&rsquo;e-mails automatiques indispensables pour r&eacute;cup&eacute;rer vos paniers d&rsquo;achat perdus, envoyer des e-mails automatiques, fid&eacute;liser vos clients existants et augmenter vos ventes de 50%]]></description>
+    <author><![CDATA[ETS-Soft]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

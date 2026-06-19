@@ -1,0 +1,71 @@
+1.1.6: Added: Quota Handler check for Prestashop
+
+1.1.5
+- Prestashop: Fixed:
+ + PHP8 error passing false to array_filter (#5)
+ + Get currency by iso code (#11)
+- Fixed: Feed Report: Correct list marketplaces (#7)
+- Fixed: Product export: Shipping template not working (#10)
+- Added: Feed submission: Add type `VCS VAT invoice`, add feed options + feed source (#8)
+
+1.1.4: Added: FBA APIs
+ 
+1.1.3: PS: EU marketplaces can fall back to region authorization 
+
+1.1.2: Response: Handle quota exceeded incident
+
+1.1.1: Added: Feeds APIs
+
+1.0.26: Added: Catalog search: Bulk search by SKU
+
+1.0.25: Added: Prestashop: Load configuration for different seller account for europe
+
+1.0.24: Added: Prestashop: Send verbose requesters information
+
+1.0.23: Changed: Region initiation: Restrict marketplace if provide
+
+1.0.22: Added: Catalog: Search by keywords
+
+1.0.21: Fixed: Move eg, tr and in to REGION_EU_2
+
+1.0.20:
+- Shopify: Allow override connector parameters
+- Colissimo Relay Point
+
+1.0.19: Catalog
+
+v1.0.18: Updated: Change Belgium Seller Partner URL
+
+v1.0.17: Fixed: OrderItems validation
+
+v1.0.16: Fixed: Wrong region for EU-WEST-2
+
+v1.0.15: Orders listing: Add validation
+
+v1.0.14: Divide the UAE/SA into separate region.
+
+v1.0.13: Wrong country ISO, currency for some marketplace
+
+v1.0.12: Custom authorization for dev purpose
+
+v1.0.11: Get default currency
+
+v1.0.10: Add the other iso for sub-marketplaces
+
+v1.0.9: Update the headers license
+
+v1.0.8: Get mwsToken for each separate marketplace
+
+v1.0.7: Build the platform parameters for each marketplace
+
+v1.0.6: Add Belgium marketplace to module
+
+v1.0.5: Remove duplicate sub-function
+
+v1.0.4: Add Currency for each marketplace
+
+v1.0.3: Multiple marketplace for NA & FE
+
+v1.0.2: Introduce endpoint rotation
+
+v1.0.1: Introduce connector for PS and Shopify

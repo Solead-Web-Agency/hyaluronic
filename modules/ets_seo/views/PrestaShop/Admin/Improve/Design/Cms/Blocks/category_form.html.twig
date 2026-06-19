@@ -1,0 +1,174 @@
+{#**
+ * 2007-2021 ETS-Soft
+*
+* NOTICE OF LICENSE
+*
+* This file is not open source! Each license that you purchased is only available for 1 wesite only.
+* If you want to use this file on more websites (or projects), you need to purchase additional licenses.
+* You are not allowed to redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please, contact us for extra customization service at an affordable price
+*
+*  @author ETS-Soft <etssoft.jsc@gmail.com>
+*  @copyright  2007-2021 ETS-Soft
+*  @license    Valid for 1 website (or project) for each purchase of license
+*  International Registered Trademark & Property of ETS-Soft
+ *#}
+
+{% import '@PrestaShop/Admin/macros.html.twig' as ps %}
+
+{% block category_form %}
+    {{ form_start(cmsPageCategoryForm) }}
+    <div class="tab-content ets_seo_categories">
+        <ul class="nav nav-tabs" id="admin_category_tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active js-ets-seo-tab-customize" id="category-seo-content-tab" data-toggle="tab"
+                   href="#category-seo-content" role="tab" aria-controls="home"
+                   aria-selected="true">{% if ETS_SEO_TWIG_TRANS is defined %}{{ ETS_SEO_TWIG_TRANS['Content'] }}{% else %}{{'Content'}}{% endif %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-ets-seo-tab-customize" id="category-seo-setting-tab" data-toggle="tab"
+                   href="#category-seo-setting" role="tab" aria-controls="profile"
+                   aria-selected="false">{% if ETS_SEO_TWIG_TRANS is defined %}{{ ETS_SEO_TWIG_TRANS['SEO settings'] }}{% else %}{{'SEO settings'}}{% endif %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-ets-seo-tab-customize" id="category-seo-analysis-tab" data-toggle="tab"
+                   href="#category-seo-analysis" role="tab" aria-controls="contact"
+                   aria-selected="false">
+                    {% if ETS_SEO_TWIG_TRANS is defined %}{{ ETS_SEO_TWIG_TRANS['SEO analysis'] }}{% else %}{{'SEO analysis'}}{% endif %}
+                </a>
+            </li>
+        </ul>
+        <div class="tab-pane fade show active" id="category-seo-content" role="tabpanel"
+             aria-labelledby="category-seo-content-tab">
+            <div class="card">
+                <div class="card-header">
+                    {#{{ 'CMS Category'|trans({}, 'Admin.Design.Feature') }}#}&nbsp;
+                </div>
+                <div class="card-block row">
+                    <div class="col-md-9">
+                        <div class="card-text">
+
+                            {% set invalidCharactersForCatalogLabel = 'Invalid characters:'|trans({}, 'Admin.Notifications.Info') ~ '<>;=#{}' %}
+                            {% set invalidCharactersForNameLabel = 'Invalid characters:'|trans({}, 'Admin.Notifications.Info') ~ '<>={}' %}
+
+                            {{ ps.form_group_row(cmsPageCategoryForm.name, {}, {
+                                'label': 'Name'|trans({}, 'Admin.Global'),
+                                'help': invalidCharactersForCatalogLabel
+                            }) }}
+
+                            {{ ps.form_group_row(cmsPageCategoryForm.is_displayed, {}, {
+                                'label': 'Displayed'|trans({}, 'Admin.Global'),
+                            }) }}
+
+                            {{ ps.form_group_row(cmsPageCategoryForm.parent_category, {}, {
+                                'label': 'Parent category'|trans({}, 'Admin.Design.Feature'),
+                            }) }}
+
+                            {{ ps.form_group_row(cmsPageCategoryForm.description, {}, {
+                                'label': 'Description'|trans({}, 'Admin.Global'),
+                            }) }}
+
+                            {% if cmsPageCategoryForm.shop_association is defined %}
+                                {{ ps.form_group_row(cmsPageCategoryForm.shop_association, {}, {
+                                    'label': 'Shop association'|trans({}, 'Admin.Global')
+                                }) }}
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        {% if ets_seo_preview_analysis is defined %}
+                            {{ ets_seo_preview_analysis | raw }}
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="category-seo-setting" role="tabpanel" aria-labelledby="category-seo-setting-tab">
+            <div class="card">
+                <div class="card-header">
+                    {#{{ 'CMS Category'|trans({}, 'Admin.Design.Feature') }}#}&nbsp;
+                </div>
+                <div class="card-block row">
+                    <div class="col-md-9">
+                        <div class="ets-seo-meta-data">
+                            <h3>{{ 'Search Engine Optimization' |trans({}, 'Admin.Catalog.Feature') }}</h3>
+                            <p class="meta-data-desc">{{ 'Improve your ranking and how your product page will appear in search engines results.' |trans({}, 'Admin.Catalog.Feature') }}</p>
+                        </div>
+                        <div class="card-text">
+                            {{ ps.form_group_row(cmsPageCategoryForm.meta_title, {}, {
+                                'label': 'Meta title'|trans({}, 'Admin.Global'),
+                                'help': invalidCharactersForNameLabel
+                            }) }}
+
+                            {{ ps.form_group_row(cmsPageCategoryForm.meta_description, {}, {
+                                'label': 'Meta description'|trans({}, 'Admin.Global'),
+                                'help': invalidCharactersForNameLabel
+                            }) }}
+
+                            {{ ps.form_group_row(cmsPageCategoryForm.meta_keywords, {}, {
+                                'label': 'Meta keywords'|trans({}, 'Admin.Global'),
+                                'help': invalidCharactersForNameLabel
+                            }) }}
+
+                            {{ ps.form_group_row(cmsPageCategoryForm.friendly_url, {}, {
+                                'label': 'Friendly URL'|trans({}, 'Admin.Global'),
+                                'help': 'Only letters and the minus (-) character are allowed.'|trans({}, 'Admin.Catalog.Help')
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        {% if ets_seo_preview_analysis is defined %}
+                            {{ ets_seo_preview_analysis | raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    {{ ets_cms_category_seo_setting_html | raw }}
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="category-seo-analysis" role="tabpanel"
+             aria-labelledby="category-seo-analysis-tab">
+            <div class="card">
+                <div class="card-header">
+                    {#{{ 'Meta tags'|trans({}, 'Admin.Shopparameters.Feature') }}#}&nbsp;
+                </div>
+                <div class="card-block row">
+                    <div class="col-md-9">
+                        {{ ets_cms_category_seo_analysis_html | raw }}
+                    </div>
+                    <div class="col-md-3">
+                        {% if ets_seo_preview_analysis is defined %}
+                            {{ ets_seo_preview_analysis | raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <div class="d-inline-flex">
+                <a href="{{ path('admin_cms_pages_index', {'id_cms_category' : cmsCategoryParentId}) }}"
+                   class="btn btn-outline-secondary">
+                    {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+                </a>
+            </div>
+            <div class="d-inline-flex float-right">
+                <button class="btn btn-primary">{{ 'Save'|trans({}, 'Admin.Actions') }}</button>
+            </div>
+        </div>
+    </div>
+
+
+    {{ form_rest(cmsPageCategoryForm) }}
+    {{ form_end(cmsPageCategoryForm) }}
+{% endblock %}

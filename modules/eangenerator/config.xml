@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>printfriendly</name>
+	<displayName><![CDATA[eangenerator]]></displayName>
+	<version><![CDATA[2.1.0]]></version>
+	<description><![CDATA[EAN / UPC codes generator]]></description>
+	<author><![CDATA[Johann Corbel Consulting]]></author>
+	<tab><![CDATA[shipping_logistics]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

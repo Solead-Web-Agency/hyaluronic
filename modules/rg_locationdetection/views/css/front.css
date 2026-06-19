@@ -1,0 +1,93 @@
+/**
+ * Advanced Location Detection
+ *
+ * @author    Rolige <www.rolige.com>
+ * @copyright 2011-2019 Rolige - All Rights Reserved
+ * @license   Proprietary and confidential
+ */
+
+/* Redirection Demo Popup Styles */
+.rg-demo-popup-content {
+  text-align: center; }
+.rg-demo-popup-content .row {
+  margin-left: 15px;
+  margin-right: 15px; }
+.rg-demo-popup-content .header h3 {
+  font-weight: bold;
+  font-size: 28px; }
+.rg-demo-popup-content .content {
+  margin-top: 25px;
+  font-size: 16px; }
+.rg-demo-popup-content .content .congrats {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: red;
+  font-weight: bold;
+  font-size: 18px; }
+.rg-demo-popup-content .footer {
+  margin-top: 35px; }
+.rg-demo-popup-content .footer a img {
+  display: block;
+  margin: 0 auto;
+  width: 50px;
+  height: auto; }
+
+.rgld_popup.fancybox-opened {
+  z-index: 1000001; }
+
+/* Infobar required styles */
+#rg_infobar {
+  width: 100%;
+  margin: 0 auto;
+  z-index: 999999;
+  -webkit-box-shadow: 0px 1px 15px -2px rgba(0,0,0,0.45);
+  -moz-box-shadow: 0px 1px 15px -2px rgba(0,0,0,0.45);
+  box-shadow: 0px 1px 15px -2px rgba(0,0,0,0.45); }
+#rg_infobar .content {
+  position: relative; }
+#rg_infobar .left-side,
+#rg_infobar .right-side {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0; }
+#rg_infobar .left-side {
+  width: 100%;
+  padding: 0 15px;
+  padding-right: 100px; }
+#rg_infobar .right-side {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0 15px;
+  height: 100%; }
+#rg_infobar .right-side .right-content {
+  display: table; 
+  margin: 0 auto;
+  height: 100%; }
+#rg_infobar .right-side .right-content .close-button {
+  display: table-cell;
+  vertical-align: middle; }
+#rg_infobar .right-side .right-content .close-button a {
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  padding: 8px;
+  margin: 0;
+  text-align: center;
+  font-weight: normal;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #00aff0;
+  color: white;
+  opacity: .8;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+#rg_infobar .right-side .right-content .close-button a:hover {
+  opacity: 1; }
+
+/* Infobar Demo Styles */
+#rg_infobar .rg-demo-infobar-content h3 {
+  font-weight: bold; }
+#rg_infobar .rg-demo-infobar-content img {
+  width: 50px;
+  height: auto; }

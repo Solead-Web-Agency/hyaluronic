@@ -1,0 +1,2 @@
+Pour l'onglet Mappage, activez ou désactivez la valeur personnalisée « Fonctionnalités ».
+Remarque : Dans certains cas, la fonctionnalité peut avoir une valeur en double. Essayez d'activer ce paramètre.

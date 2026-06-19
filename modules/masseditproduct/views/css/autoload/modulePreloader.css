@@ -1,0 +1,27 @@
+.loading_popup {
+  padding: 15px;
+  background: #FFFFFF;
+  border: 1px solid #0a6d7d;
+  box-shadow: 0 0 3px #0a6d7d;
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: 999999;
+  min-width: 300px;
+  border-radius: 5px; }
+  .loading_popup .progress_stack {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #0a6d7d;
+    font-weight: bolder; }
+  .loading_popup .current_action {
+    font-size: 15px;
+    text-align: center;
+    color: #0a6d7d; }
+  .loading_popup .title_block {
+    color: #0a6d7d;
+    font-size: 15px;
+    text-align: center; }
+
+/*# sourceMappingURL=modulePreloader.css.map */

@@ -1,0 +1,200 @@
+/*
+   ================================================================================
+   This stylesheet adds platic (with borders and shadows look to blocks
+   It tries to mimic modern fields layout, used by Google and similar big players
+   on their input forms
+   Also it creates field-enter flash effect as fun and engaging factor
+   ================================================================================
+*/
+.checkout-block:not(#thecheckout-confirm) .inner-area {
+  box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  background: white;
+}
+/*
+   ================================================================================
+   Input fields styling
+   ================================================================================
+*/
+.has-float-label label,
+.has-float-label span.field-label {
+  position: absolute;
+  left: 0;
+  top: -4px;
+  cursor: text;
+  font-size: 0.85em;
+  transition: all .2s;
+  opacity: 0.6;
+}
+.has-float-label input:placeholder-shown:not(:focus):not(:-webkit-autofill) ~ span.field-label,
+.has-float-label select:placeholder-shown:not(:focus) ~ span.field-label {
+  font-size: 1.2em;
+  opacity: 0.3;
+  top: .9em;
+  padding-left: 5px;
+}
+.has-float-label input.form-control,
+.has-float-label select.form-control {
+  font-size: 1.2em;
+  padding-top: 1em;
+  margin-bottom: 2px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  padding: 1em 0.5em 0.2em;
+}
+.has-float-label input,
+.has-float-label select {
+  font-size: inherit;
+  padding-top: 1em;
+  margin-bottom: 2px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+.-error ~ .error-msg {
+  margin-top: -2px;
+}
+.business-fields-separator:after,
+.private-fields-separator:after {
+  margin: 15px auto 20px;
+}
+/*
+   ================================================================================
+   Transition flash effects on input fields
+   ================================================================================
+*/
+.effects-helper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 0 0;
+  color: rgba(199, 152, 157, 0.6);
+  pointer-events: none;
+}
+.has-float-label input:focus ~ .effects-helper::after,
+.has-float-label select:focus ~ .effects-helper::after {
+  -webkit-animation: anim-shadow 0.3s forwards;
+  animation: anim-shadow 0.3s forwards;
+}
+@-webkit-keyframes anim-shadow {
+  to {
+    box-shadow: 0 0 100px 50px;
+    opacity: 0;
+  }
+}
+@keyframes anim-shadow {
+  to {
+    box-shadow: 0 0 100px 50px;
+    opacity: 0;
+  }
+}
+/*
+   ================================================================================
+   Shopping cart area
+   ================================================================================
+*/
+input.cart-line-product-quantity {
+  width: 40px;
+  height: 36px;
+  text-align: center;
+  margin-right: 20px;
+  border-width: 1px;
+}
+a.cart-line-product-quantity-up,
+a.cart-line-product-quantity-down {
+  display: inline-block;
+  width: 22px;
+  height: 18px;
+  position: absolute;
+  color: transparent;
+  /* hide actual label on that anchor */
+  background-size: 70% 70%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: white;
+  right: 0;
+}
+a.cart-line-product-quantity-up:hover,
+a.cart-line-product-quantity-down:hover {
+  box-shadow: 1px 1px 4px 0px grey;
+  background-color: white;
+  background-size: 90% 90%;
+}
+.plus-simple {
+  background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3Csvg width='1792' height='1792' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z'/%3E%3C/svg%3E");
+}
+.minus-simple {
+  background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3Csvg width='1792' height='1792' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M1600 736v192q0 40-28 68t-68 28h-1216q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h1216q40 0 68 28t28 68z'/%3E%3C/svg%3E");
+}
+a.cart-line-product-quantity-up {
+  top: 0px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3Csvg width='1792' height='1792' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z'/%3E%3C/svg%3E");
+  border: 1px solid #a39f9f;
+  border-bottom: 1px solid transparent;
+}
+a.cart-line-product-quantity-down {
+  top: 18px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3Csvg width='1792' height='1792' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M1600 736v192q0 40-28 68t-68 28h-1216q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h1216q40 0 68 28t28 68z'/%3E%3C/svg%3E");
+  border: 1px solid #a39f9f;
+}
+.qty-box {
+  position: relative;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.cart-item:first-child {
+  border-top: 1px solid #c1c1c1;
+}
+.cart-item:not(:last-child) {
+  border-bottom: 1px solid #eeeeee;
+}
+.cart-item:last-child {
+  border-bottom: 1px solid #c1c1c1;
+}
+.product-price-section .product-price,
+.product-price-section a {
+  color: black;
+}
+/*
+   ================================================================================
+   Reassurance area
+   ================================================================================
+*/
+.thecheckout-reassurance {
+  text-align: center;
+}
+.reassurance-section {
+  margin: 20px auto 30px;
+}
+.reassurance-section.security:after,
+.reassurance-section.delivery:after {
+  content: "";
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-bottom: 2px solid #85cad9;
+}
+/* Checkboxes */
+.country-call-prefix {
+  font-size: 1.2em;
+  margin-top: calc(1em - 2px);
+  height: 1.8em;
+  border-radius: unset;
+}
+input:placeholder-shown:not(:focus):not(:-webkit-autofill) ~ .country-call-prefix {
+  display: none;
+}
+/* no-header class treatment */
+.checkout-block.no-header {
+  margin-top: -11px;
+  padding-top: 0;
+  overflow-y: hidden;
+  margin-right: -5px;
+  padding-right: 8px;
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22home%5C%2Fpeter%5C%2Fwww%5C%2Fpresta_178%5C%2Fmodules%5C%2Fthecheckout%5C%2Fviews%5C%2Fcss%5C%2Fstyles%5C%2Fmodern.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22%3B%3B%3B%3B%3B%3B%3B%3BAASA%2CeAAe%2CIAAI%2CsBAAuB%3BEACxC%2C4CAAA%3BEACA%2CsCAAA%3BEACA%3B%3B%3B%3B%3B%3B%3BAASF%2CgBAAiB%3BAAAO%2CgBAAiB%2CKAAI%3BEAC3C%3BEACA%3BEACA%3BEACA%3BEACA%3BEAEA%2CmBAAA%3BEACA%3B%3BAAGF%2CgBAAiB%2CMAAK%2CkBAAkB%2CIAAI%2CQAAQ%2CIAAI%2CmBAAsB%2COAAI%3BAAClF%2CgBAAiB%2COAAM%2CkBAAkB%2CIAAI%2CQAAW%2COAAI%3BEAC1D%3BEACA%3BEACA%3BEACA%3B%3BAAGF%2CgBAAiB%2CMAAK%3BAAAe%2CgBAAiB%2COAAM%3BEAC1D%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%2C2CAAA%3BEACA%2CwBAAA%3B%3BAAGF%2CgBAAiB%3BAAAO%2CgBAAiB%3BEACvC%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%2C2CAAA%3B%3BAAGF%2COAAU%3BEACR%3B%3BAAGF%2C0BAA0B%3BAAC1B%2CyBAAyB%3BEACvB%2CsBAAA%3B%3B%3B%3B%3B%3B%3BAASF%2CeAAe%3BEACb%2CSAAS%2CEAAT%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%3BEACA%2CmBAAA%3BEACA%2C%2BBAAA%3BEACA%3B%3BAAGF%2CgBAAiB%2CMAAK%2CMAAS%2CkBAAe%3BAAC9C%2CgBAAiB%2COAAM%2CMAAS%2CkBAAe%3BEAC7C%2C4CAAA%3BEACA%2CoCAAA%3B%3BAAGF%3BEACE%3BIACE%2C0BAAA%3BIACA%3B%3B%3BAAIJ%3BEACE%3BIACE%2C0BAAA%3BIACA%3B%3B%3B%3B%3B%3B%3B%3BAAaJ%2CKAAK%3BEACH%2CWAAA%3BEAEA%2CYAAA%3BEACA%3BEACA%3BEACA%3B%3BAAGF%2CCAAC%3BAAAgC%2CCAAC%3BEAChC%3BEACA%3BEACA%2CYAAA%3BEACA%3BEACA%3B%3BEACA%2CwBAAA%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BAAEA%2CCAZD%2C8BAYE%3BAAAD%2CCAZgC%2CgCAY%5C%2FB%3BEACC%2CgCAAA%3BEACA%3BEACA%2CwBAAA%3B%3BAAKJ%3BEACE%2CsBAAsB%2CiaAAtB%3B%3BAAGF%3BEACE%2CsBAAsB%2CwTAAtB%3B%3BAAGF%2CCAAC%3BEACC%3BEARA%2CsBAAsB%2CiaAAtB%3BEAYA%2CyBAAA%3BEACA%2CoCAAA%3B%3BAAIF%2CCAAC%3BEACC%2CSAAA%3BEAdA%2CsBAAsB%2CwTAAtB%3BEAkBA%2CyBAAA%3B%3BAAGF%3BEACE%3BEACA%2C4CAAA%3B%3BAAGF%2CUAAU%3BEACR%2C6BAAA%3B%3BAAGF%2CUAAU%2CIAAI%3BEACZ%2CgCAAA%3B%3BAAGF%2CUAAU%3BEACR%2CgCAAA%3B%3BAAGF%2CsBAAuB%3BAAAgB%2CsBAAuB%3BEAC5D%3B%3B%3B%3B%3B%3B%3BAASF%3BEACE%3B%3BAAGF%3BEACE%2CsBAAA%3B%3BAAGF%2CoBAAoB%2CSAAS%3BAAAQ%2CoBAAoB%2CSAAS%3BEAChE%2CSAAS%2CEAAT%3BEACA%3BEACA%3BEACA%2CcAAA%3BEACA%3BEACA%2CgCAAA%3B%3B%3BAAUF%3BEACE%3BEACA%2C2BAAA%3BEACA%3BEACA%3B%3BAAGF%2CKAAK%2CkBAAkB%2CIAAI%2CQAAQ%2CIAAI%2CmBAAsB%3BEAC3D%3B%3B%3BAAKF%2CeAAe%3BEACb%3BEACA%3BEACA%3BEACA%3BEACA%22%7D */

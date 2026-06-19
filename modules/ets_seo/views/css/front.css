@@ -1,0 +1,62 @@
+
+
+
+.rss-box h2 {
+    margin-top: 15px;
+    width: 100%;
+    float: left;
+    margin-bottom: 10px!important;
+    padding-bottom: 0;
+    color: #414141;
+    font-size: 16px;
+}
+.rss-box a {
+    border-bottom: 1px dashed #ccc;
+    display: block;
+    line-height: 30px;
+    float: left;
+    width: 100%;
+    outline: none!important;
+    color: #414141;
+    font-size: 14px;
+}
+.rss-box {
+    background-color: #fff;
+    margin: 0 -15px;
+    padding: 15px;
+}
+.rss-list,
+.rss-box ul.rss-children{
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    clear: both;
+}
+.rss-box .rss-list a i {
+    background: rgba(0, 0, 0, 0) linear-gradient(#fc884d, #fb702d, #fc540b) repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) -webkit-linear-gradient(#fc884d, #fb702d, #fc540b) repeat scroll 0 0;
+    color: #fff;
+    float: right;
+    line-height: 18px;
+    margin-top: 6px;
+    padding: 0 5px;
+    margin-bottom: 4px;
+}
+.rss-box li,
+.rss-box ul.rss-children li{
+    display: block;
+    clear: both;
+    list-style: none;
+    width: 100%;
+}
+.ets_seo_rss_feed {
+    padding-bottom: 30px;
+}
+
+
+
+
+
+
+

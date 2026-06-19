@@ -1,0 +1,4 @@
+Date : {date} 
+
+Nom de la règle		Votre produit (ID)	URL du produit du concurrent	ID du concurrent	Prix du concurrent	Ancien prix de votre produit	Nouveau prix de votre produit	$newPrice
+{regles} 

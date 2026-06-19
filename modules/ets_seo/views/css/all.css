@@ -1,0 +1,224 @@
+/*All css*/
+
+#subtab-AdminEtsSeoGeneralDashboard i:first-child,
+#subtab-AdminEtsSeoUrlAndRemoveId i:first-child,
+#subtab-AdminEtsSeoSearchAppearanceContentType i:first-child,
+#subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child,
+#subtab-AdminEtsSeoSearchAppearanceRSS i:first-child,
+#subtab-AdminEtsSeoFileEditor i:first-child,
+#subtab-AdminEtsSeoSocial i:first-child,
+#subtab-AdminEtsSeoGeneralTool i:first-child,
+#subtab-AdminEtsSeoUrlRedirect i:first-child,
+#subtab-AdminSearchEngines i:first-child,
+#subtab-AdminReferrers i:first-child,
+#subtab-AdminEtsSeoImportExport i:first-child,
+#subtab-AdminEtsSeoTraffic a i:first-child,
+#subtab-AdminEtsSeoSettings a i:first-child,
+#subtab-AdminEtsSeoRatingSnippet a i:first-child,
+#subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child,
+#subtab-AdminEtsSeoGeneralDashboard i:first-child{
+    font-size: 0;
+    color: #fff!important;
+}
+#subtab-AdminEtsSeoGeneralDashboard i:first-child:before,
+#subtab-AdminEtsSeoUrlAndRemoveId i:first-child:before,
+#subtab-AdminEtsSeoSearchAppearanceContentType i:first-child:before,
+#subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child:before,
+#subtab-AdminEtsSeoSearchAppearanceRSS i:first-child:before,
+#subtab-AdminEtsSeoFileEditor i:first-child:before,
+#subtab-AdminEtsSeoSocial i:first-child:before,
+#subtab-AdminEtsSeoGeneralTool i:first-child:before,
+#subtab-AdminEtsSeoUrlRedirect i:first-child:before,
+#subtab-AdminSearchEngines i:first-child:before,
+#subtab-AdminReferrers i:first-child:before,
+#subtab-AdminEtsSeoTraffic a i:first-child:before,
+#subtab-AdminEtsSeoImportExport i:first-child:before,
+#subtab-AdminEtsSeoRatingSnippet a i:first-child:before,
+#subtab-AdminEtsSeoSettings a i:first-child:before,
+#subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child:before,
+#subtab-AdminEtsSeoGeneralDashboard i:first-child:before{
+    font-size: 16px;
+    font-family: Fontawesome;
+    line-height: 1;
+    vertical-align: middle;
+}
+#subtab-AdminEtsSeoSettings a i:first-child:before {
+    content: "\f085";
+}
+#subtab-AdminEtsSeoGeneralDashboard i:first-child:before{
+    content:"\f0e4";
+}
+#subtab-AdminEtsSeoUrlAndRemoveId i:first-child:before{
+    content:"\f0c1";
+}
+#subtab-AdminEtsSeoSearchAppearanceContentType i:first-child:before{
+    content:"\f108";
+}
+#subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child:before{
+    content:"\f0e8";
+}
+#subtab-AdminEtsSeoRatingSnippet a i:first-child:before {
+    content: "\f27b";
+}
+#subtab-AdminEtsSeoSearchAppearanceRSS i:first-child:before{
+    content:"\f09e";
+}
+#subtab-AdminEtsSeoFileEditor i:first-child:before{
+    content:"\f17b";
+}
+#subtab-AdminEtsSeoSocial i:first-child:before{
+    content:"\f1e0";
+}
+#subtab-AdminEtsSeoGeneralTool i:first-child:before{
+    content:"\f0ad";
+}
+#subtab-AdminEtsSeoTraffic a i:first-child:before {
+    content:"\f080";
+}
+#subtab-AdminEtsSeoUrlRedirect i:first-child:before{
+    content:"\f066";
+}
+#subtab-AdminSearchEngines i:first-child:before{
+    content:"\f002";
+}
+#subtab-AdminReferrers i:first-child:before{
+    content:"\f287";
+}
+#subtab-AdminEtsSeoImportExport i:first-child:before{
+    content:"\f176 \f175";
+}
+#subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child:before{
+    content:"\f085";
+}
+/*-------------------------- Menu Sidebar -------------------------*/
+.mobile li#tab-AdminEtsSeo {
+    display: block;
+    cursor: pointer;
+}
+.mobile #subtab-AdminEtsSeoGeneralDashboard,
+.mobile #subtab-AdminEtsSeoUrlAndRemoveId,
+.mobile #subtab-AdminEtsSeoSearchAppearanceSitemap,
+.mobile #subtab-AdminEtsSeoSearchAppearanceRSS,
+.mobile #subtab-AdminEtsSeoFileEditor,
+.mobile #subtab-AdminEtsSeoRatingSnippet,
+.mobile #subtab-AdminEtsSeoSearchAppearanceContentType,
+.mobile #subtab-AdminEtsSeoSocial,
+.mobile #subtab-AdminEtsSeoTraffic,
+.mobile #subtab-AdminEtsSeoSettings,
+.page-sidebar-closed #subtab-AdminEtsSeoGeneralDashboard,
+.page-sidebar-closed #subtab-AdminEtsSeoUrlAndRemoveId,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceSitemap,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceRSS,
+.page-sidebar-closed #subtab-AdminEtsSeoFileEditor,
+.page-sidebar-closed #subtab-AdminEtsSeoRatingSnippet,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceContentType,
+.page-sidebar-closed #subtab-AdminEtsSeoSocial,
+.page-sidebar-closed #subtab-AdminEtsSeoTraffic,
+.page-sidebar-closed #subtab-AdminEtsSeoSettings{
+    display: none;
+}
+.mobile #subtab-AdminEtsSeoGeneralDashboard.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoUrlAndRemoveId.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSearchAppearanceSitemap.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSearchAppearanceRSS.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoFileEditor.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoRatingSnippet.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSearchAppearanceContentType.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSocial.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoTraffic.ets_sidebar_menu_show,
+.mobile #subtab-AdminEtsSeoSettings.ets_sidebar_menu_show
+/*.page-sidebar-closed #subtab-AdminEtsSeoGeneralDashboard.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoUrlAndRemoveId.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceSitemap.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceRSS.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoFileEditor.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoRatingSnippet.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoSearchAppearanceContentType.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoSocial.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoTraffic.ets_sidebar_menu_show,
+.page-sidebar-closed #subtab-AdminEtsSeoSettings.ets_sidebar_menu_show*/{
+    display: block;
+}
+.mobile #subtab-AdminEtsSeoGeneralDashboard i:first-child:before,
+.mobile #subtab-AdminEtsSeoUrlAndRemoveId i:first-child:before,
+.mobile #subtab-AdminEtsSeoSearchAppearanceContentType i:first-child:before,
+.mobile #subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child:before,
+.mobile #subtab-AdminEtsSeoSearchAppearanceRSS i:first-child:before,
+.mobile #subtab-AdminEtsSeoFileEditor i:first-child:before,
+.mobile #subtab-AdminEtsSeoSocial i:first-child:before,
+.mobile #subtab-AdminEtsSeoGeneralTool i:first-child:before,
+.mobile #subtab-AdminEtsSeoUrlRedirect i:first-child:before,
+.mobile #subtab-AdminSearchEngines i:first-child:before,
+.mobile #subtab-AdminReferrers i:first-child:before,
+.mobile #subtab-AdminEtsSeoTraffic a i:first-child:before,
+.mobile #subtab-AdminEtsSeoImportExport i:first-child:before,
+.mobile #subtab-AdminEtsSeoRatingSnippet a i:first-child:before,
+.mobile #subtab-AdminEtsSeoSettings a i:first-child:before,
+.mobile #subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child:before{
+    font-size: 29px;
+    width: 32px;
+    height: 28px;
+}
+.mobile #subtab-AdminEtsSeoGeneralDashboard i:first-child, 
+.mobile #subtab-AdminEtsSeoUrlAndRemoveId i:first-child, 
+.mobile #subtab-AdminEtsSeoSearchAppearanceContentType i:first-child, 
+.mobile #subtab-AdminEtsSeoSearchAppearanceSitemap i:first-child, 
+.mobile #subtab-AdminEtsSeoSearchAppearanceRSS i:first-child, 
+.mobile #subtab-AdminEtsSeoFileEditor i:first-child, 
+.mobile #subtab-AdminEtsSeoSocial i:first-child, 
+.mobile #subtab-AdminEtsSeoGeneralTool i:first-child, 
+.mobile #subtab-AdminEtsSeoUrlRedirect i:first-child, 
+.mobile #subtab-AdminSearchEngines i:first-child, 
+.mobile #subtab-AdminReferrers i:first-child, 
+.mobile #subtab-AdminEtsSeoImportExport i:first-child, 
+.mobile #subtab-AdminEtsSeoTraffic a i:first-child, 
+.mobile #subtab-AdminEtsSeoSettings a i:first-child, 
+.mobile #subtab-AdminEtsSeoRatingSnippet a i:first-child, 
+.mobile #subtab-AdminEtsSeoSearchAppearanceGeneral i:first-child, 
+.mobile #subtab-AdminEtsSeoGeneralDashboard i:first-child{
+    width: 32px;
+}
+.mobile li#tab-AdminEtsSeo.actived > span.title:after {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin-top: 3px;
+}
+.mobile li#tab-AdminEtsSeo > span.title:after {
+    content: "";
+    border-top: 2px solid #6c868e;
+    border-right: 2px solid #6c868e;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    float: right;
+    margin-right: 32px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+
+
+/*-------------------------End Menu sidebar-----------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

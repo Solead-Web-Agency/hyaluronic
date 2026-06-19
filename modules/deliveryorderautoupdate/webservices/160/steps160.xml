@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+		<id_status>1</id_status>
+		<statuscode>delivered</statuscode>
+		<statuscode>The recipient has picked up the shipment from the retail outlet</statuscode>
+	</step>
+	<step>
+		<id_status>2</id_status>
+		<statuscode>failure</statuscode>
+		<statuscode>The shipment could not be delivered</statuscode>
+	</step>
+	<step>
+		<id_status>3</id_status>
+		<statuscode>unknown</statuscode>
+		<statuscode>transit</statuscode>
+		<statuscode>Shipment picked up</statuscode>
+		<statuscode>Departed Facility</statuscode>
+		<statuscode>Arrived at Sort Facility</statuscode>
+		<statuscode>The shipment was prepared for onward transport.</statuscode>
+		<statuscode>The shipment has arrived at the parcel center</statuscode>
+		<statuscode>The shipment has arrived in the destination country/destination area</statuscode>
+		<statuscode>The shipment has been processed in the parcel center of origin</statuscode>
+		<statuscode>The international shipment has been processed in the parcel center of origin</statuscode>
+		<statuscode>The shipment arrived in the region of recipient and will be transported to the delivery base in the next step.</statuscode>
+		<statuscode>The shipment has left the import parcel center in the destination country/destination area.</statuscode>
+		<statuscode>The shipment will be transported to the destination country/destination area and, from there, handed over to the delivery organization. (Homepage / online shipment tracking: )</statuscode>
+		<statuscode>The international shipment has been processed in the export parcel center</statuscode>
+		<statuscode>Shipment on hold</statuscode>
+		<statuscode>Customs status updated</statuscode>
+		<statuscode>Transferred through</statuscode>
+		<statuscode>Arrived at Sort Facility</statuscode>
+		<statuscode>Clearance processing complete</statuscode>
+		<statuscode>Processed</statuscode>
+		<statuscode>Arrived at Delivery Facility</statuscode>
+	</step>
+	<step>
+		<id_status>4</id_status>
+		<statuscode>pre-transit</statuscode>
+		<statuscode>The instruction data for this shipment have been provided by the sender to DHL electronically</statuscode>
+		<statuscode>Payment is received and recorded for shipment related fees</statuscode>
+	</step>
+	<step>
+		<id_status>5</id_status>
+		<statuscode></statuscode>
+	</step>
+	<step>
+		<id_status>6</id_status>
+		<statuscode>The shipment has been delivered for pick-up</statuscode>
+		<statuscode>The shipment is available for pick-up from the retail outlet</statuscode>
+	</step>
+	<step>
+		<id_status>8</id_status>
+		<statuscode>With delivery courier</statuscode>
+		<statuscode>The shipment has been loaded onto the delivery vehicle</statuscode>
+		<statuscode>The shipment is on its way to the outlet.</statuscode>
+		<statuscode>The shipment is being prepared for delivery in the delivery depot</statuscode>		
+	</step>
+	<step>
+		<id_status>104</id_status>
+		<statuscode>500</statuscode>
+	</step>
+	<step>
+		<id_status>105</id_status>
+		<statuscode>400</statuscode>
+		<statuscode>401</statuscode>
+	</step>
+	<step>
+		<id_status>106</id_status>
+		<statuscode>404</statuscode>
+	</step>
+	<step>
+		<id_status>108</id_status>
+		<statuscode>429</statuscode>
+	</step>
+</document>

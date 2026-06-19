@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>gadwordstracking</name>
+    <displayName><![CDATA[Google Adwords Conversion Tracking]]></displayName>
+    <version><![CDATA[2.2.9]]></version>
+    <description><![CDATA[Mettre en place l&#039;outil Google Adwords de suivi des conversions, et &ecirc;tre s&ucirc;r que vos commandes / conversions seront correctement envoy&eacute;es &agrave; Google Adwords, ainsi vous aurez une vue claire de la rentabilit&eacute; de vos campagnes]]></description>
+    <author><![CDATA[Business Tech]]></author>
+    <tab><![CDATA[advertising_marketing]]></tab>
+	<confirmUninstall><![CDATA[Etes-vous sûr de vouloir le désinstaller ? Votre module Google Adwords Conversion Tracking ne fonctionnera plus. Attention, toute la configuration et les données du module seront perdues]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

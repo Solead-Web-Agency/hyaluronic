@@ -1,0 +1,56 @@
+{# **
+ * OrderEdit
+ *
+ * @author    silbersaiten <info@silbersaiten.de>
+ * @copyright 2021 silbersaiten
+ * @license   See joined file licence.txt
+ * @support   silbersaiten <support@silbersaiten.de>
+ * @category  Module
+ * @version   2.0.8
+ * @link      https://www.silbersaiten.de
+ * #}
+
+<div class="modal fade" id="afterOrderChangeMessage" tabindex="-1" role="dialog">
+    <form>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content after_order_change_message">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ 'Message to the customer'|trans({}, 'Admin.Orderscustomers.Feature') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ 'Close'|trans({}, 'Admin.Actions') }}">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="form-control-label"></div>
+                        <div class="col-sm">
+            <textarea name="order_change_message_msg"
+                      required="required"
+                      class="order_change_message_msg autoload_rte form-control"
+                      rows="10"
+            >{{ 'This is default text!'|trans({}, 'Admin.Actions') }}</textarea>
+                            <small>
+                                <em>
+                                    {{ 'This message will be sent to the customer along with an indication of the change order surcharge'|trans({}, 'Admin.Orderscustomers.Feature') }}
+                                </em>
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="d-none">
+                        <input type="hidden" name="id_order" value="{{ orderForViewing.id }}"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                        {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+                    </button>
+                    <a href="" class="btn btn-primary" id="send_order_change_message">
+                        {{ 'Send message'|trans({}, 'Admin.Actions') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

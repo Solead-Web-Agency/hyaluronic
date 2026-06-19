@@ -1,0 +1,132 @@
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to a commercial license from Feed.biz
+ * Use, copy, modification or distribution of this source file without written
+ * license agreement from Feed.biz is strictly forbidden.
+ * In order to obtain a license, please contact us: contact@common-services.com
+ * ...........................................................................
+ * INFORMATION SUR LA LICENCE D'UTILISATION
+ *
+ * L'utilisation de ce fichier source est soumise a une licence commerciale
+ * concedee par la societe Feed.biz.
+ * Toute utilisation, reproduction, modification ou distribution du present
+ * fichier source sans contrat de licence ecrit de la part de la Common-Services Co. Ltd. est
+ * expressement interdite.
+ * Pour obtenir une licence, veuillez contacter Common-Services Co., Ltd. a l'adresse: contact@common-services.com
+ *
+ * @author    Olivier B.
+ * @copyright Copyright (c) Since 2011 Common Services Co Ltd / Feed.biz
+ * @license   Commercial license
+ * @package   Amazon Market Place
+ * Support by mail:  support.amazon@common-services.com
+ */
+
+#tabList input, #tabList select {
+    display: inline;
+}
+
+#tabList input:not(#send-debug) {
+    width:20px;
+    height:20px;
+}
+#menudiv-import .order tbody tr td img {
+    position:relative;
+    top:-2px;
+}
+
+#country-selector fieldset .country-fieldset {
+    padding: 10px 0 0 30px;
+}
+
+#amazon-informations-result, #amazon-informations-error, #amazon-import-result, #amazon-import-error, #amazon-import-support, #amazon-import-warning, #amz-loader {
+    padding-left: 60px;
+    display: none;
+}
+
+.amz-options tr td input {
+    margin: 5px;
+}
+
+.amz-options tr td {
+    padding: 5px;
+    margin: 5px;
+}
+
+.amz-small-help {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #6495ED;
+}
+
+#country-selector > fieldset > fieldset {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: gainsboro !important;
+}
+
+#country-selector > fieldset > fieldset:nth-child(2) {
+    margin-right: 20px;
+}
+
+.bootstrap h3 img {
+    vertical-align: sub;
+}
+
+#statuses {
+    margin: 5px;
+}
+
+
+.order-line {
+    width: 100%;
+}
+
+.order-line tbody tr td:first-child {
+    width: 130px;
+
+}
+
+.order-line tbody tr td:nth-child(3) {
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.order-line tbody tr td:nth-child(2) {
+    width: 90px;
+}
+
+.order-line tr td {
+    color: grey;
+    opacity: 0.7;
+
+}
+
+#main .support-msg {
+    color: green;
+    border: 1px solid silver;
+    background: white;
+    margin: 5px 5px 20px 5px;
+    padding: 5px;
+}
+
+#main .order-link a {
+    cursor: pointer;
+    color: navy;
+}
+
+#main .order-link a:hover {
+    text-decoration: underline;
+}
+
+#main .imported_row2 td {
+    background-color: rgba(40, 40, 40, 0.07);
+}
+
+#main .imported_row td {
+    background-color: #DFF2BF;
+}
+
+#main .error_row td {
+    background-color: #FFBABA;
+}

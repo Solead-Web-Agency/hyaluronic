@@ -1,0 +1,8 @@
+[{shop_name}]({shop_url})
+Olá,
+
+A cobertura do estoque agora é menor do que o mínimo definido de: {warning_coverage}.
+
+Cobertura atual do estoque: {current_coverage}
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

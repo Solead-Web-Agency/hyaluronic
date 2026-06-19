@@ -1,0 +1,3 @@
+<?PHP 
+$this->mkey="78c1895f6790bd5b3e8b69e0fb42cf3c";
+ ?>

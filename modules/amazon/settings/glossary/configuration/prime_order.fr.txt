@@ -1,0 +1,8 @@
+A droite, transporteur associé lors de l'import de la commande, idéal pour afficher la bonne dénomination sur votre page de commande ou sur la facture
+
+A gauche:
+Sélectionnez le transporteur de votre boutique qui sera utilisé pour la commande lors de la mise à jour du statut, de l'envoi du numero de suivi de colis.
+Pour des raisons d'incompatibilité, les transporteurs modules ne sont pas affichés.
+
+
+<img style="width:100%;" src="views/img/tips/fr/carriers_prime.png" />

@@ -1,0 +1,89 @@
+{# **
+ * OrderEdit
+ *
+ * @author    silbersaiten <info@silbersaiten.de>
+ * @copyright 2021 silbersaiten
+ * @license   See joined file licence.txt
+ * @support   silbersaiten <support@silbersaiten.de>
+ * @category  Module
+ * @version   2.0.24
+ * @link      https://www.silbersaiten.de
+ * #}
+
+<div class="modal fade" id="editOrderMainDataModal" tabindex="-1" role="dialog">
+    <form>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content update_order_main_data_modal">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ 'Order detail'|trans({}, 'Modules.Orderedit.Admin') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ 'Close'|trans({}, 'Admin.Actions') }}">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-control-label" for="order_date_add">
+                            {{ 'Created date'|trans({}, 'Modules.Orderedit.Admin') }}
+                        </label>
+                        <input type="text" id="order_date_add" name="order_date_add" class="form-control" value="{{ orderRaw.date_add }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="order_date_upd">
+                            {{ 'Updated date'|trans({}, 'Modules.Orderedit.Admin') }}
+                        </label>
+                        <input type="text" id="order_date_upd" name="order_date_upd" class="form-control" value="{{ orderRaw.date_add }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="order_reference">
+                            {{ 'Reference'|trans({}, 'Modules.Orderedit.Admin') }}
+                        </label>
+                        <input type="text" id="order_reference" name="order_reference" class="form-control" value="{{ orderRaw.reference }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">
+                            {{ 'Customer ID'|trans({}, 'Modules.Orderedit.Admin') }}
+                        </label>
+                        <input type="text" id="order_customer_id" name="order_customer_id" class="form-control col-3" value="{{ orderRaw.id_customer }}">
+                        <small class="form-text">
+                            {{ 'Type the customer id, just a number'|trans({}, 'Modules.Orderedit.Admin') }}
+                        </small>
+                    </div>
+{#                   #FIXME - here must be search of customers #}
+{#                    <div class="row js-search-customer-row mb-3">#}
+{#                        <div class="col-3">#}
+{#                            <span class="float-right">{{ 'Search for a customer'|trans({}, 'Admin.Orderscustomers.Feature') }}</span>#}
+{#                        </div>#}
+{#                        <div class="col-4">#}
+{#                            <input type="text"#}
+{#                                   class="form-control"#}
+{#                                   id="customer-search-input"#}
+{#                            >#}
+{#                            <small class="form-text">#}
+{#                                {{ 'Search for an existing customer by typing the first letters of his/her name.'|trans({}, 'Admin.Orderscustomers.Help') }}#}
+{#                            </small>#}
+{#                        </div>#}
+{#                        <div class="col">#}
+{#                            <span class="mr-2">{{ 'or'|trans({}, 'Admin.Global') }}</span>#}
+
+{#                            <a id="customer-add-btn" class="btn btn-primary" href="{{ path('admin_customers_create', {'liteDisplaying': 1, 'submitFormAjax': 1}) }}">#}
+{#                                {{ 'Add new customer'|trans({}, 'Admin.Orderscustomers.Feature') }}#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <div class="d-none">
+                        <input type="hidden" name="id_order" value="{{ orderForViewing.id }}"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                        {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+                    </button>
+                    <a href="" class="btn btn-primary" id="update_order_main_data">
+                        {{ 'Update'|trans({}, 'Admin.Actions') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

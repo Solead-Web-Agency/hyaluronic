@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>COLIS LIVRÉ</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode>DEMANDE SAV</statuscode>
+			<statuscode>COLIS MIS EN AVARIE</statuscode>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>PRISE EN CHARGE POINT RELAIS</statuscode>
+			<statuscode>PRISE EN CHARGE EN AGENCE</statuscode>
+			<statuscode>PRISE EN CHARGE PAR LE TRANSPO</statuscode>
+			<statuscode>EXPEDIE VERS LE HUB</statuscode>
+			<statuscode>ECHEC AVISAGE PAR EMAIL</statuscode>
+
+
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode>RÉCEPTION DES DONNÉES</statuscode>
+			<statuscode>CONSIGNE SUPPLEMENTAIRE</statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode>DISPONIBLE AU POINT RELAIS</statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode>RETOUR DU COLIS</statuscode>
+			<statuscode>RETOUR A L'EXPÉDITEUR</statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>COLIS REMIS AU LIVREUR</statuscode>
+			<statuscode>EN COURS DE LIVRAISON</statuscode>
+	</step>
+	<step>
+			<id_status>13</id_status>
+			<statuscode>AVISAGE PAR EMAIL</statuscode>
+	</step>
+	<step>
+			<id_status>102</id_status>
+			<statuscode>1</statuscode>
+			<statuscode>97</statuscode>
+	</step>
+	<step>
+			<id_status>103</id_status>
+			<statuscode>95</statuscode>
+	</step>
+	<step>
+			<id_status>104</id_status>
+			<statuscode>99</statuscode>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<statuscode>24</statuscode>
+	</step>
+	<step>
+			<id_status>106</id_status>
+			<statuscode>94</statuscode>
+			<statuscode>98</statuscode>
+	</step>
+</document>

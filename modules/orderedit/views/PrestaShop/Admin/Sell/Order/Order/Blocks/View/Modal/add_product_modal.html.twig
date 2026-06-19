@@ -1,0 +1,125 @@
+{# **
+ * OrderEdit
+ *
+ * @author    silbersaiten <info@silbersaiten.de>
+ * @copyright 2021 silbersaiten
+ * @license   See joined file licence.txt
+ * @support   silbersaiten <support@silbersaiten.de>
+ * @category  Module
+ * @version   2.0.26
+ * @link      https://www.silbersaiten.de
+ * #}
+
+<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ 'Add product'|trans({}, 'Module.Orderedit.Admin') }}</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="{{ 'Close'|trans({}, 'Admin.Actions') }}">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th colspan="2"><p>{{ 'Product name'|trans({}, 'Modules.Orderedit.Admin') }}</p></th>
+                        <th><p>{{ 'Price'|trans({}, 'Modules.Orderedit.Admin') }}</p></th>
+                        <th><p>{{ 'Quantity'|trans({}, 'Modules.Orderedit.Admin') }}</p></th>
+                        {# <th><p>{{ 'Refunded'|trans({}, 'Modules.Orderedit.Admin') }}</p></th> #}
+                        <th><p>{{ 'Available quantity'|trans({}, 'Modules.Orderedit.Admin') }}</p></th>
+                        <th><p>{{ 'Total'|trans({}, 'Modules.Orderedit.Admin') }}</p></th>
+                        <th><p>{{ 'Invoice'|trans({}, 'Modules.Orderedit.Admin') }}</p></th>
+                        <th><p>{{ 'Actions'|trans({}, 'Modules.Orderedit.Admin') }}</p></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr id="addProductTableRow" class="add-product add_product_modal">
+                        <td colspan="2" class="pr-2">
+                            {{ form_row(addProductRowForm.product_id) }}
+                            {{ form_row(addProductRowForm.tax_rate) }}
+                            {{ form_label(addProductRowForm.search) }}
+                            {{ form_widget(addProductRowForm.search) }}
+                            <div class="dropdown">
+                                <div class="dropdown-menu"></div>
+                            </div>
+                            <div class="input-group mt-2" id="addProductCombinations">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">{{ 'Combinations'|trans({}, 'Admin.Global') }}</div>
+                                </div>
+                                <select id="addProductCombinationId" class="custom-select"></select>
+                            </div>
+                        </td>
+                        <td class="pr-2">
+                            <div class="row add-product-inputs">
+                                <div class="col-sm-6">
+                                    {{ form_widget(addProductRowForm.price_tax_excluded) }}
+                                </div>
+
+                                <div class="col-sm-6">
+                                    {{ form_widget(addProductRowForm.price_tax_included) }}
+                                </div>
+                            </div>
+                        </td>
+                        <td class="pr-2 add-product-quantity">
+                            {{ form_row(addProductRowForm.quantity, {'type':'number'}) }}
+                        </td>
+                        {# <td id="addProductLocation" class="cellProductLocation"></td> #}
+                        {# <td id="addProductRefunded" class="cellProductRefunded"></td> #}
+                        <td id="addProductAvailable"></td>
+                        <td id="addProductTotalPrice"></td>
+                        {% if orderForViewing.hasInvoice() %}
+                            <td class="addProductInvoice pr-2">
+                                {{ form_row(addProductRowForm.invoice, {
+                                    'attr': {
+                                        'data-modal-title': 'Create a new invoice'|trans({}, 'Admin.Orderscustomers.Feature'),
+                                        'data-modal-apply': 'Create'|trans({}, 'Admin.Actions'),
+                                        'data-modal-cancel': 'Cancel'|trans({}, 'Admin.Actions'),
+                                        'data-modal-body': 'Are you sure you want to create a new invoice?'|trans({}, 'Admin.Orderscustomers.Notification'),
+                                        'data-modal-edit-price-title': 'Edit the price'|trans({}, 'Admin.Orderscustomers.Feature'),
+                                        'data-modal-edit-price-apply': 'Update'|trans({}, 'Admin.Actions'),
+                                        'data-modal-edit-price-cancel': 'Cancel'|trans({}, 'Admin.Actions'),
+                                        'data-modal-edit-price-body': 'Are you sure you want to edit this product price? It will be applied to all invoices of this order.'|trans({}, 'Admin.Orderscustomers.Notification'),
+                                    }}) }}
+                            </td>
+                        {% endif %}
+                        <td class="text-right add-product-buttons">
+                            <div class="btn-group">
+                                {# {{ form_row(addProductRowForm.cancel) }} #}
+                                <div class="form-group">
+                                    <button type="button" id="add_product_row_cancel" name="add_product_row[cancel]"
+                                            data-dismiss="modal"
+                                            class="btn btn-sm btn-secondary js-product-add-action-btn mr-2 mt-2 mb-2 btn">
+                                        {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" id="add_product_row_add" name="add_product_row[add]"
+                                            class="btn btn-sm btn-primary js-product-add-action-btn mt-2 mb-2 btn d-none"
+                                            data-order-id="{{ orderForViewing.id }}" disabled=""
+{#                                            onclick="$('#addProductModal').modal('toggle');"#}
+                                    >
+                                        {{ 'Add'|trans({}, 'Admin.Actions') }}
+                                    </button>
+                                </div>
+                                {# {{ form_row(addProductRowForm.add) }} #}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="addProductNewInvoiceInfo" class="d-none">
+                        <td colspan="12">
+                            <div>
+                                <h4>{{ 'New invoice information'|trans({}, 'Admin.Orderscustomers.Feature') }}</h4>
+                                <p><b>{{ 'Carrier'|trans({}, 'Admin.Shipping.Feature') }}
+                                        :</b> {{ orderForViewing.carrierName }}</p>
+                                {{ form_row(addProductRowForm.free_shipping) }}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

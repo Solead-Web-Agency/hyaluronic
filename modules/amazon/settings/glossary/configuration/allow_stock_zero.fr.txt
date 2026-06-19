@@ -1,0 +1,1 @@
+Consenti al modulo di importare ordini per i quali lo stock è zero.

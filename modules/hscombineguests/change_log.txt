@@ -1,0 +1,43 @@
+v2.1.0 (2021-7-12)
+- [Fixed] Does not create the order with the abandoned cart after combining guests.
+- [Added] Compatible with PrestaShop version 1.7.8
+- [Improvement] Update user guide.
+
+v2.0.1 (2020-14-8)
+- [Fixed] SQL error in case show list guest after combining.
+- [Changed] Clean & add customer group after combining. 
+
+v2.0.0 (2020-25-3)
+- [Improvement] Cron job: Automatically combine customer/guest accounts.
+- [Changed] Sending email bases on customer language.
+- [Changed] Layout module setting page.
+- [Changed] Update document.
+
+v1.7.0 (2019-27-11)
+- [Added] Compatible with PrestaShop version 1.7.6
+- [Added] Update document
+- [Added] Add module footer
+
+v1.6.0 (2019-29-8)
+- [Added] Combine private notes
+
+v1.5.0 (2018-6-11)
+- [Added] Search customer with phone number.
+- [Added] Combine duplicate addresses
+- [Added] Work with multi stores
+
+v1.4.0 (2017-20-3)
+- [Fixed] Compatible with PrestaShop version 1.7
+=========================
+
+v1.3.2 (2015-11-2)
+- [Fixed] Module does not work when install module hsmergeorders
+- [Fixed] Validate module
+=========================
+
+v1.1 (2013-10-29)
+- [Fixed] SQL error in case there is only 1 guest
+=========================
+
+v1.0 (2013-09-15)
+- Initialize

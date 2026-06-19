@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>gmerchantcenterpro</name>
+    <displayName><![CDATA[Google Merchant Center PRO (Google Shopping)]]></displayName>
+    <version><![CDATA[1.7.17]]></version>
+    <description><![CDATA[La version PRO de Google Merchant Center: encore plus de contr&ocirc;le sur les donn&eacute;es produit, export des avis et des promotions.]]></description>
+    <author><![CDATA[Business Tech]]></author>
+    <tab><![CDATA[seo]]></tab>
+	<confirmUninstall><![CDATA[Etes-vous sûr(e) de vouloir supprimer Google Merchant Center ?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

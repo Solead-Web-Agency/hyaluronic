@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modules>
+   <module>
+		<id_module>1</id_module>
+		<public_name>Colissimo</public_name>
+		<technical_name>colissimo</technical_name>
+	</module>
+</modules>
+

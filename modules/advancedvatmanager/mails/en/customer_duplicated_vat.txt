@@ -1,0 +1,12 @@
+[/{shop_url}]
+
+MODULE ADVANCED VAT MANAGER
+VAT Validation
+
+Hi [/{customer_name}],
+
+Your VAT number field is duplicated with another customer account. If you have created two different accounts in our shop with same VAT number, please delete one of them or set different valid VAT number in one of them. Go to your addresses by clicking following link:
+[{customer_account_addr}]
+
+Email sent by Advanced VAT Manager module, developed by Liewebs [http://www.prestashop.com/] 
+

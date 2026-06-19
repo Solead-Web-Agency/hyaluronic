@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<AmazonEnvelope xsi:noNamespaceSchemaLocation="amzn-envelope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>A33GWK7HUXXXXX</MerchantIdentifier>
+    </Header>
+    <MessageType>OrderFulfillment</MessageType>
+    <Message>
+        <MessageID>1</MessageID>
+        <OrderFulfillment>
+            <AmazonOrderID>402-5553712-3711111</AmazonOrderID>
+            <FulfillmentDate>2021-01-17T09:15:44+00:00</FulfillmentDate>
+            <FulfillmentData>
+                <CarrierCode>Chronopost</CarrierCode>
+                <ShippingMethod>Chrono 13</ShippingMethod>
+                <ShipperTrackingNumber>43XWRI834UEJWF</ShipperTrackingNumber>
+            </FulfillmentData>
+        </OrderFulfillment>
+    </Message>
+    <Message>
+        <MessageID>2</MessageID>
+        <OrderFulfillment>
+            <AmazonOrderID>405-4889846-1122222</AmazonOrderID>
+            <FulfillmentDate>2023-01-02T07:23:20+00:00</FulfillmentDate>
+            <FulfillmentData>
+                <CarrierName>Custom Carrier</CarrierName>
+                <ShippingMethod>Custom Method</ShippingMethod>
+                <ShipperTrackingNumber>43XWRI834UEJWF</ShipperTrackingNumber>
+            </FulfillmentData>
+        </OrderFulfillment>
+    </Message>
+</AmazonEnvelope>

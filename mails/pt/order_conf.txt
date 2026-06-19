@@ -1,0 +1,39 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+Obrigado por fazer compras na {shop_name}!
+
+Encomenda: {order_name} Realizada a {date}
+
+Pagamento: {payment}
+
+Referência	Produto	Preço unitário	Quantidade	Preço total  {products_txt} {discounts_txt}
+
+Produtos
+{total_products}
+
+Descontos
+{total_discounts}
+
+Embrulho de presente
+{total_wrapping}
+
+Envio
+{total_shipping}
+
+Total de imposto pago
+{total_tax_paid}
+
+Total pago
+{total_paid}
+
+Transportadora: {carrier}
+
+Pagamento: {payment}
+
+{delivery_block_txt}
+{invoice_block_txt}
+
+Follow your order and download your invoice on our shop, go to the [Histórico de encomendas e detalhes]({history_url}) section of your customer account.
+If you have a guest account, you can follow your order via the [Rastreio de Visitantes]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

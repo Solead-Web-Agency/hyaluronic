@@ -1,0 +1,493 @@
+<!--begin_tbody_list_product!-->
+<tbody class="tbody_list_product {%if ETS_PMN_ENABLE_INSTANT_FILTER is defined and ETS_PMN_ENABLE_INSTANT_FILTER==1%} search {% endif %} {% if activate_drag_and_drop %} sortable{% endif %}"
+                                       last_sql="{{ last_sql_query|escape('html_attr') }}"
+>
+{% if  products[0].total == false %}
+    <tr>
+        <td colspan="100%">
+            {{ "There is no result for this search. Update your filters to view other products."|trans({}, 'Admin.Catalog.Notification') }}
+        </td>
+    </tr>
+{% else %}
+    {% for product in products %}
+        {% block product_catalog_form_table_row %}
+        {%if ets_pmg_product_fileds is defined%}
+            <tr data-uniturl="{{ product.unit_action_url|default('#') }}" data-product-id="{{ product.id_product }}">
+                <td class="checkbox-column form-group">
+                    <div class="ets_td">
+                        <div class="md-checkbox md-checkbox-inline">
+                            <label>
+                                <input type="checkbox" id="bulk_action_selected_products-{{ product.id_product }}" name="bulk_action_selected_products[]" value="{{ product.id_product }}">
+                                <i class="md-checkbox-control"></i>
+                            </label>
+                        </div>
+                        <input type="hidden" name="id_product" value="{{product.id_product}}" />
+                        <input type="hidden" name="id_tax_rules_group" value="{{product.id_tax_rules_group}}" id="id_tax_rules_group" />
+                    </div>
+                </td>
+                {% for key,field in ets_pmg_product_fileds %}
+                    {%if field.input is defined%}
+                        {%set field_input= field.input%}
+                    {%else%}
+                        {%set field_input = false%}
+                    {%endif%}
+                     <td class="column {{key}}{%if key=='sav_quantity'%} product-sav-quantity text-center{%endif%}" {%if key=='sav_quantity'%} data-product-quantity-value="{{ product.sav_quantity|default('') }}"{%endif%}>
+                        <div class="ets_td">
+                        {%if key=='image' or key=='name'%}
+                            <div class="{%if key=='name'%}span_change_product content s1{%else%}popup_change_product{%endif%}">
+                                <a href="{{ product.url|default('') }}#tab-step1">{{ product[key]|raw }}</a>
+                            {%if key=='image'%}
+                                <a class="btn tooltip-link product-edit-popup" href="#" title="{{ets_pmn_edit_text}}" onclick="etsGetFormPopupProduct($(this),'image');return false;">
+                                    <i class="ets_svg_icon">
+                                        <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"/></svg>
+                                    </i>
+                                </a>
+                            {%endif%}
+                            </div>
+                        {%elseif key=='price' or key=='price_final'%}
+                            <div class="span_change_product content s2">
+                                <a href="{{ product.url|default('') }}#tab-step2">{{ product[key]|raw }}</a>
+                            </div>
+                        {%elseif key =='associated_file'%}
+                            {%if product.is_virtual%}
+                                <div class="popup_change_product">
+                                    <div class="content">
+                                        <a href="{{ product.link_associated_file|default('') }}">{{ product[key]|raw }}</a>
+                                    </div>
+                                    <a class="btn tooltip-link product-edit-popup" href="#" title="{{ets_pmn_edit_text}}" onclick="etsGetFormPopupProduct($(this),'associated_file');return false;">
+                                        <i class="ets_svg_icon">
+                                            <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"/></svg>
+                                        </i>
+                                    </a>
+                                </div>
+                            {%else%}
+                                <span class="text-center">--</span>
+                            {%endif%}
+                        {%elseif key=='sav_quantity'%}
+                            {% if 'PS_STOCK_MANAGEMENT'|configuration %}
+                                <div class="{%if product.has_attribute==false%}span_change_product content s3{%else%}popup_change_product{%endif%}">
+                                    {%if product.has_attribute==true%}
+                                        <div class="content">
+                                        <div class="content_info">
+                                    {%endif%}
+                                            <a href="{{ product.url|default('') }}#tab-step3">
+                                                {% if product.sav_quantity is defined and product.sav_quantity > 0 %}
+                                                    {{ product.sav_quantity }}
+                                                {% else %}
+                                                    {{ product.sav_quantity|default('N/A'|trans({}, 'Admin.Global')) }}
+                                                {% endif %}
+                                            </a>
+                                    {%if product.has_attribute==true%}
+                                        </div>
+                                        </div>
+                                        <a class="btn tooltip-link product-edit-popup" href="#" title="{{ets_pmn_edit_text}}" onclick="etsGetFormPopupProduct($(this),'sav_quantity');return false;">
+
+                                            <i class="ets_svg_icon">
+                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"/></svg>
+                                            </i>
+                                        </a>
+                                        <a href="#" class="btn ets_pm_viewmore" data-more="{{ viewmore }}" data-less="{{ viewless }}">
+                                            {{ viewmore }}
+                                        </a>
+                                    {%endif%}
+                                </div>
+                            {% else %}
+                            {% endif %}
+                        {%elseif key=='on_sale' or key=='is_must_have' or key=='active'%}
+                            {% if product[key]|default(0) == 0 %}
+                                <a href="#" onclick="unitProductActionEts(this, '{{key}}');return false;">
+                                    <i class="material-icons action-disabled">clear</i>
+                                </a>
+                            {% else %}
+                                <a href="#" onclick="unitProductActionEts(this, '{{key}}'); return false;">
+                                    <i class="material-icons action-enabled ">check</i>
+                                </a>
+                            {% endif %}
+                        {%else%}
+                            {%if field.input is defined and field.input%}
+                                <div class="span_change_product" data-name="{{key}}_{{product.id_product}}" data-lang="{{ets_pmn_id_lang}}">
+                            {%else%}
+                                <div class="popup_change_product">
+                            {%endif%}
+                                <div class="content">
+                                    <div class="content_info">
+                                        {%if key == 'extra_product_tab_15' %}
+                                            <div class="ets_content_file">
+                                                {%if not product[key] or product[key]=='0000-00-00'%}
+                                                    <span class="text-center">--</span>
+                                                {%else%}
+                                                    {{ product[key]|raw }}
+                                                {%endif%}
+                                            </div>
+                                        {%else%}    
+                                            {%if not product[key] or product[key]=='0000-00-00'%}
+                                                <span class="text-center">--</span>
+                                            {%else%}
+                                                {{ product[key]|raw }}
+                                            {%endif%}
+                                        {%endif%}    
+                                    </div>
+                                </div>
+                            {%if field.input is defined and field.input%}
+                                <a href="#" class="btn ets_pm_viewmore" data-more="{{ viewmore }}" data-less="{{ viewless }}">
+                                        {{ viewmore }}
+                                    </a>
+                                </div>
+                            {%else%}
+                                    {%if key!='id_product' and key!='seo_score' and key!='readability_score' and (key!='combinations' or product.add_combination)%}
+                                        <a class="btn tooltip-link product-edit-popup" href="#" title="{{ets_pmn_edit_text}}" onclick="etsGetFormPopupProduct($(this),'{{key}}');return false;">
+                                            <i class="ets_svg_icon">
+                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"/></svg>
+                                            </i>
+                                        </a>
+                                    {%endif%}
+                                    <a href="#" class="btn ets_pm_viewmore" data-more="{{ viewmore }}" data-less="{{ viewless }}">
+                                        {{ viewmore }}
+                                    </a>
+                                </div>
+                            {%endif%}
+                        {%endif%}
+                        {%if field_input and (key!='sav_quantity' or product.has_attribute==false) %}
+                            <div class="wapper-change-product {{field_input.type}} {%if field_input.popup is defined  and field_input.popup%} popup{%endif%}" style="display: none;">
+                                {%if field_input.popup is defined  and field_input.popup%}
+                                    <div class="popup_content table">
+                                        <div class="popup_content_tablecell">
+                                            <div class="popup_content_wrap">
+                                            <span class="close_popup" title="Close">+</span>
+                                            <div id="fieldset_0" class="panel">
+                                                <div class="panel-heading">{{field.title}}: {{product.name}}</div>
+                                            <div class="form-wrapper">
+                                {%endif%}
+                                {%if field_input.type=='select' and field_input.values%}
+                                    <select name="{{key}}" id="{{key}}" class="form-control">
+                                        {%for option in field_input.values.query%}
+                                            <option value="{{option[field_input.values.id]}}" {%if product[field_input.name]==option[field_input.values.id] %} selected="selected"{%endif%}>{{option[field_input.values.name]}}</option>
+                                        {%endfor%}
+                                    </select>
+                                    {%if field_input.desc is defined and field_input.desc%}
+                                        <span class="help-block">
+                                            {{field_input.desc|raw}}
+                                        </span>
+                                    {%endif%}
+                                {%elseif field_input.type=='text' or field_input.type=='date' or field_input.type=='tags'%}
+                                    {%if field_input.lang is defined and field_input.lang %}
+                                        {%if ets_pmn_count_languages >1%}
+                                            <div class="form-group row">
+                                                <div class="translatable-field lang-{{ets_pmn_id_lang}}">
+                                                    <div class="col-lg-11">
+                                                        <input class="form-control{%if field_input.type=='tags'%} tagify{%endif%}{%if field_input.popup is defined and field_input.popup%} is_lang_default{%endif%} " id="{{key}}_{{product.id_product}}_{{ets_pmn_id_lang}}" name="{{key}}_{{ets_pmn_id_lang}}" value="{{product[field_input.name]}}"  type="text"  title="{{field.title}}" placeholder="{{field.title}}" />
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <div class="toggle_form">
+                                                            <button class="btn btn-default dropdown-toggle disabled" type="button" tabindex="-1" data-toggle="dropdown">
+                                                                {{ets_pmn_iso_lang}}
+                                                                <i class="icon-caret-down"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                {%for lang in ets_pmn_languages%}
+                                                                    <li>
+                                                                        <a class="hideOtherLanguageInline" href="#" tabindex="-1" data-id-lang="{{lang.id_lang}}">{{lang.name}}</a>
+                                                                    </li>
+                                                                {%endfor%}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        {%else%}
+                                            <input class="form-control{%if field_input.type=='tags'%} tagify{%endif%}{%if field_input.popup is defined and field_input.popup%} is_lang_default{%endif%}" name="{{key}}_{{ets_pmn_id_lang}}" value="{{product[field_input.name]}}"  type="text"  title="{{field.title}}" id="{{key}}_{{product.id_product}}_{{ets_pmn_id_lang}}" placeholder="{{field.title}}"/>
+                                        {%endif%}
+                                    {%else%} 
+                                        {%if field_input.suffix is defined and field_input.suffix %}
+                                            <div class="input-group">
+                                        {%endif%}
+                                            <input class="form-control {%if field_input.type=='date'%} datepicker{%endif%}{%if field_input.popup is defined and field_input.popup%} is_lang_default{%endif%}" name="{{key}}" value="{{product[field_input.name]}}"  type="text"  title="{{field.title}}" placeholder="{{field.title}}" id="{{key}}_{{product.id_product}}_{{ets_pmn_id_lang}}"/>
+                                        {%if field_input.suffix is defined and field_input.suffix %}
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    {{field_input.suffix}}
+                                                </span>
+                                            </div>
+                                        {%endif%}
+                                        {%if field_input.suffix is defined and field_input.suffix %}
+                                            </div>
+                                        {%endif%}  
+                                    {%endif%}
+                                {%elseif field_input.type=='textarea'%}
+                                    {%if field_input.lang is defined and field_input.lang %}
+                                        {%if ets_pmn_count_languages >1%}
+                                            <div class="form-group row">
+                                                <div class="translatable-field lang-{{ets_pmn_id_lang}}">
+                                                    <div class="col-lg-11">
+                                                        <textarea  class="form-control{%if field_input.autoload_rte is defined and field_input.autoload_rte%} ets_pmn_autoload_rte{%endif%}{%if field_input.popup is defined and field_input.popup%} is_lang_default{%endif%} " id="{{key}}_{{product.id_product}}_{{ets_pmn_id_lang}}" name="{{key}}_{{ets_pmn_id_lang}}">{{product[field_input.name]}}</textarea>
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <div class="toggle_form">
+                                                            <button class="btn btn-default dropdown-toggle disabled" type="button" tabindex="-1" data-toggle="dropdown">
+                                                                {{ets_pmn_iso_lang}}
+                                                                <i class="icon-caret-down"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                {%for lang in ets_pmn_languages%}
+                                                                    <li>
+                                                                        <a class="hideOtherLanguageInline" href="#" tabindex="-1" data-id-lang="{{lang.id_lang}}">{{lang.name}}</a>
+                                                                    </li>
+                                                                {%endfor%}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        {%else%}
+                                            <textarea  class="form-control{%if field_input.autoload_rte is defined and field_input.autoload_rte%} ets_pmn_autoload_rte{%endif%}{%if field_input.popup is defined and field_input.popup%} is_lang_default{%endif%}" name="{{key}}_{{ets_pmn_id_lang}}" id="{{key}}_{{product.id_product}}_{{ets_pmn_id_lang}}">{{product[field_input.name]}}</textarea>
+                                        {%endif%}
+                                    {%else%} 
+                                        <textarea  class="form-control{%if field_input.autoload_rte is defined and field_input.autoload_rte%} ets_pmn_autoload_rte{%endif%} {%if field_input.popup is defined and field_input.popup%} is_lang_default{%endif%}" name="{{key}}" id="{{key}}_{{product.id_product}}_{{ets_pmn_id_lang}}">{{product[field_input.name]}}</textarea>
+                                    {%endif%}
+                                {%endif%}
+                                 {%if field_input.popup is defined  and field_input.popup%}
+                                     </div>
+                                        <div class="panel-footer">
+                                            <button class="btn btn-default pull-left" type="button" name="btnCancel">
+                                                <i class="process-icon-cancel svg_process-icon">
+                                                    <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>
+                                                </i> {{ets_pmn_close_text}}
+                                            </button>
+                                            <button id="module_form_submit_btn" class="btn btn-default pull-right" type="submit" value="1" name="submitProductChangeInLine2">
+                                                <i class="process-icon-save">
+                                                    <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M512 1536h768v-384h-768v384zm896 0h128v-896q0-14-10-38.5t-20-34.5l-281-281q-10-10-34-20t-39-10v416q0 40-28 68t-68 28h-576q-40 0-68-28t-28-68v-416h-128v1280h128v-416q0-40 28-68t68-28h832q40 0 68 28t28 68v416zm-384-928v-320q0-13-9.5-22.5t-22.5-9.5h-192q-13 0-22.5 9.5t-9.5 22.5v320q0 13 9.5 22.5t22.5 9.5h192q13 0 22.5-9.5t9.5-22.5zm640 32v928q0 40-28 68t-68 28h-1344q-40 0-68-28t-28-68v-1344q0-40 28-68t68-28h928q40 0 88 20t76 48l280 280q28 28 48 76t20 88z">
+                                                    </svg>
+                                                </i>
+                                                {{ets_pmn_save_text}}
+                                            </button>
+                                        </div>
+                                     </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                {%endif%}
+                                {%if key=='low_stock_threshold'%}
+                                    <label class="required">
+                                        <input id="form_step3_low_stock_alert" name="low_stock_alert" value="1" type="checkbox"{%if product.low_stock_alert%} checked="checked"{%endif%}/>
+                                        {{low_stock_alert_text}}
+                                    </label>
+                                {%elseif key=='visibility'%}
+                                    <label>
+                                        <input id="form_step6_display_options_available_for_order" name="available_for_order" value="1"{%if product.online_only%} checked="checked"{%endif%} type="checkbox" />
+                                        {{Available_for_order_text}}
+                                    </label>
+                                    <label {%if product.online_only%} style="display:none;"{%endif%}>
+                                        <input id="form_step6_display_options_show_price" name="show_price" value="1"{%if product.show_price%} checked="checked"{%endif%} type="checkbox" />
+                                        {{Show_price_text}}
+                                    </label>
+                                    <label>
+                                        <input id="form_step6_display_options_online_only" name="online_only" value="1"{%if product.online_only%} checked="checked"{%endif%} type="checkbox" />
+                                        {{Web_only_text}}
+                                    </label>
+                                {%elseif key=='condition'%}
+                                    <label>
+                                        <input id="form_step6_show_condition" name="show_condition" value="1"{%if product.show_condition%} checked="checked"{%endif%} type="checkbox" />
+                                        {{Display_condition_on_product_page_text}}
+                                    </label>
+                                {%endif%}
+                            </div>
+                            
+                        {%endif%}
+                        </div>
+                     </td>
+                {%endfor%}
+                {% if product.position is defined %}
+                    <td {% if activate_drag_and_drop %}class="placeholder"{% endif %} style="cursor: pointer; cursor: hand;">
+                        <div class="ets_td">
+                            {% if activate_drag_and_drop %}
+                                <big><big>⇅</big></big>
+                            {% endif %}
+                            <span class="position">{{ product.position }}</span>
+                            <input type="hidden" name="mass_edit_action_sorted_products[]" value="{{ product.id_product }}" />
+                            <input type="hidden" name="mass_edit_action_sorted_positions[]" value="{{ product.position }}" />
+                        </div>
+                    </td>
+                {% endif %}
+                <td class="text-right">
+                    <div class="ets_td">
+                        <div class="btn-group-action">
+                            {% set buttons_action = [
+                                {
+                                    "href": product.preview_url|default('#'),
+                                    "target": "_blank",
+                                    "icon": "remove_red_eye",
+                                    "label": "Preview"|trans({}, 'Admin.Actions')
+                                }
+                            ] %}
+                            {% set buttons_action = buttons_action|merge([
+                                {
+                                    "href": product.url|default('#'),
+                                    "icon": "mode_edit",
+                                    "label": "Edit"|trans({}, 'Modules.Etsproductmanager.Admin')
+                                }
+                            ]) %}
+                            {% set buttons_action = buttons_action|merge([
+                                {
+                                    "onclick": "unitProductAction(this, 'duplicate');",
+                                    "icon": "content_copy",
+                                    "label": "Duplicate"|trans({}, 'Admin.Actions')
+                                }
+                            ]) %}
+            
+                            {% set buttons_action = buttons_action|merge([
+                                {
+                                    "onclick": "unitProductAction(this, 'delete');",
+                                    "icon": "delete",
+                                    "label": "Delete"|trans({}, 'Admin.Actions')
+                                }
+                            ]) %}
+                            
+                            {% include '@Product/CatalogPage/Forms/form_edit_dropdown.html.twig' with {
+                                'button_id': "product_list_id_" ~ product.id_product ~ "_menu",
+                                'default_item': {
+                                    "href": product.url|default('#'),
+                                    "icon": "mode_edit"
+                                },
+                                'right': true,
+                                'items': buttons_action
+                            } %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {%else%}
+            <tr data-uniturl="{{ product.unit_action_url|default('#') }}" data-product-id="{{ product.id_product }}">
+                <td class="checkbox-column form-group">
+                    <div class="md-checkbox md-checkbox-inline">
+                        <label>
+                            <input type="checkbox" id="bulk_action_selected_products-{{ product.id_product }}"
+                                   name="bulk_action_selected_products[]" value="{{ product.id_product }}">
+                            <i class="md-checkbox-control"></i>
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <label class="form-check-label" for="bulk_action_selected_products-{{ product.id_product }}">
+                        {{ product.id_product }}
+                    </label>
+                </td>
+                <td>
+                    <a href="{{ product.url|default('') }}#tab-step1">{{ product.image|raw }}</a>
+                </td>
+                <td>
+                    <a href="{{ product.url|default('') }}#tab-step1">{{ product.name|default('N/A'|trans({}, 'Admin.Global')) }}</a>
+                </td>
+                <td>
+                    {{ product.reference|default('') }}
+                </td>
+                <td>
+                    {{ product.name_category|default('') }}
+                </td>
+                <td class="text-center">
+                    <a href="{{ product.url|default('') }}#tab-step2">{{ product.price|default('N/A'|trans({}, 'Admin.Global')) }}</a>
+                </td>
+                <td class="text-center">
+                    <a href="{{ product.url|default('') }}#tab-step2">{{ product.price_final|default('N/A'|trans({}, 'Admin.Global')) }}</a>
+                </td>
+                {% if 'PS_STOCK_MANAGEMENT'|configuration %}
+                    <td class="product-sav-quantity text-center"
+                        data-product-quantity-value="{{ product.sav_quantity|default('') }}">
+                        <a href="{{ product.url|default('') }}#tab-step3">
+                            {% if product.sav_quantity is defined and product.sav_quantity > 0 %}
+                                {{ product.sav_quantity }}
+                            {% else %}
+                                {{ product.sav_quantity|default('N/A'|trans({}, 'Admin.Global')) }}
+                            {% endif %}
+                        </a>
+                    </td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                <td class="text-center">
+                    {% if product.active|default(0) == 0 %}
+                        <a href="#" onclick="unitProductAction(this, 'activate'); return false;">
+                            <i class="material-icons action-disabled">clear</i>
+                        </a>
+                    {% else %}
+                        <a href="#" onclick="unitProductAction(this, 'deactivate'); return false;">
+                            <i class="material-icons action-enabled ">check</i>
+                        </a>
+                    {% endif %}
+                </td>
+                {% if product.position is defined %}
+                    <td {% if activate_drag_and_drop %}class="placeholder"{% endif %}
+                        style="cursor: pointer; cursor: hand;">
+                        {% if activate_drag_and_drop %}
+                            <big><big>⇅</big></big>
+                        {% endif %}
+                        <span class="position">{{ product.position }}</span>
+                        <input type="hidden" name="mass_edit_action_sorted_products[]" value="{{ product.id_product }}"/>
+                        <input type="hidden" name="mass_edit_action_sorted_positions[]" value="{{ product.position }}"/>
+                    </td>
+                {% endif %}
+                {% if ets_seo_seo_enabled is defined and  ets_seo_seo_enabled %}
+                    <td class="text-center">
+                        {% if product.seo_score is defined and product.seo_score|length > 0 %}
+                            {{ product.seo_score | raw }}
+                        {% else %}
+                            <span class="text-center">--</span>
+                        {% endif %}
+                    </td>
+                {% endif %}
+    
+                {% if ets_seo_readability_enabled is defined and  ets_seo_readability_enabled %}
+                    <td class="text-center">
+                        {% if product.readability_score is defined and product.readability_score|length > 0 %}
+                            {{ product.readability_score | raw }}
+                        {% else %}
+                            <span class="text-center">--</span>
+                        {% endif %}
+                    </td>
+                {% endif %}
+    
+                <td class="text-right">
+                    <div class="btn-group-action">
+    
+                        {% set buttons_action = [
+                            {
+                                "href": product.preview_url|default('#'),
+                                "target": "_blank",
+                                "icon": "remove_red_eye",
+                                "label": "Preview"|trans({}, 'Admin.Actions')
+                            }
+                        ] %}
+    
+                        {% set buttons_action = buttons_action|merge([
+                            {
+                                "onclick": "unitProductAction(this, 'duplicate');",
+                                "icon": "content_copy",
+                                "label": "Duplicate"|trans({}, 'Admin.Actions')
+                            }
+                        ]) %}
+    
+                        {% set buttons_action = buttons_action|merge([
+                            {
+                                "onclick": "unitProductAction(this, 'delete');",
+                                "icon": "delete",
+                                "label": "Delete"|trans({}, 'Admin.Actions')
+                            }
+                        ]) %}
+    
+                        {% include '@Product/CatalogPage/Forms/form_edit_dropdown.html.twig' with {
+                            'button_id': "product_list_id_" ~ product.id_product ~ "_menu",
+                            'default_item': {
+                                "href": product.url|default('#'),
+                                "icon": "mode_edit"
+                            },
+                            'right': true,
+                            'items': buttons_action
+                        } %}
+                    </div>
+                </td>
+            </tr>
+        {%endif%}
+        {% endblock %}
+    {%endfor%}
+{% endif %}
+</tbody><!--end_tbody_list_product!-->

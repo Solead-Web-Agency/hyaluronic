@@ -1,0 +1,14 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+
+Você é um dos nossos melhores clientes, contudo não tem feito nenhum pedido nos últimos {days_threshold} dias.
+
+O carrinho foi salvo, você pode retomar seu pedido visitando nossa loja: {shop_url}
+
+Queremos agradecer por sua confiança em nossa loja, por isso estamos oferecendo um desconto de {amount}% válido para o seu próximo pedido! Esta oferta é válida por {days} dias, então não perca tempo!
+
+Aqui está o seu cupom: {voucher_num}
+
+Digite este código em seu carrinho de compras para obter o seu desconto.
+
+[{shop_name}]({shop_url}) baseada em [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

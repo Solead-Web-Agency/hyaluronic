@@ -1,0 +1,20 @@
+#orderProductsOriginalPosition .hide_column_if_original_position {
+    display: none;
+}
+.find_order_field_container{
+    display: flex;
+    align-items: center;
+}
+.find_order_field_container b{
+    margin-right: 10px;
+}
+#addProductModal .modal-dialog {
+    max-width: 1080px;
+}
+#addProductModal .modal-content {
+    padding: 10px 10px 30px;
+}
+.add_product_modal.d-none,
+.add_product_modal .d-none {
+    display: table-row !important;
+}

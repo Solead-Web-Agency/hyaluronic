@@ -1,0 +1,900 @@
+Change history for Google Merchant Center Pro
+---------------------------------------------
+===========================
+Version 1.7.17 (14/12/2021)|
+===========================
+- Fix for preorder tag
+- Use default function from Prestashop to generate product link with combination
+- Fix for stock detection on combination with multishop
+- Added Kuwait as available data feed
+- New way to handle unit waiting by Google
+
+===========================
+Version 1.7.16 (27/10/2021)|
+===========================
+- Handle pre-order tag
+- Fix for review URL in review feed
+- Fix for local inventory feed id
+
+===========================
+Version 1.7.15 (07/10/2021)|
+===========================
+- Fix for review and promotion data feed on land detection
+- Fix for multishop and duplicated data
+
+
+===========================
+Version 1.7.14 (01/09/2021)|
+===========================
+- Handle package size in the XML
+- Handle Local iventory data feed
+- Removed shopping actions code (service stops by Google)
+
+===========================
+Version 1.7.13 (05/07/2021)|
+===========================
+- Fix tag preorder and availability
+
+
+===========================
+Version 1.7.12 (07/04/2021)|
+===========================
+- Improve GSA lib
+- Added Oauth for our API 
+- Improve GSA tab on the backoffice
+- Fix for exclusion rules on product combination
+- Fix for edit esclusion rules
+- Added utm_content tag
+- Added option for combination separator on g:id tag
+- Added option to set a percentage of the stock for GSA
+- Added google_funded_promotion_eligibility tag
+- Added country exclusion tag
+- Added excluded destination
+- Added canal diffusion for promotion feed
+- Handle on feed per lang for data feed review 
+- Use front controller for CRON and FLYOUTPUT 
+- Added Advanced Pack Compatibility for Pack with discount
+- Added function to handle retro compatibilty with old CRON and FLY url's
+- Fix for dynamic_new_product custom label
+- Fix for delete custom label tag delete
+- Added last product ordered CL
+- Added product promotion CL
+- Added auto assign of dynamic CL during data feed update
+- Added QC entry for datafeed
+- Refactor code for custom label- Handle pre-order tag from product and combination 
+- Handle MPN from product and combination for PS 1.7.7
+- Handle pre-order tag from product and combination 
+
+
+===========================
+Version 1.7.11 (05/03/2020)|
+===========================
+- Update the getCarriers call to handle all carriers
+
+===========================
+Version 1.7.10 (30/03/2020)|
+===========================
+- Updated Zip file ( made error on fresh install )
+
+===========================
+Version 1.7.9 (23/03/2020)|
+===========================
+- Added Shopping action feature
+- Added Register form for the Google Shopping Beta test
+- Added exclusion destination tag
+- Added sell_on_google_quantity
+- Handle new anonymous prerequisites for review feed
+- Added new countries
+
+
+===========================
+Version 1.7.8 (02/12/2019)|
+===========================
+- New countries 
+
+===========================
+Version 1.7.7 (13/11/2019)|
+===========================
+- Added new option to manage bad product URL rewriting
+
+============================
+Version 1.7.6 (28/10/2019)|
+============================
+Fixed
+-----
+- FIX bad url building for multiple currencies shop
+- FIX removed control on active Country in getLangCurrencyCountry to manage the case when a merchant deactivate the country and would like to see the data feed to prepare it
+
+Added
+-----
+- Lithuanian
+
+============================
+Version 1.7.5 (03/10/2019) |
+============================
+Fixed
+-----
+- Fix for duplicate url with combo export
+
+============================
+Version 1.7.4 (24/09/2019) |
+============================
+Added
+-----
+- Greece data feed
+Fixed
+-----
+- Combo link + multiple currencies
+
+============================
+Version 1.7.3 (17/07/2019) |
+============================
+Added
+-----
+- Romania data feed
+Fixed
+-----
+- For exclusion rules on specific combination
+- Fix for specific price on combination
+
+
+============================
+Version 1.7.2 (18/06/2019) |
+============================
+Added
+-----
+- New counties for GS program
+- Option to force the identifier exists tag
+
+
+============================
+Version 1.7.1 (13/05/2019) |
+============================
+Fixed
+-----
+- About the redirect of the cron URL, one parameter was missing and prevent the URL to be redirected
+
+Files
+-----
+- lib/admin-generate_class.php
+
+
+======================================
+Version 1.7.0 (18/03/2019) --- MAJOR |
+======================================
+Added
+-----
+-- NEW FT --
+- Option to use product meta title in teh data feed
+- Option to build a product title with free field + product name + free field
+- Advanced exclusion tool for products
+- Exclusion tool for reviews
+- Simple ID option
+- TAG for energy class
+- TAG for shipping label
+- TAG for unit price and base price unit
+- TAG for cost of goods sold
+- Some code optimization
+
+-- BO --
+- Reworked
+- Footer with FAQ link
+- Step by step
+- Reworked label for BO
+- NEW FR / IT / ES translations
+- Added hispanic translation
+
+Fixed
+-----
+- Some fix for multishop
+- Fix for file creation when the module is installed
+- Fix when a description and a title is an Array
+
+Files
+-----
+-
+
+
+===========================
+Version 1.6.19 (15/02/2019)|
+===========================
+Fix
+-----
+- fix the language ID for the product combination link
+
+
+===========================
+Version 1.6.18 (23/01/2019)|
+===========================
+Fix
+-----
+- Manage shop_id for dynamic custom labels
+
+Added
+-----
+- Option to have the <g:id> with only the product_id
+
+===========================
+Version 1.6.17 (22/11/2018)|
+===========================
+Fix
+-----
+- Use case for countries with multiple entries on currency
+
+
+===========================
+Version 1.6.16 (20/11/2018)|
+===========================
+Added
+-----
+- NEW lang entries for Google shopping
+
+
+===========================
+Version 1.6.15 (19/11/2018)|
+===========================
+Added
+-----
+- NEW lang entries for Google shopping
+
+Fixed
+-----
+- Missing close tag on CDATA for review feed with gsnippetreviews module
+
+===========================
+Version 1.6.14 (23/10/2018)|
+===========================
+Added
+-----
+- Manage the option "validate for order" for out of stock product
+- Added a product attribute id parameter for export with combination in order to make it work with Google Dynmaic Remarketing module on PS 1.6
+
+Fixed
+-----
+- Advanced Custom label translations
+
+
+===========================
+Version 1.6.13 (13/07/2018)|
+===========================
+Fixed
+-----
+- Bad behavior on the UTM_MEDIUM
+- New entries for EN
+- Fix on the sWeight var
+
+
+===========================
+Version 1.6.12 (23/04/2018)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- New entries for GB lang
+- Manage image cover for multishop when a product is shared and the image is different
+
+Files
+-----
+-
+
+
+===========================
+Version 1.6.11 (14/03/2018)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- New countries
+- Display name for customer on product review feed
+- Values for clothing tag wasn't saved well
+- Added author address
+
+Files
+-----
+-
+
+===========================
+Version 1.6.10 (02/03/2018)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Multishop management for feature by categories
+
+Files
+-----
+-
+
+
+===========================
+Version 1.6.9 (22/02/2018)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Bug for CDATA closing on the review feed
+
+Files
+-----
+-
+
+===========================
+Version 1.6.8 (06/02/2018)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Bug fix for having forgotten to remove an old PHP variable that makes a PHP Fatal error
+
+Files
+-----
+-
+
+
+===========================
+Version 1.6.7 (02/02/2018)|
+===========================
+Added
+-----
+- Compatibilty for PS 1.7.3.0 with the new multiple features
+- Some attributes get numeric values as float number with "," or ".", and by default PS doesn't manage to put an underscore to replace the , or ., then the module allows this now.
+- Option to include or not the attribute ID into the combination URL according to the PS 1.6 version (from 1.6.0.13, PS includes the ID again) but not all the themes.
+
+Fixed
+-----
+-
+
+
+Files
+-----
+-
+
+
+===========================
+Version 1.6.6 (13/12/2017)|
+===========================
+Added
+-----
+- English for South Africa and Czech republic
+
+Fixed
+-----
+-
+
+
+Files
+-----
+-
+
+===========================
+Version 1.6.5 (30/11/2017)|
+===========================
+Added
+-----
+- <![CDATA[' for values on the reviews data feed
+
+Fixed
+-----
+-
+
+
+Files
+-----
+-
+
+
+===========================
+Version 1.6.4 (30/10/2017)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- UI bug fix with a bad div on fresh installation
+
+
+Files
+-----
+-
+
+
+===========================
+Version 1.6.3 (09/10/2017)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- Stock data feed deprecated
+
+
+Files
+-----
+-
+
+
+===========================
+Version 1.6.2 (19/09/2017)|
+===========================
+Added
+-----
+- New countries available with english language
+
+Fixed
+-----
+-
+
+
+Files
+-----
+-
+- conf/common.conf.php
+
+===========================
+Version 1.6.1 (05/09/2017)|
+===========================
+Added
+-----
+-
+
+Fixed
+-----
+- The end tag for g:sale_effective_date wasn't formatted well
+
+Files
+-----
+- base-product-xlk_class.php
+
+===========================
+Version 1.6.0 (22/08/2017)|
+===========================
+Added
+-----
+- New reporting interface
+- New text
+- New translation for IT / ES / EN / FR
+
+Fixed
+-----
+- Bug fix for the lang ID in the dao function getProductComboLink() for PS 1.7, the lang ID was the one of the cookie instead of the lang ID as parameter of the function
+- Bug fix for the multi-shop and the share stock, some shops have double-lines in the ps_stock_available table, so we need to filter on the id_shop into this table
+- Some fix for the review feed
+- Some interface fix
+
+Files
+-----
+- lib/dao/module-dao_class.php
+- lib/dao/module-tools_class.php
+
+
+===========================
+Version 1.5.4 (18/07/2017)|
+===========================
+Added
+-----
+- N/A
+
+Fixed
+-----
+- BUG fix for g:sale_price_effective_date when the specific price is applied to a specific combination
+
+Files
+-----
+- N/A
+
+
+===========================
+Version 1.5.3 (11/07/2017)|
+===========================
+Added
+-----
+- N/A
+
+Fixed
+-----
+- BUG for feed list display ( it happened when the warning was displayed during localisation prerequisites check )
+
+Files
+-----
+- N/A
+
+
+===========================
+Version 1.5.2 (22/06/2017)|
+===========================
+Added
+-----
+- N/A
+
+Fixed
+-----
+- Replace GMC variable by GMCP
+
+
+===========================
+Version 1.5.1 (09/05/2017)|
+===========================
+Added
+-----
+- New additional image management ( to take in consideration the sort image )
+- New GTIN management to be more flexible
+
+Fixed
+-----
+- Product exclusion when the export per combination is activated
+- Removed checkOveride function
+- Update displayErrorModule to manage the good error message.
+
+Files
+-----
+- N/A
+
+
+===========================
+Version 1.5.0 (20/02/2017)|
+===========================
+Added
+-----
+- Data feed for reviews for the Google rich snippets module and product comment module
+- Allow specific countries to manage the english language new Google feature since APRIL 2017
+- Bug fix for the exclusion tools with export per combination
+- New Data feed export interface
+- New reporting interface
+- New official Google link in the interface
+- Possibilty to manage few currency for one country/lang combination
+
+Fixed
+-----
+- Compatibility for PHP 7.1
+- Fix for product exclusion display per combination, the module didn't display well the list
+
+Files
+-----
+- lot of files
+
+
+===========================
+Version 1.4.3 (20/02/2017)|
+===========================
+Added
+-----
+- N/A
+
+Fixed
+-----
+- Stock data feed, didn't manage well the availability for combination.
+- Fix for product exclusion display per combination, the module didn't display well the list
+
+Files
+-----
+- N/A
+
+
+===========================
+Version 1.4.2 (17/11/2016)|
+===========================
+Added
+-----
+- New countries : Argentina / Malesia / Portugal / United arab states
+
+Fixed
+-----
+- Interface and translate
+
+Files
+-----
+- N/A
+
+
+===========================
+Version 1.4.1 (11/10/2016)|
+===========================
+Added
+-----
+- N/A
+
+Fixed
+-----
+- Interface and translate
+
+Files
+-----
+- N/A
+
+===========================
+Version 1.4.0 (27/09/2016)|
+===========================
+Added
+-----
+- Compatibilty for PS 1.7
+
+Fixed
+-----
+- N/A
+
+Files
+-----
+- N/A
+
+
+===========================
+Version 1.3.4 (23/06/2016)|
+===========================
+Added
+-----
+- N/A
+
+Fixed
+-----
+- Values for age group tag
+
+Files
+-----
+- /views/templates/admin/advanced-tag-category.tpl
+
+
+===========================
+Version 1.3.3 (19/06/2016)|
+===========================
+Added
+-----
+- New prerequisites for inventory data feed
+
+Fixed
+-----
+- N/A
+
+Files
+-----
+- /lib/xml/xml-stock-strategy_class.php
+
+
+===========================
+Version 1.3.2 (16/06/2016)|
+===========================
+Added
+-----
+- New prerequisites for promotion data feed
+-
+
+Fixed
+-----
+- N/A
+
+Files
+-----
+- /lib/xml/xml-discount_class.php
+
+
+===========================
+Version 1.3.1 (06/09/2016)|
+===========================
+Added
+-----
+- N/A
+
+Fixed
+-----
+- Specific price handle
+
+Files
+-----
+- xml-combination_class.php
+- xml-product_class.php
+
+
+===========================
+Version 1.3.0 (30/08/2016)|
+===========================
+Added
+-----
+- Option to use the Combination or feature for size tag
+- Added <g:sale_price_effective_date> tag
+- Added Bundle tag with default PS function and advance PACK
+- Added free shipping for specific product and combination
+- Added new age_group values toddle, infant, newborn
+- Added size_type tag
+- Added size_system
+
+Fixed
+-----
+- N/A
+
+Files
+-----
+- /lib/admin/admin-display_class.php
+- /lib/admin/admin-update_class.php
+- /views/templates/admin/feed-settings.tpl
+- /views/templates/admin/advanced-tag-catagory.tpl
+
+
+===========================
+Version 1.2.1 (18/08/2016)|
+===========================
+Added
+-----
+- N/A
+
+Fixed
+-----
+- Bug Fix : Minimum amount for cartRules
+
+Files
+-----
+- /lib/xml/xml-discount_class.php
+
+
+===========================
+Version 1.2.0 (13/07/2016)|
+===========================
+Added
+-----
+- New list of cron URLs available for each country / language / currency association in order to decrease overload during the main cron execution for all the products data feed at the same time.
+- New feature to handle price tax for each both products and stock data feed, allow to display price with or without tax.
+
+Fixed
+-----
+- the EAN code property during the priority GTIN code checking, bad paste was done in the EAN first priority
+
+Files
+-----
+- views/templates/admin/feed-settings.tpl
+- views/templates/admin/feed-list.tpl
+- lib/admin/admin-ctrl_class.php
+- lib/admin/admin-display_class.php
+- lib/admin/admin-update_class.php
+- lib/admin/admin-generate_class.php
+- lib/module-tools_class.php
+- lib/xml/base-product-xml_class.php
+- lib/xml/base-product-strategy_class.php
+- lib/xml/xml-product_class.php
+- lib/xml/xml-combination_class.php
+- lib/xml/xml-stock-strategy_class.php
+- conf/admin.conf.php
+- conf/common.conf.php
+
+
+===========================
+Version 1.1.6 (01/07/2016)|
+===========================
+Added
+-----
+- escape on the INT values in all dao files
+
+Fixed
+-----
+- The way to add the identifier_exist tag => the if structure wasn't good on the || for testing the EAN13 or JAN code
+- The currency add option => wrong values in fields prevent the option to be updated
+- The carrier ID has been forgotten in the getCarrierTaxRate() of module-dao_class.php
+- The Javascript callback object to update the adwords tab had a bad reference to well updated the tab once we've added a new custom label.
+
+Files
+-----
+- views/templates/admin/basics.tpl
+- lib/module-dao_class.php
+- views/templates/admin/google-custom-label.tpl
+
+
+===========================
+Version 1.1.4 (13/06/2016)|
+===========================
+Added
+-----
+- N.A
+
+Fixed
+-----
+- Update the $sPipe = ' > '; to handle the space
+
+Files
+-----
+- N.A
+
+
+===========================
+Version 1.1.3 (08/06/2016)|
+===========================
+Added
+-----
+- N.A
+
+Fixed
+-----
+- Update the identifier_exist tag behavior
+
+Files
+-----
+- N.A
+
+
+===========================
+Version 1.1.2 (06/06/2016)|
+===========================
+Added
+-----
+- Added new layout to the yes / no buttons
+- Changed the blue buttons to dropdown list into the tabs
+- Changed the way to handle the GTIN number
+
+Fixed
+-----
+- product type encoding
+- fixed the advanced protection mode update
+
+Files
+-----
+- N.A
+
+
+Version 1.1.1 (24/11/2016)
+- Updated funnel for promotion feed form configuration
+- Updated URL for FAQ when the permission are wrong for XML files, in the website root
+- Updated some translate
+- Update exclusion product jquery request
+
+
+Version 1.1.0 (11/02/2016)
+- Updated insertDynamicBestSales to use the good product ID
+- Updated getProductBestSales to order by total_sale_amount DESC
+- Updated table structure for gmcp_tags_dynamic_best_sale
+- Bug fix for display saved value for best sales custom label
+- Bug fix for display best sale tag inforamtion in admin-display_class.php
+
+
+Version 1.0.8 (03/02/2016)
+- Little update for icon design for Google Chrome on PC
+- SQL query optimization function (getProductCombination) to better manage id_product_attribute recovered
+
+Version 1.0.7 (06/01/2016)
+- Bug fix for the reporting settings, bad french translations and bad passed arguments to the fancybox in order to display the good reporting file.
+
+
+Version 1.0.6 (09/12/2015)
+- Bug fix for google_product_categories in the module reporting
+- Added exclusion product when the available_for_order isn't checked
+
+
+Version 1.0.5 (07/12/2015)
+- Update getProductComboLink function to manage combination values with dot or comma in a numeric as example 4.5 kg
+- Add information box for documentation
+
+
+Version 1.0.4 (18/11/2015)
+- Update for new Google prerequisites in the stock xml file
+- Small bug fix for category association with custom labels
+
+
+Version 1.0.3 (09/11/2015)
+- Update some translate
+- Update getShipping method
+
+
+Version 1.0.2 (05/11/2015)
+- Little bug fix for $this->data->step->sizes in base-product-xml_class.php
+
+
+Version 1.0.1 (28/10/2015)
+- Add new FAQ link to help the customer with Google Shopping
+
+
+Version 1.0.0 (30/09/2015)
+- Release

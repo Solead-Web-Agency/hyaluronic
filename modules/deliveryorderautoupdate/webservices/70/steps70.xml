@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>82</statuscode>
+			<statustext>Colis livré</statustext>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode>83</statuscode>
+			<statustext>Anomalie</statustext>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode>81</statuscode>
+			<statustext> Colis en traitement chez Mondial Relay</statustext>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode>80</statuscode>
+			<statustext>Colis enregistré</statustext>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<statuscode></statuscode>
+			<statustext></statustext>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode></statuscode>
+			<statustext></statustext>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode></statuscode>
+			<statustext></statustext>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode></statuscode>
+			<statustext></statustext>
+	</step>
+</document>

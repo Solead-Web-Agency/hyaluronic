@@ -1,0 +1,60 @@
+{
+    "packages": [
+        {
+            "name": "sequra/php-client",
+            "version": "0.4.2",
+            "version_normalized": "0.4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sequra/php-client.git",
+                "reference": "3008f43ffb76e4ff4e994e0498bad52b8ac35bc9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sequra/php-client/zipball/3008f43ffb76e4ff4e994e0498bad52b8ac35bc9",
+                "reference": "3008f43ffb76e4ff4e994e0498bad52b8ac35bc9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10",
+                "symfony/dotenv": "^7.0"
+            },
+            "time": "2024-03-07T17:00:20+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Sequra\\PhpClient\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SeQura Engineering",
+                    "email": "dev@sequra.es"
+                }
+            ],
+            "description": "PHP client for SeQura API",
+            "keywords": [
+                "pagos",
+                "payment",
+                "sequra"
+            ],
+            "support": {
+                "issues": "https://github.com/sequra/php-client/issues",
+                "source": "https://github.com/sequra/php-client/tree/0.4.2"
+            },
+            "install-path": "../sequra/php-client"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

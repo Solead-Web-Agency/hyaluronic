@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mise à jour du numéro de suivi PrestaShop</title>
+</head>
+<body>
+    <h2>Mise à jour du numéro de suivi d'une commande PrestaShop</h2>
+    <input type="text" id="orderID" placeholder="ID de la commande">
+    <input type="text" id="trackingNumber" placeholder="Nouveau numéro de suivi">
+    <button onclick="fetchOrderCarrierID()">Mettre à jour le numéro de suivi</button>
+
+    <script>
+    var orderID, orderCarrierID;
+
+    function fetchOrderCarrierID() {
+        orderID = document.getElementById('orderID').value;
+        var url = 'https://hyaluronicfillermarket.com/api/order_carriers/?filter[id_order]=' + orderID + '&ws_key=HMYU33BKUTHKZ6FHB4LFDWE4CV799NVX&output_format=JSON';
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            orderCarrierID = data.order_carriers[0].id;
+            updateTrackingNumber();
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération de l\'ID Order Carrier:', error);
+        });
+    }
+
+    function updateTrackingNumber() {
+        var trackingNumber = document.getElementById('trackingNumber').value;
+        var carrierID = 344; // ID du transporteur fixe
+        var url = 'https://hyaluronicfillermarket.com/api/order_carriers/' + orderCarrierID;
+        var data = '<prestashop><order_carrier><id>' + orderCarrierID + '</id><id_order>' + orderID + '</id_order><id_carrier>' + carrierID + '</id_carrier><tracking_number>' + trackingNumber + '</tracking_number></order_carrier></prestashop>';
+
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Basic ' + btoa('HMYU33BKUTHKZ6FHB4LFDWE4CV799NVX:'),
+                'Content-Type': 'application/xml'
+            },
+            body: data
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Réponse de l\'API:', data);
+            alert('Numéro de suivi mis à jour : ' + trackingNumber);
+            openMailWindow();
+        })
+        .catch(error => {
+            console.error('Erreur lors de la mise à jour:', error);
+        });
+    }
+
+    function openMailWindow() {
+        var email = 'mamzallag@hotmail.fr';
+        var subject = encodeURIComponent('Mise à jour du numéro de suivi');
+        var emailBody = 'ID de la commande : ' + encodeURIComponent(orderID) +
+                        ', Numéro de suivi : ' + encodeURIComponent(document.getElementById('trackingNumber').value);
+        window.open('mailto:' + email + '?subject=' + subject + '&body=' + emailBody);
+    }
+    </script>
+</body>
+</html>

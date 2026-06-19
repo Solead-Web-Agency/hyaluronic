@@ -1,0 +1,157 @@
+[
+  {
+    "status": 300,
+    "code": "Init",
+    "label": "درحال بررسی"
+  },
+  {
+    "status": 310,
+    "code": "not-paid",
+    "label": "درانتظار پرداخت"
+  },
+  {
+    "status": 311,
+    "code": "cod-init",
+    "label": "درانتظار تایید مدیر"
+  },
+  {
+    "status": 312,
+    "code": "ready-to-send",
+    "label": "آماده ارسال"
+  },
+  {
+    "status": 313,
+    "code": "post-sent",
+    "label": "قبول شده"
+  },
+  {
+    "status": 314,
+    "code": "delivered",
+    "label": "تحویل داده شده"
+  },
+  {
+    "status": 315,
+    "code": "rejected",
+    "label": "برگشتی"
+  },
+  {
+    "status": 316,
+    "code": "canceled",
+    "label": "اشتباه در آماده ارسال"
+  },
+  {
+    "status": 317,
+    "code": "prereject",
+    "label": "پیش برگشتی"
+  },
+  {
+    "status": 318,
+    "code": "wait-in-shop",
+    "label": "معلق در فروشگاه"
+  },
+  {
+    "status": 319,
+    "code": "confirmed",
+    "label": "تایید شده"
+  },
+  {
+    "status": 320,
+    "code": "paid-to-taroff",
+    "label": "تسویه شده"
+  },
+  {
+    "status": 323,
+    "code": "not-accepted",
+    "label": "عدم قبول"
+  },
+  {
+    "status": 324,
+    "code": "post-waiting-gate",
+    "label": "باجه معطله"
+  },
+  {
+    "status": 325,
+    "code": "not-sendable",
+    "label": "غیر قابل توزیع"
+  },
+  {
+    "status": 326,
+    "code": "khesarati",
+    "label": "خسارتی"
+  },
+  {
+    "status": 327,
+    "code": "gheramati",
+    "label": "غرامتی"
+  },
+  {
+    "status": 328,
+    "code": "paid-to-shop",
+    "label": "پرداخت شده"
+  },
+  {
+    "status": 329,
+    "code": "manager-not-present",
+    "label": "عدم حضور مدیر"
+  },
+  {
+    "status": 330,
+    "code": "online-init",
+    "label": "در انتظار تایید مدیر"
+  },
+  {
+    "status": 400,
+    "code": "taroff-peik-waiting",
+    "label": "در انتظار تایید - پیک"
+  },
+  {
+    "status": 401,
+    "code": "taroff-peik-ready",
+    "label": "آماده ارسال - پیک"
+  },
+  {
+    "status": 402,
+    "code": "taroff-peik-sent",
+    "label": "ارسال شده - پیک"
+  },
+  {
+    "status": 403,
+    "code": "taroff-peik-rejected",
+    "label": "برگشتی توسط مشتری - پیک"
+  },
+  {
+    "status": 404,
+    "code": "taroff-peik-delivered",
+    "label": "تحویل شده - پیک"
+  },
+  {
+    "status": 405,
+    "code": "taroff-peik-baje",
+    "label": "باجه معطله - پیک تعارف"
+  },
+  {
+    "status": 406,
+    "code": "Deleted",
+    "label": "حذف شده"
+  },
+  {
+    "status": 407,
+    "code": "taroff-peik-cancel",
+    "label": "عدم تایید - پیک"
+  },
+  {
+    "status": 408,
+    "code": "taroff-peik-half-delivered",
+    "label": "تحویل ناقص - پیک"
+  },
+  {
+    "status": 409,
+    "code": "taroff-peik-not-present",
+    "label": "عدم حضور مشتری - پیک"
+  },
+  {
+    "status": 410,
+    "code": "taroff-peik-accepted",
+    "label": "تایید شده - پیک"
+  }
+]

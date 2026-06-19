@@ -1,0 +1,1 @@
+Consente il caricamento di tutte le fatture, comprese le fatture per ordini non commerciali

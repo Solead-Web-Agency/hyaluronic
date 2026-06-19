@@ -1,0 +1,14 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+
+Você é um dos nossos melhores clientes, no entanto não fez nenhuma encomenda nos últimos {days_threshold} dias.
+
+O carrinho foi guardado, pode continuar as suas compras na nossa loja: {shop_url}
+
+We wish to thank you for the trust you have placed in us and want to give you a discount of {amount}% valid on your next order! This offer is valid for {days} days, so do not waste a moment!
+
+Aqui está o seu cupão: {voucher_num}
+
+Digite este código no seu carrinho de compras para obter o desconto.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

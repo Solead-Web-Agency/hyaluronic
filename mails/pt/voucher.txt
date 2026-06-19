@@ -1,0 +1,10 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+
+A voucher has been created in your name as a result of your order with the reference {order_name}.
+
+Voucher code: {voucher_num} in the amount of {voucher_amount}
+
+Simplesmente copie e cole este código no processo de pagamento na sua próxima encomenda.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

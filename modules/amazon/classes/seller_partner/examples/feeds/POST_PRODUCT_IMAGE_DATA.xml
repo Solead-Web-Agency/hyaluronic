@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+    <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>A1ND8F8KKXXXXX</MerchantIdentifier>
+    </Header>
+    <MessageType>ProductImage</MessageType>
+    <Message>
+        <MessageID>1</MessageID>
+        <OperationType>Update</OperationType>
+        <ProductImage>
+            <SKU>8SPXXXXX</SKU>
+            <ImageType>Main</ImageType>
+            <ImageLocation>http://ps1-7-8-7.ps/img/p/6/3/63.jpg</ImageLocation>
+        </ProductImage>
+    </Message>
+    <Message>
+        <MessageID>2</MessageID>
+        <OperationType>Update</OperationType>
+        <ProductImage>
+            <SKU>8SPXXXXX</SKU>
+            <ImageType>PT1</ImageType>
+            <ImageLocation>http://ps1-7-8-7.ps/img/p/6/4/64.jpg</ImageLocation>
+        </ProductImage>
+    </Message>
+</AmazonEnvelope>

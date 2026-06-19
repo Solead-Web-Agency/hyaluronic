@@ -1,0 +1,2 @@
+Shipping taxes and rates are calculated based on Product Price tax
+and rate (defined in PS tax rule).

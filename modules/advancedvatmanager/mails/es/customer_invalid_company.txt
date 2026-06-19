@@ -1,0 +1,12 @@
+[/{shop_url}]
+
+MÓDULO ADVANCED VAT MANAGER
+Validación de empresa
+
+Hola [/{customer_name}],
+
+Su empresa no es válida y no está registrada en el sistema VIES o GOV.UK. Vaya a los detalles de su dirección e inserte un nombre de empresa válido que haya registrado en VIES o GOV.UK
+[{customer_account_addr}]
+
+Correo electrónico enviado por el módulo Advanced VAT Manager, desarrollado por Liewebs [http://www.prestashop.com/] 
+

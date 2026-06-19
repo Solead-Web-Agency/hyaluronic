@@ -1,0 +1,20 @@
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    Revolut
+ * @copyright Since 2020 Revolut
+ * @license   https://opensource.org/licenses/AFL-3.0  Academic Free License (AFL 3.0)
+ */
+
+.blockMsg{background:0 0!important;color:transparent!important;border:none!important}#rev-spinner-svg{animation:1.7s linear infinite rev-spinner-animation;max-width:100px}@keyframes rev-spinner-animation{0%{transform:rotateZ(0)}100%{transform:rotateZ(360deg)}}#rev-spinner-svg circle{animation:1.4s ease-in-out infinite both rev-circle-animation;display:block;fill:transparent;stroke:#3578e5;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:280;stroke-width:3px;transform-origin:50% 50%}@keyframes rev-circle-animation{0%,25%{stroke-dashoffset:280;transform:rotate(0)}50%,75%{stroke-dashoffset:75;transform:rotate(45deg)}100%{stroke-dashoffset:280;transform:rotate(360deg)}}

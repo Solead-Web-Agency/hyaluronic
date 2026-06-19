@@ -1,0 +1,2 @@
+Allow to use VCS
+https://documentation.common-services.com/amazonv5?p=7099&lang=en

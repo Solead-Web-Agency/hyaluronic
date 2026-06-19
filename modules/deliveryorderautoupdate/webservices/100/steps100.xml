@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<statuscode>DL</statuscode>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>3</id_status>
+			<statuscode></statuscode>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<statuscode>OD</statuscode>
+	</step>
+	<step>
+			<id_status>103</id_status>
+			<statuscode></statuscode>
+			<statuscode></statuscode>
+	</step>
+	<step>
+			<id_status>105</id_status>
+			<statuscode></statuscode>
+	</step>
+</document>

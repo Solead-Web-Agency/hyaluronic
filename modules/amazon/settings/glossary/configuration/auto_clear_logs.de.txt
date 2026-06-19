@@ -1,0 +1,3 @@
+Protokolldateien nach x Tagen automatisch löschen.
+
+x ist standardmäßig gleich 90.

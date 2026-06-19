@@ -1,0 +1,511 @@
+@font-face {
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto Regular"), url("../fonts/Roboto-Regular.eot");
+  src: local("Roboto Regular"), url("../fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto Medium"), url("../fonts/Roboto-Medium.eot");
+  src: local("Roboto Medium"), url("../fonts/Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Roboto";
+  font-display: swap;
+  src: local("Roboto Bold"), url("../fonts/Roboto-Bold.eot");
+  src: local("Roboto Bold"), url("../fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: 600;
+}
+.page-head {
+    display: none;
+}
+.admindeliveryorderautoupdatedashboard .bootstrap .btn {
+    padding: 6px 8px;
+}
+.admindeliveryorderautoupdatedashboard .bootstrap input[type="text"] {
+    height: auto;
+    padding: 6px 8px;
+}
+.admindeliveryorderautoupdatedashboard .bootstrap .tagify-container > input {
+    margin: 0;
+}
+#content [class^="icon-"] {
+  margin-right: 5px;
+}
+.page-head .header {
+    display: flex;
+    justify-content: space-between;
+    height: 45px;
+    text-transform: uppercase;
+    font-size: 14px;
+	padding: 2px 0px;
+    border-bottom: 2px #06a318 solid;
+	font-weight: 500;
+}
+.page-head .header .title {
+    padding: 10px;
+}
+#content.bootstrap {
+    padding: 0;
+    font-family: "Roboto","Open Sans";
+}
+.page-sidebar #content {
+  margin-left: 210px;
+}
+/* #content.bootstrap.ui17 {
+    padding-top: 0;
+    padding-left: 210px;
+} */
+#content.bootstrap.ui17 .btn-group{
+    display: inline-flex;
+}
+.page-sidebar-closed:not(.mobile) #content.bootstrap.ui17 {
+}
+.bootstrap .page-head {
+    background: #05b61a !important;
+    color: #ffffff !important;
+    box-shadow: rgba(0,0,0,0.7) 0 0 5px;
+}
+.bootstrap .page-head {
+    padding-left: 0;
+    position: static!important;
+    width: 100%;
+    height: 87px !important;
+	border-bottom: #06a318 1px solid;
+}
+.pick_ui {
+    display: block;
+    padding: 0px;
+}
+.page-head .header .menu{
+    position: relative;
+}
+.page-head .header .dropdown-menu {
+    position: absolute;
+    right: 0;
+    left: unset;
+    min-width: 160px;
+}
+.pick_ui ul {
+    /*border-bottom: 1px solid #e1ebf5;*/
+    margin-bottom: -10px;
+    margin-left: initial !important;
+    width: 100%;
+    text-align: justify;
+    display: table;
+    height:45px;
+}
+.page-head .list-inline>li {
+    /* padding-bottom: 5px; */
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    margin: 0px 5px;
+    border-bottom: 4px solid transparent;
+}
+.page-head li a i {
+	font-size: 20px;
+    width: 33px;
+    height: 33px;
+    padding-left: 10px;
+    top: 5px;
+    line-height: 30px;
+    vertical-align: middle;
+}
+.page-head li a {
+    display: block;
+    text-align: center;
+    text-decoration: none !important;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 0 6px 0;
+    opacity: .75;
+    margin: 0;
+    border: 1px solid transparent;
+}
+.pick_ui li.active a {
+    opacity: 1;
+}
+.picker_settings_drop_list a:hover {
+    background: linear-gradient(to bottom, #E5F3FF 50%, #deecf9 50%);
+	border: 1px solid lightblue;
+}
+.picker_settings_drop_list a{
+    color: #222!important;
+    text-align: left!important;
+}
+.page-head .header .dropdown-menu ul{
+    padding: 5px;
+}
+.pick_ui li span {
+    display: inline;
+    position: relative;
+    padding: 0px 5px;
+    border-radius: 100%;
+    font-weight: 600;
+    margin: 2px;
+    top: auto;
+    right: auto;
+}
+.bootstrap .list-inline > li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.pick_ui .active {
+    border-bottom: 4px solid #fff !important;
+}
+.pick_ui li.nav-item:hover {
+    border-bottom: 4px solid #fff;
+    color: #fff !important;
+}
+.vselipsis::after {
+    content: '\2807';
+    font-size: 30px;
+}
+#fieldset_progress.active, [id^="fieldset_delivered"].active, [id^="fieldset_return"].active, [id^="fieldset_issue"].active {
+    display: block;
+	background-color: #F1F3F4 !important;
+}
+#fieldset_progress, [id^="fieldset_delivered"], [id^="fieldset_return"], [id^="fieldset_issue"] {
+    display: none;
+}
+.table_form .empty {
+    color: lightgray;
+    font-size: 36px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+[class^="process-icon-"] {
+    line-height: 20px!important;
+    height: 20px!important;
+    width: 20px!important;
+    font-size: 20px!important;
+    display: inline-block;
+}
+.error {
+    color: red;
+}
+.sent {
+    color: #47c047;
+}
+.success {
+    color: #47c047;
+    position: absolute;
+    left: 100%;
+    margin-right: 5px;
+    top: 12px;
+    display: none;
+    z-index: 1;
+}
+.success_2 {
+    color: #47c047;
+    position: absolute;
+    left: 100%;
+    margin-right: 5px;
+    top: 12px;
+    display: none;
+    z-index: 999;
+}
+.blur {
+    opacity: 0;
+}
+.dateinput {
+    position: relative;
+    padding-right: 30px!important;
+    overflow: visible!important;
+}
+.input-container{
+    flex: 1;
+}
+.input-container input{
+    margin: 0!important;
+}
+.uimenu {
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    padding: 0;
+    top: 0;
+}
+.uimenu input {
+    height: 100%!important;
+}
+.center {
+    padding: 0 30px;
+}
+
+.infor_box {
+    font-size:12px;
+    display: inline-block;
+    padding-left:40px;
+}
+
+.list-action-enable i{padding:7px !important}
+.list-action-enable{
+    text-align: center;
+}
+.list-action-enable img{
+    padding: 6px;
+    width: 100%;
+}
+.close_popup{
+    color: #888;
+    display: inline-block;
+    font-size: 15px;
+    position: absolute;
+    right: 1%;
+    top: 2%;
+    cursor:pointer;
+}
+.refresh_orders {
+    height: 32px;
+    line-height: 2em !important;
+    margin: 0 5px;
+    position: absolute;
+    right: 56px;
+    width: 32px;
+}
+.bootstrap .table thead > tr > th span.title_box {
+    color: #444;
+    display: inline-block;
+}
+.title_box{
+    color:#444;
+    font-size:15px;
+}
+.no_connector{
+    color: red;
+}
+.AdmindeliveryorderautoupdateDashboard .img-responsive{
+    left: 40%;
+    position: absolute;
+    top: 22%;
+}
+.deliveryorderautoupdate_form.table_form thead tr th {
+    line-height:1em;
+}
+.orderform_review .table td.center, .orderform_review .table th.center {
+    line-height: 0.9em;
+	text-align: left;
+}
+.title_box {
+    font-size: 12px;font-weight:500;
+}
+.del_message  .action-warning {
+    transform: scale(-1, 1);
+}
+.del_message .action-time, .dashboard_history .action-time {
+    background:#777;
+}
+.service_id a img {
+    margin-top: 7px;
+}
+.last_result_carrier a, .dl_dashboard .htr_shipping a {
+    height: 30px;
+    width: 30px;
+    float: left;
+}
+.right_shipping, .dl_dashboard .right_shipping {
+    display: inline-block;
+    margin-left: 5px;
+}
+.divider {
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 2px;
+}
+.del_message .left.track_cols, .dl_dashboard .htr_shipping {
+    position: relative;
+}
+.step_even {
+    float: left;
+    font-size: 10px;
+    min-height: 16px;
+    margin-right: 5px;
+}
+.step_even .icon-envelope {
+    margin: 0 5px;
+}
+.no_connector_row{
+    border: 1px solid red !important;
+}
+.nav.nav-tabs {
+    position: relative;
+    background: #E4E4E4;
+    top: 0;
+    left: 0;
+}
+.historyContent tbody{
+    display: block;
+    max-height: 300px;
+    min-height: 200px;
+    overflow-y: auto;
+}
+.historyContent table.event-list tbody{
+    max-height: 346px;
+}
+#history thead, #history tbody tr, #email thead, #email tbody tr, #email_history thead, #email_history tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.top-filter .btn-group {
+    display: flex;
+    justify-content: end;
+}
+.overview {
+  display: flex;
+  padding: 0;
+}
+.overview .panel {
+    margin-right: 5px;
+}
+@media (max-width:63.9375em) {
+    #content.bootstrap.ui17 {
+        padding-top: 29px;
+    }
+    .top-filter .btn-group {
+        display: block;
+    }
+    .top-filter .order-search {
+        clear: both;
+    }
+    .overview {
+        display: block;
+    }
+}
+@media only screen and (min-width: 768px) {
+    #modal .modal-dialog {
+        width: inherit;
+        max-width: 60%;
+        margin: 30px auto;
+    }
+    #modal .modal-dialog.global-history {
+        max-width: 80%;
+    }
+    #modal .modal-dialog.view-step {
+        max-width: 30%;
+    }
+    #modal .modal-body {
+        min-height: 400px;
+    }
+}
+.status {
+    text-align: left;
+    padding: 5px;
+    cursor: pointer;
+}
+.dropdown-menu li {
+    cursor: pointer;
+}
+.swal-footer {
+  text-align: center;
+}
+table.event-list .date {
+    max-width: 200px;
+    width:  200px;
+}
+table.event-list td,table.event-list th{
+    padding:  5px;
+}
+.AdmindeliveryorderautoupdateDashboard .form-wrapper {
+    width: 100%;
+}
+.block-title .total {
+    background-color: #3767fd;
+    color: #fff;
+	border-radius: 8px;
+    padding: 1px 5px;
+}
+.block-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+.sort:hover {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+  box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+  cursor: pointer;
+}
+.sort .icon {
+    display: none;
+}
+.group-wrapper .group-progress .ratio {
+  position: absolute;
+  left: calc(100% + 5px);
+  white-space: nowrap;
+}
+.group-wrapper .group-progress {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  max-width: 200%;
+  background-color: #b6dfb9;
+}
+.group-wrapper {
+  width: 100%;
+  position: relative;
+  height: 15px;
+}
+
+#order-search {
+    width: 100%;
+    background-color: #fff;
+}
+.bootstrap .tagify-container > span {
+    display: none;
+    width: calc(100% - 6px);
+}
+.tag .remove{
+    float: right;
+}
+.tag > span {
+    white-space: nowrap;
+    width: calc(100% - 14px);
+    overflow: hidden;
+}
+.overview input[name="status"] {
+	margin: 1px 5px 3px 0;
+}
+.overview input[name="carrier"] {
+	margin: 1px 5px 3px 0;
+}
+/*1.7*/
+.bootstrap .form-horizontal .form-wrapper {
+    max-width: 100%;
+}
+.bootstrap .table .btn-group button {
+    display: inline-block;
+}
+.icon-issue {
+    color: #000;
+    position: absolute;
+    right: 28px;
+    top: calc(100% - 15px);
+    top: 50%;
+    margin-top: -8px;
+    opacity: 0.5;
+}
+.icon-truck {
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+}
+.loading-table {
+    width: 100%;
+}
+.loading-row {
+    height: 20px;
+    width: 100%;
+    background-color: #ececec;
+    margin: 5px;
+}

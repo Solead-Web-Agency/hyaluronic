@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>carrieronorder</name>
+    <displayName><![CDATA[Display Carrier on Order list]]></displayName>
+    <version><![CDATA[1.0.0]]></version>
+    <description><![CDATA[Show carriers on order list]]></description>
+    <author><![CDATA[h2p-rsi]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

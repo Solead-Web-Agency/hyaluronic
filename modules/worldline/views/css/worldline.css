@@ -1,0 +1,22 @@
+.atos{
+	border: 1px solid #D6D4D4;
+    border-radius: 4px;
+    display: block;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 23px;
+    padding: 33px 40px 34px 15px;
+    position: relative;
+	font-family: "FontAwesome";
+	margin-bottom: 10px;
+	background-color: #fbfbfb;
+	font-size: 20px;
+}
+.atos:hover{
+	background-color: #f6f6f6;
+}
+.atos span{
+	color: #777777;
+	font-size: 20px;
+}
+.atos .arrow{ float: right; margin-left: 10px; margin-top: 15px;}

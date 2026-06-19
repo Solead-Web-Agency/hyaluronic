@@ -1,0 +1,136 @@
+
+#content.bootstrap .panel-heading .panel-heading-action a.list-toolbar-btn,#content.bootstrap h3:not(.modal-title) .panel-heading-action a.list-toolbar-btn {
+    border-left: 1px solid #eee;
+    color: #ccc;
+    float: left;
+    height: 30px;
+    width: 30px
+}
+
+.bootstrap .control-label {
+    padding-top: 5px;
+    padding-right: 0;
+}
+
+.bootstrap .control-label.col-lg-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.ps-switch {
+    position: relative;
+    display: inline-block;
+    min-width: 130px;
+    min-width: 8.125rem;
+    margin-top: 3px;
+    font-size: 13.008px;
+    font-size: .813rem;
+    background-color: #eff1f2;
+    border-radius: 1px;
+    text-align: center
+}
+
+.ps-switch input {
+    position: absolute;
+    opacity: 0
+}
+
+.ps-switch input:disabled + label {
+    cursor: not-allowed
+}
+
+.ps-switch input:disabled:checked + label {
+    background-color: #bbcdd2
+}
+
+.ps-switch label {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 50%;
+    height: 100%;
+    padding: .231em .769em;
+    margin: 0;
+    vertical-align: middle;
+    text-align: center;
+    text-transform: uppercase;
+    color: #bbcdd2;
+    font-weight: 400;
+    cursor: pointer;
+    transition: color .2s ease-out
+}
+
+.ps-switch input:checked + label {
+    color: #fff
+}
+
+.ps-switch > .slide-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+    z-index: 1;
+    width: 50%;
+    height: 100%;
+    color: #fff;
+    background-color: #c05c67;
+    transition: all .3s ease-out
+}
+
+.ps-switch input:last-of-type:checked ~ .slide-button {
+    background-color: #2eacce;
+    left: 50%
+}
+
+.ps-switch.ps-switch-sm {
+    min-width: 100px;
+    min-width: 6.25rem;
+    font-size: 12px;
+    font-size: .75rem
+}
+
+.ps-switch.ps-switch-lg {
+    font-size: 16px;
+    font-size: 1rem
+}
+
+.bootstrap .prestashop-switch {
+    height: auto;
+    margin-top: 3px;
+}
+
+.bootstrap .prestashop-switch label {
+    position: relative;
+    padding-left: 0.769em;
+    font-size: .813rem;
+    opacity: 1;
+    transform: none;
+}
+
+.bootstrap .prestashop-switch .slide-button {
+    top: 0;
+    width: 50%;
+    height: 100%;
+    transform: none;
+    border-radius: 0;
+    position: absolute;
+}
+
+.bootstrap .prestashop-switch .slide-button::after {
+    background: none;
+}
+
+
+.bootstrap .prestashop-switch input:checked+label {
+    color: #fff;
+}
+
+.bootstrap .form-horizontal .form-wrapper {
+    margin: 0;
+}
+
+.ps-switch>.slide-button {
+    background-color: #2eacce !important;
+}
+

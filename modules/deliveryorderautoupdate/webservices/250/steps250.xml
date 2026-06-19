@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<step>
+			<id_status>1</id_status>
+			<glsstatus>DELIVERED</glsstatus>
+	</step>
+	<step>
+			<id_status>2</id_status>
+			<glsstatus>NOTDELIVERED</glsstatus>
+			<glsstatus>INWAREHOUSE</glsstatus>
+			</step>
+	<step>
+			<id_status>3</id_status>
+			<glsstatus>INTRANSIT</glsstatus>
+	</step>
+	<step>
+			<id_status>4</id_status>
+			<glsstatus>PREADVICE</glsstatus>
+	</step>
+	<step>
+			<id_status>5</id_status>
+			<glsstatus></glsstatus>
+	</step>
+	<step>
+			<id_status>6</id_status>
+			<glsstatus>DELIVEREDPS</glsstatus>
+	</step>
+	<step>
+			<id_status>7</id_status>
+			<glsstatus></glsstatus>
+	</step>
+	<step>
+			<id_status>8</id_status>
+			<glsstatus>INDELIVERY</glsstatus>
+	</step>
+</document>

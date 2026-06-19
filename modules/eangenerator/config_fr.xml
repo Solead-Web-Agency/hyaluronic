@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>eangenerator</name>
+    <displayName><![CDATA[G&eacute;n&eacute;rateur de codes EAN / UPC]]></displayName>
+    <version><![CDATA[2.1.0]]></version>
+    <description><![CDATA[G&eacute;n&egrave;re des codes EAN et / ou UPC pour vos produits]]></description>
+    <author><![CDATA[Johann Corbel Consulting]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+	<confirmUninstall><![CDATA[Etes-vous sûr de vouloir désinstaller ce module ?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

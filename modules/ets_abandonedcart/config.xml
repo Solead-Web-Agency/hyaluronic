@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ets_abandonedcart</name>
+    <displayName><![CDATA[Abandoned Cart Reminder + Auto Email]]></displayName>
+    <version><![CDATA[4.3.1]]></version>
+    <description><![CDATA[Must-have PrestaShop abandoned cart reminder module to recover your lost shopping carts, send auto emails, retain existing customers and increase your sales by 50%]]></description>
+    <author><![CDATA[ETS-Soft]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

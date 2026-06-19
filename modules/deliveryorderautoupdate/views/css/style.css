@@ -1,0 +1,283 @@
+body {
+    color: #444;
+}
+.bootstrap .form-horizontal .form-wrapper {
+    max-width: 100%;
+}
+.v17 .btn-group {
+    display: inline-flex;
+}
+.v17 .test_event_email {
+    height: 39px;
+}
+.step-list {
+    max-height: 383px;
+    overflow: auto;
+    padding:  2px 0;
+}
+.nav.nav-tabs {
+	position:relative;
+	z-index:9;
+	top:-21px;
+	left:-16px;
+	background:#E4E4E4;
+}
+.guide_inetform{
+	right:-34px;
+}
+.edit_carrier {
+	cursor:pointer;
+}
+.red {
+    color: #f00!important;
+}
+.title_box.last_result_carrier {
+    display: flex;
+}
+.update_ordercarrier {
+    width: 65px;
+    text-align: left!important;
+}
+.update_ordercarrier span {
+    margin-left: 5px;
+}
+/*.form-group ul li {
+	background: #EDEDED;
+}*/
+.form-group ul li.active a {
+	outline:none !important;
+}
+@media (min-width:507px) {
+	.guide_inetform{
+		float:right !important;
+	}
+}
+.box_carrier {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+}
+.box_form {
+    background: white none repeat scroll 0 0;
+	display: inline-block;
+    left: 27%;
+    padding: 19px;
+    position: absolute;
+    top: 20%;
+}
+
+.message_infor_box {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 99999999;
+}
+.message_infor {
+    color: white;
+    font-weight: bold;
+    left: 39%;
+    position: absolute;
+    top: 41%;
+}
+
+#cron_task_button {
+    position: relative;
+    padding: 0 8px;
+    z-index: 10;
+}
+.copied::after {
+    animation: 1.5s ease 0s normal none 1 running showcopied;
+    background-color: #22a;
+    border-radius: 3px;
+    color: #fff;
+    content: "copied";
+    display: block;
+    font-size: 0.75em;
+    opacity: 0;
+    padding: 2px 3px;
+    position: absolute;
+    right: 110%;
+    top: 12%;
+    will-change: opacity, transform;
+}
+@keyframes showcopied {
+0% {
+    opacity: 0;
+    transform: translateX(100%);
+}
+70% {
+    opacity: 1;
+    transform: translateX(0px);
+}
+100% {
+    opacity: 0;
+}
+}
+
+.pull_url{
+	background: #ccee85;
+    display: inline-block;
+    padding: 5px 14px;
+}
+
+
+.popup_parent {
+	background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    display: block;
+    height: 100%;
+    left: 0;
+	display:none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2500;
+}
+.popup_parent .popup_items{
+	background: #fff none repeat scroll 0 0;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    left: 45%;
+    margin: 0 auto;
+    max-width: 80%;
+    position: absolute;
+    top: 35%;
+}
+.right_content_form  {
+	position: relative;
+	display: inline-block;
+    float: right;
+	width: 28%;
+}
+.right_content_form .popup_parent {
+	height: 400px;
+    position: absolute !important;
+    top: -5px;
+	background: #fff none repeat scroll 0 0;
+	opacity: 0.6;
+}
+.close_popup{cursor: pointer; position: absolute; right: 10px; top: 5px;}
+
+/* open popup */
+.message_infor_box {
+	background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 99999999;
+}
+.message_infor {
+	background: white;
+	font-weight: bold;
+	padding: 10px;
+	left: 15%;
+	right: 15%;
+	position: absolute;
+	top: 15%;
+	border-radius: 5px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+/* end popup */
+.track_cols, .action-carrier {
+    cursor: pointer;
+}
+.carrier_form.dou_Track_filter .carrier_fieldname img{
+	float:left;
+	padding-right: 10px;
+}
+.carrier_form.dou_Track_filter .carrier_fieldname .title_box{
+	display: inline-block;
+    margin-top: 7px;
+}
+.infor_newbox {
+	display: inline-block;
+    padding-left: 38px;
+}
+.htr_shipping .home_1_box {
+	position:absolute;
+	top:11px;
+}
+.deliveryorderautoupdate-email {
+	margin-top:10px;
+}
+.small_title {
+	font-size:11px;
+    font-weight: 500;
+}
+.left.carrier_fieldname {
+	display: flex;
+	align-items: center;
+}
+.left.carrier_fieldname > img {
+    margin-right: 7px;
+}
+.update_carrier {
+	text-align:left !important;
+}
+.carrier_emb_conf {
+	margin-bottom:5px !important;
+}
+.dashboard_history  .action-warning, .dashboard_history  .action-truck, .dashboard_history  .action-truck8 {
+	transform: scale(-1, 1);
+}
+
+.config_carrier_modules .message_infor_box .message_infor {
+	left: 30%;
+	right: 30%;
+}
+.input-container select {
+    height: 100%;
+}
+.edit_carrier, .edit_connector, .openmenu  {
+    cursor: pointer;
+}
+#editConnector, #editCarrier, #editIssue, #editIssueStatus {
+    display: none;
+}
+.date-range {
+    padding: 0 5px;
+    border: 1px solid #eaedef;
+    line-height: 32px;
+    margin-bottom: 10px;
+}
+.date-range .time {
+    padding: 0 5px;
+}
+.date-range .date {
+    border-left: 1px solid #eaedef;
+    border-right: 1px solid #eaedef;
+    text-align: center;
+}
+.htr_shipping {
+    white-space: nowrap;
+}
+.di-hint {
+    padding: 0px 9px !important;
+    background-color: #cbc7c7;
+    border-radius: 50px;
+    color: #fff;
+    cursor: default;
+}
+.issue_status_history {
+    width: 500px;
+    text-align: left;
+}
+.swal-wide {
+    width: auto;
+}
+.issue_status_history tr {
+    border-bottom: 1px solid #ececec;
+}
+.small {
+    font-size: small;
+}

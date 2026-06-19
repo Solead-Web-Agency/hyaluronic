@@ -1,0 +1,7 @@
+[{shop_url}] 
+
+Hello.
+
+Customer requested a callback at {date}.
+
+Please call ASAP to {phone}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>hbc</name>
+    <displayName><![CDATA[Hide products by country]]></displayName>
+    <version><![CDATA[1.5.3]]></version>
+    <description><![CDATA[Module allows to hide products you sell depending on customer origin (country)]]></description>
+    <author><![CDATA[MyPresta.eu]]></author>
+    <tab><![CDATA[checkout]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

@@ -1,0 +1,17 @@
+[{shop_name}]({shop_url})
+Olá {firstname} {lastname},
+Obrigado por ter criado uma conta de cliente em {shop_name}.
+
+Here is your login email address:
+Endereço de email: {email}
+
+Dicas Importantes de Segurança:
+
+- Mantenha sempre em segurança os detalhes da sua conta.
+- Nunca divulgue a terceiros as informações da sua conta.
+- Altere regularmente a palavra-passe.
+- Se suspeitar que alguém está a usar ilegalmente a sua conta, por favor avise-nos imediatamente.
+
+Agora já pode fazer encomendas na nossa loja: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,1 @@
+Point de retrait du transporteur pour les commandes entrantes.

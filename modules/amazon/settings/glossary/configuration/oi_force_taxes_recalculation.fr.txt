@@ -1,0 +1,4 @@
+Lorsqu'il ne s'agit pas d'une commande commerciale, la conformité aux règles de TVA de l'UE est désactivée et aucune taxe n'est incluse dans
+Commande Amazon, les taxes sont calculées en fonction des règles fiscales PS.
+
+Exemple : Un produit n'est pas créé par vous mais a une mauvaise taxe sur Amazon.

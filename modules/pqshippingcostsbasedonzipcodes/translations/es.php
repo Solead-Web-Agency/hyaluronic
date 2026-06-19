@@ -1,0 +1,31 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>ajax_402e7a087747cb56c718bde84651f96a'] = '¡Éxito!';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>ajax_4f2b8070f6c70806f3a6221ab28aef18'] = 'No se puede agregar un registro en modo de demostración!';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>ajax_1ec4d333a8c11f45e3a57b8b9bc9a5ba'] = 'No se agregó el registro, condición tiene la misma zona como la zona de s del país por defecto! Puede cambiar la zona predeterminada para este país en la traducción> Países.';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_313bee399c95c8e02f0f430b270b02f4'] = 'Costos de envío basado en códigos postales Pro';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_654ec08c7588ef7d8a74a8de6e9b6125'] = 'Aplicar diferentes gastos de envío basados en códigos postales de sus clientes.';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_876f23178c29dc2552c0b48bf23cd9bd'] = '¿Seguro que deseas desinstalar?';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_fe5d926454b6a8144efce13a44d019ba'] = 'Valor de configuración no válida';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_c888438d14855d7d96a2724ee9c306bd'] = 'Ajustes actualizan';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_53c239755b7b37253484a5f2ca2f1871'] = 'Las condiciones de importación de archivos CSV (separador debe ser \",\"):';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_47a4c332b4bf75679664de49fe8a0a54'] = 'Haga clic aquí para descargar un archivo .CSV muestra como un ejemplo de los archivos aceptados para la importación por lotes.';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_bcc6e0eb065f0febf840454fcdfccc5d'] = 'LISTA DE CONDICIONES:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_b718adec73e04ce3ec720dd11a06a308'] = 'ID';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_59716c97497eb9694541f7c3d37b1a4d'] = 'País';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_b3ff996fe5c77610359114835baf9b38'] = 'Zona';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_8848823466ae13db2d5e6032e343debe'] = 'Códigos ZIP';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_44749712dbec183e983dcd78a7736c41'] = 'Fecha';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_06df33001c1d7187fdd81ea1f5b277aa'] = 'Comportamiento';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_99a8845b74dcfb5a5c303b48aeb58a5b'] = 'Van códigos postales';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_fa428870dcdb2e6dd3573a82a7aee04e'] = 'Código Postal min';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_5bef4caf986d2acbaa448c8a0a25b929'] = 'Código Postal max';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_67336e68498293274d9c72f89e11103f'] = 'Los paises:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_95e8d15a6e93b055bf6d07796bb8902c'] = 'Zonas:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_7ccfe5031938963e780c7eb9cfcf8505'] = 'Códigos postales van:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_9564ae3a46208be4545c6aa04472566c'] = 'Código postal:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_3abe023cc28a40ba5a1a9f56ae5afad2'] = 'Código Postal min:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_6cd18fb4dda43bc36f49075c98be5e05'] = 'Código Postal max:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_34e34c43ec6b943c10a3cc1a1a16fb11'] = 'Administrar';

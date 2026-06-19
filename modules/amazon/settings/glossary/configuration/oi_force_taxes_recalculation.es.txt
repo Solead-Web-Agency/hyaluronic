@@ -1,0 +1,4 @@
+Cuando no se trata de una orden comercial, Cumplir con las normas del IVA de la UE está deshabilitado y no se incluyen impuestos en
+Pedido de Amazon, los impuestos se calculan según las normas fiscales de PS.
+
+Ejemplo: Un producto no es creado por ti pero tiene un impuesto incorrecto en Amazon.

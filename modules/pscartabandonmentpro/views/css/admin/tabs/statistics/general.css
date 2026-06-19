@@ -1,0 +1,159 @@
+/**
+* General
+*/
+
+#stats .input-group[class*=col-] {
+	float: left;
+}
+
+/**
+* Global view
+*/
+
+#global_view {
+    padding: 30px 15px;
+}
+#global_view .title{
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+#global_view .text {
+	padding-top: 10px;
+}
+
+#global_view .percent_text {
+	font-size: 18px;
+}
+
+#global_view .desc_text {
+	font-size: 12px;
+	color: #7a959c;
+}
+
+
+/**
+* circle svg
+*/
+#stats .flex-wrapper {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+#stats .single-chart {
+	width: 100%;
+	justify-content: space-around ;
+}
+
+#stats #global_view .material-icons {
+    color: #00b8d9;
+    position: absolute;
+    left: 35%;
+	top: 35%;
+	font-size: 1.3vw;
+}
+@media screen and (max-width: 1200px) {
+	#stats #global_view .material-icons {
+		font-size: 5.2vw;
+	}
+}
+@media screen and (max-width: 990px) {
+	#stats #global_view .material-icons {
+		left: 44%;
+		top: 31%;
+		font-size: 10vw;
+	}
+}
+#stats .circular-chart {
+	display: block;
+	margin: 10px auto;
+	max-width: 100%;
+	max-height: 250px;
+}
+#stats .circle-bg {
+	fill: none;
+	stroke: #eee;
+	background: #eee;
+	stroke-width: 3.8;
+}
+
+#stats .circle {
+	fill: none;
+	stroke-width: 2.8;
+	stroke-linecap: round;
+	animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+	0% {
+		stroke-dasharray: 0 100;
+	}
+}
+
+#stats .circular-chart .circle {
+	stroke: #00b8d9;
+}
+
+#stats .percentage {
+	fill: #666;
+	font-family: sans-serif;
+	font-size: 0.5em;
+	text-anchor: middle;
+}
+
+/**
+* Reminders each stats
+*/
+#conversions .no_data {
+	font-size: 14px;
+    padding: 20px 0;
+}
+#conversions .table thead>tr>th {
+	border: 1px solid #e4e8ea;
+	border-bottom: 0;
+	border-top: 0;
+	text-align: left;
+	font-weight: normal;
+}
+#conversions tbody>tr:hover>td{
+	background: inherit;
+}
+#conversions tbody td {
+	vertical-align: bottom;
+	padding: 0;
+	padding-top: 10px;
+	border: 1px solid #e4e8ea;
+}
+#conversions tbody td:first-child,
+#conversions .table thead>tr>th:first-child {
+	border-left: 0;
+}
+#conversions tbody td:last-child,
+#conversions .table thead>tr>th:last-child {
+	border-right: 0;
+}
+#conversions tbody td div {
+	padding: 0;
+}
+#conversions .stat_visu{
+	height: 220px;
+	background: #00b8d9;
+}
+@media screen and (max-width: 1200px) {
+	#conversions .stat_visu{
+		display: none;
+	}
+}
+#conversions .stat_rise{
+	height: 220px;
+	background: #f3f9fb;
+}
+#conversions .percent {
+	z-index: 99999;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    top: 50%;
+	font-size: 14px;
+	padding-right: 10%;
+}

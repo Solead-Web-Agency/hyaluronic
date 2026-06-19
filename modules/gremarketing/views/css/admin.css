@@ -1,0 +1,113 @@
+/*
+	#gr .subtitle H2 {font-size: 16 px;}
+	#gr #categoryList {padding: 10px; float: left; overflow: auto; min-height: 300px;}
+	#gr #navTab {float: left; width: 180px; list-style-type: none; background-color: #FFF6D3;}
+	#gr #navItem {padding: 5px; border-bottom: 1px solid #666;}
+	#gr .add {float: right;}
+	#gr span.add img, #gr span.add label {cursor: pointer;}
+	#tabtable tr td { padding: 5px !important; }
+	#gr input[type=text], #gr select { color: #1E6CA2 !important; background-color: #D3E9F8; }
+	#gr input[type=submit], #gr input[type=button] { background:url("../img/ui_bg.png") center center no-repeat; color: #fff !important; padding: 5px; border-radius: 3px; }
+*/
+
+/* help boxes */
+#gr .clr_0,#gr .clr_1,#gr .clr_5,#gr .clr_10,#gr .clr_15,#gr .clr_20,#gr .clr_30,#gr .clr_50,#gr .clr_80,#gr .clr_100,#gr .clr_hr{ background:none; clear:both !important;float:none !important;position:relative; padding:0 !important;margin:0 !important;display:block !important}
+#gr .clr_hr, #gr .clr_0{height:0 !important;}
+#gr .clr_1{height:1px !important}
+#gr .clr_5{height:5px !important}
+#gr .clr_10{height:10px !important}
+#gr .clr_15{height:15px !important}
+#gr .clr_20{height:20px !important}
+#gr .clr_30{height:30px !important}
+#gr .clr_50{height:50px !important}
+#gr .clr_80{height:80px !important}
+#gr .clr_100{height:100px !important}
+#gr .clr_hr{ border-bottom:1px solid #CCC !important;}
+#gr .center{text-align: center !important;}
+#gr .float-right {float: right;}
+
+#gr .ui-state-active a, #gr .ui-state-active a:link, #gr .ui-state-active a:visited{
+	background:#FFF; border-bottom: 1px solid #FFFFFF;
+}
+#gr .ui-tabs .ui-tabs-nav li.ui-tabs-selected{ padding-bottom:0; overflow:hidden; margin-bottom:-1px; border: 1px solid #CCC !important; border-bottom:1px solid #FFF !important; }
+#gr .ui-tabs .ui-tabs-nav li{ margin:0 7px 0 0; height:30px;}
+#gr .ui-widget-header{ background:none;}
+#gr #grBlockTab{ border:none; background:none;}
+#gr #contentTabs{ border:1px solid #CCC; margin-top:1px;}
+#gr .ui-widget-header{ background:none;}
+.colorpicker{ z-index: 999999;}
+
+#gr label i{ font-weight: normal; color: #999; font-size: 11px;}
+
+.bootstrap .nav-tabs
+{
+	border-bottom: 1px solid #ddd !important;
+}
+.bootstrap .switch{
+	float: left;
+}
+
+
+.ac_results{
+	width: auto !important; border:1px solid #CCC !important; margin-top: -1px;
+	-moz-box-shadow: 0px 1px 4px #AAA;  -webkit-box-shadow: 0px 1px 4px #AAA; -o-box-shadow: 0px 1px 4px #AAA; box-shadow: 0px 1px 4px #AAA;
+}
+.ac_results ul li{ padding: 3px 10px; cursor: pointer; background: #E9E9E9 !important; color: #333 !important;}
+.ac_results ul li:nth-child(odd){ background: #F9F9F9 !important;}
+.ac_results ul li:hover, .ac_results ul li.ac_over{ background: #FA9445 !important; color: #FFF !important; }
+
+
+/* Fix bug for prestashop 1.4 (Hidden tabs) */
+.ui-widget-content{ display: block;}
+/* Fix bug for prestashop 1.4 (input) */
+input[type="text"], input[type="password"], input[type="file"], textarea, select, option{ float: left;}
+#content{ border: none;}
+
+.btBlackH3{ background: #333; color: #FFF !important; padding: 5px 0; width: 100%; margin: 0; border: none; text-align: center;}
+
+.nobootstrap label, .bootstrap label {text-shadow: none;}
+
+.bootstrap .alert.alert-info {border-left: solid 3px #81cfe6 !important;}
+
+#bootstrap-bouton{ width:100%} #bootstrap-bouton .switch .btn-yes{ top:0; left: 0; position: absolute;} #bootstrap-bouton .switch .btn-no{ top:0; right:0; position: absolute;}
+
+.bt-effect {
+	box-shadow: 1px 1px 12px #555;
+}
+
+#gr .list-group-item { cursor: pointer !important; }
+
+/** Footer **/
+#gr .unstyled{list-style:none;}
+#gr .footer_top_block { font-size: 20px; text-align: center; border-bottom: 1px solid black; padding-bottom: 10px;}
+#gr .footer {	text-align: center; background-color: #fff; border: solid 1px #d3d8db;	-webkit-border-radius: 5px; border-radius: 5px;}
+#gr .footer_title { font-size : 16px; color: #555; padding : 10px 0px 10px 0px;  border-bottom: 1px solid black;}
+#gr .footer_link { font-size : 14px; padding-top : 10px;}
+#gr .footer_link a { color: #555 !important;}
+
+@keyframes pulse_animation {
+	0% { transform: scale(1); }
+	30% { transform: scale(1); }
+	40% { transform: scale(1.08); }
+	50% { transform: scale(1); }
+	60% { transform: scale(1); }
+	70% { transform: scale(1.05); }
+	80% { transform: scale(1); }
+	100% { transform: scale(1); }
+}
+
+#gr .pulse {
+	animation-name: pulse_animation;
+	animation-duration: 5000ms;
+	transform-origin:70% 70%;
+	animation-timing-function: linear;
+}
+
+#gr .pulse2 {
+	animation-iteration-count: 2;
+}
+
+#gr .pulse_infnite {
+	animation-iteration-count: infinite;
+}
+

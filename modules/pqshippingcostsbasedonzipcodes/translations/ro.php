@@ -1,0 +1,31 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>ajax_402e7a087747cb56c718bde84651f96a'] = 'Succes!';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>ajax_4f2b8070f6c70806f3a6221ab28aef18'] = 'Nu puteti adauga o intrare in MODUL DEMO!';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>ajax_1ec4d333a8c11f45e3a57b8b9bc9a5ba'] = 'Intrarea nu a fost adaugata, conditia are aceeasi zona ca si zona implicita a tarii! Puteti schimba zona implicita a tarii din meniul Localizare > Tari.';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_313bee399c95c8e02f0f430b270b02f4'] = 'Costuri Expediere Bazate pe Coduri Postale Pro';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_654ec08c7588ef7d8a74a8de6e9b6125'] = 'Aplica costuri diferite bazate pe codurile postale ale clientilor tai.';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_876f23178c29dc2552c0b48bf23cd9bd'] = 'Esti sigur ca doresti sa dezinsalezi?';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_fe5d926454b6a8144efce13a44d019ba'] = 'Valoare configurare invalida';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>pqshippingcostsbasedonzipcodes_c888438d14855d7d96a2724ee9c306bd'] = 'Setarile au fost actualizate';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_53c239755b7b37253484a5f2ca2f1871'] = 'Importa conditii din .CSV (separatorul trebuie sa fie \",\")';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_47a4c332b4bf75679664de49fe8a0a54'] = 'Click aici pentru a descarca un exemplu de fisier .CSV.';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_bcc6e0eb065f0febf840454fcdfccc5d'] = 'LISTA DE CONDITII:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_b718adec73e04ce3ec720dd11a06a308'] = 'ID';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_59716c97497eb9694541f7c3d37b1a4d'] = 'Tara';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_b3ff996fe5c77610359114835baf9b38'] = 'Zona';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_8848823466ae13db2d5e6032e343debe'] = 'Coduri postale';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_44749712dbec183e983dcd78a7736c41'] = 'Data';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_06df33001c1d7187fdd81ea1f5b277aa'] = 'Actiuni';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_99a8845b74dcfb5a5c303b48aeb58a5b'] = 'Interval coduri postale';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_fa428870dcdb2e6dd3573a82a7aee04e'] = 'Cod postal min';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>index_5bef4caf986d2acbaa448c8a0a25b929'] = 'Cod postal max';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_67336e68498293274d9c72f89e11103f'] = 'Tari:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_95e8d15a6e93b055bf6d07796bb8902c'] = 'Zone:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_7ccfe5031938963e780c7eb9cfcf8505'] = 'Interval coduri postale:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_9564ae3a46208be4545c6aa04472566c'] = 'Cod postal:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_3abe023cc28a40ba5a1a9f56ae5afad2'] = 'Cod postal min:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_6cd18fb4dda43bc36f49075c98be5e05'] = 'Cod postal max:';
+$_MODULE['<{pqshippingcostsbasedonzipcodes}prestashop>translations.js_34e34c43ec6b943c10a3cc1a1a16fb11'] = 'Administreaza';

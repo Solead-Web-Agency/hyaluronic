@@ -1,0 +1,139 @@
+From version 1.6.0 to 2.1.6
+move order webservice call and order tracking steps into popups
+in tracking page, display also orders that are not lined to a connector 
+email template does not display all values
+remove right panel
+make filters working for fields "customer" and "order reference"
+solve tracking issue in bulk mode
+Filter by customer takes into account only first name, it should also last name
+use dropdown instead of text field for carrier
+make that only order having matched connector will be tracked
+Allow user to change carrier of order
+Allow user to edit tracking number of order
+after selecting new carrier in dropdown, must also update value in connector field
+Allow user to update matching of carrier/connector directly in grid
+on new connector select, it should apply change on all rows that have same carrier
+displaying red border on connector selectbox  if value is "no connector"
+after change connector, must follow new connector : update query for tracking
+on order reference click, display order page in new browser tab
+In order page, added a column that shows module delivery steps summary
+delete matching tab, merge connector tabs
+In configuration, tab "general" display of a link that redirect to tracking dashboard
+Remove method selector and active selector, in connector popup
+use friendly url for tracking page in front end
+change some icons and remove "view connector response"
+corrected all errors that are displayed in dev mode
+email language was not following ps_orders.id_lang
+connector for Chonopost added
+once user save credentials, must keep connector matching instead of deleting it
+sometimes tracking was unable to return a response for some orders in bulk mode
+Ask user if want to delete credentials on connector uninstall process
+update order carrier was updating only order_carrier.id_carrier, now it updates also orders.id_carrier
+Added display block for delivery steps in customer area
+Use id_reference instaed of id_carrier for carrier/connector matching, to avoid to lose matching after user saves carrier
+removed temporization function, it was useless
+display pdf guides from header icon
+file AdmindeliveryorderautoupdateAjax.php cleaned up
+In config email, now is displayed logo for email instead of shop logo
+once parcel number is edited, then click on view webservice response, it still post request with old parcel number
+in email sent by tracking step validation, subject was always in english, now it follows ps_orders.id_lang
+added ability to send email manually
+solved bad display of email in yahoo
+allow user to display last shipping status as bubbles in order list
+if shop has only 1 lang, url must not use lang_code in frent end tracking url
+when user selects no connector, must delete row in matching table
+New API la poste V2 replaces V1
+disable tracking button if number is empty and don't track order on "track all" button and cron
+Connector fro DPD rebuilt
+Connector for hronopost rebuilt
+Connector for DB Shenker rebuilt
+Connector for SEUR rebuilt
+Connectors for DPD Estonia, Latvia, Lettonia added
+Admin can now edit email subject
+In front end tracking page, display date time format according user browser
+allowed user to delete tracking number of an order by deleting current one
+tracking number was saved only in ps_order_carrier.tracking_number, now also saved in ps_orders.shippling_number
+Added security in connectors file, that consist to check if parcel number and order_id entered as params are matching
+Added ability to send emails in bulk
+Show admin when recipiant of tracking email have clicked on it
+use status 0 if carrier status doesn't correspond to a module status
+added filter for orders having no tracking history
+allow user to see email history, via new tab, in history popup
+added ability to update order"s status according other shipping statuses
+added ability to enable/disable display of tracking steps in customer area 
+added ability to enable/disable display of tracking block in order page
+Improved display of steps summary in order page
+allow admins to receive email according shipping status
+"edit tracking number" function wasn't working on mobiles
+In connectors list, filter is now made by js instead of ajax
+Solve small issue of connector popup that didn't open on prestashop 1.6.0.5
+
+Version 2.2.3
+Added carrier DSV
+On email and front display carrier logo instead of api logo
+Added carrier DPD Local
+Added CanadaPost
+Added USPS
+Small error corrected in BRT
+Added Bring
+Added MRW
+Added option for deleting tracking history
+Solved error on cron when site uses mysql8
+Added PosteItaliane and SDA
+Added Carrier Posti of Finland
+Solved bug in connector 3 GLS
+Solved bug when server return json endoded UTF with BOM
+
+Version 2.3.0
+Tracking Email template has been enhanced
+Row order orders are now auto loaded 20 by 20
+Enhanced page header
+Added new tab for display delay of preparation and transit time
+Cron job notification for admins is now sent only 1 time and contains all order in a grid
+Order date is now included in delivery steps diagram
+in front end tracking page, shipping number is clickable and redirects to carrier tracking page
+
+Version 2.3.2
+Added option that send error report to module editor
+Fixed bad display of tracking block on order page
+Added GLS Netherlands
+Added DPD Portugal
+Added ViaDirecta Portugal
+Added Âncoras e Margens Portugal
+Added GLS Portugal
+Added DHL Parcel NL
+Added DPD Romania
+Added Nacex Portugal
+
+Version 2.3.5
+Added carrier CTT Portugal
+Added carrier Envialia
+Connector list enhanced
+Add option "Force status" that allow user to force the shipping status
+Added ability to not track order of some current status
+Added option for create new shipment linked to same order
+Tracking block of order page has been improved
+Added DHL Iberia
+Front office Tracking page is compliant with multi shipment
+Translation in dutch has been completed
+Corrected small issue on connector 26
+Added option that splits shipment having several tracking numbers separated by coma
+Solved bad display of tracking block in customer account area
+In order page, alert is displayed if shipping number is empty
+Shipment date is now updated according shipping status "shipment created"
+If order contains multiple tracking number, then only last one is used for tracking
+
+Version 2.4.3
+All events are now saved in new table instead of only last one
+Connector for Fedex has been added
+step diagram on front office is now animated and css issues have been fixed
+Tracking block of order page has been enhanced, and bad display on prestashop 1.7 is fixed
+Fixed bad display of tracking block in front end customer area
+
+Version 2.4.4
+Added option for update shipment date
+Added connector for Polish Post
+Fixed issue for email subject that was using fixed subject even if user selected dynamic subject
+
+Version 2.4.5
+On order page tracking block and tracking page, success bubbles are displayed at top right on tracking, carrier, connector value edit

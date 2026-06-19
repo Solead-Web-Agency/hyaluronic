@@ -1,0 +1,77 @@
+{# **
+ * OrderEdit
+ *
+ * @author    silbersaiten <info@silbersaiten.de>
+ * @copyright 2021 silbersaiten
+ * @license   See joined file licence.txt
+ * @support   silbersaiten <support@silbersaiten.de>
+ * @category  Module
+ * @version   2.0.34
+ * @link      https://www.silbersaiten.de
+ * #}
+
+{% for status in orderForViewing.history.statuses %}
+    <div class="modal fade" id="updateOrderHistory_{{ status.orderHistoryId }}" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ 'Order status'|trans({}, 'Modules.Orderedit.Admin') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ 'Close'|trans({}, 'Admin.Actions') }}">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-control-label" for="status_date">
+                            {{ 'State date'|trans({}, 'Modules.Orderedit.Admin') }}
+                        </label>
+                        <input type="text" id="status_date" name="status_date" class="form-control"
+                               value="{{ status.createdAt|date_format_full }}"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="employee">
+                            {{ 'Employee'|trans({}, 'Modules.Orderedit.Admin') }}
+                        </label>
+                        <select class="custom-select" name="employee">
+                            <option value="0">---</option>
+                            {% for employee in employeeList %}
+                                <option value="{{ employee.id_employee }}"
+                                    {% if status.employeeFirstName == employee.firstname and status.employeeLastName == employee.lastname %}
+                                        selected="selected"
+                                    {% endif %}
+                                >{{ employee.firstname }} {{ employee.lastname }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="order_state">
+                            {{ 'State'|trans({}, 'Modules.Orderedit.Admin') }}
+                        </label>
+                        <select class="custom-select" name="order_state">
+                            {% for state in statesList %}
+                                <option value="{{ state.id_order_state }}"
+                                    {% if state.id_order_state == status.orderStatusId %}
+                                        selected="selected"
+                                    {% endif %}
+                                >{{ state.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-none">
+                        <input type="hidden" name="id_history_state" value="{{ status.orderHistoryId }}"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                        {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+                    </button>
+                    <a href="" class="btn btn-primary" id="update_order_status">
+                        {{ 'Update'|trans({}, 'Admin.Actions') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

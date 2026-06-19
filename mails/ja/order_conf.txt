@@ -1,0 +1,39 @@
+[{shop_name}]({shop_url})
+{lastname} {firstname} 様
+{shop_name} にてご注文ありがとうございます!
+
+注文 {order_name} 作成日時 {date}
+
+支払い： {payment}
+
+リファレンス	商品	単価	数量	合計価格  {products_txt} {discounts_txt}
+
+商品
+{total_products}
+
+割引
+{total_discounts}
+
+ギフトラッピング
+{total_wrapping}
+
+送料
+{total_shipping}
+
+支払い税金合計
+{total_tax_paid}
+
+支払い合計
+{total_paid}
+
+配送： {carrier}
+
+支払い： {payment}
+
+{delivery_block_txt}
+{invoice_block_txt}
+
+Follow your order and download your invoice on our shop, go to the [注文履歴と詳細]({history_url}) section of your customer account.
+If you have a guest account, you can follow your order via the [ゲストトラッキング]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

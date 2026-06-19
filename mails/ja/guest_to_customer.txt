@@ -1,0 +1,14 @@
+[{shop_name}]({shop_url})
+{lastname} {firstname} 様
+
+Your guest account for {shop_name} has been transformed into a customer account.
+
+Email address: {email}
+
+Click on the following link to set up your password:
+{url}
+
+ログイン情報を共有する際には注意深く取り扱ってください。
+当店の顧客登録情報にアクセスできます： {shop_url}
+
+[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

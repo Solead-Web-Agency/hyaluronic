@@ -1,0 +1,32 @@
+.prestacraft-close {
+	border: none;
+	outline: none;
+	background: transparent;
+	cursor: pointer;
+	position: absolute;
+	right: 15px !important;
+	font-size: 26px;
+	font-weight: bold;
+	font-family: monospace;
+}
+
+div.popup img {
+	max-width: 100%;
+	height: auto;
+}
+
+.tingle-modal__close {
+	display: none;
+}
+
+.prestacraft-special-text {
+	border: none;
+	outline: none !important;
+	background: transparent;
+	display: block;
+	width: 100%;
+}
+
+.tingle-modal-box__content img {
+	max-width: 100% !important;
+}

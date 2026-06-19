@@ -1,0 +1,60 @@
+services:
+  _defaults:
+    public: true
+
+  ##############
+  # Your Module
+
+  zendesk.module:
+    class: zendesk
+    factory: ['Module', 'getInstanceByName']
+    arguments:
+      - 'zendesk'
+
+  zendesk.context:
+    class: Context
+    factory: ['Context', 'getContext']
+
+  zendesk.ps_account_service:
+    class: 'ZendeskAddon\Service\PsAccount'
+    public: true
+    arguments:
+      - '@zendesk.module'
+      - '@zendesk.context'
+
+  #####################
+  # PrestaShop Account
+  zendesk.ps_accounts_installer:
+    class: 'PrestaShop\PsAccountsInstaller\Installer\Installer'
+    arguments:
+      - '5.0'
+
+  zendesk.ps_accounts_facade:
+    class: 'PrestaShop\PsAccountsInstaller\Installer\Facade\PsAccounts'
+    arguments:
+      - '@zendesk.ps_accounts_installer'
+
+  #####################
+  # PrestaShop Billing
+
+  zendesk.ps_billings_context_wrapper:
+    class: 'PrestaShopCorp\Billing\Wrappers\BillingContextWrapper'
+    arguments:
+    - '@zendesk.ps_accounts_facade'
+    - '@zendesk.context'
+    - false
+
+  zendesk.ps_billings_facade:
+    class: 'PrestaShopCorp\Billing\Presenter\BillingPresenter'
+    public: true
+    arguments:
+    - '@zendesk.ps_billings_context_wrapper'
+    - '@zendesk.module'
+
+  # Remove this if you do not need BillingService
+  zendesk.ps_billings_service:
+    class: 'PrestaShopCorp\Billing\Services\BillingService'
+    public: true
+    arguments:
+    - '@zendesk.ps_billings_context_wrapper'
+    - '@zendesk.module'

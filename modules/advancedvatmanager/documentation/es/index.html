@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Advanced VAT Manager (ES)</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+      <link rel="stylesheet" href="assets/css/prism.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/skin-blue.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- All dynamic styles -->
+        <style type="text/css">
+            .social,.content-header .version, .steps > li,aside::after{
+          background: #ff5100;
+        }
+        .main-header .sidebar-toggle::before,.skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a,.nav > li > a:hover, .nav > li > a:active, .nav > li > a:focus{
+          color: #ff5100        }
+        .nav.treeview-menu{
+            border-color:#ff5100 ;
+        }
+            .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
+      background: #332e20;
+    }
+ 
+  
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+              <style>
+            .xdocs-pre-loader{
+                background: url(https://documentation.liewebs.com/wp-content/plugins/xdocs/assets/img/loader1.gif) center no-repeat #fff;
+            }
+        </style>
+
+                    <link rel="stylesheet" href="assets/css/logo_modulo-11.png">
+          </head>
+  <body class="skin-blue fixed" data-spy="scroll" data-target="#scrollspy">
+
+
+    
+    <div class="xdocs-pre-loader"></div>    <div class="wrapper">
+      <header class="main-header">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+      </header>
+      <!-- Left side column. contains the logo and sidebar --><aside class="main-sidebar">
+                  <div class="logo">
+                  <img src="https://documentation.liewebs.com/wp-content/uploads/module_box150px-8.png" alt="" />
+              </div>
+        
+  <!-- sidebar: style can be found in sidebar.less -->
+  <div class="sidebar" id="scrollspy">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="nav sidebar-menu">
+      <li class="active"><a href="#introduction">Introduction</a>
+
+                  
+                             
+
+               <li class=""><a href="#requisitos-minimos">Requisitos mínimos</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#instalacion">Instalación</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#configuracion">Configuración</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#secciones-del-modulo-en-el-panel-de-administrador">Secciones del módulo en el panel de administrador</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#gestion-de-numero-de-iva-de-clientes">Gestión de número de IVA de clientes</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#gestion-de-exenciones-de-iva-de-clientes">Gestión de exenciones de IVA de clientes</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#gestion-de-pedidos">Gestión de pedidos</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#herramienta-de-comprobacion-de-iva">Herramienta de comprobación de IVA</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#sistema-de-exencion-de-impuestos">Sistema de exención de impuestos</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#compatibilidad-e-integracion-con-modulos-de-terceros">Compatibilidad e integración con módulos de terceros</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#desinstalacion">Desinstalación</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#solucionador-de-problemas">Solucionador de problemas</a>
+
+                    
+              
+                             
+
+               <li class=""><a href="#acuerdo-de-licencia">Acuerdo de licencia</a>
+
+                    
+              
+            </ul>
+          </div>
+    </aside>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <div class="content body">
+
+
+         <!-- Introduction Section -->
+          <section id="introduction">
+            <div class='section-content'>
+              <div class="content-header">
+                <h1>Advanced VAT Manager (ES)</h1>
+                              <div class="version"> Version 1.5.3</div>
+                       </div>
+              <div class="row">
+                <div class="col-sm-12">
+                                   </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                     <p style="text-align: center;"><img decoding="async" loading="lazy" class="aligncenter wp-image-2419 size-medium" src="https://documentation.liewebs.com/wp-content/uploads/module_box-6-260x300.png" alt="" width="260" height="300" srcset="https://documentation.liewebs.com/wp-content/uploads/module_box-6-260x300.png 260w, https://documentation.liewebs.com/wp-content/uploads/module_box-6.png 504w" sizes="(max-width: 260px) 100vw, 260px" /></p>
+<p>&nbsp;</p>
+<p style="text-align: justify;">El módulo <strong>Advanced VAT Manager</strong> es un módulo especialmente diseñado para administrar los clientes que tienen un número VAT válido para operaciones intracomunitarias y eliminar el cobro de impuestos en sus compras. La validación del número VAT europeo o de Inglaterra se realiza a través del sistema oficial VIES o GOV.UK.</p>
+<p style="text-align: justify;">Además, es un módulo muy completo que incluye muchas opciones avanzadas de configuración. Las más destacadas son:</p>
+<ul style="text-align: justify; list-style-type: circle;">
+<li>Elimina el cobro de impuestos a los clientes que tengan configurado un número VAT válido mediante la validación por formato o a través de la API de VIES y GOV.UK.</li>
+<li>Actualizado con la normativa Brexit y el cobro de impuestos con el umbral de 135 libras.</li>
+<li>Opción de validación para el Front-Office y Back-Office.</li>
+<li>Elección de los países para la validación VAT.</li>
+<li>Elección del país local para el cobro de impuestos.</li>
+<li>Sistema de formateo del número VAT (convierte a formato correcto los números VAT insertados por los clientes)</li>
+<li>Muestra los precios sin impuestos en las fichas de productos, listado de productos, carrito de compra y resumen del carrito.</li>
+<li>Asignación automática de grupo de cliente determinado para clientes que se registren con un número VAT válido.</li>
+<li>Asignación automática de grupo de cliente por países.</li>
+<li>Exención de impuestos por grupos de clientes.</li>
+<li>Opción de configuración del campo de número VAT como opcional u obligatorio.</li>
+<li>Validación de nombre de empresa registrado en el sistema oficial.</li>
+<li>Personalización de la etiqueta y la descripción del campo del número VAT en el formulario.</li>
+<li>Sistema de alertas por correo.</li>
+<li>Sistema de análisis de direcciones y verificación de números VAT almacenados en la base de datos de la tienda.</li>
+</ul>
+<p style="text-align: justify;">El módulo Advanced VAT Manager es el módulo más completo que se ha desarrollado para administrar las direcciones de los clientes para las operaciones intracomunitarias.</p>
+                  </div>
+              </div>
+            </div>
+          </section>
+          <!-- End Introduction Section -->
+
+
+  <section id="requisitos-minimos" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#requisitos-minimos' class='header-link'><i class='fa fa-link'></i></a>Requisitos mínimos</h2><p>Los requisitos de los valores en los parámetros para que este módulo funcione correctamente son los siguientes:</p>
+<h4>Requisitos mínimos</h4>
+<table class=" aligncenter" style="height: auto; width: 100%; border-collapse: collapse; border-style: none;" border="0">
+<tbody>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>Versión PHP</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;"><strong>5.6.0</strong></td>
+</tr>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>Extensión PHP</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;"><strong>php_soap, php_curl</strong></td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: justify;"><div class="alert alert-info">El módulo usa webservice del tipo SOAP para conectar con el servicio VIES en el proceso de validación de los números VAT y usa la extensión CURL para conectar con el servicio GOV.UK encargado de validar los números VAT de Reino Unido. Es requisito mínimo tener la extensión php_soap y php_curl instalada en el servidor. Consulte con su proveedor de hosting para realizar la instalación en caso necesario.</div></p>
+<h4>Requisitos recomendados (Para el uso del sistema de escaneo de direcciones de la base de datos)</h4>
+<table class=" aligncenter" style="height: 100%; width: 100%; border-collapse: collapse; border-style: none;" border="0">
+<tbody>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>Límite de memoria (memory_limit)</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;">512M</td>
+</tr>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>Tiempo máximo de entrada (max_input_time)</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;">300 segundos o superior</td>
+</tr>
+<tr style="height: 39px;">
+<td style="width: 50%; height: 39px;"><strong>Tiempo máximo de ejecución (max_execution_time)</strong></td>
+<td style="width: 50%; height: 39px; text-align: right;">300 segundos o superior</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+</div>  </section>
+
+  <section id="instalacion" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#instalacion' class='header-link'><i class='fa fa-link'></i></a>Instalación</h2><h2 style="text-align: justify;"><strong>1. Subir el módulo</strong></h2>
+<p style="text-align: justify;">El primer paso en la instalación del módulo es subir la carpeta del módulo a la plataforma Prestashop. Para este procedimiento, tienes dos opciones a seguir:</p>
+<h3 style="text-align: left;"><strong>Desde FTP</strong></h3>
+<p style="text-align: justify;">Tienes que descomprimir el archivo del módulo y mediante un software de FTP como FileZilla o similar, subirlo a la carpeta <strong>Modules</strong> ubicada en el directorio raiz de la tienda.</p>
+<h3 style="text-align: left;"><strong>Desde Back-office de Prestashop</strong></h3>
+<p style="text-align: justify;"> Dependiendo de la versión de Prestashop instalada (1.6 o 1.7)  el procedimiento puede variar un poco, no obstante el principio del proceso es el mismo.</p>
+<p style="text-align: justify;">Puedes consultar más información sobre este proceso en el siguiente link:</p>
+<p style="text-align: justify;"><a href="https://addons.prestashop.com/en/content/13-installing-modules" target="_blank" rel="noopener noreferrer">https://addons.prestashop.com/en/content/13-installing-modules</a></p>
+<h4 style="text-align: justify;"><strong>Prestashop 1.6</strong></h4>
+<p style="text-align: justify;">Tienes que acceder a la pestaña de <strong>Módulos y Servicios</strong>, hacer clic en <strong>Añadir un nuevo módulo</strong>, seguidamente seleccionar el archivo comprimido del módulo que previamente has descargado de la página oficial de Prestashop Addons, y hacer clic en <strong>Subir este módulo.</strong></p>
+<p style="text-align: justify;">Una vez que termine el proceso de subida, podrás visualizar el módulo en el listado de módulos disponibles y con la opción para <strong>instalar.</strong></p>
+<h4 style="text-align: justify;"><strong>Prestashop 1.7</strong></h4>
+<p style="text-align: justify;">En este caso tienes que acceder a la pestaña <strong>Modulos</strong> y hacer clic en<strong>  Catálogo de módulos</strong>. En la esquina superior derecha encontrarás un botón que dice <strong>Instalar un módulo</strong>, haz clic en él y ya podrás seleccionar o arrastrar el archivo comprimido del módulo que te has descargado de la página de Prestashop Addons. Puedes instalar el módulo desde el mismo momento que lo has subido o accediendo al listado de módulos en <strong>Administración de módulos (Module manager)</strong> dentro de la misma sección de <strong>Módulos.</strong></p>
+<p>&nbsp;</p>
+<h2 style="text-align: justify;"><strong>2. Instalación</strong></h2>
+<p style="text-align: justify;">Una vez subido, tienes que acceder al listado de módulos, buscar el módulo y pulsar en el botón de <strong>INSTALAR </strong></p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2455 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/instalar-10.png" alt="" width="356" height="431" srcset="https://documentation.liewebs.com/wp-content/uploads/instalar-10.png 356w, https://documentation.liewebs.com/wp-content/uploads/instalar-10-248x300.png 248w" sizes="(max-width: 356px) 100vw, 356px" /></p>
+<p>Una vez finalizado el proceso de instalación, podrás acceder a la página de configuración del módulo, haciendo clic en <strong>CONFIGURAR</strong></p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2457 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/configurar-12.png" alt="" width="1394" height="112" srcset="https://documentation.liewebs.com/wp-content/uploads/configurar-12.png 1394w, https://documentation.liewebs.com/wp-content/uploads/configurar-12-300x24.png 300w, https://documentation.liewebs.com/wp-content/uploads/configurar-12-1024x82.png 1024w, https://documentation.liewebs.com/wp-content/uploads/configurar-12-768x62.png 768w" sizes="(max-width: 1394px) 100vw, 1394px" /></p>
+</div>  </section>
+
+  <section id="configuracion" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#configuracion' class='header-link'><i class='fa fa-link'></i></a>Configuración</h2><p><img decoding="async" loading="lazy" class="size-full wp-image-2511 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/configurarion_.png" alt="" width="1920" height="1541" srcset="https://documentation.liewebs.com/wp-content/uploads/configurarion_.png 1920w, https://documentation.liewebs.com/wp-content/uploads/configurarion_-300x241.png 300w, https://documentation.liewebs.com/wp-content/uploads/configurarion_-1024x822.png 1024w, https://documentation.liewebs.com/wp-content/uploads/configurarion_-768x616.png 768w, https://documentation.liewebs.com/wp-content/uploads/configurarion_-1536x1233.png 1536w, https://documentation.liewebs.com/wp-content/uploads/configurarion_-1568x1258.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<h4> </h4>
+<h4>Configuración de activación</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2431 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/activacion-4.png" alt="" width="1402" height="735" srcset="https://documentation.liewebs.com/wp-content/uploads/activacion-4.png 1402w, https://documentation.liewebs.com/wp-content/uploads/activacion-4-300x157.png 300w, https://documentation.liewebs.com/wp-content/uploads/activacion-4-1024x537.png 1024w, https://documentation.liewebs.com/wp-content/uploads/activacion-4-768x403.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Validación de Back-office: </strong>Esta opción activa o desactiva la validación de los números de IVA en el formulario de direcciones del Back-office y también desde las tareas CRON  o solicitudes de controladores ejecutadas desde la parte admin para importar clientes o pedidos.</li>
+<li><strong>Validación de Front-office: </strong>Esta opción activa o desactiva la validación de los números de IVA en el formulario de direcciones y checkout del Front-office.</li>
+<li><strong>Países para la validación: </strong>Selecciona los países para los que el sistema va a realizar la validación de los números de IVA. Conforme el marco legislativo, tienen que ser países que estén dentro de la Unión europea.<br />
+<div class="alert alert-info">Esta opción viene predefinida con todos los países de la Unión europea seleccionados. En condiciones normales no debes modificar esta opción.</div></li>
+</ul>
+<div class="alert alert-info">El país Reino Unido también está seleccionado de manera predefinida, ya que Irlanda del Norte pertenece a Reino Unido pero está dentro de la Unión europea, y es necesario que esté seleccionado Reino Unido para poder validar los números VAT de UK para cumplir con la opción «Brexit» con la normativa del cobro de impuestos al umbral de 135 libras.</div>
+<h4>Configuración general</h4>
+<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2446" src="https://documentation.liewebs.com/wp-content/uploads/conf_general.png" alt="" width="1402" height="431" srcset="https://documentation.liewebs.com/wp-content/uploads/conf_general.png 1402w, https://documentation.liewebs.com/wp-content/uploads/conf_general-300x92.png 300w, https://documentation.liewebs.com/wp-content/uploads/conf_general-1024x315.png 1024w, https://documentation.liewebs.com/wp-content/uploads/conf_general-768x236.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Número de IVA del comerciante: </strong>Insertar el número de IVA del comerciante. Este dato es necesario para la activación del tipo de validación de 2 vías. Para que una factura sea totalmente legal la exención de los impuestos en operaciones intracomunitarias, tanto el comerciante como el cliente deben tener registrado un número de IVA válido. Por esta razón, la validación de 2 vías es la forma más segura y correcta de validar las operaciones intracomunitarias.<br />
+En caso de seleccionar el tipo de validación por 1 vía, no sería necesario insertar el número de IVA en esta opción.</li>
+</ul>
+<h4>Configuración avanzada</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2439 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/conf_avanzada.png" alt="" width="1402" height="597" srcset="https://documentation.liewebs.com/wp-content/uploads/conf_avanzada.png 1402w, https://documentation.liewebs.com/wp-content/uploads/conf_avanzada-300x128.png 300w, https://documentation.liewebs.com/wp-content/uploads/conf_avanzada-1024x436.png 1024w, https://documentation.liewebs.com/wp-content/uploads/conf_avanzada-768x327.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Mostrar mensajes de advertencia en la dirección: </strong>Muestra mensajes de advertencia en la sección de direcciones de la cuenta cuando el cliente tiene creadas direcciones que no han sido validadas todavía o que tienen el campo de número de IVA o empresa no válido. Esto sirve para avisar al cliente que debe modificar estas direcciones. Los mensajes de advertencia dependen de las opciones elegidas dentro de la página de configuración del módulo (campo IVA, Validación de empresa&#8230;).
+<p><img decoding="async" loading="lazy" class="aligncenter wp-image-2458 size-full" src="https://documentation.liewebs.com/wp-content/uploads/warning_direcciones.png" alt="" width="1920" height="571" srcset="https://documentation.liewebs.com/wp-content/uploads/warning_direcciones.png 1920w, https://documentation.liewebs.com/wp-content/uploads/warning_direcciones-300x89.png 300w, https://documentation.liewebs.com/wp-content/uploads/warning_direcciones-1024x305.png 1024w, https://documentation.liewebs.com/wp-content/uploads/warning_direcciones-768x228.png 768w, https://documentation.liewebs.com/wp-content/uploads/warning_direcciones-1536x457.png 1536w, https://documentation.liewebs.com/wp-content/uploads/warning_direcciones-1568x466.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /><br />
+<img decoding="async" loading="lazy" class="wp-image-2430 size-large aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/warning_direccion-1024x802.png" alt="" width="640" height="501" srcset="https://documentation.liewebs.com/wp-content/uploads/warning_direccion-1024x802.png 1024w, https://documentation.liewebs.com/wp-content/uploads/warning_direccion-300x235.png 300w, https://documentation.liewebs.com/wp-content/uploads/warning_direccion-768x602.png 768w, https://documentation.liewebs.com/wp-content/uploads/warning_direccion.png 1126w" sizes="(max-width: 640px) 100vw, 640px" /></li>
+<li style="text-align: justify;"><strong>No permitir el pago cuando la dirección está incompleta: </strong>Muestra mensaje de error durante el proceso de compra para que el cliente entre en la dirección y actualice los datos cuando tiene una dirección incompleta porque no haya validado todavía su número de IVA, empresa o tiene un valor erróneo en estos campos. Los mensajes de error dependen de las opciones elegidas dentro de la página de configuración del módulo (campo IVA, Validación de empresa&#8230;). <br />
+<img decoding="async" loading="lazy" class="aligncenter wp-image-2459 size-full" src="https://documentation.liewebs.com/wp-content/uploads/error_checkout_direcciones.png" alt="" width="608" height="933" srcset="https://documentation.liewebs.com/wp-content/uploads/error_checkout_direcciones.png 608w, https://documentation.liewebs.com/wp-content/uploads/error_checkout_direcciones-195x300.png 195w" sizes="(max-width: 608px) 100vw, 608px" /><br />
+<div class="alert alert-warning">El cliente no podrá seguir con el proceso de compra hasta que no solucione el error en sus direcciones.</div></li>
+<li style="text-align: justify;"><strong>Bloque de precio personalizado: </strong>Opción para mostrar un texto personalizado en la página del producto [debajo del precio] cuando un cliente tiene registrada una dirección con número de IVA válido y está exento de pagar impuestos.<br />
+<img decoding="async" loading="lazy" class="aligncenter wp-image-2460 size-large" src="https://documentation.liewebs.com/wp-content/uploads/bloque_text_producto-1024x664.png" alt="" width="640" height="415" srcset="https://documentation.liewebs.com/wp-content/uploads/bloque_text_producto-1024x664.png 1024w, https://documentation.liewebs.com/wp-content/uploads/bloque_text_producto-300x194.png 300w, https://documentation.liewebs.com/wp-content/uploads/bloque_text_producto-768x498.png 768w, https://documentation.liewebs.com/wp-content/uploads/bloque_text_producto.png 1194w" sizes="(max-width: 640px) 100vw, 640px" /></li>
+</ul>
+<h4>Configuración de la validación</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2559 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/validation_settings-1.png" alt="" width="1400" height="1261" srcset="https://documentation.liewebs.com/wp-content/uploads/validation_settings-1.png 1400w, https://documentation.liewebs.com/wp-content/uploads/validation_settings-1-300x270.png 300w, https://documentation.liewebs.com/wp-content/uploads/validation_settings-1-1024x922.png 1024w, https://documentation.liewebs.com/wp-content/uploads/validation_settings-1-768x692.png 768w" sizes="(max-width: 1400px) 100vw, 1400px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Sistema de validación: </strong>Selecciona el sistema de validación para VIES o GOV.UK. La opción 1 vía valida los números de IVA del cliente sin verificar que el comerciante tiene un número de IVA válido. La opción de 2 vías verifica que el comerciante tiene un número de IVA válido antes de verificar el número de IVA del cliente. En el caso de que ambos tengan los números de IVA válidos, entonces se completa el proceso de validación correctamente.<br />
+<div class="alert alert-info">Para hacer uso del sistema de validación de 2 vías, se debe insertar un número de IVA válido del comerciante en la sección «Configuración general»</div></li>
+<li style="text-align: justify;"><strong>Modo de validación: </strong>Se puede elegir entre el sistema de validación estricto o inteligente.<br />
+<span style="text-decoration: underline;">Sistema de validación estricto:</span> El sistema verifica que el formato del número de IVA sea correcto y no contenga caracteres no válidos. Ejemplo de formato no válido: FR-25.458.473, FR 25 458 473, FR25.458.473<br />
+Ejemplo de formato válido: FR25458473 <br />
+<span style="text-decoration: underline;">Sistema de validación inteligente:</span> El sistema valida el formato del número de IVA aunque contenga los caracteres no válidos del ejemplo anterior. Estos caracteres serán eliminados y se extraerá el número de IVA con su formato correcto. Ejemplo: FR-25.458.473 será convertido al formato correcto FR25458473.</li>
+<li style="text-align: justify;"><strong>Tipo de validación: </strong>Se puede elegir entre «Validación de formato» y «Formato + API»<br />
+<span style="text-decoration: underline;">Validación de formato:</span> El sistema solamente valida los números de IVA conforme a su formato en la numeración con su código ISO. Pero este tipo de validación no realiza la validación oficial mediante el sistema API de validación, por lo que no se garantiza que el número de IVA insertado esté registrado en el sistema VIES o GOV.UK para las operaciones intracomunitarias.<br />
+<span style="text-decoration: underline;">Formato + API:</span> El sistema realiza un procedimiento completo de validación, comenzando con la validación del formato del número y seguido por la validación oficial VIES o GOV.UK (en caso de tener la opción Brexit activada y que sea un número VAT de UK). Esta opción es la más segura y fiable para poder validar los números de IVA correctos, asegurando que están registrados oficialmente en el VIES o GOV.UK.</li>
+<li style="text-align: justify;"><strong>Validación de la empresa: </strong>Si se activa esta opción, el sistema comprobará el nombre de la empresa que ha insertado el cliente con el nombre de la empresa que está registrado en los organismos oficiales VIES o GOV.UK cuando el cliente introduzca su número de IVA. En caso de que no coincidan, no permitirá continuar con el proceso de creación de la dirección.</li>
+<li style="text-align: justify;"><strong>Insertar automáticamente el nombre de la empresa:</strong> Si se activa esta opción, el sistema extraerá el dato del nombre de empresa que se encuentra registrado en los organismos oficiales VIES o GOV.UK, cuando el cliente inserte su número de IVA y lo guardará en el campo «nombre de empresa». En el caso de que un cliente haya introducido un nombre de empresa diferente al que se encuentra registrado en los organismos oficiales, este será sustituido por el nombre correcto. De esta manera, la dirección del cliente siempre contendrá el nombre de la empresa correcta y registrada oficialmente.</li>
+<li style="text-align: justify;"><strong>Permitir IVA duplicado: </strong>Esta opción permite el registro de diferentes clientes con los mismos números de IVA.</li>
+<li style="text-align: justify;"><strong>Omitir fallo del sistema API: </strong>Esta opción permite omitir la validación en caso de que el sistema de validación VIES falle durante su proceso de verificación. Raramente ocurre que el sistema VIES falle, pero es una posibilidad remota.</li>
+<li style="text-align: justify;"><strong>Guardar en mayúsculas: </strong>El sistema guarda el número de IVA con su código ISO en mayúsculas cuando un cliente registra una dirección válida.</li>
+<li style="text-align: justify;"><strong><strong>Lista negra: </strong></strong>Establezca números de IVA en una lista negra para no permitir el registro de clientes con algunos de estos números. Escribe uno por uno separado por coma.</li>
+</ul>
+<h4>Gestión del estado de los pedidos</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2513 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/gestion_estado_pedidos.png" alt="" width="1402" height="490" srcset="https://documentation.liewebs.com/wp-content/uploads/gestion_estado_pedidos.png 1402w, https://documentation.liewebs.com/wp-content/uploads/gestion_estado_pedidos-300x105.png 300w, https://documentation.liewebs.com/wp-content/uploads/gestion_estado_pedidos-1024x358.png 1024w, https://documentation.liewebs.com/wp-content/uploads/gestion_estado_pedidos-768x268.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<p style="text-align: justify;">El módulo crea dos estados de pedidos predefinidos durante la fase de la instalación:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li><strong>Número de IVA pendiente de validación</strong></li>
+<li><strong>Número de IVA validado</strong></li>
+</ul>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2517 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/estados.png" alt="" width="1660" height="100" srcset="https://documentation.liewebs.com/wp-content/uploads/estados.png 1660w, https://documentation.liewebs.com/wp-content/uploads/estados-300x18.png 300w, https://documentation.liewebs.com/wp-content/uploads/estados-1024x62.png 1024w, https://documentation.liewebs.com/wp-content/uploads/estados-768x46.png 768w, https://documentation.liewebs.com/wp-content/uploads/estados-1536x93.png 1536w, https://documentation.liewebs.com/wp-content/uploads/estados-1568x94.png 1568w" sizes="(max-width: 1660px) 100vw, 1660px" /></p>
+<p style="text-align: justify;">En esta sección puedes habilitar la opción de mostrar estos estados de pedidos cuando un cliente hace un pedido y ocurren una de estas dos situaciones:</p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Estado del pedido cuando se valida el IVA:</strong> Cuando un cliente ha realizado un pedido y su número de IVA se ha validado correctamente. En este caso, el estado del pedido configurado se mostrará al principio y después se mostrará el estado del pedido predefinido para el método de pago usado por el cliente.</li>
+<li style="text-align: justify;"><strong>Estado del pedido cuando falla el sistema API: </strong>Cuando un cliente ha realizado un pedido y su número de IVA no ha podido ser validado a causa de un fallo en el sistema API de validaciones y se tenga activada la opción de «Omitir validación» en la sección «Configuración de validación». En este caso, el cliente podrá proseguir con el proceso de compra y podrá realizar el pedido, sin embargo, se mostrará el estado definido en esta opción para avisar al cliente de que su pedido se encuentra pendiente de que se valide su número de IVA cuando se restablezca el servicio. Deberás realizar la validación del número de IVA de forma manual desde la sección «Gestión de IVA de clientes» y una vez que se haya realizado la validación, cambiar de forma manual a otro estado de pedido deseado.</li>
+</ul>
+<p style="text-align: justify;">También puedes usar cualquier estado de pedido disponible para usarlo en cualquiera de estas dos situaciones seleccionándolo en el desplegable disponible en cada opción.</p>
+<h4>Asignación de grupo de clientes por país</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2515 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/asignacion_grupos.png" alt="" width="1400" height="3374" srcset="https://documentation.liewebs.com/wp-content/uploads/asignacion_grupos.png 1400w, https://documentation.liewebs.com/wp-content/uploads/asignacion_grupos-124x300.png 124w, https://documentation.liewebs.com/wp-content/uploads/asignacion_grupos-425x1024.png 425w, https://documentation.liewebs.com/wp-content/uploads/asignacion_grupos-768x1851.png 768w, https://documentation.liewebs.com/wp-content/uploads/asignacion_grupos-637x1536.png 637w, https://documentation.liewebs.com/wp-content/uploads/asignacion_grupos-850x2048.png 850w" sizes="(max-width: 1400px) 100vw, 1400px" /></p>
+<p style="text-align: justify;">En esta sección puedes seleccionar la asignación de grupos de clientes por países. Si seleccionas el valor «deshabilitado» no se le asignará ningún grupo al cliente.</p>
+<p style="text-align: justify;">La asignación de grupo de cliente se realiza solamente en el momento de que un cliente cree una dirección nueva o modifique una que haya creado anteriormente y dicha dirección contenga un número VAT validado por el sistema.</p>
+<p style="text-align: justify;"><div class="alert alert-info">Si un cliente tiene varias direcciones de diferentes países con números VAT válidos, el sistema le asignará tantos grupos como tenga configurado por países en esta sección. En el momento que el cliente elimine la dirección y no tenga más direcciones relacionadas con el mismo país, el sistema lo eliminará del grupo correspondiente a ese país.</div></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Usar grupo por defecto: </strong>Si se activa esta opción, el grupo asignado al cliente será configurado como grupo por defecto de este cliente. Si el cliente añade más direcciones con números VAT válidos de diferentes países, el grupo por defecto irá cambiando al correspondiente de la última dirección añadida. El grupo por defecto se irá eliminando y cambiado a la siguiente dirección validada siempre que el cliente elimine una dirección correspondiente a un país y no tenga más direcciones del mismo país.</li>
+<li style="text-align: justify;"><strong>Cambiar grupo predeterminado con dirección: </strong>Esta opción te permite cambiar el grupo predeterminado de clientes asociado con el país en esta sección cuando el cliente selecciona una dirección predeterminada o durante el proceso de compra. Si la dirección seleccionada no tiene un número de IVA válido, el sistema cambiará al grupo predeterminado de clientes que se ha configurado en los ajustes de clientes de Prestashop (Por defecto está en grupo «Clientes»). Esta opción solamente cambia el grupo por defecto de cliente, no asigna o eliminar al cliente de los grupos al que está asignado.</li>
+<li style="text-align: justify;"><strong>Eliminar cliente de otros grupos: </strong>Cuando el cliente crea una dirección determinada con número de VAT válido, el sistema le asignará al grupo de clientes seleccionado por el país de su dirección y a su vez lo eliminará del resto de grupos donde ya estuviera asignado, incluyendo el grupo por defecto de Prestashop «clientes». También le asignará como grupo por defecto, el grupo al que haya sido asignado.</li>
+</ul>
+<p style="text-align: justify;"><span style="text-decoration: underline;"><strong>Ejemplo práctico para mejor entendimiento de las opciones</strong></span></p>
+<p style="text-align: justify;">Cliente: John DOE</p>
+<p><span style="text-decoration: underline;">Condiciones</span></p>
+<ul style="list-style-type: square;">
+<li><strong>Asignación de grupo por país Alemania:</strong> Seleccionado con el grupo «Clientes VAT de Alemania»</li>
+<li><strong>Asignación de grupo por país España:</strong> Seleccionado con el grupo «Clientes VAT de España»</li>
+<li>Resto de opciones de grupo por países «Deshabilitado»</li>
+<li>Opción <strong>«Usar grupo por defecto»</strong> activada.</li>
+<li>Grupo de clientes predeterminado por defecto en Prestashop para clientes: «Clientes»</li>
+<li>Opción «Eliminar cliente de otros grupos» desactivada.</li>
+</ul>
+<ol style="text-align: justify;">
+<li style="text-align: justify;">El cliente se registra por primera vez en la tienda y automáticamente ya pertenece al grupo «Clientes» y por defecto tiene seleccionado este mismo grupo.</li>
+<li>El cliente crea una nueva dirección de Alemania con un número VAT válido. El sistema lo añade al grupo «Clientes VAT de Alemania» y selecciona este grupo como grupo por defecto. Ahora el cliente pertenece a dos grupos: «Clientes» y «Clientes VAT de Alemania».</li>
+<li style="text-align: justify;">El cliente modifica esta dirección y cambia el país a Suecia. El sistema lo elimina del grupo «Clientes VAT de Alemania» y le devuelve al grupo por defecto de «Clientes» que es el único grupo al que queda asignado.</li>
+<li style="text-align: justify;">El cliente añade dos direcciones más, una de Alemania y posteriormente otra de España. El sistema lo añade al grupo «Clientes VAT de Alemania» y «Clientes VAT de España» y lo asigna al grupo por defecto último creado «Clientes VAT de España».</li>
+<li style="text-align: justify;">El cliente elimina la dirección de España. El sistema lo elimina del grupo «Clientes VAT de España» y le asigna al grupo por defecto «Clientes VAT de Alemania» ya que es la siguiente dirección que tiene creada.</li>
+<li>El cliente decide eliminar todas las direcciones. El sistema lo elimina de todos los grupos asignados y lo reasigna al grupo por defecto de Prestashop «Clientes» para que siga perteneciendo a un grupo por defecto.</li>
+</ol>
+<p style="text-align: justify;">En cualquier caso, y siempre que no este activada la opción «Eliminar cliente de otros grupos» el cliente siempre pertenecerá al grupo que ya estuviera previamente asignado y no sea ninguno de los que se ha configurado por país en el módulo. El sistema nunca alterará la asignación de ese grupo. Solamente asigna o desasigna el grupo seleccionado por país en este módulo.</p>
+<h4>Configuración de exención de IVA</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2347 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/conf_exencion.png" alt="" width="1396" height="614" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Exención del IVA: </strong>Activa esta opción si deseas que se eliminen los impuestos tanto la visualización en los precios como en el cálculo de los precios del carrito de compra para los clientes con números de IVA válido.</li>
+<li style="text-align: justify;"><strong>Tipo de dirección: </strong>Selecciona el tipo de dirección para la exención de impuestos. Las opciones son «Dirección de entrega», «Dirección de facturación», «Dirección de facturación y entrega». El cliente será exento de impuestos si tiene un número VAT válido en el tipo de dirección seleccionada, o en una de ellas en el caso de seleccionar los dos tipos de direcciones.</li>
+<li style="text-align: justify;"><strong>País local: </strong>Esta opción permite asignar el país local donde los precios y las compras sean gravados con los impuestos independientemente si tiene un número VAT válido o no. <strong>El módulo no valida el número VAT de clientes con direcciones correspondientes al país local.</strong></li>
+<li style="text-align: justify;"><strong>Exención de grupos de clientes: </strong>Esta opción le permite eliminar impuestos para ciertos grupos de clientes, incluso si el número de IVA es válido o no. Déjalo vacío para deshabilitarlo para todos los grupos de clientes. Si marcas algún grupo, la exención de impuestos solo se aplicará para los clientes de los grupos seleccionados. Esta opción es completamente independiente de la opción [exención del IVA]</li>
+</ul>
+<h4>Configuración de facturas</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2445 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/conf_facturas.png" alt="" width="1402" height="425" srcset="https://documentation.liewebs.com/wp-content/uploads/conf_facturas.png 1402w, https://documentation.liewebs.com/wp-content/uploads/conf_facturas-300x91.png 300w, https://documentation.liewebs.com/wp-content/uploads/conf_facturas-1024x310.png 1024w, https://documentation.liewebs.com/wp-content/uploads/conf_facturas-768x233.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Texto Legal de la factura: </strong>Inserta contenido a mostrar dentro del apartado de texto legal de la factura, solamente en facturas relacionadas con la exención del IVA. El campo es multi idioma.</li>
+<li style="text-align: justify;"><strong>Nota de la factura: </strong>Inserta contenido a mostrar dentro del apartado nota de la factura, solamente en facturas relacionadas con la exención del IVA. El campo es multi idioma y con editor de texto enriquecido.</li>
+</ul>
+<h4>Configuración del campo IVA</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2441 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/conf_campo.png" alt="" width="1402" height="756" srcset="https://documentation.liewebs.com/wp-content/uploads/conf_campo.png 1402w, https://documentation.liewebs.com/wp-content/uploads/conf_campo-300x162.png 300w, https://documentation.liewebs.com/wp-content/uploads/conf_campo-1024x552.png 1024w, https://documentation.liewebs.com/wp-content/uploads/conf_campo-768x414.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Campo IVA:</strong> Puedes poner este campo como obligatorio u opcional.</li>
+<li style="text-align: justify;"><strong>Mostrar solo para la empresa:</strong> Si se activa esta opción, el campo de número de IVA permanecerá oculto hasta que se rellene el campo de nombre de empresa.<br />
+<div class="alert alert-info">Si tienes seleccionado el campo como obligatorio y tienes activada la opción de mostrar solo para la empresa, cuando el campo de número de IVA sea ocultado, se convertirá en opcional.</div></li>
+<li style="text-align: justify;"><strong>Etiqueta:</strong> Inserta el contenido que se mostrará como etiqueta en el campo de número de IVA. Este campo es multi idioma.</li>
+<li style="text-align: justify;"><strong>Leyenda:</strong> Inserta el contenido que se mostrará como descripción/leyenda en el campo de número de IVA. Este campo es multi idioma.</li>
+</ul>
+<p style="text-align: justify;"><div class="alert alert-info">Es posible que estas opciones no funcionen si ha instalado un módulo que administra la página de checkout. Esto sucede con la mayoría de los módulos de checkout. Sin embargo, hay algunos módulos que pueden admitir algunas de estas opciones (Ejemplo: Módulo de pago fácil de SUNNYTOO.COM o el módulo One Page Checkout Prestashop de Presteamshop). Si el módulo que se está utilizando para administrar la página de checkout tiene opciones para el campo del número de IVA, debe usar la configuración del propio módulo.</div></p>
+<h4>Configuración de Brexit</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2440 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/conf_brexit.png" alt="" width="1402" height="868" srcset="https://documentation.liewebs.com/wp-content/uploads/conf_brexit.png 1402w, https://documentation.liewebs.com/wp-content/uploads/conf_brexit-300x186.png 300w, https://documentation.liewebs.com/wp-content/uploads/conf_brexit-1024x634.png 1024w, https://documentation.liewebs.com/wp-content/uploads/conf_brexit-768x475.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Brexit: </strong>Activa la opción para cumplir con la normativa del Brexit para aplicar los impuestos en el punto de venta a compras igual o inferiores a 135 libras si el cliente tiene un número VAT de UK válido.</li>
+<li style="text-align: justify;"><strong>Exención de IVA en empresas: </strong>Esta opción permite que las empresas con un número VAT válido sean exentas de impuestos para compras iguales o inferiores a 135GBP.</li>
+<li><strong>No permitir pedidos: </strong>Esta opción habilita a la tienda para no permitir pedidos cuyo importe en el carrito de compra exceda o sea inferior a 135 libras. Seleccione «Deshabilitado» para desactiva esta opción.</li>
+</ul>
+<p style="text-align: justify;">Este sistema funciona conforme la normativa Brexit. Si un cliente quiere realizar una compra con una dirección de Reino Unido con un número VAT UK válido, si el importe total del carrito (Solamente de sus productos) es igual o inferior a 135 libras, entonces la tienda le aplicará los impuestos correspondientes a ese país. Si el cliente añade productos al carrito y supera el umbral de 135 libras, entonces el sistema eliminará los impuestos para esa compra.</p>
+<p style="text-align: justify;"><div class="alert alert-info">El sistema calcula el total del carrito de compra a tiempo real cada vez que el cliente actualiza su carrito de compra.</div></p>
+<p style="text-align: justify;"><div class="alert alert-warning">Para que esta opción funcione, se deberá instalar la divisa del Reino Unido a través de la opción correspondiente en el BO, sección divisas (No tiene porqué estar activada en el FO, es suficiente con tener la divisa instalada y actualizada la tasa de cambio). Para tener actualizada la tasa de cambio se deberá ejecutar la opción correspondiente dentro de la sección de divisas o mediante tarea CRON.
+<p style="text-align: justify;"><img decoding="async" loading="lazy" class="wp-image-2295 size-full aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/divisas.png" alt="" width="1920" height="919" srcset="https://documentation.liewebs.com/wp-content/uploads/divisas.png 1920w, https://documentation.liewebs.com/wp-content/uploads/divisas-300x144.png 300w, https://documentation.liewebs.com/wp-content/uploads/divisas-1024x490.png 1024w, https://documentation.liewebs.com/wp-content/uploads/divisas-768x368.png 768w, https://documentation.liewebs.com/wp-content/uploads/divisas-1536x735.png 1536w, https://documentation.liewebs.com/wp-content/uploads/divisas-1568x751.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;"></p></div></p>
+<p style="text-align: justify;"><div class="alert alert-info"><strong>Durante la fase de instalación del módulo se configurará el país de Reino Unido para que muestre las provincias que previamente serán insertadas por el módulo. Se insertarán alrededor de 232 provincias. De esta manera el sistema se asegura que cuando un cliente compra desde Irlanda del Norte, que pertenece a Reino Unido, se le aplique el sistema general de compras intracomunitarias como los demás paises de la Unión Europea.</strong></div></p>
+<h4>Configuración de correo electrónico</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2519 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/configuracion_correos.png" alt="" width="1402" height="542" srcset="https://documentation.liewebs.com/wp-content/uploads/configuracion_correos.png 1402w, https://documentation.liewebs.com/wp-content/uploads/configuracion_correos-300x116.png 300w, https://documentation.liewebs.com/wp-content/uploads/configuracion_correos-1024x396.png 1024w, https://documentation.liewebs.com/wp-content/uploads/configuracion_correos-768x297.png 768w" sizes="(max-width: 1402px) 100vw, 1402px" /></p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Direcciones de correo electrónico:</strong> Puedes configurar diferentes direcciones de correo electrónico para recibir email de este módulo. Debes escribir una dirección de correo electrónico correcta. Para varias direcciones, debes escribirlas separadas con comas (Ej: test@test.com, test2@test2.com&#8230;). </li>
+<li style="text-align: justify;"><strong>Correo electrónico de alerta de API:</strong> Envía un correo electrónico de alerta a las direcciones seleccionadas, cuando el cliente se registra y la validación del IVA por parte del sistema API falla. </li>
+<li style="text-align: justify;"><strong>Enviar correo electrónico al cliente cuando falla la API:</strong> Envía un correo electrónico al cliente cuando ha realizado un pedido con una dirección creada donde ha fallado la validación del número de IVA debido a un fallo del sistema API y la opción «Omitir validación» de la sección «Configuración de validación» ha sido activada.</li>
+<li style="text-align: justify;"><strong>Correo electrónico de validación del cliente:</strong> Envía correo electrónico informando cuando el cliente se registra y la validación del IVA por parte de VIES o GOV.UK se realiza con éxito. </li>
+</ul>
+<h4>Configuración CRON</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2560 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/cron_settings.png" alt="" width="1400" height="1625" srcset="https://documentation.liewebs.com/wp-content/uploads/cron_settings.png 1400w, https://documentation.liewebs.com/wp-content/uploads/cron_settings-258x300.png 258w, https://documentation.liewebs.com/wp-content/uploads/cron_settings-882x1024.png 882w, https://documentation.liewebs.com/wp-content/uploads/cron_settings-768x891.png 768w, https://documentation.liewebs.com/wp-content/uploads/cron_settings-1323x1536.png 1323w" sizes="(max-width: 1400px) 100vw, 1400px" /></p>
+<p style="text-align: justify;">En esta sección podrás configurar las opciones para ejecutar con la tarea CRON de análisis de direcciones y validaciones de números VAT de los clientes. Esta tarea CRON es exactamente igual al sistema de escaneo del módulo en la sección «Gestión del IVA». Es muy útil para programar el sistema de escaneo de forma automática y diariamente para asegurar que los clientes siguen manteniendo su número VAT válido en todo momento. De esta manera el comerciante se asegura que las operaciones de compra con exención de impuestos se realizan conforme la normativa de operaciones intracomunitarias con el número VAT válido.</p>
+<p style="text-align: justify;"><strong>Esta tarea programada actualizará la lista de clientes en la sección «Gestión del IVA».</strong></p>
+<p style="text-align: justify;"><div class="alert alert-warning">En el caso de que el proceso de la tarea CRON se interrumpa por algún motivo o quieras comenzar el escaneo desde la última dirección escaneada previamente, activa la opción <strong>«Continuar el proceso de escaneo desde la última dirección escaneada»</strong>. El sistema comenzará el escaneo desde la última dirección escaneada y no desde el principio.</div></p>
+<p style="text-align: justify;"><div class="alert alert-info">Se recomienda ejecutar esta tarea programada durante la noches o en horas de menos afluencia de clientes en la tienda para evitar problemas de rendimiento.</div></p>
+<p>&nbsp;</p>
+</div>  </section>
+
+  <section id="secciones-del-modulo-en-el-panel-de-administrador" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#secciones-del-modulo-en-el-panel-de-administrador' class='header-link'><i class='fa fa-link'></i></a>Secciones del módulo en el panel de administrador</h2><h4>Pestañas del menú de administrador</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2536 alignnone" src="https://documentation.liewebs.com/wp-content/uploads/admin_tabs-1.png" alt="" width="205" height="266" /></p>
+<p style="text-align: justify;">Cuando se instala el módulo, el sistema incorpora unas secciones en el panel de administración:</p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Gestión del número de IVA de clientes:</strong> En esta sección se muestra un listado de los clientes que han registrado una dirección y el resultado de la validación de los campos de IVA y empresa. También se podrán realizar acciones como la del escaneo de direcciones, envío de emails a clientes para avisar de que tienen un número de IVA no válido, comprobación del número de IVA en los sistemas oficiales, etc&#8230;.</li>
+<li style="text-align: justify;"><strong>Gestión de exención de IVA de clientes: </strong>En esta sección se muestra un listado con los clientes a los que se le ha otorgado de forma manual, que sean exentos o forzados de pagar impuestos en la tienda.</li>
+<li><strong>Gestión de pedidos: </strong>En esta sección se muestra un listado con los pedidos realizados por los clientes que tienen un número de IVA válido y están exentos de impuestos o pertenecen al Brexit.</li>
+<li style="text-align: justify;"><strong>Herramienta de comprobación de IVA: </strong>Con esta herramienta se podrá realizar consultas sobre los número de IVA a las plataformas de los organismos oficiales y así comprobar si el número de IVA es válido y saber detalles como el nombre de la empresa registrada con ese número.</li>
+</ul>
+</div>  </section>
+
+  <section id="gestion-de-numero-de-iva-de-clientes" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#gestion-de-numero-de-iva-de-clientes' class='header-link'><i class='fa fa-link'></i></a>Gestión de número de IVA de clientes</h2><h4>Gestión de IVA de clientes</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2433 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/Administracion_IVA.png" alt="" width="1920" height="1475" srcset="https://documentation.liewebs.com/wp-content/uploads/Administracion_IVA.png 1920w, https://documentation.liewebs.com/wp-content/uploads/Administracion_IVA-300x230.png 300w, https://documentation.liewebs.com/wp-content/uploads/Administracion_IVA-1024x787.png 1024w, https://documentation.liewebs.com/wp-content/uploads/Administracion_IVA-768x590.png 768w, https://documentation.liewebs.com/wp-content/uploads/Administracion_IVA-1536x1180.png 1536w, https://documentation.liewebs.com/wp-content/uploads/Administracion_IVA-1568x1205.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;">En esta sección, por un lado tenemos el listado de todos los clientes que tienen direcciones que cumplen con los criterios (países para la validación) para poder disponer de un número VAT, y por otro lado tenemos un sistema de escaneo que comprueba todas las direcciones almacenadas en la base de datos y que cumplen con los mismo criterios y realiza la validación de sus números de IVA.</p>
+<p style="text-align: justify;">Cada vez que un cliente registre una dirección que cumpla con los requisitos de validación del número de IVA se insertará automáticamente en este listado con todos los detalles que se indica en la tabla.</p>
+<p>También está disponible una tabla de estadísticas para poder visualizar los números totales de direcciones que tienen un número de IVA y el campo de empresa válido o inválido.</p>
+<p style="text-align: justify;"><div class="alert alert-info"><strong>Si el módulo se ha instalado por primera vez, se deberá realizar un primer escaneo para validar los números de IVA e insertarlos en el listado.</strong></div></p>
+<h4 style="text-align: justify;">Lista de IVA del cliente</h4>
+<p style="text-align: justify;"><img decoding="async" loading="lazy" class="size-full wp-image-2428 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/registros_IVA.png" alt="" width="1685" height="181" srcset="https://documentation.liewebs.com/wp-content/uploads/registros_IVA.png 1685w, https://documentation.liewebs.com/wp-content/uploads/registros_IVA-300x32.png 300w, https://documentation.liewebs.com/wp-content/uploads/registros_IVA-1024x110.png 1024w, https://documentation.liewebs.com/wp-content/uploads/registros_IVA-768x82.png 768w, https://documentation.liewebs.com/wp-content/uploads/registros_IVA-1536x165.png 1536w, https://documentation.liewebs.com/wp-content/uploads/registros_IVA-1568x168.png 1568w" sizes="(max-width: 1685px) 100vw, 1685px" /></p>
+<p style="text-align: justify;">En este listado podemos obtener entre otras, la siguiente información de utilidad del cliente:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li><strong>Nombre del cliente: </strong>Es el nombre del cliente registrado en el formulario de dirección</li>
+<li><strong>Dirección: </strong>La dirección del cliente.</li>
+<li><strong>País: </strong>El país de registro del cliente.</li>
+<li><strong>Grupo del cliente predeterminado: </strong>El grupo predeterminado al que pertenece el cliente registrado.</li>
+<li><strong>Número de IVA: </strong>El número de IVA registrado.</li>
+<li><strong>Validación IVA: </strong>Muestra un icono para saber si el número de IVA es válido o no después del proceso de validación.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2464" src="https://documentation.liewebs.com/wp-content/uploads/icono_vat_no.png" alt="" width="40" height="40" /> Número de IVA no válido.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2465" src="https://documentation.liewebs.com/wp-content/uploads/icono_vat_ok.png" alt="" width="40" height="40" /> Número de IVA válido.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2524" src="https://documentation.liewebs.com/wp-content/uploads/icono_vat_pending.png" alt="" width="61" height="42" /> Número de IVA validado por omisión del sistema de validación por fallo del sistema API cuando la opción de «Omitir validación» está activada.</p>
+</li>
+<li><strong>Validación empresa: </strong>Muestra un icono para saber si el nombre de empresa ha sido validado o no (Si la opción de Validación de empresa está activada).<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2462" src="https://documentation.liewebs.com/wp-content/uploads/icono_ompany_no.png" alt="" width="40" height="40" /> Nombre de empresa no válido.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2466" src="https://documentation.liewebs.com/wp-content/uploads/icono_company_checked.png" alt="" width="40" height="40" /> Nombre de empresa válido.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2467" src="https://documentation.liewebs.com/wp-content/uploads/icono_company_nocheck.png" alt="" width="40" height="40" /> Nombre de empresa no comprobado por el sistema (Cuando la opción Validación de empresa está desactivada)</li>
+<li><strong>Comprobación del sistema: </strong>Muestra un icono para saber si el proceso de validación mediante API ha funcionado correctamente o ha habido un problema de conexión con el sistema para validar los números de IVA y nombre de empresa.<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2468" src="https://documentation.liewebs.com/wp-content/uploads/icono_comprobacion_novalido.png" alt="" width="40" height="40" /> Proceso de validación API fallido<br />
+<img decoding="async" loading="lazy" class="alignnone size-full wp-image-2463" src="https://documentation.liewebs.com/wp-content/uploads/icono_server_status.png" alt="" width="40" height="40" /> Proceso de validación API correcto</li>
+<li><strong>Estado: </strong>Información del estado del número de IVA y del proceso de validación.</li>
+<li><strong>Fecha de registro: </strong>La fecha y hora cuando el cliente ha registrado esa dirección.</li>
+</ul>
+<p><span style="text-decoration: underline;"><strong><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2461" src="https://documentation.liewebs.com/wp-content/uploads/icono_info.png" alt="" width="40" height="40" /> Estado</strong></span></p>
+<p style="text-align: justify;">Una vez que se realice la validación del número de IVA puede presentar diferentes estados:</p>
+<ul>
+<li style="text-align: justify;"><strong>Formato del número de IVA inválido: </strong>Esto significa que se ha intentado validar el formato del número de IVA pero no ha pasado el proceso de validación de formato.</li>
+<li style="text-align: justify;"><strong>Validación de formato: </strong>El número de IVA ha pasado exitosamente el proceso de validación de formato.</li>
+<li style="text-align: justify;"><strong>Número de IVA vacío pero el campo de número de IVA es opcional: </strong>Se ha detectado que no se ha registrado un número de IVA y el campo está vacío, pero según la opción configurada, el campo es opcional. Por lo tanto pasa con éxito la validación.</li>
+<li style="text-align: justify;"><strong>Número de IVA vacío: </strong>El campo de número de IVA está vacío y el campo es obligatorio. En este caso no pasa la validación.</li>
+<li style="text-align: justify;"><strong>[HTTP código (número del código de respuesta) | Validación VIES/GOV.UK de 1 vía]: </strong>Se muestra cuando el tipo de sistema de validación elegido es VIES/GOV.UK 1 vía. Se muestra el código de respuesta y se termina con un mensaje con el resultado de la validación.</li>
+<li style="text-align: justify;"><strong>[HTTP código (número del código de respuesta) | Validación VIES/GOV.UK de 2 vías]: </strong>Se muestra cuando el tipo de sistema de validación elegido es VIES/GOV.UK 2 vías. Se muestra el código de respuesta y se termina con un mensaje con el resultado de la validación.</li>
+<li style="text-align: justify;"><strong>El número de IVA está duplicado: </strong>Indica que existe otras direcciones de clientes distintos que tienen el mismo número de IVA. En este caso, se valida aunque sea duplicado siempre que se haya seleccionado la opción de permitir números de IVA duplicados.</li>
+<li><strong>El nombre de la empresa (nombre de la empresa) no coincide con el nombre de la empresa registrado en VIES/GOV.UK: </strong>El nombre de la empresa no se ha validado porque no coincide con el registrado en los organismos oficiales.</li>
+<li><strong>El campo de nombre de empresa está vacío:</strong> El campo de nombre de empresa está vacío y debe ser indicado, por esa razón no ha podido ser validado correctamente.</li>
+</ul>
+<h5 style="text-align: justify;">Opciones dentro del listado</h5>
+<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2426" src="https://documentation.liewebs.com/wp-content/uploads/opciones_IVA.png" alt="" width="377" height="283" srcset="https://documentation.liewebs.com/wp-content/uploads/opciones_IVA.png 377w, https://documentation.liewebs.com/wp-content/uploads/opciones_IVA-300x225.png 300w" sizes="(max-width: 377px) 100vw, 377px" /></p>
+<p>En cada registro de la lista se pueden realizar una serie de acciones, al igual que se pueden realizar de forma masiva cuando se selecciona más de un registro.</p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;"><strong>Ver detalles del cliente: </strong>Redirecciona a la página de detalles del cliente.</li>
+<li style="text-align: justify;"><strong>Comprobar IVA en VIES/GOV.UK: </strong>Comprueba el número de IVA a través de las API oficiales y muestra el resultado en una ventana emergente.<br />
+<img decoding="async" loading="lazy" class="size-full wp-image-2438 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/comprobar_IVA.png" alt="" width="650" height="500" srcset="https://documentation.liewebs.com/wp-content/uploads/comprobar_IVA.png 650w, https://documentation.liewebs.com/wp-content/uploads/comprobar_IVA-300x231.png 300w" sizes="(max-width: 650px) 100vw, 650px" /></li>
+<li style="text-align: justify;"><strong>Validar el IVA manualmente: </strong>Valida el número de IVA de forma manual indicando que es válido sin que pase por ningún proceso de validación.</li>
+<li style="text-align: justify;"><strong>Validar el IVA con VIES/GOV.UK: </strong>Realiza el proceso de validación mediante el sistema VIES o GOV.UK (en caso de número VAT de UK) y muestra el resultado validando o no el número.</li>
+<li style="text-align: justify;"><strong>Enviar correo electrónico de solicitud de validación de IVA: </strong>Envía correo electrónico al cliente solicitando que tiene que insertar un número de IVA válido en la dirección para que se pueda validar.</li>
+<li style="text-align: justify;"><strong>Eliminar IVA:</strong> Vacía el campo del número de IVA de esa dirección.</li>
+<li style="text-align: justify;"><strong>Eliminar: </strong>Elimina el registro de la base de datos.</li>
+</ul>
+<h5 style="text-align: justify;">Editar y validad el número de IVA</h5>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2422 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/modificar_IVA.png" alt="" width="1685" height="373" srcset="https://documentation.liewebs.com/wp-content/uploads/modificar_IVA.png 1685w, https://documentation.liewebs.com/wp-content/uploads/modificar_IVA-300x66.png 300w, https://documentation.liewebs.com/wp-content/uploads/modificar_IVA-1024x227.png 1024w, https://documentation.liewebs.com/wp-content/uploads/modificar_IVA-768x170.png 768w, https://documentation.liewebs.com/wp-content/uploads/modificar_IVA-1536x340.png 1536w, https://documentation.liewebs.com/wp-content/uploads/modificar_IVA-1568x347.png 1568w" sizes="(max-width: 1685px) 100vw, 1685px" /></p>
+<p style="text-align: justify;">Se puede modificar manualmente el número de IVA registrado por el cliente y validarlo o no de forma manual. El proceso de validación es manual, eso quiere decir que será válido o no según la opción que elijas sin que pase por ningún proceso de validación de formato o por VIES.</p>
+<p style="text-align: justify;"><div class="alert alert-info">Si se modifica el número de IVA, se modificará también de la sección de direcciones del cliente.</div></p>
+<p style="text-align: justify;"><div class="alert alert-info">Si se elimina la dirección desde la sección de direcciones, también se eliminará el registro de este listado correspondiente a esa dirección.</div></p>
+<h4 style="text-align: justify;">Escaner de IVA del cliente</h4>
+<p>La función del escáner es realizar un escaneo completo de la base de datos y extraer las direcciones de los clientes que cumplen con las condiciones para que puedan o deban tener registrado el número de IVA. Depende de las direcciones que correspondan con los países elegidos para validación.</p>
+<p style="text-align: justify;">Durante el proceso de escaneo, también se ejecuta el proceso de validación del número de IVA insertado en la dirección mediante el método seleccionado en las opciones de validación desde la página de configuración del módulo.</p>
+<h5><strong>Opciones de escaneo</strong></h5>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2561 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/scan_popup-1.png" alt="" width="662" height="919" srcset="https://documentation.liewebs.com/wp-content/uploads/scan_popup-1.png 662w, https://documentation.liewebs.com/wp-content/uploads/scan_popup-1-216x300.png 216w" sizes="(max-width: 662px) 100vw, 662px" /></p>
+<p style="text-align: justify;">Antes de realizar el escaneo, se abrirá una ventana emergente para elegir las opciones que se desean que el sistema realice durante el escaneo:</p>
+<ul style="list-style-type: circle;">
+<li><strong>Continua el proceso de escaneo desde la última dirección escaneada: </strong>El sistema comenzará el proceso de escaneo desde la última dirección escaneada. Esto es muy útil si por cualquier motivo, el escaneo anterior finalizó antes de completar el proceso o si deseas que el sistema comience el escaneo desde la última dirección en vez que desde el principio.</li>
+<li style="text-align: justify;"><strong>Omitir fallo del sistema API:</strong> Si habilita esta opción, el sistema omitirá la validación del número VAT de la dirección cuando falle el sistema API de VIES/GOV.UK y dará como válido el número de IVA. En el estado del sistema aparecerá el icono en rojo avisando de que hubo un error durante la validación.</li>
+<li style="text-align: justify;"><strong>Eliminar dirección con campo de número de IVA vacío: </strong>Elimina la dirección del cliente que tenga vacío el campo de número de IVA.</li>
+<li style="text-align: justify;"><strong>Eliminar dirección con campo de número de IVA no válido: </strong>Elimina la dirección del cliente que contenga un número de IVA inválido.</li>
+<li style="text-align: justify;"><strong>Eliminar dirección con número de IVA duplicado: </strong>Elimina la dirección del cliente que tenga un número de IVA duplicado. El sistema es inteligente y solamente elimina las direcciones que hayan insertado un número de IVA duplicado, mantenimiento las direcciones del primer cliente original y que primero se registró con ese número de IVA.</li>
+<li style="text-align: justify;"><strong>Enviar correo electrónico a clientes con campo de número de IVA no válido: </strong>Envía un correo electrónico a los clientes que tienen registrado el número de IVA inválido.</li>
+<li style="text-align: justify;"><strong>Enviar correo electrónico a los clientes con el campo de número de IVA vacío: </strong>Envía un correo electrónico a los clientes que tienen vacío el campo del número de IVA.</li>
+<li style="text-align: justify;"><strong>Enviar correo electrónico a los clientes con el campo de número de IVA duplicado: </strong>Envía un correo electrónico a los clientes que tienen registrado un número de IVA duplicado con otro cliente.</li>
+<li><strong>Asignar clientes con número de IVA válido al grupo seleccionado por país: </strong>Asigna a los grupos seleccionados por países en la sección «Asignación de grupo de clientes» a los clientes que tengan un número VAT válido.</li>
+<li style="text-align: justify;"><strong>Completa el campo de empresa en la dirección con la empresa registrada en VIES o GOV.UK cuando el número de IVA sea válido: </strong>Durante el proceso de escaneo, el sistema insertará en la dirección del cliente, el nombre de empresa que se encuentra registrado en los organismos oficiales conforme el número de IVA indicado.</li>
+<li style="text-align: justify;"><strong>Enviar correo electrónico a clientes con un nombre de empresa no válido registrado: </strong>Envía un email al cliente que tenga el nombre de empresa no válido. Esta opción estará disponible si se tiene activada la opción de «Validación de empresa» en la configuración del módulo.</li>
+<li style="text-align: justify;"><strong>Enviar correo electrónico a clientes con el nombre de la empresa vacío: </strong>Envía un email al cliente que tenga el campo de nombre de empresa vacío. Esta opción estará disponible si se tiene activada la opción de «Validación de empresa» en la configuración del módulo.</li>
+</ul>
+<p><strong>Una vez realizado el escaner se aparecerá un botón para refrescar la página y así poder visualizar la lista actualizada. Además puedes descargar la lista en excel de clientes con números VAT desde un botón.</strong></p>
+<p style="text-align: justify;"><div class="alert alert-warning">Depende del número de direcciones almacenadas en la base de datos, el proceso de escaneo podría tardar algunos minutos, incluso horas. Recomendamos que en el caso de tener miles de direcciones almacenadas en la base de datos, se ejecute el proceso de escaneo en horas adecuadas con poca actividad en la tienda, para evitar problemas de rendimiento.</div></p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2305 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/despues_de_escaner.png" alt="" width="797" height="576" srcset="https://documentation.liewebs.com/wp-content/uploads/despues_de_escaner.png 797w, https://documentation.liewebs.com/wp-content/uploads/despues_de_escaner-300x217.png 300w, https://documentation.liewebs.com/wp-content/uploads/despues_de_escaner-768x555.png 768w" sizes="(max-width: 797px) 100vw, 797px" /></p>
+</div>  </section>
+
+  <section id="gestion-de-exenciones-de-iva-de-clientes" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#gestion-de-exenciones-de-iva-de-clientes' class='header-link'><i class='fa fa-link'></i></a>Gestión de exenciones de IVA de clientes</h2><h4>Gestión de exención de IVA de clientes</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2538 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/exencion_iva_cliente.png" alt="" width="1920" height="919" srcset="https://documentation.liewebs.com/wp-content/uploads/exencion_iva_cliente.png 1920w, https://documentation.liewebs.com/wp-content/uploads/exencion_iva_cliente-300x144.png 300w, https://documentation.liewebs.com/wp-content/uploads/exencion_iva_cliente-1024x490.png 1024w, https://documentation.liewebs.com/wp-content/uploads/exencion_iva_cliente-768x368.png 768w, https://documentation.liewebs.com/wp-content/uploads/exencion_iva_cliente-1536x735.png 1536w, https://documentation.liewebs.com/wp-content/uploads/exencion_iva_cliente-1568x751.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;">En esta sección se pueden añadir clientes de forma manual a los que se les aplicará la exención o la imposición de pago de impuestos independientemente que tengan una dirección con número de IVA válido o no o cumplan con el resto de condiciones. Esta configuración será siempre prioritaria con respecto al resto.</p>
+<p style="text-align: justify;">Si un cliente es añadido a esta lista y habilitado para la exención de impuestos. Tanto los precios de los productos, como los pedidos los podrá hacer exento de impuestos en cualquier condición, y al contrario en caso de que sea forzado a pagar impuestos</p>
+<p style="text-align: justify;">Esto es muy útil cuando se quieren aplicar la exención o la obligación de pagar impuestos a clientes determinados que cumplen con una serie de condiciones o por deseo expreso.</p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2526 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/agregar_clientes_exencion.png" alt="" width="1695" height="664" srcset="https://documentation.liewebs.com/wp-content/uploads/agregar_clientes_exencion.png 1695w, https://documentation.liewebs.com/wp-content/uploads/agregar_clientes_exencion-300x118.png 300w, https://documentation.liewebs.com/wp-content/uploads/agregar_clientes_exencion-1024x401.png 1024w, https://documentation.liewebs.com/wp-content/uploads/agregar_clientes_exencion-768x301.png 768w, https://documentation.liewebs.com/wp-content/uploads/agregar_clientes_exencion-1536x602.png 1536w, https://documentation.liewebs.com/wp-content/uploads/agregar_clientes_exencion-1568x614.png 1568w" sizes="(max-width: 1695px) 100vw, 1695px" /></p>
+<p style="text-align: justify;">En caso de tener activado el modo multi tienda, se podrá agregar la exención u obligación de pagar impuestos al cliente en determinadas tiendas o para todas las tiendas.</p>
+<p style="text-align: justify;"><div class="alert alert-warning">Cuando el cliente está incluido en esta lista, se le aplicará una de las condiciones elegidas para el pago de impuestos de manera forzada y como prioridad con respecto a las demás opciones configuradas en el módulo. Si deseas que al cliente se le aplique la exención de impuestos según las condiciones generales del módulo (Tener un número de IVA válido y pertenecer a la Unión europea) deberás eliminarlo de esta lista</div></p>
+</div>  </section>
+
+  <section id="gestion-de-pedidos" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#gestion-de-pedidos' class='header-link'><i class='fa fa-link'></i></a>Gestión de pedidos</h2><h4>Gestión de pedidos</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2434 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/administracion_pedidos.png" alt="" width="1920" height="1482" srcset="https://documentation.liewebs.com/wp-content/uploads/administracion_pedidos.png 1920w, https://documentation.liewebs.com/wp-content/uploads/administracion_pedidos-300x232.png 300w, https://documentation.liewebs.com/wp-content/uploads/administracion_pedidos-1024x790.png 1024w, https://documentation.liewebs.com/wp-content/uploads/administracion_pedidos-768x593.png 768w, https://documentation.liewebs.com/wp-content/uploads/administracion_pedidos-1536x1186.png 1536w, https://documentation.liewebs.com/wp-content/uploads/administracion_pedidos-1568x1210.png 1568w" sizes="(max-width: 1920px) 100vw, 1920px" /></p>
+<p style="text-align: justify;">En esta sección de administran todos los pedidos que se realizan en la tienda y están sujetos a la exención de impuestos por tener un número de IVA válido o están sujetos a la regulación Brexit.</p>
+<p style="text-align: justify;">Contiene un apartado destinado a las estadísticas, mostrando los importes totales de las ventas, tanto las que están exentas de impuestos como las sujetas a la normativa Brexit, con la función de filtrado por fechas.</p>
+<p style="text-align: justify;">Las opciones disponibles para visualizar cada registro son:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li><strong>Ver pedido: </strong>Ver los datos del pedido.</li>
+<li><strong>Descargar factura: </strong>Se puede descargar la factura relacionada con este pedido siempre y cuando haya sido generada.</li>
+</ul>
+<h5 style="text-align: justify;"><strong>Exportación de facturas</strong></h5>
+<p style="text-align: justify;">En esta sección de podrá descargar de forma masiva las facturas generadas por estos pedidos por rangos de fechas. El intervalo de fechas son en referencia a la creación del pedido y no a la fecha de generación de la factura, que puede ser diferente a la anterior.</p>
+<p>&nbsp;</p>
+</div>  </section>
+
+  <section id="herramienta-de-comprobacion-de-iva" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#herramienta-de-comprobacion-de-iva' class='header-link'><i class='fa fa-link'></i></a>Herramienta de comprobación de IVA</h2><h4>Herramienta de comprobación de IVA</h4>
+<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-2454" src="https://documentation.liewebs.com/wp-content/uploads/herramienta_IVA.png" alt="" width="1710" height="389" srcset="https://documentation.liewebs.com/wp-content/uploads/herramienta_IVA.png 1710w, https://documentation.liewebs.com/wp-content/uploads/herramienta_IVA-300x68.png 300w, https://documentation.liewebs.com/wp-content/uploads/herramienta_IVA-1024x233.png 1024w, https://documentation.liewebs.com/wp-content/uploads/herramienta_IVA-768x175.png 768w, https://documentation.liewebs.com/wp-content/uploads/herramienta_IVA-1536x349.png 1536w, https://documentation.liewebs.com/wp-content/uploads/herramienta_IVA-1568x357.png 1568w" sizes="(max-width: 1710px) 100vw, 1710px" /></p>
+<p style="text-align: justify;">En esta sección se pone a disposición una herramienta de comprobación de números de IVA que conecta directamente con las API de los sistemas oficiales de comprobación de IVA de VIES o GOV.UK (para los números de IVA del Reino Unido).</p>
+<p style="text-align: justify;">Se debe insertar el número de IVA a comprobar y pulsar el botón «Comprobar IVA». El sistema del módulo conectará vía API con los sistemas oficiales para comprobar si el número de IVA insertado es válido o no y mostrará una tabla con los datos relacionados con este número (país, nombre de empresa registrada, dirección de la empresa, código ISO del país, validez del número de IVA y fecha y hora de la solicitud)</p>
+<p style="text-align: justify;"><div class="alert alert-info">No hay limitación en el número de consultas a realizar y el servicio es totalmente gratuito.</div></p>
+</div>  </section>
+
+  <section id="sistema-de-exencion-de-impuestos" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#sistema-de-exencion-de-impuestos' class='header-link'><i class='fa fa-link'></i></a>Sistema de exención de impuestos</h2><p style="text-align: justify;">Una vez que el cliente registre una dirección con un número de IVA válido, el sistema eliminará el cálculo de impuestos y mostrará los precios sin impuestos en los siguientes lugares:</p>
+<ul style="list-style-type: circle; text-align: justify;">
+<li>Ficha de productos</li>
+<li>Listado de productos</li>
+<li>Carrito de compra</li>
+<li>Resumen del carrito</li>
+<li>Detalles del pedido en el Back-office</li>
+<li>Facturas de compra</li>
+<li>Facturas rectificativas</li>
+</ul>
+<p style="text-align: justify;">El sistema de exención de impuestos funciona incluso con los descuentos, las reglas de carritos, los precios específicos, etc&#8230;</p>
+<p style="text-align: justify;"><div class="alert alert-info">Puede ocurrir el caso de que el cliente tenga dos direcciones, una con un número de IVA válido y otra sin número de IVA. Siempre que el cliente elija o tenga predefinida la dirección con el número de IVA válido como dirección de envío, el sistema eliminará los impuestos en los precios.</div></p>
+<p style="text-align: justify;"><div class="alert alert-info">Si un cliente ya disponía de una dirección registrada con un número de IVA inválido antes de instalar el módulo. El sistema le avisará en un mensaje de advertencia cuando vaya a realizar la compra o cuando acceda a la sección de sus direcciones.</div></p>
+<h4 style="text-align: justify;"><strong>Facturas y facturas rectificativas</strong></h4>
+<p style="text-align: justify;">Las facturas emitidas en los pedidos con los clientes registrados con un número de IVA válido, estarán exentos de los impuestos y no se muestran en el desglose de la factura.</p>
+<p><strong>Factura exenta de impuestos</strong></p>
+<p style="text-align: justify;"><img decoding="async" loading="lazy" class="size-full wp-image-2469" src="https://documentation.liewebs.com/wp-content/uploads/factura_exento.png" alt="" width="790" height="877" srcset="https://documentation.liewebs.com/wp-content/uploads/factura_exento.png 790w, https://documentation.liewebs.com/wp-content/uploads/factura_exento-270x300.png 270w, https://documentation.liewebs.com/wp-content/uploads/factura_exento-768x853.png 768w" sizes="(max-width: 790px) 100vw, 790px" /></p>
+<p>&nbsp;</p>
+<p><strong>Factura regulada por Brexit</strong></p>
+<p style="text-align: justify;"><img decoding="async" loading="lazy" class="size-full wp-image-2470" src="https://documentation.liewebs.com/wp-content/uploads/factura_brexit.png" alt="" width="714" height="864" srcset="https://documentation.liewebs.com/wp-content/uploads/factura_brexit.png 714w, https://documentation.liewebs.com/wp-content/uploads/factura_brexit-248x300.png 248w" sizes="(max-width: 714px) 100vw, 714px" /></p>
+<p style="text-align: justify;">En las facturas donde el cliente está exento de impuestos se muestran varios detalles:</p>
+<ul style="list-style-type: circle;">
+<li style="text-align: justify;">«Exento de IVA de acuerdo con la sección 259B del código general de impuestos».</li>
+<li style="text-align: justify;">Nota personalizada configurada en la sección «Configuración de facturas» en las opciones del módulo.</li>
+<li style="text-align: justify;">Texto legal personalizado configurado en la sección «Configuración de facturas» en las opciones del módulo.</li>
+<li style="text-align: justify;">En el caso de facturas reguladas por el Brexit, en caso de estar exento de impuestos se mostrará el mensaje <em>«Cargo inverso: cliente para dar cuenta del IVA a HMRC» </em>para cumplir con la normativa que regula las operaciones dentro del marco del Brexit.</li>
+</ul>
+<p>&nbsp;</p>
+</div>  </section>
+
+  <section id="compatibilidad-e-integracion-con-modulos-de-terceros" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#compatibilidad-e-integracion-con-modulos-de-terceros' class='header-link'><i class='fa fa-link'></i></a>Compatibilidad e integración con módulos de terceros</h2><h4>Compatibilidad e integración con módulos de terceros</h4>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2529 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/carta_compatibilidad.png" alt="" width="1400" height="1063" srcset="https://documentation.liewebs.com/wp-content/uploads/carta_compatibilidad.png 1400w, https://documentation.liewebs.com/wp-content/uploads/carta_compatibilidad-300x228.png 300w, https://documentation.liewebs.com/wp-content/uploads/carta_compatibilidad-1024x778.png 1024w, https://documentation.liewebs.com/wp-content/uploads/carta_compatibilidad-768x583.png 768w" sizes="(max-width: 1400px) 100vw, 1400px" /></p>
+<p style="text-align: justify;">El módulo tiene disponible una sección donde se muestra los módulos que son completamente compatibles y han sido comprobados, y también los módulos a los que se les ha implementado la integración total con el nuestro a través de una colaboración especial entre las agencias que han desarrollado estos módulos.</p>
+<p style="text-align: justify;">Que un módulo no figure en la lista de compatibles no significa que no sea compatible con nuestro módulo, sino que su compatibilidad no ha sido testeada.</p>
+<p style="text-align: justify;">Realmente nuestro módulo es compatible con el 99% de los módulos del mercado. Solamente los módulos desarrollados para administrar la página de checkout de la tienda pueden presentar incompatibilidades con el nuestro.</p>
+<p style="text-align: justify;">No obstante, desde nuestro departamento técnico estamos desarrollando constantemente nuevas versiones de nuestro módulo con las implementaciones de compatibilidades con los demás módulos una vez que los vamos testeando. Por lo tanto, esta lista se irá actualizando conforme vayamos implementando las compatibilidades.</p>
+<h5 style="text-align: justify;">Integración con módulo One Page Checkout Prestashop de Presteamshop</h5>
+<p style="text-align: justify;">Gracias a una estrecha colaboración con los desarrolladores de este módulo, hemos podido implementar una integración completa con el módulo One Page Checkout de Presteamshop, que adminsitra la página de checkout de la tienda. Ambos módulos están perfectamente integrados y todas las opciones de nuestro módulo funcionan en el entorno del checkout que muestra el módulo de Preteamshop.</p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2425 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_2.png" alt="" width="1237" height="751" srcset="https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_2.png 1237w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_2-300x182.png 300w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_2-1024x622.png 1024w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout_2-768x466.png 768w" sizes="(max-width: 1237px) 100vw, 1237px" /></p>
+<p><img decoding="async" loading="lazy" class="size-full wp-image-2424 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/onepagecheckout.png" alt="" width="978" height="823" srcset="https://documentation.liewebs.com/wp-content/uploads/onepagecheckout.png 978w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout-300x252.png 300w, https://documentation.liewebs.com/wp-content/uploads/onepagecheckout-768x646.png 768w" sizes="(max-width: 978px) 100vw, 978px" /></p>
+</div>  </section>
+
+  <section id="desinstalacion" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#desinstalacion' class='header-link'><i class='fa fa-link'></i></a>Desinstalación</h2><p><img decoding="async" loading="lazy" class="size-full wp-image-2449 aligncenter" src="https://documentation.liewebs.com/wp-content/uploads/desinstalar-5.png" alt="" width="1495" height="232" srcset="https://documentation.liewebs.com/wp-content/uploads/desinstalar-5.png 1495w, https://documentation.liewebs.com/wp-content/uploads/desinstalar-5-300x47.png 300w, https://documentation.liewebs.com/wp-content/uploads/desinstalar-5-1024x159.png 1024w, https://documentation.liewebs.com/wp-content/uploads/desinstalar-5-768x119.png 768w" sizes="(max-width: 1495px) 100vw, 1495px" /></p>
+<p style="text-align: justify;">El proceso de desinstalación de este módulo es muy sencillo. Tienes que acceder al listado de módulos y acceder a este módulo. En el desplegable de opciones, hay que hacer clic en <strong>«Desinstalar»</strong></p>
+<p style="text-align: justify;"><div class="alert alert-warning">En el proceso de desinstalación se eliminarán todos los datos almacenados en el listado de números de IVA del cliente de la sección «Gestión del IVA» y «Gestión de pedidos».</div></p>
+<p style="text-align: justify;"><div class="alert alert-warning">En el proceso de desinstalación no se eliminarán las provincias de Reino Unido que el módulo instaló durante la fase de instalación.</div></p>
+</div>  </section>
+
+  <section id="solucionador-de-problemas" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#solucionador-de-problemas' class='header-link'><i class='fa fa-link'></i></a>Solucionador de problemas</h2><p style="text-align: justify;">En esta sección indicamos los problemas más comunes y la manera que existe para comprobar el problema y resolverlo. No obstante, si su incidencia no se encuentra indicada en el listado, recomendamos que contacto con nuestro soporte técnico.</p>
+</div>  </section>
+
+  <section id="acuerdo-de-licencia" class="stickem-container">
+  <div class='section-content'><h2 class='page-header'><a href='#acuerdo-de-licencia' class='header-link'><i class='fa fa-link'></i></a>Acuerdo de licencia</h2><div>
+<h2 style="text-align: justify;">ACUERDO DE LICENCIA</h2>
+</div>
+<p style="text-align: justify;">Este Acuerdo de Licencia representa un acuerdo legal entre usted (ya sea un individuo o una entidad) y la empresa desarrolladora del software, Liewebs.</p>
+<p>CON LA COMPRA, INSTALACIÓN, COPIA O CUALQUIER OTRO USO DEL SOFTWARE , USTED ACEPTA SOMETERSE A TODOS LOS TÉRMINOS Y CONDICIONES DEL CONTRATO DE LICENCIA .<br />
+CONCESIÓN DE LICENCIA</p>
+<p>Siempre y cuando cumpla con todos los términos y condiciones de este acuerdo, Liewebs le concede una licencia no exclusiva que incluye los siguientes derechos:</p>
+<ol style="text-align: justify;">
+<li>Puede instalar y utilizar una copia del producto en cualquier tienda cuyo propietario es el mismo que adquirió el módulo.</li>
+<li>Usted puede hacer copias del Producto de respaldo y archivo.</li>
+</ol>
+<p style="text-align: justify;">Liewebs se reserva todos los derechos no concedidos expresamente en este acuerdo.</p>
+<h4 style="text-align: justify;">RESTRICCIONES</h4>
+<p style="text-align: justify;">A menos que se hay dado el consentimiento previo y por escrito de Liewebs, no es posible: su reproducción, distribución o transferencia del producto o partes del mismo a terceros. Vender, alquilar, arrendar, ceder o subarrendar el software o parte del mismo.</p>
+<ol style="text-align: justify;">
+<li>Otorgar derechos a cualquier otra persona.</li>
+<li>Queda totalmente prohibido la modificación del código fuente del Software, así como de cualquiera de sus componentes, imágenes, logos, etc…</li>
+</ol>
+<p style="text-align: justify;">NOTA : Liewebs no admite ninguna forma de piratería de software.</p>
+<h4 style="text-align: justify;">RENUNCIA DE GARANTÍA</h4>
+<p style="text-align: justify;">Durante el periodo de garantía (tiempo que depende de la plataforma donde se ha adquirido el software), el cliente dispondrá de un completo servicio de soporte técnico para resolver cualquier incidencia, fallo, o problemas de compatibilidad no descritas en los detalles del producto. Después de dicho periodo, no se podrá hacer uso del servicio de soporte técnico. Durante el periodo de garantía, el cliente podrá adquirir las actualizaciones del producto.</p>
+<h4 style="text-align: justify;">LIMITACIONES DE LA LICENCIA</h4>
+<p style="text-align: justify;">La licencia está asociada a cada unidad del Software y dominio. Puede instalar el producto es todas las tiendas que sea de su propiedad siempre que adquiera una licencia por dominio.</p>
+<h4 style="text-align: justify;">SOPORTE TÉCNICO</h4>
+<p style="text-align: justify;">El soporte técnico incluye envíos de Tickets de Soporte a través de la plataforma Prestashop Addons. Para poder prestar el servicio de soporte técnico, el cliente deberá de porporcionar unas credenciales provisionales de acceso al back-office de su tienda, acceso FTP y a la base de datos.</p>
+<p>El servicio de soporte técnico se presta en horario de oficina (De Lunes a Viernes de 9:00 a 14:00 y de 16:00 a 19:00) y cuya prioridad se administra por orden de llegada. No se realizan soportes urgentes fuera del horario de oficina.</p>
+<h4 style="text-align: justify;">GARANTÍA Y SOPORTE EXTENDIDO</h4>
+<p style="text-align: justify;">Usted podrá comprar una extensión del periodo de garantía y soporte que ofrece la plataforma Prestashop Addons o Liewebs dependiendo de la opción elegida en el momento de la compra del Software.</p>
+<h4 style="text-align: justify;">DEVOLUCIONES</h4>
+<p style="text-align: justify;">Solamente se devolverá el importe del software y el servicio de soporte contratado en caso de que el producto no funcione en el sitio web SOLO por causas atribuibles al producto, siempre y cuando no haya ningún problema de compatibilidad que se haya indicado con anterioridad en el detalle del producto, y solamente en el caso de que el servicio de soporte técnico no pueda realizar la modificación oportuna para conseguir que el producto funcione.</p>
+<p>NOTA: Cualquier tipo de devolución de dinero hará que la licencia quede revocada y no podrá hacer uso, modificación ni cualquier otro uso del software adquirido.</p>
+<h4 style="text-align: justify;">ENTREGA DEL PRODUCTO</h4>
+<p style="text-align: justify;">Todos los productos Liewebs: documentación y materiales relacionados se entregan electrónicamente a través de Internet.</p>
+<h4 style="text-align: justify;">INSTALACIÓN Y CONFIGURACIÓN</h4>
+<p style="text-align: justify;">El servicio de instalación y configuración está disponible de manera gratuita, siempre y cuando se encuentre en el periodo de soporte o de la GARANTÍA Y SOPORTE EXTENDIDO. Liewebs se reserva derecho de cobrar por este servicio en el futuro.</p>
+<h4 style="text-align: justify;">ACTUALIZACIONES DE PRODUCTOS</h4>
+<p style="text-align: justify;">El cliente recibe la actualización del producto gratis (Descargas) dentro del periodo que dure la garantía y el servicio de soporte técnico. Las actualizaciones de productos (descargas) después de esa fecha estarán disponibles siempre que se cumpla con el apartado GARANTÍA Y SOPORTE EXTENDIDO.</p>
+<p>En caso de cualquier intento de obtener las actualizaciones de una manera inapropiada, distribuirlas o comercializarlas, Liewebs se reserva el derecho de dejar de prestar apoyo y desactivar todas las licencias de los productos desarrollados por Liewebs hasta que el costo total del servicio de actualización se amortice.</p>
+<p>Liewebs no tiene la obligación de proporcionarle cualquier detalle adicional que no haya sido liberado para su distribución general o como actualización. Ninguna disposición de la presente licencia se interpretará como una obligación de Liewebs para proporcionar actualizaciones a usted bajo ninguna circunstancia.</p>
+<h4 style="text-align: justify;">POLÍTICA DE CICLO DE VIDA</h4>
+<p style="text-align: justify;">Liewebs se reserva el derecho de modificar el ciclo de vida de cada uno de sus productos en general o particularmente. Liewebs se reserva el derecho de finalizar el desarrollo y soporte de sus productos, sin previo aviso pero siempre respetando los tiempos de Garantía, Soporte y GARANTÍA Y SOPORTE EXTENDIDO que se encuentren activos. Los productos de Liewebs finalizarían su distribución, soporte y garantía en el caso que PrestaShop también finalice la distribución, desarrollo o soporte de versiones.</p>
+<h4 style="text-align: justify;">VERSIÓN DE EVALUACIÓN / DEMO</h4>
+<p style="text-align: justify;">Liewebs no ofrece versión de evaluación de ninguno de sus productos y la comercialización y/o distribución de copias de productos como versión de evaluación por parte de terceros están desautorizados y son considerados ilegales. Las demostraciones de sus productos se pueden ver de forma on-line desde la página web de Liewebs (https://demo.liewebs.com) y pueden ser accedidos desde la página de descripción de cada producto.</p>
+<h4 style="text-align: justify;">POLÍTICA DE PRIVACIDAD</h4>
+<p style="text-align: justify;">En algunos sitios Liewebs le solicitará que nos proporcione información personal, como su dirección de e-mail, nombre, dirección de casa o del trabajo o número de teléfono. También podemos recopilar información demográfica, como su código postal, edad, sexo, preferencias, intereses y favoritos. Si decide realizar una compra o inscribirse para un servicio de suscripción de pago, le pediremos información adicional, como su número de tarjeta de crédito y dirección de facturación que se utiliza para crear una cuenta de facturación Liewebs.</p>
+<p>Además , recopilamos cierta información estándar que su explorador envía a cada sitio web que visita, como su dirección IP, tipo de navegador y el idioma, los tiempos de acceso y direcciones de sitios Web.</p>
+<p><strong>Uso de su información personal:</strong> Liewebs colecciona y utiliza su información personal para operar y mejorar sus sitios y servicios . También usamos su información personal para comunicarnos con usted. Enviamos ciertas comunicaciones de servicio, realizamos llamadas para ofrecer un mejor soporte técnico y anuncios de actualizaciones o noticias.</p>
+<p>Esto no incluye ninguna información personal, tales como su identidad, historial de navegación, contactos o información de familiares y amigos. Utilizamos esta información para mejorar el software, soporte técnico y el desarrollo de un mejor producto que satisfaga sus necesidades .</p>
+<p>Excepto por lo descrito en esta declaración, no revelaremos su información personal fuera de Liewebs sin su consentimiento.</p>
+<p>Usted es libre de cambiar su información personal. Tenga en cuenta, que su correo electrónico se utiliza como identificador único. Debe notificar a Liewebs si le gustaría que lo cambien, ya que puede requerir algunas acciones adicionales de nuestro lado.</p>
+<p><strong>Modificaciones a esta Declaración de Privacidad:</strong> Ocasionalmente actualizaremos esta declaración de privacidad para reflejar los cambios en nuestros servicios y los comentarios de los clientes. Cuando publiquemos cambios en esta declaración, revisaremos la fecha de «última actualización » en la parte superior de esta declaración. Si hay cambios materiales en esta declaración o en cómo Liewebs utilizará su información personal, le notificaremos ya sea prominente publicación de un aviso de tales cambios antes de implementarlos o enviándole directamente una notificación. Le recomendamos que revise periódicamente esta declaración para estar informado de cómo Liewebs protege su información .</p>
+<h4 style="text-align: justify;">LIMITACIÓN DE LA RESPONSABILIDAD</h4>
+<p style="text-align: justify;">En ningún caso y bajo ninguna teoría legal, agravio, contrato o de otro modo, deberá Liewebs ser responsable ante usted o cualquier otra persona por daños indirectos, especiales, incidentales o consecuentes de cualquier carácter incluyendo, sin limitación, daños por pérdida de fondo de comercio, paro laboral, falla en la computadora, falla en el sitio web o mal funcionamiento, o cualquier otro daño comercial o pérdida.</p>
+<h4 style="text-align: justify;">CONVENIENCIA</h4>
+<p style="text-align: justify;">La persona o empresa que utiliza este producto es el único responsable de probar completamente para asegurarse de que funciona a su satisfacción antes de comprar una licencia y/o incorporarlo en su sitio web. Con la obtención de una licencia, el titular indica que el producto ha cumplido con sus expectativas y funciona a su satisfacción.</p>
+<h4 style="text-align: justify;">TERMINACIÓN</h4>
+<p style="text-align: justify;">Este acuerdo termina, se pierden todos los derechos de su licencia, y usted debe dejar de utilizar el producto, si usted no cumple con cualquier término o condición de este Acuerdo de Licencia.</p>
+<p>Liewebs ser reserva el derecho de modificar esta licencia en el futuro.</p>
+</div>  </section>
+
+    </div><!-- /.content -->
+</div><!-- /.content-wrapper -->
+      
+
+  <footer class="main-footer">
+
+      <div class="pull-right hidden-xs">
+                        <div class="version"> Version 1.5.3</div>
+               </div>
+
+    <div class="copyrights">Copyright © 2023 Liewebs. Todos los derechos reservados.</div>  </footer>
+
+
+</div><!-- ./wrapper -->
+
+
+    <script src="assets/js/jQuery-2.2.0.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/jquery.stickem.js"></script>
+    <script src="assets/js/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/prism.js"></script>
+    <script src="assets/js/docs.js"></script>
+    </body>
+</html>

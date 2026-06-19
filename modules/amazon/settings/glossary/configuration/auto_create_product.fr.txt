@@ -1,0 +1,1 @@
+Créer automatiquement un produit si le détail de la commande d'Amazon n'a pas ce produit.

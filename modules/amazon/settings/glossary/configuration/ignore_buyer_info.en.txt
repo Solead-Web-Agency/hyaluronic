@@ -1,0 +1,2 @@
+For resolving problems with Buyer information and Shipping Address.
+If this setting is enabled, you need to change the address by hand.

@@ -1,0 +1,212 @@
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    Revolut
+ * @copyright Since 2020 Revolut
+ * @license   https://opensource.org/licenses/AFL-3.0  Academic Free License (AFL 3.0)
+ */
+#revolut_pay {
+  height: auto;
+  max-height: 70px;
+}
+#revolutForm .error,
+#revolutError .error {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid red;
+  color: red;
+}
+#revolutForm .error.hidden {
+  display: none;
+}
+#revolutForm .error ul,
+#revolutError .error ul {
+  margin-bottom: 0;
+}
+
+#revolutPayForm .error,
+#revolutError .error {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid red;
+  color: red;
+}
+#revolutPayForm .error.hidden {
+  display: none;
+}
+#revolutPayForm .error ul,
+#revolutError .error ul {
+  margin-bottom: 0;
+}
+
+.rc-card-field {
+  padding: 7px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background-color: #f1f1f1;
+}
+.rc-card-field.rc-card-field--focused {
+  background-color: #ffffff;
+  border-color: #66afe9;
+  outline: 0.1875rem solid #2fb5d2;
+}
+
+.revolut-fc-checkbox {
+  margin-top: 10px;
+  padding: 0 2px;
+}
+.revolut-fc-checkbox label {
+  display: inline-block;
+  line-height: 13px;
+  margin-bottom: 0;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* FIX PAYMENT OPTION LABEL STYLE */
+body#checkout
+  section.checkout-step
+  .payment-options
+  .revolut-fc-checkbox
+  label {
+  display: inline-block;
+}
+
+/* DOWNGRADE */
+/* hook payment */
+p.payment_module#revolutpayment_payment_module a {
+  padding-left: 15px;
+}
+p.payment_module#revolutpayment_payment_module a img {
+  height: 23px;
+  margin-right: 20px;
+}
+p.payment_module a.revolutpayment:after {
+  display: block;
+  content: "\f054";
+  position: absolute;
+  right: 15px;
+  margin-top: -11px;
+  top: 50%;
+  font-family: "FontAwesome";
+  font-size: 25px;
+  height: 22px;
+  width: 14px;
+  color: #777;
+}
+.rc-card-field {
+  margin-bottom: 10px;
+  background-color: #fff;
+  padding: 3px 5px;
+  border: 1px solid #d6d4d4;
+}
+.rc-card-field.rc-card-field--focused {
+  background-color: #ffffff;
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+}
+/* revolut payment form */
+.revolut-payment {
+  border: 1px solid #d6d4d4;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background-color: #f6f6f6;
+}
+
+.revolut-payment-form {
+  border-bottom: 1px solid #d6d4d4;
+  padding: 15px;
+}
+.revolut-logo-container {
+  border-bottom: none;
+}
+.revolut-logo-container img {
+  width: 150px;
+}
+#revolutPaymentButton {
+  width: auto;
+}
+
+#cart_navigation img {
+  width: 80px;
+}
+.revolut-payment-form .action button {
+  width: 210px;
+  padding: 5px 7px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #5b9bd5;
+  border: 1px solid rgba(77, 96, 113, 0.63);
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  margin-right: 10px;
+  font-size: 17px;
+}
+.revolut-payment-form .author {
+  margin-top: 10px;
+}
+.revolut-loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+  display: inline-block;
+}
+#revolut-loader-overlay {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+  text-align: center;
+  z-index: 999999;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

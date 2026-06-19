@@ -1,0 +1,76 @@
+DATETIME,ERRORLEVEL,TAG,VALUE,LINE,FILE
+"2021-11-20 02:54:00",INFO,--,"Starting to install again.",237,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: paid - test",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 33",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: paid",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: refund - test",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 34",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: refund",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: pending - test",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 35",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: pending",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 36",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: error - test",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 37",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: error",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: cancelled - test",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 38",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: cancelled",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: auth - test",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 39",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: auth",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 40",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: exp - test",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 41",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: exp",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 42",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: oney_pg - test",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 43",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Order state: oney_pg",127,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Creating new order state.",78,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"State created with id: 44",110,/home/fillere/www_/modules/payplug/src/repositories/OrderStateRepository.php
+"2021-11-20 02:54:00",INFO,--,"Execute createOrderStatesType",148,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Live key : PAYPLUG_ORDER_STATE_PAID / Id Order State: 2",154,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: paid - result: ok",157,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Sandbox key : PAYPLUG_ORDER_STATE_PAID_TEST / Id Order State: 33",163,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: paid - result: ok",166,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Live key : PAYPLUG_ORDER_STATE_REFUND / Id Order State: 7",154,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: refund - result: ok",157,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Sandbox key : PAYPLUG_ORDER_STATE_REFUND_TEST / Id Order State: 34",163,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: refund - result: ok",166,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Live key : PAYPLUG_ORDER_STATE_PENDING / Id Order State: 36",154,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: pending - result: ok",157,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Sandbox key : PAYPLUG_ORDER_STATE_PENDING_TEST / Id Order State: 35",163,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: pending - result: ok",166,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Live key : PAYPLUG_ORDER_STATE_ERROR / Id Order State: 8",154,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: error - result: ok",157,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Sandbox key : PAYPLUG_ORDER_STATE_ERROR_TEST / Id Order State: 37",163,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: error - result: ok",166,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Live key : PAYPLUG_ORDER_STATE_CANCELLED / Id Order State: 6",154,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: cancelled - result: ok",157,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Sandbox key : PAYPLUG_ORDER_STATE_CANCELLED_TEST / Id Order State: 38",163,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: cancelled - result: ok",166,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Live key : PAYPLUG_ORDER_STATE_AUTH / Id Order State: 40",154,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: pending - result: ok",157,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Sandbox key : PAYPLUG_ORDER_STATE_AUTH_TEST / Id Order State: 39",163,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: pending - result: ok",166,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Live key : PAYPLUG_ORDER_STATE_EXP / Id Order State: 42",154,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: expired - result: ok",157,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Sandbox key : PAYPLUG_ORDER_STATE_EXP_TEST / Id Order State: 41",163,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: expired - result: ok",166,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Live key : PAYPLUG_ORDER_STATE_ONEY_PG / Id Order State: 44",154,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: pending - result: ok",157,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Sandbox key : PAYPLUG_ORDER_STATE_ONEY_PG_TEST / Id Order State: 43",163,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:00",INFO,--,"Save type: pending - result: ok",166,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
+"2021-11-20 02:54:01",INFO,--,"Install successful.",281,/home/fillere/www_/modules/payplug/src/repositories/InstallRepository.php
