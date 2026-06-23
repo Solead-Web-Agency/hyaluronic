@@ -62,16 +62,25 @@ Réponse :
 ```
 **Vérifié** : client groupe 4 (exonéré) → TTC = HT (pas de TVA) ; client normal → TVA 20% appliquée. La logique métier PS est respectée.
 
-### ⏳ À construire (même patron : `controllers/front/*.php` étendant `HfmStorefrontApiController`)
+### ✅ Endpoint `customer` (implémenté & testé)
+`POST {action:login, email, password}` → `{authenticated, customer{id_customer,email,firstname,lastname,groups}}`
+`POST {action:register, email, password, firstname, lastname, id_lang?}` → crée le client
+`GET ?action=me&id_customer=..` / `GET ?action=addresses&id_customer=..`
+`POST {action:add-address, id_customer, address1, postcode, city, id_country, ...}`
+> Vérifié : register + login OK (hash PS9 correct). Le backend Next émet ensuite son propre JWT/session pour le navigateur.
 
-- **`customer`** : `POST {action:login|register|me, email, password, ...}` → valider via `Customer::getByEmail`+`checkPassword`, renvoyer l'`id_customer` (+ un JWT signé côté Next pour la session navigateur). Adresses : créer/lister via `Address`.
-- **`checkout`** : 
-  1. `GET shipping?id_cart=` → transporteurs dispo + prix (`Carrier::getCarriersForOrder` / `$cart->getDeliveryOptionList()`)
-  2. `POST set-address {id_cart, id_address_delivery, id_address_invoice}`
-  3. `POST set-carrier {id_cart, id_carrier}`
-  4. `POST voucher {id_cart, code}` (`CartRule`)
-  5. `POST order {id_cart, payment_module, ...}` → `validateOrder()` (création commande)
-- **Paiement** : en full headless, intégrer les **SDK PSP directement dans Next** (Stripe/PayPal/Viva JS) puis créer la commande PS via `validateOrder` côté serveur après confirmation du paiement (webhook PSP → endpoint Next → bridge `order`).
+### ✅ Endpoint `checkout` (implémenté ; shipping testé)
+1. `GET ?action=shipping&id_cart=..` → transporteurs dispo + prix (testé : DHL/GLS avec tarifs réels)
+2. `POST {action:set-address, id_cart, id_address_delivery, id_address_invoice?}`
+3. `POST {action:set-carrier, id_cart, id_carrier}`
+4. `POST {action:voucher, id_cart, code}` (`CartRule`)
+5. `POST {action:order, id_cart, payment_method?}` → **`validateOrder()`** (crée la commande via `ps_wirepayment`/`ps_checkpayment`)
+
+### 💳 Paiement (à finaliser selon le PSP)
+L'endpoint `order` crée la commande via un module de paiement natif (état « en préparation »). En prod : intégrer le **SDK du PSP dans Next** (Stripe/PayPal/Viva), puis appeler `order` côté serveur après confirmation (webhook PSP → endpoint Next → bridge `order`), en adaptant l'état de commande.
+
+### 🖥️ Front Next.js
+Projet séparé : `/Users/nathancaudeli/Github/hfm-front` (design d'après la maquette React fournie — police Spectral, palette #2B2B2B/blanc). Routes API serveur (proxy) pour cacher les secrets ; composants React appelant `/api/*`.
 
 ## Sécurité / déploiement
 - HTTPS obligatoire en prod (les secrets transitent en en-têtes).

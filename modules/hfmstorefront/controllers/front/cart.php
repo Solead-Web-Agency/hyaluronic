@@ -21,7 +21,14 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
     public function handlePost()
     {
         $cart = $this->loadOrCreateCart();
+        $this->attachCustomer($cart);
         $action = (string) $this->in('action', 'add');
+
+        if ($action === 'attach') {
+            // Rattachement seul (après connexion) : on renvoie l'état du panier.
+            $cart->update();
+            return $this->cartPayload($cart);
+        }
         $idProduct = (int) $this->in('id_product');
         $idAttribute = (int) $this->in('id_product_attribute', 0);
         $qty = (int) $this->in('qty', 1);
@@ -87,6 +94,24 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
         return $cart;
     }
 
+    /** Lie le panier au client connecté (contexte alimenté par id_customer) s'il ne l'est pas déjà. */
+    protected function attachCustomer(Cart $cart)
+    {
+        if (!Validate::isLoadedObject($this->context->customer)) {
+            return;
+        }
+        $idCustomer = (int) $this->context->customer->id;
+        if ((int) $cart->id_customer === $idCustomer) {
+            return;
+        }
+        $cart->id_customer = $idCustomer;
+        if (!$cart->id_address_delivery) {
+            $cart->id_address_delivery = (int) Address::getFirstCustomerAddressId($idCustomer);
+            $cart->id_address_invoice = $cart->id_address_delivery;
+        }
+        $cart->update();
+    }
+
     protected function productQty($cart, $idProduct, $idAttribute)
     {
         foreach ($cart->getProducts() as $p) {
@@ -114,10 +139,27 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
             ];
         }
 
+        $deliveryAddress = null;
+        if ($cart->id_address_delivery) {
+            $a = new Address((int) $cart->id_address_delivery);
+            if (Validate::isLoadedObject($a)) {
+                $deliveryAddress = [
+                    'firstname' => $a->firstname,
+                    'lastname' => $a->lastname,
+                    'address1' => $a->address1,
+                    'postcode' => $a->postcode,
+                    'city' => $a->city,
+                    'country_iso' => Country::getIsoById((int) $a->id_country),
+                ];
+            }
+        }
+
         return [
             'id_cart' => (int) $cart->id,
             'id_currency' => (int) $cart->id_currency,
             'id_customer' => (int) $cart->id_customer,
+            'id_address_delivery' => (int) $cart->id_address_delivery,
+            'delivery_address' => $deliveryAddress,
             'nb_items' => (int) $cart->nbProducts(),
             'products' => $products,
             'totals' => [

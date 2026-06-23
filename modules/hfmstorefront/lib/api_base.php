@@ -40,8 +40,8 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
         }
         try {
             $this->respond($this->{$handler}(), 200);
-        } catch (Exception $e) {
-            $this->respond(['error' => $e->getMessage()], 400);
+        } catch (\Throwable $e) {
+            $this->respond(['error' => $e->getMessage(), 'where' => basename($e->getFile()) . ':' . $e->getLine()], 400);
         }
     }
 
