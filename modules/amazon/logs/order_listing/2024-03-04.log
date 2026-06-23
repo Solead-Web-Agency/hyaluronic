@@ -1,0 +1,964 @@
+11:24:33 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:09:33Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:24:33 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:09:33Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:24:34 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-04T09:51:22Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR",
+                    "Phone": "+33662470500"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-04T10:09:33Z"
+    }
+}
+)
+
+11:28:15 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:13:15Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:28:15 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:13:15Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:28:15 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-04T09:51:22Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR",
+                    "Phone": "+33662470500"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-04T10:13:15Z"
+    }
+}
+)
+
+11:28:49 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:13:49Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:28:49 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:13:49Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:28:49 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-04T09:51:22Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR",
+                    "Phone": "+33662470500"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-04T10:13:49Z"
+    }
+}
+)
+
+11:30:23 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:15:23Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:30:23 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:15:23Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:30:28 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-04T09:51:22Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR",
+                    "Phone": "+33662470500"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-04T10:15:23Z"
+    }
+}
+)
+
+11:41:27 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:26:27Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:41:27 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:26:27Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:41:28 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "SellerOrderId": "31610",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-04T10:30:54Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR",
+                    "Phone": "+33662470500"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-04T10:26:27Z"
+    }
+}
+)
+
+11:41:43 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:26:43Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Shipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:41:43 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:26:43Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Shipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:41:44 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [],
+        "CreatedBefore": "2024-03-04T10:26:43Z"
+    }
+}
+)
+
+11:47:21 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:32:21Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Shipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:47:21 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:32:21Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Shipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:47:22 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [],
+        "CreatedBefore": "2024-03-04T10:32:21Z"
+    }
+}
+)
+
+11:47:26 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:32:26Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Array
+        (
+            [0] => Pending
+            [1] => Unshipped
+            [2] => PartiallyShipped
+            [3] => Shipped
+            [4] => Canceled
+        )
+
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:47:27 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:32:26Z","last_updated_after":null,"last_updated_before":null,"order_statuses":["Pending","Unshipped","PartiallyShipped","Shipped","Canceled"],"fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:47:27 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "SellerOrderId": "31610",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-04T10:30:54Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR",
+                    "Phone": "+33662470500"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-04T10:32:26Z"
+    }
+}
+)
+
+11:48:12 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-01T23:00:00Z
+    [created_before] => 2024-03-04T10:33:12Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+11:48:12 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-01T23:00:00Z","created_before":"2024-03-04T10:33:12Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+11:48:13 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "SellerOrderId": "31610",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-04T10:30:54Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR",
+                    "Phone": "+33662470500"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-04T10:33:12Z"
+    }
+}
+)
+

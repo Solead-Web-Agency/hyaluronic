@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS `PREFIX_gmcp_tags_dynamic_last_product_ordered` (`id_tag` int(11) NOT NULL,`start_date` DATETIME, `end_date` DATETIME, `id_product` CHAR(255), UNIQUE KEY `last_product_ordered` (`id_tag`, `id_product`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `PREFIX_gmcp_tags_dynamic_promotion` (`id_tag` int(11) NOT NULL,`start_date` DATETIME, `end_date` DATETIME, `id_product` CHAR(255), UNIQUE KEY `promotion` (`id_tag`, `id_product`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;

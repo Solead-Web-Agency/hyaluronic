@@ -1,0 +1,415 @@
+22:10:44 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-24T23:00:00Z
+    [created_before] => 2024-03-27T20:55:44Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+22:10:44 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-24T23:00:00Z","created_before":"2024-03-27T20:55:44Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+22:10:45 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "405-1976671-7763564",
+                "PurchaseDate": "2024-03-27T20:08:52Z",
+                "LastUpdateDate": "2024-03-27T20:39:13Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-27T23:00:00Z",
+                "LatestShipDate": "2024-03-28T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-01T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-02T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Josselyne Douyere",
+                    "AddressLine1": "28 village de La Verronnerie",
+                    "City": "Saint-Marc la lande",
+                    "PostalCode": "79310",
+                    "CountryCode": "FR",
+                    "Phone": "+33660438976",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "d8s1hkkn4d66zfq@marketplace.amazon.fr",
+                    "BuyerName": "Josselyne Douyere"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-27T20:55:44Z"
+    }
+}
+)
+
+22:12:48 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-24T23:00:00Z
+    [created_before] => 2024-03-27T20:57:48Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+22:12:48 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-24T23:00:00Z","created_before":"2024-03-27T20:57:48Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+22:12:49 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "405-1976671-7763564",
+                "PurchaseDate": "2024-03-27T20:08:52Z",
+                "LastUpdateDate": "2024-03-27T20:39:13Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-27T23:00:00Z",
+                "LatestShipDate": "2024-03-28T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-01T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-02T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Josselyne Douyere",
+                    "AddressLine1": "28 village de La Verronnerie",
+                    "City": "Saint-Marc la lande",
+                    "PostalCode": "79310",
+                    "CountryCode": "FR",
+                    "Phone": "+33660438976",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "d8s1hkkn4d66zfq@marketplace.amazon.fr",
+                    "BuyerName": "Josselyne Douyere"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-27T20:57:48Z"
+    }
+}
+)
+
+22:33:30 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+        )
+
+    [created_after] => 2024-03-24T23:00:00Z
+    [created_before] => 2024-03-27T21:18:30Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+22:33:30 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"created_after":"2024-03-24T23:00:00Z","created_before":"2024-03-27T21:18:30Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+22:33:31 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "405-1976671-7763564",
+                "PurchaseDate": "2024-03-27T20:08:52Z",
+                "LastUpdateDate": "2024-03-27T20:39:13Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-27T23:00:00Z",
+                "LatestShipDate": "2024-03-28T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-01T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-02T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Josselyne Douyere",
+                    "AddressLine1": "28 village de La Verronnerie",
+                    "City": "Saint-Marc la lande",
+                    "PostalCode": "79310",
+                    "CountryCode": "FR",
+                    "Phone": "+33660438976",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "d8s1hkkn4d66zfq@marketplace.amazon.fr",
+                    "BuyerName": "Josselyne Douyere"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "407-1817723-2637155",
+                "PurchaseDate": "2024-03-27T20:49:59Z",
+                "LastUpdateDate": "2024-03-27T21:17:35Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "213.00"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 2,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-27T23:00:00Z",
+                "LatestShipDate": "2024-03-28T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-01T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-02T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Konte astou",
+                    "AddressLine1": "22, Rue des Bougimonts",
+                    "City": "Les Mureaux",
+                    "PostalCode": "78130",
+                    "CountryCode": "FR",
+                    "Phone": "0685718987",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "d48yj8ttbgtl8x0@marketplace.amazon.fr",
+                    "BuyerName": "Konte Astou"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-03-27T21:18:30Z"
+    }
+}
+)
+

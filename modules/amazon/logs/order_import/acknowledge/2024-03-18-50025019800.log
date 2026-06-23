@@ -1,0 +1,4 @@
+11:34:52 > INFO > <?xml version="1.0"?>
+<AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd"><Header><DocumentVersion>1.01</DocumentVersion><MerchantIdentifier>A2XWU2BK4HBLR0</MerchantIdentifier></Header><MessageType>OrderAcknowledgement</MessageType><Message><MessageID>1</MessageID><OrderAcknowledgement><AmazonOrderID>171-9600153-3617153</AmazonOrderID><MerchantOrderID>31968</MerchantOrderID><StatusCode>Success</StatusCode></OrderAcknowledgement></Message></AmazonEnvelope>
+
+11:34:52 > SUCCESS > Successfully sent feed with ID: 50025019800

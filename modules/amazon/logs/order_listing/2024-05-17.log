@@ -1,0 +1,366 @@
+09:41:30 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 2024-05-14T22:00:00Z
+    [created_before] => 2024-05-17T07:26:30Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+09:41:30 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":"2024-05-14T22:00:00Z","created_before":"2024-05-17T07:26:30Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:41:31 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [],
+        "CreatedBefore": "2024-05-17T07:26:30Z"
+    }
+}
+)
+
+09:44:15 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 2024-05-14T22:00:00Z
+    [created_before] => 2024-05-17T07:29:15Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+09:44:15 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":"2024-05-14T22:00:00Z","created_before":"2024-05-17T07:29:15Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:44:16 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [],
+        "CreatedBefore": "2024-05-17T07:29:15Z"
+    }
+}
+)
+
+09:44:22 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 2024-05-07T22:00:00Z
+    [created_before] => 2024-05-17T07:29:22Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+09:44:22 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":"2024-05-07T22:00:00Z","created_before":"2024-05-17T07:29:22Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:44:23 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "406-5338399-9422746",
+                "PurchaseDate": "2024-05-14T18:37:32Z",
+                "LastUpdateDate": "2024-05-14T19:06:58Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "76.97"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-05-14T22:00:00Z",
+                "LatestShipDate": "2024-05-15T21:59:59Z",
+                "EarliestDeliveryDate": "2024-05-16T22:00:00Z",
+                "LatestDeliveryDate": "2024-05-17T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "sraieb samar",
+                    "AddressLine1": "32 rue de la gare",
+                    "City": "prouvy",
+                    "PostalCode": "59121",
+                    "CountryCode": "FR",
+                    "Phone": "0768795816",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "7gv7c6fhpmqbr2y@marketplace.amazon.fr",
+                    "BuyerName": "sraieb"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-05-17T07:29:22Z"
+    }
+}
+)
+
+09:45:46 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 2024-05-07T22:00:00Z
+    [created_before] => 2024-05-17T07:30:46Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+09:45:46 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":"2024-05-07T22:00:00Z","created_before":"2024-05-17T07:30:46Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:45:47 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "406-5338399-9422746",
+                "PurchaseDate": "2024-05-14T18:37:32Z",
+                "LastUpdateDate": "2024-05-14T19:06:58Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "76.97"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-05-14T22:00:00Z",
+                "LatestShipDate": "2024-05-15T21:59:59Z",
+                "EarliestDeliveryDate": "2024-05-16T22:00:00Z",
+                "LatestDeliveryDate": "2024-05-17T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "sraieb samar",
+                    "AddressLine1": "32 rue de la gare",
+                    "City": "prouvy",
+                    "PostalCode": "59121",
+                    "CountryCode": "FR",
+                    "Phone": "0768795816",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "7gv7c6fhpmqbr2y@marketplace.amazon.fr",
+                    "BuyerName": "sraieb"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-05-17T07:30:46Z"
+    }
+}
+)
+

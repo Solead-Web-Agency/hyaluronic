@@ -1,0 +1,287 @@
+23:28:01 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 
+    [created_before] => 
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => 
+    [fulfillment_channels] => 
+    [amazon_order_ids] => Array
+        (
+            [0] => 026-0842335-9093920
+        )
+
+    [max_results_per_page] => 100
+)
+
+23:28:01 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":null,"created_before":null,"last_updated_after":null,"last_updated_before":null,"order_statuses":null,"fulfillment_channels":null,"amazon_order_ids":["026-0842335-9093920"],"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+23:28:02 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "026-0842335-9093920",
+                "PurchaseDate": "2024-04-27T13:27:43Z",
+                "LastUpdateDate": "2024-04-27T13:57:51Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.co.uk",
+                "ShipServiceLevel": "Std UK Dom_3",
+                "OrderTotal": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "100.00"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A1F83G8C2ARO7P",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-28T23:00:00Z",
+                "LatestShipDate": "2024-04-29T22:59:59Z",
+                "EarliestDeliveryDate": "2024-05-03T23:00:00Z",
+                "LatestDeliveryDate": "2024-05-08T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Miss Annette farley",
+                    "AddressLine1": "216",
+                    "AddressLine2": "MANSEL ROAD BONYMAEN",
+                    "City": "SWANSEA",
+                    "County": "West glam",
+                    "PostalCode": "SA1 7JT",
+                    "CountryCode": "GB",
+                    "Phone": "07706172277",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "j5rxysk1rxvxnjg@marketplace.amazon.co.uk",
+                    "BuyerName": "Annette farley"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": false
+                },
+                "HasRegulatedItems": false
+            }
+        ]
+    }
+}
+)
+
+23:28:02 > DEBUG > Get list request
+Array
+(
+    [amazon_order_id] => 026-0842335-9093920
+)
+
+23:28:02 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrderItems
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"amazon_order_id":"026-0842335-9093920","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+23:28:03 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "OrderItems": [
+            {
+                "ASIN": "B08LGZ9ZH1",
+                "SellerSKU": "86-T4RY-XUV2",
+                "OrderItemId": "37818013768802",
+                "Title": "Restylane Kysse",
+                "QuantityOrdered": 1,
+                "QuantityShipped": 0,
+                "ProductInfo": {
+                    "NumberOfItems": 1
+                },
+                "ItemPrice": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "100.00"
+                },
+                "ItemTax": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "16.67"
+                },
+                "PromotionDiscount": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "0.00"
+                },
+                "PromotionDiscountTax": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "0.00"
+                },
+                "IsGift": false,
+                "ConditionId": "New",
+                "ConditionSubtypeId": "New",
+                "IsTransparency": false,
+                "BuyerInfo": {},
+                "BuyerRequestedCancel": {
+                    "IsBuyerRequestedCancel": false,
+                    "BuyerCancelReason": ""
+                }
+            }
+        ],
+        "AmazonOrderId": "026-0842335-9093920"
+    }
+}
+)
+
+23:28:08 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: submitFeed
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A1F83G8C2ARO7P"],"feed_type":"POST_ORDER_ACKNOWLEDGEMENT_DATA","feed_content":"<?xml version=\"1.0\"?>\n<AmazonEnvelope xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"amzn-envelope.xsd\"><Header><DocumentVersion>1.01<\/DocumentVersion><MerchantIdentifier>A2XWU2BK4HBLR0<\/MerchantIdentifier><\/Header><MessageType>OrderAcknowledgement<\/MessageType><Message><MessageID>1<\/MessageID><OrderAcknowledgement><AmazonOrderID>026-0842335-9093920<\/AmazonOrderID><MerchantOrderID>33198<\/MerchantOrderID><StatusCode>Success<\/StatusCode><\/OrderAcknowledgement><\/Message><\/AmazonEnvelope>\n","feed_options":null,"feed_source":"","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+23:28:09 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "feedId": "50059019840"
+}
+)
+
+23:28:09 > DEBUG > Importing order: 026-0842335-9093920
+Looking up state / region for zipcode: SA1 7JT, country id: 17
+Not found any suitable state
+EU sale to other country: 1
+Item price calculated: Array
+(
+    [0] => Item tax: AmazonOrderImportingPsTax Object
+(
+    [rate] => 20.000
+    [id_tax_rules_group] => 2
+    [id_tax] => 1
+)
+
+    [1] => stdClass Object
+(
+    [active] => 
+    [id_tax_rule] => 
+    [id_country] => 
+)
+
+    [2] => Use tax: 1
+    [3] => Is business order: 
+    [4] => Item has tax: 1
+    [5] => EU sale to other country: 1
+    [6] => Force calculate tax on business order: 
+)
+
+Shipping price directly from Amazon: Array
+(
+    [0] => Shipping tax: AmazonOrderImportingPrices Object
+(
+    [taxIncl] => 0
+    [taxExcl] => 0
+    [taxAmount] => 0
+    [taxRate] => 0
+    [consistent:protected] => 1
+)
+
+    [1] => stdClass Object
+(
+    [active] => 
+    [id_tax_rule] => 
+    [id_country] => 
+)
+
+)
+
+The list before send acknowledge orders
+[{"amz_id":"026-0842335-9093920","seller_id":33198,"mkp":"A1F83G8C2ARO7P"}]
+Sending feed successfully. Type: OrderAcknowledge, ID: 50059019840. Feed content is in: 2024-04-27-50059019840
+Cron import
+{"orders":{"026-0842335-9093920":{"products":[{"SKU":"86-T4RY-XUV2","ASIN":"B08LGZ9ZH1","OrderItemId":"37818013768802","product":"Restylane Kysse","quantity":1,"currency":"GBP","price":"100,00\u00a0\u00a3","id_product":49,"id_product_attribute":null}],"link":"<a href=\"?tab=AdminOrders&id_order=33198&vieworder&token=41e8e8557e67017da5d3926ec56eb871\" title=\"\" target=\"_blank\" >026-0842335-9093920 (33198)<\/a>","merchant_order_id":33198,"marketplace":"A1F83G8C2ARO7P","status":true,"purchase_date":"2024-04-27T13:27:43Z"}},"count":1,"error":false,"errors":[],"warning":false,"warnings":[],"message":0,"messages":[]}
+

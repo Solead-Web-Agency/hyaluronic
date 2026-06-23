@@ -1,0 +1,1 @@
+ALTER TABLE `PREFIX_gmcp_discount_association` ADD `channel` CHAR(120) NOT NULL DEFAULT "SHOPPING_ADS";

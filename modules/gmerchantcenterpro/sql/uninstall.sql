@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `PREFIX_gmcp_categories`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_taxonomy_categories`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_taxonomy`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_brands`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags_brands`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags_cats`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags_suppliers`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_features_by_cat`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_discount_association`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags_dynamic_features`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags_products`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags_dynamic_categories`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags_dynamic_new_product`;
+DROP TABLE IF EXISTS `PREFIX_gmcp_tags_dynamic_best_sale`;

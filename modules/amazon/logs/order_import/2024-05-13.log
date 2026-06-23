@@ -1,0 +1,955 @@
+09:12:34 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 
+    [created_before] => 
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => 
+    [fulfillment_channels] => 
+    [amazon_order_ids] => Array
+        (
+            [0] => 204-2052939-5692353
+            [1] => 205-7824622-7337115
+            [2] => 405-8061885-3090747
+        )
+
+    [max_results_per_page] => 100
+)
+
+09:12:34 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":null,"created_before":null,"last_updated_after":null,"last_updated_before":null,"order_statuses":null,"fulfillment_channels":null,"amazon_order_ids":["204-2052939-5692353","205-7824622-7337115","405-8061885-3090747"],"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:12:34 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "204-2052939-5692353",
+                "PurchaseDate": "2024-05-10T13:06:12Z",
+                "LastUpdateDate": "2024-05-10T23:14:51Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.co.uk",
+                "ShipServiceLevel": "Std UK Dom_3",
+                "OrderTotal": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "120.00"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A1F83G8C2ARO7P",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-05-12T23:00:00Z",
+                "LatestShipDate": "2024-05-13T22:59:59Z",
+                "EarliestDeliveryDate": "2024-05-17T23:00:00Z",
+                "LatestDeliveryDate": "2024-05-21T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Raquel Corney",
+                    "AddressLine1": "RAQUELSALON",
+                    "AddressLine2": "78 BROOK DRIVE",
+                    "City": "LONDON",
+                    "County": "Kennington",
+                    "PostalCode": "SE11 4TS",
+                    "CountryCode": "GB",
+                    "Phone": "07838213480"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "9rfw9mcrh6rkqyk@marketplace.amazon.co.uk",
+                    "BuyerName": "Raquel Corney"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": false
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "205-7824622-7337115",
+                "PurchaseDate": "2024-05-10T17:22:31Z",
+                "LastUpdateDate": "2024-05-10T17:52:52Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.co.uk",
+                "ShipServiceLevel": "Std UK Dom_3",
+                "OrderTotal": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "67.65"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A1F83G8C2ARO7P",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-05-12T23:00:00Z",
+                "LatestShipDate": "2024-05-13T22:59:59Z",
+                "EarliestDeliveryDate": "2024-05-17T23:00:00Z",
+                "LatestDeliveryDate": "2024-05-21T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Karina Stach",
+                    "AddressLine1": "61",
+                    "AddressLine2": "JUPITER DRIVE",
+                    "City": "HEMEL HEMPSTEAD",
+                    "StateOrRegion": "England",
+                    "PostalCode": "HP2 5QL",
+                    "CountryCode": "GB",
+                    "Phone": "07956794239",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "42qwzl4twcx91cb@marketplace.amazon.co.uk",
+                    "BuyerName": "Karina stach"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": false
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "405-8061885-3090747",
+                "PurchaseDate": "2024-05-11T13:06:18Z",
+                "LastUpdateDate": "2024-05-11T13:34:38Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_2",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "242.21"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-05-12T22:00:00Z",
+                "LatestShipDate": "2024-05-13T21:59:59Z",
+                "EarliestDeliveryDate": "2024-05-15T22:00:00Z",
+                "LatestDeliveryDate": "2024-05-16T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Tatiana TRIMARCHI",
+                    "AddressLine1": "939, Chemin de Donicarde",
+                    "AddressLine2": "7 clot du Vallon",
+                    "City": "La Seyne-sur-Mer",
+                    "PostalCode": "83500",
+                    "CountryCode": "FR",
+                    "Phone": "0661871797",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "pqhhzww7vrfjtjv@marketplace.amazon.fr",
+                    "BuyerName": "Trimarchi Tatiana"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            }
+        ]
+    }
+}
+)
+
+09:12:34 > DEBUG > Get list request
+Array
+(
+    [amazon_order_id] => 204-2052939-5692353
+)
+
+09:12:34 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrderItems
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"amazon_order_id":"204-2052939-5692353","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:12:35 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "OrderItems": [
+            {
+                "ASIN": "B08LGZ9ZH1",
+                "SellerSKU": "86-T4RY-XUV2",
+                "OrderItemId": "38205496307602",
+                "Title": "Restylane Kysse",
+                "QuantityOrdered": 1,
+                "QuantityShipped": 0,
+                "ProductInfo": {
+                    "NumberOfItems": 1
+                },
+                "ItemPrice": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "120.00"
+                },
+                "ItemTax": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "20.00"
+                },
+                "PromotionDiscount": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "0.00"
+                },
+                "PromotionDiscountTax": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "0.00"
+                },
+                "IsGift": false,
+                "ConditionId": "New",
+                "ConditionSubtypeId": "New",
+                "IsTransparency": false,
+                "BuyerInfo": {},
+                "BuyerRequestedCancel": {
+                    "IsBuyerRequestedCancel": false,
+                    "BuyerCancelReason": ""
+                }
+            }
+        ],
+        "AmazonOrderId": "204-2052939-5692353"
+    }
+}
+)
+
+09:12:40 > DEBUG > Get list request
+Array
+(
+    [amazon_order_id] => 205-7824622-7337115
+)
+
+09:12:40 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrderItems
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"amazon_order_id":"205-7824622-7337115","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:12:41 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "OrderItems": [
+            {
+                "ASIN": "B082WCWP5T",
+                "SellerSKU": "UY-FK73-MFS3",
+                "OrderItemId": "38208853784562",
+                "Title": "Revolax Deep High Purity Hyaluronic Acid 1.1ml",
+                "QuantityOrdered": 1,
+                "QuantityShipped": 0,
+                "ProductInfo": {
+                    "NumberOfItems": 1
+                },
+                "ItemPrice": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "67.65"
+                },
+                "ItemTax": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "11.28"
+                },
+                "PromotionDiscount": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "0.00"
+                },
+                "PromotionDiscountTax": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "0.00"
+                },
+                "IsGift": false,
+                "ConditionId": "New",
+                "ConditionSubtypeId": "New",
+                "IsTransparency": false,
+                "BuyerInfo": {},
+                "BuyerRequestedCancel": {
+                    "IsBuyerRequestedCancel": false,
+                    "BuyerCancelReason": ""
+                }
+            }
+        ],
+        "AmazonOrderId": "205-7824622-7337115"
+    }
+}
+)
+
+09:12:41 > DEBUG > Get list request
+Array
+(
+    [amazon_order_id] => 405-8061885-3090747
+)
+
+09:12:41 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrderItems
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"amazon_order_id":"405-8061885-3090747","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:12:41 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "OrderItems": [
+            {
+                "ASIN": "B07CVP3S6B",
+                "SellerSKU": "1H-MF5N-R4JM",
+                "OrderItemId": "38224069636842",
+                "Title": "FILLMED\/FILORGA NCTF 135 HA 3ML 5 Vials",
+                "QuantityOrdered": 1,
+                "QuantityShipped": 0,
+                "ProductInfo": {
+                    "NumberOfItems": 5
+                },
+                "ItemPrice": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "235.00"
+                },
+                "ShippingPrice": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "7.21"
+                },
+                "ItemTax": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "0.00"
+                },
+                "ShippingTax": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "0.00"
+                },
+                "ShippingDiscount": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "0.00"
+                },
+                "ShippingDiscountTax": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "0.00"
+                },
+                "PromotionDiscount": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "0.00"
+                },
+                "PromotionDiscountTax": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "0.00"
+                },
+                "IsGift": false,
+                "ConditionId": "New",
+                "ConditionSubtypeId": "New",
+                "IsTransparency": false,
+                "BuyerInfo": {},
+                "BuyerRequestedCancel": {
+                    "IsBuyerRequestedCancel": false,
+                    "BuyerCancelReason": ""
+                }
+            }
+        ],
+        "AmazonOrderId": "405-8061885-3090747"
+    }
+}
+)
+
+09:12:43 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: submitFeed
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A1F83G8C2ARO7P"],"feed_type":"POST_ORDER_ACKNOWLEDGEMENT_DATA","feed_content":"<?xml version=\"1.0\"?>\n<AmazonEnvelope xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"amzn-envelope.xsd\"><Header><DocumentVersion>1.01<\/DocumentVersion><MerchantIdentifier>A2XWU2BK4HBLR0<\/MerchantIdentifier><\/Header><MessageType>OrderAcknowledgement<\/MessageType><Message><MessageID>1<\/MessageID><OrderAcknowledgement><AmazonOrderID>204-2052939-5692353<\/AmazonOrderID><MerchantOrderID>33673<\/MerchantOrderID><StatusCode>Success<\/StatusCode><\/OrderAcknowledgement><\/Message><\/AmazonEnvelope>\n","feed_options":null,"feed_source":"","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:12:44 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "feedId": "50079019856"
+}
+)
+
+09:12:44 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: submitFeed
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH"],"feed_type":"POST_ORDER_ACKNOWLEDGEMENT_DATA","feed_content":"<?xml version=\"1.0\"?>\n<AmazonEnvelope xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"amzn-envelope.xsd\"><Header><DocumentVersion>1.01<\/DocumentVersion><MerchantIdentifier>A2XWU2BK4HBLR0<\/MerchantIdentifier><\/Header><MessageType>OrderAcknowledgement<\/MessageType><Message><MessageID>1<\/MessageID><OrderAcknowledgement><AmazonOrderID>405-8061885-3090747<\/AmazonOrderID><MerchantOrderID>33674<\/MerchantOrderID><StatusCode>Success<\/StatusCode><\/OrderAcknowledgement><\/Message><\/AmazonEnvelope>\n","feed_options":null,"feed_source":"","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:12:45 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "feedId": "50080019856"
+}
+)
+
+09:12:45 > DEBUG > Importing order: 204-2052939-5692353
+Looking up state / region for zipcode: SE11 4TS, country id: 17
+Not found any suitable state
+EU sale to other country: 1
+Item price calculated: Array
+(
+    [0] => Item tax: AmazonOrderImportingPsTax Object
+(
+    [rate] => 20.000
+    [id_tax_rules_group] => 35
+    [id_tax] => 1
+)
+
+    [1] => stdClass Object
+(
+    [active] => 
+    [id_tax_rule] => 
+    [id_country] => 
+)
+
+    [2] => Use tax: 1
+    [3] => Is business order: 
+    [4] => Item has tax: 1
+    [5] => EU sale to other country: 1
+    [6] => Force calculate tax on business order: 
+)
+
+Shipping price directly from Amazon: Array
+(
+    [0] => Shipping tax: AmazonOrderImportingPrices Object
+(
+    [taxIncl] => 0
+    [taxExcl] => 0
+    [taxAmount] => 0
+    [taxRate] => 0
+    [consistent:protected] => 1
+)
+
+    [1] => stdClass Object
+(
+    [active] => 
+    [id_tax_rule] => 
+    [id_country] => 
+)
+
+)
+
+Importing order: 205-7824622-7337115
+Importing order: 405-8061885-3090747
+Looking up state / region for zipcode: 83500, country id: 8
+Not found any suitable state
+EU sale to other country: 
+Item price calculated: Array
+(
+    [0] => Item tax: AmazonOrderImportingPsTax Object
+(
+    [rate] => 20
+    [id_tax_rules_group] => 54
+    [id_tax] => 
+)
+
+    [1] => stdClass Object
+(
+    [active] => 
+    [id_tax_rule] => 
+    [id_country] => 
+)
+
+    [2] => Use tax: 1
+    [3] => Is business order: 
+    [4] => Item has tax: 
+    [5] => EU sale to other country: 
+    [6] => Force calculate tax on business order: 
+)
+
+Shipping price directly from Amazon: Array
+(
+    [0] => Shipping tax: AmazonOrderImportingPrices Object
+(
+    [taxIncl] => 7.21
+    [taxExcl] => 6.01
+    [taxAmount] => 0
+    [taxRate] => 20
+    [consistent:protected] => 1
+)
+
+    [1] => stdClass Object
+(
+    [active] => 
+    [id_tax_rule] => 
+    [id_country] => 
+)
+
+)
+
+The list before send acknowledge orders
+[{"amz_id":"204-2052939-5692353","seller_id":33673,"mkp":"A1F83G8C2ARO7P"},{"amz_id":"405-8061885-3090747","seller_id":33674,"mkp":"A13V1IB3VIYZZH"}]
+Sending feed successfully. Type: OrderAcknowledge, ID: 50079019856. Feed content is in: 2024-05-13-50079019856
+Sending feed successfully. Type: OrderAcknowledge, ID: 50080019856. Feed content is in: 2024-05-13-50080019856
+Cron import
+{"orders":{"204-2052939-5692353":{"products":[{"SKU":"86-T4RY-XUV2","ASIN":"B08LGZ9ZH1","OrderItemId":"38205496307602","product":"Restylane Kysse","quantity":1,"currency":"GBP","price":"120,00\u00a0\u00a3","id_product":49,"id_product_attribute":null}],"link":"<a href=\"?tab=AdminOrders&id_order=33673&vieworder&token=41e8e8557e67017da5d3926ec56eb871\" title=\"\" target=\"_blank\" >204-2052939-5692353 (33673)<\/a>","merchant_order_id":33673,"marketplace":"A1F83G8C2ARO7P","status":true,"purchase_date":"2024-05-10T13:06:12Z"},"205-7824622-7337115":{"status":false,"reason":"SKU\/R\u00e9f\u00e9rence non trouv\u00e9 dans votre base de donn\u00e9es. V\u00e9rifiez l'existence de cette r\u00e9f\u00e9rence dans votre base de donn\u00e9es : &quot;UY-FK73-MFS3&quot;&quot;<div class=\"support-msg\">Support en ligne trouv\u00e9 \u00e0 ce sujet, Cliquez sur ce lien pour obtenir un support: <a href=\"https:\/\/documentation.common-services.com\/amazonv5?p=205&lang=fr\" title=\"Documentation en ligne sur la marketplace Amazon pour Prestashop\" target=\"_blank\">https:\/\/documentation.common-services.com\/amazonv5?p=205&lang=fr<\/a>\n<\/div>","purchase_date":"2024-05-10T17:22:31Z","marketplace":"A1F83G8C2ARO7P"},"405-8061885-3090747":{"products":[{"SKU":"1H-MF5N-R4JM","ASIN":"B07CVP3S6B","OrderItemId":"38224069636842","product":"FILLMED\/FILORGA NCTF 135 HA 3ML 5 Vials","quantity":1,"currency":"EUR","price":"235,00\u00a0\u20ac","id_product":62,"id_product_attribute":null}],"link":"<a href=\"?tab=AdminOrders&id_order=33674&vieworder&token=41e8e8557e67017da5d3926ec56eb871\" title=\"\" target=\"_blank\" >405-8061885-3090747 (33674)<\/a>","merchant_order_id":33674,"marketplace":"A13V1IB3VIYZZH","status":true,"purchase_date":"2024-05-11T13:06:18Z"}},"count":3,"error":true,"errors":["SKU\/R\u00e9f\u00e9rence non trouv\u00e9 dans votre base de donn\u00e9es. V\u00e9rifiez l'existence de cette r\u00e9f\u00e9rence dans votre base de donn\u00e9es : &quot;UY-FK73-MFS3&quot;&quot;<div class=\"support-msg\">Support en ligne trouv\u00e9 \u00e0 ce sujet, Cliquez sur ce lien pour obtenir un support: <a href=\"https:\/\/documentation.common-services.com\/amazonv5?p=205&lang=fr\" title=\"Documentation en ligne sur la marketplace Amazon pour Prestashop\" target=\"_blank\">https:\/\/documentation.common-services.com\/amazonv5?p=205&lang=fr<\/a>\n<\/div>"],"warning":false,"warnings":[],"message":0,"messages":[]}
+
+09:21:36 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 
+    [created_before] => 
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => 
+    [fulfillment_channels] => 
+    [amazon_order_ids] => Array
+        (
+            [0] => 205-7824622-7337115
+        )
+
+    [max_results_per_page] => 100
+)
+
+09:21:36 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":null,"created_before":null,"last_updated_after":null,"last_updated_before":null,"order_statuses":null,"fulfillment_channels":null,"amazon_order_ids":["205-7824622-7337115"],"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:21:37 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "205-7824622-7337115",
+                "PurchaseDate": "2024-05-10T17:22:31Z",
+                "LastUpdateDate": "2024-05-10T17:52:52Z",
+                "OrderStatus": "Unshipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.co.uk",
+                "ShipServiceLevel": "Std UK Dom_3",
+                "OrderTotal": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "67.65"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 1,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A1F83G8C2ARO7P",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-05-12T23:00:00Z",
+                "LatestShipDate": "2024-05-13T22:59:59Z",
+                "EarliestDeliveryDate": "2024-05-17T23:00:00Z",
+                "LatestDeliveryDate": "2024-05-21T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "la pharmacie saint denis",
+                    "AddressLine1": "28 rue saint denis",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Karina Stach",
+                    "AddressLine1": "61",
+                    "AddressLine2": "JUPITER DRIVE",
+                    "City": "HEMEL HEMPSTEAD",
+                    "StateOrRegion": "England",
+                    "PostalCode": "HP2 5QL",
+                    "CountryCode": "GB",
+                    "Phone": "07956794239",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "42qwzl4twcx91cb@marketplace.amazon.co.uk",
+                    "BuyerName": "Karina stach"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": false
+                },
+                "HasRegulatedItems": false
+            }
+        ]
+    }
+}
+)
+
+09:21:37 > DEBUG > Get list request
+Array
+(
+    [amazon_order_id] => 205-7824622-7337115
+)
+
+09:21:37 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrderItems
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"amazon_order_id":"205-7824622-7337115","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:21:38 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "OrderItems": [
+            {
+                "ASIN": "B082WCWP5T",
+                "SellerSKU": "UY-FK73-MFS3",
+                "OrderItemId": "38208853784562",
+                "Title": "Revolax Deep High Purity Hyaluronic Acid 1.1ml",
+                "QuantityOrdered": 1,
+                "QuantityShipped": 0,
+                "ProductInfo": {
+                    "NumberOfItems": 1
+                },
+                "ItemPrice": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "67.65"
+                },
+                "ItemTax": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "11.28"
+                },
+                "PromotionDiscount": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "0.00"
+                },
+                "PromotionDiscountTax": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "0.00"
+                },
+                "IsGift": false,
+                "ConditionId": "New",
+                "ConditionSubtypeId": "New",
+                "IsTransparency": false,
+                "BuyerInfo": {},
+                "BuyerRequestedCancel": {
+                    "IsBuyerRequestedCancel": false,
+                    "BuyerCancelReason": ""
+                }
+            }
+        ],
+        "AmazonOrderId": "205-7824622-7337115"
+    }
+}
+)
+
+09:21:43 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: submitFeed
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A1F83G8C2ARO7P"],"feed_type":"POST_ORDER_ACKNOWLEDGEMENT_DATA","feed_content":"<?xml version=\"1.0\"?>\n<AmazonEnvelope xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"amzn-envelope.xsd\"><Header><DocumentVersion>1.01<\/DocumentVersion><MerchantIdentifier>A2XWU2BK4HBLR0<\/MerchantIdentifier><\/Header><MessageType>OrderAcknowledgement<\/MessageType><Message><MessageID>1<\/MessageID><OrderAcknowledgement><AmazonOrderID>205-7824622-7337115<\/AmazonOrderID><MerchantOrderID>33676<\/MerchantOrderID><StatusCode>Success<\/StatusCode><\/OrderAcknowledgement><\/Message><\/AmazonEnvelope>\n","feed_options":null,"feed_source":"","requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+09:21:44 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "feedId": "50081019856"
+}
+)
+
+09:21:44 > DEBUG > Importing order: 205-7824622-7337115
+Looking up state / region for zipcode: HP2 5QL, country id: 17
+Not found any suitable state
+EU sale to other country: 1
+Item price calculated: Array
+(
+    [0] => Item tax: AmazonOrderImportingPsTax Object
+(
+    [rate] => 20.000
+    [id_tax_rules_group] => 2
+    [id_tax] => 1
+)
+
+    [1] => stdClass Object
+(
+    [active] => 
+    [id_tax_rule] => 
+    [id_country] => 
+)
+
+    [2] => Use tax: 1
+    [3] => Is business order: 
+    [4] => Item has tax: 1
+    [5] => EU sale to other country: 1
+    [6] => Force calculate tax on business order: 
+)
+
+Shipping price directly from Amazon: Array
+(
+    [0] => Shipping tax: AmazonOrderImportingPrices Object
+(
+    [taxIncl] => 0
+    [taxExcl] => 0
+    [taxAmount] => 0
+    [taxRate] => 0
+    [consistent:protected] => 1
+)
+
+    [1] => stdClass Object
+(
+    [active] => 
+    [id_tax_rule] => 
+    [id_country] => 
+)
+
+)
+
+The list before send acknowledge orders
+[{"amz_id":"205-7824622-7337115","seller_id":33676,"mkp":"A1F83G8C2ARO7P"}]
+Sending feed successfully. Type: OrderAcknowledge, ID: 50081019856. Feed content is in: 2024-05-13-50081019856
+Cron import
+{"orders":{"205-7824622-7337115":{"products":[{"SKU":"UY-FK73-MFS3","ASIN":"B082WCWP5T","OrderItemId":"38208853784562","product":"Revolax Deep High Purity Hyaluronic Acid 1.1ml","quantity":1,"currency":"GBP","price":"67,65\u00a0\u00a3","id_product":473,"id_product_attribute":null}],"link":"<a href=\"?tab=AdminOrders&id_order=33676&vieworder&token=41e8e8557e67017da5d3926ec56eb871\" title=\"\" target=\"_blank\" >205-7824622-7337115 (33676)<\/a>","merchant_order_id":33676,"marketplace":"A1F83G8C2ARO7P","status":true,"purchase_date":"2024-05-10T17:22:31Z"}},"count":1,"error":false,"errors":[],"warning":false,"warnings":[],"message":0,"messages":[]}
+

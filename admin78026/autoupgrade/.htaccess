@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_URI} ^.*/autoupgrade/logs/ [NC]
+    RewriteCond %{REQUEST_URI} !\.txt$ [NC]
+    RewriteRule ^ - [F]
+
+    RewriteRule ^ - [L]
+</IfModule>

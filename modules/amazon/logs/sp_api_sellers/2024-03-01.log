@@ -1,0 +1,584 @@
+12:43:30 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: sellers
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+12:43:31 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": [
+        {
+            "marketplace": {
+                "id": "A13V1IB3VIYZZH",
+                "name": "Amazon.fr",
+                "countryCode": "FR",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "fr_FR",
+                "domainName": "www.amazon.fr"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1805IZSGTT6HS",
+                "name": "Amazon.nl",
+                "countryCode": "NL",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "nl_NL",
+                "domainName": "www.amazon.nl"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1C3SOZRARQ6R3",
+                "name": "Amazon.pl",
+                "countryCode": "PL",
+                "defaultCurrencyCode": "PLN",
+                "defaultLanguageCode": "pl_PL",
+                "domainName": "www.amazon.pl"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1F83G8C2ARO7P",
+                "name": "Amazon.co.uk",
+                "countryCode": "GB",
+                "defaultCurrencyCode": "GBP",
+                "defaultLanguageCode": "en_GB",
+                "domainName": "www.amazon.co.uk"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1PA6795UKMFR9",
+                "name": "Amazon.de",
+                "countryCode": "DE",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "de_DE",
+                "domainName": "www.amazon.de"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1RKKUPIHCS9HS",
+                "name": "Amazon.es",
+                "countryCode": "ES",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "es_ES",
+                "domainName": "www.amazon.es"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A2NODRKZP88ZB9",
+                "name": "Amazon.se",
+                "countryCode": "SE",
+                "defaultCurrencyCode": "SEK",
+                "defaultLanguageCode": "sv_SE",
+                "domainName": "www.amazon.se"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "AMEN7PMS3EDWL",
+                "name": "Amazon.com.be",
+                "countryCode": "BE",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "fr_BE",
+                "domainName": "www.amazon.com.be"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "APJ6JRA9NG5V4",
+                "name": "Amazon.it",
+                "countryCode": "IT",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "it_IT",
+                "domainName": "www.amazon.it"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        }
+    ]
+}
+)
+
+12:43:31 > DEBUG > Get participant marketplaces:
+{
+    "payload": [
+        {
+            "marketplace": {
+                "id": "A13V1IB3VIYZZH",
+                "name": "Amazon.fr",
+                "countryCode": "FR",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "fr_FR",
+                "domainName": "www.amazon.fr"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1805IZSGTT6HS",
+                "name": "Amazon.nl",
+                "countryCode": "NL",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "nl_NL",
+                "domainName": "www.amazon.nl"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1C3SOZRARQ6R3",
+                "name": "Amazon.pl",
+                "countryCode": "PL",
+                "defaultCurrencyCode": "PLN",
+                "defaultLanguageCode": "pl_PL",
+                "domainName": "www.amazon.pl"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1F83G8C2ARO7P",
+                "name": "Amazon.co.uk",
+                "countryCode": "GB",
+                "defaultCurrencyCode": "GBP",
+                "defaultLanguageCode": "en_GB",
+                "domainName": "www.amazon.co.uk"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1PA6795UKMFR9",
+                "name": "Amazon.de",
+                "countryCode": "DE",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "de_DE",
+                "domainName": "www.amazon.de"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1RKKUPIHCS9HS",
+                "name": "Amazon.es",
+                "countryCode": "ES",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "es_ES",
+                "domainName": "www.amazon.es"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A2NODRKZP88ZB9",
+                "name": "Amazon.se",
+                "countryCode": "SE",
+                "defaultCurrencyCode": "SEK",
+                "defaultLanguageCode": "sv_SE",
+                "domainName": "www.amazon.se"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "AMEN7PMS3EDWL",
+                "name": "Amazon.com.be",
+                "countryCode": "BE",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "fr_BE",
+                "domainName": "www.amazon.com.be"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "APJ6JRA9NG5V4",
+                "name": "Amazon.it",
+                "countryCode": "IT",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "it_IT",
+                "domainName": "www.amazon.it"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        }
+    ]
+}
+13:40:49 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: sellers
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+13:40:49 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": [
+        {
+            "marketplace": {
+                "id": "A13V1IB3VIYZZH",
+                "name": "Amazon.fr",
+                "countryCode": "FR",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "fr_FR",
+                "domainName": "www.amazon.fr"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1805IZSGTT6HS",
+                "name": "Amazon.nl",
+                "countryCode": "NL",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "nl_NL",
+                "domainName": "www.amazon.nl"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1C3SOZRARQ6R3",
+                "name": "Amazon.pl",
+                "countryCode": "PL",
+                "defaultCurrencyCode": "PLN",
+                "defaultLanguageCode": "pl_PL",
+                "domainName": "www.amazon.pl"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1F83G8C2ARO7P",
+                "name": "Amazon.co.uk",
+                "countryCode": "GB",
+                "defaultCurrencyCode": "GBP",
+                "defaultLanguageCode": "en_GB",
+                "domainName": "www.amazon.co.uk"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1PA6795UKMFR9",
+                "name": "Amazon.de",
+                "countryCode": "DE",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "de_DE",
+                "domainName": "www.amazon.de"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1RKKUPIHCS9HS",
+                "name": "Amazon.es",
+                "countryCode": "ES",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "es_ES",
+                "domainName": "www.amazon.es"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A2NODRKZP88ZB9",
+                "name": "Amazon.se",
+                "countryCode": "SE",
+                "defaultCurrencyCode": "SEK",
+                "defaultLanguageCode": "sv_SE",
+                "domainName": "www.amazon.se"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "AMEN7PMS3EDWL",
+                "name": "Amazon.com.be",
+                "countryCode": "BE",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "fr_BE",
+                "domainName": "www.amazon.com.be"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "APJ6JRA9NG5V4",
+                "name": "Amazon.it",
+                "countryCode": "IT",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "it_IT",
+                "domainName": "www.amazon.it"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        }
+    ]
+}
+)
+
+13:40:50 > DEBUG > Get participant marketplaces:
+{
+    "payload": [
+        {
+            "marketplace": {
+                "id": "A13V1IB3VIYZZH",
+                "name": "Amazon.fr",
+                "countryCode": "FR",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "fr_FR",
+                "domainName": "www.amazon.fr"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1805IZSGTT6HS",
+                "name": "Amazon.nl",
+                "countryCode": "NL",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "nl_NL",
+                "domainName": "www.amazon.nl"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1C3SOZRARQ6R3",
+                "name": "Amazon.pl",
+                "countryCode": "PL",
+                "defaultCurrencyCode": "PLN",
+                "defaultLanguageCode": "pl_PL",
+                "domainName": "www.amazon.pl"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1F83G8C2ARO7P",
+                "name": "Amazon.co.uk",
+                "countryCode": "GB",
+                "defaultCurrencyCode": "GBP",
+                "defaultLanguageCode": "en_GB",
+                "domainName": "www.amazon.co.uk"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1PA6795UKMFR9",
+                "name": "Amazon.de",
+                "countryCode": "DE",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "de_DE",
+                "domainName": "www.amazon.de"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A1RKKUPIHCS9HS",
+                "name": "Amazon.es",
+                "countryCode": "ES",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "es_ES",
+                "domainName": "www.amazon.es"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "A2NODRKZP88ZB9",
+                "name": "Amazon.se",
+                "countryCode": "SE",
+                "defaultCurrencyCode": "SEK",
+                "defaultLanguageCode": "sv_SE",
+                "domainName": "www.amazon.se"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "AMEN7PMS3EDWL",
+                "name": "Amazon.com.be",
+                "countryCode": "BE",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "fr_BE",
+                "domainName": "www.amazon.com.be"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        },
+        {
+            "marketplace": {
+                "id": "APJ6JRA9NG5V4",
+                "name": "Amazon.it",
+                "countryCode": "IT",
+                "defaultCurrencyCode": "EUR",
+                "defaultLanguageCode": "it_IT",
+                "domainName": "www.amazon.it"
+            },
+            "participation": {
+                "isParticipating": true,
+                "hasSuspendedListings": false
+            }
+        }
+    ]
+}

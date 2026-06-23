@@ -1,0 +1,19 @@
+2023-03-15 08:14:08 - Session expired (no user action for 15 minutes), transaction refused.
+2023-03-15 11:33:11 - merchant_id: 050757318600016 | amount: 2.72 | transaction_reference: 20230315233157 | transaction_date: 2023-03-15T11:33:10+01:00 | payment_mean: CARD - VISA | response_code: 00 | authorisation_id: 023574 | currency_code: 840 | card_number: 4342##########48| bank_response_code: 00 | id_customer: 5 | id_order: 152667 | customer_email: ma.amzallag@gmail.com | customer_id_address: 5.51.234.196 | capture_day: 0 | capture_mode: AUTHOR_CAPTURE | payment_pattern: ONE_SHOT
+2023-03-15 18:13:04 - Authorization denied.
+2023-03-15 18:32:48 - Session expired (no user action for 15 minutes), transaction refused.
+2023-03-15 20:03:14 - Session expired (no user action for 15 minutes), transaction refused.
+2023-03-15 20:50:58 - Authorization denied.
+2023-03-15 20:52:16 - merchant_id: 050757318600016 | amount: 253.2 | transaction_reference: 20230315235138 | transaction_date: 2023-03-15T20:52:14+01:00 | payment_mean: CARD - VISA | response_code: 00 | authorisation_id: 055215 | currency_code: 840 | card_number: 4411##########90| bank_response_code: 00 | id_customer: 43354 | id_order: 155426 | customer_email: yeminahernandez81@gmail.com | customer_id_address: 68.7.50.192 | capture_day: 0 | capture_mode: AUTHOR_CAPTURE | payment_pattern: ONE_SHOT
+2023-03-15 22:56:13 - Authorization denied.
+2023-03-15 22:59:59 - Authorization denied.
+2023-03-15 23:32:06 - Authorization denied.
+2023-03-16 00:14:19 - Authorization denied.
+2023-03-16 05:11:26 - Number of attempts to enter payment method details under Sips Paypage exceeded.
+2023-03-16 05:26:29 - Session expired (no user action for 15 minutes), transaction refused.
+2023-03-16 05:26:29 - Session expired (no user action for 15 minutes), transaction refused.
+2023-03-16 05:26:29 - Session expired (no user action for 15 minutes), transaction refused.
+2023-03-16 14:47:50 - merchant_id: 050757318600016 | amount: 517.95 | transaction_reference: 20230316233738 | transaction_date: 2023-03-16T14:47:49+01:00 | payment_mean: CARD - VISA | response_code: 00 | authorisation_id: 02491D | currency_code: 840 | card_number: 4147##########08| bank_response_code: 00 | id_customer: 30134 | id_order: 155905 | customer_email: remilena@yahoo.com | customer_id_address: 205.172.134.232 | capture_day: 0 | capture_mode: AUTHOR_CAPTURE | payment_pattern: ONE_SHOT
+2023-03-16 15:03:04 - Session expired (no user action for 15 minutes), transaction refused.
+2023-03-17 03:08:28 - Authorization denied.
+2023-03-17 03:11:12 - Authorization denied.

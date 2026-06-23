@@ -1,0 +1,809 @@
+[2026-06-19 11:27:42] DEBUG - ChainedTasks - OPCache configuration will be changed for the duration of the process.
+[2026-06-19 11:27:42] DEBUG - ChainedTasks - Step UpdateInitialization
+[2026-06-19 11:27:42] INFO - UpdateInitialization - Starting update...
+[2026-06-19 11:27:42] INFO - UpdateInitialization - Destination version: 9.1.4
+[2026-06-19 11:27:42] INFO - UpdateInitialization - Store deactivated. Now downloading... (this can take a while)
+[2026-06-19 11:27:42] DEBUG - UpdateInitialization - Downloaded archive will come from https://api.prestashop-project.org/assets/prestashop-classic/9.1.4-5.0/prestashop.zip
+[2026-06-19 11:27:42] DEBUG - UpdateInitialization - MD5 hash will be checked against 5196932098a06c15dfefa5d08b1c5328
+[2026-06-19 11:27:42] DEBUG - ChainedTasks - Step Download
+[2026-06-19 11:27:42] DEBUG - Download - Downloading from https://api.prestashop-project.org/assets/prestashop-classic/9.1.4-5.0/prestashop.zip
+[2026-06-19 11:27:42] DEBUG - Download - File will be saved in /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/bin/../../../**admin_folder**/autoupgrade/tmp/releases/prestashop.zip
+[2026-06-19 11:27:53] INFO - Download - Download complete. Now extracting...
+[2026-06-19 11:27:53] DEBUG - ChainedTasks - Step Unzip
+[2026-06-19 11:27:55] DEBUG - ZipAction - Content of archive /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/bin/../../../**admin_folder**/autoupgrade/tmp/releases/prestashop.zip is extracted
+[2026-06-19 11:28:03] DEBUG - ZipAction - Content of archive /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/bin/../../../**admin_folder**/autoupgrade/tmp/files/prestashop.zip is extracted
+[2026-06-19 11:28:03] INFO - Unzip - File extraction complete. Now updating files...
+[2026-06-19 11:28:03] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:03] INFO - DownloadModules - 161 installed modules will be checked.
+[2026-06-19 11:28:03] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:03] DEBUG - DownloadModules - Checking updates of module adminmobapp...
+[2026-06-19 11:28:04] NOTICE - ModuleDownloader - Module adminmobapp update files (1.0.6 => 1.0.7) have been fetched from https://api.addons.prestashop.com/?id_module=94941&method=module&version=9.1.4.
+[2026-06-19 11:28:04] INFO - DownloadModules - 160 modules left to check.
+[2026-06-19 11:28:04] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:04] DEBUG - DownloadModules - Checking updates of module advancedvatmanager...
+[2026-06-19 11:28:04] DEBUG - DownloadModules - No update available for advancedvatmanager.
+[2026-06-19 11:28:04] INFO - DownloadModules - 159 modules left to check.
+[2026-06-19 11:28:04] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:04] DEBUG - DownloadModules - Checking updates of module amazon...
+[2026-06-19 11:28:04] DEBUG - DownloadModules - No update available for amazon.
+[2026-06-19 11:28:04] INFO - DownloadModules - 158 modules left to check.
+[2026-06-19 11:28:04] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:04] DEBUG - DownloadModules - Checking updates of module amazonpay...
+[2026-06-19 11:28:05] NOTICE - ModuleDownloader - Module amazonpay update files (4.2.5 => 5.0.0) have been fetched from https://api.addons.prestashop.com/?id_module=21293&method=module&version=9.1.4.
+[2026-06-19 11:28:05] INFO - DownloadModules - 157 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module arcontactus...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for arcontactus.
+[2026-06-19 11:28:05] INFO - DownloadModules - 156 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module autotranslator...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for autotranslator.
+[2026-06-19 11:28:05] INFO - DownloadModules - 155 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module blockproductsbycountry...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for blockproductsbycountry.
+[2026-06-19 11:28:05] INFO - DownloadModules - 154 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module blockreassurance...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for blockreassurance.
+[2026-06-19 11:28:05] INFO - DownloadModules - 153 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module blockwishlist...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for blockwishlist.
+[2026-06-19 11:28:05] INFO - DownloadModules - 152 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module carrieronorder...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for carrieronorder.
+[2026-06-19 11:28:05] INFO - DownloadModules - 151 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module cartsguru...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for cartsguru.
+[2026-06-19 11:28:05] INFO - DownloadModules - 150 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module cdc_googletagmanager...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for cdc_googletagmanager.
+[2026-06-19 11:28:05] INFO - DownloadModules - 149 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module changeproductcreationdate...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for changeproductcreationdate.
+[2026-06-19 11:28:05] INFO - DownloadModules - 148 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module chatgptpro...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for chatgptpro.
+[2026-06-19 11:28:05] INFO - DownloadModules - 147 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module contactform...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for contactform.
+[2026-06-19 11:28:05] INFO - DownloadModules - 146 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module cron...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for cron.
+[2026-06-19 11:28:05] INFO - DownloadModules - 145 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module customerpdf...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for customerpdf.
+[2026-06-19 11:28:05] INFO - DownloadModules - 144 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module custompopup...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for custompopup.
+[2026-06-19 11:28:05] INFO - DownloadModules - 143 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module dashactivity...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for dashactivity.
+[2026-06-19 11:28:05] INFO - DownloadModules - 142 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module dashgoals...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for dashgoals.
+[2026-06-19 11:28:05] INFO - DownloadModules - 141 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module dashproducts...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for dashproducts.
+[2026-06-19 11:28:05] INFO - DownloadModules - 140 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module dashtrends...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for dashtrends.
+[2026-06-19 11:28:05] INFO - DownloadModules - 139 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module deleteordersfree...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for deleteordersfree.
+[2026-06-19 11:28:05] INFO - DownloadModules - 138 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module deliveryorderautoupdate...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for deliveryorderautoupdate.
+[2026-06-19 11:28:05] INFO - DownloadModules - 137 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module dgridproducts...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for dgridproducts.
+[2026-06-19 11:28:05] INFO - DownloadModules - 136 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module dhlexpress...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for dhlexpress.
+[2026-06-19 11:28:05] INFO - DownloadModules - 135 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module dhlexpresscommerce...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for dhlexpresscommerce.
+[2026-06-19 11:28:05] INFO - DownloadModules - 134 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module eangenerator...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for eangenerator.
+[2026-06-19 11:28:05] INFO - DownloadModules - 133 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module elegantaleasyimport...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for elegantaleasyimport.
+[2026-06-19 11:28:05] INFO - DownloadModules - 132 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ets_abandonedcart...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ets_abandonedcart.
+[2026-06-19 11:28:05] INFO - DownloadModules - 131 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ets_geolocation...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ets_geolocation.
+[2026-06-19 11:28:05] INFO - DownloadModules - 130 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ets_seo...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ets_seo.
+[2026-06-19 11:28:05] INFO - DownloadModules - 129 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ets_translate...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ets_translate.
+[2026-06-19 11:28:05] INFO - DownloadModules - 128 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module everpsminimumorder...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for everpsminimumorder.
+[2026-06-19 11:28:05] INFO - DownloadModules - 127 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module exportproducts...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for exportproducts.
+[2026-06-19 11:28:05] INFO - DownloadModules - 126 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ezaddress...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ezaddress.
+[2026-06-19 11:28:05] INFO - DownloadModules - 125 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module gadwordstracking...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for gadwordstracking.
+[2026-06-19 11:28:05] INFO - DownloadModules - 124 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module gmerchantcenter...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for gmerchantcenter.
+[2026-06-19 11:28:05] INFO - DownloadModules - 123 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module gmerchantcenterpro...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for gmerchantcenterpro.
+[2026-06-19 11:28:05] INFO - DownloadModules - 122 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module graphnvd3...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for graphnvd3.
+[2026-06-19 11:28:05] INFO - DownloadModules - 121 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module gremarketing...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for gremarketing.
+[2026-06-19 11:28:05] INFO - DownloadModules - 120 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module gridhtml...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for gridhtml.
+[2026-06-19 11:28:05] INFO - DownloadModules - 119 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module groupinc...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for groupinc.
+[2026-06-19 11:28:05] INFO - DownloadModules - 118 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module gsitemap...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for gsitemap.
+[2026-06-19 11:28:05] INFO - DownloadModules - 117 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module hbc...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for hbc.
+[2026-06-19 11:28:05] INFO - DownloadModules - 116 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module hfmrelance...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for hfmrelance.
+[2026-06-19 11:28:05] INFO - DownloadModules - 115 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module hotjar...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for hotjar.
+[2026-06-19 11:28:05] INFO - DownloadModules - 114 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module hscombineguests...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for hscombineguests.
+[2026-06-19 11:28:05] INFO - DownloadModules - 113 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitadditionaltabs...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitadditionaltabs.
+[2026-06-19 11:28:05] INFO - DownloadModules - 112 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitaddthisplugin...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitaddthisplugin.
+[2026-06-19 11:28:05] INFO - DownloadModules - 111 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitcompare...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitcompare.
+[2026-06-19 11:28:05] INFO - DownloadModules - 110 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitcontactpage...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitcontactpage.
+[2026-06-19 11:28:05] INFO - DownloadModules - 109 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitcookielaw...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitcookielaw.
+[2026-06-19 11:28:05] INFO - DownloadModules - 108 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitcountdown...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitcountdown.
+[2026-06-19 11:28:05] INFO - DownloadModules - 107 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitdashboardnews...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitdashboardnews.
+[2026-06-19 11:28:05] INFO - DownloadModules - 106 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitelementor...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitelementor.
+[2026-06-19 11:28:05] INFO - DownloadModules - 105 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitemailsubscriptionconf...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitemailsubscriptionconf.
+[2026-06-19 11:28:05] INFO - DownloadModules - 104 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitextendedproduct...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitextendedproduct.
+[2026-06-19 11:28:05] INFO - DownloadModules - 103 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitfreedeliverycount...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitfreedeliverycount.
+[2026-06-19 11:28:05] INFO - DownloadModules - 102 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqithtmlandbanners...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqithtmlandbanners.
+[2026-06-19 11:28:05] INFO - DownloadModules - 101 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitlinksmanager...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitlinksmanager.
+[2026-06-19 11:28:05] INFO - DownloadModules - 100 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitmegamenu...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitmegamenu.
+[2026-06-19 11:28:05] INFO - DownloadModules - 99 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitpopup...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitpopup.
+[2026-06-19 11:28:05] INFO - DownloadModules - 98 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitproductsnav...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitproductsnav.
+[2026-06-19 11:28:05] INFO - DownloadModules - 97 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitproducttags...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitproducttags.
+[2026-06-19 11:28:05] INFO - DownloadModules - 96 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitreviews...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitreviews.
+[2026-06-19 11:28:05] INFO - DownloadModules - 95 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitsearch...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitsearch.
+[2026-06-19 11:28:05] INFO - DownloadModules - 94 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitsizecharts...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitsizecharts.
+[2026-06-19 11:28:05] INFO - DownloadModules - 93 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitsociallogin...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitsociallogin.
+[2026-06-19 11:28:05] INFO - DownloadModules - 92 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitthemeeditor...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitthemeeditor.
+[2026-06-19 11:28:05] INFO - DownloadModules - 91 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module iqitwishlist...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for iqitwishlist.
+[2026-06-19 11:28:05] INFO - DownloadModules - 90 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module masseditproduct...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for masseditproduct.
+[2026-06-19 11:28:05] INFO - DownloadModules - 89 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module migrationpro...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for migrationpro.
+[2026-06-19 11:28:05] INFO - DownloadModules - 88 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module nkmgls...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for nkmgls.
+[2026-06-19 11:28:05] INFO - DownloadModules - 87 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module opartindexnow...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for opartindexnow.
+[2026-06-19 11:28:05] INFO - DownloadModules - 86 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module op_googleauto...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for op_googleauto.
+[2026-06-19 11:28:05] INFO - DownloadModules - 85 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module orderedit...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for orderedit.
+[2026-06-19 11:28:05] INFO - DownloadModules - 84 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module pagesnotfound...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for pagesnotfound.
+[2026-06-19 11:28:05] INFO - DownloadModules - 83 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module paypal...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for paypal.
+[2026-06-19 11:28:05] INFO - DownloadModules - 82 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module payplug...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for payplug.
+[2026-06-19 11:28:05] INFO - DownloadModules - 81 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module pbc...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for pbc.
+[2026-06-19 11:28:05] INFO - DownloadModules - 80 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ph_blog_column_custom...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ph_blog_column_custom.
+[2026-06-19 11:28:05] INFO - DownloadModules - 79 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ph_relatedposts...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ph_relatedposts.
+[2026-06-19 11:28:05] INFO - DownloadModules - 78 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ph_simpleblog...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ph_simpleblog.
+[2026-06-19 11:28:05] INFO - DownloadModules - 77 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module pricestracker...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for pricestracker.
+[2026-06-19 11:28:05] INFO - DownloadModules - 76 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module productbundlespro...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for productbundlespro.
+[2026-06-19 11:28:05] INFO - DownloadModules - 75 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module productcomments...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for productcomments.
+[2026-06-19 11:28:05] INFO - DownloadModules - 74 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module psaddonsconnect...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for psaddonsconnect.
+[2026-06-19 11:28:05] INFO - DownloadModules - 73 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module pscartabandonmentpro...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for pscartabandonmentpro.
+[2026-06-19 11:28:05] INFO - DownloadModules - 72 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module psgdpr...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for psgdpr.
+[2026-06-19 11:28:05] INFO - DownloadModules - 71 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ps_accounts...
+[2026-06-19 11:28:05] NOTICE - ModuleDownloader - Module ps_accounts update files (5.4.4 => 8.0.15) have been fetched from https://api.addons.prestashop.com/?id_module=49648&method=module&version=9.1.4.
+[2026-06-19 11:28:05] INFO - DownloadModules - 70 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ps_banner...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ps_banner.
+[2026-06-19 11:28:05] INFO - DownloadModules - 69 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ps_bestsellers...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ps_bestsellers.
+[2026-06-19 11:28:05] INFO - DownloadModules - 68 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ps_brandlist...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ps_brandlist.
+[2026-06-19 11:28:05] INFO - DownloadModules - 67 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ps_buybuttonlite...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ps_buybuttonlite.
+[2026-06-19 11:28:05] INFO - DownloadModules - 66 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ps_categorytree...
+[2026-06-19 11:28:05] DEBUG - DownloadModules - No update available for ps_categorytree.
+[2026-06-19 11:28:05] INFO - DownloadModules - 65 modules left to check.
+[2026-06-19 11:28:05] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:05] DEBUG - DownloadModules - Checking updates of module ps_checkout...
+[2026-06-19 11:28:06] NOTICE - ModuleDownloader - Module ps_checkout update files (8.5.4.0 => 9.5.4.0) have been fetched from https://api.addons.prestashop.com/?id_module=46347&method=module&version=9.1.4.
+[2026-06-19 11:28:06] INFO - DownloadModules - 64 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_checkpayment...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_checkpayment.
+[2026-06-19 11:28:06] INFO - DownloadModules - 63 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_contactinfo...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_contactinfo.
+[2026-06-19 11:28:06] INFO - DownloadModules - 62 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_crossselling...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_crossselling.
+[2026-06-19 11:28:06] INFO - DownloadModules - 61 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_currencyselector...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_currencyselector.
+[2026-06-19 11:28:06] INFO - DownloadModules - 60 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_customeraccountlinks...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_customeraccountlinks.
+[2026-06-19 11:28:06] INFO - DownloadModules - 59 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_customersignin...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_customersignin.
+[2026-06-19 11:28:06] INFO - DownloadModules - 58 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_customtext...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_customtext.
+[2026-06-19 11:28:06] INFO - DownloadModules - 57 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_dataprivacy...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_dataprivacy.
+[2026-06-19 11:28:06] INFO - DownloadModules - 56 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_distributionapiclient...
+[2026-06-19 11:28:06] NOTICE - ModuleDownloader - Module ps_distributionapiclient update files (1.2.0 => 2.1.1) have been fetched from https://api.prestashop-project.org/assets/modules/ps_distributionapiclient/v2.1.1/ps_distributionapiclient.zip.
+[2026-06-19 11:28:06] INFO - DownloadModules - 55 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_emailalerts...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_emailalerts.
+[2026-06-19 11:28:06] INFO - DownloadModules - 54 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_emailsubscription...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_emailsubscription.
+[2026-06-19 11:28:06] INFO - DownloadModules - 53 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_eventbus...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_eventbus.
+[2026-06-19 11:28:06] INFO - DownloadModules - 52 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_facetedsearch...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_facetedsearch.
+[2026-06-19 11:28:06] INFO - DownloadModules - 51 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_faviconnotificationbo...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_faviconnotificationbo.
+[2026-06-19 11:28:06] INFO - DownloadModules - 50 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_featuredproducts...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_featuredproducts.
+[2026-06-19 11:28:06] INFO - DownloadModules - 49 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_googleanalytics...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_googleanalytics.
+[2026-06-19 11:28:06] INFO - DownloadModules - 48 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_imageslider...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_imageslider.
+[2026-06-19 11:28:06] INFO - DownloadModules - 47 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_languageselector...
+[2026-06-19 11:28:06] DEBUG - DownloadModules - No update available for ps_languageselector.
+[2026-06-19 11:28:06] INFO - DownloadModules - 46 modules left to check.
+[2026-06-19 11:28:06] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:06] DEBUG - DownloadModules - Checking updates of module ps_linklist...
+[2026-06-19 11:28:07] NOTICE - ModuleDownloader - Module ps_linklist update files (6.0.7 => 7.0.1) have been fetched from https://api.prestashop-project.org/assets/modules/ps_linklist/v7.0.1/ps_linklist.zip.
+[2026-06-19 11:28:07] INFO - DownloadModules - 45 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_mainmenu...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_mainmenu.
+[2026-06-19 11:28:07] INFO - DownloadModules - 44 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_mbo...
+[2026-06-19 11:28:07] NOTICE - ModuleDownloader - Module ps_mbo update files (2.0.1 => 5.2.2) have been fetched from /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/bin/../../../**admin_folder**/autoupgrade/tmp/files/modules/ps_mbo.
+[2026-06-19 11:28:07] INFO - DownloadModules - 43 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_newproducts...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_newproducts.
+[2026-06-19 11:28:07] INFO - DownloadModules - 42 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_searchbar...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_searchbar.
+[2026-06-19 11:28:07] INFO - DownloadModules - 41 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_sharebuttons...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_sharebuttons.
+[2026-06-19 11:28:07] INFO - DownloadModules - 40 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_shoppingcart...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_shoppingcart.
+[2026-06-19 11:28:07] INFO - DownloadModules - 39 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_socialfollow...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_socialfollow.
+[2026-06-19 11:28:07] INFO - DownloadModules - 38 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_specials...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_specials.
+[2026-06-19 11:28:07] INFO - DownloadModules - 37 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_themecusto...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_themecusto.
+[2026-06-19 11:28:07] INFO - DownloadModules - 36 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_viewedproduct...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_viewedproduct.
+[2026-06-19 11:28:07] INFO - DownloadModules - 35 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module ps_wirepayment...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for ps_wirepayment.
+[2026-06-19 11:28:07] INFO - DownloadModules - 34 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module qov...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for qov.
+[2026-06-19 11:28:07] INFO - DownloadModules - 33 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module revsliderprestashop...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for revsliderprestashop.
+[2026-06-19 11:28:07] INFO - DownloadModules - 32 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module rg_locationdetection...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for rg_locationdetection.
+[2026-06-19 11:28:07] INFO - DownloadModules - 31 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module sekeywords...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for sekeywords.
+[2026-06-19 11:28:07] INFO - DownloadModules - 30 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsbestcategories...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsbestcategories.
+[2026-06-19 11:28:07] INFO - DownloadModules - 29 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsbestcustomers...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsbestcustomers.
+[2026-06-19 11:28:07] INFO - DownloadModules - 28 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsbestproducts...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsbestproducts.
+[2026-06-19 11:28:07] INFO - DownloadModules - 27 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsbestsuppliers...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsbestsuppliers.
+[2026-06-19 11:28:07] INFO - DownloadModules - 26 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsbestvouchers...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsbestvouchers.
+[2026-06-19 11:28:07] INFO - DownloadModules - 25 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statscarrier...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statscarrier.
+[2026-06-19 11:28:07] INFO - DownloadModules - 24 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statscatalog...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statscatalog.
+[2026-06-19 11:28:07] INFO - DownloadModules - 23 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statscheckup...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statscheckup.
+[2026-06-19 11:28:07] INFO - DownloadModules - 22 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statscompta...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statscompta.
+[2026-06-19 11:28:07] INFO - DownloadModules - 21 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsdata...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsdata.
+[2026-06-19 11:28:07] INFO - DownloadModules - 20 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsequipment...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsequipment.
+[2026-06-19 11:28:07] INFO - DownloadModules - 19 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsforecast...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsforecast.
+[2026-06-19 11:28:07] INFO - DownloadModules - 18 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statslive...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statslive.
+[2026-06-19 11:28:07] INFO - DownloadModules - 17 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsnewsletter...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsnewsletter.
+[2026-06-19 11:28:07] INFO - DownloadModules - 16 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsorigin...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsorigin.
+[2026-06-19 11:28:07] INFO - DownloadModules - 15 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statspersonalinfos...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statspersonalinfos.
+[2026-06-19 11:28:07] INFO - DownloadModules - 14 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsproduct...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsproduct.
+[2026-06-19 11:28:07] INFO - DownloadModules - 13 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsregistrations...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsregistrations.
+[2026-06-19 11:28:07] INFO - DownloadModules - 12 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statssales...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statssales.
+[2026-06-19 11:28:07] INFO - DownloadModules - 11 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statssearch...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statssearch.
+[2026-06-19 11:28:07] INFO - DownloadModules - 10 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsstock...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsstock.
+[2026-06-19 11:28:07] INFO - DownloadModules - 9 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module statsvisits...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for statsvisits.
+[2026-06-19 11:28:07] INFO - DownloadModules - 8 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module steavisgarantis...
+[2026-06-19 11:28:07] NOTICE - ModuleDownloader - Module steavisgarantis update files (5.3.4 => 5.3.8) have been fetched from https://api.addons.prestashop.com/?id_module=29150&method=module&version=9.1.4.
+[2026-06-19 11:28:07] INFO - DownloadModules - 7 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module taxexempt...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for taxexempt.
+[2026-06-19 11:28:07] INFO - DownloadModules - 6 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module thecheckout...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for thecheckout.
+[2026-06-19 11:28:07] INFO - DownloadModules - 5 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module thumbgen...
+[2026-06-19 11:28:07] DEBUG - DownloadModules - No update available for thumbgen.
+[2026-06-19 11:28:07] INFO - DownloadModules - 4 modules left to check.
+[2026-06-19 11:28:07] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:07] DEBUG - DownloadModules - Checking updates of module vivawalletsmartcheckout...
+[2026-06-19 11:28:08] NOTICE - ModuleDownloader - Module vivawalletsmartcheckout update files (1.6.1 => 2.0.1) have been fetched from https://api.addons.prestashop.com/?id_module=89363&method=module&version=9.1.4.
+[2026-06-19 11:28:08] INFO - DownloadModules - 3 modules left to check.
+[2026-06-19 11:28:08] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:08] DEBUG - DownloadModules - Checking updates of module welcome...
+[2026-06-19 11:28:08] DEBUG - DownloadModules - No update available for welcome.
+[2026-06-19 11:28:08] INFO - DownloadModules - 2 modules left to check.
+[2026-06-19 11:28:08] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:08] DEBUG - DownloadModules - Checking updates of module xmlfeeds...
+[2026-06-19 11:28:08] DEBUG - DownloadModules - No update available for xmlfeeds.
+[2026-06-19 11:28:08] INFO - DownloadModules - 1 modules left to check.
+[2026-06-19 11:28:08] DEBUG - ChainedTasks - Step DownloadModules
+[2026-06-19 11:28:08] DEBUG - DownloadModules - Checking updates of module zendesk...
+[2026-06-19 11:28:08] DEBUG - DownloadModules - No update available for zendesk.
+[2026-06-19 11:28:08] INFO - DownloadModules - All modules have been downloaded.
+[2026-06-19 11:28:14] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:14] INFO - UninstallModules - Checking modules compatibility with PrestaShop 9.1.4 and uninstalling incompatible ones.
+[2026-06-19 11:28:20] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/ph_simpleblog): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:20] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/ph_relatedposts): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:20] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/ph_blog_column_custom): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:20] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/pbc): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:22] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitwishlist): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:22] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitthemeeditor): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:22] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitsociallogin): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:22] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitsizecharts): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:23] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitsearch): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:23] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitreviews): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:23] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitproducttags): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:23] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitproductsnav): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:24] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitlinksmanager): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:24] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqithtmlandbanners): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:24] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitextendedproduct): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:24] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitemailsubscriptionconf): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:24] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitelementor): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:24] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitdashboardnews): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:25] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitcountdown): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:25] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitcookielaw): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:25] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitcontactpage): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:25] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitcompare): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:25] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitaddthisplugin): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:25] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/iqitadditionaltabs): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:26] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/hfmrelance): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:26] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/hbc): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:29] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/eangenerator): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:30] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/deleteordersfree): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:30] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/customerpdf): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:31] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/cron): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:31] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/changeproductcreationdate): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:32] WARNING - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/autoupgrade/classes/Services/MarketplaceService.php line 49 - file_get_contents(https://api.addons.prestashop.com/v2/products/carrieronorder): Failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module welcome with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module vivawalletsmartcheckout with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module thumbgen with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module revsliderprestashop with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module qov with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module ps_buybuttonlite with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module pscartabandonmentpro with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module psaddonsconnect with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module ph_simpleblog with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module ph_relatedposts with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module ph_blog_column_custom with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module pbc with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitwishlist with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitthemeeditor with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitsociallogin with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitsizecharts with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitsearch with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitreviews with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitproducttags with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitproductsnav with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitpopup with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitlinksmanager with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqithtmlandbanners with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitextendedproduct with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitemailsubscriptionconf with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitelementor with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitdashboardnews with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitcountdown with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitcookielaw with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitcontactpage with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitcompare with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitaddthisplugin with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module iqitadditionaltabs with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module hotjar with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module hfmrelance with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module hbc with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module eangenerator with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module deleteordersfree with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module custompopup with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module customerpdf with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module cron with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module changeproductcreationdate with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module carrieronorder with the Marketplace API.
+[2026-06-19 11:28:33] WARNING - UninstallModules - Could not check compatibility of module arcontactus with the Marketplace API.
+[2026-06-19 11:28:33] INFO - UninstallModules - 17 incompatible modules with PrestaShop 9.1.4 will be uninstalled.
+[2026-06-19 11:28:33] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:33] INFO - UninstallModules - Uninstalling module adminmobapp...
+[2026-06-19 11:28:34] INFO - UninstallModules - Module adminmobapp is uninstalled.
+[2026-06-19 11:28:34] INFO - UninstallModules - 16 modules left to uninstall.
+[2026-06-19 11:28:34] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:34] INFO - UninstallModules - Uninstalling module amazon...
+[2026-06-19 11:28:34] INFO - UninstallModules - Module amazon is uninstalled.
+[2026-06-19 11:28:34] INFO - UninstallModules - 15 modules left to uninstall.
+[2026-06-19 11:28:34] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:34] INFO - UninstallModules - Uninstalling module dgridproducts...
+[2026-06-19 11:28:34] INFO - UninstallModules - Module dgridproducts is uninstalled.
+[2026-06-19 11:28:34] INFO - UninstallModules - 14 modules left to uninstall.
+[2026-06-19 11:28:34] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:34] INFO - UninstallModules - Uninstalling module dhlexpress...
+[2026-06-19 11:28:34] INFO - UninstallModules - Module dhlexpress is uninstalled.
+[2026-06-19 11:28:34] INFO - UninstallModules - 13 modules left to uninstall.
+[2026-06-19 11:28:34] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:34] INFO - UninstallModules - Uninstalling module dhlexpresscommerce...
+[2026-06-19 11:28:34] INFO - UninstallModules - Module dhlexpresscommerce is uninstalled.
+[2026-06-19 11:28:34] INFO - UninstallModules - 12 modules left to uninstall.
+[2026-06-19 11:28:34] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:34] INFO - UninstallModules - Uninstalling module everpsminimumorder...
+[2026-06-19 11:28:34] INFO - UninstallModules - Module everpsminimumorder is uninstalled.
+[2026-06-19 11:28:34] INFO - UninstallModules - 11 modules left to uninstall.
+[2026-06-19 11:28:34] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:34] INFO - UninstallModules - Uninstalling module ezaddress...
+[2026-06-19 11:28:34] INFO - UninstallModules - Module ezaddress is uninstalled.
+[2026-06-19 11:28:34] INFO - UninstallModules - 10 modules left to uninstall.
+[2026-06-19 11:28:34] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:34] INFO - UninstallModules - Uninstalling module gadwordstracking...
+[2026-06-19 11:28:34] INFO - UninstallModules - Module gadwordstracking is uninstalled.
+[2026-06-19 11:28:34] INFO - UninstallModules - 9 modules left to uninstall.
+[2026-06-19 11:28:34] DEBUG - ChainedTasks - Step UninstallModules
+[2026-06-19 11:28:34] INFO - UninstallModules - Uninstalling module gremarketing...
+[2026-06-19 11:28:34] CRITICAL - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/gremarketing/lib/install/install-ctrl_class.php line 18 - Cannot declare class BT_InstallCtrl, because the name is already in use
+[2026-06-19 11:28:34] CRITICAL - ErrorHandler - /Users/nathancaudeli/Github/hyaluronic/modules/gremarketing/lib/install/install-ctrl_class.php line 18 - Symfony\Component\ErrorHandler\Error\FatalError: Compile Error: Cannot declare class BT_InstallCtrl, because the name is already in use
+#0 {main}

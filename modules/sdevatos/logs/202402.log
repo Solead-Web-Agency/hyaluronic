@@ -1,0 +1,11 @@
+2024-02-01 13:53:00 - Cancellation of the buyer.
+2024-02-01 13:55:23 - merchant_id: 050757318600016 | amount: 11.35 | transaction_reference: 20240201245349 | transaction_date: 2024-02-01T13:55:23+01:00 | payment_mean: CARD - CB | response_code: 00 | authorisation_id: 336514 | currency_code: 978 | card_number: 4972##########29| bank_response_code: 00 | id_customer: 63721 | id_order: 239632 | customer_email: ma.amzallauihjkg@gmail.com | customer_id_address: 88.121.9.233 | capture_day: 0 | capture_mode: AUTHOR_CAPTURE | payment_pattern: ONE_SHOT
+2024-02-01 13:57:56 - merchant_id: 050757318600016 | amount: 11.35 | transaction_reference: 20240201245638 | transaction_date: 2024-02-01T13:57:55+01:00 | payment_mean: CARD - CB | response_code: 00 | authorisation_id: 694137 | currency_code: 978 | card_number: 4972##########29| bank_response_code: 00 | id_customer: 63722 | id_order: 239634 | customer_email: HYALUPHARsdddMA2@gmail.com | customer_id_address: 88.121.9.233 | capture_day: 0 | capture_mode: AUTHOR_CAPTURE | payment_pattern: ONE_SHOT
+2024-02-01 14:30:01 - Session expired (no user action for 15 minutes), transaction refused.
+2024-02-07 13:06:28 - Session expired (no user action for 15 minutes), transaction refused.
+2024-02-08 13:03:09 - Session expired (no user action for 15 minutes), transaction refused.
+2024-02-08 15:05:05 - Cancellation of the buyer.
+2024-02-08 15:22:33 - Session expired (no user action for 15 minutes), transaction refused.
+2024-02-09 15:26:23 - Session expired (no user action for 15 minutes), transaction refused.
+2024-02-12 14:47:23 - Session expired (no user action for 15 minutes), transaction refused.
+2024-02-17 22:11:01 - merchant_id: 050757318600016 | amount: 140.52 | transaction_reference: 20240217240512 | transaction_date: 2024-02-17T22:11:00+01:00 | payment_mean: CARD - MASTERCARD | response_code: 00 | authorisation_id: 192329 | currency_code: 978 | card_number: 5309##########30| bank_response_code: 00 | id_customer: 64161 | id_order: 243688 | customer_email: celiadg1@gmail.com | customer_id_address: 148.69.58.9 | capture_day: 1 | capture_mode: AUTHOR_CAPTURE | payment_pattern: ONE_SHOT

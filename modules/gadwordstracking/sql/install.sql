@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS `PREFIX_gact_orders`;
+CREATE TABLE IF NOT EXISTS `PREFIX_gact_orders` (`id_conversion` int(11) NOT NULL AUTO_INCREMENT, `type` enum('confirmation','payment') DEFAULT 'confirmation', `cart_id` int(11) NOT NULL, `is_sent` int(2) NOT NULL DEFAULT 0, `order_id` int(10) NOT NULL, `confirmation` int(2) NOT NULL DEFAULT 0, PRIMARY KEY (`id_conversion`), INDEX `x_btr_cart` (`cart_id`), INDEX `x_btr_order` (`order_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

@@ -1,0 +1,1424 @@
+15:56:13 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 2024-04-23T22:00:00Z
+    [created_before] => 2024-04-26T13:41:13Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Unshipped
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+15:56:13 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":"2024-04-23T22:00:00Z","created_before":"2024-04-26T13:41:13Z","last_updated_after":null,"last_updated_before":null,"order_statuses":"Unshipped","fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+15:56:15 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [],
+        "CreatedBefore": "2024-04-26T13:41:13Z"
+    }
+}
+)
+
+15:56:19 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 2024-04-23T22:00:00Z
+    [created_before] => 2024-04-26T13:41:19Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Array
+        (
+            [0] => Pending
+            [1] => Unshipped
+            [2] => PartiallyShipped
+            [3] => Shipped
+            [4] => Canceled
+        )
+
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+15:56:19 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":"2024-04-23T22:00:00Z","created_before":"2024-04-26T13:41:19Z","last_updated_after":null,"last_updated_before":null,"order_statuses":["Pending","Unshipped","PartiallyShipped","Shipped","Canceled"],"fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+15:56:20 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [],
+        "CreatedBefore": "2024-04-26T13:41:19Z"
+    }
+}
+)
+
+15:56:26 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 2024-02-29T23:00:00Z
+    [created_before] => 2024-04-26T13:41:26Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Array
+        (
+            [0] => Pending
+            [1] => Unshipped
+            [2] => PartiallyShipped
+            [3] => Shipped
+            [4] => Canceled
+        )
+
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+15:56:26 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":"2024-02-29T23:00:00Z","created_before":"2024-04-26T13:41:26Z","last_updated_after":null,"last_updated_before":null,"order_statuses":["Pending","Unshipped","PartiallyShipped","Shipped","Canceled"],"fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+15:56:27 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "SellerOrderId": "31610",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-05T02:14:23Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "408-4770031-1116321",
+                "SellerOrderId": "31803",
+                "PurchaseDate": "2024-03-09T22:13:24Z",
+                "LastUpdateDate": "2024-03-11T10:55:55Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "76.97"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-10T23:00:00Z",
+                "LatestShipDate": "2024-03-11T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-12T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-14T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Fabienne GALEY",
+                    "AddressLine1": "9 rue de la gare",
+                    "City": "MOULIS",
+                    "PostalCode": "09200",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "wl1mjlz8vsgz7k6@marketplace.amazon.fr",
+                    "BuyerName": "Thierry Galey"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "171-9600153-3617153",
+                "SellerOrderId": "31968",
+                "PurchaseDate": "2024-03-16T22:58:04Z",
+                "LastUpdateDate": "2024-03-18T15:54:02Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-17T23:00:00Z",
+                "LatestShipDate": "2024-03-18T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-19T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-20T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "rolland",
+                    "AddressLine1": "63, Avenue Paul Vaillant-Couturier",
+                    "AddressLine2": "2\u00e8me \u00e9tage - Codes 15A04\/23B11",
+                    "City": "Gentilly",
+                    "PostalCode": "94250",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "6vpffbbjsb330cl@marketplace.amazon.fr",
+                    "BuyerName": "rolland"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "403-4661316-1795539",
+                "SellerOrderId": "32156",
+                "PurchaseDate": "2024-03-24T20:45:10Z",
+                "LastUpdateDate": "2024-03-25T16:43:58Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_2",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-24T23:00:00Z",
+                "LatestShipDate": "2024-03-25T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-27T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-30T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Abdi farah",
+                    "AddressLine1": "1 rue mar\u00e9chal davout",
+                    "City": "Nice",
+                    "PostalCode": "06000",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "hd7vl4rpnzwz68y@marketplace.amazon.fr",
+                    "BuyerName": "Abdi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "405-1976671-7763564",
+                "SellerOrderId": "32235",
+                "PurchaseDate": "2024-03-27T20:08:52Z",
+                "LastUpdateDate": "2024-03-29T11:08:12Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-27T23:00:00Z",
+                "LatestShipDate": "2024-03-28T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-01T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-02T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Josselyne Douyere",
+                    "AddressLine1": "28 village de La Verronnerie",
+                    "City": "Saint-Marc la lande",
+                    "PostalCode": "79310",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "d8s1hkkn4d66zfq@marketplace.amazon.fr",
+                    "BuyerName": "Josselyne Douyere"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "407-1817723-2637155",
+                "SellerOrderId": "32236",
+                "PurchaseDate": "2024-03-27T20:49:59Z",
+                "LastUpdateDate": "2024-03-29T11:13:50Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "213.00"
+                },
+                "NumberOfItemsShipped": 2,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-27T23:00:00Z",
+                "LatestShipDate": "2024-03-28T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-01T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-02T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Konte astou",
+                    "AddressLine1": "22, Rue des Bougimonts",
+                    "City": "Les Mureaux",
+                    "PostalCode": "78130",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "d48yj8ttbgtl8x0@marketplace.amazon.fr",
+                    "BuyerName": "Konte Astou"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "171-1783175-0246720",
+                "SellerOrderId": "32380",
+                "PurchaseDate": "2024-04-01T19:10:44Z",
+                "LastUpdateDate": "2024-04-02T15:13:49Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-01T22:00:00Z",
+                "LatestShipDate": "2024-04-02T21:59:59Z",
+                "EarliestDeliveryDate": "2024-04-03T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-05T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "hector veronique",
+                    "AddressLine1": "735 B Chemin du Mas d'Avon",
+                    "AddressLine2": "Double portail gris",
+                    "City": "Aigues Mortes",
+                    "PostalCode": "30220",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "gl9mhbpxvd2b3nc@marketplace.amazon.fr",
+                    "BuyerName": "hector veronique"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "206-1029448-5981111",
+                "SellerOrderId": "32648",
+                "PurchaseDate": "2024-04-10T09:51:55Z",
+                "LastUpdateDate": "2024-04-11T12:48:40Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.co.uk",
+                "ShipServiceLevel": "Std UK Dom_3",
+                "OrderTotal": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "176.44"
+                },
+                "NumberOfItemsShipped": 2,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A1F83G8C2ARO7P",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-10T23:00:00Z",
+                "LatestShipDate": "2024-04-11T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-16T23:00:00Z",
+                "LatestDeliveryDate": "2024-04-19T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Shirley Parsons-Holland",
+                    "AddressLine1": "33 WAINGROVES RD",
+                    "City": "WAINGROVES",
+                    "County": "Derbyshire",
+                    "PostalCode": "DE5 9TB",
+                    "CountryCode": "GB",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "swsr24rfgxfy42s@marketplace.amazon.co.uk",
+                    "BuyerName": "Shirley Parsons-Holland"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": false
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "408-1879216-3118729",
+                "SellerOrderId": "32681",
+                "PurchaseDate": "2024-04-11T20:35:14Z",
+                "LastUpdateDate": "2024-04-12T10:52:58Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_2",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-11T22:00:00Z",
+                "LatestShipDate": "2024-04-12T21:59:59Z",
+                "EarliestDeliveryDate": "2024-04-15T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-16T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "SUPERVILLE Beatrice",
+                    "AddressLine1": "807 Quartier Font Vieilles",
+                    "City": "Montfort Sur Argens",
+                    "PostalCode": "83570",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "v8r4vt6n09nkxj9@marketplace.amazon.fr",
+                    "BuyerName": "Beatrice A Superville"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "204-7217725-6724306",
+                "PurchaseDate": "2024-04-17T15:19:54Z",
+                "LastUpdateDate": "2024-04-17T20:41:01Z",
+                "OrderStatus": "Canceled",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.co.uk",
+                "ShipServiceLevel": "Std UK Dom_3",
+                "OrderTotal": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "88.22"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A1F83G8C2ARO7P",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-17T23:00:00Z",
+                "LatestShipDate": "2024-04-18T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "BuyerInfo": {},
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": false
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-04-26T13:41:26Z"
+    }
+}
+)
+
+15:56:39 > DEBUG > Get list request
+Array
+(
+    [marketplace_ids] => Array
+        (
+            [0] => A13V1IB3VIYZZH
+            [1] => A1F83G8C2ARO7P
+        )
+
+    [created_after] => 2024-01-31T23:00:00Z
+    [created_before] => 2024-04-26T13:41:39Z
+    [last_updated_after] => 
+    [last_updated_before] => 
+    [order_statuses] => Array
+        (
+            [0] => Pending
+            [1] => Unshipped
+            [2] => PartiallyShipped
+            [3] => Shipped
+            [4] => Canceled
+        )
+
+    [fulfillment_channels] => Array
+        (
+            [0] => AFN
+            [1] => MFN
+        )
+
+    [amazon_order_ids] => 
+    [max_results_per_page] => 100
+)
+
+15:56:39 > DEBUG > SP API: Request
+Array
+(
+    [10002] => https://mwsops.common-services.com/v201/
+    [47] => 1
+    [10018] => Common-Services/Amazon Marketplace (Language=PHP/7.4.33)
+    [19913] => 1
+    [78] => 20
+    [13] => 60
+    [45] => 1
+    [52] => 1
+    [68] => 10
+    [10023] => Array
+        (
+            [0] => Cs-Platform: Prestashop
+            [1] => Cs-Refresh-Token: Atzr|IwEBIO_-KrgSI4Mt79QiotO2PQYQ1V13vHGckEYmu_oSDxf_teWvBpvazI9zIyhClj-9NggIRwipybOYyFMBsMIANGu5rTP8qcrz0V94-4AXfDe2oEgkXPx6ZbEDKvNpuC8ZLkMKhMcaJHK-HzEq6i4F3GGs9j-r9JIkQHLeh3KLrPohVx5SzLQHxjyarG_sQ5biTr0_o1kjKlffHP4TNJAkeHUhrt8lVSJb6YpJHwYOhfO5OCHSMtwEcs8QDY3ijGjb2PCidzBvsg-DTsqIAvZ14My2TwnJetmgy9PkGEaUAtVHv-64eNVb-UwYBx2hxSSjK-dFfooAQA3tflzB5kAKOn7B
+            [2] => Cs-Region: eu-west-1
+            [3] => Cs-Seller-Id: A2XWU2BK4HBLR0
+            [4] => Cs-Api-Type: getOrders
+            [5] => Cs-Api-Sandbox: 0
+            [6] => Content-Type: application/json
+        )
+
+    [10015] => {"marketplace_ids":["A13V1IB3VIYZZH","A1F83G8C2ARO7P"],"created_after":"2024-01-31T23:00:00Z","created_before":"2024-04-26T13:41:39Z","last_updated_after":null,"last_updated_before":null,"order_statuses":["Pending","Unshipped","PartiallyShipped","Shipped","Canceled"],"fulfillment_channels":["AFN","MFN"],"amazon_order_ids":null,"max_results_per_page":100,"requester":{"php_version":"7.4.33","platform_version":"1.7.8.9","connector_version":"5.3.36","domain":"hyaluronicfillermarket.com","license":"pdAMAZON","seller_id":"A2XWU2BK4HBLR0","ip":""}}
+)
+
+15:56:40 > DEBUG > SP API: Response
+Array
+(
+    [raw] => {
+    "payload": {
+        "Orders": [
+            {
+                "AmazonOrderId": "408-0991358-2875523",
+                "SellerOrderId": "31610",
+                "PurchaseDate": "2024-03-04T09:21:20Z",
+                "LastUpdateDate": "2024-03-05T02:14:23Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "244.83"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-04T23:00:00Z",
+                "LatestShipDate": "2024-03-05T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-06T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-07T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Ghavam sadoughi",
+                    "AddressLine1": "2, Place du Cormier",
+                    "AddressLine2": "Cabinet m\u00e9dical",
+                    "City": "Fontenay-le-Fleury",
+                    "PostalCode": "78330",
+                    "CountryCode": "FR"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "2d0c4vx8ln8ns8j@marketplace.amazon.fr",
+                    "BuyerName": "Ghavam sadoughi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "408-4770031-1116321",
+                "SellerOrderId": "31803",
+                "PurchaseDate": "2024-03-09T22:13:24Z",
+                "LastUpdateDate": "2024-03-11T10:55:55Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "76.97"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-10T23:00:00Z",
+                "LatestShipDate": "2024-03-11T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-12T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-14T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Fabienne GALEY",
+                    "AddressLine1": "9 rue de la gare",
+                    "City": "MOULIS",
+                    "PostalCode": "09200",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "wl1mjlz8vsgz7k6@marketplace.amazon.fr",
+                    "BuyerName": "Thierry Galey"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "171-9600153-3617153",
+                "SellerOrderId": "31968",
+                "PurchaseDate": "2024-03-16T22:58:04Z",
+                "LastUpdateDate": "2024-03-18T15:54:02Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-17T23:00:00Z",
+                "LatestShipDate": "2024-03-18T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-19T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-20T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "rolland",
+                    "AddressLine1": "63, Avenue Paul Vaillant-Couturier",
+                    "AddressLine2": "2\u00e8me \u00e9tage - Codes 15A04\/23B11",
+                    "City": "Gentilly",
+                    "PostalCode": "94250",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "6vpffbbjsb330cl@marketplace.amazon.fr",
+                    "BuyerName": "rolland"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "403-4661316-1795539",
+                "SellerOrderId": "32156",
+                "PurchaseDate": "2024-03-24T20:45:10Z",
+                "LastUpdateDate": "2024-03-25T16:43:58Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_2",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-24T23:00:00Z",
+                "LatestShipDate": "2024-03-25T22:59:59Z",
+                "EarliestDeliveryDate": "2024-03-27T23:00:00Z",
+                "LatestDeliveryDate": "2024-03-30T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Abdi farah",
+                    "AddressLine1": "1 rue mar\u00e9chal davout",
+                    "City": "Nice",
+                    "PostalCode": "06000",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "hd7vl4rpnzwz68y@marketplace.amazon.fr",
+                    "BuyerName": "Abdi"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "405-1976671-7763564",
+                "SellerOrderId": "32235",
+                "PurchaseDate": "2024-03-27T20:08:52Z",
+                "LastUpdateDate": "2024-03-29T11:08:12Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-27T23:00:00Z",
+                "LatestShipDate": "2024-03-28T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-01T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-02T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Josselyne Douyere",
+                    "AddressLine1": "28 village de La Verronnerie",
+                    "City": "Saint-Marc la lande",
+                    "PostalCode": "79310",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "d8s1hkkn4d66zfq@marketplace.amazon.fr",
+                    "BuyerName": "Josselyne Douyere"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "407-1817723-2637155",
+                "SellerOrderId": "32236",
+                "PurchaseDate": "2024-03-27T20:49:59Z",
+                "LastUpdateDate": "2024-03-29T11:13:50Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "213.00"
+                },
+                "NumberOfItemsShipped": 2,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-03-27T23:00:00Z",
+                "LatestShipDate": "2024-03-28T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-01T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-02T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Konte astou",
+                    "AddressLine1": "22, Rue des Bougimonts",
+                    "City": "Les Mureaux",
+                    "PostalCode": "78130",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "d48yj8ttbgtl8x0@marketplace.amazon.fr",
+                    "BuyerName": "Konte Astou"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "171-1783175-0246720",
+                "SellerOrderId": "32380",
+                "PurchaseDate": "2024-04-01T19:10:44Z",
+                "LastUpdateDate": "2024-04-02T15:13:49Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_1",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-01T22:00:00Z",
+                "LatestShipDate": "2024-04-02T21:59:59Z",
+                "EarliestDeliveryDate": "2024-04-03T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-05T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "hector veronique",
+                    "AddressLine1": "735 B Chemin du Mas d'Avon",
+                    "AddressLine2": "Double portail gris",
+                    "City": "Aigues Mortes",
+                    "PostalCode": "30220",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "gl9mhbpxvd2b3nc@marketplace.amazon.fr",
+                    "BuyerName": "hector veronique"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "206-1029448-5981111",
+                "SellerOrderId": "32648",
+                "PurchaseDate": "2024-04-10T09:51:55Z",
+                "LastUpdateDate": "2024-04-11T12:48:40Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.co.uk",
+                "ShipServiceLevel": "Std UK Dom_3",
+                "OrderTotal": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "176.44"
+                },
+                "NumberOfItemsShipped": 2,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A1F83G8C2ARO7P",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-10T23:00:00Z",
+                "LatestShipDate": "2024-04-11T22:59:59Z",
+                "EarliestDeliveryDate": "2024-04-16T23:00:00Z",
+                "LatestDeliveryDate": "2024-04-19T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "Shirley Parsons-Holland",
+                    "AddressLine1": "33 WAINGROVES RD",
+                    "City": "WAINGROVES",
+                    "County": "Derbyshire",
+                    "PostalCode": "DE5 9TB",
+                    "CountryCode": "GB",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "swsr24rfgxfy42s@marketplace.amazon.co.uk",
+                    "BuyerName": "Shirley Parsons-Holland"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": false
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "408-1879216-3118729",
+                "SellerOrderId": "32681",
+                "PurchaseDate": "2024-04-11T20:35:14Z",
+                "LastUpdateDate": "2024-04-12T10:52:58Z",
+                "OrderStatus": "Shipped",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.fr",
+                "ShipServiceLevel": "Std FR Dom_2",
+                "OrderTotal": {
+                    "CurrencyCode": "EUR",
+                    "Amount": "110.00"
+                },
+                "NumberOfItemsShipped": 1,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethod": "Other",
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A13V1IB3VIYZZH",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-11T22:00:00Z",
+                "LatestShipDate": "2024-04-12T21:59:59Z",
+                "EarliestDeliveryDate": "2024-04-15T22:00:00Z",
+                "LatestDeliveryDate": "2024-04-16T21:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "DefaultShipFromLocationAddress": {
+                    "Name": "null",
+                    "AddressLine1": "null",
+                    "City": "colombes",
+                    "PostalCode": "92700",
+                    "CountryCode": "FR"
+                },
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "ShippingAddress": {
+                    "Name": "SUPERVILLE Beatrice",
+                    "AddressLine1": "807 Quartier Font Vieilles",
+                    "City": "Montfort Sur Argens",
+                    "PostalCode": "83570",
+                    "CountryCode": "FR",
+                    "AddressType": "Residential"
+                },
+                "BuyerInfo": {
+                    "BuyerEmail": "v8r4vt6n09nkxj9@marketplace.amazon.fr",
+                    "BuyerName": "Beatrice A Superville"
+                },
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": true,
+                    "AutomatedCarrier": "GLS FR",
+                    "AutomatedShipMethod": "GLS Flex"
+                },
+                "HasRegulatedItems": false
+            },
+            {
+                "AmazonOrderId": "204-7217725-6724306",
+                "PurchaseDate": "2024-04-17T15:19:54Z",
+                "LastUpdateDate": "2024-04-17T20:41:01Z",
+                "OrderStatus": "Canceled",
+                "FulfillmentChannel": "MFN",
+                "SalesChannel": "Amazon.co.uk",
+                "ShipServiceLevel": "Std UK Dom_3",
+                "OrderTotal": {
+                    "CurrencyCode": "GBP",
+                    "Amount": "88.22"
+                },
+                "NumberOfItemsShipped": 0,
+                "NumberOfItemsUnshipped": 0,
+                "PaymentMethodDetails": [
+                    "Standard"
+                ],
+                "MarketplaceId": "A1F83G8C2ARO7P",
+                "ShipmentServiceLevelCategory": "Standard",
+                "OrderType": "StandardOrder",
+                "EarliestShipDate": "2024-04-17T23:00:00Z",
+                "LatestShipDate": "2024-04-18T22:59:59Z",
+                "IsBusinessOrder": false,
+                "IsPrime": false,
+                "IsPremiumOrder": false,
+                "IsGlobalExpressEnabled": false,
+                "IsReplacementOrder": false,
+                "IsSoldByAB": false,
+                "IsISPU": false,
+                "IsAccessPointOrder": false,
+                "BuyerInfo": {},
+                "AutomatedShippingSettings": {
+                    "HasAutomatedShippingSettings": false
+                },
+                "HasRegulatedItems": false
+            }
+        ],
+        "CreatedBefore": "2024-04-26T13:41:39Z"
+    }
+}
+)
+
