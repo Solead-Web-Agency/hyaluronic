@@ -1,0 +1,17 @@
+vivawalletsmartcheckout_refund_ajax:
+  path: /vivawalletsmartcheckout/refund/{orderId}/ajax
+  controller: 'Vivawalletsmartcheckout\Controller\Admin\RefundController::refund'
+  methods: [POST]
+  requirements: { orderId: '\d+' }
+
+vivawalletsmartcheckout_capture_ajax:
+  path: /vivawalletsmartcheckout/capture/{orderId}/ajax
+  controller: 'Vivawalletsmartcheckout\Controller\Admin\CaptureController::capture'
+  methods: [ POST ]
+  requirements: { orderId: '\d+' }
+
+vivawalletsmartcheckout_void_ajax:
+  path: /vivawalletsmartcheckout/void/{orderId}/ajax
+  controller: 'Vivawalletsmartcheckout\Controller\Admin\VoidController::void'
+  methods: [ POST ]
+  requirements: { orderId: '\d+' }

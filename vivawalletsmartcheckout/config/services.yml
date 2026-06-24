@@ -1,0 +1,43 @@
+services:
+  Vivawalletsmartcheckout\Controller\Admin\RefundController:
+    autowire: true
+    autoconfigure: true
+    tags:
+      - controller.service_arguments
+
+  Vivawalletsmartcheckout\Controller\Admin\CaptureController:
+    autowire: true
+    autoconfigure: true
+    tags:
+      - controller.service_arguments
+
+  Vivawalletsmartcheckout\Controller\Admin\VoidController:
+    autowire: true
+    autoconfigure: true
+    tags:
+      - controller.service_arguments
+
+  Vivawalletsmartcheckout\Service\TransactionClientFactory:
+    class: Vivawalletsmartcheckout\Service\TransactionClientFactory
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Vivawallet\VivawalletPhp\Api\TransactionClient:
+    factory: ['@Vivawalletsmartcheckout\Service\TransactionClientFactory', 'createForShop']
+    public: true
+
+  Vivawalletsmartcheckout\Service\RefundService:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Vivawalletsmartcheckout\Service\CaptureService:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Vivawalletsmartcheckout\Service\VoidService:
+    autowire: true
+    autoconfigure: true
+    public: true

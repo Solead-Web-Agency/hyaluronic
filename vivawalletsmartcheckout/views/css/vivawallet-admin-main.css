@@ -1,0 +1,81 @@
+/**
+ * Copyright since 2007 Viva Wallet
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@vivawallet.com so we can send you a copy immediately.
+ *
+ * @author    Viva Wallet <support@vivawallet.com>
+ * @copyright Since 2007 Viva Wallet
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ */
+#content .tab-pane:first-child .panel {
+    border-top-left-radius: 0;
+}
+
+.vivawalletsmartcheckout-header .text-branded,
+.vivawalletsmartcheckout-content .text-branded {
+    color: #32c1d5;
+}
+
+.vivawalletsmartcheckout-header h4,
+.vivawalletsmartcheckout-content h4,
+.vivawalletsmartcheckout-content h5 {
+    margin: 2px 0;
+    color: #32c1d5;
+    font-size: 1.8em;
+}
+
+.vivawalletsmartcheckout-header h4 {
+    margin-top: 5px;
+}
+
+.vivawalletsmartcheckout-header .col-md-6 {
+    margin-top: 18px;
+}
+
+.vivawalletsmartcheckout-content h4 {
+    margin-bottom: 10px;
+}
+
+.vivawalletsmartcheckout-content h5 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.vivawalletsmartcheckout-content h6 {
+    font-size: 1.3em;
+    margin: 1px 0 4px 0;
+}
+
+.vivawalletsmartcheckout-header > .col-md-4 {
+    height: 65px;
+    vertical-align: middle;
+    border-left: 1px solid #ddd;
+}
+
+.vivawalletsmartcheckout-header > .col-md-4:first-child {
+    border-left: none;
+}
+
+.vivawalletsmartcheckout-header #create-account-btn {
+    margin-top: 14px;
+}
+
+.vivawalletsmartcheckout-content dd + dt {
+    margin-top: 5px;
+}
+
+.vivawalletsmartcheckout-content ul {
+    padding-left: 15px;
+}
+
+.vivawalletsmartcheckout-content .ul-spaced li {
+    margin-bottom: 5px;
+}

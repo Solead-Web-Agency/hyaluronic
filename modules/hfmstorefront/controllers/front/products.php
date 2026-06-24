@@ -68,6 +68,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'image' => $idImage ? $this->context->link->getImageLink($p->link_rewrite, $idImage, 'home_default') : null,
             'quantity' => $qty,
             'available' => $qty > 0 || (int) $p->out_of_stock == 1,
+            'rpps_required' => $this->productRequiresRpps($idProduct),
         ];
     }
 
@@ -96,6 +97,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'price_excl_tax' => (float) Tools::ps_round($p->getPrice(false), 2),
             'manufacturer' => $p->id_manufacturer ? Manufacturer::getNameById((int) $p->id_manufacturer) : null,
             'quantity' => (int) Product::getQuantity($idProduct),
+            'rpps_required' => $this->productRequiresRpps($idProduct),
             'images' => $images,
             'features' => $features,
         ]];

@@ -160,6 +160,7 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
             'id_customer' => (int) $cart->id_customer,
             'id_address_delivery' => (int) $cart->id_address_delivery,
             'delivery_address' => $deliveryAddress,
+            'rpps_required' => $this->cartRequiresRpps($cart),
             'nb_items' => (int) $cart->nbProducts(),
             'products' => $products,
             'totals' => [

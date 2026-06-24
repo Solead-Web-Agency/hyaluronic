@@ -20,10 +20,14 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
                 return $this->login();
             case 'register':
                 return $this->register();
+            case 'guest':
+                return $this->registerGuest();
             case 'add-address':
                 return $this->addAddress();
             case 'update':
                 return $this->updateProfile();
+            case 'set-rpps':
+                return $this->setRpps();
             default:
                 return ['error' => 'unknown_action'];
         }
@@ -82,6 +86,41 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         return ['created' => true, 'customer' => $this->customerPayload($customer)];
     }
 
+    /** Création d'un client INVITÉ (commande sans compte) : pas de mot de passe à choisir. */
+    protected function registerGuest()
+    {
+        $email = (string) $this->in('email');
+        if (!Validate::isEmail($email)) {
+            return ['error' => 'invalid_email'];
+        }
+        $firstname = (string) $this->in('firstname', 'Client');
+        $lastname = (string) $this->in('lastname', 'Client');
+        if (!Validate::isName($firstname) || !Validate::isName($lastname)) {
+            return ['error' => 'invalid_name'];
+        }
+        // Si un VRAI compte existe déjà avec cet e-mail, on invite à se connecter.
+        if (Customer::customerExists($email)) {
+            $existing = (new Customer())->getByEmail($email);
+            if ($existing && !$existing->is_guest) {
+                return ['error' => 'email_already_exists'];
+            }
+        }
+        $customer = new Customer();
+        $customer->email = $email;
+        $customer->passwd = $this->hashPassword(Tools::passwdGen(16));
+        $customer->firstname = $firstname;
+        $customer->lastname = $lastname;
+        $customer->is_guest = 1;
+        $customer->id_default_group = (int) (Configuration::get('PS_GUEST_GROUP') ?: Configuration::get('PS_CUSTOMER_GROUP'));
+        $customer->id_lang = (int) ($this->in('id_lang') ?: $this->context->language->id);
+        $customer->id_shop = (int) $this->context->shop->id;
+        $customer->id_shop_group = (int) $this->context->shop->id_shop_group;
+        if (!$customer->add()) {
+            return ['error' => 'create_failed'];
+        }
+        return ['created' => true, 'guest' => true, 'customer' => $this->customerPayload($customer)];
+    }
+
     /** Mise à jour du profil (prénom/nom/e-mail, et mot de passe si fourni). id_customer imposé par la session. */
     protected function updateProfile()
     {
@@ -134,7 +173,12 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         $address->postcode = (string) $this->in('postcode');
         $address->city = (string) $this->in('city');
         $address->id_country = (int) $this->in('id_country');
-        $address->phone = (string) $this->in('phone', '');
+        // Téléphone OBLIGATOIRE.
+        $phone = trim((string) $this->in('phone', ''));
+        if ($phone === '' || !Validate::isPhoneNumber($phone)) {
+            return ['error' => 'invalid_phone'];
+        }
+        $address->phone = $phone;
         if (!Validate::isLoadedObject((new Country($address->id_country)))) {
             return ['error' => 'invalid_country'];
         }
@@ -168,6 +212,21 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         return $out;
     }
 
+    /** Enregistre le numéro RPPS du client (optionnel ; sert aux produits qui l'exigent). */
+    protected function setRpps()
+    {
+        $idCustomer = (int) $this->in('id_customer');
+        if (!$idCustomer) {
+            return ['error' => 'unauthenticated'];
+        }
+        $rpps = trim((string) $this->in('rpps'));
+        if ($rpps !== '' && !$this->isValidRpps($rpps)) {
+            return ['error' => 'invalid_rpps'];
+        }
+        $this->setCustomerRpps($idCustomer, $rpps);
+        return ['ok' => true, 'rpps' => $rpps];
+    }
+
     protected function customerPayload(Customer $c)
     {
         return [
@@ -177,6 +236,7 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             'lastname' => $c->lastname,
             'id_lang' => (int) $c->id_lang,
             'groups' => array_map('intval', $c->getGroups()),
+            'rpps' => $this->getCustomerRpps((int) $c->id),
         ];
     }
 

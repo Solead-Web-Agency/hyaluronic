@@ -31,6 +31,8 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 return $this->voucher();
             case 'order':
                 return $this->createOrder();
+            case 'refund-order':
+                return $this->refundOrder();
             default:
                 return ['error' => 'unknown_action'];
         }
@@ -127,6 +129,20 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         if (!$cart->id_customer || !$cart->id_address_delivery || !$cart->id_carrier) {
             return ['error' => 'cart_incomplete', 'detail' => 'client, adresse et transporteur requis'];
         }
+
+        // Contrôle RPPS : si le panier contient un produit réservé aux praticiens, un numéro
+        // RPPS valide est requis. Le RPPS reste optionnel pour les autres commandes.
+        if ($this->cartRequiresRpps($cart)) {
+            $rpps = trim((string) $this->in('rpps'));
+            if ($rpps !== '' && $this->isValidRpps($rpps)) {
+                $this->setCustomerRpps((int) $cart->id_customer, $rpps);
+            } else {
+                $rpps = $this->getCustomerRpps((int) $cart->id_customer);
+            }
+            if (!$this->isValidRpps($rpps)) {
+                return ['error' => 'rpps_required', 'detail' => 'numéro RPPS valide requis pour un produit réservé aux praticiens'];
+            }
+        }
         // Idempotence : si une commande existe déjà pour ce panier (ex. retour + webhook), on la renvoie.
         $existingId = (int) Order::getIdByCartId((int) $cart->id);
         if ($existingId) {
@@ -169,11 +185,45 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         }
         $idOrder = (int) $paymentModule->currentOrder;
         $order = new Order($idOrder);
+
+        // Trace l'identifiant de transaction PSP (Viva) sur le paiement de la commande
+        // -> visible en BO et nécessaire pour les remboursements.
+        $transactionId = (string) $this->in('transaction_id');
+        if ($transactionId !== '') {
+            foreach (OrderPayment::getByOrderReference($order->reference) as $payment) {
+                $payment->transaction_id = $transactionId;
+                $payment->update();
+            }
+        }
+
         return [
             'ok' => true,
             'id_order' => $idOrder,
             'reference' => $order->reference,
             'total_paid' => (float) $order->total_paid,
+            'transaction_id' => $transactionId,
         ];
+    }
+
+    /**
+     * Remboursement côté PrestaShop : passe la commande en état remboursé.
+     * (Le remboursement réel chez Viva est fait par Next via l'API acquiring ; ici on
+     *  reflète l'état dans PS.) id_order imposé/contrôlé par l'appelant serveur.
+     */
+    protected function refundOrder()
+    {
+        $idOrder = (int) $this->in('id_order');
+        $order = new Order($idOrder);
+        if (!Validate::isLoadedObject($order)) {
+            return ['error' => 'order_not_found'];
+        }
+        $state = (int) (Configuration::get('PS_OS_REFUND') ?: 0);
+        if ($state) {
+            $history = new OrderHistory();
+            $history->id_order = $idOrder;
+            $history->changeIdOrderState($state, $idOrder);
+            $history->addWithemail();
+        }
+        return ['ok' => true, 'id_order' => $idOrder, 'state' => $state];
     }
 }

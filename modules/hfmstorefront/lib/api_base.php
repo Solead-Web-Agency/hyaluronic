@@ -108,4 +108,69 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
         echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         exit;
     }
+
+    // ---------- RPPS (produits réservés aux professionnels de santé) ----------
+    // Le RPPS reste OPTIONNEL : il n'est requis que pour commander un produit qui le nécessite.
+
+    /** Le produit porte-t-il la caractéristique "RPPS" (= achat réservé aux médecins) ? */
+    protected function productRequiresRpps($idProduct)
+    {
+        return (bool) Db::getInstance()->getValue(
+            'SELECT 1 FROM ' . _DB_PREFIX_ . 'feature_product fp
+             JOIN ' . _DB_PREFIX_ . 'feature_lang fl ON fl.id_feature = fp.id_feature
+             WHERE fp.id_product = ' . (int) $idProduct . ' AND fl.name = \'RPPS\'',
+            false
+        );
+    }
+
+    /** Le panier contient-il au moins un produit soumis à RPPS ? */
+    protected function cartRequiresRpps(Cart $cart)
+    {
+        foreach ($cart->getProducts() as $p) {
+            if ($this->productRequiresRpps((int) $p['id_product'])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** Numéro RPPS/ADELI valide : 9 à 11 chiffres. */
+    protected function isValidRpps($rpps)
+    {
+        return (bool) preg_match('/^\d{9,11}$/', (string) $rpps);
+    }
+
+    protected function ensureRppsTable()
+    {
+        Db::getInstance()->execute(
+            'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'hfm_customer_rpps` (
+                `id_customer` INT UNSIGNED NOT NULL,
+                `rpps` VARCHAR(16) NOT NULL,
+                `date_upd` DATETIME NOT NULL,
+                PRIMARY KEY (`id_customer`)
+            ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8mb4'
+        );
+    }
+
+    protected function getCustomerRpps($idCustomer)
+    {
+        if (!$idCustomer) {
+            return '';
+        }
+        $this->ensureRppsTable();
+        return (string) Db::getInstance()->getValue(
+            'SELECT rpps FROM `' . _DB_PREFIX_ . 'hfm_customer_rpps` WHERE id_customer = ' . (int) $idCustomer,
+            false
+        );
+    }
+
+    protected function setCustomerRpps($idCustomer, $rpps)
+    {
+        $this->ensureRppsTable();
+        Db::getInstance()->execute(
+            'INSERT INTO `' . _DB_PREFIX_ . 'hfm_customer_rpps` (id_customer, rpps, date_upd)
+             VALUES (' . (int) $idCustomer . ', \'' . pSQL($rpps) . '\', NOW())
+             ON DUPLICATE KEY UPDATE rpps = \'' . pSQL($rpps) . '\', date_upd = NOW()'
+        );
+    }
 }

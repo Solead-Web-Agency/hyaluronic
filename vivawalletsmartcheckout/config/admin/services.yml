@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    public: true
+
+  # Your module
+  vivawalletsmartcheckout.module:
+    class: vivawalletsmartcheckout
+    factory: ['Module', 'getInstanceByName']
+    arguments:
+      - 'vivawalletsmartcheckout'
+
+  vivawalletsmartcheckout.context:
+    class: Context
+    factory: ['Context', 'getContext']
+
+  # PrestaShop Account
+  vivawalletsmartcheckout.ps_accounts_installer:
+    class: 'PrestaShop\PsAccountsInstaller\Installer\Installer'
+    arguments:
+      - '5.0'
+
+  vivawalletsmartcheckout.ps_accounts_facade:
+    class: 'PrestaShop\PsAccountsInstaller\Installer\Facade\PsAccounts'
+    arguments:
+      - '@vivawalletsmartcheckout.ps_accounts_installer'
