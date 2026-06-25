@@ -130,21 +130,19 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             return ['error' => 'cart_incomplete', 'detail' => 'client, adresse et transporteur requis'];
         }
 
-        // Contrôle RPPS : si le panier contient un produit réservé aux praticiens, un numéro
-        // RPPS valide est requis. Le RPPS reste optionnel pour les autres commandes.
+        // Contrôle RPPS : si le panier contient un produit réservé aux praticiens, on exige
+        // un numéro au FORMAT permissif (9-13 chiffres). La validité réelle est confirmée
+        // en back-office via une annotation sur la commande (cf. plus bas). Pas de blocage registre.
+        $orderRpps = '';
         if ($this->cartRequiresRpps($cart)) {
-            $rpps = trim((string) $this->in('rpps'));
-            if ($rpps !== '' && $this->isValidRpps($rpps)) {
-                $this->setCustomerRpps((int) $cart->id_customer, $rpps);
+            $orderRpps = trim((string) $this->in('rpps'));
+            if ($orderRpps !== '' && $this->isValidRpps($orderRpps)) {
+                $this->setCustomerRpps((int) $cart->id_customer, $orderRpps);
             } else {
-                $rpps = $this->getCustomerRpps((int) $cart->id_customer);
+                $orderRpps = $this->getCustomerRpps((int) $cart->id_customer);
             }
-            if (!$this->isValidRpps($rpps)) {
-                return ['error' => 'rpps_required', 'detail' => 'numéro RPPS valide requis pour un produit réservé aux praticiens'];
-            }
-            // Existence au registre officiel (table locale) pour un RPPS 11 chiffres.
-            if (preg_match('/^\d{11}$/', $rpps) && !$this->rppsExistsInRegistry($rpps)) {
-                return ['error' => 'rpps_not_found', 'detail' => 'numéro RPPS introuvable au registre des professionnels de santé'];
+            if (!$this->isValidRpps($orderRpps)) {
+                return ['error' => 'rpps_required', 'detail' => 'numéro RPPS requis (9 à 13 chiffres) pour un produit réservé aux praticiens'];
             }
         }
         // Idempotence : si une commande existe déjà pour ce panier (ex. retour + webhook), on la renvoie.
@@ -200,12 +198,16 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             }
         }
 
+        // (Le RPPS est déjà enregistré sur le CLIENT — cf. setCustomerRpps plus haut.
+        //  Le back-office l'affiche conditionnellement depuis le client, sans toucher la commande.)
+
         return [
             'ok' => true,
             'id_order' => $idOrder,
             'reference' => $order->reference,
             'total_paid' => (float) $order->total_paid,
             'transaction_id' => $transactionId,
+            'rpps' => $orderRpps,
         ];
     }
 

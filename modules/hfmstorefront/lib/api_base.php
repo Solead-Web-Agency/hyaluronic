@@ -135,20 +135,14 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
     }
 
     /**
-     * Numéro RPPS/ADELI valide.
-     * - RPPS : 11 chiffres avec clé de Luhn (le 11e chiffre) -> on contrôle la clé.
-     * - ADELI : 9 chiffres (pas de clé de contrôle) -> contrôle de format seul.
+     * Format RPPS/ADELI PERMISSIF (pour limiter les frictions au checkout) :
+     * 9 à 13 chiffres, chiffres uniquement. La validité réelle est confirmée en back-office
+     * (annotation sur la commande, aidée par le rapprochement au registre).
      */
     protected function isValidRpps($rpps)
     {
         $rpps = preg_replace('/\s+/', '', (string) $rpps);
-        if (preg_match('/^\d{11}$/', $rpps)) {
-            return $this->luhnValid($rpps);
-        }
-        if (preg_match('/^\d{9}$/', $rpps)) {
-            return true; // ADELI : pas de clé, format uniquement
-        }
-        return false;
+        return (bool) preg_match('/^\d{9,13}$/', $rpps);
     }
 
     /**
@@ -241,4 +235,5 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
              ON DUPLICATE KEY UPDATE rpps = \'' . pSQL($rpps) . '\', date_upd = NOW()'
         );
     }
+
 }
