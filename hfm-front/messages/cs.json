@@ -346,7 +346,8 @@
     "placeOrder": "Objednat {amount} €",
     "selectAddressCarrier": "Vyberte adresu a dopravce",
     "secureOrder": "🔒 Zabezpečená objednávka",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Budete přesměrováni na PayPal k zaplacení a poté zpět sem."
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",

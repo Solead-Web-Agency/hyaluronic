@@ -346,7 +346,8 @@
     "placeOrder": "Comandă {amount} €",
     "selectAddressCarrier": "Selectează o adresă și un curier",
     "secureOrder": "🔒 Comandă securizată",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Veți fi redirecționat către PayPal pentru a plăti, apoi înapoi aici."
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

@@ -346,7 +346,8 @@
     "placeOrder": "Bestill {amount} €",
     "selectAddressCarrier": "Velg en adresse og en transportør",
     "secureOrder": "🔒 Sikker bestilling",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Du blir videresendt til PayPal for å betale, og deretter tilbake hit."
   },
   "orders": {
     "loginRequired": "Innlogging kreves",

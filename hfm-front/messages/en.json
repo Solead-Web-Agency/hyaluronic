@@ -373,7 +373,8 @@
     "guestInvalidEmail": "Invalid email.",
     "rppsNotFound": "This RPPS number was not found in the health professionals registry.",
     "rppsChecking": "Checking RPPS number…",
-    "rppsWillBeVerified": "Number saved — its validity will be confirmed by our team."
+    "rppsWillBeVerified": "Number saved — its validity will be confirmed by our team.",
+    "paypalRedirect": "You will be redirected to PayPal to pay, then brought back here."
   },
   "orders": {
     "loginRequired": "Login required",

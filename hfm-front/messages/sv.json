@@ -346,7 +346,8 @@
     "placeOrder": "Beställ {amount} €",
     "selectAddressCarrier": "Välj en adress och en transportör",
     "secureOrder": "🔒 Säker beställning",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Du omdirigeras till PayPal för att betala och tas sedan tillbaka hit."
   },
   "orders": {
     "loginRequired": "Inloggning krävs",

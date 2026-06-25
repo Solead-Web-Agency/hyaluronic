@@ -346,7 +346,8 @@
     "placeOrder": "اطلب {amount} €",
     "selectAddressCarrier": "اختر عنوانًا وشركة شحن",
     "secureOrder": "🔒 طلب آمن",
-    "demoBadge": "تجريبي"
+    "demoBadge": "تجريبي",
+    "paypalRedirect": "ستتم إعادة توجيهك إلى PayPal للدفع ثم العودة إلى هنا."
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",

@@ -346,7 +346,8 @@
     "placeOrder": "下单 {amount} €",
     "selectAddressCarrier": "请选择地址和承运商",
     "secureOrder": "🔒 安全下单",
-    "demoBadge": "演示"
+    "demoBadge": "演示",
+    "paypalRedirect": "您将被重定向到 PayPal 进行付款，然后返回此页面。"
   },
   "orders": {
     "loginRequired": "需要登录",

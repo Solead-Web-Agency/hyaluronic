@@ -346,7 +346,8 @@
     "placeOrder": "Tilaa {amount} €",
     "selectAddressCarrier": "Valitse osoite ja kuljetusliike",
     "secureOrder": "🔒 Turvallinen tilaus",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Sinut ohjataan PayPaliin maksamaan ja tuodaan sitten takaisin tänne."
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

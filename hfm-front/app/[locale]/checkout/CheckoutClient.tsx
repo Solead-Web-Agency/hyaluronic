@@ -28,6 +28,7 @@ type Totals = {
 
 const PAYMENTS = ['Virement bancaire', 'Chèque'];
 const VIVA_PAYMENT = 'Carte bancaire (Viva Wallet)';
+const PAYPAL_PAYMENT = 'PayPal';
 
 const stepBadge = (n: number, active: boolean): React.CSSProperties => ({
   width: '24px',
@@ -134,6 +135,8 @@ export default function CheckoutClient() {
   const [cardConfigured, setCardConfigured] = useState(false);
   const [cardMode, setCardMode] = useState<string>('live');
   const [cardError, setCardError] = useState<string | null>(null);
+  // PayPal — affiché si configuré côté serveur.
+  const [paypalConfigured, setPaypalConfigured] = useState(false);
 
   const idCart = cart.id_cart;
 
@@ -193,8 +196,13 @@ export default function CheckoutClient() {
       .then((r) => (r.ok ? r.json() : { configured: false }))
       .then((d) => {
         if (!alive) return;
-        setCardConfigured(!!d.configured);
+        const vivaOk = !!d.configured;
+        const ppOk = !!d.paypal?.configured;
+        setCardConfigured(vivaOk);
         setCardMode(d.mode || 'live');
+        setPaypalConfigured(ppOk);
+        // Sélection par défaut préférée : CB > PayPal > (virement/chèque), sans écraser un choix manuel.
+        setPayment((cur) => (cur === PAYMENTS[0] ? (vivaOk ? VIVA_PAYMENT : ppOk ? PAYPAL_PAYMENT : cur) : cur));
       })
       .catch(() => {});
     return () => {
@@ -218,7 +226,17 @@ export default function CheckoutClient() {
       clean();
       return;
     }
-    if (params.get('viva_paid')) {
+    if (params.get('paypal_failed')) {
+      setOrderErr(t('paymentNotConfirmed'));
+      clean();
+      return;
+    }
+    if (params.get('paypal_cancel')) {
+      setOrderErr(t('paymentCancelled'));
+      clean();
+      return;
+    }
+    if (params.get('viva_paid') || params.get('paypal_paid')) {
       setConfirmation({
         reference: params.get('ref') || '',
         id_order: Number(params.get('order') || 0),
@@ -379,6 +397,34 @@ export default function CheckoutClient() {
         const pay = await pr.json();
         if (!pr.ok || !pay.checkout_url) {
           setCardError(t('cardUnavailable'));
+          return;
+        }
+        window.location.href = pay.checkout_url;
+        return;
+      }
+
+      // Chemin PayPal : on stocke le RPPS (relu côté serveur au retour) puis on redirige vers l'approbation.
+      if (paypalConfigured && payment === PAYPAL_PAYMENT) {
+        const trimmedRpps = rpps.trim();
+        if (trimmedRpps) {
+          try {
+            await fetch('/api/customer', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ action: 'set-rpps', rpps: trimmedRpps }),
+            });
+          } catch {
+            /* ignore — validation finale côté serveur au retour */
+          }
+        }
+        const pr = await fetch('/api/payment/paypal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_cart: idCart, locale }),
+        });
+        const pay = await pr.json();
+        if (!pr.ok || !pay.checkout_url) {
+          setOrderErr(t('cardUnavailable'));
           return;
         }
         window.location.href = pay.checkout_url;
@@ -599,19 +645,7 @@ export default function CheckoutClient() {
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}><span style={stepBadge(4, !!selCarrier)}>4</span><span style={titleStyle}>{t('stepPayment')}</span></div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {PAYMENTS.map((p) => {
-                const active = payment === p;
-                return (
-                  <button
-                    key={p}
-                    onClick={() => setPayment(p)}
-                    style={{ textAlign: 'left', cursor: 'pointer', background: active ? 'rgba(140,198,63,0.06)' : '#fff', border: active ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px', display: 'flex', gap: '12px', alignItems: 'center' }}
-                  >
-                    <span style={{ width: '15px', height: '15px', borderRadius: '50%', border: active ? '5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
-                    <span style={{ fontSize: '13.5px', fontWeight: 600, color: '#1B2433' }}>{paymentLabel(p)}</span>
-                  </button>
-                );
-              })}
+              {/* 1. Carte bancaire (Viva Wallet) — en premier */}
               {cardConfigured ? (
                 <>
                   <button
@@ -632,6 +666,39 @@ export default function CheckoutClient() {
               ) : (
                 <div style={{ fontSize: '12px', color: '#9A9A9A', background: '#FAFAF7', border: '1px dashed #E2DECF', borderRadius: '7px', padding: '12px 14px' }}>{t('cardSoon')}</div>
               )}
+
+              {/* 2. PayPal */}
+              {paypalConfigured ? (
+                <>
+                  <button
+                    onClick={() => setPayment(PAYPAL_PAYMENT)}
+                    style={{ textAlign: 'left', cursor: 'pointer', background: payment === PAYPAL_PAYMENT ? 'rgba(140,198,63,0.06)' : '#fff', border: payment === PAYPAL_PAYMENT ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px', display: 'flex', gap: '12px', alignItems: 'center' }}
+                  >
+                    <span style={{ width: '15px', height: '15px', borderRadius: '50%', border: payment === PAYPAL_PAYMENT ? '5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
+                    <span style={{ flex: 1, fontSize: '14px', fontWeight: 700 }}><span style={{ color: '#003087' }}>Pay</span><span style={{ color: '#0070E0' }}>Pal</span></span>
+                  </button>
+                  {payment === PAYPAL_PAYMENT ? (
+                    <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
+                      <div style={{ fontSize: '12px', color: '#6E7585' }}>{t('paypalRedirect')}</div>
+                    </div>
+                  ) : null}
+                </>
+              ) : null}
+
+              {/* 3. Hors-ligne : virement / chèque */}
+              {PAYMENTS.map((p) => {
+                const active = payment === p;
+                return (
+                  <button
+                    key={p}
+                    onClick={() => setPayment(p)}
+                    style={{ textAlign: 'left', cursor: 'pointer', background: active ? 'rgba(140,198,63,0.06)' : '#fff', border: active ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px', display: 'flex', gap: '12px', alignItems: 'center' }}
+                  >
+                    <span style={{ width: '15px', height: '15px', borderRadius: '50%', border: active ? '5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
+                    <span style={{ fontSize: '13.5px', fontWeight: 600, color: '#1B2433' }}>{paymentLabel(p)}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>

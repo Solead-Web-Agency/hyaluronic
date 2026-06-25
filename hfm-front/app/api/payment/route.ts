@@ -2,10 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { bridgeGet } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { createOrder, vivaConfigured, vivaEnv } from '@/lib/viva';
+import { paypalConfigured, paypalEnv } from '@/lib/paypal';
 
-// GET -> état du PSP pour le front (affiche l'option CB si configuré).
+// GET -> état des PSP pour le front (affiche chaque option si configurée).
+// `configured`/`mode` restent l'état Viva (carte bancaire) pour compat ascendante.
 export async function GET() {
-  return NextResponse.json({ configured: vivaConfigured, provider: 'viva', mode: vivaEnv });
+  return NextResponse.json({
+    configured: vivaConfigured,
+    provider: 'viva',
+    mode: vivaEnv,
+    paypal: { configured: paypalConfigured, mode: paypalEnv },
+  });
 }
 
 // POST {id_cart} -> crée une "payment order" Viva et renvoie l'URL Smart Checkout.

@@ -346,7 +346,8 @@
     "placeOrder": "Поръчай {amount} €",
     "selectAddressCarrier": "Изберете адрес и превозвач",
     "secureOrder": "🔒 Сигурна поръчка",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Ще бъдете пренасочени към PayPal за плащане и след това обратно тук."
   },
   "orders": {
     "loginRequired": "Изисква се вход",

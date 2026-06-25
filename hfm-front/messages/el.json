@@ -346,7 +346,8 @@
     "placeOrder": "Παραγγελία {amount} €",
     "selectAddressCarrier": "Επιλέξτε διεύθυνση και μεταφορέα",
     "secureOrder": "🔒 Ασφαλής παραγγελία",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Θα μεταφερθείτε στο PayPal για πληρωμή και στη συνέχεια πίσω εδώ."
   },
   "orders": {
     "loginRequired": "Απαιτείται σύνδεση",

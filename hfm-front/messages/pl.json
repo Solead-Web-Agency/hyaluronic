@@ -346,7 +346,8 @@
     "placeOrder": "Zamów {amount} €",
     "selectAddressCarrier": "Wybierz adres i przewoźnika",
     "secureOrder": "🔒 Bezpieczne zamówienie",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Zostaniesz przekierowany do PayPal, aby zapłacić, a następnie wrócisz tutaj."
   },
   "orders": {
     "loginRequired": "Wymagane logowanie",

@@ -346,7 +346,8 @@
     "placeOrder": "Naroči {amount} €",
     "selectAddressCarrier": "Izberite naslov in prevoznika",
     "secureOrder": "🔒 Varno naročilo",
-    "demoBadge": "DEMO"
+    "demoBadge": "DEMO",
+    "paypalRedirect": "Preusmerjeni boste na PayPal za plačilo in nato nazaj sem."
   },
   "orders": {
     "loginRequired": "Potrebna prijava",
