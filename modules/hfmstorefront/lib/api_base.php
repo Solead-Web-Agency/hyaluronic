@@ -135,7 +135,7 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
     {
         $this->ensureCmsI18nTable();
         $row = Db::getInstance()->getRow(
-            'SELECT title, content FROM `' . $this->cmsI18nTable() . '`
+            'SELECT title, content, date_upd FROM `' . $this->cmsI18nTable() . '`
              WHERE slug = \'' . pSQL($slug) . '\' AND locale = \'' . pSQL($locale) . '\'',
             false
         );

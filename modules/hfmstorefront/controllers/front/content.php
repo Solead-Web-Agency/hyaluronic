@@ -58,6 +58,7 @@ class HfmstorefrontContentModuleFrontController extends HfmStorefrontApiControll
                     'meta_description' => '',
                     'link_rewrite' => $slug,
                     'content' => $this->fixUrls((string) $tr['content']),
+                    'date_upd' => isset($tr['date_upd']) ? $tr['date_upd'] : null,
                     'source' => 'i18n',
                 ]];
             }
