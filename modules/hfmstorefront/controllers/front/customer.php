@@ -220,11 +220,18 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             return ['error' => 'unauthenticated'];
         }
         $rpps = trim((string) $this->in('rpps'));
-        if ($rpps !== '' && !$this->isValidRpps($rpps)) {
-            return ['error' => 'invalid_rpps'];
+        if ($rpps !== '') {
+            if (!$this->isValidRpps($rpps)) {
+                return ['error' => 'invalid_rpps'];
+            }
+            // RPPS 11 chiffres : doit exister au registre officiel (table locale).
+            if (preg_match('/^\d{11}$/', $rpps) && !$this->rppsExistsInRegistry($rpps)) {
+                return ['error' => 'rpps_not_found'];
+            }
         }
         $this->setCustomerRpps($idCustomer, $rpps);
-        return ['ok' => true, 'rpps' => $rpps];
+        $info = $rpps !== '' ? $this->rppsRegistryInfo($rpps) : null;
+        return ['ok' => true, 'rpps' => $rpps, 'practitioner' => $info];
     }
 
     protected function customerPayload(Customer $c)

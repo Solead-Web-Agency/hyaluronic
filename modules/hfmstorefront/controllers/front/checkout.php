@@ -142,6 +142,10 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             if (!$this->isValidRpps($rpps)) {
                 return ['error' => 'rpps_required', 'detail' => 'numéro RPPS valide requis pour un produit réservé aux praticiens'];
             }
+            // Existence au registre officiel (table locale) pour un RPPS 11 chiffres.
+            if (preg_match('/^\d{11}$/', $rpps) && !$this->rppsExistsInRegistry($rpps)) {
+                return ['error' => 'rpps_not_found', 'detail' => 'numéro RPPS introuvable au registre des professionnels de santé'];
+            }
         }
         // Idempotence : si une commande existe déjà pour ce panier (ex. retour + webhook), on la renvoie.
         $existingId = (int) Order::getIdByCartId((int) $cart->id);

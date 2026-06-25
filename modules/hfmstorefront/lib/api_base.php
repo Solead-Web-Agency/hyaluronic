@@ -134,10 +134,78 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
         return false;
     }
 
-    /** Numéro RPPS/ADELI valide : 9 à 11 chiffres. */
+    /**
+     * Numéro RPPS/ADELI valide.
+     * - RPPS : 11 chiffres avec clé de Luhn (le 11e chiffre) -> on contrôle la clé.
+     * - ADELI : 9 chiffres (pas de clé de contrôle) -> contrôle de format seul.
+     */
     protected function isValidRpps($rpps)
     {
-        return (bool) preg_match('/^\d{9,11}$/', (string) $rpps);
+        $rpps = preg_replace('/\s+/', '', (string) $rpps);
+        if (preg_match('/^\d{11}$/', $rpps)) {
+            return $this->luhnValid($rpps);
+        }
+        if (preg_match('/^\d{9}$/', $rpps)) {
+            return true; // ADELI : pas de clé, format uniquement
+        }
+        return false;
+    }
+
+    /**
+     * Le numéro RPPS existe-t-il dans le registre officiel importé localement
+     * (table ps_hfm_rpps_registry, ~1,8 M de praticiens, MAJ quotidienne) ?
+     * Fail-open : si la table est absente/vide, on ne bloque pas.
+     */
+    protected function rppsRegistryTableExists()
+    {
+        return (bool) Db::getInstance()->getValue(
+            'SELECT COUNT(*) FROM information_schema.tables
+             WHERE table_schema = DATABASE() AND table_name = \'' . _DB_PREFIX_ . 'hfm_rpps_registry\'',
+            false
+        );
+    }
+
+    protected function rppsExistsInRegistry($rpps)
+    {
+        if (!$this->rppsRegistryTableExists()) {
+            return true; // fail-open si registre non importé
+        }
+        return (bool) Db::getInstance()->getValue(
+            'SELECT 1 FROM `' . _DB_PREFIX_ . 'hfm_rpps_registry` WHERE rpps = \'' . pSQL($rpps) . '\'',
+            false
+        );
+    }
+
+    /** Données du praticien depuis le registre local (nom/prénom/profession), ou null. */
+    protected function rppsRegistryInfo($rpps)
+    {
+        if (!$this->rppsRegistryTableExists()) {
+            return null;
+        }
+        $row = Db::getInstance()->getRow(
+            'SELECT nom, prenom, profession FROM `' . _DB_PREFIX_ . 'hfm_rpps_registry` WHERE rpps = \'' . pSQL($rpps) . '\'',
+            false
+        );
+        return $row ?: null;
+    }
+
+    /** Vérifie une clé de Luhn (dernier chiffre = checksum). */
+    protected function luhnValid($number)
+    {
+        $sum = 0;
+        $alt = false;
+        for ($i = strlen($number) - 1; $i >= 0; $i--) {
+            $n = (int) $number[$i];
+            if ($alt) {
+                $n *= 2;
+                if ($n > 9) {
+                    $n -= 9;
+                }
+            }
+            $sum += $n;
+            $alt = !$alt;
+        }
+        return $sum % 10 === 0;
     }
 
     protected function ensureRppsTable()
