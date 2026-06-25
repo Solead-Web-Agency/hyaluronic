@@ -109,6 +109,49 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
         exit;
     }
 
+    // ---------- Contenu CMS multilingue (pages éditables en BO, 22 langues) ----------
+
+    protected function cmsI18nTable()
+    {
+        return _DB_PREFIX_ . 'hfm_cms_i18n';
+    }
+
+    protected function ensureCmsI18nTable()
+    {
+        Db::getInstance()->execute(
+            'CREATE TABLE IF NOT EXISTS `' . $this->cmsI18nTable() . '` (
+                `slug` VARCHAR(128) NOT NULL,
+                `locale` VARCHAR(8) NOT NULL,
+                `title` VARCHAR(255) DEFAULT NULL,
+                `content` LONGTEXT,
+                `date_upd` DATETIME NOT NULL,
+                PRIMARY KEY (`slug`,`locale`)
+            ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8mb4'
+        );
+    }
+
+    /** Traduction d'une page CMS pour une locale (2 lettres), ou null. */
+    protected function getCmsTranslation($slug, $locale)
+    {
+        $this->ensureCmsI18nTable();
+        $row = Db::getInstance()->getRow(
+            'SELECT title, content FROM `' . $this->cmsI18nTable() . '`
+             WHERE slug = \'' . pSQL($slug) . '\' AND locale = \'' . pSQL($locale) . '\'',
+            false
+        );
+        return ($row && trim((string) $row['content']) !== '') ? $row : null;
+    }
+
+    protected function setCmsTranslation($slug, $locale, $title, $content)
+    {
+        $this->ensureCmsI18nTable();
+        Db::getInstance()->execute(
+            'INSERT INTO `' . $this->cmsI18nTable() . '` (slug, locale, title, content, date_upd)
+             VALUES (\'' . pSQL($slug) . '\', \'' . pSQL($locale) . '\', \'' . pSQL($title) . '\', \'' . pSQL($content, true) . '\', NOW())
+             ON DUPLICATE KEY UPDATE title = VALUES(title), content = VALUES(content), date_upd = NOW()'
+        );
+    }
+
     // ---------- RPPS (produits réservés aux professionnels de santé) ----------
     // Le RPPS reste OPTIONNEL : il n'est requis que pour commander un produit qui le nécessite.
 

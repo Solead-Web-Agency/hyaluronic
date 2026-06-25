@@ -97,6 +97,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'price_excl_tax' => (float) Tools::ps_round($p->getPrice(false), 2),
             'manufacturer' => $p->id_manufacturer ? Manufacturer::getNameById((int) $p->id_manufacturer) : null,
             'quantity' => (int) Product::getQuantity($idProduct),
+            'available' => (int) Product::getQuantity($idProduct) > 0 || (int) $p->out_of_stock === 1,
             'rpps_required' => $this->productRequiresRpps($idProduct),
             'images' => $images,
             'features' => $features,

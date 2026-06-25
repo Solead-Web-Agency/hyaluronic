@@ -569,7 +569,7 @@ class AdminProductGridController extends ModuleAdminController
         $limit = null,
         $id_lang_shop = false
     ) {
-        $this->_filter = str_replace("`available_for_order`", "sa.`available_for_order`", $this->_filter);
+        $this->_filter = str_replace("`available_for_order`", "sa.`available_for_order`", (string)$this->_filter);
         unset($id_lang_shop);
         unset($order_by);
         unset($order_way);
@@ -594,7 +594,8 @@ class AdminProductGridController extends ModuleAdminController
             $item['price_no_format'] = $item['price'];
             $item['price_final_no_format'] = $item['price_final'];
             $item['rate'] = $tax_manager->getTaxCalculator()->getTotalRate();
-            $item['depends_on_stock'] = StockAvailable::dependsOnStock((int)$item['id_product']);
+            // PS9 : la gestion avancée des stocks (ASM) a été retirée, dependsOnStock() n'existe plus -> toujours false.
+            $item['depends_on_stock'] = false;
             $item['tag_product'] = Tag::getProductTags((int)$item['id_product']);
             $item['url_product'] = $this->context->link->getAdminLink(
                 'AdminProducts',
@@ -648,7 +649,7 @@ class AdminProductGridController extends ModuleAdminController
             $item['total_price'] = Product::getPriceStatic((int)$item['id_product'], true, null);
             $id_image = Product::getCover($item['id_product']);
             $path = Image::getImgFolderStatic($id_image['id_image']);
-            $full_patch = '../img/p/' . $path . $id_image['id_image'].'-' . ImageType::getFormatedName('small').'.jpg';
+            $full_patch = '../img/p/' . $path . $id_image['id_image'].'-' . ImageType::getFormattedName('small').'.jpg';
             $item['image_default'] = $full_patch;
             $item['brand'] = $item['id_manufacturer'];
             $item['locale'] = (bool)Db::getInstance()->getValue('SELECT id_product FROM '
@@ -845,10 +846,10 @@ class AdminProductGridController extends ModuleAdminController
             'input_product_name_type_search' => $input_product_name_type_search,
             'manufacturers' => Manufacturer::getManufacturers(false, 0, true),
             'visibility' => $visibility,
-            'search_manufacturers' => explode(',', $this->search_manufacturers),
+            'search_manufacturers' => explode(',', (string)$this->search_manufacturers),
             'tax_rules' => TaxRulesGroup::getTaxRulesGroups($only_active = true),
             'suppliers' => Supplier::getSuppliers(false, 0, false),
-            'search_suppliers' => explode(',', $this->search_suppliers),
+            'search_suppliers' => explode(',', (string)$this->search_suppliers),
             'carriers' => Carrier::getCarriers(
                 $this->context->language->id,
                 false,
@@ -857,7 +858,7 @@ class AdminProductGridController extends ModuleAdminController
                 null,
                 Carrier::ALL_CARRIERS
             ),
-            'search_carriers' => explode(',', $this->search_carriers),
+            'search_carriers' => explode(',', (string)$this->search_carriers),
             'default_lang' => $this->context->language,
             'languages' => Language::getLanguages(),
             'currencySign' => $this->context->currency->sign,
@@ -1379,7 +1380,7 @@ class AdminProductGridController extends ModuleAdminController
 
             $pa['price_no_format'] = $pa['price'];
             $pa['price_final_no_format'] = $pa['price_final'];
-            $pa['depends_on_stock'] = (int)StockAvailable::dependsOnStock($pa['id_product']);
+            $pa['depends_on_stock'] = 0; // PS9 : ASM retirée, dependsOnStock() n'existe plus
         }
 
         $helper_list = new HelperList();
@@ -2866,7 +2867,8 @@ WHERE `id_shop` = ' . $idShop . ' and `id_lang` = ' . $this->context->language->
         if (!count($errors)) {
             $product = new Product($id_product);
             if (Validate::isLoadedObject($product)) {
-                if (Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
+                // PS9 : la gestion avancée des stocks (ASM) est retirée -> ces méthodes n'existent plus. On guard.
+                if (Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT') && method_exists($product, 'setAdvancedStockManagement')) {
                     $product->setAdvancedStockManagement((int)Tools::getValue('advanced_stock_management'));
                     StockAvailable::setProductDependsOnStock(
                         (int)$product->id,

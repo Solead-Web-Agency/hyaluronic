@@ -35,6 +35,10 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
 
         switch ($action) {
             case 'add':
+                // Refus si le produit est en rupture et que la vente hors stock n'est pas autorisée.
+                if (!$this->isProductOrderable($idProduct, $idAttribute)) {
+                    return ['error' => 'out_of_stock'] + $this->cartPayload($cart);
+                }
                 $cart->updateQty(max(1, $qty), $idProduct, $idAttribute, false, 'up');
                 break;
             case 'update': // qty = quantité absolue cible
@@ -122,6 +126,38 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
         return 0;
     }
 
+    /**
+     * Produit commandable ? Aligné sur l'affichage front "available" :
+     * stock > 0, OU le produit autorise explicitement la vente hors stock (out_of_stock = 1).
+     * (On n'utilise PAS le réglage global pour rester cohérent avec le bouton "M'alerter au retour".)
+     */
+    protected function isProductOrderable($idProduct, $idAttribute)
+    {
+        $qty = (int) StockAvailable::getQuantityAvailableByProduct((int) $idProduct, (int) $idAttribute);
+        if ($qty > 0) {
+            return true;
+        }
+        $p = new Product((int) $idProduct);
+        return Validate::isLoadedObject($p) && (int) $p->out_of_stock === 1;
+    }
+
+    /** Lien image (cover) d'un produit du panier. */
+    protected function cartLineImage($p)
+    {
+        $idImage = 0;
+        if (!empty($p['id_image'])) {
+            $idImage = (int) $p['id_image'];
+        } else {
+            $cover = Product::getCover((int) $p['id_product']);
+            $idImage = $cover ? (int) $cover['id_image'] : 0;
+        }
+        if (!$idImage) {
+            return null;
+        }
+        $linkRewrite = !empty($p['link_rewrite']) ? $p['link_rewrite'] : 'produit';
+        return $this->context->link->getImageLink($linkRewrite, $idImage, 'home_default');
+    }
+
     protected function cartPayload(Cart $cart)
     {
         $products = [];
@@ -131,6 +167,8 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
                 'id_product_attribute' => (int) $p['id_product_attribute'],
                 'name' => $p['name'],
                 'reference' => isset($p['reference']) ? $p['reference'] : '',
+                'image' => $this->cartLineImage($p),
+                'link_rewrite' => isset($p['link_rewrite']) ? $p['link_rewrite'] : '',
                 'quantity' => (int) $p['cart_quantity'],
                 'unit_price_excl_tax' => (float) Tools::ps_round($p['price'], 2),
                 'unit_price_incl_tax' => (float) Tools::ps_round($p['price_wt'], 2),

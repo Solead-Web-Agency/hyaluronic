@@ -141,17 +141,164 @@ class Hfmstorefront extends PaymentModule
             . '</div></div>';
     }
 
+    // ---------- Éditeur de pages CMS multilingues (table hfm_cms_i18n) ----------
+
+    /** Pages légales éditables (slug => libellé BO). */
+    protected function cmsPages()
+    {
+        return [
+            'livraison-retours' => 'Livraison & retours',
+            'conditions-generales-de-ventes' => 'Conditions générales de vente',
+            'politique-de-confidentialite' => 'Politique de confidentialité',
+        ];
+    }
+
+    /** Les 22 langues du front (locale => nom FR). */
+    protected function cmsLocales()
+    {
+        return [
+            'fr' => 'Français', 'en' => 'Anglais', 'de' => 'Allemand', 'es' => 'Espagnol',
+            'it' => 'Italien', 'pt' => 'Portugais', 'nl' => 'Néerlandais', 'pl' => 'Polonais',
+            'ja' => 'Japonais', 'zh' => 'Chinois', 'ko' => 'Coréen', 'ar' => 'Arabe',
+            'he' => 'Hébreu', 'sv' => 'Suédois', 'no' => 'Norvégien', 'da' => 'Danois',
+            'fi' => 'Finnois', 'cs' => 'Tchèque', 'el' => 'Grec', 'ro' => 'Roumain',
+            'bg' => 'Bulgare', 'sl' => 'Slovène',
+        ];
+    }
+
+    protected function cmsTable()
+    {
+        return _DB_PREFIX_ . 'hfm_cms_i18n';
+    }
+
+    protected function ensureCmsTable()
+    {
+        Db::getInstance()->execute(
+            'CREATE TABLE IF NOT EXISTS `' . $this->cmsTable() . '` (
+                `slug` VARCHAR(128) NOT NULL, `locale` VARCHAR(8) NOT NULL,
+                `title` VARCHAR(255) DEFAULT NULL, `content` LONGTEXT,
+                `date_upd` DATETIME NOT NULL, PRIMARY KEY (`slug`,`locale`)
+            ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8mb4'
+        );
+    }
+
     /**
-     * Affiche le secret + les URLs d'API dans la config du module (BO).
+     * Config du module (BO) : infos API + éditeur des pages CMS multilingues.
      */
     public function getContent()
     {
+        $this->ensureCmsTable();
+        $db = Db::getInstance();
+        $pages = $this->cmsPages();
+        $locales = $this->cmsLocales();
+        $table = $this->cmsTable();
+        $confirm = '';
+
+        // Sélection courante (POST prioritaire, sinon GET, sinon défauts).
+        $slug = (string) Tools::getValue('hfm_slug', array_key_first($pages));
+        $locale = (string) Tools::getValue('hfm_locale', 'fr');
+        if (!isset($pages[$slug])) {
+            $slug = array_key_first($pages);
+        }
+        if (!isset($locales[$locale])) {
+            $locale = 'fr';
+        }
+
+        // Enregistrement.
+        if (Tools::isSubmit('submitHfmCms')) {
+            $title = trim((string) Tools::getValue('hfm_title'));
+            // Contenu HTML : on récupère la valeur brute sans nettoyage HTML.
+            $content = (string) Tools::getValue('hfm_content');
+            $db->execute(
+                'INSERT INTO `' . $table . '` (slug, locale, title, content, date_upd)
+                 VALUES (\'' . pSQL($slug) . '\', \'' . pSQL($locale) . '\', \'' . pSQL($title) . '\', \'' . pSQL($content, true) . '\', NOW())
+                 ON DUPLICATE KEY UPDATE title = VALUES(title), content = VALUES(content), date_upd = NOW()'
+            );
+            $confirm = $this->displayConfirmation(
+                'Page « ' . htmlspecialchars($pages[$slug]) . ' » (' . htmlspecialchars($locales[$locale]) . ') enregistrée.'
+            );
+        }
+
+        // Valeurs courantes pour le formulaire.
+        $row = $db->getRow(
+            'SELECT title, content FROM `' . $table . '` WHERE slug = \'' . pSQL($slug) . '\' AND locale = \'' . pSQL($locale) . '\'',
+            false
+        );
+        $curTitle = $row ? (string) $row['title'] : '';
+        $curContent = $row ? (string) $row['content'] : '';
+
+        // Couverture par page (nb de langues remplies) pour info.
+        $coverage = [];
+        foreach (array_keys($pages) as $s) {
+            $coverage[$s] = (int) $db->getValue(
+                'SELECT COUNT(*) FROM `' . $table . '` WHERE slug = \'' . pSQL($s) . '\' AND TRIM(content) <> \'\'',
+                false
+            );
+        }
+
+        $token = Tools::getAdminTokenLite('AdminModules');
+        $action = 'index.php?controller=AdminModules&configure=' . $this->name . '&token=' . $token;
+        $total = count($locales);
+
+        // URL d'aperçu front (origine CORS).
+        $cors = array_filter(array_map('trim', explode(',', (string) Configuration::get('HFMSTOREFRONT_CORS'))));
+        $frontBase = $cors ? rtrim(reset($cors), '/') : '';
+        $previewUrl = $frontBase ? $frontBase . '/' . $locale . '/content/' . $slug : '';
+
+        $out = $confirm;
+
+        // --- Éditeur CMS ---
+        $out .= '<div class="panel">';
+        $out .= '<h3><i class="icon icon-file-text"></i> Pages CMS multilingues (front headless)</h3>';
+        $out .= '<p class="text-muted">Édite le titre et le contenu HTML des pages légales du front, dans chacune des ' . $total . ' langues. '
+              . 'Les modifications sont visibles immédiatement sur le front.</p>';
+
+        // Sélecteurs (auto-submit pour charger la page/langue).
+        $out .= '<form method="post" action="' . $action . '" id="hfm-cms-select" class="form-horizontal" style="margin-bottom:14px;">';
+        $out .= '<div class="row"><div class="col-lg-5">';
+        $out .= '<label>Page</label><select name="hfm_slug" class="form-control" onchange="document.getElementById(\'hfm-cms-select\').submit();">';
+        foreach ($pages as $s => $label) {
+            $out .= '<option value="' . htmlspecialchars($s) . '"' . ($s === $slug ? ' selected' : '') . '>'
+                  . htmlspecialchars($label) . ' (' . $coverage[$s] . '/' . $total . ' langues)</option>';
+        }
+        $out .= '</select></div>';
+        $out .= '<div class="col-lg-4">';
+        $out .= '<label>Langue</label><select name="hfm_locale" class="form-control" onchange="document.getElementById(\'hfm-cms-select\').submit();">';
+        foreach ($locales as $lc => $name) {
+            $filled = (bool) $db->getValue('SELECT COUNT(*) FROM `' . $table . '` WHERE slug = \'' . pSQL($slug) . '\' AND locale = \'' . pSQL($lc) . '\' AND TRIM(content) <> \'\'', false);
+            $out .= '<option value="' . htmlspecialchars($lc) . '"' . ($lc === $locale ? ' selected' : '') . '>'
+                  . htmlspecialchars($name) . ' (' . htmlspecialchars($lc) . ')' . ($filled ? '' : ' — vide') . '</option>';
+        }
+        $out .= '</select></div></div></form>';
+
+        // Formulaire d'édition.
+        $out .= '<form method="post" action="' . $action . '" class="form-horizontal">';
+        $out .= '<input type="hidden" name="hfm_slug" value="' . htmlspecialchars($slug) . '"/>';
+        $out .= '<input type="hidden" name="hfm_locale" value="' . htmlspecialchars($locale) . '"/>';
+        $out .= '<div class="form-group"><label class="control-label col-lg-2">Titre</label><div class="col-lg-10">';
+        $out .= '<input type="text" name="hfm_title" class="form-control" value="' . htmlspecialchars($curTitle, ENT_QUOTES, 'UTF-8') . '"/>';
+        $out .= '</div></div>';
+        $out .= '<div class="form-group"><label class="control-label col-lg-2">Contenu (HTML)</label><div class="col-lg-10">';
+        $out .= '<textarea name="hfm_content" rows="22" class="form-control" style="font-family:Menlo,Consolas,monospace;font-size:12.5px;line-height:1.5;">'
+              . htmlspecialchars($curContent, ENT_QUOTES, 'UTF-8') . '</textarea>';
+        $out .= '<p class="help-block">HTML autorisé (titres, paragraphes, listes, liens). Les chemins relatifs d\'images/liens sont automatiquement préfixés vers la boutique.</p>';
+        $out .= '</div></div>';
+        $out .= '<div class="panel-footer">';
+        $out .= '<button type="submit" name="submitHfmCms" class="btn btn-default pull-right"><i class="process-icon-save"></i> Enregistrer</button>';
+        if ($previewUrl) {
+            $out .= '<a href="' . htmlspecialchars($previewUrl) . '" target="_blank" class="btn btn-default"><i class="icon icon-external-link"></i> Aperçu front</a>';
+        }
+        $out .= '</div>';
+        $out .= '</form>';
+        $out .= '</div>';
+
+        // --- Infos API (existant) ---
         $secret = Configuration::get('HFMSTOREFRONT_SECRET');
         $base = $this->context->link->getModuleLink($this->name, 'cart');
-        $out = '<div class="panel"><h3>HFM Storefront API</h3>';
+        $out .= '<div class="panel"><h3>HFM Storefront API</h3>';
         $out .= '<p><strong>Secret (en-tête <code>X-Storefront-Token</code>) :</strong> <code>' . htmlspecialchars($secret) . '</code></p>';
         $out .= '<p><strong>Endpoint panier :</strong> <code>' . htmlspecialchars($base) . '</code></p>';
-        $out .= '<p>Autres endpoints : <code>customer</code>, <code>checkout</code>, <code>products</code>, <code>taxonomy</code>, <code>orders</code>, <code>wishlist</code> (même base, remplacer le contrôleur).</p>';
+        $out .= '<p>Autres endpoints : <code>customer</code>, <code>checkout</code>, <code>products</code>, <code>taxonomy</code>, <code>orders</code>, <code>wishlist</code>, <code>content</code> (même base, remplacer le contrôleur).</p>';
         $out .= '<p>CORS autorisé : <code>' . htmlspecialchars(Configuration::get('HFMSTOREFRONT_CORS')) . '</code></p>';
         $out .= '<p>Passerelle de paiement headless : les commandes sont validées via ce module.</p>';
         $out .= '</div>';
