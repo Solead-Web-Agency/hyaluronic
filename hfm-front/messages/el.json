@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Επιλέξτε διεύθυνση και μεταφορέα",
     "secureOrder": "🔒 Ασφαλής παραγγελία",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Θα μεταφερθείτε στο PayPal για πληρωμή και στη συνέχεια πίσω εδώ."
+    "paypalRedirect": "Θα μεταφερθείτε στο PayPal για πληρωμή και στη συνέχεια πίσω εδώ.",
+    "rppsModeNumber": "Έχω αριθμό RPPS / ADELI",
+    "rppsModePro": "Είμαι επαγγελματίας υγείας",
+    "attestationText": "Δηλώνω υπεύθυνα ότι είμαι επαγγελματίας υγείας εξουσιοδοτημένος να αγοράζω αυτά τα προϊόντα.",
+    "attestationDoc": "Επαγγελματικό δικαιολογητικό (προαιρετικό)",
+    "attestationEmailNote": "Μπορείτε επίσης να το στείλετε με email στο",
+    "attestationRequired": "Επιλέξτε τη δήλωση για να συνεχίσετε.",
+    "rppsAlreadyValidated": "Η επαγγελματική σας ιδιότητα έχει ήδη επαληθευτεί.",
+    "rppsModify": "Επεξεργασία"
   },
   "orders": {
     "loginRequired": "Απαιτείται σύνδεση",

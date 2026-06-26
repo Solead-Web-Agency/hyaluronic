@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Izberite naslov in prevoznika",
     "secureOrder": "🔒 Varno naročilo",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Preusmerjeni boste na PayPal za plačilo in nato nazaj sem."
+    "paypalRedirect": "Preusmerjeni boste na PayPal za plačilo in nato nazaj sem.",
+    "rppsModeNumber": "Imam številko RPPS / ADELI",
+    "rppsModePro": "Sem zdravstveni delavec",
+    "attestationText": "Pod častno besedo izjavljam, da sem zdravstveni delavec, pooblaščen za nakup teh izdelkov.",
+    "attestationDoc": "Strokovno dokazilo (neobvezno)",
+    "attestationEmailNote": "Pošljete ga lahko tudi po e-pošti na",
+    "attestationRequired": "Označite izjavo za nadaljevanje.",
+    "rppsAlreadyValidated": "Vaš strokovni status je že potrjen.",
+    "rppsModify": "Uredi"
   },
   "orders": {
     "loginRequired": "Potrebna prijava",

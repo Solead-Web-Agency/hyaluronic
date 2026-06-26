@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Selectează o adresă și un curier",
     "secureOrder": "🔒 Comandă securizată",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Veți fi redirecționat către PayPal pentru a plăti, apoi înapoi aici."
+    "paypalRedirect": "Veți fi redirecționat către PayPal pentru a plăti, apoi înapoi aici.",
+    "rppsModeNumber": "Am un număr RPPS / ADELI",
+    "rppsModePro": "Sunt profesionist din domeniul sănătății",
+    "attestationText": "Declar pe propria răspundere că sunt un profesionist din domeniul sănătății autorizat să achiziționez aceste produse.",
+    "attestationDoc": "Document profesional (opțional)",
+    "attestationEmailNote": "Îl puteți trimite și prin e-mail la",
+    "attestationRequired": "Bifați declarația pentru a continua.",
+    "rppsAlreadyValidated": "Statutul dvs. profesional a fost deja validat.",
+    "rppsModify": "Modifică"
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Valitse osoite ja kuljetusliike",
     "secureOrder": "🔒 Turvallinen tilaus",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Sinut ohjataan PayPaliin maksamaan ja tuodaan sitten takaisin tänne."
+    "paypalRedirect": "Sinut ohjataan PayPaliin maksamaan ja tuodaan sitten takaisin tänne.",
+    "rppsModeNumber": "Minulla on RPPS-/ADELI-numero",
+    "rppsModePro": "Olen terveydenhuollon ammattilainen",
+    "attestationText": "Vakuutan kunniani kautta olevani terveydenhuollon ammattilainen, jolla on oikeus ostaa näitä tuotteita.",
+    "attestationDoc": "Ammattitodistus (valinnainen)",
+    "attestationEmailNote": "Voit myös lähettää sen sähköpostitse osoitteeseen",
+    "attestationRequired": "Valitse vakuutus jatkaaksesi.",
+    "rppsAlreadyValidated": "Ammatillinen asemasi on jo vahvistettu.",
+    "rppsModify": "Muokkaa"
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

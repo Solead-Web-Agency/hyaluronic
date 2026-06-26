@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Wählen Sie eine Adresse und einen Versanddienstleister",
     "secureOrder": "🔒 Sichere Bestellung",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Sie werden zur Zahlung zu PayPal weitergeleitet und dann hierher zurückgebracht."
+    "paypalRedirect": "Sie werden zur Zahlung zu PayPal weitergeleitet und dann hierher zurückgebracht.",
+    "rppsModeNumber": "Ich habe eine RPPS-/ADELI-Nummer",
+    "rppsModePro": "Ich bin medizinische Fachkraft",
+    "attestationText": "Ich versichere ehrenwörtlich, eine zum Kauf dieser Produkte berechtigte medizinische Fachkraft zu sein.",
+    "attestationDoc": "Berufsnachweis (optional)",
+    "attestationEmailNote": "Sie können ihn auch per E-Mail senden an",
+    "attestationRequired": "Bitte bestätigen Sie die Erklärung, um fortzufahren.",
+    "rppsAlreadyValidated": "Ihr Berufsstatus wurde bereits bestätigt.",
+    "rppsModify": "Ändern"
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",

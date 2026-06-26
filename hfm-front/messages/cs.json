@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Vyberte adresu a dopravce",
     "secureOrder": "🔒 Zabezpečená objednávka",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Budete přesměrováni na PayPal k zaplacení a poté zpět sem."
+    "paypalRedirect": "Budete přesměrováni na PayPal k zaplacení a poté zpět sem.",
+    "rppsModeNumber": "Mám číslo RPPS / ADELI",
+    "rppsModePro": "Jsem zdravotnický pracovník",
+    "attestationText": "Čestně prohlašuji, že jsem zdravotnický pracovník oprávněný nakupovat tyto produkty.",
+    "attestationDoc": "Profesní doklad (volitelné)",
+    "attestationEmailNote": "Můžete jej také zaslat e-mailem na",
+    "attestationRequired": "Zaškrtněte prohlášení pro pokračování.",
+    "rppsAlreadyValidated": "Váš profesní status již byl ověřen.",
+    "rppsModify": "Upravit"
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",

@@ -28,6 +28,8 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
                 return $this->updateProfile();
             case 'set-rpps':
                 return $this->setRpps();
+            case 'set-pro-attestation':
+                return $this->setProAttestation();
             default:
                 return ['error' => 'unknown_action'];
         }
@@ -230,8 +232,67 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         return ['ok' => true, 'rpps' => $rpps, 'practitioner' => $info, 'registry_match' => (bool) $info];
     }
 
+    /**
+     * Attestation "professionnel de santé" : alternative au numéro RPPS au checkout.
+     * { attestation:1, doc_name?, doc_data? (base64, justificatif optionnel) }
+     */
+    protected function setProAttestation()
+    {
+        $idCustomer = (int) $this->in('id_customer');
+        if (!$idCustomer) {
+            return ['error' => 'unauthenticated'];
+        }
+        if ((int) $this->in('attestation') !== 1) {
+            return ['error' => 'attestation_required'];
+        }
+        $docFile = null;
+        $data = (string) $this->in('doc_data');
+        if ($data !== '') {
+            $saved = $this->saveProDoc($idCustomer, (string) $this->in('doc_name'), $data);
+            if (isset($saved['error'])) {
+                return $saved;
+            }
+            $docFile = $saved['file'];
+        }
+        $this->setCustomerProAttestation($idCustomer, true, $docFile);
+        return ['ok' => true, 'attestation' => 1, 'doc' => $docFile];
+    }
+
+    /** Enregistre un justificatif (base64) dans modules/hfmstorefront/pro_docs/ (nom aléatoire non listable). */
+    protected function saveProDoc($idCustomer, $name, $base64)
+    {
+        $b64 = preg_replace('#^data:[^;]+;base64,#', '', $base64);
+        $bin = base64_decode($b64, true);
+        if ($bin === false || $bin === '') {
+            return ['error' => 'invalid_doc'];
+        }
+        if (strlen($bin) > 6 * 1024 * 1024) {
+            return ['error' => 'doc_too_large'];
+        }
+        $ext = strtolower(pathinfo((string) $name, PATHINFO_EXTENSION));
+        if (!in_array($ext, ['pdf', 'jpg', 'jpeg', 'png', 'webp', 'heic'], true)) {
+            $ext = 'pdf';
+        }
+        $dir = _PS_MODULE_DIR_ . 'hfmstorefront/pro_docs/';
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0755, true);
+        }
+        // Empêche le listing du dossier (le nom de fichier reste aléatoire et non devinable).
+        if (!file_exists($dir . 'index.php')) {
+            @file_put_contents($dir . 'index.php', "<?php header('HTTP/1.1 403 Forbidden'); exit;");
+        }
+        $file = 'pro-' . (int) $idCustomer . '-' . Tools::passwdGen(24) . '.' . $ext;
+        if (@file_put_contents($dir . $file, $bin) === false) {
+            return ['error' => 'doc_save_failed'];
+        }
+        return ['file' => $file];
+    }
+
     protected function customerPayload(Customer $c)
     {
+        // RPPS/attestation effectifs : compte d'abord, sinon mémorisation par email.
+        $pro = $this->resolveProData((int) $c->id, $c->email);
+        $validated = $this->isValidRpps($pro['rpps']) || (int) $pro['attestation'] === 1;
         return [
             'id_customer' => (int) $c->id,
             'email' => $c->email,
@@ -239,7 +300,9 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             'lastname' => $c->lastname,
             'id_lang' => (int) $c->id_lang,
             'groups' => array_map('intval', $c->getGroups()),
-            'rpps' => $this->getCustomerRpps((int) $c->id),
+            'rpps' => $pro['rpps'],
+            'pro_attestation' => (int) $pro['attestation'],
+            'rpps_validated' => $validated,
         ];
     }
 

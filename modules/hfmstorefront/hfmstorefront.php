@@ -90,54 +90,93 @@ class Hfmstorefront extends PaymentModule
             return '';
         }
         $db = Db::getInstance();
-        // Le RPPS vit sur le CLIENT (table hfm_customer_rpps) -> conditionnel.
-        $hasCustTable = (bool) $db->getValue(
-            "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_customer_rpps'",
-            false
-        );
-        if (!$hasCustTable) {
-            return '';
-        }
-        $rpps = (string) $db->getValue(
-            'SELECT rpps FROM `' . _DB_PREFIX_ . 'hfm_customer_rpps` WHERE id_customer = ' . (int) $order->id_customer,
-            false
-        );
-        if ($rpps === '') {
-            return '';
-        }
+        $rpps = '';
+        $attestation = 0;
+        $proDoc = '';
 
-        // Rapprochement au registre local (si importé).
-        $found = false;
-        $praticien = '';
-        $hasReg = (bool) $db->getValue(
-            "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_rpps_registry'",
+        // 1) Données "pro" rattachées à la COMMANDE (cas commande invité).
+        $hasOrderTable = (bool) $db->getValue(
+            "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_order_pro_doc'",
             false
         );
-        if ($hasReg) {
-            $row = $db->getRow('SELECT nom, prenom, profession FROM `' . _DB_PREFIX_ . 'hfm_rpps_registry` WHERE rpps = \'' . pSQL($rpps) . '\'', false);
-            if ($row) {
-                $found = true;
-                $praticien = trim($row['prenom'] . ' ' . $row['nom'] . ($row['profession'] ? ' — ' . $row['profession'] : ''));
+        if ($hasOrderTable) {
+            $orow = $db->getRow('SELECT rpps, attestation, pro_doc FROM `' . _DB_PREFIX_ . 'hfm_order_pro_doc` WHERE id_order = ' . (int) $idOrder, false);
+            if ($orow) {
+                $rpps = (string) $orow['rpps'];
+                $attestation = (int) $orow['attestation'];
+                $proDoc = $orow['pro_doc'] ? (string) $orow['pro_doc'] : '';
             }
         }
 
-        $rppsHtml = htmlspecialchars($rpps, ENT_QUOTES, 'UTF-8');
-        if ($found) {
-            $badge = '<span style="display:inline-flex;align-items:center;gap:6px;background:#e6f4ea;color:#1e7e34;border:1px solid #b7dfc3;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">&#10003; Vérifié au registre ANS</span>';
-            $detail = '<div style="font-size:12px;color:#5a6a52;margin-top:6px;">Praticien : <strong>' . htmlspecialchars($praticien, ENT_QUOTES, 'UTF-8') . '</strong></div>';
-            $accent = '#1e7e34';
-        } else {
-            $badge = '<span style="display:inline-flex;align-items:center;gap:6px;background:#fff4e5;color:#9a6700;border:1px solid #ffd8a8;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">&#9888; À confirmer manuellement</span>';
-            $detail = '<div style="font-size:12px;color:#9a6700;margin-top:6px;">Non rapproché au registre ANS — à vérifier.</div>';
-            $accent = '#9a6700';
+        // 2) Sinon, données sur le CLIENT (cas client connecté, réutilisable).
+        if ($rpps === '' && !$attestation && $proDoc === '') {
+            $hasCustTable = (bool) $db->getValue(
+                "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_customer_rpps'",
+                false
+            );
+            if ($hasCustTable) {
+                $crow = $db->getRow('SELECT rpps, attestation, pro_doc FROM `' . _DB_PREFIX_ . 'hfm_customer_rpps` WHERE id_customer = ' . (int) $order->id_customer, false);
+                if ($crow) {
+                    $rpps = (string) $crow['rpps'];
+                    $attestation = (int) $crow['attestation'];
+                    $proDoc = $crow['pro_doc'] ? (string) $crow['pro_doc'] : '';
+                }
+            }
         }
 
-        return '<div class="card mb-2" style="border-left:4px solid ' . $accent . ';">'
+        if ($rpps === '' && !$attestation) {
+            return '';
+        }
+
+        // Cas 1 : numéro RPPS fourni -> rapprochement au registre local (si importé).
+        if ($rpps !== '') {
+            $found = false;
+            $praticien = '';
+            $hasReg = (bool) $db->getValue(
+                "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_rpps_registry'",
+                false
+            );
+            if ($hasReg) {
+                $row = $db->getRow('SELECT nom, prenom, profession FROM `' . _DB_PREFIX_ . 'hfm_rpps_registry` WHERE rpps = \'' . pSQL($rpps) . '\'', false);
+                if ($row) {
+                    $found = true;
+                    $praticien = trim($row['prenom'] . ' ' . $row['nom'] . ($row['profession'] ? ' — ' . $row['profession'] : ''));
+                }
+            }
+
+            $rppsHtml = htmlspecialchars($rpps, ENT_QUOTES, 'UTF-8');
+            if ($found) {
+                $badge = '<span style="display:inline-flex;align-items:center;gap:6px;background:#e6f4ea;color:#1e7e34;border:1px solid #b7dfc3;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">&#10003; Vérifié au registre ANS</span>';
+                $detail = '<div style="font-size:12px;color:#5a6a52;margin-top:6px;">Praticien : <strong>' . htmlspecialchars($praticien, ENT_QUOTES, 'UTF-8') . '</strong></div>';
+                $accent = '#1e7e34';
+            } else {
+                $badge = '<span style="display:inline-flex;align-items:center;gap:6px;background:#fff4e5;color:#9a6700;border:1px solid #ffd8a8;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">&#9888; À confirmer manuellement</span>';
+                $detail = '<div style="font-size:12px;color:#9a6700;margin-top:6px;">Non rapproché au registre ANS — à vérifier.</div>';
+                $accent = '#9a6700';
+            }
+
+            return '<div class="card mb-2" style="border-left:4px solid ' . $accent . ';">'
+                . '<div class="card-body" style="padding:14px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">'
+                . '<div style="font-size:12px;font-weight:700;letter-spacing:.04em;color:#6b7280;text-transform:uppercase;">Numéro RPPS praticien</div>'
+                . '<div style="font-size:18px;font-weight:700;color:#1f2937;letter-spacing:.02em;">' . $rppsHtml . '</div>'
+                . $badge
+                . '<div style="flex-basis:100%;">' . $detail . '</div>'
+                . '</div></div>';
+        }
+
+        // Cas 2 : pas de numéro RPPS, mais attestation "professionnel de santé".
+        if ($proDoc !== '') {
+            $url = rtrim(Tools::getShopDomainSsl(true) . __PS_BASE_URI__, '/') . '/modules/hfmstorefront/pro_docs/' . rawurlencode($proDoc);
+            $docHtml = '<div style="font-size:12px;color:#5a6a52;margin-top:6px;">Justificatif fourni : <a href="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '" target="_blank"><strong>télécharger</strong></a> — à vérifier.</div>';
+        } else {
+            $docHtml = '<div style="font-size:12px;color:#9a6700;margin-top:6px;">Aucun justificatif joint — à recevoir par email / à vérifier.</div>';
+        }
+
+        return '<div class="card mb-2" style="border-left:4px solid #1e7e34;">'
             . '<div class="card-body" style="padding:14px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">'
-            . '<div style="font-size:12px;font-weight:700;letter-spacing:.04em;color:#6b7280;text-transform:uppercase;">Numéro RPPS praticien</div>'
-            . '<div style="font-size:18px;font-weight:700;color:#1f2937;letter-spacing:.02em;">' . $rppsHtml . '</div>'
-            . $badge
-            . '<div style="flex-basis:100%;">' . $detail . '</div>'
+            . '<div style="font-size:12px;font-weight:700;letter-spacing:.04em;color:#6b7280;text-transform:uppercase;">Professionnel de santé</div>'
+            . '<span style="display:inline-flex;align-items:center;gap:6px;background:#e6f4ea;color:#1e7e34;border:1px solid #b7dfc3;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">&#10003; Attestation sur l\'honneur</span>'
+            . '<div style="flex-basis:100%;">' . $docHtml . '</div>'
             . '</div></div>';
     }
 

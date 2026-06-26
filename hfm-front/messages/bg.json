@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Изберете адрес и превозвач",
     "secureOrder": "🔒 Сигурна поръчка",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Ще бъдете пренасочени към PayPal за плащане и след това обратно тук."
+    "paypalRedirect": "Ще бъдете пренасочени към PayPal за плащане и след това обратно тук.",
+    "rppsModeNumber": "Имам номер RPPS / ADELI",
+    "rppsModePro": "Аз съм медицински специалист",
+    "attestationText": "Декларирам на своя отговорност, че съм медицински специалист с право да закупувам тези продукти.",
+    "attestationDoc": "Професионален документ (по избор)",
+    "attestationEmailNote": "Можете да го изпратите и по имейл на",
+    "attestationRequired": "Моля, отметнете декларацията, за да продължите.",
+    "rppsAlreadyValidated": "Вашият професионален статус вече е потвърден.",
+    "rppsModify": "Промяна"
   },
   "orders": {
     "loginRequired": "Изисква се вход",

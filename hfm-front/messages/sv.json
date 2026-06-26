@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Välj en adress och en transportör",
     "secureOrder": "🔒 Säker beställning",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Du omdirigeras till PayPal för att betala och tas sedan tillbaka hit."
+    "paypalRedirect": "Du omdirigeras till PayPal för att betala och tas sedan tillbaka hit.",
+    "rppsModeNumber": "Jag har ett RPPS-/ADELI-nummer",
+    "rppsModePro": "Jag är vårdpersonal",
+    "attestationText": "Jag intygar på heder och samvete att jag är vårdpersonal med behörighet att köpa dessa produkter.",
+    "attestationDoc": "Yrkesintyg (valfritt)",
+    "attestationEmailNote": "Du kan också skicka det via e-post till",
+    "attestationRequired": "Markera intyget för att fortsätta.",
+    "rppsAlreadyValidated": "Din yrkesstatus har redan verifierats.",
+    "rppsModify": "Ändra"
   },
   "orders": {
     "loginRequired": "Inloggning krävs",

@@ -374,7 +374,15 @@
     "rppsNotFound": "This RPPS number was not found in the health professionals registry.",
     "rppsChecking": "Checking RPPS number…",
     "rppsWillBeVerified": "Number saved — its validity will be confirmed by our team.",
-    "paypalRedirect": "You will be redirected to PayPal to pay, then brought back here."
+    "paypalRedirect": "You will be redirected to PayPal to pay, then brought back here.",
+    "rppsModeNumber": "I have an RPPS / ADELI number",
+    "rppsModePro": "I am a healthcare professional",
+    "attestationText": "I certify on my honour that I am a healthcare professional authorised to purchase these products.",
+    "attestationDoc": "Professional proof (optional)",
+    "attestationEmailNote": "You can also send it by email to",
+    "attestationRequired": "Please tick the attestation to continue.",
+    "rppsAlreadyValidated": "Your professional status has already been verified.",
+    "rppsModify": "Edit"
   },
   "orders": {
     "loginRequired": "Login required",

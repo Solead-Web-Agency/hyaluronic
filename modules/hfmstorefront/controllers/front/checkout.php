@@ -135,14 +135,21 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         // en back-office via une annotation sur la commande (cf. plus bas). Pas de blocage registre.
         $orderRpps = '';
         if ($this->cartRequiresRpps($cart)) {
+            $idCust = (int) $cart->id_customer;
             $orderRpps = trim((string) $this->in('rpps'));
             if ($orderRpps !== '' && $this->isValidRpps($orderRpps)) {
-                $this->setCustomerRpps((int) $cart->id_customer, $orderRpps);
+                $this->setCustomerRpps($idCust, $orderRpps);
             } else {
-                $orderRpps = $this->getCustomerRpps((int) $cart->id_customer);
+                $orderRpps = $this->getCustomerRpps($idCust);
             }
-            if (!$this->isValidRpps($orderRpps)) {
-                return ['error' => 'rpps_required', 'detail' => 'numéro RPPS requis (9 à 13 chiffres) pour un produit réservé aux praticiens'];
+            // Alternative au numéro : attestation "professionnel de santé" (réduit la friction).
+            if ((int) $this->in('pro_attestation') === 1) {
+                $this->setCustomerProAttestation($idCust, 1);
+            }
+            // Exigence satisfaite par un RPPS valide OU une attestation pro (la validité réelle
+            // est confirmée en back-office via la bannière/annotation de commande).
+            if (!$this->proRequirementMet($idCust)) {
+                return ['error' => 'rpps_required', 'detail' => 'numéro RPPS (9 à 13 chiffres) ou attestation professionnelle requis'];
             }
         }
         // Idempotence : si une commande existe déjà pour ce panier (ex. retour + webhook), on la renvoie.
@@ -198,8 +205,18 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             }
         }
 
-        // (Le RPPS est déjà enregistré sur le CLIENT — cf. setCustomerRpps plus haut.
-        //  Le back-office l'affiche conditionnellement depuis le client, sans toucher la commande.)
+        // Rattachement "pro" (RPPS / attestation / justificatif) :
+        //  - CLIENT CONNECTÉ : reste sur son compte (réutilisable d'une commande à l'autre) ;
+        //  - INVITÉ (compte éphémère) : on DÉPLACE les données sur la COMMANDE.
+        if ($customer->is_guest) {
+            // Résolution compte + mémorisation par email (l'invité a pu valider lors d'une commande précédente).
+            $d = $this->resolveProData((int) $customer->id, $customer->email);
+            if ($d['attestation'] || $d['pro_doc'] !== '' || $d['rpps'] !== '') {
+                $this->setOrderProDoc($idOrder, $d['rpps'], (int) $d['attestation'], $d['pro_doc']);
+                $this->deleteCustomerProRow((int) $customer->id);
+                // (La mémorisation PAR EMAIL est conservée : prochaine commande même email = sans friction.)
+            }
+        }
 
         return [
             'ok' => true,

@@ -347,7 +347,15 @@
     "selectAddressCarrier": "בחרו כתובת וחברת שילוח",
     "secureOrder": "🔒 הזמנה מאובטחת",
     "demoBadge": "הדגמה",
-    "paypalRedirect": "תועברו ל-PayPal לתשלום ולאחר מכן תוחזרו לכאן."
+    "paypalRedirect": "תועברו ל-PayPal לתשלום ולאחר מכן תוחזרו לכאן.",
+    "rppsModeNumber": "יש לי מספר RPPS / ADELI",
+    "rppsModePro": "אני איש מקצוע בתחום הבריאות",
+    "attestationText": "אני מצהיר בהן צדקי שאני איש מקצוע בתחום הבריאות המורשה לרכוש מוצרים אלה.",
+    "attestationDoc": "אסמכתא מקצועית (לא חובה)",
+    "attestationEmailNote": "ניתן גם לשלוח באימייל אל",
+    "attestationRequired": "יש לסמן את ההצהרה כדי להמשיך.",
+    "rppsAlreadyValidated": "המעמד המקצועי שלך כבר אומת.",
+    "rppsModify": "עריכה"
   },
   "orders": {
     "loginRequired": "נדרשת התחברות",

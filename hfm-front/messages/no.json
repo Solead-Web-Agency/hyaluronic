@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Velg en adresse og en transportør",
     "secureOrder": "🔒 Sikker bestilling",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Du blir videresendt til PayPal for å betale, og deretter tilbake hit."
+    "paypalRedirect": "Du blir videresendt til PayPal for å betale, og deretter tilbake hit.",
+    "rppsModeNumber": "Jeg har et RPPS-/ADELI-nummer",
+    "rppsModePro": "Jeg er helsepersonell",
+    "attestationText": "Jeg erklærer på ære og samvittighet at jeg er helsepersonell med tillatelse til å kjøpe disse produktene.",
+    "attestationDoc": "Yrkesbevis (valgfritt)",
+    "attestationEmailNote": "Du kan også sende det på e-post til",
+    "attestationRequired": "Kryss av for erklæringen for å fortsette.",
+    "rppsAlreadyValidated": "Din yrkesstatus er allerede bekreftet.",
+    "rppsModify": "Endre"
   },
   "orders": {
     "loginRequired": "Innlogging kreves",

@@ -347,7 +347,15 @@
     "selectAddressCarrier": "اختر عنوانًا وشركة شحن",
     "secureOrder": "🔒 طلب آمن",
     "demoBadge": "تجريبي",
-    "paypalRedirect": "ستتم إعادة توجيهك إلى PayPal للدفع ثم العودة إلى هنا."
+    "paypalRedirect": "ستتم إعادة توجيهك إلى PayPal للدفع ثم العودة إلى هنا.",
+    "rppsModeNumber": "لدي رقم RPPS / ADELI",
+    "rppsModePro": "أنا أخصائي رعاية صحية",
+    "attestationText": "أُقرّ بشرفي بأنني أخصائي رعاية صحية مخوّل بشراء هذه المنتجات.",
+    "attestationDoc": "إثبات مهني (اختياري)",
+    "attestationEmailNote": "يمكنك أيضًا إرساله عبر البريد الإلكتروني إلى",
+    "attestationRequired": "يرجى تحديد الإقرار للمتابعة.",
+    "rppsAlreadyValidated": "تم التحقق من صفتك المهنية بالفعل.",
+    "rppsModify": "تعديل"
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",

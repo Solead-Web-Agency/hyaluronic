@@ -347,7 +347,15 @@
     "selectAddressCarrier": "请选择地址和承运商",
     "secureOrder": "🔒 安全下单",
     "demoBadge": "演示",
-    "paypalRedirect": "您将被重定向到 PayPal 进行付款，然后返回此页面。"
+    "paypalRedirect": "您将被重定向到 PayPal 进行付款，然后返回此页面。",
+    "rppsModeNumber": "我有 RPPS / ADELI 编号",
+    "rppsModePro": "我是医疗专业人员",
+    "attestationText": "我以名誉保证我是有资格购买这些产品的医疗专业人员。",
+    "attestationDoc": "专业证明（可选）",
+    "attestationEmailNote": "您也可以通过电子邮件发送至",
+    "attestationRequired": "请勾选声明以继续。",
+    "rppsAlreadyValidated": "您的专业身份已通过验证。",
+    "rppsModify": "修改"
   },
   "orders": {
     "loginRequired": "需要登录",

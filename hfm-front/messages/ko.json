@@ -347,7 +347,15 @@
     "selectAddressCarrier": "주소와 배송업체를 선택하세요",
     "secureOrder": "🔒 안전한 주문",
     "demoBadge": "데모",
-    "paypalRedirect": "결제를 위해 PayPal로 이동한 후 이 페이지로 돌아옵니다."
+    "paypalRedirect": "결제를 위해 PayPal로 이동한 후 이 페이지로 돌아옵니다.",
+    "rppsModeNumber": "RPPS / ADELI 번호가 있습니다",
+    "rppsModePro": "저는 의료 전문가입니다",
+    "attestationText": "본인은 이 제품을 구매할 자격이 있는 의료 전문가임을 명예를 걸고 확인합니다.",
+    "attestationDoc": "전문가 증빙 서류 (선택)",
+    "attestationEmailNote": "이메일로 보낼 수도 있습니다:",
+    "attestationRequired": "계속하려면 확인란에 체크하세요.",
+    "rppsAlreadyValidated": "전문가 자격이 이미 확인되었습니다.",
+    "rppsModify": "수정"
   },
   "orders": {
     "loginRequired": "로그인이 필요합니다",

@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Seleziona un indirizzo e un corriere",
     "secureOrder": "🔒 Ordine sicuro",
     "demoBadge": "DEMO",
-    "paypalRedirect": "Verrai reindirizzato a PayPal per pagare, poi tornerai qui."
+    "paypalRedirect": "Verrai reindirizzato a PayPal per pagare, poi tornerai qui.",
+    "rppsModeNumber": "Ho un numero RPPS / ADELI",
+    "rppsModePro": "Sono un professionista sanitario",
+    "attestationText": "Dichiaro sul mio onore di essere un professionista sanitario autorizzato ad acquistare questi prodotti.",
+    "attestationDoc": "Documento professionale (facoltativo)",
+    "attestationEmailNote": "Puoi anche inviarlo via email a",
+    "attestationRequired": "Seleziona la dichiarazione per continuare.",
+    "rppsAlreadyValidated": "Il tuo status professionale è già stato verificato.",
+    "rppsModify": "Modifica"
   },
   "orders": {
     "loginRequired": "Accesso richiesto",

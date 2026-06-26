@@ -347,7 +347,15 @@
     "selectAddressCarrier": "Selecteer een adres en een vervoerder",
     "secureOrder": "🔒 Veilige bestelling",
     "demoBadge": "DEMO",
-    "paypalRedirect": "U wordt doorgestuurd naar PayPal om te betalen en daarna teruggebracht."
+    "paypalRedirect": "U wordt doorgestuurd naar PayPal om te betalen en daarna teruggebracht.",
+    "rppsModeNumber": "Ik heb een RPPS-/ADELI-nummer",
+    "rppsModePro": "Ik ben een zorgprofessional",
+    "attestationText": "Ik verklaar op mijn eer een zorgprofessional te zijn die bevoegd is deze producten te kopen.",
+    "attestationDoc": "Beroepsbewijs (optioneel)",
+    "attestationEmailNote": "U kunt het ook per e-mail sturen naar",
+    "attestationRequired": "Vink de verklaring aan om door te gaan.",
+    "rppsAlreadyValidated": "Uw beroepsstatus is al geverifieerd.",
+    "rppsModify": "Wijzigen"
   },
   "orders": {
     "loginRequired": "Inloggen vereist",

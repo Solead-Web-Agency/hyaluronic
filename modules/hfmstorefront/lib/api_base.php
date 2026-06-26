@@ -247,14 +247,31 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
 
     protected function ensureRppsTable()
     {
+        $t = _DB_PREFIX_ . 'hfm_customer_rpps';
         Db::getInstance()->execute(
-            'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'hfm_customer_rpps` (
+            'CREATE TABLE IF NOT EXISTS `' . $t . '` (
                 `id_customer` INT UNSIGNED NOT NULL,
-                `rpps` VARCHAR(16) NOT NULL,
+                `rpps` VARCHAR(16) NOT NULL DEFAULT \'\',
+                `attestation` TINYINT(1) NOT NULL DEFAULT 0,
+                `pro_doc` VARCHAR(255) DEFAULT NULL,
                 `date_upd` DATETIME NOT NULL,
                 PRIMARY KEY (`id_customer`)
             ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8mb4'
         );
+        // Migration des tables déjà créées avant l'ajout de l'attestation pro.
+        $cols = Db::getInstance()->executeS(
+            'SELECT COLUMN_NAME FROM information_schema.columns
+             WHERE table_schema = DATABASE() AND table_name = \'' . $t . '\'',
+            true,
+            false
+        );
+        $have = array_map(function ($r) { return $r['COLUMN_NAME']; }, (array) $cols);
+        if (!in_array('attestation', $have, true)) {
+            Db::getInstance()->execute('ALTER TABLE `' . $t . '` ADD COLUMN `attestation` TINYINT(1) NOT NULL DEFAULT 0');
+        }
+        if (!in_array('pro_doc', $have, true)) {
+            Db::getInstance()->execute('ALTER TABLE `' . $t . '` ADD COLUMN `pro_doc` VARCHAR(255) DEFAULT NULL');
+        }
     }
 
     protected function getCustomerRpps($idCustomer)
@@ -277,6 +294,191 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
              VALUES (' . (int) $idCustomer . ', \'' . pSQL($rpps) . '\', NOW())
              ON DUPLICATE KEY UPDATE rpps = \'' . pSQL($rpps) . '\', date_upd = NOW()'
         );
+        // Mémorise aussi par email (réutilisable d'une commande/compte à l'autre).
+        $this->setRppsByEmail($this->customerEmail($idCustomer), $rpps, 0, null);
+    }
+
+    /**
+     * Attestation "professionnel de santé" : alternative au numéro RPPS pour réduire la
+     * friction. Le client coche une attestation sur l'honneur ; un justificatif peut être
+     * joint (ou envoyé par email). Stocké sur le CLIENT, comme le RPPS.
+     */
+    protected function getCustomerProAttestation($idCustomer)
+    {
+        if (!$idCustomer) {
+            return ['attestation' => 0, 'pro_doc' => ''];
+        }
+        $this->ensureRppsTable();
+        $row = Db::getInstance()->getRow(
+            'SELECT attestation, pro_doc FROM `' . _DB_PREFIX_ . 'hfm_customer_rpps` WHERE id_customer = ' . (int) $idCustomer,
+            false
+        );
+        return [
+            'attestation' => $row ? (int) $row['attestation'] : 0,
+            'pro_doc' => ($row && $row['pro_doc']) ? (string) $row['pro_doc'] : '',
+        ];
+    }
+
+    protected function setCustomerProAttestation($idCustomer, $attestation, $docFile = null)
+    {
+        $this->ensureRppsTable();
+        $att = $attestation ? 1 : 0;
+        if ($docFile !== null) {
+            Db::getInstance()->execute(
+                'INSERT INTO `' . _DB_PREFIX_ . 'hfm_customer_rpps` (id_customer, rpps, attestation, pro_doc, date_upd)
+                 VALUES (' . (int) $idCustomer . ', \'\', ' . $att . ', \'' . pSQL($docFile) . '\', NOW())
+                 ON DUPLICATE KEY UPDATE attestation = ' . $att . ', pro_doc = \'' . pSQL($docFile) . '\', date_upd = NOW()'
+            );
+        } else {
+            Db::getInstance()->execute(
+                'INSERT INTO `' . _DB_PREFIX_ . 'hfm_customer_rpps` (id_customer, rpps, attestation, date_upd)
+                 VALUES (' . (int) $idCustomer . ', \'\', ' . $att . ', NOW())
+                 ON DUPLICATE KEY UPDATE attestation = ' . $att . ', date_upd = NOW()'
+            );
+        }
+        // Mémorise aussi par email (réutilisable d'une commande/compte à l'autre).
+        $this->setRppsByEmail($this->customerEmail($idCustomer), '', $att, $docFile);
+    }
+
+    /**
+     * Exigence "produit réservé praticiens" satisfaite ? RPPS valide OU attestation,
+     * pour le compte OU pour l'email (validation mémorisée d'une commande à l'autre).
+     */
+    protected function proRequirementMet($idCustomer)
+    {
+        $d = $this->resolveProData($idCustomer);
+        return $this->isValidRpps($d['rpps']) || (int) $d['attestation'] === 1;
+    }
+
+    /**
+     * Rattachement "pro" à la COMMANDE (pour les commandes invité : le compte est éphémère,
+     * la pièce justificative doit donc vivre sur la commande, pas sur le client).
+     */
+    protected function ensureOrderProDocTable()
+    {
+        Db::getInstance()->execute(
+            'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'hfm_order_pro_doc` (
+                `id_order` INT UNSIGNED NOT NULL,
+                `rpps` VARCHAR(16) NOT NULL DEFAULT \'\',
+                `attestation` TINYINT(1) NOT NULL DEFAULT 0,
+                `pro_doc` VARCHAR(255) DEFAULT NULL,
+                `date_add` DATETIME NOT NULL,
+                PRIMARY KEY (`id_order`)
+            ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8mb4'
+        );
+    }
+
+    protected function setOrderProDoc($idOrder, $rpps, $attestation, $docFile)
+    {
+        $this->ensureOrderProDocTable();
+        $doc = ($docFile !== null && $docFile !== '') ? '\'' . pSQL($docFile) . '\'' : 'NULL';
+        Db::getInstance()->execute(
+            'INSERT INTO `' . _DB_PREFIX_ . 'hfm_order_pro_doc` (id_order, rpps, attestation, pro_doc, date_add)
+             VALUES (' . (int) $idOrder . ', \'' . pSQL($rpps) . '\', ' . ($attestation ? 1 : 0) . ', ' . $doc . ', NOW())
+             ON DUPLICATE KEY UPDATE rpps = VALUES(rpps), attestation = VALUES(attestation), pro_doc = VALUES(pro_doc)'
+        );
+    }
+
+    protected function getOrderProDoc($idOrder)
+    {
+        $this->ensureOrderProDocTable();
+        $row = Db::getInstance()->getRow(
+            'SELECT rpps, attestation, pro_doc FROM `' . _DB_PREFIX_ . 'hfm_order_pro_doc` WHERE id_order = ' . (int) $idOrder,
+            false
+        );
+        return $row ?: null;
+    }
+
+    /** Supprime la ligne "pro" du client (après l'avoir déplacée sur la commande, cas invité). */
+    protected function deleteCustomerProRow($idCustomer)
+    {
+        Db::getInstance()->execute('DELETE FROM `' . _DB_PREFIX_ . 'hfm_customer_rpps` WHERE id_customer = ' . (int) $idCustomer);
+    }
+
+    // ---- Mémorisation du statut "pro" PAR EMAIL ----
+    // Une fois le RPPS / l'attestation validés pour un email (compte OU invité), on les
+    // mémorise ici afin qu'une nouvelle commande avec le MÊME email ne refasse pas l'étape.
+
+    protected function ensureRppsEmailTable()
+    {
+        Db::getInstance()->execute(
+            'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'hfm_rpps_by_email` (
+                `email` VARCHAR(191) NOT NULL,
+                `rpps` VARCHAR(16) NOT NULL DEFAULT \'\',
+                `attestation` TINYINT(1) NOT NULL DEFAULT 0,
+                `pro_doc` VARCHAR(255) DEFAULT NULL,
+                `date_upd` DATETIME NOT NULL,
+                PRIMARY KEY (`email`)
+            ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8mb4'
+        );
+    }
+
+    protected function customerEmail($idCustomer)
+    {
+        if (!$idCustomer) {
+            return '';
+        }
+        return (string) Db::getInstance()->getValue(
+            'SELECT email FROM ' . _DB_PREFIX_ . 'customer WHERE id_customer = ' . (int) $idCustomer,
+            false
+        );
+    }
+
+    protected function getRppsByEmail($email)
+    {
+        $email = Tools::strtolower(trim((string) $email));
+        if ($email === '') {
+            return null;
+        }
+        $this->ensureRppsEmailTable();
+        $row = Db::getInstance()->getRow(
+            'SELECT rpps, attestation, pro_doc FROM `' . _DB_PREFIX_ . 'hfm_rpps_by_email` WHERE email = \'' . pSQL($email) . '\'',
+            false
+        );
+        return $row ?: null;
+    }
+
+    /** Upsert "fusionnant" : une valeur vide ne remplace pas une valeur déjà mémorisée. */
+    protected function setRppsByEmail($email, $rpps, $attestation, $docFile = null)
+    {
+        $email = Tools::strtolower(trim((string) $email));
+        if ($email === '') {
+            return;
+        }
+        $this->ensureRppsEmailTable();
+        $existing = $this->getRppsByEmail($email);
+        $rpps = ($rpps !== '' && $rpps !== null) ? $rpps : ($existing ? (string) $existing['rpps'] : '');
+        $att = $attestation ? 1 : ($existing ? (int) $existing['attestation'] : 0);
+        $doc = ($docFile !== null && $docFile !== '') ? $docFile : ($existing ? (string) $existing['pro_doc'] : '');
+        Db::getInstance()->execute(
+            'INSERT INTO `' . _DB_PREFIX_ . 'hfm_rpps_by_email` (email, rpps, attestation, pro_doc, date_upd)
+             VALUES (\'' . pSQL($email) . '\', \'' . pSQL($rpps) . '\', ' . $att . ', ' . ($doc !== '' ? '\'' . pSQL($doc) . '\'' : 'NULL') . ', NOW())
+             ON DUPLICATE KEY UPDATE rpps = VALUES(rpps), attestation = VALUES(attestation), pro_doc = VALUES(pro_doc), date_upd = NOW()'
+        );
+    }
+
+    /**
+     * Données "pro" effectives d'un client : compte d'abord, sinon mémorisation par email.
+     * Renvoie ['rpps','attestation','pro_doc'].
+     */
+    protected function resolveProData($idCustomer, $email = '')
+    {
+        $rpps = $this->getCustomerRpps($idCustomer);
+        $pa = $this->getCustomerProAttestation($idCustomer);
+        $attestation = (int) $pa['attestation'];
+        $proDoc = (string) $pa['pro_doc'];
+        if ($rpps === '' && !$attestation) {
+            if ($email === '') {
+                $email = $this->customerEmail($idCustomer);
+            }
+            $er = $this->getRppsByEmail($email);
+            if ($er) {
+                $rpps = (string) $er['rpps'];
+                $attestation = (int) $er['attestation'];
+                $proDoc = $er['pro_doc'] ? (string) $er['pro_doc'] : '';
+            }
+        }
+        return ['rpps' => $rpps, 'attestation' => $attestation, 'pro_doc' => $proDoc];
     }
 
 }

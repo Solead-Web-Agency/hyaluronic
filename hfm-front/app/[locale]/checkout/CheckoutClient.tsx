@@ -90,8 +90,38 @@ export default function CheckoutClient() {
   const [rppsInfo, setRppsInfo] = useState<{ nom?: string; prenom?: string; profession?: string } | null>(null);
   const [rppsChecking, setRppsChecking] = useState(false);
   const [rppsSoftNote, setRppsSoftNote] = useState(false); // numéro accepté mais non rapproché au registre
+  // Deux voies pour les produits réservés praticiens : numéro RPPS, OU attestation "pro" (moins de friction).
+  const [rppsMode, setRppsMode] = useState<'number' | 'pro'>('number');
+  const [attestation, setAttestation] = useState(false);
+  const [proDoc, setProDoc] = useState<{ name: string; data: string } | null>(null);
+  const [rppsValidated, setRppsValidated] = useState(false); // déjà validé pour ce compte / cet email
+  const [editPro, setEditPro] = useState(false); // rouvrir le formulaire malgré une validation existante
   const rppsNeeded = cart.rpps_required;
   const rppsValid = /^\d{9,13}$/.test(rpps.trim()); // permissif : 9 à 13 chiffres
+  // Exigence satisfaite : déjà validé (compte/email) OU numéro RPPS valide OU attestation cochée.
+  const rppsSatisfied = rppsValidated || (rppsMode === 'pro' ? attestation : rppsValid);
+  const PRO_CONTACT_EMAIL = 'sales@hyaluronicfillermarket.com';
+
+  // Enregistre l'attestation pro (+ justificatif optionnel) sur le client, façon set-rpps.
+  const submitProAttestation = async () => {
+    try {
+      await fetch('/api/customer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'set-pro-attestation', attestation: 1, ...(proDoc ? { doc_name: proDoc.name, doc_data: proDoc.data } : {}) }),
+      });
+    } catch {
+      /* ignore — la commande reste possible, vérif back-office */
+    }
+  };
+
+  // Lit un fichier choisi en base64 (pour l'envoyer au bridge via JSON).
+  const onProDocChange = (file: File | null) => {
+    if (!file) { setProDoc(null); return; }
+    const reader = new FileReader();
+    reader.onload = () => setProDoc({ name: file.name, data: String(reader.result || '') });
+    reader.readAsDataURL(file);
+  };
 
   // Rapprochement INFORMATIF au registre (n'empêche jamais la commande : la validité
   // est confirmée en back-office). On affiche le praticien si trouvé.
@@ -156,7 +186,7 @@ export default function CheckoutClient() {
     if (customer) loadAddresses();
   }, [customer, loadAddresses]);
 
-  // Préremplit le RPPS si le client connecté en a déjà un enregistré.
+  // Préremplit le statut "pro" si déjà validé pour ce compte OU cet email (anti-friction).
   useEffect(() => {
     if (!customer) return;
     let alive = true;
@@ -164,8 +194,11 @@ export default function CheckoutClient() {
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
         if (!alive) return;
-        const stored = d?.customer?.rpps;
-        if (stored) setRpps(String(stored));
+        const c = d?.customer;
+        if (!c) return;
+        if (c.rpps) { setRpps(String(c.rpps)); setRppsMode('number'); }
+        else if (c.pro_attestation) { setRppsMode('pro'); setAttestation(true); }
+        if (c.rpps_validated) setRppsValidated(true);
       })
       .catch(() => {});
     return () => {
@@ -340,10 +373,12 @@ export default function CheckoutClient() {
   // Finalise la commande côté serveur (POST order) — partagé offline + Stripe.
   const finalizeOrder = async (paymentMethod: string) => {
     const trimmedRpps = rpps.trim();
+    const pro = rppsNeeded && rppsMode === 'pro';
+    if (pro) await submitProAttestation();
     const r = await fetch('/api/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'order', id_cart: idCart, payment_method: paymentMethod, ...(trimmedRpps ? { rpps: trimmedRpps } : {}) }),
+      body: JSON.stringify({ action: 'order', id_cart: idCart, payment_method: paymentMethod, ...(pro ? { pro_attestation: 1 } : trimmedRpps ? { rpps: trimmedRpps } : {}) }),
     });
     const d = await r.json();
     if (!r.ok || !d.ok) {
@@ -364,8 +399,8 @@ export default function CheckoutClient() {
 
   const placeOrder = async () => {
     if (!idCart || !selAddress || !selCarrier) return;
-    if (rppsNeeded && !rppsValid) {
-      setRppsErr(t('rppsInvalid'));
+    if (rppsNeeded && !rppsSatisfied) {
+      setRppsErr(t(rppsMode === 'pro' ? 'attestationRequired' : 'rppsInvalid'));
       return;
     }
     setPlacing(true);
@@ -376,17 +411,21 @@ export default function CheckoutClient() {
       // Chemin carte bancaire (Viva Wallet) : on crée l'order puis on REDIRIGE vers Smart Checkout.
       if (cardConfigured && payment === VIVA_PAYMENT) {
         // La commande Viva est créée plus tard côté serveur (/api/payment/return), qui lit
-        // le RPPS STOCKÉ : on l'enregistre donc AVANT de rediriger.
-        const trimmedRpps = rpps.trim();
-        if (trimmedRpps) {
-          try {
-            await fetch('/api/customer', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ action: 'set-rpps', rpps: trimmedRpps }),
-            });
-          } catch {
-            /* ignore — la validation finale a lieu côté serveur au retour */
+        // le RPPS / l'attestation STOCKÉS : on les enregistre donc AVANT de rediriger.
+        if (rppsNeeded && rppsMode === 'pro') {
+          await submitProAttestation();
+        } else {
+          const trimmedRpps = rpps.trim();
+          if (trimmedRpps) {
+            try {
+              await fetch('/api/customer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'set-rpps', rpps: trimmedRpps }),
+              });
+            } catch {
+              /* ignore — la validation finale a lieu côté serveur au retour */
+            }
           }
         }
         const pr = await fetch('/api/payment', {
@@ -403,18 +442,22 @@ export default function CheckoutClient() {
         return;
       }
 
-      // Chemin PayPal : on stocke le RPPS (relu côté serveur au retour) puis on redirige vers l'approbation.
+      // Chemin PayPal : on stocke le RPPS / l'attestation (relus côté serveur au retour) puis on redirige.
       if (paypalConfigured && payment === PAYPAL_PAYMENT) {
-        const trimmedRpps = rpps.trim();
-        if (trimmedRpps) {
-          try {
-            await fetch('/api/customer', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ action: 'set-rpps', rpps: trimmedRpps }),
-            });
-          } catch {
-            /* ignore — validation finale côté serveur au retour */
+        if (rppsNeeded && rppsMode === 'pro') {
+          await submitProAttestation();
+        } else {
+          const trimmedRpps = rpps.trim();
+          if (trimmedRpps) {
+            try {
+              await fetch('/api/customer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'set-rpps', rpps: trimmedRpps }),
+              });
+            } catch {
+              /* ignore — validation finale côté serveur au retour */
+            }
           }
         }
         const pr = await fetch('/api/payment/paypal', {
@@ -525,7 +568,7 @@ export default function CheckoutClient() {
   const grandTTC = selCarrier ? (totals?.total_incl_tax ?? cart.total_incl_tax) : (totals?.products_incl_tax ?? cart.total_incl_tax);
   // Remise : préfère le total réel du panier, sinon le retour de l'API voucher.
   const discount = (totals?.total_discounts ?? 0) || voucherDiscount;
-  const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && (!rppsNeeded || rppsValid);
+  const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && (!rppsNeeded || rppsSatisfied);
 
   return (
     <main data-screen-label="Commande" className="hfm-wrap" style={{ maxWidth: '1180px', margin: '0 auto', padding: '34px 28px 70px' }}>
@@ -540,37 +583,94 @@ export default function CheckoutClient() {
             <div style={{ fontSize: '15px', color: '#34352F', fontWeight: 600 }}>{customer.firstname} {customer.lastname}</div>
             <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '4px' }}>{customer.email}</div>
 
-            {/* Numéro RPPS / ADELI — requis si le panier contient un produit réservé praticiens */}
+            {/* Produits réservés praticiens : numéro RPPS OU attestation professionnelle (moins de friction) */}
             <div style={{ marginTop: '18px', borderTop: '1px solid #ECEAE3', paddingTop: '18px' }}>
+              {rppsNeeded && rppsValidated && !editPro ? (
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '7px' }}>
+                  <span style={{ color: '#3F7256', fontSize: '14px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">✓</span>
+                  <span style={{ flex: 1, fontSize: '12.5px', lineHeight: 1.5, color: '#34352F' }}>
+                    {t('rppsAlreadyValidated')}
+                    <button type="button" onClick={() => setEditPro(true)} style={{ marginLeft: '8px', background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('rppsModify')}</button>
+                  </span>
+                </div>
+              ) : (
+              <>
               {rppsNeeded ? (
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '12px', padding: '11px 13px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '7px' }}>
                   <span style={{ color: '#A8503A', fontSize: '14px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>
                   <span style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#A8503A', fontWeight: 500 }}>{t('rppsRequiredNotice')}</span>
                 </div>
               ) : null}
-              <label htmlFor="rpps" style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F', marginBottom: '8px' }}>
-                {t('rppsLabel')}{rppsNeeded ? <span style={{ color: '#A8503A' }}> *</span> : null}
-              </label>
-              <input
-                id="rpps"
-                type="text"
-                inputMode="numeric"
-                value={rpps}
-                onChange={(e) => { setRpps(e.target.value.replace(/\D/g, '').slice(0, 13)); if (rppsErr) setRppsErr(null); if (rppsInfo) setRppsInfo(null); if (rppsSoftNote) setRppsSoftNote(false); }}
-                onBlur={verifyRppsField}
-                placeholder={t('rppsPlaceholder')}
-                style={{ width: '100%', boxSizing: 'border-box', height: '46px', padding: '0 14px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', color: '#34352F', background: '#fff', border: `1px solid ${rppsErr ? '#A8503A' : rppsInfo ? '#3F7256' : '#E2DECF'}`, borderRadius: '6px', outline: 'none' }}
-              />
-              {rppsChecking ? (
-                <div style={{ fontSize: '12px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsChecking')}</div>
-              ) : rppsInfo ? (
-                <div style={{ fontSize: '12.5px', color: '#3F7256', marginTop: '8px', fontWeight: 600 }}>✓ {[rppsInfo.prenom, rppsInfo.nom].filter(Boolean).join(' ')}{rppsInfo.profession ? ` — ${rppsInfo.profession}` : ''}</div>
-              ) : rppsErr ? (
-                <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div>
-              ) : rppsSoftNote ? (
-                <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsWillBeVerified')}</div>
-              ) : (
-                <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsPlaceholder')}</div>
+
+              {/* Choix de la voie (seulement si un produit l'exige) */}
+              {rppsNeeded ? (
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '14px', flexWrap: 'wrap' }}>
+                  {(['number', 'pro'] as const).map((m) => {
+                    const on = rppsMode === m;
+                    return (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => { setRppsMode(m); setRppsErr(null); }}
+                        style={{ cursor: 'pointer', flex: '1 1 0', minWidth: '170px', textAlign: 'left', background: on ? 'rgba(140,198,63,0.08)' : '#fff', border: on ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '11px 13px', display: 'flex', gap: '10px', alignItems: 'center' }}
+                      >
+                        <span style={{ width: '14px', height: '14px', borderRadius: '50%', border: on ? '4.5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
+                        <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#34352F' }}>{m === 'number' ? t('rppsModeNumber') : t('rppsModePro')}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : null}
+
+              {/* Voie 1 — numéro RPPS / ADELI (toujours proposé hors-exigence, en optionnel) */}
+              {!rppsNeeded || rppsMode === 'number' ? (
+                <>
+                  <label htmlFor="rpps" style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F', marginBottom: '8px' }}>
+                    {t('rppsLabel')}{rppsNeeded ? <span style={{ color: '#A8503A' }}> *</span> : null}
+                  </label>
+                  <input
+                    id="rpps"
+                    type="text"
+                    inputMode="numeric"
+                    value={rpps}
+                    onChange={(e) => { setRpps(e.target.value.replace(/\D/g, '').slice(0, 13)); if (rppsErr) setRppsErr(null); if (rppsInfo) setRppsInfo(null); if (rppsSoftNote) setRppsSoftNote(false); }}
+                    onBlur={verifyRppsField}
+                    placeholder={t('rppsPlaceholder')}
+                    style={{ width: '100%', boxSizing: 'border-box', height: '46px', padding: '0 14px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', color: '#34352F', background: '#fff', border: `1px solid ${rppsErr && rppsMode === 'number' ? '#A8503A' : rppsInfo ? '#3F7256' : '#E2DECF'}`, borderRadius: '6px', outline: 'none' }}
+                  />
+                  {rppsChecking ? (
+                    <div style={{ fontSize: '12px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsChecking')}</div>
+                  ) : rppsInfo ? (
+                    <div style={{ fontSize: '12.5px', color: '#3F7256', marginTop: '8px', fontWeight: 600 }}>✓ {[rppsInfo.prenom, rppsInfo.nom].filter(Boolean).join(' ')}{rppsInfo.profession ? ` — ${rppsInfo.profession}` : ''}</div>
+                  ) : rppsErr && rppsMode === 'number' ? (
+                    <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div>
+                  ) : rppsSoftNote ? (
+                    <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsWillBeVerified')}</div>
+                  ) : (
+                    <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsPlaceholder')}</div>
+                  )}
+                </>
+              ) : null}
+
+              {/* Voie 2 — attestation professionnelle */}
+              {rppsNeeded && rppsMode === 'pro' ? (
+                <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
+                  <label style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', cursor: 'pointer' }}>
+                    <input type="checkbox" checked={attestation} onChange={(e) => { setAttestation(e.target.checked); if (rppsErr) setRppsErr(null); }} style={{ marginTop: '2px', width: '16px', height: '16px', flex: 'none', accentColor: '#5E8E1F' }} />
+                    <span style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#34352F' }}>{t('attestationText')}</span>
+                  </label>
+                  <div style={{ marginTop: '12px' }}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#34352F', marginBottom: '6px' }}>{t('attestationDoc')}</label>
+                    <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,image/*,application/pdf" onChange={(e) => onProDocChange(e.target.files?.[0] || null)} style={{ fontSize: '12.5px', color: '#34352F' }} />
+                    {proDoc ? <div style={{ fontSize: '11.5px', color: '#3F7256', marginTop: '6px' }}>✓ {proDoc.name}</div> : null}
+                  </div>
+                  <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '10px', lineHeight: 1.5 }}>
+                    {t('attestationEmailNote')} <a href={`mailto:${PRO_CONTACT_EMAIL}`} style={{ color: '#5E8E1F' }}>{PRO_CONTACT_EMAIL}</a>.
+                  </div>
+                  {rppsErr && rppsMode === 'pro' ? <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div> : null}
+                </div>
+              ) : null}
+              </>
               )}
             </div>
           </div>
