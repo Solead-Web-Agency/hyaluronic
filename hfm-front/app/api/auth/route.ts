@@ -10,13 +10,14 @@ const COOKIE_OPTS = {
   maxAge: 60 * 60 * 24 * 30, // 30 jours
 };
 
-function userFrom(c: { id_customer: number; email: string; firstname: string; lastname: string; id_lang?: number }): SessionUser {
+function userFrom(c: { id_customer: number; email: string; firstname: string; lastname: string; id_lang?: number; is_guest?: number }): SessionUser {
   return {
     id_customer: Number(c.id_customer),
     email: c.email,
     firstname: c.firstname,
     lastname: c.lastname,
     id_lang: c.id_lang,
+    is_guest: Number(c.is_guest || 0),
   };
 }
 

@@ -359,7 +359,9 @@
     "attestationDocChoose": "העלאת קובץ",
     "attestationEmailTitle": "שלחו באימייל אל",
     "cancel": "ביטול",
-    "rppsRequiredNotice": "מוצר בעגלה שלך שמור לאנשי מקצוע: הזן מספר RPPS תקף או הצהר שאתה איש מקצוע בתחום הבריאות."
+    "rppsRequiredNotice": "מוצר בעגלה שלך שמור לאנשי מקצוע: הזן מספר RPPS תקף או הצהר שאתה איש מקצוע בתחום הבריאות.",
+    "attestationAfterOrder": "ניתן לשלוח אותו לאחר ההזמנה; אך ההזמנה תטופל רק עם קבלת המסמך.",
+    "amazonRedirect": "שלמו דרך Amazon Pay (הכפתור למטה) וחזרו לכאן."
   },
   "orders": {
     "loginRequired": "נדרשת התחברות",

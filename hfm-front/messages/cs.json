@@ -359,7 +359,9 @@
     "attestationDocChoose": "Nahrát soubor",
     "attestationEmailTitle": "Pošlete e-mailem na",
     "cancel": "Zrušit",
-    "rppsRequiredNotice": "Produkt v košíku je vyhrazen pro odborníky: zadejte platné číslo RPPS nebo potvrďte, že jste zdravotnický pracovník."
+    "rppsRequiredNotice": "Produkt v košíku je vyhrazen pro odborníky: zadejte platné číslo RPPS nebo potvrďte, že jste zdravotnický pracovník.",
+    "attestationAfterOrder": "Můžete jej zaslat po objednávce; ta však bude zpracována až po obdržení dokladu.",
+    "amazonRedirect": "Zaplaťte přes Amazon Pay (tlačítko níže) a vraťte se sem."
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",

@@ -359,7 +359,9 @@
     "attestationDocChoose": "رفع ملف",
     "attestationEmailTitle": "أرسله عبر البريد إلى",
     "cancel": "إلغاء",
-    "rppsRequiredNotice": "أحد منتجات سلتك مخصص للمتخصصين: أدخل رقم RPPS صالحًا أو أقرّ بأنك أخصائي رعاية صحية."
+    "rppsRequiredNotice": "أحد منتجات سلتك مخصص للمتخصصين: أدخل رقم RPPS صالحًا أو أقرّ بأنك أخصائي رعاية صحية.",
+    "attestationAfterOrder": "يمكنك إرساله بعد الطلب؛ لكن لن تتم معالجة الطلب إلا بعد استلام المستند.",
+    "amazonRedirect": "ادفع عبر Amazon Pay (الزر أدناه) ثم العودة إلى هنا."
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",

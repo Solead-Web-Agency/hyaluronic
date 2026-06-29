@@ -7,6 +7,7 @@ import { useRouter } from '@/i18n/navigation';
 import { useStore } from '../../store';
 import { fmt } from '@/lib/cardModel';
 import AddressForm, { type Address } from '../../components/AddressForm';
+import AmazonPayButton from '../../components/AmazonPayButton';
 
 type Carrier = {
   id_carrier: number;
@@ -29,6 +30,7 @@ type Totals = {
 const PAYMENTS = ['Virement bancaire', 'Chèque'];
 const VIVA_PAYMENT = 'Carte bancaire (Viva Wallet)';
 const PAYPAL_PAYMENT = 'PayPal';
+const AMAZON_PAYMENT = 'Amazon Pay';
 
 const stepBadge = (n: number, active: boolean): React.CSSProperties => ({
   width: '24px',
@@ -170,6 +172,8 @@ export default function CheckoutClient() {
   const [cardError, setCardError] = useState<string | null>(null);
   // PayPal — affiché si configuré côté serveur.
   const [paypalConfigured, setPaypalConfigured] = useState(false);
+  // Amazon Pay — affiché si configuré côté serveur.
+  const [amazonConfigured, setAmazonConfigured] = useState(false);
 
   const idCart = cart.id_cart;
 
@@ -234,17 +238,29 @@ export default function CheckoutClient() {
         if (!alive) return;
         const vivaOk = !!d.configured;
         const ppOk = !!d.paypal?.configured;
+        const azOk = !!d.amazon?.configured;
         setCardConfigured(vivaOk);
         setCardMode(d.mode || 'live');
         setPaypalConfigured(ppOk);
-        // Sélection par défaut préférée : CB > PayPal > (virement/chèque), sans écraser un choix manuel.
-        setPayment((cur) => (cur === PAYMENTS[0] ? (vivaOk ? VIVA_PAYMENT : ppOk ? PAYPAL_PAYMENT : cur) : cur));
+        setAmazonConfigured(azOk);
+        // Sélection par défaut préférée : CB > PayPal > Amazon Pay > (virement/chèque), sans écraser un choix manuel.
+        setPayment((cur) => (cur === PAYMENTS[0] ? (vivaOk ? VIVA_PAYMENT : ppOk ? PAYPAL_PAYMENT : azOk ? AMAZON_PAYMENT : cur) : cur));
       })
       .catch(() => {});
     return () => {
       alive = false;
     };
   }, []);
+
+  // Amazon Pay : le bouton SDK redirige directement (sans passer par placeOrder). La commande
+  // est créée au RETOUR serveur, qui lit le RPPS / l'attestation STOCKÉS → on les persiste ici.
+  // (Le numéro RPPS est déjà enregistré au blur du champ ; ici on couvre l'attestation pro.)
+  useEffect(() => {
+    if (payment === AMAZON_PAYMENT && rppsNeeded && rppsMode === 'pro' && attestation) {
+      submitProAttestation();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [payment, attestation, rppsMode, rppsNeeded]);
 
   // Retour depuis Viva : /api/payment/return a vérifié + créé la commande, puis nous a
   // redirigés vers /{langue}/checkout avec le résultat en query (viva_paid / viva_failed).
@@ -272,7 +288,12 @@ export default function CheckoutClient() {
       clean();
       return;
     }
-    if (params.get('viva_paid') || params.get('paypal_paid')) {
+    if (params.get('amazon_failed')) {
+      setOrderErr(t('paymentNotConfirmed'));
+      clean();
+      return;
+    }
+    if (params.get('viva_paid') || params.get('paypal_paid') || params.get('amazon_paid')) {
       setConfirmation({
         reference: params.get('ref') || '',
         id_order: Number(params.get('order') || 0),
@@ -588,12 +609,11 @@ export default function CheckoutClient() {
                     {guestBusy ? tc('loading') : t('guestContinue')}
                   </button>
                 </form>
-                <div style={{ marginTop: '12px' }}>
+                <div style={{ marginTop: '12px', display: 'flex', gap: '18px', flexWrap: 'wrap', alignItems: 'center' }}>
+                  <button type="button" onClick={() => router.push('/compte?next=/checkout')} style={{ background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('haveAccount')}</button>
                   {customer && editIdentity ? (
                     <button type="button" onClick={() => setEditIdentity(false)} style={{ background: 'none', border: 'none', padding: 0, color: '#9A9A9A', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('cancel')}</button>
-                  ) : (
-                    <button type="button" onClick={() => router.push('/compte?next=/checkout')} style={{ background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('haveAccount')}</button>
-                  )}
+                  ) : null}
                 </div>
               </>
             )}
@@ -681,7 +701,7 @@ export default function CheckoutClient() {
                     {/* Option A — téléverser un fichier (bouton stylé, input natif masqué) */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                       <label style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', background: 'rgba(140,198,63,0.08)', border: '1px solid rgba(155,209,89,.8)', color: '#5E8E1F', borderRadius: '8px', padding: '10px 16px', fontSize: '13px', fontWeight: 600 }}>
-                        <span aria-hidden="true" style={{ fontSize: '14px' }}>⬆</span>{t('attestationDocChoose')}
+                        <span aria-hidden="true" style={{ display: 'inline-flex' }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V4M8 8l4-4 4 4" /><path d="M5 16v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2" /></svg></span>{t('attestationDocChoose')}
                         <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,image/*,application/pdf" onChange={(e) => onProDocChange(e.target.files?.[0] || null)} style={{ display: 'none' }} />
                       </label>
                       {proDoc ? (
@@ -701,12 +721,13 @@ export default function CheckoutClient() {
 
                     {/* Option B — par email (encart distinct, mis en évidence) */}
                     <a href={`mailto:${PRO_CONTACT_EMAIL}`} style={{ display: 'flex', alignItems: 'center', gap: '11px', textDecoration: 'none', background: '#fff', border: '1px solid #E2DECF', borderRadius: '8px', padding: '11px 14px' }}>
-                      <span aria-hidden="true" style={{ fontSize: '17px', flex: 'none' }}>✉️</span>
+                      <span aria-hidden="true" style={{ flex: 'none', color: '#5E8E1F', display: 'inline-flex' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg></span>
                       <span style={{ lineHeight: 1.35 }}>
                         <span style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F' }}>{t('attestationEmailTitle')}</span>
                         <span style={{ fontSize: '13px', color: '#5E8E1F', fontWeight: 700 }}>{PRO_CONTACT_EMAIL}</span>
                       </span>
                     </a>
+                    <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '10px', lineHeight: 1.5 }}>{t('attestationAfterOrder')}</div>
                   </div>
                   {rppsErr && rppsMode === 'pro' ? <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div> : null}
                 </div>
@@ -829,7 +850,25 @@ export default function CheckoutClient() {
                 </>
               ) : null}
 
-              {/* 3. Hors-ligne : virement / chèque */}
+              {/* 3. Amazon Pay */}
+              {amazonConfigured ? (
+                <>
+                  <button
+                    onClick={() => setPayment(AMAZON_PAYMENT)}
+                    style={{ textAlign: 'left', cursor: 'pointer', background: payment === AMAZON_PAYMENT ? 'rgba(140,198,63,0.06)' : '#fff', border: payment === AMAZON_PAYMENT ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px', display: 'flex', gap: '12px', alignItems: 'center' }}
+                  >
+                    <span style={{ width: '15px', height: '15px', borderRadius: '50%', border: payment === AMAZON_PAYMENT ? '5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
+                    <span style={{ flex: 1, fontSize: '14px', fontWeight: 700, color: '#232F3E' }}>Amazon Pay</span>
+                  </button>
+                  {payment === AMAZON_PAYMENT ? (
+                    <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
+                      <div style={{ fontSize: '12px', color: '#6E7585' }}>{t('amazonRedirect')}</div>
+                    </div>
+                  ) : null}
+                </>
+              ) : null}
+
+              {/* 4. Hors-ligne : virement / chèque */}
               {PAYMENTS.map((p) => {
                 const active = payment === p;
                 return (
@@ -851,6 +890,20 @@ export default function CheckoutClient() {
         {/* Récapitulatif */}
         <div className="hfm-sticky" style={{ position: 'sticky', top: '130px', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', padding: '24px' }}>
           <div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', color: '#2B2B2B', marginBottom: '16px' }}>{t('summary')}</div>
+          {/* Compteur livraison offerte (seuil 400 € HT) */}
+          <div style={{ background: 'rgba(168,80,58,0.06)', border: '1px solid rgba(168,80,58,0.2)', borderRadius: '10px', padding: '12px 14px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ width: '30px', height: '30px', flex: 'none', borderRadius: '8px', background: '#fff', border: '1px solid rgba(168,80,58,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#A8503A' }} aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d="M3 6.5h10v9H3z" /><path d="M13 9.5h4l3 3v3h-7z" /><circle cx="7" cy="17.5" r="1.7" /><circle cx="17" cy="17.5" r="1.7" /></svg></span>
+              <span style={{ fontSize: '12.5px', lineHeight: 1.4, color: subtotalHT >= 400 ? '#3F7256' : '#7A3A2C' }}>
+                {subtotalHT >= 400
+                  ? tcart('freeShippingUnlocked')
+                  : tcart.rich('freeShippingRemaining', { amount: fmt(freeShipRemain), b: (c) => <b style={{ color: '#A8503A' }}>{c}</b> })}
+              </span>
+            </div>
+            <div style={{ height: '7px', background: 'rgba(168,80,58,0.12)', borderRadius: '999px', marginTop: '10px', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${freeShipPct}%`, background: subtotalHT >= 400 ? '#3F7256' : 'linear-gradient(90deg,#E98A7A,#A8503A)', borderRadius: '999px', transition: 'width .4s ease' }} />
+            </div>
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '280px', overflowY: 'auto' }}>
             {cart.products.map((ci) => (
               <div key={ci.id_product} style={{ display: 'flex', gap: '12px', alignItems: 'center' }}><div style={{ width: '46px', height: '46px', flex: 'none', borderRadius: '6px', overflow: 'hidden', background: '#F7F6F2', border: '1px solid #ECEAE3' }}>{ci.image ? <img src={ci.image} alt={ci.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /> : null}</div><div style={{ flex: 1, minWidth: 0 }}><div style={{ fontSize: '13px', color: '#34352F', lineHeight: 1.3 }}>{ci.name}</div><div style={{ fontSize: '11.5px', color: '#8A8170' }}>× {ci.quantity}</div></div><span style={{ fontSize: '13px', fontWeight: 600, color: '#434343' }}>{fmt(ci.total_excl_tax)} €</span></div>
@@ -892,13 +945,21 @@ export default function CheckoutClient() {
               <span style={{ fontSize: '11.5px', lineHeight: 1.45, color: '#A8503A', fontWeight: 500 }}>{t('rppsRequiredNotice')}</span>
             </div>
           ) : null}
-          <button
-            onClick={placeOrder}
-            disabled={!canOrder}
-            style={{ width: '100%', marginTop: '18px', height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', borderRadius: '999px', cursor: canOrder ? 'pointer' : 'not-allowed', opacity: canOrder ? 1 : 0.5, transition: 'background .2s ease' }}
-          >
-            {placing ? t('validating') : t('placeOrder', { amount: fmt(grandTTC) })}
-          </button>
+          {payment === AMAZON_PAYMENT && amazonConfigured ? (
+            selAddress && selCarrier && idCart && (!rppsNeeded || rppsSatisfied) ? (
+              <div style={{ marginTop: '18px' }}><AmazonPayButton idCart={idCart} /></div>
+            ) : (
+              <div style={{ width: '100%', marginTop: '18px', minHeight: '52px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', textAlign: 'center', borderRadius: '999px', background: '#EFEDE5', color: '#9A9A9A', fontSize: '13px', lineHeight: 1.4 }}>{rppsNeeded && !rppsSatisfied ? t('rppsRequiredNotice') : t('selectAddressCarrier')}</div>
+            )
+          ) : (
+            <button
+              onClick={placeOrder}
+              disabled={!canOrder}
+              style={{ width: '100%', marginTop: '18px', height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', borderRadius: '999px', cursor: canOrder ? 'pointer' : 'not-allowed', opacity: canOrder ? 1 : 0.5, transition: 'background .2s ease' }}
+            >
+              {placing ? t('validating') : t('placeOrder', { amount: fmt(grandTTC) })}
+            </button>
+          )}
           {!selAddress || !selCarrier ? <div style={{ textAlign: 'center', fontSize: '11.5px', color: '#9A9A9A', marginTop: '12px' }}>{t('selectAddressCarrier')}</div> : <div style={{ textAlign: 'center', fontSize: '11.5px', color: '#9A9A9A', marginTop: '12px' }}>{t('secureOrder')}</div>}
         </div>
       </div>

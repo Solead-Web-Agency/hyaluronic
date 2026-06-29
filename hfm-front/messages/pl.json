@@ -359,7 +359,9 @@
     "attestationDocChoose": "Prześlij plik",
     "attestationEmailTitle": "Wyślij e-mailem na",
     "cancel": "Anuluj",
-    "rppsRequiredNotice": "Produkt w koszyku jest zarezerwowany dla specjalistów: podaj prawidłowy numer RPPS lub oświadcz, że jesteś pracownikiem służby zdrowia."
+    "rppsRequiredNotice": "Produkt w koszyku jest zarezerwowany dla specjalistów: podaj prawidłowy numer RPPS lub oświadcz, że jesteś pracownikiem służby zdrowia.",
+    "attestationAfterOrder": "Możesz wysłać go po złożeniu zamówienia; zostanie ono jednak zrealizowane dopiero po otrzymaniu dokumentu.",
+    "amazonRedirect": "Zapłać przez Amazon Pay (przycisk poniżej), potem wróć tutaj."
   },
   "orders": {
     "loginRequired": "Wymagane logowanie",

@@ -359,7 +359,9 @@
     "attestationDocChoose": "Lataa tiedosto",
     "attestationEmailTitle": "Lähetä sähköpostitse osoitteeseen",
     "cancel": "Peruuta",
-    "rppsRequiredNotice": "Ostoskorisi tuote on varattu ammattilaisille: anna voimassa oleva RPPS-numero tai vahvista olevasi terveydenhuollon ammattilainen."
+    "rppsRequiredNotice": "Ostoskorisi tuote on varattu ammattilaisille: anna voimassa oleva RPPS-numero tai vahvista olevasi terveydenhuollon ammattilainen.",
+    "attestationAfterOrder": "Voit lähettää sen tilauksen jälkeen; tilaus käsitellään kuitenkin vasta asiakirjan saavuttua.",
+    "amazonRedirect": "Maksa Amazon Paylla (painike alla) ja palaa tänne."
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

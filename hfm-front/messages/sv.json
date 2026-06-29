@@ -359,7 +359,9 @@
     "attestationDocChoose": "Ladda upp en fil",
     "attestationEmailTitle": "Skicka via e-post till",
     "cancel": "Avbryt",
-    "rppsRequiredNotice": "En produkt i din varukorg är reserverad för yrkesverksamma: ange ett giltigt RPPS-nummer eller intyga att du är vårdpersonal."
+    "rppsRequiredNotice": "En produkt i din varukorg är reserverad för yrkesverksamma: ange ett giltigt RPPS-nummer eller intyga att du är vårdpersonal.",
+    "attestationAfterOrder": "Du kan skicka det efter beställningen; den behandlas dock först när vi mottagit dokumentet.",
+    "amazonRedirect": "Betala med Amazon Pay (knapp nedan) och kom tillbaka hit."
   },
   "orders": {
     "loginRequired": "Inloggning krävs",

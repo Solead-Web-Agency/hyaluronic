@@ -359,7 +359,9 @@
     "attestationDocChoose": "上传文件",
     "attestationEmailTitle": "通过电子邮件发送至",
     "cancel": "取消",
-    "rppsRequiredNotice": "您购物车中的某件商品仅限专业人士：请输入有效的RPPS编号或声明您是医疗专业人员。"
+    "rppsRequiredNotice": "您购物车中的某件商品仅限专业人士：请输入有效的RPPS编号或声明您是医疗专业人员。",
+    "attestationAfterOrder": "您可以在下单后发送；但订单将在我们收到文件后才会处理。",
+    "amazonRedirect": "通过 Amazon Pay（下方按钮）付款后返回此页。"
   },
   "orders": {
     "loginRequired": "需要登录",

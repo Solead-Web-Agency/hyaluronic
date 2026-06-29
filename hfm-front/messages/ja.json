@@ -359,7 +359,9 @@
     "attestationDocChoose": "ファイルをアップロード",
     "attestationEmailTitle": "メールで送信：",
     "cancel": "キャンセル",
-    "rppsRequiredNotice": "カート内の商品は医療従事者専用です。有効なRPPS番号を入力するか、医療従事者であることを証明してください。"
+    "rppsRequiredNotice": "カート内の商品は医療従事者専用です。有効なRPPS番号を入力するか、医療従事者であることを証明してください。",
+    "attestationAfterOrder": "注文後に送信できますが、書類の受領後に注文が処理されます。",
+    "amazonRedirect": "Amazon Pay（下のボタン）で支払い、こちらに戻ります。"
   },
   "orders": {
     "loginRequired": "ログインが必要です",

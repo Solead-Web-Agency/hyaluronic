@@ -385,7 +385,9 @@
     "rppsModify": "Modifier",
     "attestationDocChoose": "Téléverser un fichier",
     "attestationEmailTitle": "Envoyez-le par email à",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "attestationAfterOrder": "Vous pouvez l'envoyer après la commande ; celle-ci ne sera traitée qu'à réception du justificatif.",
+    "amazonRedirect": "Vous réglez via Amazon Pay (bouton ci-dessous), puis ramené ici."
   },
   "orders": {
     "loginRequired": "Connexion requise",

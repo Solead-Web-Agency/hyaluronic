@@ -359,7 +359,9 @@
     "attestationDocChoose": "Naloži datoteko",
     "attestationEmailTitle": "Pošljite po e-pošti na",
     "cancel": "Prekliči",
-    "rppsRequiredNotice": "Izdelek v vaši košarici je rezerviran za strokovnjake: vnesite veljavno številko RPPS ali potrdite, da ste zdravstveni delavec."
+    "rppsRequiredNotice": "Izdelek v vaši košarici je rezerviran za strokovnjake: vnesite veljavno številko RPPS ali potrdite, da ste zdravstveni delavec.",
+    "attestationAfterOrder": "Pošljete ga lahko po naročilu; vendar bo obdelano šele po prejemu dokazila.",
+    "amazonRedirect": "Plačajte z Amazon Pay (gumb spodaj) in se vrnite sem."
   },
   "orders": {
     "loginRequired": "Potrebna prijava",

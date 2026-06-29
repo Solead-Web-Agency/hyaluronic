@@ -14,6 +14,7 @@ export type SessionUser = {
   firstname: string;
   lastname: string;
   id_lang?: number;
+  is_guest?: number;
 };
 
 function b64url(buf: Buffer | string): string {
@@ -42,6 +43,7 @@ export function verifySession(token: string | undefined | null): SessionUser | n
       firstname: String(data.firstname || ''),
       lastname: String(data.lastname || ''),
       id_lang: data.id_lang ? Number(data.id_lang) : undefined,
+      is_guest: data.is_guest ? Number(data.is_guest) : 0,
     };
   } catch {
     return null;

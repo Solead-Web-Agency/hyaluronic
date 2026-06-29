@@ -359,7 +359,9 @@
     "attestationDocChoose": "Last opp en fil",
     "attestationEmailTitle": "Send på e-post til",
     "cancel": "Avbryt",
-    "rppsRequiredNotice": "Et produkt i handlekurven er forbeholdt fagfolk: oppgi et gyldig RPPS-nummer eller bekreft at du er helsepersonell."
+    "rppsRequiredNotice": "Et produkt i handlekurven er forbeholdt fagfolk: oppgi et gyldig RPPS-nummer eller bekreft at du er helsepersonell.",
+    "attestationAfterOrder": "Du kan sende det etter bestillingen; den behandles imidlertid først når vi har mottatt dokumentet.",
+    "amazonRedirect": "Betal med Amazon Pay (knapp under), så tilbake hit."
   },
   "orders": {
     "loginRequired": "Innlogging kreves",

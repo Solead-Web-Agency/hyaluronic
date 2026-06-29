@@ -359,7 +359,9 @@
     "attestationDocChoose": "Datei hochladen",
     "attestationEmailTitle": "Per E-Mail senden an",
     "cancel": "Abbrechen",
-    "rppsRequiredNotice": "Ein Produkt in Ihrem Warenkorb ist Fachkräften vorbehalten: Geben Sie eine gültige RPPS-Nummer an oder bestätigen Sie, dass Sie eine medizinische Fachkraft sind."
+    "rppsRequiredNotice": "Ein Produkt in Ihrem Warenkorb ist Fachkräften vorbehalten: Geben Sie eine gültige RPPS-Nummer an oder bestätigen Sie, dass Sie eine medizinische Fachkraft sind.",
+    "attestationAfterOrder": "Sie können es nach der Bestellung senden; Ihre Bestellung wird jedoch erst nach Erhalt des Nachweises bearbeitet.",
+    "amazonRedirect": "Bezahlung über Amazon Pay (Button unten), dann zurück hierher."
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",

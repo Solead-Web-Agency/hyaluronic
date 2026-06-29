@@ -385,7 +385,9 @@
     "rppsModify": "Edit",
     "attestationDocChoose": "Upload a file",
     "attestationEmailTitle": "Send it by email to",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "attestationAfterOrder": "You can send it after ordering; your order will only be processed once we receive the document.",
+    "amazonRedirect": "Pay via Amazon Pay (button below), then back here."
   },
   "orders": {
     "loginRequired": "Login required",

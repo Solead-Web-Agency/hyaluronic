@@ -359,7 +359,9 @@
     "attestationDocChoose": "Bestand uploaden",
     "attestationEmailTitle": "Stuur het per e-mail naar",
     "cancel": "Annuleren",
-    "rppsRequiredNotice": "Een product in uw winkelwagen is voorbehouden aan professionals: voer een geldig RPPS-nummer in of verklaar dat u een zorgprofessional bent."
+    "rppsRequiredNotice": "Een product in uw winkelwagen is voorbehouden aan professionals: voer een geldig RPPS-nummer in of verklaar dat u een zorgprofessional bent.",
+    "attestationAfterOrder": "U kunt het na de bestelling sturen; deze wordt pas verwerkt na ontvangst van het document.",
+    "amazonRedirect": "Betaal via Amazon Pay (knop hieronder) en kom terug."
   },
   "orders": {
     "loginRequired": "Inloggen vereist",

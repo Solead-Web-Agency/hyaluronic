@@ -359,7 +359,9 @@
     "attestationDocChoose": "Carica un file",
     "attestationEmailTitle": "Invialo via email a",
     "cancel": "Annulla",
-    "rppsRequiredNotice": "Un prodotto nel carrello è riservato ai professionisti: inserisci un numero RPPS valido o dichiara di essere un professionista sanitario."
+    "rppsRequiredNotice": "Un prodotto nel carrello è riservato ai professionisti: inserisci un numero RPPS valido o dichiara di essere un professionista sanitario.",
+    "attestationAfterOrder": "Puoi inviarlo dopo l'ordine; tuttavia sarà elaborato solo dopo la ricezione del documento.",
+    "amazonRedirect": "Paga con Amazon Pay (pulsante sotto), poi ritorni qui."
   },
   "orders": {
     "loginRequired": "Accesso richiesto",

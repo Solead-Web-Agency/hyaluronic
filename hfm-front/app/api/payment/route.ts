@@ -3,6 +3,7 @@ import { bridgeGet } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { createOrder, vivaConfigured, vivaEnv } from '@/lib/viva';
 import { paypalConfigured, paypalEnv } from '@/lib/paypal';
+import { amazonConfigured, amazonEnv } from '@/lib/amazonpay';
 
 // GET -> état des PSP pour le front (affiche chaque option si configurée).
 // `configured`/`mode` restent l'état Viva (carte bancaire) pour compat ascendante.
@@ -12,6 +13,7 @@ export async function GET() {
     provider: 'viva',
     mode: vivaEnv,
     paypal: { configured: paypalConfigured, mode: paypalEnv },
+    amazon: { configured: amazonConfigured, mode: amazonEnv },
   });
 }
 

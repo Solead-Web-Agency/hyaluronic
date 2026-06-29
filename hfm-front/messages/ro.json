@@ -359,7 +359,9 @@
     "attestationDocChoose": "Încarcă un fișier",
     "attestationEmailTitle": "Trimiteți-l prin e-mail la",
     "cancel": "Anulează",
-    "rppsRequiredNotice": "Un produs din coș este rezervat profesioniștilor: introduceți un număr RPPS valid sau declarați că sunteți un profesionist din domeniul sănătății."
+    "rppsRequiredNotice": "Un produs din coș este rezervat profesioniștilor: introduceți un număr RPPS valid sau declarați că sunteți un profesionist din domeniul sănătății.",
+    "attestationAfterOrder": "Îl puteți trimite după comandă; aceasta va fi însă procesată doar după primirea documentului.",
+    "amazonRedirect": "Plătiți cu Amazon Pay (butonul de mai jos), apoi reveniți aici."
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

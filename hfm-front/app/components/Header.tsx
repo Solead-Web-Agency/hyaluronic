@@ -50,6 +50,9 @@ export default function Header() {
   const t = useTranslations('header');
   const tc = useTranslations('common');
   const { openSearch, openCart, toggleMenu, closeMenu, menuOpen, cartCount, customer, logout } = useStore();
+  // Un invité (is_guest) n'a pas de vrai compte → traité comme NON connecté dans le header
+  // (pas de menu Mes commandes / Déconnexion ; le lien « Mon compte » mène à la connexion).
+  const loggedIn = !!customer && !customer.is_guest;
   const { ids: wishlistIds } = useWishlist();
   const [cats, setCats] = useState<Cat[]>([]);
   const [manus, setManus] = useState<Manu[]>([]);
@@ -116,11 +119,11 @@ export default function Header() {
               <Link href="/compte" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '7px', fontSize: '13.5px', color: '#6E7585' }}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }}><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" /></svg>
                 <span className="hfm-login-txt">{tc('myAccount')}</span>
-                {customer ? (
+                {loggedIn ? (
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" style={{ flex: 'none', transition: 'transform .2s ease', transform: acctOpen ? 'rotate(180deg)' : 'none' }}><path d="M6 9l6 6 6-6" /></svg>
                 ) : null}
               </Link>
-              {customer && acctOpen ? (
+              {loggedIn && acctOpen ? (
                 <div style={{ position: 'absolute', top: '100%', right: 0, paddingTop: '12px', zIndex: 50 }}>
                   <div style={{ width: '230px', background: 'rgba(250,250,247,.98)', backdropFilter: 'blur(16px) saturate(150%)', WebkitBackdropFilter: 'blur(16px) saturate(150%)', border: '1px solid #E7E3DA', borderRadius: '14px', boxShadow: '0 24px 44px -22px rgba(40,50,25,.45)', padding: '6px' }}>
                     <div style={{ padding: '8px 12px', fontSize: '12px', color: '#9A9A9A', borderBottom: '1px solid #ECEAE3', marginBottom: '4px' }}>{customer.firstname} {customer.lastname}</div>
@@ -205,7 +208,7 @@ export default function Header() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A8503A" strokeWidth="2" strokeLinecap="round"><path d="M9 6l6 6-6 6" /></svg>
             </Link>
           </div>
-          <Link href="/compte" onClick={closeMenu} style={{ width: '100%', marginTop: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '9px', height: '50px', borderRadius: '999px', background: '#fff', border: '1.5px solid #8CC63F', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#5E8E1F', cursor: 'pointer' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" /></svg>{customer ? tc('myAccount') : t('loginPractitioner')}</Link>
+          <Link href="/compte" onClick={closeMenu} style={{ width: '100%', marginTop: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '9px', height: '50px', borderRadius: '999px', background: '#fff', border: '1.5px solid #8CC63F', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#5E8E1F', cursor: 'pointer' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" /></svg>{loggedIn ? tc('myAccount') : t('loginPractitioner')}</Link>
           <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '7px', marginTop: '16px' }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#7A8268', background: 'rgba(140,198,63,.09)', border: '1px solid rgba(140,198,63,.18)', padding: '6px 11px', borderRadius: '999px' }}>{t('tagCe')}</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#7A8268', background: 'rgba(140,198,63,.09)', border: '1px solid rgba(140,198,63,.18)', padding: '6px 11px', borderRadius: '999px' }}>{t('tagDelay')}</span>
