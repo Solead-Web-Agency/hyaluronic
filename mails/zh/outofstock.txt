@@ -1,0 +1,17 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thanks for your order with the reference {order_name} from {shop_name}.
+
+Order ID {order_name} - Replenishment required
+
+很遗憾，目前有一件或多件商品缺货，这可能导致配送略有延迟。对于由此带来的不便，我们深表歉意，并请您放心，我们正在尽全力解决这一问题。
+
+Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+
+If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url})
+
+技术支持 [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

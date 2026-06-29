@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+优惠码已生成
+
+Here is your new voucher code: {voucher_num}
+
+使用时，只需在结账时复制并粘贴此优惠码即可。
+
+[{shop_name}]({shop_url})
+
+技术支持 [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

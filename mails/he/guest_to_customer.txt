@@ -1,0 +1,18 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+חשבון האורח שלכם הומר לחשבון לקוח
+
+Congratulations, your guest account for {shop_name} has been turned into a customer account!
+
+Email address: {email}
+
+לחצו על הקישור הבא כדי להגדיר את הסיסמה שלכם:
+{url}
+
+You can access your customer account on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+מופעל על ידי [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

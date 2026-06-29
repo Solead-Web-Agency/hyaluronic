@@ -1,39 +1,41 @@
-[{shop_name}]({shop_url})
-Olá {firstname} {lastname},
-Obrigado por fazer compras na {shop_name}!
+{shop_url}
 
-Encomenda: {order_name} Realizada a {date}
+Hi {firstname} {lastname},
 
-Pagamento: {payment}
+Thank you for shopping on {shop_name}!
 
-Referência	Produto	Preço unitário	Quantidade	Preço total  {products_txt} {discounts_txt}
+Detalhes da encomenda
 
-Produtos
-{total_products}
+Order: {order_name} Placed on {date}
 
-Descontos
-{total_discounts}
+Payment: {payment}
 
-Embrulho de presente
-{total_wrapping}
+Reference	Product	Unit price	Quantity	Total price  {products_txt} {discounts_txt}
+Products	{total_products}
+Discounts	{total_discounts}
+Gift-wrapping	{total_wrapping}
+Shipping	{total_shipping}
+Including total tax	{total_tax_paid}
+Total paid	{total_paid}
 
 Envio
-{total_shipping}
 
-Total de imposto pago
-{total_tax_paid}
+Carrier: {carrier}
 
-Total pago
-{total_paid}
+Payment: {payment}
 
-Transportadora: {carrier}
-
-Pagamento: {payment}
+Morada de entrega
 
 {delivery_block_txt}
+
+Morada de faturação
+
 {invoice_block_txt}
 
-Follow your order and download your invoice on our shop, go to the [Histórico de encomendas e detalhes]({history_url}) section of your customer account.
-If you have a guest account, you can follow your order via the [Rastreio de Visitantes]({guest_tracking_url}) section on our shop.
+Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
 
-[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)
+If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url})
+
+Desenvolvido por [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+쿠폰 코드가 발행되었습니다
+
+Here is your new voucher code: {voucher_num}
+
+사용하시려면, 결제 시 이 코드를 복사하여 붙여넣기만 하시면 됩니다.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

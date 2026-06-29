@@ -355,7 +355,11 @@
     "attestationEmailNote": "Możesz też wysłać go e-mailem na",
     "attestationRequired": "Zaznacz oświadczenie, aby kontynuować.",
     "rppsAlreadyValidated": "Twój status zawodowy został już zweryfikowany.",
-    "rppsModify": "Zmień"
+    "rppsModify": "Zmień",
+    "attestationDocChoose": "Prześlij plik",
+    "attestationEmailTitle": "Wyślij e-mailem na",
+    "cancel": "Anuluj",
+    "rppsRequiredNotice": "Produkt w koszyku jest zarezerwowany dla specjalistów: podaj prawidłowy numer RPPS lub oświadcz, że jesteś pracownikiem służby zdrowia."
   },
   "orders": {
     "loginRequired": "Wymagane logowanie",

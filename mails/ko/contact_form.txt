@@ -1,0 +1,17 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+메시지가 성공적으로 전송되었습니다. 소중한 시간을 내어 작성해 주셔서 감사합니다!
+
+Order ID #:  {order_name}
+
+Product:  {product_name}
+
+Attached file: {attached_file}
+
+가능한 한 빨리 답변 드리겠습니다.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

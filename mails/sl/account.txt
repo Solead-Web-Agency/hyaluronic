@@ -1,0 +1,27 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}.
+
+Your login details on {shop_name}
+
+Tukaj so vaši podatki za prijavo:
+
+Email address: {email}
+
+Pomembni varnostni nasveti:
+
+1. Podatke o svojem računu vedno varno hranite.
+
+2. Svojih podatkov za prijavo nikoli ne razkrijte nikomur.
+
+3. Redno spreminjajte svoje geslo.
+
+4. Če sumite, da nekdo nezakonito uporablja vaš račun, nas takoj obvestite.
+
+You can now place orders on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+Poganja [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

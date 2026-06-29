@@ -1,0 +1,31 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for shopping with {shop_name}!
+
+Order ID {order_name} - Pending payment
+
+Your order with the reference {order_name} has been placed successfully. You can expect delivery as soon as your payment is received.
+
+결제 수단: 계좌 이체
+
+계좌 이체로 결제하기로 선택하셨습니다. 이체에 필요한 정보는 다음과 같습니다:
+
+Amount:  {total_paid}
+
+Account owner:  {bankwire_owner}
+
+Account details: {bankwire_details}
+
+Bank address: {bankwire_address}
+
+계좌 이체 적요란에 주문 번호를 기재해 주시기 바랍니다.
+
+Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+
+If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

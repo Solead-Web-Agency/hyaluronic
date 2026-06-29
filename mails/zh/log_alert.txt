@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+新的提醒消息已保存
+
+警告：您的后台收到了一条新的日志提醒。
+
+您可以在后台的高级参数 > 日志板块中查看。
+
+[{shop_name}]({shop_url})
+
+技术支持 [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

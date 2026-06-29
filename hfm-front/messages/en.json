@@ -336,7 +336,7 @@
     "summary": "Summary",
     "rppsLabel": "RPPS / ADELI number",
     "rppsPlaceholder": "11 digits (ADELI / RPPS)",
-    "rppsRequiredNotice": "An item in your cart is restricted to practitioners: a valid RPPS number is required.",
+    "rppsRequiredNotice": "A product in your cart is reserved for practitioners: enter a valid RPPS number or certify that you are a healthcare professional.",
     "rppsInvalid": "A valid RPPS number is required (9–11 digits).",
     "rppsRequiredError": "A valid RPPS number is required for a practitioner-only product.",
     "voucherLabel": "Promo code",
@@ -382,7 +382,10 @@
     "attestationEmailNote": "You can also send it by email to",
     "attestationRequired": "Please tick the attestation to continue.",
     "rppsAlreadyValidated": "Your professional status has already been verified.",
-    "rppsModify": "Edit"
+    "rppsModify": "Edit",
+    "attestationDocChoose": "Upload a file",
+    "attestationEmailTitle": "Send it by email to",
+    "cancel": "Cancel"
   },
   "orders": {
     "loginRequired": "Login required",

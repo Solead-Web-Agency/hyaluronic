@@ -1,0 +1,18 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Contul dumneavoastră de oaspete a fost transformat într-un cont de client
+
+Congratulations, your guest account for {shop_name} has been turned into a customer account!
+
+Email address: {email}
+
+Faceți clic pe următorul link pentru a vă configura parola:
+{url}
+
+You can access your customer account on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+Susținut de [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

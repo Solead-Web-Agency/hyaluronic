@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Rabattkode er opprettet
+
+Here is your new voucher code: {voucher_num}
+
+For å bruke den, kopierer og limer du bare inn denne koden i kassen.
+
+[{shop_name}]({shop_url})
+
+Drives av [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -355,7 +355,11 @@
     "attestationEmailNote": "Du kan också skicka det via e-post till",
     "attestationRequired": "Markera intyget för att fortsätta.",
     "rppsAlreadyValidated": "Din yrkesstatus har redan verifierats.",
-    "rppsModify": "Ändra"
+    "rppsModify": "Ändra",
+    "attestationDocChoose": "Ladda upp en fil",
+    "attestationEmailTitle": "Skicka via e-post till",
+    "cancel": "Avbryt",
+    "rppsRequiredNotice": "En produkt i din varukorg är reserverad för yrkesverksamma: ange ett giltigt RPPS-nummer eller intyga att du är vårdpersonal."
   },
   "orders": {
     "loginRequired": "Inloggning krävs",

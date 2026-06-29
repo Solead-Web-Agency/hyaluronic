@@ -1,0 +1,15 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Order ID {order_name} - Voucher code generated
+
+We are pleased to inform you that a voucher has been generated in your name for order with the reference {order_name}.
+
+VOUCHER CODE: {voucher_num} in the amount of {voucher_amount}
+
+사용하시려면, 결제 시 이 코드를 복사하여 붙여넣기만 하시면 됩니다.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

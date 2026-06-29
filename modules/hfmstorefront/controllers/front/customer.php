@@ -107,6 +107,15 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
                 return ['error' => 'email_already_exists'];
             }
         }
+        // Réutilise un INVITÉ existant pour ce même e-mail (cas édition) au lieu de créer un doublon.
+        $existingGuest = (new Customer())->getByEmail($email, null, false);
+        if (Validate::isLoadedObject($existingGuest) && $existingGuest->is_guest) {
+            $existingGuest->firstname = $firstname;
+            $existingGuest->lastname = $lastname;
+            $existingGuest->id_lang = (int) ($this->in('id_lang') ?: $existingGuest->id_lang);
+            $existingGuest->update();
+            return ['created' => false, 'guest' => true, 'customer' => $this->customerPayload($existingGuest)];
+        }
         $customer = new Customer();
         $customer->email = $email;
         $customer->passwd = $this->hashPassword(Tools::passwdGen(16));
@@ -299,6 +308,7 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             'firstname' => $c->firstname,
             'lastname' => $c->lastname,
             'id_lang' => (int) $c->id_lang,
+            'is_guest' => (int) $c->is_guest,
             'groups' => array_map('intval', $c->getGroups()),
             'rpps' => $pro['rpps'],
             'pro_attestation' => (int) $pro['attestation'],

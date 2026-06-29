@@ -1,0 +1,11 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Här är ett testmeddelande från din butik.
+
+Om du kan läsa detta betyder det att testet lyckades!
+
+[{shop_name}]({shop_url})
+
+Drivs av [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

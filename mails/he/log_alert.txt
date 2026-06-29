@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+הודעת התראה חדשה נשמרה
+
+אזהרה: התקבלה אצלכם התראת יומן רישום חדשה בממשק הניהול.
+
+תוכלו לבדוק זאת במקטע הגדרות מתקדמות > יומני רישום בממשק הניהול שלכם.
+
+[{shop_name}]({shop_url})
+
+מופעל על ידי [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

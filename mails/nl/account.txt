@@ -1,0 +1,27 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}.
+
+Your login details on {shop_name}
+
+Hier zijn uw inloggegevens:
+
+Email address: {email}
+
+Belangrijke beveiligingstips:
+
+1. Bewaar uw accountgegevens altijd veilig.
+
+2. Deel uw inloggegevens nooit met iemand.
+
+3. Wijzig regelmatig uw wachtwoord.
+
+4. Mocht u vermoeden dat iemand uw account onrechtmatig gebruikt, laat het ons dan onmiddellijk weten.
+
+You can now place orders on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+Mogelijk gemaakt door [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

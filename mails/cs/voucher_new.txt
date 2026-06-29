@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Kód slevového kuponu byl vygenerován
+
+Here is your new voucher code: {voucher_num}
+
+Chcete-li jej použít, jednoduše tento kód zkopírujte a vložte při dokončení objednávky.
+
+[{shop_name}]({shop_url})
+
+Poháněno [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

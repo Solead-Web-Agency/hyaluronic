@@ -1,0 +1,17 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thanks for your order with the reference {order_name} from {shop_name}.
+
+Order ID {order_name} - Replenishment required
+
+Žal eden ali več izdelkov trenutno ni na zalogi, kar lahko povzroči manjšo zamudo pri dostavi. Prosimo, sprejmite naše opravičilo za to nevšečnost in bodite prepričani, da se po najboljših močeh trudimo popraviti situacijo.
+
+Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+
+If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url})
+
+Poganja [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

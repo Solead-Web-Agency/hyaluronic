@@ -355,7 +355,11 @@
     "attestationEmailNote": "Sie können ihn auch per E-Mail senden an",
     "attestationRequired": "Bitte bestätigen Sie die Erklärung, um fortzufahren.",
     "rppsAlreadyValidated": "Ihr Berufsstatus wurde bereits bestätigt.",
-    "rppsModify": "Ändern"
+    "rppsModify": "Ändern",
+    "attestationDocChoose": "Datei hochladen",
+    "attestationEmailTitle": "Per E-Mail senden an",
+    "cancel": "Abbrechen",
+    "rppsRequiredNotice": "Ein Produkt in Ihrem Warenkorb ist Fachkräften vorbehalten: Geben Sie eine gültige RPPS-Nummer an oder bestätigen Sie, dass Sie eine medizinische Fachkraft sind."
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",

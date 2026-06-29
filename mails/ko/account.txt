@@ -1,0 +1,27 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}.
+
+Your login details on {shop_name}
+
+귀하의 로그인 정보는 다음과 같습니다:
+
+Email address: {email}
+
+중요한 보안 안내:
+
+1. 계정 정보를 항상 안전하게 보관하세요.
+
+2. 로그인 정보를 누구에게도 알려주지 마세요.
+
+3. 비밀번호를 정기적으로 변경하세요.
+
+4. 누군가 귀하의 계정을 부정하게 사용하고 있다고 의심되는 경우, 즉시 저희에게 알려주시기 바랍니다.
+
+You can now place orders on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

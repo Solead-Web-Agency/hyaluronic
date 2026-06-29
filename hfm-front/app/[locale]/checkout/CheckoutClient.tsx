@@ -62,6 +62,7 @@ export default function CheckoutClient() {
   const router = useRouter();
   const t = useTranslations('checkout');
   const tc = useTranslations('common');
+  const tcart = useTranslations('cart');
   const locale = useLocale();
 
   const paymentLabel = (p: string) =>
@@ -81,6 +82,8 @@ export default function CheckoutClient() {
   const [guestLast, setGuestLast] = useState('');
   const [guestBusy, setGuestBusy] = useState(false);
   const [guestErr, setGuestErr] = useState<string | null>(null);
+  const [enteredAsGuest, setEnteredAsGuest] = useState(false); // identité saisie en invité → propose « Modifier »
+  const [editIdentity, setEditIdentity] = useState(false); // rouvre le formulaire pour modifier les coordonnées invité
 
   const [payment, setPayment] = useState<string>(PAYMENTS[0]);
   const [totals, setTotals] = useState<Totals | null>(null);
@@ -484,6 +487,31 @@ export default function CheckoutClient() {
   };
 
   // ---------- États bloquants ----------
+  // Identité invité — créée DANS le tunnel (étape 1), sans page-portail bloquante.
+  const submitGuest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setGuestErr(null);
+    if (!guestEmail.trim() || !guestFirst.trim() || !guestLast.trim()) {
+      setGuestErr(t('missingFields'));
+      return;
+    }
+    setGuestBusy(true);
+    const res = await guestCheckout({ email: guestEmail.trim(), firstname: guestFirst.trim(), lastname: guestLast.trim() });
+    setGuestBusy(false);
+    if (!res.ok) {
+      setGuestErr(
+        res.error === 'email_already_exists' ? t('guestEmailExists')
+        : res.error === 'invalid_name' ? t('guestInvalidName')
+        : res.error === 'invalid_email' ? t('guestInvalidEmail')
+        : tc('networkError')
+      );
+    } else {
+      setEnteredAsGuest(true);
+      setEditIdentity(false);
+    }
+  };
+  const gInput: React.CSSProperties = { height: '46px', padding: '0 14px', border: '1px solid #E2DECF', borderRadius: '6px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', outline: 'none', background: '#fff', width: '100%', boxSizing: 'border-box', color: '#34352F' };
+
   if (!authReady) {
     return <main className="hfm-wrap" style={{ maxWidth: '620px', margin: '0 auto', padding: '90px 28px', textAlign: 'center', color: '#8A8170' }}>{t('loading')}</main>;
   }
@@ -503,54 +531,7 @@ export default function CheckoutClient() {
     );
   }
 
-  if (!customer) {
-    const submitGuest = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setGuestErr(null);
-      if (!guestEmail.trim() || !guestFirst.trim() || !guestLast.trim()) {
-        setGuestErr(t('missingFields'));
-        return;
-      }
-      setGuestBusy(true);
-      const res = await guestCheckout({ email: guestEmail.trim(), firstname: guestFirst.trim(), lastname: guestLast.trim() });
-      setGuestBusy(false);
-      if (!res.ok) {
-        setGuestErr(
-          res.error === 'email_already_exists' ? t('guestEmailExists')
-          : res.error === 'invalid_name' ? t('guestInvalidName')
-          : res.error === 'invalid_email' ? t('guestInvalidEmail')
-          : tc('networkError')
-        );
-      }
-    };
-    const gInput: React.CSSProperties = { height: '46px', padding: '0 14px', border: '1px solid #E2DECF', borderRadius: '6px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', outline: 'none', background: '#fff', width: '100%', boxSizing: 'border-box', color: '#34352F' };
-    return (
-      <main data-screen-label="Commande" className="hfm-wrap" style={{ maxWidth: '560px', margin: '0 auto', padding: '50px 28px 70px' }}>
-        <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(24px,3.4vw,32px)', color: '#2B2B2B', margin: '0 0 8px', textAlign: 'center' }}>{t('guestTitle')}</h1>
-        <p style={{ fontSize: '14px', color: '#55606F', margin: '0 0 26px', textAlign: 'center' }}>{t('guestSubtitle')}</p>
-        <form onSubmit={submitGuest} style={{ background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-            <input value={guestFirst} onChange={(e) => setGuestFirst(e.target.value)} placeholder={t('firstname')} style={gInput} />
-            <input value={guestLast} onChange={(e) => setGuestLast(e.target.value)} placeholder={t('lastname')} style={gInput} />
-          </div>
-          <input type="email" value={guestEmail} onChange={(e) => setGuestEmail(e.target.value)} placeholder={t('emailLabel')} style={gInput} />
-          {guestErr ? <div style={{ fontSize: '13px', color: '#A8503A' }}>{guestErr}</div> : null}
-          <button type="submit" disabled={guestBusy} style={{ height: '50px', borderRadius: '999px', color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, cursor: guestBusy ? 'default' : 'pointer', opacity: guestBusy ? 0.7 : 1 }}>
-            {guestBusy ? tc('loading') : t('guestContinue')}
-          </button>
-        </form>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '22px 0' }}>
-          <span style={{ flex: 1, height: '1px', background: '#E7E3DA' }} />
-          <span style={{ fontSize: '12px', color: '#9A9A9A', textTransform: 'uppercase', letterSpacing: '.1em' }}>{t('orSeparator')}</span>
-          <span style={{ flex: 1, height: '1px', background: '#E7E3DA' }} />
-        </div>
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button onClick={() => router.push('/compte?next=/checkout')} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, color: '#5E8E1F', background: 'rgba(140,198,63,0.08)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '13px 24px', cursor: 'pointer' }}>{t('haveAccount')}</button>
-          <button onClick={() => router.push('/compte?next=/checkout')} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, color: '#5E8E1F', background: 'rgba(140,198,63,0.08)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '13px 24px', cursor: 'pointer' }}>{t('createAccount')}</button>
-        </div>
-      </main>
-    );
-  }
+  // (Plus de page-portail invité : l'identité invité est collectée DANS le tunnel, en étape 1.)
 
   if (!cart.products.length) {
     return (
@@ -564,6 +545,9 @@ export default function CheckoutClient() {
 
   // Totaux affichés : transport + TTC global dès qu'un transporteur est choisi.
   const subtotalHT = totals?.products_excl_tax ?? cart.total_excl_tax;
+  // Compteur "livraison offerte" (seuil 400 € HT, identique au tiroir panier).
+  const freeShipRemain = Math.max(0, 400 - subtotalHT);
+  const freeShipPct = Math.min(100, (subtotalHT / 400) * 100);
   const shipping = selCarrier ? (totals?.shipping_incl_tax ?? 0) : null;
   const grandTTC = selCarrier ? (totals?.total_incl_tax ?? cart.total_incl_tax) : (totals?.products_incl_tax ?? cart.total_incl_tax);
   // Remise : préfère le total réel du panier, sinon le retour de l'API voucher.
@@ -579,11 +563,43 @@ export default function CheckoutClient() {
 
           {/* Étape 1 — Coordonnées */}
           <div style={cardStyle}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}><span style={stepBadge(1, true)}>1</span><span style={titleStyle}>{t('stepContact')}</span></div>
-            <div style={{ fontSize: '15px', color: '#34352F', fontWeight: 600 }}>{customer.firstname} {customer.lastname}</div>
-            <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '4px' }}>{customer.email}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}><span style={stepBadge(1, !!customer)}>1</span><span style={titleStyle}>{t('stepContact')}</span></div>
+            {customer && !editIdentity ? (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
+                <div>
+                  <div style={{ fontSize: '15px', color: '#34352F', fontWeight: 600 }}>{customer.firstname} {customer.lastname}</div>
+                  <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '4px' }}>{customer.email}</div>
+                </div>
+                {enteredAsGuest || customer.is_guest ? (
+                  <button type="button" onClick={() => { setGuestFirst(customer.firstname); setGuestLast(customer.lastname); setGuestEmail(customer.email); setGuestErr(null); setEditIdentity(true); }} style={{ background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline', flex: 'none' }}>{t('rppsModify')}</button>
+                ) : null}
+              </div>
+            ) : (
+              <>
+                <p style={{ fontSize: '13.5px', color: '#55606F', margin: '0 0 14px' }}>{t('guestSubtitle')}</p>
+                <form onSubmit={submitGuest} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                    <input value={guestFirst} onChange={(e) => setGuestFirst(e.target.value)} placeholder={t('firstname')} style={gInput} />
+                    <input value={guestLast} onChange={(e) => setGuestLast(e.target.value)} placeholder={t('lastname')} style={gInput} />
+                  </div>
+                  <input type="email" value={guestEmail} onChange={(e) => setGuestEmail(e.target.value)} placeholder={t('emailLabel')} style={gInput} />
+                  {guestErr ? <div style={{ fontSize: '13px', color: '#A8503A' }}>{guestErr}</div> : null}
+                  <button type="submit" disabled={guestBusy} style={{ height: '48px', borderRadius: '999px', color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, cursor: guestBusy ? 'default' : 'pointer', opacity: guestBusy ? 0.7 : 1 }}>
+                    {guestBusy ? tc('loading') : t('guestContinue')}
+                  </button>
+                </form>
+                <div style={{ marginTop: '12px' }}>
+                  {customer && editIdentity ? (
+                    <button type="button" onClick={() => setEditIdentity(false)} style={{ background: 'none', border: 'none', padding: 0, color: '#9A9A9A', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('cancel')}</button>
+                  ) : (
+                    <button type="button" onClick={() => router.push('/compte?next=/checkout')} style={{ background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('haveAccount')}</button>
+                  )}
+                </div>
+              </>
+            )}
 
             {/* Produits réservés praticiens : numéro RPPS OU attestation professionnelle (moins de friction) */}
+            {customer ? (
             <div style={{ marginTop: '18px', borderTop: '1px solid #ECEAE3', paddingTop: '18px' }}>
               {rppsNeeded && rppsValidated && !editPro ? (
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '7px' }}>
@@ -659,13 +675,38 @@ export default function CheckoutClient() {
                     <input type="checkbox" checked={attestation} onChange={(e) => { setAttestation(e.target.checked); if (rppsErr) setRppsErr(null); }} style={{ marginTop: '2px', width: '16px', height: '16px', flex: 'none', accentColor: '#5E8E1F' }} />
                     <span style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#34352F' }}>{t('attestationText')}</span>
                   </label>
-                  <div style={{ marginTop: '12px' }}>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#34352F', marginBottom: '6px' }}>{t('attestationDoc')}</label>
-                    <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,image/*,application/pdf" onChange={(e) => onProDocChange(e.target.files?.[0] || null)} style={{ fontSize: '12.5px', color: '#34352F' }} />
-                    {proDoc ? <div style={{ fontSize: '11.5px', color: '#3F7256', marginTop: '6px' }}>✓ {proDoc.name}</div> : null}
-                  </div>
-                  <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '10px', lineHeight: 1.5 }}>
-                    {t('attestationEmailNote')} <a href={`mailto:${PRO_CONTACT_EMAIL}`} style={{ color: '#5E8E1F' }}>{PRO_CONTACT_EMAIL}</a>.
+                  <div style={{ marginTop: '14px' }}>
+                    <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#34352F', marginBottom: '10px' }}>{t('attestationDoc')}</div>
+
+                    {/* Option A — téléverser un fichier (bouton stylé, input natif masqué) */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                      <label style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', background: 'rgba(140,198,63,0.08)', border: '1px solid rgba(155,209,89,.8)', color: '#5E8E1F', borderRadius: '8px', padding: '10px 16px', fontSize: '13px', fontWeight: 600 }}>
+                        <span aria-hidden="true" style={{ fontSize: '14px' }}>⬆</span>{t('attestationDocChoose')}
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,image/*,application/pdf" onChange={(e) => onProDocChange(e.target.files?.[0] || null)} style={{ display: 'none' }} />
+                      </label>
+                      {proDoc ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#3F7256', fontWeight: 600, background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '999px', padding: '6px 8px 6px 12px' }}>
+                          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '170px' }}>✓ {proDoc.name}</span>
+                          <button type="button" onClick={() => setProDoc(null)} aria-label="Retirer" style={{ background: 'none', border: 'none', padding: 0, color: '#3F7256', cursor: 'pointer', fontSize: '13px', lineHeight: 1, flex: 'none' }}>✕</button>
+                        </span>
+                      ) : null}
+                    </div>
+
+                    {/* séparateur OU */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '14px 0' }}>
+                      <span style={{ flex: 1, height: '1px', background: '#E7E3DA' }} />
+                      <span style={{ fontSize: '11px', color: '#9A9A9A', textTransform: 'uppercase', letterSpacing: '.1em' }}>{t('orSeparator')}</span>
+                      <span style={{ flex: 1, height: '1px', background: '#E7E3DA' }} />
+                    </div>
+
+                    {/* Option B — par email (encart distinct, mis en évidence) */}
+                    <a href={`mailto:${PRO_CONTACT_EMAIL}`} style={{ display: 'flex', alignItems: 'center', gap: '11px', textDecoration: 'none', background: '#fff', border: '1px solid #E2DECF', borderRadius: '8px', padding: '11px 14px' }}>
+                      <span aria-hidden="true" style={{ fontSize: '17px', flex: 'none' }}>✉️</span>
+                      <span style={{ lineHeight: 1.35 }}>
+                        <span style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F' }}>{t('attestationEmailTitle')}</span>
+                        <span style={{ fontSize: '13px', color: '#5E8E1F', fontWeight: 700 }}>{PRO_CONTACT_EMAIL}</span>
+                      </span>
+                    </a>
                   </div>
                   {rppsErr && rppsMode === 'pro' ? <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div> : null}
                 </div>
@@ -673,11 +714,14 @@ export default function CheckoutClient() {
               </>
               )}
             </div>
+            ) : null}
           </div>
 
+          {/* Étapes 2-4 : visibles mais verrouillées tant que l'étape 1 (identité) n'est pas validée */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '22px', ...(customer ? {} : { opacity: 0.5, pointerEvents: 'none', userSelect: 'none' }) }} aria-disabled={!customer}>
           {/* Étape 2 — Livraison (adresse) */}
           <div style={cardStyle}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}><span style={stepBadge(2, true)}>2</span><span style={titleStyle}>{t('stepAddress')}</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}><span style={stepBadge(2, !!customer)}>2</span><span style={titleStyle}>{t('stepAddress')}</span></div>
             {addresses.length ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {addresses.map((a) => {
@@ -801,6 +845,7 @@ export default function CheckoutClient() {
               })}
             </div>
           </div>
+          </div>
         </div>
 
         {/* Récapitulatif */}
@@ -841,6 +886,12 @@ export default function CheckoutClient() {
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '17px', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #E7E3DA' }}><span style={{ fontWeight: 600, color: '#2B2B2B' }}>{t('totalIncl')}</span><span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, color: '#434343' }}>{fmt(grandTTC)} €</span></div>
           </div>
           {orderErr ? <div style={{ fontSize: '13px', color: '#A8503A', marginTop: '14px', textAlign: 'center' }}>{t('orderError', { error: orderErr })}</div> : null}
+          {rppsNeeded && !rppsSatisfied ? (
+            <div style={{ display: 'flex', gap: '9px', alignItems: 'flex-start', marginTop: '14px', padding: '10px 12px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '7px' }}>
+              <span style={{ color: '#A8503A', fontSize: '13px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>
+              <span style={{ fontSize: '11.5px', lineHeight: 1.45, color: '#A8503A', fontWeight: 500 }}>{t('rppsRequiredNotice')}</span>
+            </div>
+          ) : null}
           <button
             onClick={placeOrder}
             disabled={!canOrder}

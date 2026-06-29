@@ -1,0 +1,11 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+这是来自您商店的一封测试邮件。
+
+如果您能看到这条信息，说明测试成功！
+
+[{shop_name}]({shop_url})
+
+技术支持 [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,27 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}.
+
+Your login details on {shop_name}
+
+Ακολουθούν τα στοιχεία σύνδεσής σας:
+
+Email address: {email}
+
+Σημαντικές Συμβουλές Ασφαλείας:
+
+1. Διατηρείτε πάντα τα στοιχεία του λογαριασμού σας ασφαλή.
+
+2. Μην αποκαλύπτετε ποτέ τα στοιχεία σύνδεσής σας σε κανέναν.
+
+3. Αλλάζετε τακτικά τον κωδικό πρόσβασής σας.
+
+4. Εάν υποψιάζεστε ότι κάποιος χρησιμοποιεί παράνομα τον λογαριασμό σας, παρακαλούμε ειδοποιήστε μας αμέσως.
+
+You can now place orders on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+Με την υποστήριξη της [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

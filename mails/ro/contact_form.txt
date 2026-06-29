@@ -1,0 +1,17 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Mesajul dumneavoastră a fost trimis cu succes, vă mulțumim că ați acordat timp pentru a ne scrie!
+
+Order ID #:  {order_name}
+
+Product:  {product_name}
+
+Attached file: {attached_file}
+
+Vă vom răspunde cât mai curând posibil.
+
+[{shop_name}]({shop_url})
+
+Susținut de [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

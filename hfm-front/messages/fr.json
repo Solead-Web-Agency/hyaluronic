@@ -336,7 +336,7 @@
     "summary": "Récapitulatif",
     "rppsLabel": "Numéro RPPS / ADELI",
     "rppsPlaceholder": "11 chiffres (ADELI / RPPS)",
-    "rppsRequiredNotice": "Un produit de votre panier est réservé aux praticiens : un numéro RPPS valide est requis.",
+    "rppsRequiredNotice": "Un produit de votre panier est réservé aux praticiens : indiquez un numéro RPPS valide ou attestez être un professionnel de santé.",
     "rppsInvalid": "Numéro RPPS valide requis (9 à 11 chiffres).",
     "rppsRequiredError": "Numéro RPPS valide requis pour un produit réservé aux praticiens.",
     "voucherLabel": "Code promo",
@@ -382,7 +382,10 @@
     "attestationEmailNote": "Vous pouvez aussi l'envoyer par email à",
     "attestationRequired": "Veuillez cocher l'attestation pour continuer.",
     "rppsAlreadyValidated": "Votre statut professionnel a déjà été validé.",
-    "rppsModify": "Modifier"
+    "rppsModify": "Modifier",
+    "attestationDocChoose": "Téléverser un fichier",
+    "attestationEmailTitle": "Envoyez-le par email à",
+    "cancel": "Annuler"
   },
   "orders": {
     "loginRequired": "Connexion requise",

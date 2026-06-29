@@ -355,7 +355,11 @@
     "attestationEmailNote": "U kunt het ook per e-mail sturen naar",
     "attestationRequired": "Vink de verklaring aan om door te gaan.",
     "rppsAlreadyValidated": "Uw beroepsstatus is al geverifieerd.",
-    "rppsModify": "Wijzigen"
+    "rppsModify": "Wijzigen",
+    "attestationDocChoose": "Bestand uploaden",
+    "attestationEmailTitle": "Stuur het per e-mail naar",
+    "cancel": "Annuleren",
+    "rppsRequiredNotice": "Een product in uw winkelwagen is voorbehouden aan professionals: voer een geldig RPPS-nummer in of verklaar dat u een zorgprofessional bent."
   },
   "orders": {
     "loginRequired": "Inloggen vereist",

@@ -1,0 +1,15 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+{product} is almost out of stock.
+
+There are now less than {last_qty} items in stock.
+
+Remaining stock: {qty}
+
+Fyll opp lageret ditt, gå til delen Katalog > Lager i administrasjonspanelet for å administrere lageret ditt.
+
+[{shop_name}]({shop_url})
+
+Drives av [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

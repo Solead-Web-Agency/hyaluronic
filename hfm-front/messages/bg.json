@@ -355,7 +355,11 @@
     "attestationEmailNote": "Можете да го изпратите и по имейл на",
     "attestationRequired": "Моля, отметнете декларацията, за да продължите.",
     "rppsAlreadyValidated": "Вашият професионален статус вече е потвърден.",
-    "rppsModify": "Промяна"
+    "rppsModify": "Промяна",
+    "attestationDocChoose": "Качване на файл",
+    "attestationEmailTitle": "Изпратете го по имейл на",
+    "cancel": "Отказ",
+    "rppsRequiredNotice": "Продукт в количката ви е запазен за специалисти: въведете валиден RPPS номер или декларирайте, че сте медицински специалист."
   },
   "orders": {
     "loginRequired": "Изисква се вход",

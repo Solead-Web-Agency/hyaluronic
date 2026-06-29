@@ -355,7 +355,11 @@
     "attestationEmailNote": "Μπορείτε επίσης να το στείλετε με email στο",
     "attestationRequired": "Επιλέξτε τη δήλωση για να συνεχίσετε.",
     "rppsAlreadyValidated": "Η επαγγελματική σας ιδιότητα έχει ήδη επαληθευτεί.",
-    "rppsModify": "Επεξεργασία"
+    "rppsModify": "Επεξεργασία",
+    "attestationDocChoose": "Μεταφόρτωση αρχείου",
+    "attestationEmailTitle": "Στείλτε το με email στο",
+    "cancel": "Άκυρο",
+    "rppsRequiredNotice": "Ένα προϊόν στο καλάθι σας προορίζεται για επαγγελματίες: εισαγάγετε έγκυρο αριθμό RPPS ή βεβαιώστε ότι είστε επαγγελματίας υγείας."
   },
   "orders": {
     "loginRequired": "Απαιτείται σύνδεση",

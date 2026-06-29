@@ -355,7 +355,11 @@
     "attestationEmailNote": "También puede enviarlo por correo a",
     "attestationRequired": "Marque la declaración para continuar.",
     "rppsAlreadyValidated": "Su condición profesional ya ha sido validada.",
-    "rppsModify": "Modificar"
+    "rppsModify": "Modificar",
+    "attestationDocChoose": "Subir un archivo",
+    "attestationEmailTitle": "Envíelo por correo a",
+    "cancel": "Cancelar",
+    "rppsRequiredNotice": "Un producto de su cesta está reservado a profesionales: introduzca un número RPPS válido o declare que es un profesional sanitario."
   },
   "orders": {
     "loginRequired": "Inicio de sesión requerido",

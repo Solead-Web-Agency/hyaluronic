@@ -355,7 +355,11 @@
     "attestationEmailNote": "이메일로 보낼 수도 있습니다:",
     "attestationRequired": "계속하려면 확인란에 체크하세요.",
     "rppsAlreadyValidated": "전문가 자격이 이미 확인되었습니다.",
-    "rppsModify": "수정"
+    "rppsModify": "수정",
+    "attestationDocChoose": "파일 업로드",
+    "attestationEmailTitle": "이메일로 보내기:",
+    "cancel": "취소",
+    "rppsRequiredNotice": "장바구니의 상품은 전문가 전용입니다. 유효한 RPPS 번호를 입력하거나 의료 전문가임을 확인하세요."
   },
   "orders": {
     "loginRequired": "로그인이 필요합니다",

@@ -355,7 +355,11 @@
     "attestationEmailNote": "Du kan også sende det på e-post til",
     "attestationRequired": "Kryss av for erklæringen for å fortsette.",
     "rppsAlreadyValidated": "Din yrkesstatus er allerede bekreftet.",
-    "rppsModify": "Endre"
+    "rppsModify": "Endre",
+    "attestationDocChoose": "Last opp en fil",
+    "attestationEmailTitle": "Send på e-post til",
+    "cancel": "Avbryt",
+    "rppsRequiredNotice": "Et produkt i handlekurven er forbeholdt fagfolk: oppgi et gyldig RPPS-nummer eller bekreft at du er helsepersonell."
   },
   "orders": {
     "loginRequired": "Innlogging kreves",

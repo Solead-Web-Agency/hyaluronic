@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+קוד השובר הופק
+
+Here is your new voucher code: {voucher_num}
+
+כדי להשתמש בו, פשוט העתיקו והדביקו את הקוד בעת התשלום.
+
+[{shop_name}]({shop_url})
+
+מופעל על ידי [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

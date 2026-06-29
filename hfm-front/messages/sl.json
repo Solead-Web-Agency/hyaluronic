@@ -355,7 +355,11 @@
     "attestationEmailNote": "Pošljete ga lahko tudi po e-pošti na",
     "attestationRequired": "Označite izjavo za nadaljevanje.",
     "rppsAlreadyValidated": "Vaš strokovni status je že potrjen.",
-    "rppsModify": "Uredi"
+    "rppsModify": "Uredi",
+    "attestationDocChoose": "Naloži datoteko",
+    "attestationEmailTitle": "Pošljite po e-pošti na",
+    "cancel": "Prekliči",
+    "rppsRequiredNotice": "Izdelek v vaši košarici je rezerviran za strokovnjake: vnesite veljavno številko RPPS ali potrdite, da ste zdravstveni delavec."
   },
   "orders": {
     "loginRequired": "Potrebna prijava",

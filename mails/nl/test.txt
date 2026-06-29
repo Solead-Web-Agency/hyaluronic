@@ -1,0 +1,11 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Dit is een test-e-mail van uw winkel.
+
+Als u dit kunt lezen, is de test geslaagd!
+
+[{shop_name}]({shop_url})
+
+Mogelijk gemaakt door [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

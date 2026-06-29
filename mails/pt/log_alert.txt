@@ -1,8 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Nova mensagem de alerta guardada
+
+AVISO: recebeu um novo alerta de registo no seu back office.
+
+Pode consultá-lo na secção Parâmetros Avançados > Registos do seu back office.
+
 [{shop_name}]({shop_url})
-Olá {firstname} {lastname},
 
-Warning: you have received a new log alert in your Back Office.
-
-You can check for it in the Advanced Parameters > Logs section of your back office.
-
-[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)
+Desenvolvido por [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

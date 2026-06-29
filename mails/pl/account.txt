@@ -1,0 +1,27 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}.
+
+Your login details on {shop_name}
+
+Oto Twoje dane logowania:
+
+Email address: {email}
+
+Ważne wskazówki dotyczące bezpieczeństwa:
+
+1. Zawsze przechowuj dane swojego konta w bezpiecznym miejscu.
+
+2. Nigdy nikomu nie udostępniaj swoich danych logowania.
+
+3. Regularnie zmieniaj swoje hasło.
+
+4. Jeśli podejrzewasz, że ktoś nielegalnie korzysta z Twojego konta, niezwłocznie nas o tym powiadom.
+
+You can now place orders on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+Obsługiwane przez [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

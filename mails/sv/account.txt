@@ -1,0 +1,27 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}.
+
+Your login details on {shop_name}
+
+Här är dina inloggningsuppgifter:
+
+Email address: {email}
+
+Viktiga säkerhetstips:
+
+1. Förvara alltid dina kontouppgifter säkert.
+
+2. Lämna aldrig ut dina inloggningsuppgifter till någon.
+
+3. Byt ditt lösenord regelbundet.
+
+4. Om du misstänker att någon använder ditt konto olagligt, vänligen meddela oss omedelbart.
+
+You can now place orders on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+Drivs av [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+A fost generat un cod de voucher
+
+Here is your new voucher code: {voucher_num}
+
+Pentru a-l utiliza, copiați/lipiți acest cod în momentul finalizării comenzii.
+
+[{shop_name}]({shop_url})
+
+Susținut de [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

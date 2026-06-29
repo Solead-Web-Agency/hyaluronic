@@ -355,7 +355,11 @@
     "attestationEmailNote": "メールで送ることもできます：",
     "attestationRequired": "続行するには宣誓にチェックを入れてください。",
     "rppsAlreadyValidated": "あなたの専門資格はすでに確認されています。",
-    "rppsModify": "変更"
+    "rppsModify": "変更",
+    "attestationDocChoose": "ファイルをアップロード",
+    "attestationEmailTitle": "メールで送信：",
+    "cancel": "キャンセル",
+    "rppsRequiredNotice": "カート内の商品は医療従事者専用です。有効なRPPS番号を入力するか、医療従事者であることを証明してください。"
   },
   "orders": {
     "loginRequired": "ログインが必要です",

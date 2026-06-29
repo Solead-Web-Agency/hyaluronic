@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Ny advarselsbesked gemt
+
+ADVARSEL: du har modtaget en ny log-advarsel i dit administrationspanel.
+
+Du kan se den i afsnittet Avancerede parametre > Logfiler i dit administrationspanel.
+
+[{shop_name}]({shop_url})
+
+Drevet af [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -355,7 +355,11 @@
     "attestationEmailNote": "Můžete jej také zaslat e-mailem na",
     "attestationRequired": "Zaškrtněte prohlášení pro pokračování.",
     "rppsAlreadyValidated": "Váš profesní status již byl ověřen.",
-    "rppsModify": "Upravit"
+    "rppsModify": "Upravit",
+    "attestationDocChoose": "Nahrát soubor",
+    "attestationEmailTitle": "Pošlete e-mailem na",
+    "cancel": "Zrušit",
+    "rppsRequiredNotice": "Produkt v košíku je vyhrazen pro odborníky: zadejte platné číslo RPPS nebo potvrďte, že jste zdravotnický pracovník."
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",

@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+تم إنشاء رمز القسيمة
+
+Here is your new voucher code: {voucher_num}
+
+لاستخدامه، ما عليك سوى نسخ/لصق هذا الرمز أثناء إتمام الشراء.
+
+[{shop_name}]({shop_url})
+
+مدعوم بواسطة [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

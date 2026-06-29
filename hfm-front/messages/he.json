@@ -355,7 +355,11 @@
     "attestationEmailNote": "ניתן גם לשלוח באימייל אל",
     "attestationRequired": "יש לסמן את ההצהרה כדי להמשיך.",
     "rppsAlreadyValidated": "המעמד המקצועי שלך כבר אומת.",
-    "rppsModify": "עריכה"
+    "rppsModify": "עריכה",
+    "attestationDocChoose": "העלאת קובץ",
+    "attestationEmailTitle": "שלחו באימייל אל",
+    "cancel": "ביטול",
+    "rppsRequiredNotice": "מוצר בעגלה שלך שמור לאנשי מקצוע: הזן מספר RPPS תקף או הצהר שאתה איש מקצוע בתחום הבריאות."
   },
   "orders": {
     "loginRequired": "נדרשת התחברות",

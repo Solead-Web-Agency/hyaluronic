@@ -1,0 +1,11 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+تم إنشاء طلب جديد نيابة عنك.
+
+Please go on {order_link} to complete the payment.
+
+[{shop_name}]({shop_url})
+
+مدعوم بواسطة [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,31 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for shopping with {shop_name}!
+
+Order ID {order_name} - Pending payment
+
+Your order with the reference {order_name} has been placed successfully. You can expect delivery as soon as your payment is received.
+
+付款方式：银行电汇
+
+您已选择通过银行电汇付款。以下是转账所需的信息：
+
+Amount:  {total_paid}
+
+Account owner:  {bankwire_owner}
+
+Account details: {bankwire_details}
+
+Bank address: {bankwire_address}
+
+请在银行电汇备注中注明您的订单参考号。
+
+Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+
+If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url})
+
+技术支持 [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,12 +1,17 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+A sua mensagem foi enviada com sucesso, obrigado por ter dedicado o seu tempo a escrever-nos!
+
+Order ID #:  {order_name}
+
+Product:  {product_name}
+
+Attached file: {attached_file}
+
+Responderemos o mais brevemente possível.
+
 [{shop_name}]({shop_url})
-A sua mensagem para o Apoio ao Cliente da loja {shop_name}
 
-A sua mensagem foi enviada com sucesso.
-
-N.º da Encomenda: {order_name}
-Produto: {product_name}
-Ficheiro anexo: {attached_file}
-
-Responderemos o mais breve possível.
-
-[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)
+Desenvolvido por [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Nieuw waarschuwingsbericht opgeslagen
+
+WAARSCHUWING: u heeft een nieuwe logwaarschuwing ontvangen in uw back office.
+
+U kunt dit controleren in het gedeelte Geavanceerde parameters > Logboeken van uw back office.
+
+[{shop_name}]({shop_url})
+
+Mogelijk gemaakt door [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

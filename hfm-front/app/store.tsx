@@ -37,6 +37,7 @@ export type Customer = {
   email: string;
   firstname: string;
   lastname: string;
+  is_guest?: number;
 };
 
 type AuthResult = { ok: boolean; error?: string };

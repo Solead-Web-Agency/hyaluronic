@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Novo opozorilno sporočilo shranjeno
+
+OPOZORILO: v zalednem sistemu ste prejeli novo opozorilo dnevnika.
+
+Preverite ga lahko v razdelku Napredni parametri > Dnevniki v zalednem sistemu.
+
+[{shop_name}]({shop_url})
+
+Poganja [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

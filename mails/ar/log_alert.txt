@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+تم حفظ رسالة تنبيه جديدة
+
+تحذير: لقد تلقيت تنبيه سجل جديد في لوحة الإدارة الخاصة بك.
+
+يمكنك التحقق منه في قسم المعلمات المتقدمة > السجلات في لوحة الإدارة الخاصة بك.
+
+[{shop_name}]({shop_url})
+
+مدعوم بواسطة [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

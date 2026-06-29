@@ -355,7 +355,11 @@
     "attestationEmailNote": "Voit myös lähettää sen sähköpostitse osoitteeseen",
     "attestationRequired": "Valitse vakuutus jatkaaksesi.",
     "rppsAlreadyValidated": "Ammatillinen asemasi on jo vahvistettu.",
-    "rppsModify": "Muokkaa"
+    "rppsModify": "Muokkaa",
+    "attestationDocChoose": "Lataa tiedosto",
+    "attestationEmailTitle": "Lähetä sähköpostitse osoitteeseen",
+    "cancel": "Peruuta",
+    "rppsRequiredNotice": "Ostoskorisi tuote on varattu ammattilaisille: anna voimassa oleva RPPS-numero tai vahvista olevasi terveydenhuollon ammattilainen."
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

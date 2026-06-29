@@ -1,0 +1,17 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+הודעתכם נשלחה בהצלחה, תודה שהקדשתם מזמנכם לכתוב אלינו!
+
+Order ID #:  {order_name}
+
+Product:  {product_name}
+
+Attached file: {attached_file}
+
+נשיב בהקדם האפשרי.
+
+[{shop_name}]({shop_url})
+
+מופעל על ידי [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

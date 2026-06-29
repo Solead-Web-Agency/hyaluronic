@@ -355,7 +355,11 @@
     "attestationEmailNote": "Îl puteți trimite și prin e-mail la",
     "attestationRequired": "Bifați declarația pentru a continua.",
     "rppsAlreadyValidated": "Statutul dvs. profesional a fost deja validat.",
-    "rppsModify": "Modifică"
+    "rppsModify": "Modifică",
+    "attestationDocChoose": "Încarcă un fișier",
+    "attestationEmailTitle": "Trimiteți-l prin e-mail la",
+    "cancel": "Anulează",
+    "rppsRequiredNotice": "Un produs din coș este rezervat profesioniștilor: introduceți un număr RPPS valid sau declarați că sunteți un profesionist din domeniul sănătății."
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

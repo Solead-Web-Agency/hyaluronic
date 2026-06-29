@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { bridgePost } from '@/lib/ps';
+import { bridgeGet, bridgePost } from '@/lib/ps';
 import { signSession, getSessionUser, SESSION_COOKIE, type SessionUser } from '@/lib/session';
 
 const COOKIE_OPTS = {
@@ -20,10 +20,18 @@ function userFrom(c: { id_customer: number; email: string; firstname: string; la
   };
 }
 
-// GET -> session courante (ou null)
+// GET -> session courante (ou null), enrichie de is_guest (le cookie ne le contient pas).
 export async function GET() {
   const user = await getSessionUser();
-  return NextResponse.json({ customer: user });
+  if (!user) return NextResponse.json({ customer: null });
+  let is_guest = 0;
+  try {
+    const d = await bridgeGet('customer', { action: 'me', id_customer: user.id_customer });
+    is_guest = Number(d?.customer?.is_guest || 0);
+  } catch {
+    /* repli : on garde le user de session sans is_guest */
+  }
+  return NextResponse.json({ customer: { ...user, is_guest } });
 }
 
 // POST {action: login|register|logout, ...}
@@ -40,7 +48,8 @@ export async function POST(req: NextRequest) {
   if (action === 'login' || action === 'register' || action === 'guest') {
     const data = await bridgePost('customer', body);
     const c = data?.customer;
-    const ok = action === 'login' ? data?.authenticated && c : data?.created && c;
+    // login -> authenticated ; guest -> client présent (créé OU réutilisé en édition) ; register -> created.
+    const ok = action === 'login' ? data?.authenticated && c : action === 'guest' ? !!c : data?.created && c;
     if (!ok) {
       return NextResponse.json({ error: data?.error || 'auth_failed', detail: data }, { status: 401 });
     }

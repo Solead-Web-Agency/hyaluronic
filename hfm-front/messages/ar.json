@@ -355,7 +355,11 @@
     "attestationEmailNote": "يمكنك أيضًا إرساله عبر البريد الإلكتروني إلى",
     "attestationRequired": "يرجى تحديد الإقرار للمتابعة.",
     "rppsAlreadyValidated": "تم التحقق من صفتك المهنية بالفعل.",
-    "rppsModify": "تعديل"
+    "rppsModify": "تعديل",
+    "attestationDocChoose": "رفع ملف",
+    "attestationEmailTitle": "أرسله عبر البريد إلى",
+    "cancel": "إلغاء",
+    "rppsRequiredNotice": "أحد منتجات سلتك مخصص للمتخصصين: أدخل رقم RPPS صالحًا أو أقرّ بأنك أخصائي رعاية صحية."
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",

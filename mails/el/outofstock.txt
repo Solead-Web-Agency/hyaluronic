@@ -1,0 +1,17 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thanks for your order with the reference {order_name} from {shop_name}.
+
+Order ID {order_name} - Replenishment required
+
+Δυστυχώς, ένα ή περισσότερα είδη δεν είναι αυτήν τη στιγμή διαθέσιμα και αυτό ενδέχεται να προκαλέσει μια μικρή καθυστέρηση στην παράδοση. Σας ζητούμε συγγνώμη για την αναστάτωση και να είστε βέβαιοι ότι κάνουμε ό,τι καλύτερο μπορούμε για να διορθώσουμε την κατάσταση.
+
+Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+
+If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url})
+
+Με την υποστήριξη της [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

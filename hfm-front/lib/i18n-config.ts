@@ -15,8 +15,9 @@ export function isRtl(locale: string): boolean {
   return rtlLocales.includes(locale as Locale);
 }
 
-// PrestaShop n'a que ces langues installées → on mappe la locale vers l'id_lang.
-// Tout le reste retombe sur 2 (anglais).
+// Mapping locale -> id_lang PrestaShop. Les 6 premières sont les langues d'origine ;
+// les suivantes (id 10-25) ont été ajoutées pour des emails transactionnels localisés
+// (données catalogue copiées de l'EN, templates email traduits dans mails/{iso}/).
 export const localeToIdLang: Record<string, number> = {
   fr: 1,
   en: 2,
@@ -24,6 +25,22 @@ export const localeToIdLang: Record<string, number> = {
   it: 4,
   es: 5,
   ja: 8,
+  pl: 10,
+  ar: 11,
+  bg: 12,
+  cs: 13,
+  da: 14,
+  el: 15,
+  fi: 16,
+  he: 17,
+  ko: 18,
+  nl: 19,
+  no: 20,
+  pt: 21,
+  ro: 22,
+  sl: 23,
+  sv: 24,
+  zh: 25,
 };
 
 export function idLangFor(locale: string): number {

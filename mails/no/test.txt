@@ -1,0 +1,11 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Dette er en test-e-post fra nettbutikken din.
+
+Hvis du kan lese dette, betyr det at testen var vellykket!
+
+[{shop_name}]({shop_url})
+
+Drives av [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

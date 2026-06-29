@@ -1,0 +1,11 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+هذا بريد إلكتروني تجريبي من متجرك.
+
+إذا كان بإمكانك قراءة هذا، فهذا يعني أن الاختبار قد نجح!
+
+[{shop_name}]({shop_url})
+
+مدعوم بواسطة [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

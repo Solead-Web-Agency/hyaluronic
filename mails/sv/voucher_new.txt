@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+En rabattkod har genererats
+
+Here is your new voucher code: {voucher_num}
+
+För att använda den, kopiera/klistra in denna kod i kassan.
+
+[{shop_name}]({shop_url})
+
+Drivs av [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

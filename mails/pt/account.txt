@@ -1,17 +1,27 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}.
+
+Your login details on {shop_name}
+
+Eis os seus dados de acesso:
+
+Email address: {email}
+
+Conselhos de Segurança Importantes:
+
+1. Mantenha sempre os dados da sua conta em segurança.
+
+2. Nunca divulgue os seus dados de acesso a ninguém.
+
+3. Altere a sua palavra-passe regularmente.
+
+4. Caso suspeite que alguém está a utilizar a sua conta de forma ilegal, notifique-nos de imediato.
+
+You can now place orders on our shop: [{shop_name}]({shop_url})
+
 [{shop_name}]({shop_url})
-Olá {firstname} {lastname},
-Obrigado por ter criado uma conta de cliente em {shop_name}.
 
-Here is your login email address:
-Endereço de email: {email}
-
-Dicas Importantes de Segurança:
-
-- Mantenha sempre em segurança os detalhes da sua conta.
-- Nunca divulgue a terceiros as informações da sua conta.
-- Altere regularmente a palavra-passe.
-- Se suspeitar que alguém está a usar ilegalmente a sua conta, por favor avise-nos imediatamente.
-
-Agora já pode fazer encomendas na nossa loja: [{shop_name}]({shop_url})
-
-[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)
+Desenvolvido por [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

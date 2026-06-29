@@ -1,0 +1,11 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Iată un e-mail de test din magazinul dumneavoastră.
+
+Dacă puteți citi acest mesaj, înseamnă că testul a reușit!
+
+[{shop_name}]({shop_url})
+
+Susținut de [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

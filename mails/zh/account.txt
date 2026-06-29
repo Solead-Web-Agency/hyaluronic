@@ -1,0 +1,27 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}.
+
+Your login details on {shop_name}
+
+以下是您的登录信息：
+
+Email address: {email}
+
+重要安全提示：
+
+1. 请始终妥善保管您的账户信息。
+
+2. 切勿向任何人透露您的登录信息。
+
+3. 请定期更改您的密码。
+
+4. 如果您怀疑有人非法使用您的账户，请立即通知我们。
+
+You can now place orders on our shop: [{shop_name}]({shop_url})
+
+[{shop_name}]({shop_url})
+
+技术支持 [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

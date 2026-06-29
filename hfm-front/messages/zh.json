@@ -355,7 +355,11 @@
     "attestationEmailNote": "您也可以通过电子邮件发送至",
     "attestationRequired": "请勾选声明以继续。",
     "rppsAlreadyValidated": "您的专业身份已通过验证。",
-    "rppsModify": "修改"
+    "rppsModify": "修改",
+    "attestationDocChoose": "上传文件",
+    "attestationEmailTitle": "通过电子邮件发送至",
+    "cancel": "取消",
+    "rppsRequiredNotice": "您购物车中的某件商品仅限专业人士：请输入有效的RPPS编号或声明您是医疗专业人员。"
   },
   "orders": {
     "loginRequired": "需要登录",

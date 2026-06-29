@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Αποθηκεύτηκε νέο μήνυμα ειδοποίησης
+
+ΠΡΟΣΟΧΗ: λάβατε μια νέα ειδοποίηση αρχείου καταγραφής στο back office σας.
+
+Μπορείτε να το ελέγξετε στην ενότητα Σύνθετες Παράμετροι > Αρχεία Καταγραφής του back office σας.
+
+[{shop_name}]({shop_url})
+
+Με την υποστήριξη της [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

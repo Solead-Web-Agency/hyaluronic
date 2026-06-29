@@ -1,8 +1,11 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+Foi gerada uma nova encomenda em seu nome.
+
+Please go on {order_link} to complete the payment.
+
 [{shop_name}]({shop_url})
-Olá {firstname} {lastname},
 
-Foi feita uma nova encomenda em seu nome.
-
-Por favor aceda a {order_link} para finalizar o pagamento.
-
-[{shop_name}]({shop_url}) powered by [PrestaShop™](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)
+Desenvolvido por [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)
