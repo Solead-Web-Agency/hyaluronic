@@ -4,3 +4,4 @@
 /var/sessions/
 .DS_Store
 **/.DS_Store
+/deploy/
