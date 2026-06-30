@@ -16,6 +16,8 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
         switch ((string) $this->in('action', 'categories')) {
             case 'categories':
                 return ['categories' => $this->categories($idLang)];
+            case 'menu':
+                return ['menu' => $this->menuTree($idLang)];
             case 'manufacturers':
                 return ['manufacturers' => $this->manufacturers($idLang)];
             case 'countries':
@@ -32,9 +34,21 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
         if (!$idParent) {
             $idParent = (int) Configuration::get('PS_HOME_CATEGORY') ?: (int) Configuration::get('PS_ROOT_CATEGORY');
         }
+        return $this->fetchChildren($idParent, $idLang);
+    }
+
+    /** Enfants actifs directs d'une catégorie (nom + nb de produits), triés par position boutique. */
+    protected function fetchChildren($idParent, $idLang)
+    {
         $idShop = (int) $this->context->shop->id;
         $sql = 'SELECT c.id_category, c.id_parent, c.level_depth, cl.name, cl.link_rewrite,
-                       (SELECT COUNT(*) FROM ' . _DB_PREFIX_ . 'category_product cp WHERE cp.id_category = c.id_category) AS nb_products
+                       (SELECT COUNT(*)
+                          FROM ' . _DB_PREFIX_ . 'category_product cp
+                          INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                              ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ')
+                          WHERE cp.id_category = c.id_category
+                            AND ps.active = 1
+                            AND ps.visibility != "none") AS nb_products
                 FROM ' . _DB_PREFIX_ . 'category c
                 INNER JOIN ' . _DB_PREFIX_ . 'category_lang cl
                     ON (cl.id_category = c.id_category AND cl.id_lang = ' . (int) $idLang . ' AND cl.id_shop = ' . $idShop . ')
@@ -42,9 +56,8 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                     ON (cs.id_category = c.id_category AND cs.id_shop = ' . $idShop . ')
                 WHERE c.active = 1 AND c.id_parent = ' . (int) $idParent . '
                 ORDER BY cs.position ASC';
-        $rows = Db::getInstance()->executeS($sql);
         $out = [];
-        foreach ((array) $rows as $r) {
+        foreach ((array) Db::getInstance()->executeS($sql) as $r) {
             $out[] = [
                 'id_category' => (int) $r['id_category'],
                 'id_parent' => (int) $r['id_parent'],
@@ -54,6 +67,59 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
             ];
         }
         return $out;
+    }
+
+    /**
+     * Méga-menu éditorial : 4 racines curatées dans un ordre figé, chacune avec ses
+     * sous-catégories actives (la 5e entrée « Promos & Top » est gérée côté front car
+     * ce sont des filtres dynamiques, pas des catégories).
+     *   #30  MARQUES        (les maisons)
+     *   #301 Catalogue      (typologies)
+     *   #302 Par zone       (zones du visage/corps)
+     *   #303 Par effet      (effet recherché)
+     */
+    protected function menuTree($idLang)
+    {
+        $rootIds = [30, 301, 302, 303];
+        $out = [];
+        foreach ($rootIds as $rid) {
+            $cat = $this->fetchCategory($rid, $idLang);
+            if (!$cat) {
+                continue;
+            }
+            $cat['children'] = $this->fetchChildren($rid, $idLang);
+            $out[] = $cat;
+        }
+        return $out;
+    }
+
+    /** Une catégorie active (nom localisé + nb de produits actifs), ou null. */
+    protected function fetchCategory($idCategory, $idLang)
+    {
+        $idShop = (int) $this->context->shop->id;
+        $sql = 'SELECT c.id_category, c.id_parent, c.level_depth, cl.name, cl.link_rewrite,
+                       (SELECT COUNT(*)
+                          FROM ' . _DB_PREFIX_ . 'category_product cp
+                          INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                              ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ')
+                          WHERE cp.id_category = c.id_category
+                            AND ps.active = 1
+                            AND ps.visibility != "none") AS nb_products
+                FROM ' . _DB_PREFIX_ . 'category c
+                INNER JOIN ' . _DB_PREFIX_ . 'category_lang cl
+                    ON (cl.id_category = c.id_category AND cl.id_lang = ' . (int) $idLang . ' AND cl.id_shop = ' . $idShop . ')
+                WHERE c.active = 1 AND c.id_category = ' . (int) $idCategory;
+        $r = Db::getInstance()->getRow($sql, false);
+        if (!$r) {
+            return null;
+        }
+        return [
+            'id_category' => (int) $r['id_category'],
+            'id_parent' => (int) $r['id_parent'],
+            'name' => $r['name'],
+            'link_rewrite' => $r['link_rewrite'],
+            'nb_products' => (int) $r['nb_products'],
+        ];
     }
 
     /** Marques ayant au moins un produit actif, avec comptage réel (trié par volume). */

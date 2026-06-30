@@ -26,6 +26,8 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         $idCategory = (int) $this->in('id_category');
         $idManufacturer = (int) $this->in('id_manufacturer');
         $q = trim((string) $this->in('q'));
+        // Filtres dynamiques de l'onglet « Promos & Top » (pas des catégories).
+        $filter = (string) $this->in('filter');
 
         if ($q !== '') {
             // Recherche plein-texte sur le nom : on récupère les ids puis on pagine.
@@ -33,6 +35,8 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $ids = array_map(function ($r) { return (int) $r['id_product']; }, (array) $found);
             $ids = array_slice($ids, $start, $limit);
             $rows = array_map(function ($id) { return ['id_product' => $id]; }, $ids);
+        } elseif ($filter !== '') {
+            $rows = $this->filtered($filter, $idLang, $start, $limit);
         } elseif ($idManufacturer) {
             $rows = Manufacturer::getProducts($idManufacturer, $idLang, $page, $limit, 'id_product', 'DESC');
         } elseif ($idCategory) {
@@ -46,6 +50,40 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $items[] = $this->card((int) $r['id_product'], $idLang);
         }
         return ['page' => $page, 'limit' => $limit, 'count' => count($items), 'products' => array_values(array_filter($items))];
+    }
+
+    /**
+     * Listes dynamiques de l'onglet « Promos & Top » :
+     *   new     -> nouveautés (moteur PS)
+     *   best    -> meilleures ventes (moteur PS)
+     *   promo   -> prix en baisse / promotions (moteur PS)
+     *   nolido  -> produits SANS lidocaïne (le complément de la recherche « lidocaïne »)
+     * Renvoie un tableau de lignes contenant au moins 'id_product'.
+     */
+    protected function filtered($filter, $idLang, $start, $limit)
+    {
+        switch ($filter) {
+            case 'new':
+                return (array) Product::getNewProducts($idLang, $start, $limit);
+            case 'best':
+                return (array) ProductSale::getBestSalesLight($idLang, $start, $limit);
+            case 'promo':
+                return (array) Product::getPricesDrop($idLang, $start, $limit);
+            case 'nolido':
+                $idShop = (int) $this->context->shop->id;
+                $sql = 'SELECT p.id_product
+                        FROM ' . _DB_PREFIX_ . 'product p
+                        INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                            ON (ps.id_product = p.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1 AND ps.visibility != "none")
+                        INNER JOIN ' . _DB_PREFIX_ . 'product_lang pl
+                            ON (pl.id_product = p.id_product AND pl.id_lang = ' . (int) $idLang . ' AND pl.id_shop = ' . $idShop . ')
+                        WHERE pl.name NOT LIKE "%lidoca%"
+                        ORDER BY p.id_product DESC
+                        LIMIT ' . (int) $start . ', ' . (int) $limit;
+                return (array) Db::getInstance()->executeS($sql, true, false);
+            default:
+                return [];
+        }
     }
 
     protected function card($idProduct, $idLang)
