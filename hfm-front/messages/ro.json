@@ -19,7 +19,8 @@
     "browseCatalogue": "Răsfoiește catalogul",
     "seeCatalogue": "Vezi catalogul",
     "myOrders": "Comenzile mele",
-    "myInfo": "Datele mele"
+    "myInfo": "Datele mele",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Expediere în aceeași zi — comandă înainte de ora 15:00 · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Autentificare practician",
     "tagCe": "✓ Marcaj CE",
     "tagDelay": "⚡ 24-48 h",
-    "tagSecure": "🔒 Plată securizată"
+    "tagSecure": "🔒 Plată securizată",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Specialist în injectabile estetice",
@@ -302,7 +309,17 @@
     "saveFailed": "Adresa nu poate fi salvată.",
     "saving": "Se salvează…",
     "add": "Adaugă adresa",
-    "phoneRequired": "Numărul de telefon este obligatoriu."
+    "phoneRequired": "Numărul de telefon este obligatoriu.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Comandă",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "E-mail invalid.",
     "rppsNotFound": "Acest număr RPPS nu a fost găsit în registrul profesioniștilor din domeniul sănătății.",
     "rppsChecking": "Se verifică numărul RPPS…",
-    "rppsWillBeVerified": "Număr salvat — validitatea sa va fi confirmată de echipa noastră."
+    "rppsWillBeVerified": "Număr salvat — validitatea sa va fi confirmată de echipa noastră.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

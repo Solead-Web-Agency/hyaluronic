@@ -19,7 +19,8 @@
     "browseCatalogue": "Catalogus doorbladeren",
     "seeCatalogue": "Bekijk de catalogus",
     "myOrders": "Mijn bestellingen",
-    "myInfo": "Mijn gegevens"
+    "myInfo": "Mijn gegevens",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Dezelfde dag verzonden — bestel vóór 15.00 uur · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Inloggen voor behandelaars",
     "tagCe": "✓ CE-markering",
     "tagDelay": "⚡ 24-48 u",
-    "tagSecure": "🔒 Veilig betalen"
+    "tagSecure": "🔒 Veilig betalen",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Specialist in esthetische injecties",
@@ -302,7 +309,17 @@
     "saveFailed": "Het adres kan niet worden opgeslagen.",
     "saving": "Opslaan…",
     "add": "Adres toevoegen",
-    "phoneRequired": "Telefoonnummer is verplicht."
+    "phoneRequired": "Telefoonnummer is verplicht.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Bestelling",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "Ongeldig e-mailadres.",
     "rppsNotFound": "Dit RPPS-nummer is niet gevonden in het register van zorgprofessionals.",
     "rppsChecking": "RPPS-nummer controleren…",
-    "rppsWillBeVerified": "Nummer opgeslagen — de geldigheid wordt bevestigd door ons team."
+    "rppsWillBeVerified": "Nummer opgeslagen — de geldigheid wordt bevestigd door ons team.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Inloggen vereist",

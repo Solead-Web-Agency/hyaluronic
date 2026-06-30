@@ -19,7 +19,8 @@
     "browseCatalogue": "Parcourir le catalogue",
     "seeCatalogue": "Voir le catalogue",
     "myOrders": "Mes commandes",
-    "myInfo": "Mes informations"
+    "myInfo": "Mes informations",
+    "cancel": "Annuler"
   },
   "header": {
     "topbarShipping": "Expédition le jour même — commande avant 15h · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Connexion praticien",
     "tagCe": "✓ Marquage CE",
     "tagDelay": "⚡ 24-48 h",
-    "tagSecure": "🔒 Paiement sécurisé"
+    "tagSecure": "🔒 Paiement sécurisé",
+    "promosTab": "Promos & Top",
+    "promoBest": "Meilleures ventes",
+    "promoSales": "Promotions",
+    "promoNew": "Nouveautés",
+    "promoLido": "Avec lidocaïne",
+    "promoNoLido": "Sans lidocaïne"
   },
   "footer": {
     "logoSub": "Expert en injections esthétiques",
@@ -302,7 +309,17 @@
     "saveFailed": "Impossible d'enregistrer l'adresse.",
     "saving": "Enregistrement…",
     "add": "Ajouter l'adresse",
-    "phoneRequired": "Le numéro de téléphone est obligatoire."
+    "phoneRequired": "Le numéro de téléphone est obligatoire.",
+    "b2bTitle": "Professionnel — TVA intracommunautaire (optionnel)",
+    "company": "Société",
+    "companyPlaceholder": "Raison sociale",
+    "vatNumber": "N° de TVA intracommunautaire",
+    "vatPlaceholder": "Ex. BE0123456789",
+    "vatHint": "Validé automatiquement via VIES / GOV.UK. Si le numéro est valide, la TVA est exonérée pour les professionnels de l’UE.",
+    "vatValid": "Numéro de TVA validé — exonération de TVA appliquée.",
+    "vatInvalid": "Numéro non validé via VIES — TVA appliquée. Vérifiez le numéro et le pays.",
+    "vatChecking": "Vérification du numéro de TVA…",
+    "save": "Enregistrer"
   },
   "checkout": {
     "breadcrumb": "Commande",
@@ -389,7 +406,15 @@
     "attestationAfterOrder": "Vous pouvez l'envoyer après la commande ; celle-ci ne sera traitée qu'à réception du justificatif.",
     "amazonRedirect": "Vous réglez via Amazon Pay (bouton ci-dessous), puis ramené ici.",
     "acceptTerms": "J'accepte les <cgv>conditions générales de vente</cgv> et la <pp>politique de confidentialité</pp>.",
-    "acceptTermsShort": "Acceptez les conditions pour continuer"
+    "acceptTermsShort": "Acceptez les conditions pour continuer",
+    "vatExemptBadge": "TVA exonérée",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "editAddress": "Modifier l’adresse",
+    "vatValidBadge": "TVA validée",
+    "vatInvalidBadge": "TVA non validée",
+    "vatPendingBadge": "TVA à vérifier",
+    "vatNotApplicable": "Exonération non applicable"
   },
   "orders": {
     "loginRequired": "Connexion requise",

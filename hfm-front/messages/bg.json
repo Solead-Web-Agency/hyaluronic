@@ -19,7 +19,8 @@
     "browseCatalogue": "Прегледайте каталога",
     "seeCatalogue": "Вижте каталога",
     "myOrders": "Моите поръчки",
-    "myInfo": "Моите данни"
+    "myInfo": "Моите данни",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Експедиция в същия ден — поръчка преди 15 ч. · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Вход за практикуващи",
     "tagCe": "✓ CE маркировка",
     "tagDelay": "⚡ 24-48 ч.",
-    "tagSecure": "🔒 Сигурно плащане"
+    "tagSecure": "🔒 Сигурно плащане",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Експерт по естетични инжекции",
@@ -302,7 +309,17 @@
     "saveFailed": "Адресът не може да бъде запазен.",
     "saving": "Запазване…",
     "add": "Добави адреса",
-    "phoneRequired": "Телефонният номер е задължителен."
+    "phoneRequired": "Телефонният номер е задължителен.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Поръчка",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "Невалиден имейл.",
     "rppsNotFound": "Този RPPS номер не е намерен в регистъра на здравните специалисти.",
     "rppsChecking": "Проверка на RPPS номера…",
-    "rppsWillBeVerified": "Номерът е запазен — валидността му ще бъде потвърдена от нашия екип."
+    "rppsWillBeVerified": "Номерът е запазен — валидността му ще бъде потвърдена от нашия екип.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Изисква се вход",

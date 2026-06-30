@@ -19,7 +19,8 @@
     "browseCatalogue": "浏览产品目录",
     "seeCatalogue": "查看产品目录",
     "myOrders": "我的订单",
-    "myInfo": "我的资料"
+    "myInfo": "我的资料",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "当日发货 — 15点前下单 · DHL 与 Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "执业者登录",
     "tagCe": "✓ CE 认证",
     "tagDelay": "⚡ 24-48 小时",
-    "tagSecure": "🔒 安全支付"
+    "tagSecure": "🔒 安全支付",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "医美注射专家",
@@ -302,7 +309,17 @@
     "saveFailed": "无法保存地址。",
     "saving": "保存中…",
     "add": "添加地址",
-    "phoneRequired": "电话号码为必填项。"
+    "phoneRequired": "电话号码为必填项。",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "订单",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "电子邮箱无效。",
     "rppsNotFound": "在医疗专业人员登记册中未找到此 RPPS 号码。",
     "rppsChecking": "正在核验 RPPS 号码…",
-    "rppsWillBeVerified": "号码已保存 — 其有效性将由我们的团队确认。"
+    "rppsWillBeVerified": "号码已保存 — 其有效性将由我们的团队确认。",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "需要登录",

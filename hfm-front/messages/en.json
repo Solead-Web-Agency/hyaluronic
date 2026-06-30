@@ -19,7 +19,8 @@
     "browseCatalogue": "Browse the catalogue",
     "seeCatalogue": "See the catalogue",
     "myOrders": "My orders",
-    "myInfo": "My details"
+    "myInfo": "My details",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Same-day shipping — order before 3pm · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Practitioner login",
     "tagCe": "✓ CE marking",
     "tagDelay": "⚡ 24-48 h",
-    "tagSecure": "🔒 Secure payment"
+    "tagSecure": "🔒 Secure payment",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Aesthetic injection specialist",
@@ -302,7 +309,17 @@
     "saveFailed": "Unable to save the address.",
     "saving": "Saving…",
     "add": "Add the address",
-    "phoneRequired": "Phone number is required."
+    "phoneRequired": "Phone number is required.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Order",
@@ -389,7 +406,15 @@
     "attestationAfterOrder": "You can send it after ordering; your order will only be processed once we receive the document.",
     "amazonRedirect": "Pay via Amazon Pay (button below), then back here.",
     "acceptTerms": "I accept the <cgv>terms of sale</cgv> and the <pp>privacy policy</pp>.",
-    "acceptTermsShort": "Accept the terms to continue"
+    "acceptTermsShort": "Accept the terms to continue",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Login required",

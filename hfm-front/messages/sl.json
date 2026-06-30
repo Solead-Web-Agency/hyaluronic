@@ -19,7 +19,8 @@
     "browseCatalogue": "Prebrskajte katalog",
     "seeCatalogue": "Oglejte si katalog",
     "myOrders": "Moja naročila",
-    "myInfo": "Moji podatki"
+    "myInfo": "Moji podatki",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Odprema še isti dan — naročilo do 15. ure · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Prijava za praktike",
     "tagCe": "✓ Oznaka CE",
     "tagDelay": "⚡ 24–48 h",
-    "tagSecure": "🔒 Varno plačilo"
+    "tagSecure": "🔒 Varno plačilo",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Strokovnjak za estetske injekcije",
@@ -302,7 +309,17 @@
     "saveFailed": "Naslova ni mogoče shraniti.",
     "saving": "Shranjevanje…",
     "add": "Dodaj naslov",
-    "phoneRequired": "Telefonska številka je obvezna."
+    "phoneRequired": "Telefonska številka je obvezna.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Naročilo",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "Neveljaven e-naslov.",
     "rppsNotFound": "Te številke RPPS ni mogoče najti v registru zdravstvenih delavcev.",
     "rppsChecking": "Preverjanje številke RPPS…",
-    "rppsWillBeVerified": "Številka shranjena — njeno veljavnost bo potrdila naša ekipa."
+    "rppsWillBeVerified": "Številka shranjena — njeno veljavnost bo potrdila naša ekipa.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Potrebna prijava",

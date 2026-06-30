@@ -47,6 +47,12 @@ class Hfmstorefront extends PaymentModule
         $this->registerHook('paymentReturn');
         // Affichage du RPPS praticien en haut de la fiche commande (back-office).
         $this->registerHook('displayAdminOrderTop');
+        // Franco « Livraison offerte dès N € HT » : on applique le seuil en HORS TAXES
+        // (PrestaShop compare nativement en TTC). Seuil paramétrable, défaut 400 € HT.
+        if (Configuration::get('HFM_FREE_SHIPPING_HT') === false) {
+            Configuration::updateValue('HFM_FREE_SHIPPING_HT', 400);
+        }
+        $this->registerHook('actionOverrideShippingFreePrice');
 
         return true;
     }
@@ -72,6 +78,37 @@ class Hfmstorefront extends PaymentModule
     public function hookPaymentReturn($params)
     {
         return '';
+    }
+
+    /**
+     * Franco en HORS TAXES. La boutique annonce « Livraison offerte dès N € HT »,
+     * mais PrestaShop compare nativement le total TTC au seuil. On ajuste donc le seuil
+     * à la volée pour que la comparaison TTC revienne exactement à « total HT >= N »
+     * (cohérent y compris pour les clients B2B exonérés, où HT = TTC).
+     * Seuil : Configuration HFM_FREE_SHIPPING_HT (défaut 400). S'applique à toute la
+     * boutique (front classique + tunnel headless), conformément à l'affichage.
+     */
+    public function hookActionOverrideShippingFreePrice($params)
+    {
+        $cart = Context::getContext()->cart;
+        if (!Validate::isLoadedObject($cart)) {
+            return;
+        }
+        $thresholdHT = (float) Configuration::get('HFM_FREE_SHIPPING_HT');
+        if ($thresholdHT <= 0) {
+            return;
+        }
+        // Total marchandise (hors livraison), HT et TTC, remises déduites.
+        $ht = (float) $cart->getOrderTotal(false, Cart::BOTH_WITHOUT_SHIPPING);
+        $ttc = (float) $cart->getOrderTotal(true, Cart::BOTH_WITHOUT_SHIPPING);
+        // PS testera ensuite : (total TTC >= shippingFreePrice) ET (shippingFreePrice > 0).
+        //  - seuil HT atteint  -> on pose shippingFreePrice = total TTC => franco déclenché ;
+        //  - sinon             -> seuil hors d'atteinte => livraison facturée.
+        if ($ht >= $thresholdHT) {
+            $params['shippingFreePrice'] = $ttc > 0 ? $ttc : 0.01;
+        } else {
+            $params['shippingFreePrice'] = $ttc + 1000000.0;
+        }
     }
 
     /**

@@ -28,6 +28,7 @@ export default function CatalogueClient() {
   const category = search.get('category');
   const brand = search.get('brand');
   const q = search.get('q');
+  const filter = search.get('filter'); // onglet Promos & Top : new | best | promo | nolido
 
   const [cats, setCats] = useState<Cat[]>([]);
   const [manus, setManus] = useState<Manu[]>([]);
@@ -53,12 +54,13 @@ export default function CatalogueClient() {
     if (category) params.set('id_category', category);
     else if (brand) params.set('id_manufacturer', brand);
     else if (q) params.set('q', q);
+    else if (filter) params.set('filter', filter);
     fetch(`/api/products?${params.toString()}`)
       .then((r) => r.json())
       .then((d) => setProducts((d.products ?? []).map((p: ProductCardData) => toCard(p))))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
-  }, [category, brand, q, locale]);
+  }, [category, brand, q, filter, locale]);
 
   // Navigation vers un filtre (remplace l'URL).
   const go = (next: { category?: number; brand?: number; q?: string } | null) => {
@@ -79,8 +81,8 @@ export default function CatalogueClient() {
   }, [products, sort]);
 
   const count = list.length;
-  const activeFilterCount = (category ? 1 : 0) + (brand ? 1 : 0) + (q ? 1 : 0);
-  const noFilter = !category && !brand && !q;
+  const activeFilterCount = (category ? 1 : 0) + (brand ? 1 : 0) + (q ? 1 : 0) + (filter ? 1 : 0);
+  const noFilter = !category && !brand && !q && !filter;
 
   const submitSearch = (e: React.FormEvent) => {
     e.preventDefault();

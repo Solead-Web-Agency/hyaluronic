@@ -19,7 +19,8 @@
     "browseCatalogue": "Selaa katalogia",
     "seeCatalogue": "Katso katalogi",
     "myOrders": "Tilaukseni",
-    "myInfo": "Tietoni"
+    "myInfo": "Tietoni",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Toimitus samana päivänä — tilaa ennen klo 15 · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Hoitajien kirjautuminen",
     "tagCe": "✓ CE-merkintä",
     "tagDelay": "⚡ 24–48 h",
-    "tagSecure": "🔒 Turvallinen maksu"
+    "tagSecure": "🔒 Turvallinen maksu",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Esteettisten injektioiden asiantuntija",
@@ -302,7 +309,17 @@
     "saveFailed": "Osoitteen tallentaminen epäonnistui.",
     "saving": "Tallennetaan…",
     "add": "Lisää osoite",
-    "phoneRequired": "Puhelinnumero on pakollinen."
+    "phoneRequired": "Puhelinnumero on pakollinen.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Tilaus",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "Virheellinen sähköposti.",
     "rppsNotFound": "Tätä RPPS-numeroa ei löytynyt terveydenhuollon ammattilaisten rekisteristä.",
     "rppsChecking": "Tarkistetaan RPPS-numeroa…",
-    "rppsWillBeVerified": "Numero tallennettu — sen kelpoisuuden vahvistaa tiimimme."
+    "rppsWillBeVerified": "Numero tallennettu — sen kelpoisuuden vahvistaa tiimimme.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

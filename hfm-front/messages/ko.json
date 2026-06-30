@@ -19,7 +19,8 @@
     "browseCatalogue": "카탈로그 탐색하기",
     "seeCatalogue": "카탈로그 보기",
     "myOrders": "내 주문",
-    "myInfo": "내 정보"
+    "myInfo": "내 정보",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "당일 발송 — 오후 3시 이전 주문 · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "시술자 로그인",
     "tagCe": "✓ CE 인증",
     "tagDelay": "⚡ 24-48시간",
-    "tagSecure": "🔒 안전 결제"
+    "tagSecure": "🔒 안전 결제",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "미용 주사 전문가",
@@ -302,7 +309,17 @@
     "saveFailed": "주소를 저장할 수 없습니다.",
     "saving": "저장 중…",
     "add": "주소 추가",
-    "phoneRequired": "전화번호는 필수입니다."
+    "phoneRequired": "전화번호는 필수입니다.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "주문",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "이메일이 올바르지 않습니다.",
     "rppsNotFound": "이 RPPS 번호를 의료 전문가 등록부에서 찾을 수 없습니다.",
     "rppsChecking": "RPPS 번호 확인 중…",
-    "rppsWillBeVerified": "번호가 저장되었습니다 — 유효성은 저희 팀이 확인합니다."
+    "rppsWillBeVerified": "번호가 저장되었습니다 — 유효성은 저희 팀이 확인합니다.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "로그인이 필요합니다",

@@ -19,7 +19,8 @@
     "browseCatalogue": "Explorar el catálogo",
     "seeCatalogue": "Ver el catálogo",
     "myOrders": "Mis pedidos",
-    "myInfo": "Mis datos"
+    "myInfo": "Mis datos",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Envío el mismo día — pedidos antes de las 15 h · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Acceso para profesionales",
     "tagCe": "✓ Marcado CE",
     "tagDelay": "⚡ 24-48 h",
-    "tagSecure": "🔒 Pago seguro"
+    "tagSecure": "🔒 Pago seguro",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Especialista en inyecciones estéticas",
@@ -302,7 +309,17 @@
     "saveFailed": "No se ha podido guardar la dirección.",
     "saving": "Guardando…",
     "add": "Añadir la dirección",
-    "phoneRequired": "El número de teléfono es obligatorio."
+    "phoneRequired": "El número de teléfono es obligatorio.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Pedido",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "Correo electrónico no válido.",
     "rppsNotFound": "Este número RPPS no se ha encontrado en el registro de profesionales sanitarios.",
     "rppsChecking": "Comprobando el número RPPS…",
-    "rppsWillBeVerified": "Número guardado — nuestro equipo confirmará su validez."
+    "rppsWillBeVerified": "Número guardado — nuestro equipo confirmará su validez.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Inicio de sesión requerido",

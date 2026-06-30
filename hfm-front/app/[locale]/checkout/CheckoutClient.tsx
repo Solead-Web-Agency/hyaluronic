@@ -85,7 +85,7 @@ const ParcelIcon: React.ReactElement = (
 );
 
 export default function CheckoutClient() {
-  const { cart, customer, authReady, refreshCart, guestCheckout } = useStore();
+  const { cart, customer, authReady, refreshCart, guestCheckout, updateLine, removeLine } = useStore();
   const router = useRouter();
   const t = useTranslations('checkout');
   const tc = useTranslations('common');
@@ -98,6 +98,7 @@ export default function CheckoutClient() {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selAddress, setSelAddress] = useState<number | null>(null);
   const [showAddrForm, setShowAddrForm] = useState(false);
+  const [editAddr, setEditAddr] = useState<Address | null>(null);
 
   const [carriers, setCarriers] = useState<Carrier[]>([]);
   const [selCarrier, setSelCarrier] = useState<number | null>(null);
@@ -258,6 +259,19 @@ export default function CheckoutClient() {
   useEffect(() => {
     reloadTotals();
   }, [reloadTotals]);
+
+  // Modif quantité / suppression d'un produit depuis le récapitulatif. On rafraîchit les totaux
+  // ET la liste des transporteurs : le franco (offert/payant par transporteur) dépend du total
+  // qui peut repasser au-dessus/au-dessous du seuil de 400 € HT.
+  const changeQty = async (id_product: number, quantity: number) => {
+    if (quantity < 1) return;
+    await updateLine(id_product, quantity);
+    await Promise.all([reloadTotals(), loadCarriers()]);
+  };
+  const removeProduct = async (id_product: number) => {
+    await removeLine(id_product);
+    await Promise.all([reloadTotals(), loadCarriers()]);
+  };
 
   // Config paiement : détecte si le PSP CB (Viva Wallet) est activé côté serveur.
   useEffect(() => {
@@ -421,7 +435,26 @@ export default function CheckoutClient() {
   const onAddressCreated = (list: Address[], id_address: number) => {
     setAddresses(list);
     setShowAddrForm(false);
+    setEditAddr(null);
     chooseAddress(id_address);
+  };
+
+  // Suppression d'une adresse (soft-delete côté PrestaShop).
+  const deleteAddress = async (id_address: number) => {
+    try {
+      const r = await fetch('/api/customer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete-address', id_address }),
+      });
+      const d = await r.json();
+      if (d.deleted) {
+        setAddresses(d.addresses ?? []);
+        if (selAddress === id_address) setSelAddress(null);
+      }
+    } catch {
+      /* ignore */
+    }
   };
 
   // Finalise la commande côté serveur (POST order) — partagé offline + Stripe.
@@ -778,27 +811,68 @@ export default function CheckoutClient() {
                 {addresses.map((a) => {
                   const active = selAddress === a.id_address;
                   return (
-                    <button
-                      key={a.id_address}
-                      onClick={() => chooseAddress(a.id_address)}
-                      style={{ textAlign: 'left', cursor: 'pointer', background: active ? 'rgba(140,198,63,0.06)' : '#fff', border: active ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}
-                    >
-                      <span style={{ marginTop: '2px', width: '15px', height: '15px', borderRadius: '50%', border: active ? '5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
-                      <span>
-                        <span style={{ display: 'block', fontSize: '13.5px', fontWeight: 600, color: '#1B2433' }}>{a.alias || `${a.firstname} ${a.lastname}`.trim() || 'Adresse'}</span>
-                        <span style={{ display: 'block', fontSize: '12.5px', color: '#6E7585', marginTop: '3px', lineHeight: 1.45 }}>{a.address1}, {a.postcode} {a.city} · {a.country}</span>
-                      </span>
-                    </button>
+                    <div key={a.id_address} style={{ background: active ? 'rgba(140,198,63,0.06)' : '#fff', border: active ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', overflow: 'hidden' }}>
+                      <button
+                        onClick={() => chooseAddress(a.id_address)}
+                        style={{ width: '100%', textAlign: 'left', cursor: 'pointer', background: 'transparent', border: 'none', padding: '14px 16px 10px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}
+                      >
+                        <span style={{ marginTop: '2px', width: '15px', height: '15px', borderRadius: '50%', border: active ? '5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
+                        <span>
+                          <span style={{ display: 'block', fontSize: '13.5px', fontWeight: 600, color: '#1B2433' }}>{a.alias || `${a.firstname} ${a.lastname}`.trim() || 'Adresse'}</span>
+                          {a.company ? <span style={{ display: 'block', fontSize: '12.5px', color: '#1B2433', marginTop: '2px' }}>{a.company}</span> : null}
+                          <span style={{ display: 'block', fontSize: '12.5px', color: '#6E7585', marginTop: '3px', lineHeight: 1.45 }}>{a.address1}, {a.postcode} {a.city} · {a.country}</span>
+                          {a.vat_number ? (
+                            a.vat_checkable === false ? (
+                              // Pays non soumis à validation (ex. livraison France) : pas d'exonération possible.
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '6px', fontSize: '11px', fontWeight: 600, borderRadius: '999px', padding: '3px 9px', color: '#7A7568', background: '#F1EFE9', border: '1px solid #E2DECF' }}>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 8v.5M12 11v5" /></svg>
+                                {a.vat_number} · {t('vatNotApplicable')}
+                              </span>
+                            ) : (
+                              <span style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '6px', fontSize: '11px', fontWeight: 700, borderRadius: '999px', padding: '3px 9px',
+                                ...(a.vat_valid
+                                  ? { color: '#4B6B1B', background: 'rgba(140,198,63,.14)', border: '1px solid rgba(140,198,63,.32)' }
+                                  : a.vat_invalid
+                                    ? { color: '#A8503A', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.28)' }
+                                    : { color: '#8A7A3A', background: 'rgba(196,160,46,.12)', border: '1px solid rgba(196,160,46,.32)' }),
+                              }}>
+                                {a.vat_valid ? (
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+                                ) : a.vat_invalid ? (
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                                ) : (
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                                )}
+                                {a.vat_number} · {a.vat_valid ? t('vatValidBadge') : a.vat_invalid ? t('vatInvalidBadge') : t('vatPendingBadge')}
+                              </span>
+                            )
+                          ) : null}
+                        </span>
+                      </button>
+                      <div style={{ display: 'flex', gap: '16px', padding: '0 16px 11px 43px' }}>
+                        <button onClick={() => { setEditAddr(a); setShowAddrForm(false); }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '12px', fontWeight: 600, color: '#5E8E1F', display: 'inline-flex', alignItems: 'center', gap: '5px', padding: 0 }}>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" /></svg>{t('edit')}
+                        </button>
+                        <button onClick={() => deleteAddress(a.id_address)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '12px', fontWeight: 600, color: '#A8503A', display: 'inline-flex', alignItems: 'center', gap: '5px', padding: 0 }}>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" /></svg>{t('delete')}
+                        </button>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
             ) : null}
             <div style={{ marginTop: addresses.length ? '14px' : 0 }}>
-              {!showAddrForm ? (
-                <button onClick={() => setShowAddrForm(true)} style={{ background: 'rgba(140,198,63,0.1)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '9px 16px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '13px', fontWeight: 600, color: '#5E8E1F', cursor: 'pointer' }}>{t('addAddress')}</button>
+              {!(showAddrForm || editAddr) ? (
+                <button onClick={() => { setEditAddr(null); setShowAddrForm(true); }} style={{ background: 'rgba(140,198,63,0.1)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '9px 16px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '13px', fontWeight: 600, color: '#5E8E1F', cursor: 'pointer' }}>{t('addAddress')}</button>
               ) : (
                 <div style={{ borderTop: addresses.length ? '1px solid #ECEAE3' : 'none', paddingTop: addresses.length ? '18px' : 0 }}>
-                  <AddressForm onCreated={onAddressCreated} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#34352F' }}>{editAddr ? t('editAddress') : t('addAddress')}</span>
+                    <button onClick={() => { setShowAddrForm(false); setEditAddr(null); }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '12.5px', color: '#8A8170', textDecoration: 'underline' }}>{tc('cancel')}</button>
+                  </div>
+                  <AddressForm key={editAddr?.id_address ?? 'new'} address={editAddr ?? undefined} onCreated={onAddressCreated} />
                 </div>
               )}
             </div>
@@ -951,7 +1025,25 @@ export default function CheckoutClient() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '280px', overflowY: 'auto' }}>
             {cart.products.map((ci) => (
-              <div key={ci.id_product} style={{ display: 'flex', gap: '12px', alignItems: 'center' }}><div style={{ width: '46px', height: '46px', flex: 'none', borderRadius: '6px', overflow: 'hidden', background: '#F7F6F2', border: '1px solid #ECEAE3' }}>{ci.image ? <img src={ci.image} alt={ci.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /> : null}</div><div style={{ flex: 1, minWidth: 0 }}><div style={{ fontSize: '13px', color: '#34352F', lineHeight: 1.3 }}>{ci.name}</div><div style={{ fontSize: '11.5px', color: '#8A8170' }}>× {ci.quantity}</div></div><span style={{ fontSize: '13px', fontWeight: 600, color: '#434343' }}>{fmt(ci.total_excl_tax)} €</span></div>
+              <div key={ci.id_product} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <Link href={`/produit/${ci.id_product}`} style={{ width: '46px', height: '46px', flex: 'none', borderRadius: '6px', overflow: 'hidden', background: '#F7F6F2', border: '1px solid #ECEAE3', display: 'block', cursor: 'pointer' }}>
+                  {ci.image ? <img src={ci.image} alt={ci.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /> : null}
+                </Link>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <Link href={`/produit/${ci.id_product}`} style={{ display: 'block', fontSize: '13px', color: '#34352F', lineHeight: 1.3, textDecoration: 'none', cursor: 'pointer' }}>{ci.name}</Link>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '9px', marginTop: '7px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #E2DECF', borderRadius: '6px', overflow: 'hidden' }}>
+                      <button type="button" onClick={() => changeQty(ci.id_product, ci.quantity - 1)} disabled={ci.quantity <= 1} aria-label="−" style={{ width: '24px', height: '24px', background: '#fff', border: 'none', color: ci.quantity <= 1 ? '#D2CDBE' : '#434343', cursor: ci.quantity <= 1 ? 'default' : 'pointer', fontSize: '15px', lineHeight: 1, padding: 0 }}>−</button>
+                      <span style={{ minWidth: '24px', textAlign: 'center', fontSize: '12.5px', fontWeight: 600, color: '#34352F' }}>{ci.quantity}</span>
+                      <button type="button" onClick={() => changeQty(ci.id_product, ci.quantity + 1)} aria-label="+" style={{ width: '24px', height: '24px', background: '#fff', border: 'none', color: '#434343', cursor: 'pointer', fontSize: '15px', lineHeight: 1, padding: 0 }}>+</button>
+                    </div>
+                    <button type="button" onClick={() => removeProduct(ci.id_product)} title={t('delete')} aria-label={t('delete')} style={{ background: 'none', border: 'none', color: '#B0A99A', cursor: 'pointer', padding: 0, display: 'inline-flex', alignItems: 'center' }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" /></svg>
+                    </button>
+                  </div>
+                </div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: '#434343', flex: 'none' }}>{fmt(ci.total_excl_tax)} €</span>
+              </div>
             ))}
           </div>
           {/* Code promo */}

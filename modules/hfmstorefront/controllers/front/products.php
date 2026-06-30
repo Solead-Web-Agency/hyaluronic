@@ -20,7 +20,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
 
     protected function listing($idLang)
     {
-        $limit = min(60, max(1, (int) $this->in('limit', 24)));
+        $limit = min(300, max(1, (int) $this->in('limit', 24)));
         $page = max(1, (int) $this->in('page', 1));
         $start = ($page - 1) * $limit;
         $idCategory = (int) $this->in('id_category');

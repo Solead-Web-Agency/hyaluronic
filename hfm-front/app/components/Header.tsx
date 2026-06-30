@@ -55,6 +55,22 @@ export default function Header() {
       .catch(() => {});
   }, [locale]);
 
+  // Lien d'une catégorie : sa page si elle a des produits, sinon « recherche proche » sur son nom
+  // (rubriques éditoriales encore sans produit rattaché → jamais de page vide).
+  const catHref = (c: { id_category: number; name: string; nb_products: number }) =>
+    c.nb_products > 0 ? `/catalogue?category=${c.id_category}` : `/catalogue?q=${encodeURIComponent(c.name)}`;
+  // Lien d'une racine éditoriale : sa page si produits directs (ex. MARQUES), sinon le catalogue complet.
+  const rootHref = (c: { id_category: number; nb_products: number }) =>
+    c.nb_products > 0 ? `/catalogue?category=${c.id_category}` : '/catalogue';
+  // Onglet « Promos & Top » : filtres dynamiques (pas des catégories).
+  const PROMOS = [
+    { label: t('promoBest'), href: '/catalogue?filter=best' },
+    { label: t('promoSales'), href: '/catalogue?filter=promo' },
+    { label: t('promoNew'), href: '/catalogue?filter=new' },
+    { label: t('promoLido'), href: `/catalogue?q=${encodeURIComponent('lidocaïne')}` },
+    { label: t('promoNoLido'), href: '/catalogue?filter=nolido' },
+  ];
+
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 40 }}>
       <div style={{ background: 'linear-gradient(100deg,#33421E 0%,#4C672C 55%,#5E7E37 100%)', color: '#EDF4E2' }}>
@@ -137,7 +153,7 @@ export default function Header() {
                   onMouseLeave={() => setOpenCat((c) => (c === cat.id_category ? null : c))}
                   style={{ position: 'static', display: 'flex', alignItems: 'center' }}
                 >
-                  <Link href={`/catalogue?category=${cat.id_category}`} className="hfm-navlink" style={{ ...navLinkStyle, display: 'inline-flex', alignItems: 'center', gap: '6px', background: open ? 'rgba(140,198,63,.12)' : undefined, color: open ? '#4B6B1B' : '#3A3A36' }}>
+                  <Link href={rootHref(cat)} className="hfm-navlink" style={{ ...navLinkStyle, display: 'inline-flex', alignItems: 'center', gap: '6px', background: open ? 'rgba(140,198,63,.12)' : undefined, color: open ? '#4B6B1B' : '#3A3A36' }}>
                     {cat.name}
                     {subs.length ? (
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" style={{ transition: 'transform .2s ease', transform: open ? 'rotate(180deg)' : 'none' }}><path d="M6 9l6 6 6-6" /></svg>
@@ -148,11 +164,11 @@ export default function Header() {
                       <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '26px 28px 30px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                           <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8A8170' }}>{cat.name}{cat.nb_products ? ` · ${cat.nb_products}` : ''}</div>
-                          <Link href={`/catalogue?category=${cat.id_category}`} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', fontSize: '12.5px', fontWeight: 600, color: '#5E8E1F' }}>{t('seeAll')}</Link>
+                          <Link href={rootHref(cat)} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', fontSize: '12.5px', fontWeight: 600, color: '#5E8E1F' }}>{t('seeAll')}</Link>
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`, gap: '2px 24px' }}>
                           {subs.map((sub) => (
-                            <Link key={sub.id_category} href={`/catalogue?category=${sub.id_category}`} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', fontSize: '13.5px', color: '#3A3A36', padding: '7px 0', borderBottom: '1px solid #F4F2EC', transition: 'color .15s ease' }}>
+                            <Link key={sub.id_category} href={catHref(sub)} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', fontSize: '13.5px', color: '#3A3A36', padding: '7px 0', borderBottom: '1px solid #F4F2EC', transition: 'color .15s ease' }}>
                               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sub.name}</span>
                               {sub.nb_products ? <span style={{ flex: 'none', fontSize: '11.5px', color: '#B0A99A' }}>{sub.nb_products}</span> : null}
                             </Link>
@@ -164,7 +180,28 @@ export default function Header() {
                 </div>
               );
             })}
-            <Link href="/catalogue" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', color: '#A8503A', fontSize: '13.5px', fontWeight: 600, padding: '8px 15px', borderRadius: '999px', background: 'rgba(168,80,58,.09)', border: '1px solid rgba(168,80,58,.2)', transition: 'background .2s ease', marginLeft: '6px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#A8503A' }} />{t('promosTop')}</Link>
+            <div
+              onMouseEnter={() => setOpenCat(-1)}
+              onMouseLeave={() => setOpenCat((c) => (c === -1 ? null : c))}
+              style={{ position: 'static', display: 'flex', alignItems: 'center', marginLeft: '6px' }}
+            >
+              <Link href="/catalogue?filter=promo" className="hfm-navlink" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', color: '#A8503A', fontSize: '13.5px', fontWeight: 600, padding: '8px 15px', borderRadius: '999px', background: openCat === -1 ? 'rgba(168,80,58,.16)' : 'rgba(168,80,58,.09)', border: '1px solid rgba(168,80,58,.2)', transition: 'background .2s ease' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#A8503A' }} />{t('promosTab')}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" style={{ transition: 'transform .2s ease', transform: openCat === -1 ? 'rotate(180deg)' : 'none' }}><path d="M6 9l6 6 6-6" /></svg>
+              </Link>
+              {openCat === -1 ? (
+                <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', borderTop: '1px solid #ECEAE3', boxShadow: '0 30px 50px -28px rgba(40,50,25,.45)', zIndex: 38 }}>
+                  <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '26px 28px 30px' }}>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8A8170', marginBottom: '16px' }}>{t('promosTab')}</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: '2px 24px' }}>
+                      {PROMOS.map((pr) => (
+                        <Link key={pr.href} href={pr.href} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', fontSize: '13.5px', color: '#3A3A36', padding: '7px 0', borderBottom: '1px solid #F4F2EC', transition: 'color .15s ease' }}>{pr.label}</Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
             <span style={{ marginLeft: 'auto', display: 'inline-flex', alignItems: 'center', gap: '9px', fontSize: '12.5px', color: '#5E8E1F', fontWeight: 600 }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8CC63F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>{t('ceDelivery')}</span>
           </div>
         </div>
@@ -182,7 +219,7 @@ export default function Header() {
               return (
                 <div key={cat.id_category} style={{ borderRadius: '14px', background: '#fff', border: '1px solid #ECEAE3', overflow: 'hidden' }}>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Link href={`/catalogue?category=${cat.id_category}`} onClick={closeMenu} style={{ cursor: 'pointer', flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: '13px', padding: '12px 13px' }}>
+                    <Link href={rootHref(cat)} onClick={closeMenu} style={{ cursor: 'pointer', flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: '13px', padding: '12px 13px' }}>
                       <span style={{ flex: 'none', width: '38px', height: '38px', borderRadius: '11px', background: 'rgba(140,198,63,.13)', color: '#5E8E1F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12z" /></svg></span>
                       <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: 'block', fontSize: '15.5px', fontWeight: 600, color: '#34352F', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cat.name}</span>{cat.nb_products ? <span style={{ display: 'block', fontSize: '12px', color: '#9A9A9A', marginTop: '1px' }}>{tcat('productsCount', { count: cat.nb_products })}</span> : null}</span>
                     </Link>
@@ -197,7 +234,7 @@ export default function Header() {
                   {open && subs.length ? (
                     <div style={{ borderTop: '1px solid #F1EFE8', padding: '2px 14px 8px 64px', display: 'flex', flexDirection: 'column' }}>
                       {subs.map((sub) => (
-                        <Link key={sub.id_category} href={`/catalogue?category=${sub.id_category}`} onClick={closeMenu} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', padding: '9px 0', fontSize: '14px', color: '#4A4A44', borderBottom: '1px solid #F6F4EE' }}>
+                        <Link key={sub.id_category} href={catHref(sub)} onClick={closeMenu} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', padding: '9px 0', fontSize: '14px', color: '#4A4A44', borderBottom: '1px solid #F6F4EE' }}>
                           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sub.name}</span>
                           {sub.nb_products ? <span style={{ flex: 'none', fontSize: '11.5px', color: '#B0A99A' }}>{sub.nb_products}</span> : null}
                         </Link>
@@ -207,11 +244,24 @@ export default function Header() {
                 </div>
               );
             })}
-            <Link href="/catalogue" onClick={closeMenu} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '13px', padding: '12px 13px', borderRadius: '14px', background: 'rgba(168,80,58,.06)', border: '1px solid rgba(168,80,58,.22)' }}>
-              <span style={{ flex: 'none', width: '38px', height: '38px', borderRadius: '11px', background: 'rgba(168,80,58,.12)', color: '#A8503A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round"><path d="M19 5L5 19" /><circle cx="7.5" cy="7.5" r="2" /><circle cx="16.5" cy="16.5" r="2" /></svg></span>
-              <span style={{ flex: 1 }}><span style={{ display: 'block', fontSize: '15.5px', fontWeight: 700, color: '#A8503A' }}>{t('mPromosTitle')}</span><span style={{ display: 'block', fontSize: '12px', color: '#B57767', marginTop: '1px' }}>{t('mPromosSub')}</span></span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A8503A" strokeWidth="2" strokeLinecap="round"><path d="M9 6l6 6-6 6" /></svg>
-            </Link>
+            <div style={{ borderRadius: '14px', background: 'rgba(168,80,58,.06)', border: '1px solid rgba(168,80,58,.22)', overflow: 'hidden' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Link href="/catalogue?filter=promo" onClick={closeMenu} style={{ cursor: 'pointer', flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: '13px', padding: '12px 13px' }}>
+                  <span style={{ flex: 'none', width: '38px', height: '38px', borderRadius: '11px', background: 'rgba(168,80,58,.12)', color: '#A8503A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round"><path d="M19 5L5 19" /><circle cx="7.5" cy="7.5" r="2" /><circle cx="16.5" cy="16.5" r="2" /></svg></span>
+                  <span style={{ flex: 1 }}><span style={{ display: 'block', fontSize: '15.5px', fontWeight: 700, color: '#A8503A' }}>{t('promosTab')}</span><span style={{ display: 'block', fontSize: '12px', color: '#B57767', marginTop: '1px' }}>{t('mPromosSub')}</span></span>
+                </Link>
+                <button type="button" onClick={() => setOpenCat(openCat === -1 ? null : -1)} aria-label={t('promosTab')} style={{ flex: 'none', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: '#A8503A' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ transition: 'transform .2s ease', transform: openCat === -1 ? 'rotate(90deg)' : 'none' }}><path d="M9 6l6 6-6 6" /></svg>
+                </button>
+              </div>
+              {openCat === -1 ? (
+                <div style={{ borderTop: '1px solid rgba(168,80,58,.16)', padding: '2px 14px 8px 64px', display: 'flex', flexDirection: 'column' }}>
+                  {PROMOS.map((pr) => (
+                    <Link key={pr.href} href={pr.href} onClick={closeMenu} style={{ cursor: 'pointer', padding: '9px 0', fontSize: '14px', color: '#8A4636', borderBottom: '1px solid rgba(168,80,58,.12)' }}>{pr.label}</Link>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </div>
           <Link href="/compte" onClick={closeMenu} style={{ width: '100%', marginTop: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '9px', height: '50px', borderRadius: '999px', background: '#fff', border: '1.5px solid #8CC63F', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#5E8E1F', cursor: 'pointer' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" /></svg>{loggedIn ? tc('myAccount') : t('loginPractitioner')}</Link>
           <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '7px', marginTop: '16px' }}>

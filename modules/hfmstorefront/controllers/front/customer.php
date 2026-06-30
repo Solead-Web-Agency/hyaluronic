@@ -24,6 +24,10 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
                 return $this->registerGuest();
             case 'add-address':
                 return $this->addAddress();
+            case 'update-address':
+                return $this->updateAddress();
+            case 'delete-address':
+                return $this->deleteAddress();
             case 'update':
                 return $this->updateProfile();
             case 'set-rpps':
@@ -184,6 +188,18 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         $address->postcode = (string) $this->in('postcode');
         $address->city = (string) $this->in('city');
         $address->id_country = (int) $this->in('id_country');
+        // Société + n° de TVA intracommunautaire (B2B). S'ils sont renseignés, le module
+        // Advanced VAT Manager valide le numéro via VIES/GOV.UK au moment du add()
+        // (hook actionObjectAddAfter) et, si valide, exonère le client (passage groupe B2B).
+        // On ne réimplémente pas VIES : on pose les champs, le moteur du module fait le reste.
+        $company = trim((string) $this->in('company', ''));
+        if ($company !== '') {
+            $address->company = $company;
+        }
+        $vat = trim((string) $this->in('vat_number', ''));
+        if ($vat !== '') {
+            $address->vat_number = $vat;
+        }
         // Téléphone OBLIGATOIRE.
         $phone = trim((string) $this->in('phone', ''));
         if ($phone === '' || !Validate::isPhoneNumber($phone)) {
@@ -196,7 +212,100 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         if (!$address->add()) {
             return ['error' => 'address_create_failed'];
         }
-        return ['created' => true, 'id_address' => (int) $address->id, 'addresses' => $this->listAddresses($idCustomer)];
+        return [
+            'created' => true,
+            'id_address' => (int) $address->id,
+            'vat' => $this->vatStatus($idCustomer, (int) $address->id, (int) $address->id_country, $vat),
+            'addresses' => $this->listAddresses($idCustomer),
+        ];
+    }
+
+    protected function updateAddress()
+    {
+        $idCustomer = (int) $this->in('id_customer');
+        $idAddress = (int) $this->in('id_address');
+        $old = new Address($idAddress);
+        // Sécurité : l'adresse doit appartenir au client de la session.
+        if (!Validate::isLoadedObject($old) || (int) $old->id_customer !== $idCustomer) {
+            return ['error' => 'address_not_found'];
+        }
+        $phone = trim((string) $this->in('phone', $old->phone));
+        if ($phone === '' || !Validate::isPhoneNumber($phone)) {
+            return ['error' => 'invalid_phone'];
+        }
+        $idCountry = (int) $this->in('id_country', (int) $old->id_country);
+        if (!Validate::isLoadedObject(new Country($idCountry))) {
+            return ['error' => 'invalid_country'];
+        }
+        // Si l'adresse est déjà rattachée à une commande, PrestaShop impose d'en créer une
+        // nouvelle (préservation de l'historique de commande) et de masquer l'ancienne.
+        $used = (bool) $old->isUsed();
+        $address = $used ? new Address() : $old;
+        $address->id_customer = $idCustomer;
+        $address->alias = (string) $this->in('alias', $old->alias ?: 'Mon adresse');
+        $address->firstname = (string) $this->in('firstname', $old->firstname);
+        $address->lastname = (string) $this->in('lastname', $old->lastname);
+        $address->address1 = (string) $this->in('address1', $old->address1);
+        $address->postcode = (string) $this->in('postcode', $old->postcode);
+        $address->city = (string) $this->in('city', $old->city);
+        $address->id_country = $idCountry;
+        $address->phone = $phone;
+        // Société + TVA : le hook Advanced VAT Manager re-valide via VIES/GOV.UK à l'update().
+        $address->company = (string) $this->in('company', '');
+        $address->vat_number = trim((string) $this->in('vat_number', ''));
+        $ok = $used ? $address->add() : $address->update();
+        if (!$ok) {
+            return ['error' => 'address_update_failed'];
+        }
+        if ($used) {
+            $old->deleted = 1;
+            $old->update();
+        }
+        return [
+            'updated' => true,
+            'id_address' => (int) $address->id,
+            'vat' => $this->vatStatus($idCustomer, (int) $address->id, (int) $address->id_country, (string) $address->vat_number),
+            'addresses' => $this->listAddresses($idCustomer),
+        ];
+    }
+
+    protected function deleteAddress()
+    {
+        $idCustomer = (int) $this->in('id_customer');
+        $idAddress = (int) $this->in('id_address');
+        $address = new Address($idAddress);
+        if (!Validate::isLoadedObject($address) || (int) $address->id_customer !== $idCustomer) {
+            return ['error' => 'address_not_found'];
+        }
+        // Soft-delete : PrestaShop conserve l'adresse en base si elle est liée à une commande.
+        $address->deleted = 1;
+        if (!$address->update()) {
+            return ['error' => 'address_delete_failed'];
+        }
+        return ['deleted' => true, 'addresses' => $this->listAddresses($idCustomer)];
+    }
+
+    /**
+     * Statut de validation TVA d'une adresse APRÈS son enregistrement : le module
+     * Advanced VAT Manager a déjà appelé VIES/GOV.UK dans le hook actionObjectAddAfter.
+     * Renvoie null si pas de TVA saisie, ou un statut { number, valid, invalid, exempt, available }.
+     */
+    protected function vatStatus($idCustomer, $idAddress, $idCountry, $vat)
+    {
+        if ($vat === '') {
+            return null;
+        }
+        $cvat = _PS_MODULE_DIR_ . 'advancedvatmanager/classes/CustomersVAT.php';
+        $eng = _PS_MODULE_DIR_ . 'advancedvatmanager/classes/ValidationEngine.php';
+        if (!file_exists($cvat) || !file_exists($eng)) {
+            return ['number' => $vat, 'valid' => false, 'invalid' => false, 'exempt' => false, 'available' => false];
+        }
+        require_once $cvat;
+        require_once $eng;
+        $valid = (bool) CustomersVAT::checkCustomerVATValid($idCustomer, $idAddress);
+        $invalid = (bool) CustomersVAT::checkCustomerVATInvalid($idCustomer, $idAddress);
+        $exempt = $valid ? (bool) ValidationEngine::checkNoTax($idCustomer, $idAddress, $idCountry) : false;
+        return ['number' => $vat, 'valid' => $valid, 'invalid' => $invalid, 'exempt' => $exempt, 'available' => true];
     }
 
     protected function listAddresses($idCustomer)
@@ -206,7 +315,19 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         if (!Validate::isLoadedObject($customer)) {
             return $out;
         }
+        $hasCvat = file_exists(_PS_MODULE_DIR_ . 'advancedvatmanager/classes/CustomersVAT.php');
+        if ($hasCvat) {
+            require_once _PS_MODULE_DIR_ . 'advancedvatmanager/classes/CustomersVAT.php';
+        }
+        $hasEng = file_exists(_PS_MODULE_DIR_ . 'advancedvatmanager/classes/ValidationEngine.php');
+        if ($hasEng) {
+            require_once _PS_MODULE_DIR_ . 'advancedvatmanager/classes/ValidationEngine.php';
+        }
         foreach ($customer->getAddresses((int) $this->context->language->id) as $a) {
+            $vatNum = isset($a['vat_number']) ? (string) $a['vat_number'] : '';
+            // Un pays NON listé dans ADVANCEDVATMANAGER_COUNTRY (ex. la France, pays de la boutique)
+            // n'est pas soumis à validation : la TVA y est domestique, aucune exonération possible.
+            $checkable = $hasEng ? !ValidationEngine::skipVATFieldBycountry((int) $a['id_country']) : true;
             $out[] = [
                 'id_address' => (int) $a['id_address'],
                 'alias' => $a['alias'],
@@ -218,6 +339,11 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
                 'country' => $a['country'],
                 'id_country' => (int) $a['id_country'],
                 'phone' => $a['phone'],
+                'company' => isset($a['company']) ? (string) $a['company'] : '',
+                'vat_number' => $vatNum,
+                'vat_checkable' => (bool) $checkable,
+                'vat_valid' => ($hasCvat && $vatNum !== '') ? (bool) CustomersVAT::checkCustomerVATValid((int) $idCustomer, (int) $a['id_address']) : false,
+                'vat_invalid' => ($hasCvat && $vatNum !== '') ? (bool) CustomersVAT::checkCustomerVATInvalid((int) $idCustomer, (int) $a['id_address']) : false,
             ];
         }
         return $out;

@@ -19,7 +19,8 @@
     "browseCatalogue": "Bläddra i katalogen",
     "seeCatalogue": "Visa katalogen",
     "myOrders": "Mina beställningar",
-    "myInfo": "Mina uppgifter"
+    "myInfo": "Mina uppgifter",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Leverans samma dag — beställ före kl. 15 · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Inloggning för praktiker",
     "tagCe": "✓ CE-märkning",
     "tagDelay": "⚡ 24–48 h",
-    "tagSecure": "🔒 Säker betalning"
+    "tagSecure": "🔒 Säker betalning",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Expert på estetiska injektioner",
@@ -302,7 +309,17 @@
     "saveFailed": "Det gick inte att spara adressen.",
     "saving": "Sparar…",
     "add": "Lägg till adressen",
-    "phoneRequired": "Telefonnummer är obligatoriskt."
+    "phoneRequired": "Telefonnummer är obligatoriskt.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Beställning",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "Ogiltig e-postadress.",
     "rppsNotFound": "Detta RPPS-nummer hittades inte i registret över vårdpersonal.",
     "rppsChecking": "Kontrollerar RPPS-nummer…",
-    "rppsWillBeVerified": "Numret sparat — dess giltighet bekräftas av vårt team."
+    "rppsWillBeVerified": "Numret sparat — dess giltighet bekräftas av vårt team.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Inloggning krävs",

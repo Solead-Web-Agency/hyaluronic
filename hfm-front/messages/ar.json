@@ -19,7 +19,8 @@
     "browseCatalogue": "تصفّح الكتالوج",
     "seeCatalogue": "عرض الكتالوج",
     "myOrders": "طلباتي",
-    "myInfo": "بياناتي"
+    "myInfo": "بياناتي",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "الشحن في نفس اليوم — اطلب قبل الساعة 15:00 · DHL و Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "دخول الممارس",
     "tagCe": "✓ علامة CE",
     "tagDelay": "⚡ 24-48 ساعة",
-    "tagSecure": "🔒 دفع آمن"
+    "tagSecure": "🔒 دفع آمن",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "خبير في الحقن التجميلية",
@@ -302,7 +309,17 @@
     "saveFailed": "تعذّر حفظ العنوان.",
     "saving": "جارٍ الحفظ…",
     "add": "إضافة العنوان",
-    "phoneRequired": "رقم الهاتف مطلوب."
+    "phoneRequired": "رقم الهاتف مطلوب.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "الطلب",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "بريد إلكتروني غير صالح.",
     "rppsNotFound": "لم يتم العثور على رقم RPPS هذا في سجل مهنيي الرعاية الصحية.",
     "rppsChecking": "جارٍ التحقق من رقم RPPS…",
-    "rppsWillBeVerified": "تم حفظ الرقم — سيتم تأكيد صلاحيته من قبل فريقنا."
+    "rppsWillBeVerified": "تم حفظ الرقم — سيتم تأكيد صلاحيته من قبل فريقنا.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",

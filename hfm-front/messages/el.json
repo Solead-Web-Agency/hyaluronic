@@ -19,7 +19,8 @@
     "browseCatalogue": "Περιηγηθείτε στον κατάλογο",
     "seeCatalogue": "Δείτε τον κατάλογο",
     "myOrders": "Οι παραγγελίες μου",
-    "myInfo": "Τα στοιχεία μου"
+    "myInfo": "Τα στοιχεία μου",
+    "cancel": "Cancel"
   },
   "header": {
     "topbarShipping": "Αποστολή την ίδια ημέρα — παραγγελία πριν τις 15:00 · DHL & Colissimo Express",
@@ -56,7 +57,13 @@
     "loginPractitioner": "Σύνδεση επαγγελματία",
     "tagCe": "✓ Σήμανση CE",
     "tagDelay": "⚡ 24-48 ώρες",
-    "tagSecure": "🔒 Ασφαλής πληρωμή"
+    "tagSecure": "🔒 Ασφαλής πληρωμή",
+    "promosTab": "Deals & Top",
+    "promoBest": "Best-sellers",
+    "promoSales": "On sale",
+    "promoNew": "New",
+    "promoLido": "With lidocaine",
+    "promoNoLido": "Without lidocaine"
   },
   "footer": {
     "logoSub": "Ειδικός στις αισθητικές ενέσεις",
@@ -302,7 +309,17 @@
     "saveFailed": "Δεν ήταν δυνατή η αποθήκευση της διεύθυνσης.",
     "saving": "Αποθήκευση…",
     "add": "Προσθήκη διεύθυνσης",
-    "phoneRequired": "Ο αριθμός τηλεφώνου είναι υποχρεωτικός."
+    "phoneRequired": "Ο αριθμός τηλεφώνου είναι υποχρεωτικός.",
+    "b2bTitle": "Business — intra-EU VAT (optional)",
+    "company": "Company",
+    "companyPlaceholder": "Company name",
+    "vatNumber": "Intra-EU VAT number",
+    "vatPlaceholder": "e.g. BE0123456789",
+    "vatHint": "Automatically validated via VIES / GOV.UK. If valid, VAT is exempted for EU professionals.",
+    "vatValid": "VAT number validated — VAT exemption applied.",
+    "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
+    "vatChecking": "Checking VAT number…",
+    "save": "Save"
   },
   "checkout": {
     "breadcrumb": "Παραγγελία",
@@ -389,7 +406,15 @@
     "guestInvalidEmail": "Μη έγκυρο email.",
     "rppsNotFound": "Αυτός ο αριθμός RPPS δεν βρέθηκε στο μητρώο επαγγελματιών υγείας.",
     "rppsChecking": "Έλεγχος αριθμού RPPS…",
-    "rppsWillBeVerified": "Ο αριθμός αποθηκεύτηκε — η εγκυρότητά του θα επιβεβαιωθεί από την ομάδα μας."
+    "rppsWillBeVerified": "Ο αριθμός αποθηκεύτηκε — η εγκυρότητά του θα επιβεβαιωθεί από την ομάδα μας.",
+    "vatExemptBadge": "VAT exempt",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editAddress": "Edit address",
+    "vatValidBadge": "VAT validated",
+    "vatInvalidBadge": "VAT not validated",
+    "vatPendingBadge": "VAT pending",
+    "vatNotApplicable": "Exemption not applicable"
   },
   "orders": {
     "loginRequired": "Απαιτείται σύνδεση",

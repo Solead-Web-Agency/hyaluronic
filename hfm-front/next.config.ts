@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "http", hostname: "localhost", port: "8080", pathname: "/img/**" },
+      // Back PrestaShop en prod/staging (images catalogue servies par PS).
+      { protocol: "https", hostname: "**.hyaluronicfillermarket.com", pathname: "/img/**" },
     ],
   },
 };
