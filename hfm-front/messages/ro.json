@@ -17,7 +17,9 @@
     "networkError": "Eroare de rețea.",
     "discoverCatalogue": "Descoperă catalogul",
     "browseCatalogue": "Răsfoiește catalogul",
-    "seeCatalogue": "Vezi catalogul"
+    "seeCatalogue": "Vezi catalogul",
+    "myOrders": "Comenzile mele",
+    "myInfo": "Datele mele"
   },
   "header": {
     "topbarShipping": "Expediere în aceeași zi — comandă înainte de ora 15:00 · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Medic estetician, Lyon",
     "review2Text": "Cel mai bun raport aprovizionare / preț pe care l-am găsit. Profhilo mereu în stoc.",
     "review2Name": "C. Berthier",
-    "review2Role": "Asistentă medicală, Bordeaux"
+    "review2Role": "Asistentă medicală, Bordeaux",
+    "rppsBadge": "Doar pentru practicieni",
+    "rppsNotice": "Produs restricționat la profesioniștii din domeniul sănătății — număr RPPS necesar la finalizarea comenzii.",
+    "notifyRegistered": "Alertă salvată ✓"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Te rugăm să completezi adresa, codul poștal, orașul și țara.",
     "saveFailed": "Adresa nu poate fi salvată.",
     "saving": "Se salvează…",
-    "add": "Adaugă adresa"
+    "add": "Adaugă adresa",
+    "phoneRequired": "Numărul de telefon este obligatoriu."
   },
   "checkout": {
     "breadcrumb": "Comandă",
@@ -345,7 +351,7 @@
     "validating": "Se validează…",
     "placeOrder": "Comandă {amount} €",
     "selectAddressCarrier": "Selectează o adresă și un curier",
-    "secureOrder": "🔒 Comandă securizată",
+    "secureOrder": "Comandă securizată",
     "demoBadge": "DEMO",
     "paypalRedirect": "Veți fi redirecționat către PayPal pentru a plăti, apoi înapoi aici.",
     "rppsModeNumber": "Am un număr RPPS / ADELI",
@@ -361,7 +367,29 @@
     "cancel": "Anulează",
     "rppsRequiredNotice": "Un produs din coș este rezervat profesioniștilor: introduceți un număr RPPS valid sau declarați că sunteți un profesionist din domeniul sănătății.",
     "attestationAfterOrder": "Îl puteți trimite după comandă; aceasta va fi însă procesată doar după primirea documentului.",
-    "amazonRedirect": "Plătiți cu Amazon Pay (butonul de mai jos), apoi reveniți aici."
+    "amazonRedirect": "Plătiți cu Amazon Pay (butonul de mai jos), apoi reveniți aici.",
+    "acceptTerms": "Accept <cgv>condițiile de vânzare</cgv> și <pp>politica de confidențialitate</pp>.",
+    "acceptTermsShort": "Acceptați condițiile pentru a continua",
+    "rppsLabel": "Număr RPPS / ADELI",
+    "rppsPlaceholder": "11 cifre (ADELI / RPPS)",
+    "rppsInvalid": "Este necesar un număr RPPS valid (9–11 cifre).",
+    "rppsRequiredError": "Este necesar un număr RPPS valid pentru un produs rezervat practicienilor.",
+    "guestTitle": "Finalizează comanda ca invitat",
+    "guestSubtitle": "Nu este nevoie de cont. Introdu doar datele tale.",
+    "guestContinue": "Continuă ca invitat",
+    "orSeparator": "sau",
+    "haveAccount": "Am deja un cont",
+    "createAccount": "Creează un cont",
+    "firstname": "Prenume",
+    "lastname": "Nume",
+    "emailLabel": "E-mail",
+    "missingFields": "Te rugăm să completezi toate câmpurile.",
+    "guestEmailExists": "Există deja un cont cu acest e-mail. Te rugăm să te conectezi.",
+    "guestInvalidName": "Prenume/nume invalid (doar litere).",
+    "guestInvalidEmail": "E-mail invalid.",
+    "rppsNotFound": "Acest număr RPPS nu a fost găsit în registrul profesioniștilor din domeniul sănătății.",
+    "rppsChecking": "Se verifică numărul RPPS…",
+    "rppsWillBeVerified": "Număr salvat — validitatea sa va fi confirmată de echipa noastră."
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

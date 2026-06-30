@@ -17,7 +17,9 @@
     "networkError": "Nätverksfel.",
     "discoverCatalogue": "Upptäck katalogen",
     "browseCatalogue": "Bläddra i katalogen",
-    "seeCatalogue": "Visa katalogen"
+    "seeCatalogue": "Visa katalogen",
+    "myOrders": "Mina beställningar",
+    "myInfo": "Mina uppgifter"
   },
   "header": {
     "topbarShipping": "Leverans samma dag — beställ före kl. 15 · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Estetisk läkare, Lyon",
     "review2Text": "Bästa förhållandet sourcing/pris jag har hittat. Profhilo alltid i lager.",
     "review2Name": "C. Berthier",
-    "review2Role": "Sjuksköterska, Bordeaux"
+    "review2Role": "Sjuksköterska, Bordeaux",
+    "rppsBadge": "Endast för vårdpersonal",
+    "rppsNotice": "Produkten är förbehållen vårdpersonal — RPPS-nummer krävs vid beställning.",
+    "notifyRegistered": "Avisering sparad ✓"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Ange adress, postnummer, ort och land.",
     "saveFailed": "Det gick inte att spara adressen.",
     "saving": "Sparar…",
-    "add": "Lägg till adressen"
+    "add": "Lägg till adressen",
+    "phoneRequired": "Telefonnummer är obligatoriskt."
   },
   "checkout": {
     "breadcrumb": "Beställning",
@@ -345,7 +351,7 @@
     "validating": "Validerar…",
     "placeOrder": "Beställ {amount} €",
     "selectAddressCarrier": "Välj en adress och en transportör",
-    "secureOrder": "🔒 Säker beställning",
+    "secureOrder": "Säker beställning",
     "demoBadge": "DEMO",
     "paypalRedirect": "Du omdirigeras till PayPal för att betala och tas sedan tillbaka hit.",
     "rppsModeNumber": "Jag har ett RPPS-/ADELI-nummer",
@@ -361,7 +367,29 @@
     "cancel": "Avbryt",
     "rppsRequiredNotice": "En produkt i din varukorg är reserverad för yrkesverksamma: ange ett giltigt RPPS-nummer eller intyga att du är vårdpersonal.",
     "attestationAfterOrder": "Du kan skicka det efter beställningen; den behandlas dock först när vi mottagit dokumentet.",
-    "amazonRedirect": "Betala med Amazon Pay (knapp nedan) och kom tillbaka hit."
+    "amazonRedirect": "Betala med Amazon Pay (knapp nedan) och kom tillbaka hit.",
+    "acceptTerms": "Jag godkänner <cgv>försäljningsvillkoren</cgv> och <pp>integritetspolicyn</pp>.",
+    "acceptTermsShort": "Godkänn villkoren för att fortsätta",
+    "rppsLabel": "RPPS-/ADELI-nummer",
+    "rppsPlaceholder": "11 siffror (ADELI / RPPS)",
+    "rppsInvalid": "Ett giltigt RPPS-nummer krävs (9–11 siffror).",
+    "rppsRequiredError": "Ett giltigt RPPS-nummer krävs för en produkt som endast är för vårdpersonal.",
+    "guestTitle": "Beställ som gäst",
+    "guestSubtitle": "Inget konto behövs. Ange bara dina uppgifter.",
+    "guestContinue": "Fortsätt som gäst",
+    "orSeparator": "eller",
+    "haveAccount": "Jag har redan ett konto",
+    "createAccount": "Skapa ett konto",
+    "firstname": "Förnamn",
+    "lastname": "Efternamn",
+    "emailLabel": "E-post",
+    "missingFields": "Fyll i alla fält.",
+    "guestEmailExists": "Det finns redan ett konto med den här e-postadressen. Logga in.",
+    "guestInvalidName": "Ogiltigt för-/efternamn (endast bokstäver).",
+    "guestInvalidEmail": "Ogiltig e-postadress.",
+    "rppsNotFound": "Detta RPPS-nummer hittades inte i registret över vårdpersonal.",
+    "rppsChecking": "Kontrollerar RPPS-nummer…",
+    "rppsWillBeVerified": "Numret sparat — dess giltighet bekräftas av vårt team."
   },
   "orders": {
     "loginRequired": "Inloggning krävs",

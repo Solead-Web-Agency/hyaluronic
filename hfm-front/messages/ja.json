@@ -17,7 +17,9 @@
     "networkError": "ネットワークエラー。",
     "discoverCatalogue": "カタログを見る",
     "browseCatalogue": "カタログを閲覧する",
-    "seeCatalogue": "カタログを見る"
+    "seeCatalogue": "カタログを見る",
+    "myOrders": "注文履歴",
+    "myInfo": "登録情報"
   },
   "header": {
     "topbarShipping": "当日発送 — 15時までのご注文 · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "美容医師、リヨン",
     "review2Text": "これまで見つけた中で最高の調達・価格バランス。Profhiloは常に在庫があります。",
     "review2Name": "C. Berthier",
-    "review2Role": "看護師、ボルドー"
+    "review2Role": "看護師、ボルドー",
+    "rppsBadge": "医療従事者限定",
+    "rppsNotice": "本製品は医療従事者限定です — ご注文時にRPPS番号が必要です。",
+    "notifyRegistered": "通知を登録しました ✓"
   },
   "quickView": {
     "refStock": "品番 {reference} · {status}。",
@@ -296,7 +301,8 @@
     "missingFields": "住所、郵便番号、市区町村、国をご入力ください。",
     "saveFailed": "住所を保存できませんでした。",
     "saving": "保存中…",
-    "add": "住所を追加"
+    "add": "住所を追加",
+    "phoneRequired": "電話番号は必須です。"
   },
   "checkout": {
     "breadcrumb": "ご注文",
@@ -345,7 +351,7 @@
     "validating": "確認中…",
     "placeOrder": "{amount} €で注文する",
     "selectAddressCarrier": "住所と配送業者を選択してください",
-    "secureOrder": "🔒 安全なご注文",
+    "secureOrder": "安全なご注文",
     "demoBadge": "DEMO",
     "paypalRedirect": "PayPal の支払いページに移動し、完了後にこのページに戻ります。",
     "rppsModeNumber": "RPPS / ADELI 番号があります",
@@ -361,7 +367,29 @@
     "cancel": "キャンセル",
     "rppsRequiredNotice": "カート内の商品は医療従事者専用です。有効なRPPS番号を入力するか、医療従事者であることを証明してください。",
     "attestationAfterOrder": "注文後に送信できますが、書類の受領後に注文が処理されます。",
-    "amazonRedirect": "Amazon Pay（下のボタン）で支払い、こちらに戻ります。"
+    "amazonRedirect": "Amazon Pay（下のボタン）で支払い、こちらに戻ります。",
+    "acceptTerms": "<cgv>販売条件</cgv>と<pp>プライバシーポリシー</pp>に同意します。",
+    "acceptTermsShort": "続行するには条件に同意してください",
+    "rppsLabel": "RPPS / ADELI 番号",
+    "rppsPlaceholder": "11桁（ADELI / RPPS）",
+    "rppsInvalid": "有効なRPPS番号を入力してください（9〜11桁）。",
+    "rppsRequiredError": "医療従事者限定製品には有効なRPPS番号が必要です。",
+    "guestTitle": "ゲストとして購入",
+    "guestSubtitle": "アカウントは不要です。お客様情報を入力するだけです。",
+    "guestContinue": "ゲストとして続行",
+    "orSeparator": "または",
+    "haveAccount": "すでにアカウントをお持ちです",
+    "createAccount": "アカウントを作成",
+    "firstname": "名",
+    "lastname": "姓",
+    "emailLabel": "メールアドレス",
+    "missingFields": "すべての項目を入力してください。",
+    "guestEmailExists": "このメールアドレスのアカウントはすでに存在します。ログインしてください。",
+    "guestInvalidName": "名・姓が無効です（文字のみ使用可）。",
+    "guestInvalidEmail": "メールアドレスが無効です。",
+    "rppsNotFound": "このRPPS番号は医療従事者登録に見つかりませんでした。",
+    "rppsChecking": "RPPS番号を確認中…",
+    "rppsWillBeVerified": "番号を登録しました — 有効性は当社チームが確認いたします。"
   },
   "orders": {
     "loginRequired": "ログインが必要です",

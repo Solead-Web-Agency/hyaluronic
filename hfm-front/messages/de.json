@@ -17,7 +17,9 @@
     "networkError": "Netzwerkfehler.",
     "discoverCatalogue": "Katalog entdecken",
     "browseCatalogue": "Katalog durchsuchen",
-    "seeCatalogue": "Katalog ansehen"
+    "seeCatalogue": "Katalog ansehen",
+    "myOrders": "Meine Bestellungen",
+    "myInfo": "Meine Daten"
   },
   "header": {
     "topbarShipping": "Versand am selben Tag — Bestellung vor 15 Uhr · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Ästhetik-Ärztin, Lyon",
     "review2Text": "Das beste Verhältnis von Beschaffung und Preis, das ich gefunden habe. Profhilo immer auf Lager.",
     "review2Name": "C. Berthier",
-    "review2Role": "Krankenschwester, Bordeaux"
+    "review2Role": "Krankenschwester, Bordeaux",
+    "rppsBadge": "Nur für Fachpersonal",
+    "rppsNotice": "Produkt nur für medizinisches Fachpersonal — RPPS-Nummer bei der Bestellung erforderlich.",
+    "notifyRegistered": "Benachrichtigung gespeichert ✓"
   },
   "quickView": {
     "refStock": "Art. {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Bitte geben Sie Adresse, Postleitzahl, Stadt und Land an.",
     "saveFailed": "Adresse konnte nicht gespeichert werden.",
     "saving": "Wird gespeichert…",
-    "add": "Adresse hinzufügen"
+    "add": "Adresse hinzufügen",
+    "phoneRequired": "Telefonnummer ist erforderlich."
   },
   "checkout": {
     "breadcrumb": "Bestellung",
@@ -345,7 +351,7 @@
     "validating": "Wird validiert…",
     "placeOrder": "{amount} € bestellen",
     "selectAddressCarrier": "Wählen Sie eine Adresse und einen Versanddienstleister",
-    "secureOrder": "🔒 Sichere Bestellung",
+    "secureOrder": "Sichere Bestellung",
     "demoBadge": "DEMO",
     "paypalRedirect": "Sie werden zur Zahlung zu PayPal weitergeleitet und dann hierher zurückgebracht.",
     "rppsModeNumber": "Ich habe eine RPPS-/ADELI-Nummer",
@@ -361,7 +367,29 @@
     "cancel": "Abbrechen",
     "rppsRequiredNotice": "Ein Produkt in Ihrem Warenkorb ist Fachkräften vorbehalten: Geben Sie eine gültige RPPS-Nummer an oder bestätigen Sie, dass Sie eine medizinische Fachkraft sind.",
     "attestationAfterOrder": "Sie können es nach der Bestellung senden; Ihre Bestellung wird jedoch erst nach Erhalt des Nachweises bearbeitet.",
-    "amazonRedirect": "Bezahlung über Amazon Pay (Button unten), dann zurück hierher."
+    "amazonRedirect": "Bezahlung über Amazon Pay (Button unten), dann zurück hierher.",
+    "acceptTerms": "Ich akzeptiere die <cgv>AGB</cgv> und die <pp>Datenschutzrichtlinie</pp>.",
+    "acceptTermsShort": "Akzeptieren Sie die Bedingungen, um fortzufahren",
+    "rppsLabel": "RPPS- / ADELI-Nummer",
+    "rppsPlaceholder": "11 Ziffern (ADELI / RPPS)",
+    "rppsInvalid": "Gültige RPPS-Nummer erforderlich (9–11 Ziffern).",
+    "rppsRequiredError": "Gültige RPPS-Nummer für ein Produkt nur für Fachpersonal erforderlich.",
+    "guestTitle": "Als Gast bestellen",
+    "guestSubtitle": "Kein Konto erforderlich. Geben Sie einfach Ihre Daten ein.",
+    "guestContinue": "Als Gast fortfahren",
+    "orSeparator": "oder",
+    "haveAccount": "Ich habe bereits ein Konto",
+    "createAccount": "Konto erstellen",
+    "firstname": "Vorname",
+    "lastname": "Nachname",
+    "emailLabel": "E-Mail",
+    "missingFields": "Bitte füllen Sie alle Felder aus.",
+    "guestEmailExists": "Mit dieser E-Mail-Adresse besteht bereits ein Konto. Bitte melden Sie sich an.",
+    "guestInvalidName": "Ungültiger Vor-/Nachname (nur Buchstaben).",
+    "guestInvalidEmail": "Ungültige E-Mail-Adresse.",
+    "rppsNotFound": "Diese RPPS-Nummer wurde im Register der Gesundheitsberufe nicht gefunden.",
+    "rppsChecking": "RPPS-Nummer wird geprüft…",
+    "rppsWillBeVerified": "Nummer gespeichert — ihre Gültigkeit wird von unserem Team bestätigt."
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",

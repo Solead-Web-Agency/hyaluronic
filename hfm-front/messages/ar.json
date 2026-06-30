@@ -17,7 +17,9 @@
     "networkError": "خطأ في الشبكة.",
     "discoverCatalogue": "اكتشف الكتالوج",
     "browseCatalogue": "تصفّح الكتالوج",
-    "seeCatalogue": "عرض الكتالوج"
+    "seeCatalogue": "عرض الكتالوج",
+    "myOrders": "طلباتي",
+    "myInfo": "بياناتي"
   },
   "header": {
     "topbarShipping": "الشحن في نفس اليوم — اطلب قبل الساعة 15:00 · DHL و Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "طبيب تجميل، ليون",
     "review2Text": "أفضل نسبة توريد/سعر وجدتها على الإطلاق. منتج Profhilo متوفر دائمًا.",
     "review2Name": "C. Berthier",
-    "review2Role": "ممرضة، بوردو"
+    "review2Role": "ممرضة، بوردو",
+    "rppsBadge": "للممارسين فقط",
+    "rppsNotice": "منتج مخصص لمهنيي الرعاية الصحية — يلزم رقم RPPS عند الدفع.",
+    "notifyRegistered": "تم حفظ التنبيه ✓"
   },
   "quickView": {
     "refStock": "المرجع {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "يرجى إدخال العنوان والرمز البريدي والمدينة والبلد.",
     "saveFailed": "تعذّر حفظ العنوان.",
     "saving": "جارٍ الحفظ…",
-    "add": "إضافة العنوان"
+    "add": "إضافة العنوان",
+    "phoneRequired": "رقم الهاتف مطلوب."
   },
   "checkout": {
     "breadcrumb": "الطلب",
@@ -345,7 +351,7 @@
     "validating": "جارٍ التحقّق…",
     "placeOrder": "اطلب {amount} €",
     "selectAddressCarrier": "اختر عنوانًا وشركة شحن",
-    "secureOrder": "🔒 طلب آمن",
+    "secureOrder": "طلب آمن",
     "demoBadge": "تجريبي",
     "paypalRedirect": "ستتم إعادة توجيهك إلى PayPal للدفع ثم العودة إلى هنا.",
     "rppsModeNumber": "لدي رقم RPPS / ADELI",
@@ -361,7 +367,29 @@
     "cancel": "إلغاء",
     "rppsRequiredNotice": "أحد منتجات سلتك مخصص للمتخصصين: أدخل رقم RPPS صالحًا أو أقرّ بأنك أخصائي رعاية صحية.",
     "attestationAfterOrder": "يمكنك إرساله بعد الطلب؛ لكن لن تتم معالجة الطلب إلا بعد استلام المستند.",
-    "amazonRedirect": "ادفع عبر Amazon Pay (الزر أدناه) ثم العودة إلى هنا."
+    "amazonRedirect": "ادفع عبر Amazon Pay (الزر أدناه) ثم العودة إلى هنا.",
+    "acceptTerms": "أوافق على <cgv>شروط البيع</cgv> و<pp>سياسة الخصوصية</pp>.",
+    "acceptTermsShort": "اقبل الشروط للمتابعة",
+    "rppsLabel": "رقم RPPS / ADELI",
+    "rppsPlaceholder": "11 رقماً (ADELI / RPPS)",
+    "rppsInvalid": "يلزم رقم RPPS صالح (9–11 رقماً).",
+    "rppsRequiredError": "يلزم رقم RPPS صالح لمنتج مخصص للممارسين فقط.",
+    "guestTitle": "الدفع كضيف",
+    "guestSubtitle": "لا حاجة لإنشاء حساب. ما عليك سوى إدخال بياناتك.",
+    "guestContinue": "المتابعة كضيف",
+    "orSeparator": "أو",
+    "haveAccount": "لدي حساب بالفعل",
+    "createAccount": "إنشاء حساب",
+    "firstname": "الاسم الأول",
+    "lastname": "اسم العائلة",
+    "emailLabel": "البريد الإلكتروني",
+    "missingFields": "يرجى ملء جميع الحقول.",
+    "guestEmailExists": "يوجد حساب بالفعل بهذا البريد الإلكتروني. يرجى تسجيل الدخول.",
+    "guestInvalidName": "الاسم الأول/الأخير غير صالح (أحرف فقط).",
+    "guestInvalidEmail": "بريد إلكتروني غير صالح.",
+    "rppsNotFound": "لم يتم العثور على رقم RPPS هذا في سجل مهنيي الرعاية الصحية.",
+    "rppsChecking": "جارٍ التحقق من رقم RPPS…",
+    "rppsWillBeVerified": "تم حفظ الرقم — سيتم تأكيد صلاحيته من قبل فريقنا."
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",

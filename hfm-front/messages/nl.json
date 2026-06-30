@@ -17,7 +17,9 @@
     "networkError": "Netwerkfout.",
     "discoverCatalogue": "Ontdek de catalogus",
     "browseCatalogue": "Catalogus doorbladeren",
-    "seeCatalogue": "Bekijk de catalogus"
+    "seeCatalogue": "Bekijk de catalogus",
+    "myOrders": "Mijn bestellingen",
+    "myInfo": "Mijn gegevens"
   },
   "header": {
     "topbarShipping": "Dezelfde dag verzonden — bestel vóór 15.00 uur · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Esthetisch arts, Lyon",
     "review2Text": "De beste inkoop-prijsverhouding die ik heb gevonden. Profhilo altijd op voorraad.",
     "review2Name": "C. Berthier",
-    "review2Role": "Verpleegkundige, Bordeaux"
+    "review2Role": "Verpleegkundige, Bordeaux",
+    "rppsBadge": "Alleen voor praktijkhouders",
+    "rppsNotice": "Product beperkt tot zorgprofessionals — RPPS-nummer vereist bij het afrekenen.",
+    "notifyRegistered": "Melding opgeslagen ✓"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Vul adres, postcode, stad en land in.",
     "saveFailed": "Het adres kan niet worden opgeslagen.",
     "saving": "Opslaan…",
-    "add": "Adres toevoegen"
+    "add": "Adres toevoegen",
+    "phoneRequired": "Telefoonnummer is verplicht."
   },
   "checkout": {
     "breadcrumb": "Bestelling",
@@ -345,7 +351,7 @@
     "validating": "Valideren…",
     "placeOrder": "Bestellen {amount} €",
     "selectAddressCarrier": "Selecteer een adres en een vervoerder",
-    "secureOrder": "🔒 Veilige bestelling",
+    "secureOrder": "Veilige bestelling",
     "demoBadge": "DEMO",
     "paypalRedirect": "U wordt doorgestuurd naar PayPal om te betalen en daarna teruggebracht.",
     "rppsModeNumber": "Ik heb een RPPS-/ADELI-nummer",
@@ -361,7 +367,29 @@
     "cancel": "Annuleren",
     "rppsRequiredNotice": "Een product in uw winkelwagen is voorbehouden aan professionals: voer een geldig RPPS-nummer in of verklaar dat u een zorgprofessional bent.",
     "attestationAfterOrder": "U kunt het na de bestelling sturen; deze wordt pas verwerkt na ontvangst van het document.",
-    "amazonRedirect": "Betaal via Amazon Pay (knop hieronder) en kom terug."
+    "amazonRedirect": "Betaal via Amazon Pay (knop hieronder) en kom terug.",
+    "acceptTerms": "Ik accepteer de <cgv>verkoopvoorwaarden</cgv> en het <pp>privacybeleid</pp>.",
+    "acceptTermsShort": "Accepteer de voorwaarden om door te gaan",
+    "rppsLabel": "RPPS-/ADELI-nummer",
+    "rppsPlaceholder": "11 cijfers (ADELI / RPPS)",
+    "rppsInvalid": "Een geldig RPPS-nummer is vereist (9–11 cijfers).",
+    "rppsRequiredError": "Een geldig RPPS-nummer is vereist voor een product dat alleen voor praktijkhouders is bestemd.",
+    "guestTitle": "Afrekenen als gast",
+    "guestSubtitle": "Geen account nodig. Vul gewoon je gegevens in.",
+    "guestContinue": "Doorgaan als gast",
+    "orSeparator": "of",
+    "haveAccount": "Ik heb al een account",
+    "createAccount": "Een account aanmaken",
+    "firstname": "Voornaam",
+    "lastname": "Achternaam",
+    "emailLabel": "E-mail",
+    "missingFields": "Vul alle velden in.",
+    "guestEmailExists": "Er bestaat al een account met dit e-mailadres. Log in.",
+    "guestInvalidName": "Ongeldige voor-/achternaam (alleen letters).",
+    "guestInvalidEmail": "Ongeldig e-mailadres.",
+    "rppsNotFound": "Dit RPPS-nummer is niet gevonden in het register van zorgprofessionals.",
+    "rppsChecking": "RPPS-nummer controleren…",
+    "rppsWillBeVerified": "Nummer opgeslagen — de geldigheid wordt bevestigd door ons team."
   },
   "orders": {
     "loginRequired": "Inloggen vereist",

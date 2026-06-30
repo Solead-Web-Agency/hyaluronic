@@ -356,7 +356,7 @@
     "validating": "Validation…",
     "placeOrder": "Commander {amount} €",
     "selectAddressCarrier": "Sélectionnez une adresse et un transporteur",
-    "secureOrder": "🔒 Commande sécurisée",
+    "secureOrder": "Commande sécurisée",
     "demoBadge": "DEMO",
     "guestTitle": "Commander en tant qu’invité",
     "guestSubtitle": "Pas besoin de créer un compte. Renseignez simplement vos coordonnées.",
@@ -387,7 +387,9 @@
     "attestationEmailTitle": "Envoyez-le par email à",
     "cancel": "Annuler",
     "attestationAfterOrder": "Vous pouvez l'envoyer après la commande ; celle-ci ne sera traitée qu'à réception du justificatif.",
-    "amazonRedirect": "Vous réglez via Amazon Pay (bouton ci-dessous), puis ramené ici."
+    "amazonRedirect": "Vous réglez via Amazon Pay (bouton ci-dessous), puis ramené ici.",
+    "acceptTerms": "J'accepte les <cgv>conditions générales de vente</cgv> et la <pp>politique de confidentialité</pp>.",
+    "acceptTermsShort": "Acceptez les conditions pour continuer"
   },
   "orders": {
     "loginRequired": "Connexion requise",

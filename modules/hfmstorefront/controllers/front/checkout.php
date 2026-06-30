@@ -60,15 +60,19 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         }
         $groups = $cart->id_customer ? (new Customer((int) $cart->id_customer))->getGroups() : [(int) Configuration::get('PS_UNIDENTIFIED_GROUP')];
         $carriers = Carrier::getCarriersForOrder($idZone, $groups, $cart);
+        $shopBase = rtrim(Tools::getShopDomainSsl(true) . __PS_BASE_URI__, '/');
         $out = [];
         foreach ($carriers as $c) {
+            $idC = (int) $c['id_carrier'];
+            // Logo transporteur PrestaShop (img/s/{id}.jpg), si présent.
+            $logo = file_exists(_PS_IMG_DIR_ . 's/' . $idC . '.jpg') ? $shopBase . '/img/s/' . $idC . '.jpg' : null;
             $out[] = [
-                'id_carrier' => (int) $c['id_carrier'],
+                'id_carrier' => $idC,
                 'name' => $c['name'],
                 'delay' => isset($c['delay']) ? $c['delay'] : '',
                 'price_incl_tax' => (float) Tools::ps_round($c['price'], 2),
                 'price_excl_tax' => isset($c['price_tax_exc']) ? (float) Tools::ps_round($c['price_tax_exc'], 2) : null,
-                'logo' => isset($c['logo']) ? $c['logo'] : null,
+                'logo' => $logo,
             ];
         }
         return ['id_cart' => (int) $cart->id, 'id_zone' => $idZone, 'carriers' => $out];

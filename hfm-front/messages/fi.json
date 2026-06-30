@@ -17,7 +17,9 @@
     "networkError": "Verkkovirhe.",
     "discoverCatalogue": "Tutustu katalogiin",
     "browseCatalogue": "Selaa katalogia",
-    "seeCatalogue": "Katso katalogi"
+    "seeCatalogue": "Katso katalogi",
+    "myOrders": "Tilaukseni",
+    "myInfo": "Tietoni"
   },
   "header": {
     "topbarShipping": "Toimitus samana päivänä — tilaa ennen klo 15 · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Esteettinen lääkäri, Lyon",
     "review2Text": "Paras löytämäni hankinnan ja hinnan suhde. Profhilo aina varastossa.",
     "review2Name": "C. Berthier",
-    "review2Role": "Sairaanhoitaja, Bordeaux"
+    "review2Role": "Sairaanhoitaja, Bordeaux",
+    "rppsBadge": "Vain ammattilaisille",
+    "rppsNotice": "Tuote on rajattu terveydenhuollon ammattilaisille — RPPS-numero vaaditaan tilauksen yhteydessä.",
+    "notifyRegistered": "Ilmoitus tallennettu ✓"
   },
   "quickView": {
     "refStock": "Koodi {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Täytä osoite, postinumero, kaupunki ja maa.",
     "saveFailed": "Osoitteen tallentaminen epäonnistui.",
     "saving": "Tallennetaan…",
-    "add": "Lisää osoite"
+    "add": "Lisää osoite",
+    "phoneRequired": "Puhelinnumero on pakollinen."
   },
   "checkout": {
     "breadcrumb": "Tilaus",
@@ -345,7 +351,7 @@
     "validating": "Vahvistetaan…",
     "placeOrder": "Tilaa {amount} €",
     "selectAddressCarrier": "Valitse osoite ja kuljetusliike",
-    "secureOrder": "🔒 Turvallinen tilaus",
+    "secureOrder": "Turvallinen tilaus",
     "demoBadge": "DEMO",
     "paypalRedirect": "Sinut ohjataan PayPaliin maksamaan ja tuodaan sitten takaisin tänne.",
     "rppsModeNumber": "Minulla on RPPS-/ADELI-numero",
@@ -361,7 +367,29 @@
     "cancel": "Peruuta",
     "rppsRequiredNotice": "Ostoskorisi tuote on varattu ammattilaisille: anna voimassa oleva RPPS-numero tai vahvista olevasi terveydenhuollon ammattilainen.",
     "attestationAfterOrder": "Voit lähettää sen tilauksen jälkeen; tilaus käsitellään kuitenkin vasta asiakirjan saavuttua.",
-    "amazonRedirect": "Maksa Amazon Paylla (painike alla) ja palaa tänne."
+    "amazonRedirect": "Maksa Amazon Paylla (painike alla) ja palaa tänne.",
+    "acceptTerms": "Hyväksyn <cgv>myyntiehdot</cgv> ja <pp>tietosuojakäytännön</pp>.",
+    "acceptTermsShort": "Hyväksy ehdot jatkaaksesi",
+    "rppsLabel": "RPPS-/ADELI-numero",
+    "rppsPlaceholder": "11 numeroa (ADELI / RPPS)",
+    "rppsInvalid": "Kelvollinen RPPS-numero vaaditaan (9–11 numeroa).",
+    "rppsRequiredError": "Kelvollinen RPPS-numero vaaditaan vain ammattilaisille tarkoitetulle tuotteelle.",
+    "guestTitle": "Tilaa vieraana",
+    "guestSubtitle": "Tiliä ei tarvita. Syötä vain yhteystietosi.",
+    "guestContinue": "Jatka vieraana",
+    "orSeparator": "tai",
+    "haveAccount": "Minulla on jo tili",
+    "createAccount": "Luo tili",
+    "firstname": "Etunimi",
+    "lastname": "Sukunimi",
+    "emailLabel": "Sähköposti",
+    "missingFields": "Täytä kaikki kentät.",
+    "guestEmailExists": "Tällä sähköpostilla on jo tili. Kirjaudu sisään.",
+    "guestInvalidName": "Virheellinen etu-/sukunimi (vain kirjaimia).",
+    "guestInvalidEmail": "Virheellinen sähköposti.",
+    "rppsNotFound": "Tätä RPPS-numeroa ei löytynyt terveydenhuollon ammattilaisten rekisteristä.",
+    "rppsChecking": "Tarkistetaan RPPS-numeroa…",
+    "rppsWillBeVerified": "Numero tallennettu — sen kelpoisuuden vahvistaa tiimimme."
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

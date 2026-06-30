@@ -17,7 +17,9 @@
     "networkError": "שגיאת רשת.",
     "discoverCatalogue": "גלו את הקטלוג",
     "browseCatalogue": "עיינו בקטלוג",
-    "seeCatalogue": "צפו בקטלוג"
+    "seeCatalogue": "צפו בקטלוג",
+    "myOrders": "ההזמנות שלי",
+    "myInfo": "הפרטים שלי"
   },
   "header": {
     "topbarShipping": "משלוח באותו יום — הזמינו לפני 15:00 · DHL ו-Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "רופא אסתטי, ליון",
     "review2Text": "יחס הרכש/מחיר הטוב ביותר שמצאתי. Profhilo תמיד במלאי.",
     "review2Name": "C. Berthier",
-    "review2Role": "אחות, בורדו"
+    "review2Role": "אחות, בורדו",
+    "rppsBadge": "למטפלים בלבד",
+    "rppsNotice": "מוצר מוגבל לאנשי מקצוע בתחום הבריאות — נדרש מספר RPPS בקופה.",
+    "notifyRegistered": "ההתראה נשמרה ✓"
   },
   "quickView": {
     "refStock": "מק\"ט {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "נא למלא כתובת, מיקוד, עיר ומדינה.",
     "saveFailed": "לא ניתן לשמור את הכתובת.",
     "saving": "שומר…",
-    "add": "הוספת הכתובת"
+    "add": "הוספת הכתובת",
+    "phoneRequired": "מספר טלפון הוא שדה חובה."
   },
   "checkout": {
     "breadcrumb": "הזמנה",
@@ -345,7 +351,7 @@
     "validating": "מאמת…",
     "placeOrder": "להזמנה {amount} €",
     "selectAddressCarrier": "בחרו כתובת וחברת שילוח",
-    "secureOrder": "🔒 הזמנה מאובטחת",
+    "secureOrder": "הזמנה מאובטחת",
     "demoBadge": "הדגמה",
     "paypalRedirect": "תועברו ל-PayPal לתשלום ולאחר מכן תוחזרו לכאן.",
     "rppsModeNumber": "יש לי מספר RPPS / ADELI",
@@ -361,7 +367,29 @@
     "cancel": "ביטול",
     "rppsRequiredNotice": "מוצר בעגלה שלך שמור לאנשי מקצוע: הזן מספר RPPS תקף או הצהר שאתה איש מקצוע בתחום הבריאות.",
     "attestationAfterOrder": "ניתן לשלוח אותו לאחר ההזמנה; אך ההזמנה תטופל רק עם קבלת המסמך.",
-    "amazonRedirect": "שלמו דרך Amazon Pay (הכפתור למטה) וחזרו לכאן."
+    "amazonRedirect": "שלמו דרך Amazon Pay (הכפתור למטה) וחזרו לכאן.",
+    "acceptTerms": "אני מסכים/ה ל<cgv>תנאי המכירה</cgv> ול<pp>מדיניות הפרטיות</pp>.",
+    "acceptTermsShort": "אשרו את התנאים כדי להמשיך",
+    "rppsLabel": "מספר RPPS / ADELI",
+    "rppsPlaceholder": "11 ספרות (ADELI / RPPS)",
+    "rppsInvalid": "נדרש מספר RPPS תקין (9–11 ספרות).",
+    "rppsRequiredError": "נדרש מספר RPPS תקין עבור מוצר למטפלים בלבד.",
+    "guestTitle": "השלמת הזמנה כאורח",
+    "guestSubtitle": "אין צורך בחשבון. פשוט הזינו את הפרטים שלכם.",
+    "guestContinue": "המשך כאורח",
+    "orSeparator": "או",
+    "haveAccount": "כבר יש לי חשבון",
+    "createAccount": "יצירת חשבון",
+    "firstname": "שם פרטי",
+    "lastname": "שם משפחה",
+    "emailLabel": "דוא״ל",
+    "missingFields": "נא למלא את כל השדות.",
+    "guestEmailExists": "כבר קיים חשבון עם דוא״ל זה. נא להתחבר.",
+    "guestInvalidName": "שם פרטי/משפחה לא תקין (אותיות בלבד).",
+    "guestInvalidEmail": "דוא״ל לא תקין.",
+    "rppsNotFound": "מספר RPPS זה לא נמצא במרשם אנשי מקצוע בתחום הבריאות.",
+    "rppsChecking": "בודק מספר RPPS…",
+    "rppsWillBeVerified": "המספר נשמר — תקפותו תאומת על ידי הצוות שלנו."
   },
   "orders": {
     "loginRequired": "נדרשת התחברות",

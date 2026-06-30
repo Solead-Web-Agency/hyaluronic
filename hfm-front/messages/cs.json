@@ -17,7 +17,9 @@
     "networkError": "Chyba sítě.",
     "discoverCatalogue": "Objevit katalog",
     "browseCatalogue": "Procházet katalog",
-    "seeCatalogue": "Zobrazit katalog"
+    "seeCatalogue": "Zobrazit katalog",
+    "myOrders": "Moje objednávky",
+    "myInfo": "Moje údaje"
   },
   "header": {
     "topbarShipping": "Odeslání týž den — objednejte do 15:00 · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Estetický lékař, Lyon",
     "review2Text": "Nejlepší poměr zásobování / ceny, jaký jsem našel. Profhilo vždy skladem.",
     "review2Name": "C. Berthier",
-    "review2Role": "Zdravotní sestra, Bordeaux"
+    "review2Role": "Zdravotní sestra, Bordeaux",
+    "rppsBadge": "Pouze pro odborníky",
+    "rppsNotice": "Produkt vyhrazený pro zdravotnické pracovníky — při objednávce je vyžadováno číslo RPPS.",
+    "notifyRegistered": "Upozornění uloženo ✓"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Vyplňte prosím adresu, PSČ, město a zemi.",
     "saveFailed": "Adresu nelze uložit.",
     "saving": "Ukládání…",
-    "add": "Přidat adresu"
+    "add": "Přidat adresu",
+    "phoneRequired": "Telefonní číslo je povinné."
   },
   "checkout": {
     "breadcrumb": "Objednávka",
@@ -345,7 +351,7 @@
     "validating": "Ověřování…",
     "placeOrder": "Objednat {amount} €",
     "selectAddressCarrier": "Vyberte adresu a dopravce",
-    "secureOrder": "🔒 Zabezpečená objednávka",
+    "secureOrder": "Zabezpečená objednávka",
     "demoBadge": "DEMO",
     "paypalRedirect": "Budete přesměrováni na PayPal k zaplacení a poté zpět sem.",
     "rppsModeNumber": "Mám číslo RPPS / ADELI",
@@ -361,7 +367,29 @@
     "cancel": "Zrušit",
     "rppsRequiredNotice": "Produkt v košíku je vyhrazen pro odborníky: zadejte platné číslo RPPS nebo potvrďte, že jste zdravotnický pracovník.",
     "attestationAfterOrder": "Můžete jej zaslat po objednávce; ta však bude zpracována až po obdržení dokladu.",
-    "amazonRedirect": "Zaplaťte přes Amazon Pay (tlačítko níže) a vraťte se sem."
+    "amazonRedirect": "Zaplaťte přes Amazon Pay (tlačítko níže) a vraťte se sem.",
+    "acceptTerms": "Souhlasím s <cgv>obchodními podmínkami</cgv> a <pp>zásadami ochrany osobních údajů</pp>.",
+    "acceptTermsShort": "Pro pokračování přijměte podmínky",
+    "rppsLabel": "Číslo RPPS / ADELI",
+    "rppsPlaceholder": "11 číslic (ADELI / RPPS)",
+    "rppsInvalid": "Je vyžadováno platné číslo RPPS (9–11 číslic).",
+    "rppsRequiredError": "Pro produkt vyhrazený odborníkům je vyžadováno platné číslo RPPS.",
+    "guestTitle": "Objednat jako host",
+    "guestSubtitle": "Není potřeba účet. Stačí zadat vaše údaje.",
+    "guestContinue": "Pokračovat jako host",
+    "orSeparator": "nebo",
+    "haveAccount": "Již mám účet",
+    "createAccount": "Vytvořit účet",
+    "firstname": "Jméno",
+    "lastname": "Příjmení",
+    "emailLabel": "E-mail",
+    "missingFields": "Vyplňte prosím všechna pole.",
+    "guestEmailExists": "S tímto e-mailem již existuje účet. Přihlaste se prosím.",
+    "guestInvalidName": "Neplatné jméno/příjmení (pouze písmena).",
+    "guestInvalidEmail": "Neplatný e-mail.",
+    "rppsNotFound": "Toto číslo RPPS nebylo nalezeno v registru zdravotnických pracovníků.",
+    "rppsChecking": "Ověřování čísla RPPS…",
+    "rppsWillBeVerified": "Číslo uloženo — jeho platnost potvrdí náš tým."
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",

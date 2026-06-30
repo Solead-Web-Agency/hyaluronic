@@ -17,7 +17,9 @@
     "networkError": "Мрежова грешка.",
     "discoverCatalogue": "Разгледайте каталога",
     "browseCatalogue": "Прегледайте каталога",
-    "seeCatalogue": "Вижте каталога"
+    "seeCatalogue": "Вижте каталога",
+    "myOrders": "Моите поръчки",
+    "myInfo": "Моите данни"
   },
   "header": {
     "topbarShipping": "Експедиция в същия ден — поръчка преди 15 ч. · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Естетичен лекар, Лион",
     "review2Text": "Най-доброто съотношение снабдяване / цена, което съм намирал. Profhilo винаги в наличност.",
     "review2Name": "C. Berthier",
-    "review2Role": "Медицинска сестра, Бордо"
+    "review2Role": "Медицинска сестра, Бордо",
+    "rppsBadge": "Само за практикуващи",
+    "rppsNotice": "Продукт, ограничен до здравни специалисти — при поръчка се изисква RPPS номер.",
+    "notifyRegistered": "Известието е запазено ✓"
   },
   "quickView": {
     "refStock": "Реф. {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Моля, попълнете адрес, пощенски код, град и държава.",
     "saveFailed": "Адресът не може да бъде запазен.",
     "saving": "Запазване…",
-    "add": "Добави адреса"
+    "add": "Добави адреса",
+    "phoneRequired": "Телефонният номер е задължителен."
   },
   "checkout": {
     "breadcrumb": "Поръчка",
@@ -345,7 +351,7 @@
     "validating": "Потвърждаване…",
     "placeOrder": "Поръчай {amount} €",
     "selectAddressCarrier": "Изберете адрес и превозвач",
-    "secureOrder": "🔒 Сигурна поръчка",
+    "secureOrder": "Сигурна поръчка",
     "demoBadge": "DEMO",
     "paypalRedirect": "Ще бъдете пренасочени към PayPal за плащане и след това обратно тук.",
     "rppsModeNumber": "Имам номер RPPS / ADELI",
@@ -361,7 +367,29 @@
     "cancel": "Отказ",
     "rppsRequiredNotice": "Продукт в количката ви е запазен за специалисти: въведете валиден RPPS номер или декларирайте, че сте медицински специалист.",
     "attestationAfterOrder": "Можете да го изпратите след поръчката; тя обаче ще бъде обработена едва след получаване на документа.",
-    "amazonRedirect": "Платете чрез Amazon Pay (бутонът по-долу) и се върнете тук."
+    "amazonRedirect": "Платете чрез Amazon Pay (бутонът по-долу) и се върнете тук.",
+    "acceptTerms": "Приемам <cgv>условията за продажба</cgv> и <pp>политиката за поверителност</pp>.",
+    "acceptTermsShort": "Приемете условията, за да продължите",
+    "rppsLabel": "RPPS / ADELI номер",
+    "rppsPlaceholder": "11 цифри (ADELI / RPPS)",
+    "rppsInvalid": "Изисква се валиден RPPS номер (9–11 цифри).",
+    "rppsRequiredError": "Изисква се валиден RPPS номер за продукт, предназначен само за практикуващи.",
+    "guestTitle": "Поръчка като гост",
+    "guestSubtitle": "Не е необходим акаунт. Просто въведете данните си.",
+    "guestContinue": "Продължи като гост",
+    "orSeparator": "или",
+    "haveAccount": "Вече имам акаунт",
+    "createAccount": "Създаване на акаунт",
+    "firstname": "Име",
+    "lastname": "Фамилия",
+    "emailLabel": "Имейл",
+    "missingFields": "Моля, попълнете всички полета.",
+    "guestEmailExists": "Вече съществува акаунт с този имейл. Моля, влезте.",
+    "guestInvalidName": "Невалидно име/фамилия (само букви).",
+    "guestInvalidEmail": "Невалиден имейл.",
+    "rppsNotFound": "Този RPPS номер не е намерен в регистъра на здравните специалисти.",
+    "rppsChecking": "Проверка на RPPS номера…",
+    "rppsWillBeVerified": "Номерът е запазен — валидността му ще бъде потвърдена от нашия екип."
   },
   "orders": {
     "loginRequired": "Изисква се вход",

@@ -17,7 +17,9 @@
     "networkError": "Napaka omrežja.",
     "discoverCatalogue": "Odkrijte katalog",
     "browseCatalogue": "Prebrskajte katalog",
-    "seeCatalogue": "Oglejte si katalog"
+    "seeCatalogue": "Oglejte si katalog",
+    "myOrders": "Moja naročila",
+    "myInfo": "Moji podatki"
   },
   "header": {
     "topbarShipping": "Odprema še isti dan — naročilo do 15. ure · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Estetski zdravnik, Lyon",
     "review2Text": "Najboljše razmerje med nabavo in ceno, kar sem jih našel. Profhilo je vedno na zalogi.",
     "review2Name": "C. Berthier",
-    "review2Role": "Medicinska sestra, Bordeaux"
+    "review2Role": "Medicinska sestra, Bordeaux",
+    "rppsBadge": "Samo za zdravstvene delavce",
+    "rppsNotice": "Izdelek je na voljo samo zdravstvenim delavcem — ob naročilu je potrebna številka RPPS.",
+    "notifyRegistered": "Obvestilo shranjeno ✓"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Vnesite naslov, poštno številko, mesto in državo.",
     "saveFailed": "Naslova ni mogoče shraniti.",
     "saving": "Shranjevanje…",
-    "add": "Dodaj naslov"
+    "add": "Dodaj naslov",
+    "phoneRequired": "Telefonska številka je obvezna."
   },
   "checkout": {
     "breadcrumb": "Naročilo",
@@ -345,7 +351,7 @@
     "validating": "Potrjevanje…",
     "placeOrder": "Naroči {amount} €",
     "selectAddressCarrier": "Izberite naslov in prevoznika",
-    "secureOrder": "🔒 Varno naročilo",
+    "secureOrder": "Varno naročilo",
     "demoBadge": "DEMO",
     "paypalRedirect": "Preusmerjeni boste na PayPal za plačilo in nato nazaj sem.",
     "rppsModeNumber": "Imam številko RPPS / ADELI",
@@ -361,7 +367,29 @@
     "cancel": "Prekliči",
     "rppsRequiredNotice": "Izdelek v vaši košarici je rezerviran za strokovnjake: vnesite veljavno številko RPPS ali potrdite, da ste zdravstveni delavec.",
     "attestationAfterOrder": "Pošljete ga lahko po naročilu; vendar bo obdelano šele po prejemu dokazila.",
-    "amazonRedirect": "Plačajte z Amazon Pay (gumb spodaj) in se vrnite sem."
+    "amazonRedirect": "Plačajte z Amazon Pay (gumb spodaj) in se vrnite sem.",
+    "acceptTerms": "Sprejemam <cgv>pogoje prodaje</cgv> in <pp>pravilnik o zasebnosti</pp>.",
+    "acceptTermsShort": "Sprejmite pogoje za nadaljevanje",
+    "rppsLabel": "Številka RPPS / ADELI",
+    "rppsPlaceholder": "11 številk (ADELI / RPPS)",
+    "rppsInvalid": "Potrebna je veljavna številka RPPS (9–11 številk).",
+    "rppsRequiredError": "Za izdelek, namenjen samo zdravstvenim delavcem, je potrebna veljavna številka RPPS.",
+    "guestTitle": "Naročite kot gost",
+    "guestSubtitle": "Računa ni treba ustvarjati. Samo vnesite svoje podatke.",
+    "guestContinue": "Nadaljujte kot gost",
+    "orSeparator": "ali",
+    "haveAccount": "Račun že imam",
+    "createAccount": "Ustvarite račun",
+    "firstname": "Ime",
+    "lastname": "Priimek",
+    "emailLabel": "E-pošta",
+    "missingFields": "Izpolnite vsa polja.",
+    "guestEmailExists": "Račun s tem e-naslovom že obstaja. Prijavite se.",
+    "guestInvalidName": "Neveljavno ime/priimek (samo črke).",
+    "guestInvalidEmail": "Neveljaven e-naslov.",
+    "rppsNotFound": "Te številke RPPS ni mogoče najti v registru zdravstvenih delavcev.",
+    "rppsChecking": "Preverjanje številke RPPS…",
+    "rppsWillBeVerified": "Številka shranjena — njeno veljavnost bo potrdila naša ekipa."
   },
   "orders": {
     "loginRequired": "Potrebna prijava",

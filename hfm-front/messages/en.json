@@ -356,7 +356,7 @@
     "validating": "Validating…",
     "placeOrder": "Order {amount} €",
     "selectAddressCarrier": "Select an address and a carrier",
-    "secureOrder": "🔒 Secure order",
+    "secureOrder": "Secure order",
     "demoBadge": "DEMO",
     "guestTitle": "Check out as a guest",
     "guestSubtitle": "No account needed. Just enter your details.",
@@ -387,7 +387,9 @@
     "attestationEmailTitle": "Send it by email to",
     "cancel": "Cancel",
     "attestationAfterOrder": "You can send it after ordering; your order will only be processed once we receive the document.",
-    "amazonRedirect": "Pay via Amazon Pay (button below), then back here."
+    "amazonRedirect": "Pay via Amazon Pay (button below), then back here.",
+    "acceptTerms": "I accept the <cgv>terms of sale</cgv> and the <pp>privacy policy</pp>.",
+    "acceptTermsShort": "Accept the terms to continue"
   },
   "orders": {
     "loginRequired": "Login required",

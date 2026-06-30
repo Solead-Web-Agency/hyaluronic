@@ -17,7 +17,9 @@
     "networkError": "Netværksfejl.",
     "discoverCatalogue": "Udforsk kataloget",
     "browseCatalogue": "Gennemse kataloget",
-    "seeCatalogue": "Se kataloget"
+    "seeCatalogue": "Se kataloget",
+    "myOrders": "Mine ordrer",
+    "myInfo": "Mine oplysninger"
   },
   "header": {
     "topbarShipping": "Afsendelse samme dag — bestil før kl. 15 · DHL & Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "Æstetisk læge, Lyon",
     "review2Text": "Det bedste forhold mellem sourcing og pris, jeg har fundet. Profhilo altid på lager.",
     "review2Name": "C. Berthier",
-    "review2Role": "Sygeplejerske, Bordeaux"
+    "review2Role": "Sygeplejerske, Bordeaux",
+    "rppsBadge": "Kun for behandlere",
+    "rppsNotice": "Produkt forbeholdt sundhedsfagligt personale — RPPS-nummer kræves ved bestilling.",
+    "notifyRegistered": "Besked gemt ✓"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -296,7 +301,8 @@
     "missingFields": "Angiv venligst adresse, postnummer, by og land.",
     "saveFailed": "Adressen kunne ikke gemmes.",
     "saving": "Gemmer…",
-    "add": "Tilføj adressen"
+    "add": "Tilføj adressen",
+    "phoneRequired": "Telefonnummer er påkrævet."
   },
   "checkout": {
     "breadcrumb": "Ordre",
@@ -345,7 +351,7 @@
     "validating": "Validerer…",
     "placeOrder": "Bestil {amount} €",
     "selectAddressCarrier": "Vælg en adresse og et fragtfirma",
-    "secureOrder": "🔒 Sikker ordre",
+    "secureOrder": "Sikker ordre",
     "demoBadge": "DEMO",
     "paypalRedirect": "Du bliver omdirigeret til PayPal for at betale og derefter bragt tilbage hertil.",
     "rppsModeNumber": "Jeg har et RPPS-/ADELI-nummer",
@@ -361,7 +367,29 @@
     "cancel": "Annuller",
     "rppsRequiredNotice": "Et produkt i din kurv er forbeholdt fagfolk: angiv et gyldigt RPPS-nummer eller bekræft, at du er sundhedsprofessionel.",
     "attestationAfterOrder": "Du kan sende det efter bestillingen; den behandles dog først, når vi har modtaget dokumentet.",
-    "amazonRedirect": "Betal med Amazon Pay (knap nedenfor), og kom tilbage hertil."
+    "amazonRedirect": "Betal med Amazon Pay (knap nedenfor), og kom tilbage hertil.",
+    "acceptTerms": "Jeg accepterer <cgv>salgsbetingelserne</cgv> og <pp>privatlivspolitikken</pp>.",
+    "acceptTermsShort": "Acceptér betingelserne for at fortsætte",
+    "rppsLabel": "RPPS / ADELI-nummer",
+    "rppsPlaceholder": "11 cifre (ADELI / RPPS)",
+    "rppsInvalid": "Et gyldigt RPPS-nummer er påkrævet (9–11 cifre).",
+    "rppsRequiredError": "Et gyldigt RPPS-nummer er påkrævet for et produkt, der kun er for behandlere.",
+    "guestTitle": "Bestil som gæst",
+    "guestSubtitle": "Ingen konto nødvendig. Indtast blot dine oplysninger.",
+    "guestContinue": "Fortsæt som gæst",
+    "orSeparator": "eller",
+    "haveAccount": "Jeg har allerede en konto",
+    "createAccount": "Opret en konto",
+    "firstname": "Fornavn",
+    "lastname": "Efternavn",
+    "emailLabel": "E-mail",
+    "missingFields": "Udfyld venligst alle felter.",
+    "guestEmailExists": "Der findes allerede en konto med denne e-mail. Log venligst ind.",
+    "guestInvalidName": "Ugyldigt for-/efternavn (kun bogstaver).",
+    "guestInvalidEmail": "Ugyldig e-mail.",
+    "rppsNotFound": "Dette RPPS-nummer blev ikke fundet i registret over sundhedsfaglige personer.",
+    "rppsChecking": "Kontrollerer RPPS-nummer…",
+    "rppsWillBeVerified": "Nummer gemt — dets gyldighed bekræftes af vores team."
   },
   "orders": {
     "loginRequired": "Login påkrævet",

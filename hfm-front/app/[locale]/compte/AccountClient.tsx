@@ -213,7 +213,8 @@ export default function AccountClient() {
   }
 
   // --- NON connecté : carte Connexion / Inscription ---
-  if (!customer) {
+  // Un invité (is_guest) n'a pas de vrai compte → on lui présente la connexion / création, pas le tableau de bord.
+  if (!customer || customer.is_guest) {
     return (
       <main data-screen-label="Compte" className="hfm-wrap" style={{ maxWidth: '480px', margin: '0 auto', padding: '46px 28px 80px' }}>
         <div style={{ fontSize: '12.5px', color: '#9A9A9A', marginBottom: '18px' }}><Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  {t('breadcrumb')}</div>

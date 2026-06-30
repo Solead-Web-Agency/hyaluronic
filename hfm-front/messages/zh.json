@@ -17,7 +17,9 @@
     "networkError": "网络错误。",
     "discoverCatalogue": "探索产品目录",
     "browseCatalogue": "浏览产品目录",
-    "seeCatalogue": "查看产品目录"
+    "seeCatalogue": "查看产品目录",
+    "myOrders": "我的订单",
+    "myInfo": "我的资料"
   },
   "header": {
     "topbarShipping": "当日发货 — 15点前下单 · DHL 与 Colissimo Express",
@@ -185,7 +187,10 @@
     "review1Role": "医美医师，里昂",
     "review2Text": "我找到的最佳采购/价格比。Profhilo 始终有货。",
     "review2Name": "C. Berthier",
-    "review2Role": "护士，波尔多"
+    "review2Role": "护士，波尔多",
+    "rppsBadge": "仅限执业者",
+    "rppsNotice": "本产品仅限医疗专业人员购买 — 下单时需提供 RPPS 号码。",
+    "notifyRegistered": "提醒已保存 ✓"
   },
   "quickView": {
     "refStock": "货号 {reference} · {status}。",
@@ -296,7 +301,8 @@
     "missingFields": "请填写地址、邮政编码、城市和国家。",
     "saveFailed": "无法保存地址。",
     "saving": "保存中…",
-    "add": "添加地址"
+    "add": "添加地址",
+    "phoneRequired": "电话号码为必填项。"
   },
   "checkout": {
     "breadcrumb": "订单",
@@ -345,7 +351,7 @@
     "validating": "验证中…",
     "placeOrder": "下单 {amount} €",
     "selectAddressCarrier": "请选择地址和承运商",
-    "secureOrder": "🔒 安全下单",
+    "secureOrder": "安全下单",
     "demoBadge": "演示",
     "paypalRedirect": "您将被重定向到 PayPal 进行付款，然后返回此页面。",
     "rppsModeNumber": "我有 RPPS / ADELI 编号",
@@ -361,7 +367,29 @@
     "cancel": "取消",
     "rppsRequiredNotice": "您购物车中的某件商品仅限专业人士：请输入有效的RPPS编号或声明您是医疗专业人员。",
     "attestationAfterOrder": "您可以在下单后发送；但订单将在我们收到文件后才会处理。",
-    "amazonRedirect": "通过 Amazon Pay（下方按钮）付款后返回此页。"
+    "amazonRedirect": "通过 Amazon Pay（下方按钮）付款后返回此页。",
+    "acceptTerms": "我接受<cgv>销售条款</cgv>和<pp>隐私政策</pp>。",
+    "acceptTermsShort": "请接受条款以继续",
+    "rppsLabel": "RPPS / ADELI 号码",
+    "rppsPlaceholder": "11 位数字（ADELI / RPPS）",
+    "rppsInvalid": "需要有效的 RPPS 号码（9–11 位数字）。",
+    "rppsRequiredError": "仅限执业者的产品需要有效的 RPPS 号码。",
+    "guestTitle": "以访客身份结账",
+    "guestSubtitle": "无需创建账户。只需填写您的资料即可。",
+    "guestContinue": "以访客身份继续",
+    "orSeparator": "或",
+    "haveAccount": "我已有账户",
+    "createAccount": "创建账户",
+    "firstname": "名字",
+    "lastname": "姓氏",
+    "emailLabel": "电子邮箱",
+    "missingFields": "请填写所有字段。",
+    "guestEmailExists": "该电子邮箱已存在账户。请登录。",
+    "guestInvalidName": "名字／姓氏无效（仅限字母）。",
+    "guestInvalidEmail": "电子邮箱无效。",
+    "rppsNotFound": "在医疗专业人员登记册中未找到此 RPPS 号码。",
+    "rppsChecking": "正在核验 RPPS 号码…",
+    "rppsWillBeVerified": "号码已保存 — 其有效性将由我们的团队确认。"
   },
   "orders": {
     "loginRequired": "需要登录",
