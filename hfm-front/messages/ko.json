@@ -84,7 +84,10 @@
     "servicePrivacy": "개인정보 처리방침",
     "serviceContact": "문의하기",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure"
+    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
+    "zonesTitle": "By area",
+    "effectsTitle": "By concern",
+    "allBrands": "All brands"
   },
   "home": {
     "badge": "10년 · 의료 미용 인증 도매업체",

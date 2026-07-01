@@ -84,7 +84,10 @@
     "servicePrivacy": "Confidentialité",
     "serviceContact": "Nous contacter",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure"
+    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
+    "zonesTitle": "Par zone",
+    "effectsTitle": "Par effet",
+    "allBrands": "Toutes les marques"
   },
   "home": {
     "badge": "10 ans · grossiste agréé esthétique médicale",
