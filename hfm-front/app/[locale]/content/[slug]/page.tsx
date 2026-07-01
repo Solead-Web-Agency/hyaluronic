@@ -2,7 +2,8 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
-import { bridgeGet } from '@/lib/ps';
+import { bridgeGetCached } from '@/lib/ps';
+import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
 import { prepareCms } from '@/lib/cms-toc';
 
@@ -13,7 +14,11 @@ type CmsPage = { title: string; meta_description?: string; content: string; link
 async function getPage(slug: string, locale: string): Promise<CmsPage | null> {
   // Le bridge sert la traduction éditée en BO (table multilingue, 22 langues),
   // avec repli sur PrestaShop (fr/ja). `locale` cible la bonne traduction.
-  const data = await bridgeGet('content', { action: 'page', link_rewrite: slug, id_lang: idLangFor(locale), locale }).catch(() => null);
+  const data = await bridgeGetCached(
+    'content',
+    { action: 'page', link_rewrite: slug, id_lang: idLangFor(locale), locale },
+    { ttl: CACHE_TTL.content, tags: [CACHE_TAGS.content] },
+  ).catch(() => null);
   return data?.page ?? null;
 }
 

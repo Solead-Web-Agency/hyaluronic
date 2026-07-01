@@ -6,15 +6,31 @@
  * Le contenu reste éditable en back-office (ps_cms / ps_cms_lang).
  */
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/api_base.php';
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/cache.php';
 
 class HfmstorefrontContentModuleFrontController extends HfmStorefrontApiController
 {
     public function handleGet()
     {
-        if ((string) $this->in('action') === 'list') {
-            return ['pages' => $this->listPages()];
-        }
-        return $this->page();
+        $idLang = (int) $this->context->language->id;
+        $idShop = (int) $this->context->shop->id;
+        $action = (string) $this->in('action');
+
+        // Pages CMS : lecture publique -> cacheable (tag content, TTL 3600).
+        $key = HfmCache::key(HfmCache::TAG_CONTENT, $action === 'list' ? 'list' : 'page', [
+            'id_lang' => $idLang,
+            'id_shop' => $idShop,
+            'link_rewrite' => (string) $this->in('link_rewrite'),
+            'id_cms' => (int) $this->in('id_cms'),
+            'locale' => preg_replace('/[^a-z]/', '', (string) $this->in('locale')),
+        ]);
+
+        return HfmCache::remember($key, HfmCache::TTL_CONTENT, function () use ($action) {
+            if ($action === 'list') {
+                return ['pages' => $this->listPages()];
+            }
+            return $this->page();
+        });
     }
 
     protected function listPages()

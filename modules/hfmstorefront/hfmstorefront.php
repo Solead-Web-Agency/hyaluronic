@@ -14,6 +14,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/cache.php';
+
 class Hfmstorefront extends PaymentModule
 {
     public function __construct()
@@ -30,6 +32,13 @@ class Hfmstorefront extends PaymentModule
         parent::__construct();
         $this->displayName = $this->l('HFM Storefront (headless + paiement)');
         $this->description = $this->l('API JSON panier/checkout/client et passerelle de paiement pour un front Next.js headless.');
+
+        // Module déjà installé : garantit l'enregistrement des hooks de purge ajoutés
+        // après-coup (les hooks de revalidation ne passent pas forcément par install()).
+        // Idempotent et no-op une fois enregistrés, dans le contexte back-office/CLI.
+        if ($this->id && (defined('_PS_ADMIN_DIR_') || (php_sapi_name() === 'cli'))) {
+            $this->ensurePurgeHooksRegistered();
+        }
     }
 
     public function install()
@@ -54,6 +63,20 @@ class Hfmstorefront extends PaymentModule
         }
         $this->registerHook('actionOverrideShippingFreePrice');
 
+        // --- Revalidation / cache headless ---
+        // Valeurs par défaut : l'admin renseignera le secret (même valeur que le front).
+        if (Configuration::get('HFM_FRONT_URL') === false) {
+            Configuration::updateValue('HFM_FRONT_URL', 'https://hyaluronic.vercel.app');
+        }
+        if (Configuration::get('HFM_REVALIDATE_SECRET') === false) {
+            Configuration::updateValue('HFM_REVALIDATE_SECRET', '');
+        }
+        // Hooks de purge : invalident le cache backend + notifient le front à chaque
+        // changement de catalogue / catégorie / page CMS en back-office.
+        foreach ($this->purgeHooks() as $hook) {
+            $this->registerHook($hook);
+        }
+
         return true;
     }
 
@@ -63,6 +86,47 @@ class Hfmstorefront extends PaymentModule
         Configuration::deleteByName('HFMSTOREFRONT_CORS');
 
         return parent::uninstall();
+    }
+
+    /** Hooks d'objets ObjectModel qui doivent déclencher une purge de cache. */
+    protected function purgeHooks()
+    {
+        return [
+            'actionObjectProductAddAfter',
+            'actionObjectProductUpdateAfter',
+            'actionObjectProductDeleteAfter',
+            'actionProductSave',
+            'actionObjectCategoryAddAfter',
+            'actionObjectCategoryUpdateAfter',
+            'actionObjectCategoryDeleteAfter',
+            'actionObjectCmsAddAfter',
+            'actionObjectCmsUpdateAfter',
+            'actionObjectCmsDeleteAfter',
+            // Stock : rupture / réappro changent 'quantity' et 'available' des cartes/fiches.
+            'actionUpdateQuantity',
+            // Prix spécifiques / promotions : changent price_incl_tax/excl_tax + liste « promo ».
+            'actionObjectSpecificPriceAddAfter',
+            'actionObjectSpecificPriceUpdateAfter',
+            'actionObjectSpecificPriceDeleteAfter',
+            // Fabricants : liste des marques (taxonomy) + nom de marque affiché dans les cartes.
+            'actionObjectManufacturerAddAfter',
+            'actionObjectManufacturerUpdateAfter',
+            'actionObjectManufacturerDeleteAfter',
+        ];
+    }
+
+    /**
+     * Garantit l'enregistrement des hooks de purge même si le module est DÉJÀ installé
+     * (les hooks ajoutés après-coup ne passent pas par install()). Idempotent :
+     * registerHook ne duplique pas un hook déjà enregistré.
+     */
+    protected function ensurePurgeHooksRegistered()
+    {
+        foreach ($this->purgeHooks() as $hook) {
+            if (!$this->isRegisteredInHook($hook)) {
+                $this->registerHook($hook);
+            }
+        }
     }
 
     /**
@@ -108,6 +172,176 @@ class Hfmstorefront extends PaymentModule
             $params['shippingFreePrice'] = $ttc > 0 ? $ttc : 0.01;
         } else {
             $params['shippingFreePrice'] = $ttc + 1000000.0;
+        }
+    }
+
+    // ---------- Revalidation / purge de cache (back-office -> front headless) ----------
+    //
+    // À chaque modification de catalogue en BO, on (a) invalide le cache backend du bridge
+    // pour les tags concernés (incrément de version, cf. HfmCache), puis (b) on notifie le
+    // front Next.js via POST {HFM_FRONT_URL}/api/revalidate. Tout échec est SILENCIEUX :
+    // une purge ne doit JAMAIS faire échouer l'enregistrement d'un produit/catégorie/CMS.
+
+    /** Produit modifié -> les listes/fiches ET les compteurs de catégorie changent. */
+    public function hookActionObjectProductAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
+    }
+
+    public function hookActionObjectProductUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
+    }
+
+    public function hookActionObjectProductDeleteAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
+    }
+
+    /** Sauvegarde produit (édition BO complète) -> même périmètre que ci-dessus. */
+    public function hookActionProductSave($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
+    }
+
+    /** Catégorie modifiée -> menu/arbre (taxonomy) ET listes filtrées par catégorie. */
+    public function hookActionObjectCategoryAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_TAXONOMY, HfmCache::TAG_PRODUCTS]);
+    }
+
+    public function hookActionObjectCategoryUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_TAXONOMY, HfmCache::TAG_PRODUCTS]);
+    }
+
+    public function hookActionObjectCategoryDeleteAfter($params)
+    {
+        $this->purge([HfmCache::TAG_TAXONOMY, HfmCache::TAG_PRODUCTS]);
+    }
+
+    /** Page CMS modifiée -> contenu éditorial. */
+    public function hookActionObjectCmsAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_CONTENT]);
+    }
+
+    public function hookActionObjectCmsUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_CONTENT]);
+    }
+
+    public function hookActionObjectCmsDeleteAfter($params)
+    {
+        $this->purge([HfmCache::TAG_CONTENT]);
+    }
+
+    /** Stock modifié (rupture / réappro) -> 'quantity' et 'available' des produits. */
+    public function hookActionUpdateQuantity($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS]);
+    }
+
+    /** Prix spécifique / promotion ajouté|modifié|supprimé -> prix + liste « promo ». */
+    public function hookActionObjectSpecificPriceAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS]);
+    }
+
+    public function hookActionObjectSpecificPriceUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS]);
+    }
+
+    public function hookActionObjectSpecificPriceDeleteAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS]);
+    }
+
+    /** Fabricant modifié -> liste des marques (taxonomy) ET nom de marque des cartes. */
+    public function hookActionObjectManufacturerAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_TAXONOMY, HfmCache::TAG_PRODUCTS]);
+    }
+
+    public function hookActionObjectManufacturerUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_TAXONOMY, HfmCache::TAG_PRODUCTS]);
+    }
+
+    public function hookActionObjectManufacturerDeleteAfter($params)
+    {
+        $this->purge([HfmCache::TAG_TAXONOMY, HfmCache::TAG_PRODUCTS]);
+    }
+
+    /**
+     * Purge effective : (a) flush backend PS (incrément de version par tag) ;
+     * (b) notification du front (POST /api/revalidate). Best effort, jamais bloquant.
+     *
+     * @param string[] $tags Tags fermés : taxonomy | products | content.
+     */
+    protected function purge(array $tags)
+    {
+        // (a) Flush backend : toujours, indépendant de la connectivité front.
+        try {
+            HfmCache::flushTags($tags);
+        } catch (\Throwable $e) {
+            // Silencieux.
+        }
+        // (b) Notification du front.
+        $this->notifyFront($tags);
+    }
+
+    /**
+     * POST {HFM_FRONT_URL}/api/revalidate  (en-tête x-hfm-revalidate-secret, corps {tags}).
+     * Ne poste RIEN si l'URL ou le secret sont vides. Timeout court, échec silencieux.
+     */
+    protected function notifyFront(array $tags)
+    {
+        $frontUrl = rtrim((string) Configuration::get('HFM_FRONT_URL'), '/');
+        $secret = (string) Configuration::get('HFM_REVALIDATE_SECRET');
+        if ($frontUrl === '' || $secret === '') {
+            // Dégradation gracieuse : rien à notifier (log discret possible).
+            return;
+        }
+
+        $url = $frontUrl . '/api/revalidate';
+        $body = json_encode(['tags' => array_values(array_unique($tags))], JSON_UNESCAPED_SLASHES);
+
+        try {
+            if (function_exists('curl_init')) {
+                $ch = curl_init($url);
+                curl_setopt_array($ch, [
+                    CURLOPT_POST => true,
+                    CURLOPT_POSTFIELDS => $body,
+                    CURLOPT_HTTPHEADER => [
+                        'Content-Type: application/json',
+                        'x-hfm-revalidate-secret: ' . $secret,
+                    ],
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => 3,
+                    CURLOPT_CONNECTTIMEOUT => 2,
+                    CURLOPT_FOLLOWLOCATION => false,
+                ]);
+                curl_exec($ch);
+                curl_close($ch);
+                return;
+            }
+
+            // Repli sans cURL : POST via stream context, timeout court.
+            $context = stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => "Content-Type: application/json\r\n"
+                        . 'x-hfm-revalidate-secret: ' . $secret . "\r\n",
+                    'content' => $body,
+                    'timeout' => 3,
+                    'ignore_errors' => true,
+                ],
+            ]);
+            @Tools::file_get_contents($url, false, $context);
+        } catch (\Throwable $e) {
+            // Silencieux : ne jamais faire échouer l'enregistrement en BO.
         }
     }
 
@@ -290,6 +524,10 @@ class Hfmstorefront extends PaymentModule
                  VALUES (\'' . pSQL($slug) . '\', \'' . pSQL($locale) . '\', \'' . pSQL($title) . '\', \'' . pSQL($content, true) . '\', NOW())
                  ON DUPLICATE KEY UPDATE title = VALUES(title), content = VALUES(content), date_upd = NOW()'
             );
+            // L'éditeur CMS multilingue est la source des pages lues par le controller
+            // content (tag content). Sans cette purge, une édition resterait invisible
+            // jusqu'à expiration du TTL (backend 3600s + Redis + CDN).
+            $this->purge([HfmCache::TAG_CONTENT]);
             $confirm = $this->displayConfirmation(
                 'Page « ' . htmlspecialchars($pages[$slug]) . ' » (' . htmlspecialchars($locales[$locale]) . ') enregistrée.'
             );

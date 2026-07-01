@@ -1,0 +1,20 @@
+{
+    "name": "hfm/hfmaiproducts",
+    "description": "Pré-remplissage IA de fiches produit PrestaShop via Claude (SDK Anthropic officiel).",
+    "type": "prestashop-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "HFM"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "anthropic-ai/sdk": "^0.7",
+        "guzzlehttp/guzzle": "^7.13"
+    },
+    "config": {
+        "prepend-autoloader": false,
+        "preferred-install": "dist"
+    }
+}

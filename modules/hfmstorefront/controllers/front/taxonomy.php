@@ -7,24 +7,38 @@
  *   GET ?action=countries                 -> pays actifs (pour le formulaire d'adresse)
  */
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/api_base.php';
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/cache.php';
 
 class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiController
 {
     public function handleGet()
     {
         $idLang = (int) $this->context->language->id;
-        switch ((string) $this->in('action', 'categories')) {
-            case 'categories':
-                return ['categories' => $this->categories($idLang)];
-            case 'menu':
-                return ['menu' => $this->menuTree($idLang)];
-            case 'manufacturers':
-                return ['manufacturers' => $this->manufacturers($idLang)];
-            case 'countries':
-                return ['countries' => $this->countries($idLang)];
-            default:
-                return ['error' => 'unknown_action'];
-        }
+        $idShop = (int) $this->context->shop->id;
+        $action = (string) $this->in('action', 'categories');
+
+        // Lecture publique, identique pour tous -> cacheable (tag taxonomy, TTL 3600).
+        // Clé = action + params discriminants + id_lang + id_shop, versionnée par tag.
+        $key = HfmCache::key(HfmCache::TAG_TAXONOMY, $action, [
+            'id_lang' => $idLang,
+            'id_shop' => $idShop,
+            'id_parent' => (int) $this->in('id_parent'),
+        ]);
+
+        return HfmCache::remember($key, HfmCache::TTL_TAXONOMY, function () use ($action, $idLang) {
+            switch ($action) {
+                case 'categories':
+                    return ['categories' => $this->categories($idLang)];
+                case 'menu':
+                    return ['menu' => $this->menuTree($idLang)];
+                case 'manufacturers':
+                    return ['manufacturers' => $this->manufacturers($idLang)];
+                case 'countries':
+                    return ['countries' => $this->countries($idLang)];
+                default:
+                    return ['error' => 'unknown_action'];
+            }
+        });
     }
 
     /** Catégories actives sous un parent (par défaut les enfants de la catégorie racine de la boutique). */

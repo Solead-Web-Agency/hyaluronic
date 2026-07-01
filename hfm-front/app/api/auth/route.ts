@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bridgeGet, bridgePost } from '@/lib/ps';
 import { signSession, getSessionUser, SESSION_COOKIE, type SessionUser } from '@/lib/session';
+import { NO_STORE } from '@/lib/cacheContract';
+
+// Authentification / session : JAMAIS de cache.
+export const dynamic = 'force-dynamic';
 
 const COOKIE_OPTS = {
   httpOnly: true,
@@ -24,7 +28,7 @@ function userFrom(c: { id_customer: number; email: string; firstname: string; la
 // GET -> session courante (ou null), enrichie de is_guest (le cookie ne le contient pas).
 export async function GET() {
   const user = await getSessionUser();
-  if (!user) return NextResponse.json({ customer: null });
+  if (!user) return NextResponse.json({ customer: null }, { headers: NO_STORE });
   let is_guest = 0;
   try {
     const d = await bridgeGet('customer', { action: 'me', id_customer: user.id_customer });
@@ -32,7 +36,7 @@ export async function GET() {
   } catch {
     /* repli : on garde le user de session sans is_guest */
   }
-  return NextResponse.json({ customer: { ...user, is_guest } });
+  return NextResponse.json({ customer: { ...user, is_guest } }, { headers: NO_STORE });
 }
 
 // POST {action: login|register|logout, ...}
@@ -41,7 +45,7 @@ export async function POST(req: NextRequest) {
   const action = String(body.action || '');
 
   if (action === 'logout') {
-    const res = NextResponse.json({ ok: true });
+    const res = NextResponse.json({ ok: true }, { headers: NO_STORE });
     res.cookies.set(SESSION_COOKIE, '', { ...COOKIE_OPTS, maxAge: 0 });
     return res;
   }
@@ -52,13 +56,13 @@ export async function POST(req: NextRequest) {
     // login -> authenticated ; guest -> client présent (créé OU réutilisé en édition) ; register -> created.
     const ok = action === 'login' ? data?.authenticated && c : action === 'guest' ? !!c : data?.created && c;
     if (!ok) {
-      return NextResponse.json({ error: data?.error || 'auth_failed', detail: data }, { status: 401 });
+      return NextResponse.json({ error: data?.error || 'auth_failed', detail: data }, { status: 401, headers: NO_STORE });
     }
     const user = userFrom(c);
-    const res = NextResponse.json({ customer: user, guest: !!data?.guest });
+    const res = NextResponse.json({ customer: user, guest: !!data?.guest }, { headers: NO_STORE });
     res.cookies.set(SESSION_COOKIE, signSession(user), COOKIE_OPTS);
     return res;
   }
 
-  return NextResponse.json({ error: 'unknown_action' }, { status: 400 });
+  return NextResponse.json({ error: 'unknown_action' }, { status: 400, headers: NO_STORE });
 }

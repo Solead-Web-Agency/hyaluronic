@@ -1,5 +1,6 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { bridgeGet, type ProductCard } from '@/lib/ps';
+import { bridgeGetCached, type ProductCard } from '@/lib/ps';
+import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { toCard, type Card } from '@/lib/cardModel';
 import { idLangFor } from '@/lib/i18n-config';
 import Chrome from '../components/Chrome';
@@ -47,7 +48,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations('home');
   const tc = await getTranslations('common');
 
-  const data = await bridgeGet('products', { limit: 24, id_lang: idLangFor(locale) });
+  const data = await bridgeGetCached(
+    'products',
+    { limit: 24, id_lang: idLangFor(locale) },
+    { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
+  );
   const live: ProductCard[] = data.products ?? [];
   const cards: Card[] = live.map(toCard);
 

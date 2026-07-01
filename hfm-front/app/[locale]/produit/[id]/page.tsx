@@ -1,4 +1,5 @@
-import { bridgeGet } from '@/lib/ps';
+import { bridgeGetCached } from '@/lib/ps';
+import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { idLangFor } from '@/lib/i18n-config';
 import Chrome from '../../../components/Chrome';
@@ -11,7 +12,11 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
   const { locale, id } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('product');
-  const data = await bridgeGet('products', { id_product: id, id_lang: idLangFor(locale) });
+  const data = await bridgeGetCached(
+    'products',
+    { id_product: id, id_lang: idLangFor(locale) },
+    { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
+  );
   const p = data.product ?? {};
 
   const view: ProductView = {

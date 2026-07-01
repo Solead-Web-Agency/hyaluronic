@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { bridgeGet } from '@/lib/ps';
+import { bridgeGetCached } from '@/lib/ps';
+import { CACHE_TAGS, CACHE_TTL, cdnCacheControl } from '@/lib/cacheContract';
 
 // Proxy catalogue : transmet limit/page/id_category/id_manufacturer/q/filter/id_product au bridge PS.
+// CACHEABLE (public) : tag "products" (listes + fiche), TTL 300s.
 export async function GET(req: NextRequest) {
   const sp = req.nextUrl.searchParams;
   const params: Record<string, string> = {};
@@ -9,6 +11,11 @@ export async function GET(req: NextRequest) {
     const v = sp.get(k);
     if (v) params[k] = v;
   }
-  const data = await bridgeGet('products', params);
-  return NextResponse.json(data);
+  const data = await bridgeGetCached('products', params, {
+    ttl: CACHE_TTL.products,
+    tags: [CACHE_TAGS.products],
+  });
+  return NextResponse.json(data, {
+    headers: { 'Cache-Control': cdnCacheControl(CACHE_TTL.products) },
+  });
 }

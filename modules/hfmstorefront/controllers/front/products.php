@@ -5,17 +5,46 @@
  *   GET ?id_product=..                                                    -> fiche produit détaillée
  */
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/api_base.php';
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/cache.php';
 
 class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiController
 {
     public function handleGet()
     {
         $idLang = (int) $this->context->language->id;
+        $idCurrency = (int) $this->context->currency->id;
+        $idShop = (int) $this->context->shop->id;
         $idProduct = (int) $this->in('id_product');
+
+        // Lectures publiques -> cacheables (tag products, TTL 300).
         if ($idProduct) {
-            return $this->single($idProduct, $idLang);
+            // Fiche : clé = id_product + id_lang (+ shop/devise pour cohérence prix).
+            $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'single', [
+                'id_product' => $idProduct,
+                'id_lang' => $idLang,
+                'id_shop' => $idShop,
+                'id_currency' => $idCurrency,
+            ]);
+            return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($idProduct, $idLang) {
+                return $this->single($idProduct, $idLang);
+            });
         }
-        return $this->listing($idLang);
+
+        // Liste : clé = id_category|id_manufacturer|q|filter|page|limit|id_lang|id_currency.
+        $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'list', [
+            'id_category' => (int) $this->in('id_category'),
+            'id_manufacturer' => (int) $this->in('id_manufacturer'),
+            'q' => trim((string) $this->in('q')),
+            'filter' => (string) $this->in('filter'),
+            'page' => max(1, (int) $this->in('page', 1)),
+            'limit' => min(300, max(1, (int) $this->in('limit', 24))),
+            'id_lang' => $idLang,
+            'id_shop' => $idShop,
+            'id_currency' => $idCurrency,
+        ]);
+        return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($idLang) {
+            return $this->listing($idLang);
+        });
     }
 
     protected function listing($idLang)
