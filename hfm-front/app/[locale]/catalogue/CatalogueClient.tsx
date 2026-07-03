@@ -179,7 +179,7 @@ export default function CatalogueClient() {
           {!loading && count === 0 ? (
             <div style={{ padding: '60px 0', textAlign: 'center', color: '#8A8170', fontSize: '15px' }}>{t('noResults')}</div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(210px,1fr))', gap: '18px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(210px,1fr))', gap: '18px' }}>
               {list.map((item) => <ProductCard key={item.id} product={item} />)}
             </div>
           )}

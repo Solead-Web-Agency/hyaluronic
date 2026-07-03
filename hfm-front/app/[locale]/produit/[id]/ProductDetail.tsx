@@ -39,7 +39,8 @@ export default function ProductDetail({ product }: { product: ProductView }) {
     { k: t('specCompliance'), v: t('complianceValue') },
   ];
 
-  const img = product.images[0] ?? null;
+  const [imgIdx, setImgIdx] = useState(0);
+  const img = product.images[imgIdx] ?? product.images[0] ?? null;
 
   return (
     <main data-screen-label="Fiche produit" className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '34px 28px 70px' }}>
@@ -52,15 +53,16 @@ export default function ProductDetail({ product }: { product: ProductView }) {
               <img src={img} alt={product.name} style={{ display: 'block', width: '100%', aspectRatio: '1/1', objectFit: 'cover' }} />
             ) : null}
           </div>
-          <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
-            <div style={{ width: '74px', height: '74px', borderRadius: '7px', overflow: 'hidden', border: '1.5px solid #8CC63F' }}>
-              {img ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={img} alt="" style={{ width: '74px', height: '74px', objectFit: 'cover' }} />
-              ) : null}
+          {product.images.length ? (
+            <div style={{ display: 'flex', gap: '12px', marginTop: '12px', flexWrap: 'wrap' }}>
+              {product.images.map((src, i) => (
+                <button key={i} type="button" onClick={() => setImgIdx(i)} aria-label={`${product.name} — ${i + 1}`} style={{ padding: 0, width: '74px', height: '74px', borderRadius: '7px', overflow: 'hidden', cursor: 'pointer', background: '#F7F6F2', border: i === imgIdx ? '1.5px solid #8CC63F' : '1px solid #ECEAE3' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} />
+                </button>
+              ))}
             </div>
-            <div style={{ width: '74px', height: '74px', borderRadius: '7px', background: 'repeating-linear-gradient(135deg,#F7F6F2,#F7F6F2 7px,#EFEDE5 7px,#EFEDE5 14px)', border: '1px solid #ECEAE3' }} />
-          </div>
+          ) : null}
         </div>
         <div>
           {product.brand ? <div style={{ fontSize: '11.5px', fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: '#8A8170' }}>{product.brand}</div> : null}

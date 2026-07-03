@@ -267,7 +267,7 @@ export default function Header() {
           <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '7px', marginTop: '16px' }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#7A8268', background: 'rgba(140,198,63,.09)', border: '1px solid rgba(140,198,63,.18)', padding: '6px 11px', borderRadius: '999px' }}>{t('tagCe')}</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#7A8268', background: 'rgba(140,198,63,.09)', border: '1px solid rgba(140,198,63,.18)', padding: '6px 11px', borderRadius: '999px' }}>{t('tagDelay')}</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#7A8268', background: 'rgba(140,198,63,.09)', border: '1px solid rgba(140,198,63,.18)', padding: '6px 11px', borderRadius: '999px' }}>{t('tagSecure')}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#7A8268', background: 'rgba(140,198,63,.09)', border: '1px solid rgba(140,198,63,.18)', padding: '6px 11px', borderRadius: '999px' }}><svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="#7A8268" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>{t('tagSecure')}</span>
           </div>
         </div>
       </div>

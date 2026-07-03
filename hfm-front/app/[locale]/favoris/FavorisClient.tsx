@@ -106,7 +106,7 @@ export default function FavorisClient() {
           </Link>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(210px,1fr))', gap: '18px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(210px,1fr))', gap: '18px' }}>
           {products.map((p) => (
             <ProductCard key={p.id_product} product={toCard(p)} />
           ))}

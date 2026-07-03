@@ -10,12 +10,12 @@ import HomeTabs from '../components/HomeTabs';
 const MARQUEE = ['Juvéderm', 'Restylane', 'Teoxane', 'Vivacy', 'Belotero', 'Radiesse', 'Profhilo', 'Revolax', 'Neauvia', 'Fillmed', 'Croma', 'Sinclair', 'Juvéderm', 'Restylane', 'Teoxane', 'Vivacy', 'Belotero', 'Radiesse', 'Profhilo', 'Revolax', 'Neauvia', 'Fillmed', 'Croma', 'Sinclair'];
 
 const ZONES = [
-  { icon: '💋', labelKey: 'zoneLevres', count: 35, key: 'levres' },
-  { icon: '◔', labelKey: 'zonePommettes', count: 21, key: 'pommettes' },
-  { icon: '◑', labelKey: 'zoneCernes', count: 25, key: 'cernes' },
-  { icon: '〰', labelKey: 'zoneRides', count: 88, key: 'rides' },
-  { icon: '◇', labelKey: 'zoneOvale', count: 17, key: 'ovale' },
-  { icon: '✦', labelKey: 'zoneSkinbooster', count: 54, key: 'skinbooster' },
+  { labelKey: 'zoneLevres', count: 35, key: 'levres' },
+  { labelKey: 'zonePommettes', count: 21, key: 'pommettes' },
+  { labelKey: 'zoneCernes', count: 25, key: 'cernes' },
+  { labelKey: 'zoneRides', count: 88, key: 'rides' },
+  { labelKey: 'zoneOvale', count: 17, key: 'ovale' },
+  { labelKey: 'zoneSkinbooster', count: 54, key: 'skinbooster' },
 ] as const;
 
 const REVIEW_KEYS = [1, 2, 3] as const;
@@ -31,14 +31,15 @@ const greenBtn: React.CSSProperties = {
   display: 'inline-block', textDecoration: 'none',
 };
 
-function imgSlot(label: string, sub?: string) {
+function imgSlot(src: string, href: string, label: string, sub?: string) {
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '120px', background: '#F7F6F2' }}>
+    <a href={href} aria-label={label} style={{ display: 'block', position: 'relative', width: '100%', height: '100%', minHeight: '120px', background: '#F7F6F2', textDecoration: 'none' }}>
+      <img src={src} alt={label} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: sub ? '20px' : '14px', pointerEvents: 'none', background: 'linear-gradient(0deg,rgba(25,25,25,.82),rgba(25,25,25,0))' }}>
         {sub ? <div style={{ fontSize: '10.5px', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: '#CDE8A6' }}>{sub}</div> : null}
         <div style={{ fontFamily: "'Spectral',serif", fontSize: sub ? '22px' : '17px', color: '#fff', marginTop: sub ? '4px' : 0 }}>{label}</div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -100,9 +101,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '14px', height: '480px' }}>
-              <div style={{ gridRow: 'span 2', position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot(t('heroImgTop'), t('heroImgTopSub'))}</div>
-              <div style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot(t('heroImgLips'))}</div>
-              <div style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot(t('heroImgSkin'))}</div>
+              <div style={{ gridRow: 'span 2', position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot('/hero/hero-1.png', '/produit/6409', t('heroImgTop'), t('heroImgTopSub'))}</div>
+              <div style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot('/hero/hero-2.png', '/produit/6408', t('heroImgLips'))}</div>
+              <div style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot('/hero/hero-3.png', '/produit/449', t('heroImgSkin'))}</div>
             </div>
           </div>
         </section>
@@ -140,7 +141,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="hfm-carousel" style={{ display: 'flex', gap: '16px', marginTop: '28px', overflowX: 'auto', padding: '4px 2px 16px' }}>
             {ZONES.map((z) => (
               <a key={z.key} href={`/zone/${z.key}`} style={{ flex: 'none', width: '236px', scrollSnapAlign: 'start', cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 14px 34px -28px rgba(40,50,25,.5)', textDecoration: 'none' }}>
-                <div style={{ position: 'relative', height: '148px', overflow: 'hidden', background: '#F7F6F2' }}><span style={{ position: 'absolute', top: '10px', left: '10px', width: '34px', height: '34px', borderRadius: '9px', background: 'rgba(255,255,255,.65)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>{z.icon}</span></div>
+                <div style={{ position: 'relative', height: '148px', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/zones/${z.key}.png`} alt={t(z.labelKey)} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} /></div>
                 <div style={{ padding: '15px 17px 17px' }}><div style={{ fontFamily: "'Spectral',serif", fontSize: '17px', color: '#2B2B2B' }}>{t(z.labelKey)}</div><div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '3px' }}>{t('zoneRefs', { count: z.count })}</div></div>
               </a>
             ))}
@@ -161,7 +162,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <a href="/catalogue" style={{ ...greenBtn, marginTop: '28px' }}>{t('editoCta')}</a>
             </div>
             <div style={{ position: 'relative' }}>
-              <div style={{ borderRadius: '20px', overflow: 'hidden', boxShadow: '0 40px 80px -40px rgba(40,50,25,.6)', aspectRatio: '4/3', background: '#F7F6F2' }} />
+              {/* Export Figma avec coins arrondis + ombre portée intégrés : rendu tel quel. */}
+              <img src="/edito/cabinet.png" alt="" style={{ display: 'block', width: '100%', height: 'auto' }} />
               <div className="hfm-badge-bl" style={{ position: 'absolute', left: '-22px', bottom: '-22px', background: 'rgba(255,255,255,.65)', backdropFilter: 'blur(16px) saturate(150%)', WebkitBackdropFilter: 'blur(16px) saturate(150%)', border: '1px solid rgba(255,255,255,.7)', boxShadow: '0 22px 44px -26px rgba(40,50,25,.5)', borderRadius: '16px', padding: '18px 22px' }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}><span style={{ fontFamily: "'Spectral',serif", fontSize: '30px', color: '#2B2B2B' }}>{t('editoBadgeDelay')}</span></div>
                 <div style={{ fontSize: '12.5px', color: '#55606F', marginTop: '2px' }}>{t('editoBadgeDelaySub')}</div>
@@ -194,7 +196,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '18px', marginTop: '28px' }}>
             {BLOG_KEYS.map((i) => (
               <div key={i} style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', overflow: 'hidden' }}>
-                <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }} />
+                <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/blog/blog${i}.png`} alt={t(`blog${i}Title`)} style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
                 <div style={{ padding: '20px' }}><div style={{ display: 'flex', gap: '10px', fontSize: '11px', color: '#8A8170', textTransform: 'uppercase', letterSpacing: '.06em' }}><span style={{ color: '#8CC63F', fontWeight: 600 }}>{t(`blog${i}Cat`)}</span><span>·</span><span>{t(`blog${i}Date`)}</span></div><div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', lineHeight: 1.3, color: '#1B2433', marginTop: '10px' }}>{t(`blog${i}Title`)}</div><div style={{ fontSize: '13px', fontWeight: 600, color: '#434343', marginTop: '14px' }}>{t('readArticle')}</div></div>
               </div>
             ))}
@@ -208,7 +210,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(26px,3.2vw,34px)', color: '#fff', margin: '16px 0 0' }}>{t('newsTitlePart1')} <span style={{ fontStyle: 'italic', color: '#B7E486' }}>{t('newsTitleEmphasis')}</span></h2>
             <p style={{ fontSize: '14.5px', color: '#CBD8BC', margin: '12px 0 0' }}>{t('newsLead')}</p>
             <div style={{ display: 'flex', gap: '10px', maxWidth: '480px', margin: '28px auto 0', background: 'rgba(255,255,255,.10)', border: '1px solid rgba(255,255,255,.16)', borderRadius: '999px', padding: '6px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}><input placeholder={t('newsPlaceholder')} style={{ flex: 1, height: '46px', padding: '0 20px', border: 'none', borderRadius: '999px', background: 'transparent', color: '#fff', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', outline: 'none' }} /><button style={{ color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 24px -10px rgba(140,198,63,.6)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', padding: '0 28px', height: '46px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}>{t('newsSubmit')}</button></div>
-            <div style={{ fontSize: '11.5px', color: '#94A580', marginTop: '14px' }}>{t('newsGdpr')}</div>
+            <div style={{ fontSize: '11.5px', color: '#94A580', marginTop: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
+              <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="#94A580" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
+              <span>{t('newsGdpr')}</span>
+            </div>
           </div>
         </section>
       </main>

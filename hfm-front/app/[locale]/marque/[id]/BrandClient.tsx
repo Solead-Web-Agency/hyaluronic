@@ -76,7 +76,7 @@ export default function BrandClient() {
           {t('noProducts')}
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '18px', marginTop: '30px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: '18px', marginTop: '30px' }}>
           {products.map((item) => <ProductCard key={item.id} product={item} />)}
         </div>
       )}
