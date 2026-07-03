@@ -18,6 +18,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "flag-icons": "^7.5.0",
     "typescript": "^5"
   }
 }

@@ -54,7 +54,7 @@ export default function LocaleSwitcher() {
           cursor: 'pointer',
         }}
       >
-        <span style={{ fontSize: '15px', lineHeight: 1 }}>{meta.flag}</span>
+        <img src={`/flags/${meta.country}.svg`} alt="" width={20} height={15} style={{ display: 'block', borderRadius: '2px', border: '1px solid rgba(0,0,0,.08)', objectFit: 'cover' }} />
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" style={{ transition: 'transform .2s ease', transform: open ? 'rotate(180deg)' : 'none' }}>
           <path d="M6 9l6 6 6-6" />
         </svg>
@@ -106,7 +106,7 @@ export default function LocaleSwitcher() {
                   transition: 'background .15s ease',
                 }}
               >
-                <span style={{ fontSize: '17px', lineHeight: 1, flex: 'none' }}>{m.flag}</span>
+                <img src={`/flags/${m.country}.svg`} alt="" width={21} height={16} style={{ display: 'block', flex: 'none', borderRadius: '2px', border: '1px solid rgba(0,0,0,.08)', objectFit: 'cover' }} />
                 <span style={{ flex: 1, minWidth: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.native}</span>
                 {active ? (
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5E8E1F" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }}>

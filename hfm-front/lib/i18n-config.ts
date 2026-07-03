@@ -47,29 +47,31 @@ export function idLangFor(locale: string): number {
   return localeToIdLang[locale] ?? 2;
 }
 
-export type LocaleMeta = { native: string; flag: string };
+// `country` = code pays du drapeau servi depuis /public/flags/{country}.svg
+// (SVG 4:3 issus de flag-icons, MIT — copiés par les 22 locales uniquement).
+export type LocaleMeta = { native: string; country: string };
 
 export const localeMeta: Record<Locale, LocaleMeta> = {
-  ar: { native: 'العربية', flag: '🇸🇦' },
-  bg: { native: 'Български', flag: '🇧🇬' },
-  cs: { native: 'Čeština', flag: '🇨🇿' },
-  da: { native: 'Dansk', flag: '🇩🇰' },
-  de: { native: 'Deutsch', flag: '🇩🇪' },
-  el: { native: 'Ελληνικά', flag: '🇬🇷' },
-  en: { native: 'English', flag: '🇬🇧' },
-  es: { native: 'Español', flag: '🇪🇸' },
-  fi: { native: 'Suomi', flag: '🇫🇮' },
-  fr: { native: 'Français', flag: '🇫🇷' },
-  he: { native: 'עברית', flag: '🇮🇱' },
-  it: { native: 'Italiano', flag: '🇮🇹' },
-  ja: { native: '日本語', flag: '🇯🇵' },
-  ko: { native: '한국어', flag: '🇰🇷' },
-  nl: { native: 'Nederlands', flag: '🇳🇱' },
-  no: { native: 'Norsk', flag: '🇳🇴' },
-  pl: { native: 'Polski', flag: '🇵🇱' },
-  pt: { native: 'Português', flag: '🇵🇹' },
-  ro: { native: 'Română', flag: '🇷🇴' },
-  sl: { native: 'Slovenščina', flag: '🇸🇮' },
-  sv: { native: 'Svenska', flag: '🇸🇪' },
-  zh: { native: '中文', flag: '🇨🇳' },
+  ar: { native: 'العربية', country: 'sa' },
+  bg: { native: 'Български', country: 'bg' },
+  cs: { native: 'Čeština', country: 'cz' },
+  da: { native: 'Dansk', country: 'dk' },
+  de: { native: 'Deutsch', country: 'de' },
+  el: { native: 'Ελληνικά', country: 'gr' },
+  en: { native: 'English', country: 'gb' },
+  es: { native: 'Español', country: 'es' },
+  fi: { native: 'Suomi', country: 'fi' },
+  fr: { native: 'Français', country: 'fr' },
+  he: { native: 'עברית', country: 'il' },
+  it: { native: 'Italiano', country: 'it' },
+  ja: { native: '日本語', country: 'jp' },
+  ko: { native: '한국어', country: 'kr' },
+  nl: { native: 'Nederlands', country: 'nl' },
+  no: { native: 'Norsk', country: 'no' },
+  pl: { native: 'Polski', country: 'pl' },
+  pt: { native: 'Português', country: 'pt' },
+  ro: { native: 'Română', country: 'ro' },
+  sl: { native: 'Slovenščina', country: 'si' },
+  sv: { native: 'Svenska', country: 'se' },
+  zh: { native: '中文', country: 'cn' },
 };

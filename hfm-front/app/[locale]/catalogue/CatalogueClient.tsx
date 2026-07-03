@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { toCard, type Card } from '@/lib/cardModel';
 import type { ProductCard as ProductCardData } from '@/lib/ps';
 import { idLangFor } from '@/lib/i18n-config';
+import { useAutoLoad } from '@/lib/useAutoLoad';
 import ProductCard from '../../components/ProductCard';
 
 type Cat = { id_category: number; id_parent: number; name: string; link_rewrite: string; nb_products: number };
@@ -81,6 +82,7 @@ export default function CatalogueClient() {
   }, [products, sort]);
 
   const count = list.length;
+  const { visible, sentinelRef } = useAutoLoad(count);
   const activeFilterCount = (category ? 1 : 0) + (brand ? 1 : 0) + (q ? 1 : 0) + (filter ? 1 : 0);
   const noFilter = !category && !brand && !q && !filter;
 
@@ -179,9 +181,12 @@ export default function CatalogueClient() {
           {!loading && count === 0 ? (
             <div style={{ padding: '60px 0', textAlign: 'center', color: '#8A8170', fontSize: '15px' }}>{t('noResults')}</div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(210px,1fr))', gap: '18px' }}>
-              {list.map((item) => <ProductCard key={item.id} product={item} />)}
-            </div>
+            <>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(210px,1fr))', gap: '18px' }}>
+                {list.slice(0, visible).map((item) => <ProductCard key={item.id} product={item} />)}
+              </div>
+              <div ref={sentinelRef} aria-hidden="true" style={{ height: '1px' }} />
+            </>
           )}
         </div>
       </div>

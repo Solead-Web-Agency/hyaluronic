@@ -7,6 +7,7 @@ import { Link } from '@/i18n/navigation';
 import { toCard, type Card } from '@/lib/cardModel';
 import type { ProductCard as ProductCardData } from '@/lib/ps';
 import { idLangFor } from '@/lib/i18n-config';
+import { useAutoLoad } from '@/lib/useAutoLoad';
 import ProductCard from '../../../components/ProductCard';
 
 // Terme de recherche par zone — TOUJOURS en français (pilote l'API), inchangé.
@@ -70,6 +71,7 @@ export default function ZoneClient() {
   }, [query, locale]);
 
   const count = products.length;
+  const { visible, sentinelRef } = useAutoLoad(count);
 
   return (
     <main data-screen-label="Zone" className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '34px 28px 70px' }}>
@@ -86,9 +88,12 @@ export default function ZoneClient() {
           {t('noProducts')}
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: '18px', marginTop: '30px' }}>
-          {products.map((item) => <ProductCard key={item.id} product={item} />)}
-        </div>
+        <>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: '18px', marginTop: '30px' }}>
+            {products.slice(0, visible).map((item) => <ProductCard key={item.id} product={item} />)}
+          </div>
+          <div ref={sentinelRef} aria-hidden="true" style={{ height: '1px' }} />
+        </>
       )}
     </main>
   );
