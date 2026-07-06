@@ -265,7 +265,9 @@
     "relSeeAll": "Vedi tutto",
     "medDeviceTitle": "Dispositivo medico · uso professionale",
     "medDeviceP1": "Questo prodotto è un dispositivo medico riservato a professionisti sanitari qualificati (medici, odontoiatri abilitati) con numero di iscrizione in corso di validità. L’autoiniezione è fortemente sconsigliata. Leggere attentamente il foglietto del produttore prima dell’uso e rispettare indicazioni, controindicazioni e buone pratiche di iniezione.",
-    "medDeviceP2": "Marcatura CE conforme al Regolamento (UE) 2017/745. Qualsiasi incidente relativo a un dispositivo medico deve essere segnalato all’autorità competente nell’ambito della materiovigilanza."
+    "medDeviceP2": "Marcatura CE conforme al Regolamento (UE) 2017/745. Qualsiasi incidente relativo a un dispositivo medico deve essere segnalato all’autorità competente nell’ambito della materiovigilanza.",
+    "unavailableBadge": "Non disponibile",
+    "unavailableLine": "Attualmente non disponibile"
   },
   "quickView": {
     "refStock": "Rif. {reference} · {status}.",

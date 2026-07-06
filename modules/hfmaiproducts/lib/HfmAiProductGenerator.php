@@ -408,8 +408,9 @@ class HfmAiProductGenerator
             . "de pertinent.\n"
             . "images : URLs d'images montrant LE produit décrit, vues sur les pages consultées "
             . "(og:image, galerie produit — jamais les produits associés ni l'habillage du site). "
-            . "Image principale en premier. Tableau vide si aucune URL sûre : le module extraira "
-            . "alors lui-même les images des pages listées dans sources.";
+            . "Privilégie les variantes HAUTE RÉSOLUTION (grande image de galerie plutôt que "
+            . "vignette). Image principale en premier. Tableau vide si aucune URL sûre : le module "
+            . "extraira alors lui-même les images des pages listées dans sources.";
 
         $blocks = [
             [

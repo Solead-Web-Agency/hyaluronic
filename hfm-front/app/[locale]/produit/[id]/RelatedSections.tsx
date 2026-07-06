@@ -1,10 +1,10 @@
 'use client';
 
-import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import type { Card } from '@/lib/cardModel';
 import ProductCard from '../../../components/ProductCard';
+import { useDragScroll } from '../../../components/DragCarousel';
 
 export type RelatedView = {
   boughtTogether: Card[];
@@ -29,7 +29,7 @@ const arrowBtn: React.CSSProperties = {
 };
 
 function Section({ title, seeAllHref, seeAllLabel, products }: { title: string; seeAllHref?: string; seeAllLabel?: string; products: Card[] }) {
-  const track = useRef<HTMLDivElement>(null);
+  const { ref: track, handlers } = useDragScroll();
   const scroll = (dir: 1 | -1) => {
     const el = track.current;
     if (el) el.scrollBy({ left: dir * Math.max(280, el.clientWidth * 0.8), behavior: 'smooth' });
@@ -50,9 +50,10 @@ function Section({ title, seeAllHref, seeAllLabel, products }: { title: string; 
           </button>
         </div>
       </div>
-      <div ref={track} className="hfm-carousel" style={{ display: 'flex', gap: '18px', marginTop: '20px', overflowX: 'auto', scrollSnapType: 'x proximity', padding: '4px 2px 16px' }}>
+      {/* Pas de scroll-snap : il se bat avec le drag souris (mouvement saccadé). */}
+      <div ref={track} {...handlers} className="hfm-carousel" style={{ display: 'flex', gap: '18px', marginTop: '20px', overflowX: 'auto', padding: '4px 2px 16px', cursor: 'grab' }}>
         {products.map((item) => (
-          <div key={item.id} style={{ flex: 'none', width: '252px', scrollSnapAlign: 'start' }}>
+          <div key={item.id} style={{ flex: 'none', width: '252px' }}>
             <ProductCard product={item} />
           </div>
         ))}

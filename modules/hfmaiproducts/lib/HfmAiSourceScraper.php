@@ -129,10 +129,11 @@ class HfmAiSourceScraper
      *
      * @param string $url
      * @param string $dest chemin du fichier de destination
+     * @param int $minEdge taille minimale (px) du plus grand côté — écarte les vignettes
      *
      * @return bool
      */
-    public function downloadImage($url, $dest)
+    public function downloadImage($url, $dest, $minEdge = 500)
     {
         try {
             $this->assertSafeUrl($url);
@@ -161,8 +162,14 @@ class HfmAiSourceScraper
         curl_close($ch);
         fclose($fp);
 
-        // Le fichier doit être une image décodable (pas une page HTML anti-bot).
-        return $ok && $status < 400 && filesize($dest) > 0 && @getimagesize($dest) !== false;
+        // Le fichier doit être une image décodable (pas une page HTML anti-bot)
+        // et assez grande pour la fiche produit (pas une vignette).
+        if (!$ok || $status >= 400 || filesize($dest) <= 0) {
+            return false;
+        }
+        $size = @getimagesize($dest);
+
+        return $size !== false && max((int) $size[0], (int) $size[1]) >= (int) $minEdge;
     }
 
     /**
@@ -314,6 +321,10 @@ class HfmAiSourceScraper
                 $url = $qs['url'];
             }
         }
+
+        // Boutiques PrestaShop : remplace les petites déclinaisons (vignettes) par la
+        // grande — les miniatures de 300 px donnent des fiches floues une fois agrandies.
+        $url = (string) preg_replace('#-(?:small|cart|home|medium)_default(\.(?:jpe?g|png|webp))#i', '-large_default$1', $url);
 
         // Relatif -> absolu sur l'origine de la page.
         if (strpos($url, '//') === 0) {

@@ -6,6 +6,7 @@ import { idLangFor } from '@/lib/i18n-config';
 import Chrome from '../components/Chrome';
 import Footer from '../components/Footer';
 import HomeTabs from '../components/HomeTabs';
+import DragCarousel from '../components/DragCarousel';
 
 const MARQUEE = ['Juvéderm', 'Restylane', 'Teoxane', 'Vivacy', 'Belotero', 'Radiesse', 'Profhilo', 'Revolax', 'Neauvia', 'Fillmed', 'Croma', 'Sinclair', 'Juvéderm', 'Restylane', 'Teoxane', 'Vivacy', 'Belotero', 'Radiesse', 'Profhilo', 'Revolax', 'Neauvia', 'Fillmed', 'Croma', 'Sinclair'];
 
@@ -138,14 +139,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <a href="/catalogue" style={{ cursor: 'pointer', fontSize: '13.5px', fontWeight: 600, color: '#434343', textDecoration: 'none' }}>{t('allZones')}</a>
             </div>
           </div>
-          <div className="hfm-carousel" style={{ display: 'flex', gap: '16px', marginTop: '28px', overflowX: 'auto', padding: '4px 2px 16px' }}>
+          <DragCarousel className="hfm-carousel" style={{ display: 'flex', gap: '16px', marginTop: '28px', overflowX: 'auto', padding: '4px 2px 16px' }}>
             {ZONES.map((z) => (
-              <a key={z.key} href={`/zone/${z.key}`} style={{ flex: 'none', width: '236px', scrollSnapAlign: 'start', cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 14px 34px -28px rgba(40,50,25,.5)', textDecoration: 'none' }}>
+              <a key={z.key} href={`/zone/${z.key}`} style={{ flex: 'none', width: '236px', cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 14px 34px -28px rgba(40,50,25,.5)', textDecoration: 'none' }}>
                 <div style={{ position: 'relative', height: '148px', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/zones/${z.key}.png`} alt={t(z.labelKey)} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} /></div>
                 <div style={{ padding: '15px 17px 17px' }}><div style={{ fontFamily: "'Spectral',serif", fontSize: '17px', color: '#2B2B2B' }}>{t(z.labelKey)}</div><div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '3px' }}>{t('zoneRefs', { count: z.count })}</div></div>
               </a>
             ))}
-          </div>
+          </DragCarousel>
         </section>
 
         {/* EDITORIAL / LIFESTYLE BAND */}

@@ -234,6 +234,22 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         ];
     }
 
+    /**
+     * Disponibilité en 3 états, pour des CTA distincts côté front :
+     *   in_stock     quantité > 0
+     *   backorder    épuisé mais commandable (précommande, out_of_stock résolu via le réglage global)
+     *   unavailable  épuisé et non commandable
+     */
+    protected function availability($idProduct, $qty)
+    {
+        if ((int) $qty > 0) {
+            return 'in_stock';
+        }
+        $backorder = Product::isAvailableWhenOutOfStock((int) StockAvailable::outOfStock((int) $idProduct));
+
+        return $backorder ? 'backorder' : 'unavailable';
+    }
+
     protected function card($idProduct, $idLang)
     {
         $p = new Product($idProduct, false, $idLang);
@@ -253,7 +269,8 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'price_excl_tax' => (float) Tools::ps_round($p->getPrice(false), 2),
             'image' => $idImage ? $this->context->link->getImageLink($p->link_rewrite, $idImage, 'home_default') : null,
             'quantity' => $qty,
-            'available' => $qty > 0 || (int) $p->out_of_stock == 1,
+            'available' => $this->availability($idProduct, $qty) !== 'unavailable',
+            'availability' => $this->availability($idProduct, $qty),
             'rpps_required' => $this->productRequiresRpps($idProduct),
         ];
     }
@@ -298,7 +315,8 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'price_excl_tax' => (float) Tools::ps_round($p->getPrice(false), 2),
             'manufacturer' => $p->id_manufacturer ? Manufacturer::getNameById((int) $p->id_manufacturer) : null,
             'quantity' => (int) Product::getQuantity($idProduct),
-            'available' => (int) Product::getQuantity($idProduct) > 0 || (int) $p->out_of_stock === 1,
+            'available' => $this->availability($idProduct, (int) Product::getQuantity($idProduct)) !== 'unavailable',
+            'availability' => $this->availability($idProduct, (int) Product::getQuantity($idProduct)),
             'rpps_required' => $this->productRequiresRpps($idProduct),
             'images' => $images,
             'features' => $features,

@@ -265,7 +265,9 @@
     "relSeeAll": "Alle ansehen",
     "medDeviceTitle": "Medizinprodukt · professionelle Anwendung",
     "medDeviceP1": "Dieses Produkt ist ein Medizinprodukt, das qualifizierten Gesundheitsfachkräften (zugelassenen Ärzten, Zahnärzten) mit gültiger Berufsnummer vorbehalten ist. Von Selbstinjektion wird dringend abgeraten. Lesen Sie vor der Anwendung sorgfältig die Herstellerangaben und beachten Sie Indikationen, Kontraindikationen und gute Injektionspraxis.",
-    "medDeviceP2": "CE-Kennzeichnung gemäß Verordnung (EU) 2017/745. Jeder Vorfall im Zusammenhang mit einem Medizinprodukt ist der zuständigen Behörde im Rahmen der Materiovigilanz zu melden."
+    "medDeviceP2": "CE-Kennzeichnung gemäß Verordnung (EU) 2017/745. Jeder Vorfall im Zusammenhang mit einem Medizinprodukt ist der zuständigen Behörde im Rahmen der Materiovigilanz zu melden.",
+    "unavailableBadge": "Nicht verfügbar",
+    "unavailableLine": "Derzeit nicht verfügbar"
   },
   "quickView": {
     "refStock": "Art. {reference} · {status}.",

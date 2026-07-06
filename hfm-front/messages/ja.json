@@ -265,7 +265,9 @@
     "relSeeAll": "See all",
     "medDeviceTitle": "Medical device · professional use",
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
-    "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules."
+    "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
+    "unavailableBadge": "Unavailable",
+    "unavailableLine": "Currently unavailable"
   },
   "quickView": {
     "refStock": "品番 {reference} · {status}。",

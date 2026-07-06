@@ -32,7 +32,10 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
     brand: p.manufacturer || p.brand || null,
     ht: p.price_excl_tax ?? 0,
     ttc: p.price_incl_tax ?? 0,
-    inStock: p.available != null ? !!p.available : (p.quantity ?? 0) > 0,
+    availabilityState: p.availability === 'in_stock' ? 'in'
+      : p.availability === 'backorder' ? 'backorder'
+      : p.availability === 'unavailable' ? 'out'
+      : (p.available ?? (p.quantity ?? 0) > 0) ? 'in' : 'out',
     descriptionShort: p.description_short || '',
     description: p.description || p.description_short || '',
     images: Array.isArray(p.images) ? p.images : [],

@@ -54,5 +54,6 @@ export type ProductCard = {
   image: string | null;
   quantity: number;
   available: boolean;
+  availability?: 'in_stock' | 'backorder' | 'unavailable';
   rpps_required: boolean;
 };

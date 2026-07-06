@@ -500,6 +500,8 @@ class AdminHfmAiProductsController extends ModuleAdminController
 
         $product->active = 0; // brouillon : non publié
         $product->state = 1;
+        // « Sur commande — 10 à 15 jours » : le panier accepte les commandes hors stock.
+        $product->out_of_stock = 1;
 
         // La validation stricte des champs multilingues de Product peut lever une
         // PrestaShopException (die=true) : on l'attrape pour renvoyer une erreur propre.
@@ -709,50 +711,65 @@ class AdminHfmAiProductsController extends ModuleAdminController
             $legend[(int) $lang['id_lang']] = Tools::substr((string) $product->name[(int) $lang['id_lang']], 0, 128);
         }
 
+        $pending = [];
+        foreach (array_slice($urls, 0, 10) as $url) {
+            $url = trim((string) $url);
+            if ($url !== '' && Validate::isAbsoluteUrl($url)) {
+                $pending[] = $url;
+            }
+        }
+
         $imported = 0;
         $failed = 0;
         $needCover = true;
 
-        foreach (array_slice($urls, 0, 10) as $url) {
-            $url = trim((string) $url);
-            if ($url === '' || !Validate::isAbsoluteUrl($url)) {
-                continue;
-            }
-            try {
-                // Téléchargement par nos soins (user-agent navigateur + contrôle que
-                // c'est une vraie image) : copyImg télécharge en client « robot » et
-                // renvoie succès même quand le site a servi une page anti-bot.
-                $tmp = tempnam(_PS_TMP_IMG_DIR_, 'hfmai');
-                if (!$scraper->downloadImage($url, $tmp)) {
-                    @unlink($tmp);
-                    ++$failed;
-                    continue;
-                }
+        // Deux passes qualité : d'abord uniquement les images >= 500 px (les vignettes
+        // upscalées donnent des fiches floues) ; si RIEN ne passe, on accepte >= 300 px
+        // — mieux qu'une fiche sans visuel.
+        foreach ([500, 300] as $minEdge) {
+            foreach ($pending as $k => $url) {
+                try {
+                    // Téléchargement par nos soins (user-agent navigateur + contrôle que
+                    // c'est une vraie image) : copyImg télécharge en client « robot » et
+                    // renvoie succès même quand le site a servi une page anti-bot.
+                    $tmp = tempnam(_PS_TMP_IMG_DIR_, 'hfmai');
+                    if (!$scraper->downloadImage($url, $tmp, $minEdge)) {
+                        @unlink($tmp);
+                        continue; // retentée éventuellement à la passe suivante (seuil plus bas)
+                    }
 
-                $image = new Image();
-                $image->id_product = (int) $product->id;
-                $image->position = Image::getHighestPosition((int) $product->id) + 1;
-                $image->cover = $needCover;
-                $image->legend = $legend;
-                if (!$image->add()) {
+                    unset($pending[$k]);
+                    $image = new Image();
+                    $image->id_product = (int) $product->id;
+                    $image->position = Image::getHighestPosition((int) $product->id) + 1;
+                    $image->cover = $needCover;
+                    $image->legend = $legend;
+                    if (!$image->add()) {
+                        @unlink($tmp);
+                        ++$failed;
+                        continue;
+                    }
+                    $done = ImageManager::copyImg((int) $product->id, (int) $image->id, $tmp, 'products', true);
                     @unlink($tmp);
+                    // copyImg ne vérifie pas ses redimensionnements : on contrôle le fichier final.
+                    if ($done && file_exists($image->getPathForCreation() . '.jpg')) {
+                        ++$imported;
+                        $needCover = false;
+                    } else {
+                        $image->delete();
+                        ++$failed;
+                    }
+                } catch (Exception $e) {
+                    unset($pending[$k]);
                     ++$failed;
-                    continue;
                 }
-                $done = ImageManager::copyImg((int) $product->id, (int) $image->id, $tmp, 'products', true);
-                @unlink($tmp);
-                // copyImg ne vérifie pas ses redimensionnements : on contrôle le fichier final.
-                if ($done && file_exists($image->getPathForCreation() . '.jpg')) {
-                    ++$imported;
-                    $needCover = false;
-                } else {
-                    $image->delete();
-                    ++$failed;
-                }
-            } catch (Exception $e) {
-                ++$failed;
+            }
+            if ($imported > 0) {
+                break;
             }
         }
+        // Restées trop petites ou introuvables sur les deux passes.
+        $failed += count($pending);
 
         return [$imported, $failed];
     }

@@ -28,7 +28,9 @@ export default function ProductCard({ product }: { product: Card }) {
   const [added, setAdded] = useState(false);
   const t = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // 3 états : en stock (achat), sur commande (achat + badge), indisponible (alerte retour).
   const out = product.stock === 'out';
+  const backorder = product.stock === 'backorder';
   const canBuy = !out;
   const href = `/produit/${product.id}`;
 
@@ -146,7 +148,7 @@ export default function ProductCard({ product }: { product: Card }) {
         >
           ⤢
         </button>
-        {out ? (
+        {out || backorder ? (
           <span
             style={{
               position: 'absolute',
@@ -156,14 +158,14 @@ export default function ProductCard({ product }: { product: Card }) {
               fontFamily: "'Hanken Grotesk',sans-serif",
               fontSize: '10.5px',
               fontWeight: 600,
-              color: '#6E7585',
+              color: out ? '#A8503A' : '#6E7585',
               background: 'rgba(255,255,255,.94)',
-              border: '1px solid #E2DECF',
+              border: out ? '1px solid rgba(168,80,58,.35)' : '1px solid #E2DECF',
               padding: '4px 9px',
               borderRadius: '999px',
             }}
           >
-            {tp('onOrderBadge')}
+            {out ? tp('unavailableBadge') : tp('onOrderBadge')}
           </span>
         ) : null}
         {product.rpps_required ? (

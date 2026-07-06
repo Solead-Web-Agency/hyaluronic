@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { Card } from '@/lib/cardModel';
 import ProductCard from './ProductCard';
+import { useDragScroll } from './DragCarousel';
 
 type Tabs = { best: Card[]; nouveautes: Card[]; promos: Card[] };
 
@@ -17,7 +18,7 @@ const navBtn: React.CSSProperties = {
 export default function HomeTabs({ tabs }: { tabs: Tabs }) {
   const t = useTranslations('home');
   const [active, setActive] = useState<keyof Tabs>('best');
-  const ref = useRef<HTMLDivElement>(null);
+  const { ref, handlers } = useDragScroll();
 
   const nudge = (dir: number) => {
     const e = ref.current;
@@ -51,9 +52,9 @@ export default function HomeTabs({ tabs }: { tabs: Tabs }) {
           </div>
         </div>
       </div>
-      <div ref={ref} className="hfm-carousel" style={{ display: 'flex', gap: '18px', marginTop: '30px', overflowX: 'auto', padding: '4px 2px 16px' }}>
+      <div ref={ref} {...handlers} className="hfm-carousel" style={{ display: 'flex', gap: '18px', marginTop: '30px', overflowX: 'auto', padding: '4px 2px 16px', cursor: 'grab' }}>
         {list.map((item) => (
-          <div key={item.id} style={{ flex: 'none', width: '262px', scrollSnapAlign: 'start' }}><ProductCard product={item} /></div>
+          <div key={item.id} style={{ flex: 'none', width: '262px' }}><ProductCard product={item} /></div>
         ))}
       </div>
     </section>

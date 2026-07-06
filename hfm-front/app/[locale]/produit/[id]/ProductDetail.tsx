@@ -15,7 +15,8 @@ export type ProductView = {
   brand: string | null;
   ht: number;
   ttc: number;
-  inStock: boolean;
+  // 'backorder' = épuisé mais commandable (précommande) ; 'out' = non commandable.
+  availabilityState: 'in' | 'backorder' | 'out';
   descriptionShort: string;
   description: string;
   images: string[];
@@ -55,9 +56,6 @@ export default function ProductDetail({ product, related }: { product: ProductVi
   const [imgIdx, setImgIdx] = useState(0);
   const img = product.images[imgIdx] ?? product.images[0] ?? null;
 
-  // « Avec lidocaïne » déduit du nom ou des caractéristiques (pour le point clé dédié).
-  const hasLido = /lidoca/i.test(product.name) || product.features.some((f) => /lidoca/i.test(f.name) && /pr[ée]sente|oui|yes|present/i.test(f.value));
-
   // Cartes « Caractéristiques principales » : 4 caractéristiques max, priorité aux
   // familles attendues (composition, indication, zones, conditionnement).
   const KEY_PATTERNS: [RegExp, string][] = [
@@ -84,34 +82,26 @@ export default function ProductDetail({ product, related }: { product: ProductVi
     { k: t('specMarking'), v: t('specMarkingValue') },
   ];
 
-  // Contenus générés par l'IA quand disponibles ; sinon repli sur les textes génériques.
-  const FAQ = product.faq.length
-    ? product.faq
-    : [1, 2, 3, 4, 5, 6].map((i) => ({ q: t(`faq${i}Q`), a: t(`faq${i}A`) }));
-
-  const points = product.keyPoints.length
-    ? product.keyPoints
-    : [t('point1'), t('point2'), t('point3'), t('point4'), ...(hasLido ? [t('pointLido')] : [])];
-
-  const compositionRows = product.composition.length
-    ? product.composition
-    : [
-        { k: t('compoHa'), v: t('compoHaV') },
-        { k: t('compoBuffer'), v: t('compoBufferV') },
-        { k: t('compoPack'), v: t('compoPackV') },
-      ];
+  // Contenus générés par l'IA uniquement : pas de FAQ/composition/points génériques
+  // recyclés sur tous les produits — l'onglet ou la section disparaît si vide.
+  const FAQ = product.faq;
+  const points = product.keyPoints;
+  const compositionRows = product.composition;
 
   const TABS: { key: TabKey; label: string }[] = [
     { key: 'description', label: t('tabDescription') },
     { key: 'tech', label: t('tabTechSheet') },
-    { key: 'composition', label: t('tabComposition') },
-    { key: 'faq', label: t('tabFaq') },
+    ...(compositionRows.length ? [{ key: 'composition' as TabKey, label: t('tabComposition') }] : []),
+    ...(FAQ.length ? [{ key: 'faq' as TabKey, label: t('tabFaq') }] : []),
     { key: 'reviews', label: `${t('tabReviews')} (0)` },
   ];
 
-  const availability = product.inStock
+  const canBuy = product.availabilityState !== 'out';
+  const availability = product.availabilityState === 'in'
     ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#3F7256' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5FA33C' }} />{t('inStockShipToday')}</span>
-    : <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#B07B2A' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#D89B3D' }} />{t('onOrderDelay')}</span>;
+    : product.availabilityState === 'backorder'
+      ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#B07B2A' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#D89B3D' }} />{t('onOrderDelay')}</span>
+      : <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#A8503A' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#C0664E' }} />{t('unavailableLine')}</span>;
 
   const card: React.CSSProperties = { background: '#fff', border: '1px solid #ECEAE3', borderRadius: '10px' };
 
@@ -158,7 +148,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
             <div style={{ marginTop: '12px' }}>{availability}</div>
           </div>
 
-          {product.inStock ? (
+          {product.availabilityState === 'in' ? (
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', marginTop: '14px', padding: '9px 14px', background: 'rgba(140,198,63,.1)', border: '1px solid rgba(140,198,63,.28)', borderRadius: '999px', fontSize: '12.5px', fontWeight: 600, color: '#3F7256' }}>
               <span style={{ display: 'inline-flex', color: '#5E8E1F' }}>{icons.truck}</span>{t('deliveredTomorrow')}
             </div>
@@ -174,10 +164,12 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           {/* Quantité + panier */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginTop: '22px' }}>
             <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #E2DECF', borderRadius: '7px', overflow: 'hidden' }}><button onClick={() => setQty((q) => Math.max(1, q - 1))} style={{ width: '46px', height: '52px', background: '#fff', border: 'none', fontSize: '18px', color: '#434343', cursor: 'pointer' }}>−</button><span style={{ width: '46px', textAlign: 'center', fontSize: '15px', fontWeight: 600 }}>{qty}</span><button onClick={() => setQty((q) => q + 1)} style={{ width: '46px', height: '52px', background: '#fff', border: 'none', fontSize: '18px', color: '#434343', cursor: 'pointer' }}>+</button></div>
-            {product.inStock ? (
+            {/* En stock ou précommande : achat (bouton vert identique, la ligne de
+                disponibilité porte le délai). Indisponible : alerte retour. */}
+            {canBuy ? (
               <button onClick={() => addToCart({ id: product.id, quantity: qty })} style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', cursor: 'pointer', transition: 'background .2s ease' }}>{tc('addToCart')}</button>
             ) : (
-              <button onClick={() => addToCart({ id: product.id, quantity: qty })} style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(216,155,61,.95),rgba(196,130,40,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(196,130,40,.45)', borderRadius: '999px', cursor: 'pointer' }}>{tc('addToCart')}</button>
+              <button disabled style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#6E7585', background: 'rgba(242,240,234,.7)', border: '1px solid rgba(226,222,207,.9)', borderRadius: '999px', cursor: 'default' }}>{t('notifyOnReturn')}</button>
             )}
           </div>
 
@@ -216,7 +208,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '14px', marginTop: '20px' }}>
             {keyCards.map((c, i) => (
-              <div key={i} style={{ background: i === 0 ? '#F7F6F2' : '#fff', border: '1px solid #ECEAE3', borderRadius: '10px', padding: '16px 18px' }}>
+              <div key={i} style={{ background: '#fff', border: '1px solid #ECEAE3', borderRadius: '10px', padding: '16px 18px' }}>
                 <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#8A8170', display: 'flex', alignItems: 'center', gap: '7px' }}><span aria-hidden="true">{c.icon}</span>{c.label}</div>
                 <div style={{ fontSize: '13.5px', lineHeight: 1.55, color: '#2B2B2B', marginTop: '9px' }}>{c.value}</div>
               </div>
@@ -225,17 +217,19 @@ export default function ProductDetail({ product, related }: { product: ProductVi
         </section>
       ) : null}
 
-      {/* Points clés */}
-      <section style={{ ...card, padding: '26px 30px', marginTop: '18px' }}>
-        <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '24px', color: '#2B2B2B', margin: 0 }}>{t('keyPointsTitle')}</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '12px 40px', marginTop: '18px' }}>
-          {points.map((p, i) => (
-            <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '14px', color: '#3A3A36', borderLeft: '3px solid rgba(140,198,63,.5)', paddingLeft: '14px', lineHeight: 1.5 }}>
-              <span style={{ color: '#5E8E1F', flex: 'none' }}>✓</span>{p}
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Points clés (uniquement si générés pour ce produit) */}
+      {points.length ? (
+        <section style={{ ...card, padding: '26px 30px', marginTop: '18px' }}>
+          <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '24px', color: '#2B2B2B', margin: 0 }}>{t('keyPointsTitle')}</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '12px 40px', marginTop: '18px' }}>
+            {points.map((p, i) => (
+              <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '14px', color: '#3A3A36', borderLeft: '3px solid rgba(140,198,63,.5)', paddingLeft: '14px', lineHeight: 1.5 }}>
+                <span style={{ color: '#5E8E1F', flex: 'none' }}>✓</span>{p}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {/* Onglets */}
       <section style={{ marginTop: '40px' }}>

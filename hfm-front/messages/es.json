@@ -265,7 +265,9 @@
     "relSeeAll": "Ver todo",
     "medDeviceTitle": "Producto sanitario · uso profesional",
     "medDeviceP1": "Este producto es un producto sanitario reservado a profesionales de la salud cualificados (médicos, cirujanos dentistas habilitados) con número de colegiación en vigor. La autoinyección está totalmente desaconsejada. Lea atentamente el prospecto del fabricante antes de su uso y respete las indicaciones, contraindicaciones y buenas prácticas de inyección.",
-    "medDeviceP2": "Marcado CE conforme al Reglamento (UE) 2017/745. Cualquier incidente relacionado con un producto sanitario debe declararse a la autoridad competente en el marco de la materiovigilancia."
+    "medDeviceP2": "Marcado CE conforme al Reglamento (UE) 2017/745. Cualquier incidente relacionado con un producto sanitario debe declararse a la autoridad competente en el marco de la materiovigilancia.",
+    "unavailableBadge": "No disponible",
+    "unavailableLine": "No disponible actualmente"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
