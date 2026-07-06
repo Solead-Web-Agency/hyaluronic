@@ -22,7 +22,7 @@ class HfmAiProducts extends Module
     {
         $this->name = 'hfmaiproducts';
         $this->tab = 'administration';
-        $this->version = '1.0.0';
+        $this->version = '1.4.0';
         $this->author = 'HFM';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = ['min' => '8.0.0', 'max' => _PS_VERSION_];
@@ -45,7 +45,25 @@ class HfmAiProducts extends Module
             Configuration::updateValue('HFMAIPRODUCTS_API_KEY', '');
         }
 
-        return $this->installTab();
+        return $this->installTab() && self::installExtraTable();
+    }
+
+    /**
+     * Table des contenus éditoriaux générés par l'IA (points clés, FAQ, composition),
+     * lue par le bridge headless (hfmstorefront) pour la fiche produit.
+     */
+    public static function installExtraTable()
+    {
+        return Db::getInstance()->execute(
+            'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'hfm_product_extra` (
+                `id_product` INT UNSIGNED NOT NULL,
+                `id_lang` INT UNSIGNED NOT NULL,
+                `key_points` TEXT,
+                `faq` TEXT,
+                `composition` TEXT,
+                PRIMARY KEY (`id_product`, `id_lang`)
+            ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8mb4'
+        );
     }
 
     public function uninstall()

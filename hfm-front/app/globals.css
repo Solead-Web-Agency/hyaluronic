@@ -133,3 +133,16 @@ a{color:inherit;text-decoration:none;}
   .hfm-legal-grid{ display:block; }
   .hfm-toc{ position:static; margin-bottom:22px; }
 }
+
+/* Description produit (HTML riche venant du catalogue) */
+.hfm-richtext h2,.hfm-richtext h3{font-family:'Spectral',serif;font-weight:600;color:#2B2B2B;margin:26px 0 10px;line-height:1.25;}
+.hfm-richtext h2{font-size:21px;}
+.hfm-richtext h3{font-size:18px;}
+.hfm-richtext h2:first-child,.hfm-richtext h3:first-child,.hfm-richtext p:first-child{margin-top:0;}
+.hfm-richtext p{margin:0 0 12px;}
+.hfm-richtext ul,.hfm-richtext ol{margin:0 0 14px;padding-left:22px;}
+.hfm-richtext li{margin:5px 0;}
+.hfm-richtext strong{color:#2B2B2B;}
+.hfm-richtext img{max-width:100%;height:auto;border-radius:8px;}
+.hfm-richtext table{border-collapse:collapse;width:100%;margin:0 0 14px;}
+.hfm-richtext td,.hfm-richtext th{border:1px solid #ECEAE3;padding:8px 12px;font-size:13.5px;text-align:left;}

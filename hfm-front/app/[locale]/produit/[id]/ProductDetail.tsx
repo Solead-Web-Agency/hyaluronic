@@ -5,52 +5,127 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useStore } from '../../../store';
 import { fmt } from '@/lib/cardModel';
+import RelatedSections, { type RelatedView } from './RelatedSections';
 
 export type ProductView = {
   id: number;
   name: string;
   reference: string;
+  ean13: string;
   brand: string | null;
   ht: number;
   ttc: number;
   inStock: boolean;
+  descriptionShort: string;
   description: string;
   images: string[];
   features: { name: string; value: string }[];
+  keyPoints: string[];
+  faq: { q: string; a: string }[];
+  composition: { k: string; v: string }[];
   rpps_required: boolean;
 };
 
-export default function ProductDetail({ product }: { product: ProductView }) {
+type TabKey = 'description' | 'tech' | 'composition' | 'faq' | 'reviews';
+
+// Reformate les descriptions « <p><strong>Label :</strong> texte</p> » (anciens
+// contenus générés) en vraies sections titrées « <h3>Label</h3><p>texte</p> ».
+// Le deux-points est exigé : un simple nom en gras en début de phrase reste intact.
+function structureDescription(html: string): string {
+  return html
+    .replace(/<p[^>]*>\s*<strong>([^<]{2,80}?)\s*:\s*<\/strong>\s*:?\s*/gi, '<h3>$1</h3><p>')
+    .replace(/<p[^>]*>\s*<strong>([^<]{2,80}?)\s*<\/strong>\s*:\s*/gi, '<h3>$1</h3><p>')
+    .replace(/<p[^>]*>\s*<\/p>/gi, '');
+}
+
+// Icônes filaires (cohérentes avec le reste du site).
+const icons = {
+  truck: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M1 9h13v8H1zM14 12h4l3 3v2h-7z" /><circle cx="6" cy="19" r="1.6" /><circle cx="17.5" cy="19" r="1.6" /></svg>,
+  box: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z" /><path d="M3 8l9 5 9-5M12 13v9" /></svg>,
+  shield: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /><path d="M9 12l2 2 4-4" /></svg>,
+};
+
+export default function ProductDetail({ product, related }: { product: ProductView; related: RelatedView }) {
   const t = useTranslations('product');
   const tc = useTranslations('common');
   const { addToCart } = useStore();
   const [qty, setQty] = useState(1);
-
-  const REVIEWS = [
-    { text: t('review1Text'), name: t('review1Name'), role: t('review1Role') },
-    { text: t('review2Text'), name: t('review2Name'), role: t('review2Role') },
-  ];
-
-  const specs: { k: string; v: string }[] = [
-    { k: t('specBrand'), v: product.brand || '—' },
-    { k: t('specReference'), v: product.reference || '—' },
-    { k: t('specAvailability'), v: product.inStock ? t('shippedToday') : tc('onOrder') },
-    ...product.features.map((f) => ({ k: f.name, v: f.value })),
-    { k: t('specCompliance'), v: t('complianceValue') },
-  ];
-
+  const [tab, setTab] = useState<TabKey>('description');
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [imgIdx, setImgIdx] = useState(0);
   const img = product.images[imgIdx] ?? product.images[0] ?? null;
+
+  // « Avec lidocaïne » déduit du nom ou des caractéristiques (pour le point clé dédié).
+  const hasLido = /lidoca/i.test(product.name) || product.features.some((f) => /lidoca/i.test(f.name) && /pr[ée]sente|oui|yes|present/i.test(f.value));
+
+  // Cartes « Caractéristiques principales » : 4 caractéristiques max, priorité aux
+  // familles attendues (composition, indication, zones, conditionnement).
+  const KEY_PATTERNS: [RegExp, string][] = [
+    [/composition|concentration/i, '⚗'],
+    [/indication|effet/i, '✎'],
+    [/zone/i, '◎'],
+    [/conditionnement|volume|packaging/i, '▤'],
+  ];
+  const keyCards: { label: string; value: string; icon: string }[] = [];
+  const used = new Set<number>();
+  for (const [re, icon] of KEY_PATTERNS) {
+    const i = product.features.findIndex((f, idx) => !used.has(idx) && re.test(f.name));
+    if (i >= 0) { used.add(i); keyCards.push({ label: product.features[i].name, value: product.features[i].value, icon }); }
+  }
+  for (let i = 0; i < product.features.length && keyCards.length < 4; i++) {
+    if (!used.has(i)) { used.add(i); keyCards.push({ label: product.features[i].name, value: product.features[i].value, icon: '◈' }); }
+  }
+
+  const techRows: { k: string; v: string }[] = [
+    { k: t('specReference'), v: product.reference || '—' },
+    ...(product.ean13 ? [{ k: t('specEan'), v: product.ean13 }] : []),
+    { k: t('specBrand'), v: product.brand || '—' },
+    ...product.features.map((f) => ({ k: f.name, v: f.value })),
+    { k: t('specMarking'), v: t('specMarkingValue') },
+  ];
+
+  // Contenus générés par l'IA quand disponibles ; sinon repli sur les textes génériques.
+  const FAQ = product.faq.length
+    ? product.faq
+    : [1, 2, 3, 4, 5, 6].map((i) => ({ q: t(`faq${i}Q`), a: t(`faq${i}A`) }));
+
+  const points = product.keyPoints.length
+    ? product.keyPoints
+    : [t('point1'), t('point2'), t('point3'), t('point4'), ...(hasLido ? [t('pointLido')] : [])];
+
+  const compositionRows = product.composition.length
+    ? product.composition
+    : [
+        { k: t('compoHa'), v: t('compoHaV') },
+        { k: t('compoBuffer'), v: t('compoBufferV') },
+        { k: t('compoPack'), v: t('compoPackV') },
+      ];
+
+  const TABS: { key: TabKey; label: string }[] = [
+    { key: 'description', label: t('tabDescription') },
+    { key: 'tech', label: t('tabTechSheet') },
+    { key: 'composition', label: t('tabComposition') },
+    { key: 'faq', label: t('tabFaq') },
+    { key: 'reviews', label: `${t('tabReviews')} (0)` },
+  ];
+
+  const availability = product.inStock
+    ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#3F7256' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5FA33C' }} />{t('inStockShipToday')}</span>
+    : <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#B07B2A' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#D89B3D' }} />{t('onOrderDelay')}</span>;
+
+  const card: React.CSSProperties = { background: '#fff', border: '1px solid #ECEAE3', borderRadius: '10px' };
 
   return (
     <main data-screen-label="Fiche produit" className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '34px 28px 70px' }}>
       <div style={{ fontSize: '12.5px', color: '#9A9A9A', marginBottom: '24px' }}><Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  <Link href="/catalogue" style={{ cursor: 'pointer' }}>{tc('catalogue')}</Link>  /  {product.name}</div>
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: '54px', alignItems: 'start' }}>
+        {/* Galerie */}
         <div className="hfm-sticky" style={{ position: 'sticky', top: '130px' }}>
           <div style={{ display: 'block', width: '100%', aspectRatio: '1/1', borderRadius: '10px', overflow: 'hidden', background: 'repeating-linear-gradient(135deg,#F7F6F2,#F7F6F2 9px,#F1EFE8 9px,#F1EFE8 18px)', border: '1px solid #ECEAE3' }}>
             {img ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={img} alt={product.name} style={{ display: 'block', width: '100%', aspectRatio: '1/1', objectFit: 'cover' }} />
+              <img src={img} alt={product.name} style={{ display: 'block', width: '100%', aspectRatio: '1/1', objectFit: 'cover', background: '#fff' }} />
             ) : null}
           </div>
           {product.images.length ? (
@@ -58,64 +133,179 @@ export default function ProductDetail({ product }: { product: ProductView }) {
               {product.images.map((src, i) => (
                 <button key={i} type="button" onClick={() => setImgIdx(i)} aria-label={`${product.name} — ${i + 1}`} style={{ padding: 0, width: '74px', height: '74px', borderRadius: '7px', overflow: 'hidden', cursor: 'pointer', background: '#F7F6F2', border: i === imgIdx ? '1.5px solid #8CC63F' : '1px solid #ECEAE3' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={src} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', background: '#fff' }} />
                 </button>
               ))}
             </div>
           ) : null}
         </div>
+
+        {/* Colonne infos */}
         <div>
           {product.brand ? <div style={{ fontSize: '11.5px', fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: '#8A8170' }}>{product.brand}</div> : null}
           <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '34px', lineHeight: 1.2, color: '#2B2B2B', margin: '8px 0 0' }}>{product.name}</h1>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginTop: '22px' }}><span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '32px', color: '#434343' }}>{fmt(product.ht)} €</span><span style={{ fontSize: '13px', fontWeight: 700, color: '#8A8170' }}>{tc('exclTax')}</span><span style={{ fontSize: '14px', color: '#9A9A9A' }}>{tc('inclTaxShort', { amount: fmt(product.ttc) })}</span></div>
-          <div style={{ fontSize: '13px', color: product.inStock ? '#3F7256' : '#6E7585', marginTop: '10px', fontWeight: 600 }}>{product.inStock ? tc('inStock') : tc('onOrder')}</div>
+          {product.descriptionShort ? (
+            <div style={{ fontSize: '15px', lineHeight: 1.6, color: '#55606F', margin: '14px 0 0' }} dangerouslySetInnerHTML={{ __html: product.descriptionShort }} />
+          ) : null}
+
+          {/* Panneau prix */}
+          <div style={{ ...card, padding: '20px 22px', marginTop: '22px' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px' }}>
+              <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '34px', color: '#2B2B2B' }}>{fmt(product.ttc)} €</span>
+              <span style={{ fontSize: '12.5px', color: '#8A8170', fontWeight: 600 }}>{t('ttcPerUnit')}</span>
+            </div>
+            <div style={{ fontSize: '13.5px', color: '#6E7585', marginTop: '4px' }}>{t('htB2b', { amount: fmt(product.ht) })}</div>
+            <div style={{ marginTop: '12px' }}>{availability}</div>
+          </div>
+
+          {product.inStock ? (
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', marginTop: '14px', padding: '9px 14px', background: 'rgba(140,198,63,.1)', border: '1px solid rgba(140,198,63,.28)', borderRadius: '999px', fontSize: '12.5px', fontWeight: 600, color: '#3F7256' }}>
+              <span style={{ display: 'inline-flex', color: '#5E8E1F' }}>{icons.truck}</span>{t('deliveredTomorrow')}
+            </div>
+          ) : null}
+
           {product.rpps_required ? (
             <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginTop: '16px', padding: '12px 14px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '8px' }}>
               <span style={{ color: '#A8503A', fontSize: '15px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>
               <span style={{ fontSize: '13px', lineHeight: 1.5, color: '#A8503A', fontWeight: 500 }}>{t('rppsNotice')}</span>
             </div>
           ) : null}
-          {product.description ? (
-            <div style={{ fontSize: '15px', lineHeight: 1.65, color: '#55606F', margin: '22px 0 0' }} dangerouslySetInnerHTML={{ __html: product.description }} />
-          ) : null}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginTop: '28px' }}>
+
+          {/* Quantité + panier */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginTop: '22px' }}>
             <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #E2DECF', borderRadius: '7px', overflow: 'hidden' }}><button onClick={() => setQty((q) => Math.max(1, q - 1))} style={{ width: '46px', height: '52px', background: '#fff', border: 'none', fontSize: '18px', color: '#434343', cursor: 'pointer' }}>−</button><span style={{ width: '46px', textAlign: 'center', fontSize: '15px', fontWeight: 600 }}>{qty}</span><button onClick={() => setQty((q) => q + 1)} style={{ width: '46px', height: '52px', background: '#fff', border: 'none', fontSize: '18px', color: '#434343', cursor: 'pointer' }}>+</button></div>
             {product.inStock ? (
               <button onClick={() => addToCart({ id: product.id, quantity: qty })} style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', cursor: 'pointer', transition: 'background .2s ease' }}>{tc('addToCart')}</button>
             ) : (
-              <button disabled style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#6E7585', background: 'rgba(242,240,234,.7)', border: '1px solid rgba(226,222,207,.9)', borderRadius: '999px', cursor: 'default' }}>{t('notifyOnReturn')}</button>
+              <button onClick={() => addToCart({ id: product.id, quantity: qty })} style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(216,155,61,.95),rgba(196,130,40,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(196,130,40,.45)', borderRadius: '999px', cursor: 'pointer' }}>{tc('addToCart')}</button>
             )}
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '12px', marginTop: '24px' }}>
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '12.5px', color: '#55606F' }}><span style={{ color: '#434343', fontSize: '15px' }}>✓</span> {t('trustCe')}</div>
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '12.5px', color: '#55606F' }}><span style={{ color: '#434343', fontSize: '15px' }}>✓</span> {t('trustShip')}</div>
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '12.5px', color: '#55606F' }}><span style={{ color: '#434343', fontSize: '15px' }}>✓</span> {t('trustDelivery')}</div>
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '12.5px', color: '#55606F' }}><span style={{ color: '#434343', fontSize: '15px' }}>✓</span> {t('trustSecure')}</div>
-          </div>
-        </div>
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '54px', marginTop: '64px', alignItems: 'start' }}>
-        <div>
-          <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '24px', color: '#2B2B2B', margin: '0 0 18px' }}>{t('specsTitle')}</h2>
-          <div style={{ background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', overflow: 'hidden' }}>
-            {specs.map((sp, i) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', padding: '14px 18px', borderBottom: '1px solid #F1EFE8', fontSize: '13.5px' }}><span style={{ color: '#8A8170' }}>{sp.k}</span><span style={{ color: '#1B2433', fontWeight: 500, textAlign: 'right' }}>{sp.v}</span></div>
+
+          {/* Tuiles réassurance */}
+          <div style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', marginTop: '22px', overflow: 'hidden' }}>
+            {[
+              { icon: icons.truck, title: t('tile1Title'), sub: t('tile1Sub') },
+              { icon: icons.box, title: t('tile2Title'), sub: t('tile2Sub') },
+              { icon: icons.shield, title: t('tile3Title'), sub: t('tile3Sub') },
+            ].map((tile, i) => (
+              <div key={i} style={{ padding: '16px 14px', textAlign: 'center', borderLeft: i ? '1px solid #F1EFE8' : 'none' }}>
+                <span style={{ display: 'inline-flex', color: '#434343' }}>{tile.icon}</span>
+                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#2B2B2B', marginTop: '7px' }}>{tile.title}</div>
+                <div style={{ fontSize: '11.5px', color: '#8A8170', marginTop: '3px', lineHeight: 1.4 }}>{tile.sub}</div>
+              </div>
             ))}
           </div>
-        </div>
-        <div>
-          <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '24px', color: '#2B2B2B', margin: '0 0 18px' }}>{t('verifiedReviewsTitle')}</h2>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '18px', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', padding: '18px 22px' }}>
-            <div style={{ textAlign: 'center' }}><div style={{ fontFamily: "'Spectral',serif", fontSize: '38px', color: '#434343', lineHeight: 1 }}>{t('reviewsScore')}</div><div style={{ color: '#8CC63F', fontSize: '13px', letterSpacing: '1px', marginTop: '6px' }}>★★★★★</div></div>
-            <div style={{ flex: 1, fontSize: '12.5px', color: '#6E7585', lineHeight: 1.7 }}>{t('reviewsBlurb')}</div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '14px' }}>
-            {REVIEWS.map((r, i) => (
-              <div key={i} style={{ background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', padding: '16px 18px' }}><span style={{ color: '#8CC63F', fontSize: '12px', letterSpacing: '1px' }}>★★★★★</span><p style={{ fontFamily: "'Spectral',serif", fontSize: '14.5px', lineHeight: 1.5, color: '#2A3447', margin: '8px 0 10px' }}>« {r.text} »</p><div style={{ fontSize: '12px', color: '#6E7585' }}><b style={{ color: '#1B2433' }}>{r.name}</b> · {r.role}</div></div>
+
+          {/* Conformité */}
+          <div style={{ ...card, padding: '16px 20px', marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {[t('comp1'), t('comp2'), t('comp3'), t('comp4'), t('comp5')].map((line, i) => (
+              <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '13px', color: '#3A3A36' }}>
+                <span style={{ color: '#5E8E1F', flex: 'none', fontSize: '13px', lineHeight: 1.5 }}>✓</span>{line}
+              </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Caractéristiques principales */}
+      {keyCards.length ? (
+        <section style={{ ...card, padding: '26px 30px', marginTop: '56px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+            <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '24px', color: '#2B2B2B', margin: 0 }}>{t('keyFeaturesTitle')}</h2>
+            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#9A9A9A' }}>{t('manufacturerData')}</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '14px', marginTop: '20px' }}>
+            {keyCards.map((c, i) => (
+              <div key={i} style={{ background: i === 0 ? '#F7F6F2' : '#fff', border: '1px solid #ECEAE3', borderRadius: '10px', padding: '16px 18px' }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#8A8170', display: 'flex', alignItems: 'center', gap: '7px' }}><span aria-hidden="true">{c.icon}</span>{c.label}</div>
+                <div style={{ fontSize: '13.5px', lineHeight: 1.55, color: '#2B2B2B', marginTop: '9px' }}>{c.value}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* Points clés */}
+      <section style={{ ...card, padding: '26px 30px', marginTop: '18px' }}>
+        <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '24px', color: '#2B2B2B', margin: 0 }}>{t('keyPointsTitle')}</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '12px 40px', marginTop: '18px' }}>
+          {points.map((p, i) => (
+            <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '14px', color: '#3A3A36', borderLeft: '3px solid rgba(140,198,63,.5)', paddingLeft: '14px', lineHeight: 1.5 }}>
+              <span style={{ color: '#5E8E1F', flex: 'none' }}>✓</span>{p}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Onglets */}
+      <section style={{ marginTop: '40px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          {TABS.map(({ key, label }) => (
+            <button key={key} onClick={() => setTab(key)} style={{ flex: 'none', padding: '12px 20px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, cursor: 'pointer', background: tab === key ? '#fff' : 'transparent', color: tab === key ? '#2B2B2B' : '#6E7585', borderTop: tab === key ? '1px solid #E7E3DA' : '1px solid transparent', borderLeft: tab === key ? '1px solid #E7E3DA' : '1px solid transparent', borderRight: tab === key ? '1px solid #E7E3DA' : '1px solid transparent', borderBottom: 'none', borderRadius: '8px 8px 0 0' }}>{label}</button>
+          ))}
+        </div>
+        <div style={{ ...card, borderTopLeftRadius: 0, padding: '30px 34px' }}>
+          {tab === 'description' ? (
+            product.description
+              ? <div className="hfm-richtext" style={{ fontSize: '15px', lineHeight: 1.7, color: '#3A3A36' }} dangerouslySetInnerHTML={{ __html: structureDescription(product.description) }} />
+              : <div style={{ color: '#8A8170', fontSize: '14px' }}>—</div>
+          ) : null}
+
+          {tab === 'tech' ? (
+            <div style={{ border: '1px solid #F1EFE8', borderRadius: '8px', overflow: 'hidden' }}>
+              {techRows.map((row, i) => (
+                <div key={i} style={{ display: 'flex', gap: '20px', padding: '13px 18px', background: i % 2 ? '#FBFAF7' : '#fff', fontSize: '13.5px' }}>
+                  <span style={{ flex: '0 0 220px', fontSize: '11.5px', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: '#8A8170', paddingTop: '1px' }}>{row.k}</span>
+                  <span style={{ color: '#1B2433', fontWeight: 500 }}>{row.v}</span>
+                </div>
+              ))}
+            </div>
+          ) : null}
+
+          {tab === 'composition' ? (
+            <div>
+              <h3 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '20px', color: '#2B2B2B', margin: '0 0 16px' }}>{t('compoTitle')}</h3>
+              {compositionRows.map((row, i) => (
+                <div key={i} style={{ display: 'flex', gap: '20px', padding: '12px 0', borderBottom: '1px solid #F1EFE8', fontSize: '14px' }}>
+                  <span style={{ flex: '0 0 200px', fontWeight: 600, color: '#2B2B2B' }}>{row.k}</span>
+                  <span style={{ color: '#55606F' }}>{row.v}</span>
+                </div>
+              ))}
+              <p style={{ fontSize: '12.5px', color: '#8A8170', marginTop: '16px' }}>{t('compoDisclaimer')}</p>
+            </div>
+          ) : null}
+
+          {tab === 'faq' ? (
+            <div>
+              <h3 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '20px', color: '#2B2B2B', margin: 0 }}>{t('faqTitle')}</h3>
+              <p style={{ fontSize: '13px', color: '#6E7585', margin: '8px 0 20px', lineHeight: 1.6 }}>{t('faqIntro')}</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {FAQ.map((f, i) => (
+                  <div key={i} style={{ border: '1px solid #ECEAE3', borderRadius: '10px', background: '#fff', overflow: 'hidden' }}>
+                    <button onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '14px', width: '100%', textAlign: 'left', padding: '15px 20px', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#2B2B2B' }}>
+                      {f.q}
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" style={{ flex: 'none', transition: 'transform .2s ease', transform: openFaq === i ? 'rotate(180deg)' : 'none', color: '#8A8170' }}><path d="M6 9l6 6 6-6" /></svg>
+                    </button>
+                    {openFaq === i ? (
+                      <div style={{ padding: '0 20px 16px', fontSize: '14px', lineHeight: 1.65, color: '#55606F' }}>{f.a}</div>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {tab === 'reviews' ? (
+            <div style={{ textAlign: 'center', padding: '30px 20px', color: '#8A8170' }}>
+              <div style={{ fontSize: '15px', fontWeight: 600, color: '#55606F' }}>{t('reviewsEmpty')}</div>
+              <div style={{ fontSize: '13px', marginTop: '8px' }}>{t('reviewsEmptyHint')}</div>
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      {/* Cross-selling + encadré réglementaire */}
+      <RelatedSections related={related} />
     </main>
   );
 }

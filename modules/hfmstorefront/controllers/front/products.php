@@ -16,6 +16,20 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         $idShop = (int) $this->context->shop->id;
         $idProduct = (int) $this->in('id_product');
 
+        // Cross-selling d'une fiche produit (accessoires, marque, catégorie, zone).
+        $idRelated = (int) $this->in('related');
+        if ($idRelated) {
+            $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'related', [
+                'id_product' => $idRelated,
+                'id_lang' => $idLang,
+                'id_shop' => $idShop,
+                'id_currency' => $idCurrency,
+            ]);
+            return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($idRelated, $idLang) {
+                return $this->related($idRelated, $idLang);
+            });
+        }
+
         // Lectures publiques -> cacheables (tag products, TTL 300).
         if ($idProduct) {
             // Fiche : clé = id_product + id_lang (+ shop/devise pour cohérence prix).
@@ -115,6 +129,111 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         }
     }
 
+    /**
+     * Cross-selling de la fiche produit, en un appel :
+     *   bought_together  accessoires PrestaShop du produit (croisement curatif BO)
+     *   you_may_like     mélange marque + catégorie (recommandations génériques)
+     *   brand            autres produits de la même marque (+ id/nom pour le lien)
+     *   category         autres produits de la catégorie par défaut
+     *   zone             autres produits de la même zone (catégories filles de « Par zone »)
+     * Chaque produit n'apparaît que dans UNE section (dédoublonnage en cascade).
+     */
+    protected function related($idProduct, $idLang)
+    {
+        $p = new Product($idProduct, false, $idLang);
+        if (!Validate::isLoadedObject($p)) {
+            return ['error' => 'product_not_found'];
+        }
+
+        $seen = [$idProduct => true];
+        // Transforme des lignes produit en cartes uniques (jamais déjà vues).
+        $cards = function ($rows, $max) use (&$seen, $idLang) {
+            $out = [];
+            foreach ((array) $rows as $r) {
+                $id = (int) (isset($r['id_product']) ? $r['id_product'] : 0);
+                if (!$id || isset($seen[$id]) || count($out) >= $max) {
+                    continue;
+                }
+                $card = $this->card($id, $idLang);
+                if ($card) {
+                    $seen[$id] = true;
+                    $out[] = $card;
+                }
+            }
+            return $out;
+        };
+
+        // 1) Accessoires (croisement curatif renseigné dans le BO).
+        $boughtTogether = $cards(Product::getAccessoriesLight($idLang, $idProduct), 4);
+
+        // Viviers marque / catégorie / zone (élargis, dédoublonnés à la sélection).
+        $brandRows = $p->id_manufacturer
+            ? (array) Manufacturer::getProducts((int) $p->id_manufacturer, $idLang, 1, 24, 'id_product', 'DESC')
+            : [];
+        $catRows = [];
+        $catName = '';
+        if ((int) $p->id_category_default) {
+            $cat = new Category((int) $p->id_category_default, $idLang);
+            if (Validate::isLoadedObject($cat)) {
+                $catName = (string) $cat->name;
+                $catRows = (array) $cat->getProducts($idLang, 1, 24, 'id_product', 'DESC');
+            }
+        }
+        // Zone : première catégorie du produit fille de la racine « Par zone » (302).
+        $zoneId = (int) Db::getInstance()->getValue(
+            'SELECT cp.id_category FROM ' . _DB_PREFIX_ . 'category_product cp
+             INNER JOIN ' . _DB_PREFIX_ . 'category c ON c.id_category = cp.id_category AND c.id_parent = 302
+             WHERE cp.id_product = ' . (int) $idProduct . ' ORDER BY cp.id_category'
+        );
+        $zoneRows = [];
+        $zoneName = '';
+        if ($zoneId) {
+            $zoneCat = new Category($zoneId, $idLang);
+            if (Validate::isLoadedObject($zoneCat)) {
+                $zoneName = (string) $zoneCat->name;
+                $zoneRows = (array) $zoneCat->getProducts($idLang, 1, 24, 'id_product', 'DESC');
+            }
+        }
+
+        // 2-4) Sections spécifiques d'abord (elles ont priorité sur le mélange générique).
+        $brand = [
+            'id_manufacturer' => (int) $p->id_manufacturer,
+            'name' => $p->id_manufacturer ? (string) Manufacturer::getNameById((int) $p->id_manufacturer) : '',
+            'products' => $cards($brandRows, 8),
+        ];
+        $category = [
+            'id_category' => (int) $p->id_category_default,
+            'name' => $catName,
+            'products' => $cards($catRows, 8),
+        ];
+        $zone = [
+            'id_category' => $zoneId,
+            'name' => $zoneName,
+            'products' => $cards($zoneRows, 8),
+        ];
+
+        // 5) « Vous aimerez aussi » : marque et catégorie entrelacées (le reste).
+        $mixRows = [];
+        $max = max(count($brandRows), count($catRows));
+        for ($i = 0; $i < $max; $i++) {
+            if (isset($brandRows[$i])) {
+                $mixRows[] = $brandRows[$i];
+            }
+            if (isset($catRows[$i])) {
+                $mixRows[] = $catRows[$i];
+            }
+        }
+        $youMayLike = $cards($mixRows, 12);
+
+        return [
+            'bought_together' => $boughtTogether,
+            'you_may_like' => $youMayLike,
+            'brand' => $brand,
+            'category' => $category,
+            'zone' => $zone,
+        ];
+    }
+
     protected function card($idProduct, $idLang)
     {
         $p = new Product($idProduct, false, $idLang);
@@ -153,10 +272,25 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         foreach ($p->getFrontFeatures($idLang) as $f) {
             $features[] = ['name' => $f['name'], 'value' => $f['value']];
         }
+        // Contenus éditoriaux générés par l'IA (module hfmaiproducts), si présents.
+        $extra = false;
+        try {
+            $extra = Db::getInstance()->getRow(
+                'SELECT key_points, faq, composition FROM `' . _DB_PREFIX_ . 'hfm_product_extra`
+                 WHERE id_product = ' . (int) $idProduct . ' AND id_lang = ' . (int) $idLang
+            );
+        } catch (Exception $e) {
+            // Table absente (module hfmaiproducts non installé) : pas de contenus IA.
+        }
+        $decode = static function ($json) {
+            $v = is_string($json) ? json_decode($json, true) : null;
+            return is_array($v) ? $v : [];
+        };
         return ['product' => [
             'id_product' => (int) $p->id,
             'name' => $p->name,
             'reference' => $p->reference,
+            'ean13' => (string) $p->ean13,
             'link_rewrite' => $p->link_rewrite,
             'description' => $p->description,
             'description_short' => $p->description_short,
@@ -168,6 +302,9 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'rpps_required' => $this->productRequiresRpps($idProduct),
             'images' => $images,
             'features' => $features,
+            'key_points' => $extra ? $decode($extra['key_points']) : [],
+            'faq' => $extra ? $decode($extra['faq']) : [],
+            'composition' => $extra ? $decode($extra['composition']) : [],
         ]];
     }
 }

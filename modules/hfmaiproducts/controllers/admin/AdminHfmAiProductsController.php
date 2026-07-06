@@ -87,6 +87,12 @@ class AdminHfmAiProductsController extends ModuleAdminController
             $this->l('Référence'),
             '<input type="text" name="reference" class="form-control" value="' . htmlspecialchars((string) Tools::getValue('reference'), ENT_QUOTES, 'UTF-8') . '"/>'
         );
+        $out .= $this->formGroup(
+            $this->l('URL de la page source (optionnel)'),
+            '<input type="url" name="source_url" class="form-control" placeholder="https://…" value="'
+            . htmlspecialchars((string) Tools::getValue('source_url'), ENT_QUOTES, 'UTF-8') . '"/>'
+            . '<p class="help-block">' . $this->l('Sans URL, l\'IA cherche elle-même le produit sur le web, croise 2-3 pages fournisseurs et en extrait référence, EAN13, prix HT, descriptions et images.') . '</p>'
+        );
 
         // Langue de base.
         $langSelect = '<select name="id_lang" class="form-control">';
@@ -124,6 +130,7 @@ class AdminHfmAiProductsController extends ModuleAdminController
             'reference' => trim((string) Tools::getValue('reference')),
             'id_lang' => (int) Tools::getValue('id_lang'),
             'notes' => (string) Tools::getValue('notes'),
+            'source_url' => trim((string) Tools::getValue('source_url')),
         ];
 
         if ($input['name'] === '') {
@@ -132,6 +139,9 @@ class AdminHfmAiProductsController extends ModuleAdminController
         // Validation légère du texte libre.
         if ($input['notes'] !== '' && !Validate::isCleanHtml($input['notes'])) {
             return $this->displayWarning($this->l('Les notes contiennent du contenu non autorisé.')) . $this->renderInputForm();
+        }
+        if ($input['source_url'] !== '' && !Validate::isAbsoluteUrl($input['source_url'])) {
+            return $this->displayWarning($this->l('L\'URL de la page source est invalide.')) . $this->renderInputForm();
         }
 
         require_once dirname(__FILE__) . '/../../lib/HfmAiProductGenerator.php';
@@ -185,6 +195,40 @@ class AdminHfmAiProductsController extends ModuleAdminController
             $out .= ' <span class="text-muted">' . $this->l('Champs incertains') . ' : '
                 . implode(', ', $safeList) . '</span>';
         }
+        // Diagnostic de lecture de la page source : l'admin voit ce qui a réellement
+        // été extrait (et comprend un brouillon maigre au lieu de le subir).
+        $stats = $g($draft, '_source_stats', null);
+        if (is_array($stats)) {
+            $out .= '<br/><span class="text-muted" style="font-size:12px;">'
+                . sprintf(
+                    $this->l('Page source lue : %d caractères de texte · %d bloc(s) de données structurées · %d image(s) candidate(s).'),
+                    (int) $stats['text'],
+                    (int) $stats['jsonld'],
+                    (int) $stats['images']
+                )
+                . '</span>';
+            if ((int) $stats['text'] < 500 && (int) $stats['jsonld'] === 0) {
+                $out .= '<div class="alert alert-warning" style="margin:10px 0 0;">'
+                    . $this->l('Cette page n\'a livré presque aucun contenu exploitable (site probablement rendu en JavaScript). Le brouillon sera pauvre : complétez les notes fournisseur ou essayez une autre URL.')
+                    . '</div>';
+            }
+        }
+        // Sources web consultées par l'IA (recherche automatique).
+        $sources = is_array($g($draft, 'sources', [])) ? $draft['sources'] : [];
+        if (!empty($sources)) {
+            $links = [];
+            foreach ($sources as $u) {
+                if (!is_string($u) || !Validate::isAbsoluteUrl($u)) {
+                    continue;
+                }
+                $safe = htmlspecialchars($u, ENT_QUOTES, 'UTF-8');
+                $links[] = '<a href="' . $safe . '" target="_blank" rel="noopener noreferrer">' . $safe . '</a>';
+            }
+            if (!empty($links)) {
+                $out .= '<br/><span class="text-muted" style="font-size:12px;">'
+                    . $this->l('Sources consultées') . ' : ' . implode(' · ', $links) . '</span>';
+            }
+        }
         $out .= '</div>';
 
         $out .= '<form method="post" action="' . htmlspecialchars($action, ENT_QUOTES, 'UTF-8') . '" class="form-horizontal">';
@@ -218,13 +262,18 @@ class AdminHfmAiProductsController extends ModuleAdminController
             '<input type="text" name="d_prix_ht" class="form-control" value="' . htmlspecialchars((string) $g($draft, 'prix_ht_indicatif', 0), ENT_QUOTES, 'UTF-8') . '"/>');
 
         // Groupe de taxe (TVA) : indispensable pour que le prix HT soit correctement taxé.
-        // Par défaut le 1er groupe actif de la boutique (l'admin peut choisir « Aucune taxe »).
+        // Par défaut, le groupe le plus utilisé par les produits actifs du catalogue
+        // (en pratique la TVA standard de la boutique), et non le 1er de la liste.
+        $defaultTax = (int) Db::getInstance()->getValue(
+            'SELECT id_tax_rules_group FROM ' . _DB_PREFIX_ . 'product
+             WHERE active = 1 AND id_tax_rules_group > 0
+             GROUP BY id_tax_rules_group ORDER BY COUNT(*) DESC'
+        );
         $taxSelect = '<select name="d_tax_rules_group" class="form-control">';
-        $firstTax = true;
         foreach (TaxRulesGroup::getTaxRulesGroups(true) as $trg) {
-            $sel = $firstTax ? ' selected' : '';
-            $firstTax = false;
-            $taxSelect .= '<option value="' . (int) $trg['id_tax_rules_group'] . '"' . $sel . '>'
+            $idTrg = (int) $trg['id_tax_rules_group'];
+            $sel = ($idTrg === $defaultTax) ? ' selected' : '';
+            $taxSelect .= '<option value="' . $idTrg . '"' . $sel . '>'
                 . htmlspecialchars((string) $trg['name'], ENT_QUOTES, 'UTF-8') . '</option>';
         }
         $taxSelect .= '<option value="0">' . $this->l('Aucune taxe') . '</option>';
@@ -244,6 +293,32 @@ class AdminHfmAiProductsController extends ModuleAdminController
         $out .= $this->formGroup($this->l('Meta description'),
             '<textarea name="d_meta_description" rows="2" class="form-control">' . htmlspecialchars((string) $g($draft, 'meta_description'), ENT_QUOTES, 'UTF-8') . '</textarea>');
 
+        // Images : celles retenues par l'IA (cochées) puis les autres candidates de la
+        // page (décochées) — l'admin garde la main même si le modèle a été trop prudent.
+        // La 1re image cochée à la soumission deviendra la couverture du produit.
+        $selected = is_array($g($draft, 'images', [])) ? $draft['images'] : [];
+        $candidates = is_array($g($draft, '_source_images', [])) ? $draft['_source_images'] : [];
+        $all = array_values(array_unique(array_merge($selected, $candidates)));
+        $imgCells = '';
+        foreach ($all as $i => $u) {
+            if (!is_string($u) || !Validate::isAbsoluteUrl($u)) {
+                continue;
+            }
+            $isSelected = in_array($u, $selected, true);
+            $safeUrl = htmlspecialchars($u, ENT_QUOTES, 'UTF-8');
+            $imgCells .= '<label style="display:inline-block;margin:0 14px 14px 0;text-align:center;vertical-align:top;cursor:pointer;max-width:160px;">'
+                . '<img src="' . $safeUrl . '" alt="" loading="lazy" style="height:90px;max-width:160px;object-fit:contain;display:block;border:2px solid ' . ($isSelected ? '#72c279' : '#ddd') . ';border-radius:4px;background:#fff;margin-bottom:5px;"/>'
+                . '<input type="checkbox" name="d_images[]" value="' . $safeUrl . '"' . ($isSelected ? ' checked' : '') . '/> '
+                . '<span style="font-size:11px;">' . ($isSelected ? $this->l('retenue par l\'IA') : $this->l('candidate')) . '</span>'
+                . '</label>';
+        }
+        if ($imgCells !== '') {
+            $out .= $this->formGroup(
+                $this->l('Images'),
+                $imgCells . '<p class="help-block">' . $this->l('Images de la page source : cochez celles à importer (la première cochée devient la couverture). Les images « candidates » viennent de la page mais n\'ont pas été retenues par l\'IA — souvent des produits associés, vérifiez avant de cocher.') . '</p>'
+            );
+        }
+
         // Caractéristiques : lecture seule (transmises via draft_json).
         $caracs = is_array($g($draft, 'caracteristiques', [])) ? $draft['caracteristiques'] : [];
         if (!empty($caracs)) {
@@ -257,6 +332,53 @@ class AdminHfmAiProductsController extends ModuleAdminController
             $out .= '<div class="col-lg-9"><table class="table"><thead><tr><th>' . $this->l('Label') . '</th><th>' . $this->l('Valeur') . '</th></tr></thead><tbody>'
                 . $rows . '</tbody></table>'
                 . '<p class="help-block">' . $this->l('Ces caractéristiques seront ajoutées à la description du produit.') . '</p></div></div>';
+        }
+
+        // Contenus éditoriaux générés (lecture seule, transmis via draft_json).
+        $points = is_array($g($draft, 'points_cles', [])) ? $draft['points_cles'] : [];
+        if (!empty($points)) {
+            $lis = '';
+            foreach ($points as $p) {
+                $lis .= '<li>' . htmlspecialchars((string) $p, ENT_QUOTES, 'UTF-8') . '</li>';
+            }
+            $out .= $this->formGroup($this->l('Points clés'), '<ul style="margin:6px 0;">' . $lis . '</ul>');
+        }
+        $compo = is_array($g($draft, 'composition', [])) ? $draft['composition'] : [];
+        if (!empty($compo)) {
+            $rows = '';
+            foreach ($compo as $c) {
+                $rows .= '<tr><td>' . htmlspecialchars((string) (isset($c['label']) ? $c['label'] : ''), ENT_QUOTES, 'UTF-8') . '</td><td>'
+                    . htmlspecialchars((string) (isset($c['valeur']) ? $c['valeur'] : ''), ENT_QUOTES, 'UTF-8') . '</td></tr>';
+            }
+            $out .= $this->formGroup($this->l('Composition'), '<table class="table"><tbody>' . $rows . '</tbody></table>');
+        }
+        // Cross-selling proposé par l'IA (produits existants du catalogue, cochables).
+        $crossSell = is_array($g($draft, '_cross_sell', [])) ? $draft['_cross_sell'] : [];
+        if (!empty($crossSell)) {
+            $boxes = '';
+            foreach ($crossSell as $cs) {
+                $cid = (int) (isset($cs['id']) ? $cs['id'] : 0);
+                $cname = htmlspecialchars((string) (isset($cs['name']) ? $cs['name'] : ''), ENT_QUOTES, 'UTF-8');
+                if ($cid) {
+                    $boxes .= '<label style="display:block;margin-bottom:6px;cursor:pointer;">'
+                        . '<input type="checkbox" name="d_cross[]" value="' . $cid . '" checked/> '
+                        . $cname . ' <span class="text-muted">#' . $cid . '</span></label>';
+                }
+            }
+            $out .= $this->formGroup($this->l('Souvent achetés ensemble'), $boxes
+                . '<p class="help-block">' . $this->l('Produits complémentaires du catalogue choisis par l\'IA — décochez ceux à ne pas lier.') . '</p>');
+        }
+
+        $faq = is_array($g($draft, 'faq', [])) ? $draft['faq'] : [];
+        if (!empty($faq)) {
+            $blocks = '';
+            foreach ($faq as $f) {
+                $blocks .= '<div style="margin-bottom:10px;"><strong>'
+                    . htmlspecialchars((string) (isset($f['question']) ? $f['question'] : ''), ENT_QUOTES, 'UTF-8') . '</strong><br/>'
+                    . htmlspecialchars((string) (isset($f['reponse']) ? $f['reponse'] : ''), ENT_QUOTES, 'UTF-8') . '</div>';
+            }
+            $out .= $this->formGroup($this->l('FAQ produit'), $blocks
+                . '<p class="help-block">' . $this->l('Points clés, composition et FAQ seront affichés sur la fiche produit du site.') . '</p>');
         }
 
         $out .= '<div class="panel-footer">';
@@ -318,25 +440,9 @@ class AdminHfmAiProductsController extends ModuleAdminController
             }
         }
 
-        // Persiste les caractéristiques du brouillon + l'info « avec lidocaïne » (critère métier)
-        // en les ajoutant à la description longue (le modèle Product accepte du HTML propre).
-        $extra = '';
+        // Les caractéristiques deviennent de VRAIES caractéristiques PrestaShop
+        // (créées après le Product::add(), voir plus bas) — plus d'ajout à la description.
         $caracs = (isset($draft['caracteristiques']) && is_array($draft['caracteristiques'])) ? $draft['caracteristiques'] : [];
-        $rowsHtml = '';
-        foreach ($caracs as $c) {
-            $label = isset($c['label']) ? trim((string) $c['label']) : '';
-            $valeur = isset($c['valeur']) ? trim((string) $c['valeur']) : '';
-            if ($label !== '' || $valeur !== '') {
-                $rowsHtml .= '<li><strong>' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</strong> : '
-                    . htmlspecialchars($valeur, ENT_QUOTES, 'UTF-8') . '</li>';
-            }
-        }
-        if ($rowsHtml !== '') {
-            $extra .= '<h3>' . $this->l('Caractéristiques') . '</h3><ul>' . $rowsHtml . '</ul>';
-        }
-        $extra .= '<p><strong>' . $this->l('Avec lidocaïne') . '</strong> : '
-            . ($avecLidocaine ? $this->l('Oui') : $this->l('Non')) . '</p>';
-        $descLongue = trim($descLongue . $extra);
 
         // Multilingue : on remplit la langue de base ET on recopie sur toutes les langues actives.
         $langs = Language::getLanguages(true);
@@ -412,7 +518,19 @@ class AdminHfmAiProductsController extends ModuleAdminController
             );
         }
 
-        // Lien vers la fiche produit standard du BO pour finaliser (images, etc.).
+        // Caractéristiques réelles (ps_feature) : celles du brouillon + « Lidocaïne ».
+        $this->attachFeatures($product, $caracs, $avecLidocaine);
+
+        // Contenus éditoriaux IA (points clés, FAQ, composition) pour le front headless.
+        $this->saveExtras((int) $product->id, $draft);
+
+        // Cross-selling : liaison accessoires PS avec les produits cochés (revalidés en base).
+        $crossLinked = $this->attachCrossSell($product, Tools::getValue('d_cross'));
+
+        // Import des images cochées (téléchargées depuis la page source).
+        list($importedImages, $failedImages) = $this->importImages($product, Tools::getValue('d_images'));
+
+        // Lien vers la fiche produit standard du BO pour finaliser (publication, etc.).
         $productToken = Tools::getAdminTokenLite('AdminProducts');
         $productLink = 'index.php?controller=AdminProducts&id_product=' . (int) $product->id
             . '&updateproduct&token=' . $productToken;
@@ -421,10 +539,222 @@ class AdminHfmAiProductsController extends ModuleAdminController
             $this->l('Produit #%d créé (inactif). '),
             (int) $product->id
         );
+        if ($importedImages > 0) {
+            $msg .= sprintf($this->l('%d image(s) importée(s). '), $importedImages);
+        }
+        if ($crossLinked > 0) {
+            $msg .= sprintf($this->l('%d produit(s) lié(s) en « souvent achetés ensemble ». '), $crossLinked);
+        }
+        if ($failedImages > 0) {
+            $msg .= sprintf($this->l('%d image(s) en échec (à ajouter manuellement). '), $failedImages);
+        }
         $msg .= '<a href="' . htmlspecialchars($productLink, ENT_QUOTES, 'UTF-8') . '" class="btn btn-default btn-xs">'
             . '<i class="icon-pencil"></i> ' . $this->l('Finaliser la fiche (images, publication…)') . '</a>';
 
-        return $this->displayConfirmation($msg);
+        // PS9 : displayConfirmation() n'existe que sur Module, pas sur les contrôleurs
+        // (contrairement à displayWarning) — on rend l'alerte succès nous-mêmes.
+        return '<div class="alert alert-success">' . $msg . '</div>';
+    }
+
+    /**
+     * Lie les produits « souvent achetés ensemble » (accessoires PrestaShop).
+     * Ids revalidés : entiers, existants et actifs en base, différents du produit, 6 max.
+     *
+     * @param Product $product
+     * @param mixed $ids valeur brute de d_cross[]
+     *
+     * @return int nombre de produits liés
+     */
+    protected function attachCrossSell(Product $product, $ids)
+    {
+        if (!is_array($ids) || empty($ids)) {
+            return 0;
+        }
+        $clean = [];
+        foreach (array_slice($ids, 0, 6) as $id) {
+            $id = (int) $id;
+            if ($id > 0 && $id !== (int) $product->id && !in_array($id, $clean, true)
+                && (int) Db::getInstance()->getValue('SELECT id_product FROM `' . _DB_PREFIX_ . 'product` WHERE id_product = ' . $id . ' AND active = 1')) {
+                $clean[] = $id;
+            }
+        }
+        if (empty($clean)) {
+            return 0;
+        }
+        try {
+            $product->changeAccessories($clean);
+        } catch (Exception $e) {
+            return 0;
+        }
+
+        return count($clean);
+    }
+
+    /**
+     * Crée/rattache de vraies caractéristiques PrestaShop à partir du brouillon
+     * (helpers d'import natifs : la caractéristique et sa valeur sont créées si
+     * besoin, réutilisées sinon) + la caractéristique métier « Lidocaïne ».
+     * Valeurs en mode custom : propres à ce produit, pas de pollution des listes.
+     *
+     * @param Product $product
+     * @param array $caracs [['label'=>, 'valeur'=>], …]
+     * @param bool $avecLidocaine
+     */
+    protected function attachFeatures(Product $product, array $caracs, $avecLidocaine)
+    {
+        $idLang = (int) Configuration::get('PS_LANG_DEFAULT');
+
+        $rows = [];
+        foreach ($caracs as $c) {
+            $label = isset($c['label']) ? trim((string) $c['label']) : '';
+            $valeur = isset($c['valeur']) ? trim((string) $c['valeur']) : '';
+            if ($label !== '' && $valeur !== '') {
+                $rows[] = [$label, $valeur, true];
+            }
+        }
+        // Critère métier filtrable : valeur partagée (non custom).
+        $rows[] = [$this->l('Lidocaïne'), $avecLidocaine ? $this->l('Présente') : $this->l('Absente'), false];
+
+        foreach ($rows as $row) {
+            list($label, $valeur, $custom) = $row;
+            try {
+                $idFeature = (int) Feature::addFeatureImport(Tools::substr($label, 0, 128));
+                if (!$idFeature) {
+                    continue;
+                }
+                $idValue = (int) FeatureValue::addFeatureValueImport($idFeature, Tools::substr($valeur, 0, 255), (int) $product->id, $idLang, $custom);
+                if ($idValue) {
+                    Product::addFeatureProductImport((int) $product->id, $idFeature, $idValue);
+                }
+            } catch (Exception $e) {
+                // Une caractéristique en échec ne remet pas en cause la création.
+            }
+        }
+        Feature::cleanPositions();
+    }
+
+    /**
+     * Persiste les contenus éditoriaux générés (points clés, FAQ, composition)
+     * dans hfm_product_extra pour toutes les langues actives (contenu de la
+     * langue de base recopié, comme les descriptions). Le bridge headless les
+     * expose ensuite sur la fiche produit.
+     *
+     * @param int $idProduct
+     * @param array $draft
+     */
+    protected function saveExtras($idProduct, array $draft)
+    {
+        $keyPoints = [];
+        foreach ((isset($draft['points_cles']) && is_array($draft['points_cles'])) ? $draft['points_cles'] : [] as $p) {
+            if (is_string($p) && trim($p) !== '') {
+                $keyPoints[] = trim($p);
+            }
+        }
+        $faq = [];
+        foreach ((isset($draft['faq']) && is_array($draft['faq'])) ? $draft['faq'] : [] as $f) {
+            $q = isset($f['question']) ? trim((string) $f['question']) : '';
+            $a = isset($f['reponse']) ? trim((string) $f['reponse']) : '';
+            if ($q !== '' && $a !== '') {
+                $faq[] = ['q' => $q, 'a' => $a];
+            }
+        }
+        $composition = [];
+        foreach ((isset($draft['composition']) && is_array($draft['composition'])) ? $draft['composition'] : [] as $c) {
+            $k = isset($c['label']) ? trim((string) $c['label']) : '';
+            $v = isset($c['valeur']) ? trim((string) $c['valeur']) : '';
+            if ($k !== '' && $v !== '') {
+                $composition[] = ['k' => $k, 'v' => $v];
+            }
+        }
+
+        if (empty($keyPoints) && empty($faq) && empty($composition)) {
+            return;
+        }
+
+        $db = Db::getInstance();
+        foreach (Language::getLanguages(true) as $lang) {
+            $db->execute(
+                'REPLACE INTO `' . _DB_PREFIX_ . 'hfm_product_extra` (id_product, id_lang, key_points, faq, composition) VALUES ('
+                . (int) $idProduct . ', ' . (int) $lang['id_lang'] . ', '
+                . '\'' . pSQL(json_encode($keyPoints, JSON_UNESCAPED_UNICODE), true) . '\', '
+                . '\'' . pSQL(json_encode($faq, JSON_UNESCAPED_UNICODE), true) . '\', '
+                . '\'' . pSQL(json_encode($composition, JSON_UNESCAPED_UNICODE), true) . '\')'
+            );
+        }
+    }
+
+    /**
+     * Télécharge et rattache au produit les images cochées dans le brouillon.
+     * Chaque URL est revalidée (absolue, hôte public) avant téléchargement par
+     * ImageManager::copyImg() (génère toutes les déclinaisons). La première image
+     * réussie devient la couverture. Aucun échec d'image ne remet en cause le produit.
+     *
+     * @param Product $product produit fraîchement créé
+     * @param mixed $urls valeur brute de d_images[]
+     *
+     * @return array{0:int,1:int} [importées, en échec]
+     */
+    protected function importImages(Product $product, $urls)
+    {
+        if (!is_array($urls) || empty($urls)) {
+            return [0, 0];
+        }
+
+        require_once dirname(__FILE__) . '/../../lib/HfmAiSourceScraper.php';
+        $scraper = new HfmAiSourceScraper();
+
+        $langs = Language::getLanguages(true);
+        $legend = [];
+        foreach ($langs as $lang) {
+            $legend[(int) $lang['id_lang']] = Tools::substr((string) $product->name[(int) $lang['id_lang']], 0, 128);
+        }
+
+        $imported = 0;
+        $failed = 0;
+        $needCover = true;
+
+        foreach (array_slice($urls, 0, 10) as $url) {
+            $url = trim((string) $url);
+            if ($url === '' || !Validate::isAbsoluteUrl($url)) {
+                continue;
+            }
+            try {
+                // Téléchargement par nos soins (user-agent navigateur + contrôle que
+                // c'est une vraie image) : copyImg télécharge en client « robot » et
+                // renvoie succès même quand le site a servi une page anti-bot.
+                $tmp = tempnam(_PS_TMP_IMG_DIR_, 'hfmai');
+                if (!$scraper->downloadImage($url, $tmp)) {
+                    @unlink($tmp);
+                    ++$failed;
+                    continue;
+                }
+
+                $image = new Image();
+                $image->id_product = (int) $product->id;
+                $image->position = Image::getHighestPosition((int) $product->id) + 1;
+                $image->cover = $needCover;
+                $image->legend = $legend;
+                if (!$image->add()) {
+                    @unlink($tmp);
+                    ++$failed;
+                    continue;
+                }
+                $done = ImageManager::copyImg((int) $product->id, (int) $image->id, $tmp, 'products', true);
+                @unlink($tmp);
+                // copyImg ne vérifie pas ses redimensionnements : on contrôle le fichier final.
+                if ($done && file_exists($image->getPathForCreation() . '.jpg')) {
+                    ++$imported;
+                    $needCover = false;
+                } else {
+                    $image->delete();
+                    ++$failed;
+                }
+            } catch (Exception $e) {
+                ++$failed;
+            }
+        }
+
+        return [$imported, $failed];
     }
 
     // ------------------------------------------------------------------
