@@ -1,74 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
-import { toCard, type Card } from '@/lib/cardModel';
-import type { ProductCard as ProductCardData } from '@/lib/ps';
-import { idLangFor } from '@/lib/i18n-config';
+import { type Card } from '@/lib/cardModel';
 import { useAutoLoad } from '@/lib/useAutoLoad';
 import ProductCard from '../../../components/ProductCard';
 
-// Terme de recherche par zone — TOUJOURS en français (pilote l'API), inchangé.
-const ZONE_QUERIES: Record<string, string> = {
-  levres: 'lèvres',
-  pommettes: 'pommettes',
-  cernes: 'cernes',
-  rides: 'rides',
-  ovale: 'ovale',
-  skinbooster: 'skinbooster',
-};
+// Zones connues (libellés traduits) — les produits arrivent du serveur (SEO).
+const KNOWN_ZONES = new Set(['levres', 'pommettes', 'cernes', 'rides', 'ovale', 'skinbooster']);
 
-const KNOWN_ZONES = new Set(Object.keys(ZONE_QUERIES));
-
-export default function ZoneClient() {
+export default function ZoneClient({ products }: { products: Card[] }) {
   const t = useTranslations('zone');
   const tc = useTranslations('common');
-  const locale = useLocale();
   const params = useParams();
   const key = String(params.key ?? '');
 
   const known = KNOWN_ZONES.has(key);
   const label = known ? t(`${key}Label`) : t('fallbackLabel');
   const blurb = known ? t(`${key}Blurb`) : t('fallbackBlurb');
-  const query = known ? ZONE_QUERIES[key] : '';
-
-  const [products, setProducts] = useState<Card[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    // On pilote la grille par recherche sur le terme de la zone ;
-    // à défaut de résultats, on retombe sur une sélection générale pour
-    // que la page ne paraisse jamais vide.
-    const fetchGeneral = () =>
-      fetch(`/api/products?limit=24&id_lang=${idLangFor(locale)}`)
-        .then((r) => r.json())
-        .then((d: { products?: ProductCardData[] }) => (d.products ?? []).map(toCard));
-
-    const run = async () => {
-      try {
-        let cards: Card[] = [];
-        if (query) {
-          const r = await fetch(`/api/products?q=${encodeURIComponent(query)}&limit=48&id_lang=${idLangFor(locale)}`);
-          const d: { products?: ProductCardData[] } = await r.json();
-          cards = (d.products ?? []).map(toCard);
-        }
-        if (cards.length === 0) cards = await fetchGeneral();
-        setProducts(cards);
-      } catch {
-        try {
-          setProducts(await fetchGeneral());
-        } catch {
-          setProducts([]);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    run();
-  }, [query, locale]);
 
   const count = products.length;
   const { visible, sentinelRef } = useAutoLoad(count);
@@ -81,9 +31,9 @@ export default function ZoneClient() {
       <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8CC63F' }}>{t('eyebrow')}</div>
       <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '42px', color: '#2B2B2B', margin: '8px 0 0' }}>{label}</h1>
       <p style={{ fontSize: '15.5px', lineHeight: 1.6, color: '#55606F', maxWidth: '620px', margin: '14px 0 0' }}>{blurb}</p>
-      <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '12px' }}>{loading ? tc('loading') : t('productsCount', { count })}</div>
+      <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '12px' }}>{t('productsCount', { count })}</div>
 
-      {!loading && count === 0 ? (
+      {count === 0 ? (
         <div style={{ padding: '60px 0', textAlign: 'center', color: '#8A8170', fontSize: '15px' }}>
           {t('noProducts')}
         </div>

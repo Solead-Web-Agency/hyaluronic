@@ -1,8 +1,10 @@
+import type { Metadata } from 'next';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { bridgeGetCached, type ProductCard } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { toCard, type Card } from '@/lib/cardModel';
 import { idLangFor } from '@/lib/i18n-config';
+import { alternatesFor } from '@/lib/seo';
 import Chrome from '../components/Chrome';
 import Footer from '../components/Footer';
 import HomeTabs from '../components/HomeTabs';
@@ -42,6 +44,12 @@ function imgSlot(src: string, href: string, label: string, sub?: string) {
       </div>
     </a>
   );
+}
+
+// Canonique + hreflang des 22 locales pour la page d'accueil.
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: alternatesFor(locale, '') };
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {

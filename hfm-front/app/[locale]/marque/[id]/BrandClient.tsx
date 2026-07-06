@@ -1,52 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { toCard, type Card } from '@/lib/cardModel';
-import type { ProductCard as ProductCardData } from '@/lib/ps';
-import { idLangFor } from '@/lib/i18n-config';
+import { type Card } from '@/lib/cardModel';
 import { useAutoLoad } from '@/lib/useAutoLoad';
 import ProductCard from '../../../components/ProductCard';
 
-type Manu = { id_manufacturer: number; name: string; nb_products: number };
+export type Manu = { id_manufacturer: number; name: string; nb_products: number };
 
 // Marques disposant d'une accroche dédiée ; à défaut, le texte générique.
 const KNOWN_BLURBS = new Set(['vivacy', 'croma', 'teoxane', 'mccm']);
 
-export default function BrandClient() {
+export default function BrandClient({ manu, products }: { manu: Manu | null; products: Card[] }) {
   const t = useTranslations('brand');
   const tc = useTranslations('common');
-  const locale = useLocale();
-  const params = useParams();
-  const id = String(params.id ?? '');
-
-  const [manu, setManu] = useState<Manu | null>(null);
-  const [products, setProducts] = useState<Card[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  // Résolution du nom de marque depuis la taxonomie.
-  useEffect(() => {
-    fetch(`/api/taxonomy?action=manufacturers&id_lang=${idLangFor(locale)}`)
-      .then((r) => r.json())
-      .then((d: { manufacturers?: Manu[] }) => {
-        const found = (d.manufacturers ?? []).find((m) => String(m.id_manufacturer) === id) ?? null;
-        setManu(found);
-      })
-      .catch(() => {});
-  }, [id, locale]);
-
-  // Produits de la marque.
-  useEffect(() => {
-    if (!id) return;
-    setLoading(true);
-    fetch(`/api/products?id_manufacturer=${encodeURIComponent(id)}&limit=48&id_lang=${idLangFor(locale)}`)
-      .then((r) => r.json())
-      .then((d: { products?: ProductCardData[] }) => setProducts((d.products ?? []).map(toCard)))
-      .catch(() => setProducts([]))
-      .finally(() => setLoading(false));
-  }, [id, locale]);
 
   const name = (manu?.name ?? '').trim() || t('fallbackName');
   const blurbKey = name.toLowerCase();
@@ -65,7 +32,7 @@ export default function BrandClient() {
           <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8CC63F' }}>{t('partner')}</div>
           <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '42px', color: '#fff', margin: '10px 0 0' }}>{name}</h1>
           <p style={{ fontSize: '14.5px', lineHeight: 1.6, color: '#D4D4D4', margin: '14px 0 0' }}>{blurb}</p>
-          <div style={{ fontSize: '13px', color: '#B7E486', marginTop: '14px', fontWeight: 600 }}>{loading ? tc('loading') : t('productsCount', { count })}</div>
+          <div style={{ fontSize: '13px', color: '#B7E486', marginTop: '14px', fontWeight: 600 }}>{t('productsCount', { count })}</div>
         </div>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <div style={{ background: 'rgba(255,255,255,.10)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,.18)', borderRadius: '11px', padding: '14px 18px', color: '#fff', fontSize: '13px' }}>{t('directSourcing')}</div>
@@ -73,7 +40,7 @@ export default function BrandClient() {
         </div>
       </div>
 
-      {!loading && count === 0 ? (
+      {count === 0 ? (
         <div style={{ padding: '60px 0', textAlign: 'center', color: '#8A8170', fontSize: '15px' }}>
           {t('noProducts')}
         </div>

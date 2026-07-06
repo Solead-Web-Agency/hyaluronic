@@ -311,6 +311,8 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'link_rewrite' => $p->link_rewrite,
             'description' => $p->description,
             'description_short' => $p->description_short,
+            'meta_title' => (string) $p->meta_title,
+            'meta_description' => (string) $p->meta_description,
             'price_incl_tax' => (float) Tools::ps_round($p->getPrice(true), 2),
             'price_excl_tax' => (float) Tools::ps_round($p->getPrice(false), 2),
             'manufacturer' => $p->id_manufacturer ? Manufacturer::getNameById((int) $p->id_manufacturer) : null,

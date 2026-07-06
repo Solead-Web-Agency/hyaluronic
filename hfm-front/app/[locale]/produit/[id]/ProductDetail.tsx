@@ -29,15 +29,8 @@ export type ProductView = {
 
 type TabKey = 'description' | 'tech' | 'composition' | 'faq' | 'reviews';
 
-// Reformate les descriptions « <p><strong>Label :</strong> texte</p> » (anciens
-// contenus générés) en vraies sections titrées « <h3>Label</h3><p>texte</p> ».
-// Le deux-points est exigé : un simple nom en gras en début de phrase reste intact.
-function structureDescription(html: string): string {
-  return html
-    .replace(/<p[^>]*>\s*<strong>([^<]{2,80}?)\s*:\s*<\/strong>\s*:?\s*/gi, '<h3>$1</h3><p>')
-    .replace(/<p[^>]*>\s*<strong>([^<]{2,80}?)\s*<\/strong>\s*:\s*/gi, '<h3>$1</h3><p>')
-    .replace(/<p[^>]*>\s*<\/p>/gi, '');
-}
+// Les descriptions arrivent DÉJÀ sanitisées et structurées par le serveur
+// (lib/sanitize.ts, appliqué dans page.tsx) : le client ne fait que rendre.
 
 // Icônes filaires (cohérentes avec le reste du site).
 const icons = {
@@ -241,7 +234,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
         <div style={{ ...card, borderTopLeftRadius: 0, padding: '30px 34px' }}>
           {tab === 'description' ? (
             product.description
-              ? <div className="hfm-richtext" style={{ fontSize: '15px', lineHeight: 1.7, color: '#3A3A36' }} dangerouslySetInnerHTML={{ __html: structureDescription(product.description) }} />
+              ? <div className="hfm-richtext" style={{ fontSize: '15px', lineHeight: 1.7, color: '#3A3A36' }} dangerouslySetInnerHTML={{ __html: product.description }} />
               : <div style={{ color: '#8A8170', fontSize: '14px' }}>—</div>
           ) : null}
 

@@ -158,15 +158,113 @@ class HfmCache
     }
 
     /**
-     * Instance du backend de cache PrestaShop, ou null si indisponible.
-     * On isole l'appel pour ne jamais laisser remonter d'exception.
+     * Instance du backend de cache.
+     *
+     * On N'UTILISE PLUS Cache::getInstance() : sur une install headless le système de
+     * cache PrestaShop est souvent désactivé (PS_CACHING_SYSTEM=false -> getInstance()
+     * renvoie null), et le bridge ne cacherait alors jamais rien (chaque requête taperait
+     * la base). Le cache du bridge est une préoccupation SÉPARÉE de la boutique : on
+     * utilise notre propre store fichier, autonome et toujours actif.
+     *
+     * @return HfmFileCache|null
      */
     protected static function backend()
     {
-        try {
-            return Cache::getInstance();
-        } catch (\Throwable $e) {
-            return null;
+        static $backend = false; // false = pas encore initialisé, null = indisponible
+        if ($backend === false) {
+            try {
+                $backend = new HfmFileCache();
+            } catch (\Throwable $e) {
+                $backend = null;
+            }
         }
+        return $backend;
+    }
+}
+
+/**
+ * Cache fichier minimal et autonome pour le bridge (indépendant du système de cache
+ * PrestaShop). Interface compatible avec HfmCache::remember() : exists()/get()/set().
+ *
+ * - Chaque entrée = un fichier JSON {exp, d} nommé par la clé (déjà md5, sûre en FS).
+ * - Écriture atomique (fichier temporaire + rename) : robuste en concurrence.
+ * - Expiration paresseuse : une entrée périmée est traitée comme absente.
+ * La purge par tag reste gérée par HfmCache (versionnage de clé) : les fichiers des
+ * anciennes versions deviennent inatteignables et sont évincés au fil de l'eau.
+ */
+class HfmFileCache
+{
+    /** @var string Répertoire de stockage (créé si absent). */
+    protected $dir;
+
+    public function __construct()
+    {
+        $base = defined('_PS_CACHE_DIR_') ? _PS_CACHE_DIR_ : (_PS_ROOT_DIR_ . '/var/cache/');
+        $this->dir = rtrim($base, '/') . '/hfm_bridge/';
+        if (!is_dir($this->dir)) {
+            @mkdir($this->dir, 0755, true);
+        }
+        if (!is_dir($this->dir) || !is_writable($this->dir)) {
+            throw new \RuntimeException('HfmFileCache: répertoire non inscriptible');
+        }
+    }
+
+    protected function path($key)
+    {
+        // La clé est déjà bornée et FS-safe (préfixe + md5) ; on double-sécurise.
+        return $this->dir . preg_replace('/[^a-zA-Z0-9_]/', '', (string) $key) . '.json';
+    }
+
+    public function exists($key)
+    {
+        return $this->get($key) !== false;
+    }
+
+    /**
+     * @return string|false Charge utile brute (string) ou false si absent/périmé.
+     */
+    public function get($key)
+    {
+        $file = $this->path($key);
+        if (!is_file($file)) {
+            return false;
+        }
+        $raw = @file_get_contents($file);
+        if ($raw === false || $raw === '') {
+            return false;
+        }
+        $env = json_decode($raw, true);
+        if (!is_array($env) || !isset($env['exp'], $env['d'])) {
+            return false;
+        }
+        if ((int) $env['exp'] < time()) {
+            @unlink($file); // périmé : on nettoie
+            return false;
+        }
+        return (string) $env['d'];
+    }
+
+    /**
+     * @param string $key
+     * @param string $value Charge utile déjà sérialisée par HfmCache (JSON).
+     * @param int    $ttl   Secondes.
+     */
+    public function set($key, $value, $ttl)
+    {
+        $env = json_encode(['exp' => time() + (int) $ttl, 'd' => (string) $value], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        if ($env === false) {
+            return false;
+        }
+        $file = $this->path($key);
+        $tmp = $file . '.' . getmypid() . '.tmp';
+        if (@file_put_contents($tmp, $env, LOCK_EX) === false) {
+            return false;
+        }
+        // rename atomique : un lecteur voit soit l'ancien fichier, soit le nouveau.
+        if (!@rename($tmp, $file)) {
+            @unlink($tmp);
+            return false;
+        }
+        return true;
     }
 }

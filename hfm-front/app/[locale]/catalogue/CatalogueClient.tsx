@@ -1,18 +1,26 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useRouter } from '@/i18n/navigation';
-import { useSearchParams } from 'next/navigation';
 import { toCard, type Card } from '@/lib/cardModel';
 import type { ProductCard as ProductCardData } from '@/lib/ps';
-import { idLangFor } from '@/lib/i18n-config';
 import { useAutoLoad } from '@/lib/useAutoLoad';
 import ProductCard from '../../components/ProductCard';
 
-type Cat = { id_category: number; id_parent: number; name: string; link_rewrite: string; nb_products: number };
-type Manu = { id_manufacturer: number; name: string; nb_products: number };
+export type Cat = { id_category: number; id_parent: number; name: string; link_rewrite: string; nb_products: number };
+export type Manu = { id_manufacturer: number; name: string; nb_products: number };
+
+// Tout vient du SERVEUR (SEO) : produits du filtre courant, taxonomie ET filtres actifs.
+// Pas de useSearchParams ici — il ferait basculer le rendu côté client ; un changement
+// de filtre navigue (router.push) et la page se re-rend côté serveur avec les props à jour.
+export type CatalogueInitial = {
+  search: { category: string | null; brand: string | null; q: string | null; filter: string | null };
+  products: ProductCardData[];
+  cats: Cat[];
+  manus: Manu[];
+};
 
 const SORT_DEFS: [string, 'sortPop' | 'sortPriceAsc' | 'sortPriceDesc'][] = [
   ['pop', 'sortPop'],
@@ -20,48 +28,21 @@ const SORT_DEFS: [string, 'sortPop' | 'sortPriceAsc' | 'sortPriceDesc'][] = [
   ['price-desc', 'sortPriceDesc'],
 ];
 
-export default function CatalogueClient() {
+export default function CatalogueClient({ initial }: { initial: CatalogueInitial }) {
   const t = useTranslations('catalogue');
   const tc = useTranslations('common');
-  const locale = useLocale();
   const router = useRouter();
-  const search = useSearchParams();
-  const category = search.get('category');
-  const brand = search.get('brand');
-  const q = search.get('q');
-  const filter = search.get('filter'); // onglet Promos & Top : new | best | promo | nolido
+  const { category, brand, q, filter } = initial.search;
 
-  const [cats, setCats] = useState<Cat[]>([]);
-  const [manus, setManus] = useState<Manu[]>([]);
-  const [products, setProducts] = useState<Card[]>([]);
-  const [loading, setLoading] = useState(true);
+  const cats = initial.cats;
+  const manus = initial.manus;
+  const products = useMemo(() => initial.products.map(toCard), [initial.products]);
+  const loading = false;
   const [sort, setSort] = useState('pop');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(q ?? '');
 
-  // Taxonomie (catégories + marques) pour la sidebar.
-  useEffect(() => {
-    fetch(`/api/taxonomy?action=categories&id_lang=${idLangFor(locale)}`).then((r) => r.json()).then((d) => setCats(d.categories ?? [])).catch(() => {});
-    fetch(`/api/taxonomy?action=manufacturers&id_lang=${idLangFor(locale)}`).then((r) => r.json()).then((d) => setManus(d.manufacturers ?? [])).catch(() => {});
-  }, [locale]);
-
   useEffect(() => { setSearchTerm(q ?? ''); }, [q]);
-
-  // Produits selon le filtre actif dans l'URL.
-  useEffect(() => {
-    setLoading(true);
-    const params = new URLSearchParams({ limit: '300' });
-    params.set('id_lang', String(idLangFor(locale)));
-    if (category) params.set('id_category', category);
-    else if (brand) params.set('id_manufacturer', brand);
-    else if (q) params.set('q', q);
-    else if (filter) params.set('filter', filter);
-    fetch(`/api/products?${params.toString()}`)
-      .then((r) => r.json())
-      .then((d) => setProducts((d.products ?? []).map((p: ProductCardData) => toCard(p))))
-      .catch(() => setProducts([]))
-      .finally(() => setLoading(false));
-  }, [category, brand, q, filter, locale]);
 
   // Navigation vers un filtre (remplace l'URL).
   const go = (next: { category?: number; brand?: number; q?: string } | null) => {

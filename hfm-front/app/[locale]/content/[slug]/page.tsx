@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
+import { sanitizeCatalogHtml } from '@/lib/sanitize';
 import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
@@ -49,7 +50,9 @@ export default async function ContentPage({ params }: { params: Promise<{ locale
   if (!page) notFound();
 
   const t = await getTranslations('content');
-  const { html, toc, subtitle } = prepareCms(page.content);
+  // Sanitisation liste blanche AVANT la préparation (les ancres de sommaire
+  // sont ajoutées ensuite par prepareCms et survivent donc au nettoyage).
+  const { html, toc, subtitle } = prepareCms(sanitizeCatalogHtml(page.content));
   const updated = formatDate(page.date_upd, locale);
   const hasToc = toc.length >= 2;
   // Numérote le sommaire seulement si les titres ne portent pas déjà un numéro/« Article ».
