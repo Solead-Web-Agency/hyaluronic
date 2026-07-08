@@ -78,7 +78,7 @@ export default function SearchOverlay() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {pop.map((p) => <div key={p.id} onClick={() => { closeSearch(); router.push(`/produit/${p.id}`); }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '13px', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '11px', padding: '10px 13px', transition: 'border-color .2s ease' }}><div style={{ width: '46px', height: '46px', flex: 'none', borderRadius: '8px', overflow: 'hidden', background: '#F2F0EA' }}>{p.img ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={p.img} alt="" style={{ width: '46px', height: '46px', objectFit: 'cover', display: 'block' }} />
+                    <img src={p.img} alt="" loading="lazy" decoding="async" width={46} height={46} style={{ width: '46px', height: '46px', objectFit: 'cover', display: 'block' }} />
                   ) : null}</div><div style={{ flex: 1, minWidth: 0 }}>{p.brand ? <div style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '.07em', textTransform: 'uppercase', color: '#8A8170' }}>{p.brand}</div> : null}<div style={{ fontFamily: "'Spectral',serif", fontSize: '14px', color: '#34352F', lineHeight: 1.25, marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div></div><span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '13.5px', color: '#434343', whiteSpace: 'nowrap' }}>{fmt(p.ht)} €</span></div>)}
                 </div>
               </div>

@@ -90,6 +90,8 @@ export default function ProductCard({ product }: { product: Card }) {
           <img
             src={product.img}
             alt={product.name}
+            loading="lazy"
+            decoding="async"
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', background: '#fff' }}
           />
         ) : null}

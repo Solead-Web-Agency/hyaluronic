@@ -108,7 +108,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           <div style={{ display: 'block', width: '100%', aspectRatio: '1/1', borderRadius: '10px', overflow: 'hidden', background: 'repeating-linear-gradient(135deg,#F7F6F2,#F7F6F2 9px,#F1EFE8 9px,#F1EFE8 18px)', border: '1px solid #ECEAE3' }}>
             {img ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={img} alt={product.name} style={{ display: 'block', width: '100%', aspectRatio: '1/1', objectFit: 'cover', background: '#fff' }} />
+              <img src={img} alt={product.name} fetchPriority="high" decoding="async" style={{ display: 'block', width: '100%', aspectRatio: '1/1', objectFit: 'cover', background: '#fff' }} />
             ) : null}
           </div>
           {product.images.length ? (
@@ -116,7 +116,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
               {product.images.map((src, i) => (
                 <button key={i} type="button" onClick={() => setImgIdx(i)} aria-label={`${product.name} — ${i + 1}`} style={{ padding: 0, width: '74px', height: '74px', borderRadius: '7px', overflow: 'hidden', cursor: 'pointer', background: '#F7F6F2', border: i === imgIdx ? '1.5px solid #8CC63F' : '1px solid #ECEAE3' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', background: '#fff' }} />
+                  <img src={src} alt="" loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', background: '#fff' }} />
                 </button>
               ))}
             </div>

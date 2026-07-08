@@ -21,7 +21,7 @@ export default function QuickView() {
         <div style={{ display: 'block', width: '100%', minHeight: '320px', overflow: 'hidden', background: 'repeating-linear-gradient(135deg,#F7F6F2,#F7F6F2 9px,#F1EFE8 9px,#F1EFE8 18px)' }}>
           {p.img ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={p.img} alt={p.name} style={{ display: 'block', width: '100%', height: '100%', minHeight: '320px', objectFit: 'cover' }} />
+            <img src={p.img} alt={p.name} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', minHeight: '320px', objectFit: 'cover' }} />
           ) : null}
         </div>
         <div style={{ padding: '34px', position: 'relative' }}>

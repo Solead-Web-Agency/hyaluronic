@@ -62,9 +62,9 @@ const titleStyle: React.CSSProperties = {
 // ---------- Logos des moyens de paiement (images officielles dans public/pay/) ----------
 const CardLogos: React.ReactElement = (
   <span style={{ display: 'inline-flex', gap: '5px', flex: 'none', alignItems: 'center' }}>
-    <img src="/pay/visa.svg" alt="Visa" style={{ height: '23px', width: 'auto', display: 'block' }} />
-    <img src="/pay/mastercard.svg" alt="Mastercard" style={{ height: '23px', width: 'auto', display: 'block' }} />
-    <img src="/pay/cb.svg" alt="CB" style={{ height: '23px', width: 'auto', display: 'block' }} />
+    <img src="/pay/visa.svg" alt="Visa" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
+    <img src="/pay/mastercard.svg" alt="Mastercard" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
+    <img src="/pay/cb.svg" alt="CB" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
   </span>
 );
 const PaypalLogo: React.ReactElement = (

@@ -88,11 +88,16 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         } else {
             $rows = Product::getProducts($idLang, $start, $limit, 'id_product', 'DESC', false, true);
         }
+        // Batch : une seule passe groupée pour toutes les cartes de la liste.
+        $ids = array_map(function ($r) { return (int) $r['id_product']; }, (array) $rows);
+        $cards = $this->cardsForIds($ids, $idLang);
         $items = [];
-        foreach ((array) $rows as $r) {
-            $items[] = $this->card((int) $r['id_product'], $idLang);
+        foreach ($ids as $id) {
+            if (isset($cards[$id])) {
+                $items[] = $cards[$id];
+            }
         }
-        return ['page' => $page, 'limit' => $limit, 'count' => count($items), 'products' => array_values(array_filter($items))];
+        return ['page' => $page, 'limit' => $limit, 'count' => count($items), 'products' => $items];
     }
 
     /**
@@ -147,17 +152,25 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
 
         $seen = [$idProduct => true];
         // Transforme des lignes produit en cartes uniques (jamais déjà vues).
+        // Transforme des lignes produit en cartes uniques (jamais déjà vues), en
+        // GROUPANT le chargement (cardsForIds) : ~5 requêtes par section au lieu de N.
         $cards = function ($rows, $max) use (&$seen, $idLang) {
-            $out = [];
+            $ids = [];
             foreach ((array) $rows as $r) {
                 $id = (int) (isset($r['id_product']) ? $r['id_product'] : 0);
-                if (!$id || isset($seen[$id]) || count($out) >= $max) {
-                    continue;
+                if ($id && !isset($seen[$id])) {
+                    $ids[] = $id;
                 }
-                $card = $this->card($id, $idLang);
-                if ($card) {
+            }
+            $loaded = $this->cardsForIds($ids, $idLang);
+            $out = [];
+            foreach ($ids as $id) {
+                if (count($out) >= $max) {
+                    break;
+                }
+                if (isset($loaded[$id]) && !isset($seen[$id])) {
                     $seen[$id] = true;
-                    $out[] = $card;
+                    $out[] = $loaded[$id];
                 }
             }
             return $out;
@@ -252,27 +265,123 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
 
     protected function card($idProduct, $idLang)
     {
-        $p = new Product($idProduct, false, $idLang);
-        if (!Validate::isLoadedObject($p) || !$p->active) {
-            return null;
+        $cards = $this->cardsForIds([(int) $idProduct], $idLang);
+        return isset($cards[(int) $idProduct]) ? $cards[(int) $idProduct] : null;
+    }
+
+    /**
+     * Construit les cartes produit d'une LISTE d'ids en ~5 requêtes GROUPÉES au lieu
+     * d'une boucle N+1 (elle faisait new Product + getCover + getQuantity + outOfStock
+     * + rpps par produit, soit ~1800 requêtes pour 300 cartes). Seul le prix reste
+     * calculé par produit via le moteur PS (getPriceStatic, résultat identique à
+     * getPrice) — irréductible et correct.
+     *
+     * @param int[] $ids
+     * @param int   $idLang
+     *
+     * @return array<int, array> [id_product => carte] ; produits inactifs absents.
+     */
+    protected function cardsForIds(array $ids, $idLang)
+    {
+        $ids = array_values(array_unique(array_filter(array_map('intval', $ids))));
+        if (empty($ids)) {
+            return [];
         }
-        $cover = Product::getCover($idProduct);
-        $idImage = $cover ? (int) $cover['id_image'] : 0;
-        $qty = (int) Product::getQuantity($idProduct);
-        return [
-            'id_product' => (int) $p->id,
-            'name' => $p->name,
-            'reference' => $p->reference,
-            'link_rewrite' => $p->link_rewrite,
-            'brand' => $p->id_manufacturer ? Manufacturer::getNameById((int) $p->id_manufacturer) : null,
-            'price_incl_tax' => (float) Tools::ps_round($p->getPrice(true), 2),
-            'price_excl_tax' => (float) Tools::ps_round($p->getPrice(false), 2),
-            'image' => $idImage ? $this->context->link->getImageLink($p->link_rewrite, $idImage, 'home_default') : null,
-            'quantity' => $qty,
-            'available' => $this->availability($idProduct, $qty) !== 'unavailable',
-            'availability' => $this->availability($idProduct, $qty),
-            'rpps_required' => $this->productRequiresRpps($idProduct),
-        ];
+        $idLang = (int) $idLang;
+        $idShop = (int) $this->context->shop->id;
+        $in = implode(',', $ids);
+        $db = Db::getInstance();
+
+        // 1) Champs de base (produits ACTIFS uniquement) + nom localisé + marque.
+        $base = [];
+        $rows = $db->executeS(
+            'SELECT p.id_product, p.id_manufacturer, p.reference, pl.name, pl.link_rewrite, m.name AS brand
+             FROM ' . _DB_PREFIX_ . 'product p
+             INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                ON (ps.id_product = p.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1)
+             INNER JOIN ' . _DB_PREFIX_ . 'product_lang pl
+                ON (pl.id_product = p.id_product AND pl.id_lang = ' . $idLang . ' AND pl.id_shop = ' . $idShop . ')
+             LEFT JOIN ' . _DB_PREFIX_ . 'manufacturer m ON m.id_manufacturer = p.id_manufacturer
+             WHERE p.id_product IN (' . $in . ')'
+        );
+        foreach ((array) $rows as $r) {
+            $base[(int) $r['id_product']] = $r;
+        }
+        if (empty($base)) {
+            return [];
+        }
+
+        // 2) Couvertures (une image de couverture par produit).
+        $covers = [];
+        $rows = $db->executeS(
+            'SELECT id_product, id_image FROM ' . _DB_PREFIX_ . 'image
+             WHERE cover = 1 AND id_product IN (' . $in . ')'
+        );
+        foreach ((array) $rows as $r) {
+            $covers[(int) $r['id_product']] = (int) $r['id_image'];
+        }
+
+        // 3) Stock (quantité + réglage out_of_stock) — pour la dispo en 3 états.
+        $stock = [];
+        $rows = $db->executeS(
+            'SELECT id_product, quantity, out_of_stock FROM ' . _DB_PREFIX_ . 'stock_available
+             WHERE id_product IN (' . $in . ') AND id_product_attribute = 0 AND id_shop = ' . $idShop
+        );
+        foreach ((array) $rows as $r) {
+            $stock[(int) $r['id_product']] = ['qty' => (int) $r['quantity'], 'oos' => (int) $r['out_of_stock']];
+        }
+
+        // 4) Flag RPPS (produits réservés aux professionnels).
+        $rpps = [];
+        $rows = $db->executeS(
+            'SELECT DISTINCT fp.id_product FROM ' . _DB_PREFIX_ . 'feature_product fp
+             JOIN ' . _DB_PREFIX_ . 'feature_lang fl ON fl.id_feature = fp.id_feature
+             WHERE fl.name = \'RPPS\' AND fp.id_product IN (' . $in . ')'
+        );
+        foreach ((array) $rows as $r) {
+            $rpps[(int) $r['id_product']] = true;
+        }
+
+        // Assemblage — l'ordre d'entrée est préservé (utile pour le tri des listes).
+        $out = [];
+        foreach ($ids as $id) {
+            if (!isset($base[$id])) {
+                continue; // produit inactif / hors boutique : exclu comme avant
+            }
+            $b = $base[$id];
+            $qty = isset($stock[$id]) ? $stock[$id]['qty'] : 0;
+            $oos = isset($stock[$id]) ? $stock[$id]['oos'] : 0;
+            $availability = $this->availabilityFromStock($qty, $oos);
+            $idImage = isset($covers[$id]) ? $covers[$id] : 0;
+
+            $out[$id] = [
+                'id_product' => $id,
+                'name' => $b['name'],
+                'reference' => $b['reference'],
+                'link_rewrite' => $b['link_rewrite'],
+                'brand' => $b['id_manufacturer'] ? $b['brand'] : null,
+                'price_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, true), 2),
+                'price_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, false), 2),
+                'image' => $idImage ? $this->context->link->getImageLink($b['link_rewrite'], $idImage, 'home_default') : null,
+                'quantity' => $qty,
+                'available' => $availability !== 'unavailable',
+                'availability' => $availability,
+                'rpps_required' => isset($rpps[$id]),
+            ];
+        }
+        return $out;
+    }
+
+    /**
+     * Dispo en 3 états à partir de la quantité et du réglage out_of_stock (0/1/2)
+     * DÉJÀ lus en base (pas de requête ici, contrairement à availability()).
+     */
+    protected function availabilityFromStock($qty, $oos)
+    {
+        if ((int) $qty > 0) {
+            return 'in_stock';
+        }
+        return Product::isAvailableWhenOutOfStock((int) $oos) ? 'backorder' : 'unavailable';
     }
 
     protected function single($idProduct, $idLang)

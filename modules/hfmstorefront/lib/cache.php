@@ -33,10 +33,13 @@ class HfmCache
     const TAG_PRODUCTS = 'products';
     const TAG_CONTENT = 'content';
 
-    /** TTL par défaut (secondes), alignés sur le contrat partagé. */
-    const TTL_TAXONOMY = 3600;
-    const TTL_PRODUCTS = 300;
-    const TTL_CONTENT = 3600;
+    /** TTL par défaut (secondes), alignés sur le contrat partagé.
+     *  Longs car la purge est ÉVÉNEMENTIELLE : tout changement catalogue (produit,
+     *  catégorie, stock via actionUpdateQuantity, CMS) incrémente la version du tag
+     *  -> fraîcheur instantanée. Le TTL n'est qu'un filet d'éviction naturelle. */
+    const TTL_TAXONOMY = 86400; // 24 h
+    const TTL_PRODUCTS = 86400; // 24 h
+    const TTL_CONTENT = 86400;  // 24 h
 
     /** Préfixe de clé Configuration pour les compteurs de version par tag. */
     const VER_PREFIX = 'HFM_CACHE_VER_';

@@ -6,10 +6,12 @@ export const CACHE_TAGS = {
   content: 'content', // pages CMS
 } as const;
 
+// TTL longs (24 h) car la purge est ÉVÉNEMENTIELLE : le module PS notifie /api/revalidate
+// à chaque changement catalogue -> fraîcheur instantanée. Le TTL n'est qu'un filet.
 export const CACHE_TTL = {
-  taxonomy: 3600,
-  products: 300,
-  content: 3600,
+  taxonomy: 86400,
+  products: 86400,
+  content: 86400,
 } as const;
 
 export type CacheTag = keyof typeof CACHE_TAGS;

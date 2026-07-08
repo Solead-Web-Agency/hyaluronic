@@ -34,10 +34,11 @@ const greenBtn: React.CSSProperties = {
   display: 'inline-block', textDecoration: 'none',
 };
 
-function imgSlot(src: string, href: string, label: string, sub?: string) {
+function imgSlot(src: string, href: string, label: string, sub?: string, priority = false) {
   return (
     <a href={href} aria-label={label} style={{ display: 'block', position: 'relative', width: '100%', height: '100%', minHeight: '120px', background: '#F7F6F2', textDecoration: 'none' }}>
-      <img src={src} alt={label} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+      {/* Hero = au-dessus de la ligne de flottaison : chargement prioritaire (LCP), jamais lazy. */}
+      <img src={src} alt={label} decoding="async" fetchPriority={priority ? 'high' : undefined} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: sub ? '20px' : '14px', pointerEvents: 'none', background: 'linear-gradient(0deg,rgba(25,25,25,.82),rgba(25,25,25,0))' }}>
         {sub ? <div style={{ fontSize: '10.5px', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: '#CDE8A6' }}>{sub}</div> : null}
         <div style={{ fontFamily: "'Spectral',serif", fontSize: sub ? '22px' : '17px', color: '#fff', marginTop: sub ? '4px' : 0 }}>{label}</div>
@@ -110,7 +111,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '14px', height: '480px' }}>
-              <div style={{ gridRow: 'span 2', position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot('/hero/hero-1.png', '/produit/6409', t('heroImgTop'), t('heroImgTopSub'))}</div>
+              <div style={{ gridRow: 'span 2', position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot('/hero/hero-1.png', '/produit/6409', t('heroImgTop'), t('heroImgTopSub'), true)}</div>
               <div style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot('/hero/hero-2.png', '/produit/6408', t('heroImgLips'))}</div>
               <div style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2DECF' }}>{imgSlot('/hero/hero-3.png', '/produit/449', t('heroImgSkin'))}</div>
             </div>
@@ -150,7 +151,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <DragCarousel className="hfm-carousel" style={{ display: 'flex', gap: '16px', marginTop: '28px', overflowX: 'auto', padding: '4px 2px 16px' }}>
             {ZONES.map((z) => (
               <a key={z.key} href={`/zone/${z.key}`} style={{ flex: 'none', width: '236px', cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 14px 34px -28px rgba(40,50,25,.5)', textDecoration: 'none' }}>
-                <div style={{ position: 'relative', height: '148px', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/zones/${z.key}.png`} alt={t(z.labelKey)} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+                <div style={{ position: 'relative', height: '148px', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/zones/${z.key}.png`} alt={t(z.labelKey)} loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} /></div>
                 <div style={{ padding: '15px 17px 17px' }}><div style={{ fontFamily: "'Spectral',serif", fontSize: '17px', color: '#2B2B2B' }}>{t(z.labelKey)}</div><div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '3px' }}>{t('zoneRefs', { count: z.count })}</div></div>
               </a>
             ))}
@@ -172,7 +173,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
             <div style={{ position: 'relative' }}>
               {/* Export Figma avec coins arrondis + ombre portée intégrés : rendu tel quel. */}
-              <img src="/edito/cabinet.png" alt="" style={{ display: 'block', width: '100%', height: 'auto' }} />
+              <img src="/edito/cabinet.png" alt="" loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: 'auto' }} />
               <div className="hfm-badge-bl" style={{ position: 'absolute', left: '-22px', bottom: '-22px', background: 'rgba(255,255,255,.65)', backdropFilter: 'blur(16px) saturate(150%)', WebkitBackdropFilter: 'blur(16px) saturate(150%)', border: '1px solid rgba(255,255,255,.7)', boxShadow: '0 22px 44px -26px rgba(40,50,25,.5)', borderRadius: '16px', padding: '18px 22px' }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}><span style={{ fontFamily: "'Spectral',serif", fontSize: '30px', color: '#2B2B2B' }}>{t('editoBadgeDelay')}</span></div>
                 <div style={{ fontSize: '12.5px', color: '#55606F', marginTop: '2px' }}>{t('editoBadgeDelaySub')}</div>
@@ -205,7 +206,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '18px', marginTop: '28px' }}>
             {BLOG_KEYS.map((i) => (
               <div key={i} style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', overflow: 'hidden' }}>
-                <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/blog/blog${i}.png`} alt={t(`blog${i}Title`)} style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+                <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/blog/blog${i}.png`} alt={t(`blog${i}Title`)} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
                 <div style={{ padding: '20px' }}><div style={{ display: 'flex', gap: '10px', fontSize: '11px', color: '#8A8170', textTransform: 'uppercase', letterSpacing: '.06em' }}><span style={{ color: '#8CC63F', fontWeight: 600 }}>{t(`blog${i}Cat`)}</span><span>·</span><span>{t(`blog${i}Date`)}</span></div><div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', lineHeight: 1.3, color: '#1B2433', marginTop: '10px' }}>{t(`blog${i}Title`)}</div><div style={{ fontSize: '13px', fontWeight: 600, color: '#434343', marginTop: '14px' }}>{t('readArticle')}</div></div>
               </div>
             ))}

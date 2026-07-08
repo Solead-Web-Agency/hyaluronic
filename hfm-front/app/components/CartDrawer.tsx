@@ -46,7 +46,7 @@ export default function CartDrawer() {
               {cart.products.map((ci) => (
                 <div key={ci.id_product} style={{ display: 'flex', gap: '14px', padding: '18px 0', borderBottom: '1px solid #E7E3DA' }}>
                   <div style={{ width: '64px', height: '64px', flex: 'none', borderRadius: '6px', overflow: 'hidden', background: '#F7F6F2', border: '1px solid #ECEAE3' }}>
-                    {ci.image ? <img src={ci.image} alt={ci.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /> : null}
+                    {ci.image ? <img src={ci.image} alt={ci.name} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /> : null}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontFamily: "'Spectral',serif", fontSize: '14px', color: '#1B2433', lineHeight: 1.3, marginTop: '2px' }}>{ci.name}</div>
