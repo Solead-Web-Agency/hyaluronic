@@ -274,7 +274,8 @@
     "reviewsTranslated": "Avis traduit",
     "reviewsPublishedOn": "Publié le",
     "reviewsOrderedOn": "Commande du",
-    "reviewsReply": "Réponse du vendeur"
+    "reviewsReply": "Réponse du vendeur",
+    "reviewsCount": "{count} avis"
   },
   "quickView": {
     "refStock": "Réf. {reference} · {status}.",

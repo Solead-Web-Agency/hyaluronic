@@ -365,6 +365,19 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $catSlug[(int) $r['id_product']] = $r['cat_slug'];
         }
 
+        // 6) Note moyenne « Société des Avis Garantis » (étoiles sur les cartes), produits notés.
+        $ratings = [];
+        $rows = $db->executeS(
+            'SELECT product_id, rate, reviews_nb FROM `' . _DB_PREFIX_ . 'steavisgarantis_average_rating`
+             WHERE id_lang = \'' . (int) $idLang . '\' AND reviews_nb > 0 AND product_id IN (' . $in . ')'
+        );
+        foreach ((array) $rows as $r) {
+            $ratings[(int) $r['product_id']] = [
+                'rate' => (float) $r['rate'],
+                'count' => (int) $r['reviews_nb'],
+            ];
+        }
+
         // Assemblage — l'ordre d'entrée est préservé (utile pour le tri des listes).
         $out = [];
         foreach ($ids as $id) {
@@ -383,6 +396,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                 'reference' => $b['reference'],
                 'link_rewrite' => $b['link_rewrite'],
                 'category' => isset($catSlug[$id]) ? $catSlug[$id] : null,
+                'rating' => isset($ratings[$id]) ? $ratings[$id] : null,
                 'brand' => $b['id_manufacturer'] ? $b['brand'] : null,
                 'price_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, true), 2),
                 'price_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, false), 2),

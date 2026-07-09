@@ -49,6 +49,7 @@ export type ProductCard = {
   reference: string;
   link_rewrite: string;
   category: string | null;
+  rating: { rate: number; count: number } | null;
   brand: string | null;
   price_incl_tax: number;
   price_excl_tax: number;

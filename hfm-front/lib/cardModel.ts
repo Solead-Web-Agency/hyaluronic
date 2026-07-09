@@ -13,6 +13,7 @@ export type Card = {
   stock: 'in' | 'backorder' | 'out';
   link_rewrite: string;
   category: string | null;
+  rating: { rate: number; count: number } | null;
   reference: string;
   rpps_required: boolean;
 };
@@ -31,6 +32,7 @@ export function toCard(p: ProductCard): Card {
       : p.available ? 'in' : 'out', // anciens payloads sans le champ availability
     link_rewrite: p.link_rewrite,
     category: p.category ?? null,
+    rating: p.rating ?? null,
     reference: p.reference,
     rpps_required: p.rpps_required ?? false,
   };

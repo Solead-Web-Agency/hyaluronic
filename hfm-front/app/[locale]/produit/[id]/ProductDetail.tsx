@@ -147,6 +147,17 @@ export default function ProductDetail({ product, related }: { product: ProductVi
         <div>
           {product.brand ? <div style={{ fontSize: '11.5px', fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: '#8A8170' }}>{product.brand}</div> : null}
           <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '34px', lineHeight: 1.2, color: '#2B2B2B', margin: '8px 0 0' }}>{product.name}</h1>
+          {product.reviews && product.reviews.count > 0 ? (
+            <button type="button" onClick={() => setTab('reviews')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '12px', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+              <span style={{ display: 'inline-flex', gap: '1px' }} aria-label={`${product.reviews.rate}/5`}>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill={i <= Math.round(product.reviews!.rate) ? '#f5c518' : '#E2DECF'} stroke="none"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17l-5.2 2.6 1-5.8L3.5 9.7l5.9-.9z" /></svg>
+                ))}
+              </span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: '#1B2433' }}>{product.reviews.rate10}/10</span>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: '#5E8E1F', textDecoration: 'underline' }}>{t('reviewsCount', { count: product.reviews.count })}</span>
+            </button>
+          ) : null}
           {product.descriptionShort ? (
             <div style={{ fontSize: '15px', lineHeight: 1.6, color: '#55606F', margin: '14px 0 0' }} dangerouslySetInnerHTML={{ __html: product.descriptionShort }} />
           ) : null}

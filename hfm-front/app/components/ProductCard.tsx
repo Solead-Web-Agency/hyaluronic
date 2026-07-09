@@ -215,6 +215,18 @@ export default function ProductCard({ product }: { product: Card }) {
         >
           {product.name}
         </Link>
+        {product.rating ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '1px' }}>
+            <span style={{ display: 'inline-flex', gap: '1px' }} aria-label={`${product.rating.rate}/5`}>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill={i <= Math.round(product.rating!.rate) ? '#f5c518' : '#E2DECF'} stroke="none">
+                  <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17l-5.2 2.6 1-5.8L3.5 9.7l5.9-.9z" />
+                </svg>
+              ))}
+            </span>
+            <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '11.5px', color: '#8A8170' }}>({product.rating.count})</span>
+          </div>
+        ) : null}
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '3px' }}>
           <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '19px', color: '#434343', letterSpacing: '-.01em' }}>
             {fmt(product.ht)} €
