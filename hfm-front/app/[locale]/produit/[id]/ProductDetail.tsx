@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useStore } from '../../../store';
@@ -65,6 +65,12 @@ export default function ProductDetail({ product, related }: { product: ProductVi
   const { addToCart } = useStore();
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState<TabKey>('description');
+  const tabsRef = useRef<HTMLElement>(null);
+  // Ouvre l'onglet Avis et scrolle jusqu'aux onglets (depuis le résumé étoilé sous le titre).
+  const goToReviews = () => {
+    setTab('reviews');
+    tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [imgIdx, setImgIdx] = useState(0);
   const img = product.images[imgIdx] ?? product.images[0] ?? null;
@@ -148,7 +154,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           {product.brand ? <div style={{ fontSize: '11.5px', fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: '#8A8170' }}>{product.brand}</div> : null}
           <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '34px', lineHeight: 1.2, color: '#2B2B2B', margin: '8px 0 0' }}>{product.name}</h1>
           {product.reviews && product.reviews.count > 0 ? (
-            <button type="button" onClick={() => setTab('reviews')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '12px', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+            <button type="button" onClick={goToReviews} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '12px', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/reviews/sag-cocarde.svg" alt="Société des Avis Garantis" width={11} height={21} style={{ display: 'block', flex: 'none' }} />
               <span style={{ display: 'inline-flex', gap: '1px' }} aria-label={`${product.reviews.rate}/5`}>
@@ -258,7 +264,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
       ) : null}
 
       {/* Onglets */}
-      <section style={{ marginTop: '40px' }}>
+      <section ref={tabsRef} style={{ marginTop: '40px', scrollMarginTop: '90px' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
           {TABS.map(({ key, label }) => (
             <button key={key} onClick={() => setTab(key)} style={{ flex: 'none', padding: '12px 20px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, cursor: 'pointer', background: tab === key ? '#fff' : 'transparent', color: tab === key ? '#2B2B2B' : '#6E7585', borderTop: tab === key ? '1px solid #E7E3DA' : '1px solid transparent', borderLeft: tab === key ? '1px solid #E7E3DA' : '1px solid transparent', borderRight: tab === key ? '1px solid #E7E3DA' : '1px solid transparent', borderBottom: 'none', borderRadius: '8px 8px 0 0' }}>{label}</button>
