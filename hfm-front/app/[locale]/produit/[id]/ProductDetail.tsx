@@ -365,8 +365,8 @@ function ReviewsBlock({ reviews }: { reviews: ProductReviews }) {
     <div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'center', justifyContent: 'space-between', padding: '22px', background: '#F7F6F2', border: '1px solid #ECEAE3', borderRadius: '12px', marginBottom: '26px' }}>
         <div style={{ minWidth: '160px' }}>
-          <div style={{ fontSize: '13px', color: '#55606F', fontWeight: 600 }}>{t('reviewsBy')}</div>
-          <div style={{ fontSize: '15px', fontWeight: 700, color: '#1B2433', margin: '2px 0 8px' }}>Société des Avis Garantis</div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/reviews/sag-logo.png" alt="Société des Avis Garantis" width={72} height={65} style={{ display: 'block', marginBottom: '10px' }} />
           {reviews.certificateUrl ? (
             <a href={reviews.certificateUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: '#5E8E1F', fontWeight: 600, textDecoration: 'none' }}>{t('reviewsCertificate')} →</a>
           ) : null}

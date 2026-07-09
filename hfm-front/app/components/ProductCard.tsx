@@ -216,7 +216,9 @@ export default function ProductCard({ product }: { product: Card }) {
           {product.name}
         </Link>
         {product.rating ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '1px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '1px' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/reviews/sag-cocarde.svg" alt="Société des Avis Garantis" width={9} height={17} style={{ display: 'block', flex: 'none' }} />
             <span style={{ display: 'inline-flex', gap: '1px' }} aria-label={`${product.rating.rate}/5`}>
               {[1, 2, 3, 4, 5].map((i) => (
                 <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill={i <= Math.round(product.rating!.rate) ? '#f5c518' : '#E2DECF'} stroke="none">
