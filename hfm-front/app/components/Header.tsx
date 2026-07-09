@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { idLangFor } from '@/lib/i18n-config';
@@ -47,6 +47,24 @@ export default function Header() {
   const [menu, setMenu] = useState<MenuCat[]>([]);
   const [acctOpen, setAcctOpen] = useState(false);
   const [openCat, setOpenCat] = useState<number | null>(null);
+
+  // Hover-intent du méga-menu : délai de grâce avant fermeture (évite que le menu se ferme
+  // quand la souris descend vite en diagonale du déclencheur vers le panneau).
+  const menuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const openMenu = (id: number) => {
+    if (menuCloseTimer.current) {
+      clearTimeout(menuCloseTimer.current);
+      menuCloseTimer.current = null;
+    }
+    setOpenCat(id);
+  };
+  const scheduleCloseMenu = () => {
+    if (menuCloseTimer.current) clearTimeout(menuCloseTimer.current);
+    menuCloseTimer.current = setTimeout(() => setOpenCat(null), 260);
+  };
+  useEffect(() => () => {
+    if (menuCloseTimer.current) clearTimeout(menuCloseTimer.current);
+  }, []);
 
   useEffect(() => {
     // Méga-menu = arbre réel des catégories actives (racines + sous-catégories), dans la langue courante.
@@ -150,8 +168,8 @@ export default function Header() {
               return (
                 <div
                   key={cat.id_category}
-                  onMouseEnter={() => setOpenCat(cat.id_category)}
-                  onMouseLeave={() => setOpenCat((c) => (c === cat.id_category ? null : c))}
+                  onMouseEnter={() => openMenu(cat.id_category)}
+                  onMouseLeave={scheduleCloseMenu}
                   style={{ position: 'static', display: 'flex', alignItems: 'center' }}
                 >
                   <Link href={rootHref(cat)} className="hfm-navlink" style={{ ...navLinkStyle, display: 'inline-flex', alignItems: 'center', gap: '6px', background: open ? 'rgba(140,198,63,.12)' : undefined, color: open ? '#4B6B1B' : '#3A3A36' }}>
@@ -161,7 +179,7 @@ export default function Header() {
                     ) : null}
                   </Link>
                   {open && subs.length ? (
-                    <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', borderTop: '1px solid #ECEAE3', boxShadow: '0 30px 50px -28px rgba(40,50,25,.45)', zIndex: 38 }}>
+                    <div onMouseEnter={() => openMenu(cat.id_category)} onMouseLeave={scheduleCloseMenu} style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', borderTop: '1px solid #ECEAE3', boxShadow: '0 30px 50px -28px rgba(40,50,25,.45)', zIndex: 38 }}>
                       <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '26px 28px 30px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                           <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8A8170' }}>{cat.name}{cat.nb_products ? ` · ${cat.nb_products}` : ''}</div>
@@ -182,8 +200,8 @@ export default function Header() {
               );
             })}
             <div
-              onMouseEnter={() => setOpenCat(-1)}
-              onMouseLeave={() => setOpenCat((c) => (c === -1 ? null : c))}
+              onMouseEnter={() => openMenu(-1)}
+              onMouseLeave={scheduleCloseMenu}
               style={{ position: 'static', display: 'flex', alignItems: 'center', marginLeft: '6px' }}
             >
               <Link href="/catalogue?filter=promo" className="hfm-navlink" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', color: '#A8503A', fontSize: '13.5px', fontWeight: 600, padding: '8px 15px', borderRadius: '999px', background: openCat === -1 ? 'rgba(168,80,58,.16)' : 'rgba(168,80,58,.09)', border: '1px solid rgba(168,80,58,.2)', transition: 'background .2s ease' }}>
@@ -191,7 +209,7 @@ export default function Header() {
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" style={{ transition: 'transform .2s ease', transform: openCat === -1 ? 'rotate(180deg)' : 'none' }}><path d="M6 9l6 6 6-6" /></svg>
               </Link>
               {openCat === -1 ? (
-                <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', borderTop: '1px solid #ECEAE3', boxShadow: '0 30px 50px -28px rgba(40,50,25,.45)', zIndex: 38 }}>
+                <div onMouseEnter={() => openMenu(-1)} onMouseLeave={scheduleCloseMenu} style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', borderTop: '1px solid #ECEAE3', boxShadow: '0 30px 50px -28px rgba(40,50,25,.45)', zIndex: 38 }}>
                   <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '26px 28px 30px' }}>
                     <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8A8170', marginBottom: '16px' }}>{t('promosTab')}</div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: '2px 24px' }}>
