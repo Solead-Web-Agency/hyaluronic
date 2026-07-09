@@ -102,6 +102,13 @@ class Hfmstorefront extends PaymentModule
             'actionObjectCmsAddAfter',
             'actionObjectCmsUpdateAfter',
             'actionObjectCmsDeleteAfter',
+            // Blog (module ph_simpleblog) : article ou catégorie modifié -> liste + article.
+            'actionObjectSimpleBlogPostAddAfter',
+            'actionObjectSimpleBlogPostUpdateAfter',
+            'actionObjectSimpleBlogPostDeleteAfter',
+            'actionObjectSimpleBlogCategoryAddAfter',
+            'actionObjectSimpleBlogCategoryUpdateAfter',
+            'actionObjectSimpleBlogCategoryDeleteAfter',
             // Stock : rupture / réappro changent 'quantity' et 'available' des cartes/fiches.
             'actionUpdateQuantity',
             // Prix spécifiques / promotions : changent price_incl_tax/excl_tax + liste « promo ».
@@ -234,6 +241,37 @@ class Hfmstorefront extends PaymentModule
     public function hookActionObjectCmsDeleteAfter($params)
     {
         $this->purge([HfmCache::TAG_CONTENT]);
+    }
+
+    /** Article ou catégorie de blog (ph_simpleblog) modifié -> liste + article. */
+    public function hookActionObjectSimpleBlogPostAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_BLOG]);
+    }
+
+    public function hookActionObjectSimpleBlogPostUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_BLOG]);
+    }
+
+    public function hookActionObjectSimpleBlogPostDeleteAfter($params)
+    {
+        $this->purge([HfmCache::TAG_BLOG]);
+    }
+
+    public function hookActionObjectSimpleBlogCategoryAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_BLOG]);
+    }
+
+    public function hookActionObjectSimpleBlogCategoryUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_BLOG]);
+    }
+
+    public function hookActionObjectSimpleBlogCategoryDeleteAfter($params)
+    {
+        $this->purge([HfmCache::TAG_BLOG]);
     }
 
     /** Stock modifié (rupture / réappro) -> 'quantity' et 'available' des produits. */

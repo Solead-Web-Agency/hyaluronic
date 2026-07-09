@@ -4,7 +4,9 @@ import { bridgeGetCached, type ProductCard } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { toCard, type Card } from '@/lib/cardModel';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFor } from '@/lib/seo';
+import { alternatesFor, textFromHtml } from '@/lib/seo';
+import { fetchBlogLatest } from '@/lib/blog';
+import { Link } from '@/i18n/navigation';
 import Chrome from '../components/Chrome';
 import Footer from '../components/Footer';
 import HomeTabs from '../components/HomeTabs';
@@ -66,6 +68,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   );
   const live: ProductCard[] = data.products ?? [];
   const cards: Card[] = live.map(toCard);
+
+  // 3 derniers articles du blog (repli silencieux si le bridge ne répond pas).
+  const latestPosts = await fetchBlogLatest(locale, 3);
+  const blogDate = (raw: string) => {
+    const d = new Date((raw || '').replace(' ', 'T'));
+    if (isNaN(d.getTime())) return '';
+    try {
+      return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+    } catch {
+      return new Intl.DateTimeFormat('fr', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+    }
+  };
 
   // Onglets : faute de métadonnées best/nouveau/promo en live, on répartit simplement la liste.
   const tabs = {
@@ -201,15 +215,31 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <section className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '64px 28px 8px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '20px' }}>
             <div><div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8CC63F' }}>{t('expertiseEyebrow')}</div><h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(25px,3.6vw,34px)', color: '#2B2B2B', margin: '8px 0 0' }}>{t('expertiseTitle')}</h2></div>
-            <span style={{ cursor: 'pointer', fontSize: '13.5px', fontWeight: 600, color: '#434343' }}>{t('allBlog')}</span>
+            <Link href="/blog" style={{ cursor: 'pointer', fontSize: '13.5px', fontWeight: 600, color: '#434343', textDecoration: 'none' }}>{t('allBlog')} →</Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '18px', marginTop: '28px' }}>
-            {BLOG_KEYS.map((i) => (
-              <div key={i} style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', overflow: 'hidden' }}>
-                <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/blog/blog${i}.png`} alt={t(`blog${i}Title`)} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-                <div style={{ padding: '20px' }}><div style={{ display: 'flex', gap: '10px', fontSize: '11px', color: '#8A8170', textTransform: 'uppercase', letterSpacing: '.06em' }}><span style={{ color: '#8CC63F', fontWeight: 600 }}>{t(`blog${i}Cat`)}</span><span>·</span><span>{t(`blog${i}Date`)}</span></div><div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', lineHeight: 1.3, color: '#1B2433', marginTop: '10px' }}>{t(`blog${i}Title`)}</div><div style={{ fontSize: '13px', fontWeight: 600, color: '#434343', marginTop: '14px' }}>{t('readArticle')}</div></div>
-              </div>
-            ))}
+            {latestPosts.length > 0
+              ? latestPosts.map((post) => (
+                  <Link key={post.id} href={`/blog/${post.category.slug}/${post.slug}`} style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', overflow: 'hidden', textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }}>
+                      {post.cover?.wide || post.cover?.src ? (
+                        <img src={post.cover.wide || post.cover.src} alt={post.title} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : null}
+                    </div>
+                    <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                      <div style={{ display: 'flex', gap: '10px', fontSize: '11px', color: '#8A8170', textTransform: 'uppercase', letterSpacing: '.06em' }}><span style={{ color: '#8CC63F', fontWeight: 600 }}>{post.category.name}</span><span>·</span><span>{blogDate(post.date)}</span></div>
+                      <div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', lineHeight: 1.3, color: '#1B2433', marginTop: '10px' }}>{post.title}</div>
+                      <div style={{ fontSize: '13.5px', color: '#6E7062', lineHeight: 1.55, marginTop: '10px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{textFromHtml(post.excerpt, 120)}</div>
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: '#5E8E1F', marginTop: 'auto', paddingTop: '14px' }}>{t('readArticle')} →</div>
+                    </div>
+                  </Link>
+                ))
+              : BLOG_KEYS.map((i) => (
+                  <div key={i} style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/blog/blog${i}.png`} alt={t(`blog${i}Title`)} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+                    <div style={{ padding: '20px' }}><div style={{ display: 'flex', gap: '10px', fontSize: '11px', color: '#8A8170', textTransform: 'uppercase', letterSpacing: '.06em' }}><span style={{ color: '#8CC63F', fontWeight: 600 }}>{t(`blog${i}Cat`)}</span><span>·</span><span>{t(`blog${i}Date`)}</span></div><div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', lineHeight: 1.3, color: '#1B2433', marginTop: '10px' }}>{t(`blog${i}Title`)}</div><div style={{ fontSize: '13px', fontWeight: 600, color: '#434343', marginTop: '14px' }}>{t('readArticle')}</div></div>
+                  </div>
+                ))}
           </div>
         </section>
 

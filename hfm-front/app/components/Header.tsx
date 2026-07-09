@@ -37,6 +37,7 @@ export default function Header() {
   const t = useTranslations('header');
   const tc = useTranslations('common');
   const tcat = useTranslations('catalogue');
+  const tb = useTranslations('blog');
   const locale = useLocale();
   const { openSearch, openCart, toggleMenu, closeMenu, menuOpen, cartCount, customer, logout } = useStore();
   // Un invité (is_guest) n'a pas de vrai compte → traité comme NON connecté dans le header
@@ -202,6 +203,7 @@ export default function Header() {
                 </div>
               ) : null}
             </div>
+            <Link href="/blog" className="hfm-navlink" style={{ ...navLinkStyle, marginLeft: '6px', display: 'inline-flex', alignItems: 'center' }}>{tb('navLink')}</Link>
             <span style={{ marginLeft: 'auto', display: 'inline-flex', alignItems: 'center', gap: '9px', fontSize: '12.5px', color: '#5E8E1F', fontWeight: 600 }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8CC63F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>{t('ceDelivery')}</span>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/navigation';
 import type { Card } from '@/lib/cardModel';
-import { fmt } from '@/lib/cardModel';
+import { fmt, productHref } from '@/lib/cardModel';
 import { useStore } from '../store';
 import { useWishlist } from '../wishlist';
 
@@ -32,7 +32,7 @@ export default function ProductCard({ product }: { product: Card }) {
   const out = product.stock === 'out';
   const backorder = product.stock === 'backorder';
   const canBuy = !out;
-  const href = `/produit/${product.id}`;
+  const href = productHref(product);
 
   const onAdd = (e: React.MouseEvent) => {
     e.stopPropagation();

@@ -4,6 +4,7 @@ export const CACHE_TAGS = {
   taxonomy: 'taxonomy', // menu, catégories, marques (manufacturers), pays
   products: 'products', // listes produits + fiche produit
   content: 'content', // pages CMS
+  blog: 'blog', // articles + catégories de blog (module ph_simpleblog)
 } as const;
 
 // TTL longs (24 h) car la purge est ÉVÉNEMENTIELLE : le module PS notifie /api/revalidate
@@ -12,6 +13,7 @@ export const CACHE_TTL = {
   taxonomy: 86400,
   products: 86400,
   content: 86400,
+  blog: 86400,
 } as const;
 
 export type CacheTag = keyof typeof CACHE_TAGS;

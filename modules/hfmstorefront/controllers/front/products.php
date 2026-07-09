@@ -16,6 +16,16 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         $idShop = (int) $this->context->shop->id;
         $idProduct = (int) $this->in('id_product');
 
+        // URL headless « parité prod » : /{categorie}/{slug} -> résolution par slug.
+        // Le segment catégorie est cosmétique ; on résout par link_rewrite (id_product retourné
+        // dans la réponse permet au front de rediriger 301 vers l'URL canonique).
+        if (!$idProduct) {
+            $slug = (string) $this->in('link_rewrite');
+            if ($slug !== '') {
+                $idProduct = $this->productIdFromSlug($slug);
+            }
+        }
+
         // Cross-selling d'une fiche produit (accessoires, marque, catégorie, zone).
         $idRelated = (int) $this->in('related');
         if ($idRelated) {
@@ -342,6 +352,19 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $rpps[(int) $r['id_product']] = true;
         }
 
+        // 5) Slug de la catégorie par défaut (pour l'URL /{categorie}/{slug}).
+        $catSlug = [];
+        $rows = $db->executeS(
+            'SELECT p.id_product, cl.link_rewrite AS cat_slug
+             FROM ' . _DB_PREFIX_ . 'product p
+             INNER JOIN ' . _DB_PREFIX_ . 'category_lang cl
+                ON (cl.id_category = p.id_category_default AND cl.id_lang = ' . $idLang . ' AND cl.id_shop = ' . $idShop . ')
+             WHERE p.id_product IN (' . $in . ')'
+        );
+        foreach ((array) $rows as $r) {
+            $catSlug[(int) $r['id_product']] = $r['cat_slug'];
+        }
+
         // Assemblage — l'ordre d'entrée est préservé (utile pour le tri des listes).
         $out = [];
         foreach ($ids as $id) {
@@ -359,6 +382,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                 'name' => $b['name'],
                 'reference' => $b['reference'],
                 'link_rewrite' => $b['link_rewrite'],
+                'category' => isset($catSlug[$id]) ? $catSlug[$id] : null,
                 'brand' => $b['id_manufacturer'] ? $b['brand'] : null,
                 'price_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, true), 2),
                 'price_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, false), 2),
@@ -384,12 +408,40 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         return Product::isAvailableWhenOutOfStock((int) $oos) ? 'backorder' : 'unavailable';
     }
 
+    /** Résout un slug produit (link_rewrite) en id_product actif. Newest gagne (slugs ~uniques). */
+    protected function productIdFromSlug($slug)
+    {
+        $idShop = (int) $this->context->shop->id;
+        $idLang = (int) $this->context->language->id;
+        return (int) Db::getInstance()->getValue(
+            'SELECT pl.id_product FROM ' . _DB_PREFIX_ . 'product_lang pl
+             INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                ON (ps.id_product = pl.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1)
+             WHERE pl.link_rewrite = \'' . pSQL($slug) . '\' AND pl.id_lang = ' . $idLang . '
+             ORDER BY pl.id_product DESC'
+        );
+    }
+
+    /** Slug + nom de la catégorie par défaut d'un produit (pour l'URL /{categorie}/{slug}). */
+    protected function defaultCategory($idCategoryDefault, $idLang)
+    {
+        if (!(int) $idCategoryDefault) {
+            return [null, null];
+        }
+        $cat = new Category((int) $idCategoryDefault, (int) $idLang);
+        if (!Validate::isLoadedObject($cat)) {
+            return [null, null];
+        }
+        return [$cat->link_rewrite, $cat->name];
+    }
+
     protected function single($idProduct, $idLang)
     {
         $p = new Product($idProduct, true, $idLang);
         if (!Validate::isLoadedObject($p)) {
             return ['error' => 'product_not_found'];
         }
+        list($catSlug, $catName) = $this->defaultCategory($p->id_category_default, $idLang);
         $images = [];
         foreach ($p->getImages($idLang) as $img) {
             $images[] = $this->context->link->getImageLink($p->link_rewrite, (int) $img['id_image'], 'large_default');
@@ -418,6 +470,8 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'reference' => $p->reference,
             'ean13' => (string) $p->ean13,
             'link_rewrite' => $p->link_rewrite,
+            'category' => $catSlug,
+            'category_name' => $catName,
             'description' => $p->description,
             'description_short' => $p->description_short,
             'meta_title' => (string) $p->meta_title,

@@ -32,6 +32,7 @@ class HfmCache
     const TAG_TAXONOMY = 'taxonomy';
     const TAG_PRODUCTS = 'products';
     const TAG_CONTENT = 'content';
+    const TAG_BLOG = 'blog';
 
     /** TTL par défaut (secondes), alignés sur le contrat partagé.
      *  Longs car la purge est ÉVÉNEMENTIELLE : tout changement catalogue (produit,
@@ -40,6 +41,7 @@ class HfmCache
     const TTL_TAXONOMY = 86400; // 24 h
     const TTL_PRODUCTS = 86400; // 24 h
     const TTL_CONTENT = 86400;  // 24 h
+    const TTL_BLOG = 86400;     // 24 h
 
     /** Préfixe de clé Configuration pour les compteurs de version par tag. */
     const VER_PREFIX = 'HFM_CACHE_VER_';

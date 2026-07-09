@@ -5,7 +5,7 @@ import { locales, defaultLocale, idLangFor } from '@/lib/i18n-config';
 import { urlFor } from '@/lib/seo';
 
 // Un bloc hreflang par URL : chaque entrée pointe ses 22 variantes de langue.
-function entry(path: string, changeFrequency: 'daily' | 'weekly', priority: number): MetadataRoute.Sitemap[number] {
+function entry(path: string, changeFrequency: 'daily' | 'weekly' | 'monthly', priority: number): MetadataRoute.Sitemap[number] {
   const languages: Record<string, string> = {};
   for (const l of locales) {
     languages[l] = urlFor(l, path);
@@ -22,8 +22,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const out: MetadataRoute.Sitemap = [
     entry('', 'daily', 1),
     entry('/catalogue', 'daily', 0.9),
+    entry('/blog', 'weekly', 0.7),
     ...['levres', 'pommettes', 'cernes', 'rides', 'ovale', 'skinbooster'].map((z) => entry(`/zone/${z}`, 'weekly', 0.7)),
   ];
+
+  // Articles de blog (module ph_simpleblog).
+  try {
+    const blog = await bridgeGetCached(
+      'blog',
+      { action: 'list', limit: 100, id_lang: idLangFor(defaultLocale) },
+      { ttl: CACHE_TTL.blog, tags: [CACHE_TAGS.blog] },
+    );
+    const seenCats = new Set<string>();
+    for (const post of blog.posts ?? []) {
+      const cat = post?.category?.slug;
+      if (post?.slug && cat) {
+        out.push(entry(`/blog/${cat}/${post.slug}`, 'monthly', 0.6));
+        if (!seenCats.has(cat)) {
+          seenCats.add(cat);
+          out.push(entry(`/blog/${cat}`, 'weekly', 0.5));
+        }
+      }
+    }
+  } catch {
+    // Bridge indisponible : le sitemap reste valable sans les articles.
+  }
 
   // Marques (pages /marque/[id]).
   try {
@@ -51,7 +74,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       );
       const products = data.products ?? [];
       for (const p of products) {
-        if (p?.id_product) {
+        // URL canonique « parité prod » : /{categorie}/{slug} (repli /produit/{id}).
+        if (p?.category && p?.link_rewrite) {
+          out.push(entry(`/${p.category}/${p.link_rewrite}`, 'weekly', 0.8));
+        } else if (p?.id_product) {
           out.push(entry(`/produit/${p.id_product}`, 'weekly', 0.8));
         }
       }
