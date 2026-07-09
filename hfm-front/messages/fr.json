@@ -267,7 +267,14 @@
     "medDeviceP1": "Ce produit est un dispositif médical réservé aux professionnels de santé qualifiés (médecins, chirurgiens-dentistes habilités) titulaires d’un numéro RPPS ou ADELI en cours de validité. L’auto-injection est strictement déconseillée. Lisez attentivement la notice du fabricant avant utilisation et respectez les indications, contre-indications et bonnes pratiques d’injection.",
     "medDeviceP2": "Marquage CE conforme au règlement (UE) 2017/745. Tout incident relatif à un dispositif médical doit être déclaré à l’ANSM dans le cadre de la matériovigilance (art. R.5212-12 et suivants du Code de la santé publique).",
     "unavailableBadge": "Indisponible",
-    "unavailableLine": "Indisponible actuellement"
+    "unavailableLine": "Indisponible actuellement",
+    "reviewsBy": "Avis certifiés par",
+    "reviewsCertificate": "Voir l'attestation",
+    "reviewsBasedOn": "Basé sur {count} avis",
+    "reviewsTranslated": "Avis traduit",
+    "reviewsPublishedOn": "Publié le",
+    "reviewsOrderedOn": "Commande du",
+    "reviewsReply": "Réponse du vendeur"
   },
   "quickView": {
     "refStock": "Réf. {reference} · {status}.",

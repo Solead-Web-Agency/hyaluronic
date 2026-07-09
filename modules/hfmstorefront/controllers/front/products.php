@@ -488,6 +488,80 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'key_points' => $extra ? $decode($extra['key_points']) : [],
             'faq' => $extra ? $decode($extra['faq']) : [],
             'composition' => $extra ? $decode($extra['composition']) : [],
+            'reviews' => $this->productReviews($idProduct, $idLang),
         ]];
+    }
+
+    /**
+     * Avis « Société des Avis Garantis » (module steavisgarantis) d'un produit, dans la langue
+     * courante. Lus en base (import SAG), pas d'appel API live. Renvoie null si aucun avis.
+     */
+    protected function productReviews($idProduct, $idLang)
+    {
+        $pid = (string) (int) $idProduct;
+        $lang = (string) (int) $idLang;
+        $db = Db::getInstance();
+
+        $avg = $db->getRow(
+            'SELECT rate, reviews_nb, nb1, nb2, nb3, nb4, nb5
+             FROM `' . _DB_PREFIX_ . 'steavisgarantis_average_rating`
+             WHERE product_id = \'' . pSQL($pid) . '\' AND id_lang = \'' . pSQL($lang) . '\''
+        );
+        if (!$avg || (int) $avg['reviews_nb'] < 1) {
+            return null;
+        }
+
+        $rows = $db->executeS(
+            'SELECT ag_reviewer_name, rate, review, date_time, order_date, translated, source_lang, answer_text, answer_date_time
+             FROM `' . _DB_PREFIX_ . 'steavisgarantis_reviews`
+             WHERE product_id = \'' . pSQL($pid) . '\' AND id_lang = \'' . pSQL($lang) . '\''
+        );
+        $items = [];
+        foreach ((array) $rows as $r) {
+            $items[] = [
+                'name' => (string) $r['ag_reviewer_name'],
+                'rate' => (int) $r['rate'],
+                'review' => (string) $r['review'],
+                'date' => $this->sagDate($r['date_time']),
+                'orderDate' => $r['order_date'] && $r['order_date'] !== '0000-00-00 00:00:00' ? $r['order_date'] : null,
+                'translated' => (int) $r['translated'] === 1,
+                'sourceLang' => (string) $r['source_lang'],
+                'answer' => trim((string) $r['answer_text']) !== '' ? (string) $r['answer_text'] : null,
+                'answerDate' => $r['answer_date_time'] && $r['answer_date_time'] !== '0000-00-00 00:00:00' ? $r['answer_date_time'] : null,
+            ];
+        }
+        // Tri par date de publication décroissante (dates normalisées en ISO).
+        usort($items, function ($a, $b) {
+            return strcmp((string) $b['date'], (string) $a['date']);
+        });
+
+        $cert = Configuration::get('steavisgarantis_certificateUrl_' . $lang);
+        if (!$cert) {
+            $cert = Configuration::get('steavisgarantis_certificateUrl_1');
+        }
+
+        return [
+            'rate' => (float) $avg['rate'],
+            'rate10' => round((float) $avg['rate'] * 2, 1),
+            'count' => (int) $avg['reviews_nb'],
+            'distribution' => [
+                (int) $avg['nb1'], (int) $avg['nb2'], (int) $avg['nb3'], (int) $avg['nb4'], (int) $avg['nb5'],
+            ],
+            'certificateUrl' => $cert ?: null,
+            'items' => $items,
+        ];
+    }
+
+    /** Normalise une date SAG (timestamp Unix OU datetime) en 'Y-m-d H:i:s'. */
+    protected function sagDate($v)
+    {
+        $v = trim((string) $v);
+        if ($v === '') {
+            return '';
+        }
+        if (ctype_digit($v)) {
+            return date('Y-m-d H:i:s', (int) $v);
+        }
+        return $v;
     }
 }

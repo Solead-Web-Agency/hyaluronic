@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useStore } from '../../../store';
 import { fmt } from '@/lib/cardModel';
@@ -25,6 +25,26 @@ export type ProductView = {
   faq: { q: string; a: string }[];
   composition: { k: string; v: string }[];
   rpps_required: boolean;
+  reviews: ProductReviews | null;
+};
+
+export type ProductReviews = {
+  rate: number; // /5
+  rate10: number; // /10
+  count: number;
+  distribution: number[]; // [nb1, nb2, nb3, nb4, nb5]
+  certificateUrl: string | null;
+  items: {
+    name: string;
+    rate: number;
+    review: string;
+    date: string;
+    orderDate: string | null;
+    translated: boolean;
+    sourceLang: string;
+    answer: string | null;
+    answerDate: string | null;
+  }[];
 };
 
 type TabKey = 'description' | 'tech' | 'composition' | 'faq' | 'reviews';
@@ -86,7 +106,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
     { key: 'tech', label: t('tabTechSheet') },
     ...(compositionRows.length ? [{ key: 'composition' as TabKey, label: t('tabComposition') }] : []),
     ...(FAQ.length ? [{ key: 'faq' as TabKey, label: t('tabFaq') }] : []),
-    { key: 'reviews', label: `${t('tabReviews')} (0)` },
+    { key: 'reviews', label: `${t('tabReviews')} (${product.reviews?.count ?? 0})` },
   ];
 
   const canBuy = product.availabilityState !== 'out';
@@ -283,10 +303,14 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           ) : null}
 
           {tab === 'reviews' ? (
-            <div style={{ textAlign: 'center', padding: '30px 20px', color: '#8A8170' }}>
-              <div style={{ fontSize: '15px', fontWeight: 600, color: '#55606F' }}>{t('reviewsEmpty')}</div>
-              <div style={{ fontSize: '13px', marginTop: '8px' }}>{t('reviewsEmptyHint')}</div>
-            </div>
+            product.reviews && product.reviews.count > 0 ? (
+              <ReviewsBlock reviews={product.reviews} />
+            ) : (
+              <div style={{ textAlign: 'center', padding: '30px 20px', color: '#8A8170' }}>
+                <div style={{ fontSize: '15px', fontWeight: 600, color: '#55606F' }}>{t('reviewsEmpty')}</div>
+                <div style={{ fontSize: '13px', marginTop: '8px' }}>{t('reviewsEmptyHint')}</div>
+              </div>
+            )
           ) : null}
         </div>
       </section>
@@ -294,5 +318,92 @@ export default function ProductDetail({ product, related }: { product: ProductVi
       {/* Cross-selling + encadré réglementaire */}
       <RelatedSections related={related} />
     </main>
+  );
+}
+
+/** Étoiles pleines/vides sur 5. */
+function Stars({ rate, size = 15 }: { rate: number; size?: number }) {
+  return (
+    <span style={{ display: 'inline-flex', gap: '1px' }} aria-label={`${rate}/5`}>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <svg key={i} width={size} height={size} viewBox="0 0 24 24" fill={i <= rate ? '#f5c518' : '#E2DECF'} stroke="none">
+          <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17l-5.2 2.6 1-5.8L3.5 9.7l5.9-.9z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
+/** Bloc d'avis « Société des Avis Garantis » : résumé (note /10 + distribution) + liste. */
+function ReviewsBlock({ reviews }: { reviews: ProductReviews }) {
+  const t = useTranslations('product');
+  const locale = useLocale();
+  const fmtDate = (raw: string | null) => {
+    if (!raw) return '';
+    const d = new Date(raw.replace(' ', 'T'));
+    if (isNaN(d.getTime())) return '';
+    try {
+      return new Intl.DateTimeFormat(locale, { day: '2-digit', month: '2-digit', year: 'numeric' }).format(d);
+    } catch {
+      return new Intl.DateTimeFormat('fr', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(d);
+    }
+  };
+  const max = Math.max(1, ...reviews.distribution);
+
+  return (
+    <div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'center', justifyContent: 'space-between', padding: '22px', background: '#F7F6F2', border: '1px solid #ECEAE3', borderRadius: '12px', marginBottom: '26px' }}>
+        <div style={{ minWidth: '160px' }}>
+          <div style={{ fontSize: '13px', color: '#55606F', fontWeight: 600 }}>{t('reviewsBy')}</div>
+          <div style={{ fontSize: '15px', fontWeight: 700, color: '#1B2433', margin: '2px 0 8px' }}>Société des Avis Garantis</div>
+          {reviews.certificateUrl ? (
+            <a href={reviews.certificateUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: '#5E8E1F', fontWeight: 600, textDecoration: 'none' }}>{t('reviewsCertificate')} →</a>
+          ) : null}
+        </div>
+        <div style={{ flex: '1 1 220px', maxWidth: '320px' }}>
+          {[5, 4, 3, 2, 1].map((star) => {
+            const n = reviews.distribution[star - 1] ?? 0;
+            return (
+              <div key={star} style={{ display: 'flex', alignItems: 'center', gap: '9px', margin: '3px 0' }}>
+                <span style={{ fontSize: '12px', color: '#8A8170', width: '26px' }}>{star}★</span>
+                <span style={{ flex: 1, height: '7px', borderRadius: '999px', background: '#E7E3DA', overflow: 'hidden' }}>
+                  <span style={{ display: 'block', height: '100%', width: `${(n / max) * 100}%`, background: '#f5c518' }} />
+                </span>
+                <span style={{ fontSize: '12px', color: '#8A8170', width: '20px', textAlign: 'right' }}>{n}</span>
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ textAlign: 'center', minWidth: '110px' }}>
+          <div style={{ fontSize: '36px', fontWeight: 800, color: '#1B2433', lineHeight: 1 }}>{reviews.rate10}<span style={{ fontSize: '16px', color: '#8A8170', fontWeight: 600 }}>/10</span></div>
+          <div style={{ marginTop: '6px' }}><Stars rate={Math.round(reviews.rate)} /></div>
+          <div style={{ fontSize: '12.5px', color: '#6E7062', marginTop: '5px' }}>{t('reviewsBasedOn', { count: reviews.count })}</div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {reviews.items.map((r, i) => (
+          <div key={i} style={{ padding: '18px 4px', borderTop: i ? '1px solid #F0EEE7' : 'none' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#1B2433' }}>{r.name}</div>
+              <Stars rate={r.rate} />
+            </div>
+            <div style={{ fontSize: '11.5px', color: '#8A8170', margin: '3px 0 8px' }}>
+              {r.date ? `${t('reviewsPublishedOn')} ${fmtDate(r.date)}` : ''}
+              {r.orderDate ? ` · ${t('reviewsOrderedOn')} ${fmtDate(r.orderDate)}` : ''}
+            </div>
+            <div style={{ fontSize: '14px', color: '#3A3A36', lineHeight: 1.55 }}>
+              {r.review}
+              {r.translated ? <span style={{ fontStyle: 'italic', color: '#9A9A9A', marginLeft: '6px' }}>({t('reviewsTranslated')})</span> : null}
+            </div>
+            {r.answer ? (
+              <div style={{ marginTop: '10px', padding: '11px 14px', background: '#F7F6F2', borderRadius: '9px', fontSize: '13px', color: '#55606F' }}>
+                <b style={{ color: '#1B2433' }}>{t('reviewsReply')} :</b> {r.answer}
+              </div>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

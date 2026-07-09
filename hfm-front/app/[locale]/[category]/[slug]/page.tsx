@@ -80,6 +80,17 @@ function jsonLd(p: Record<string, any>, path: string, locale: string): object[] 
     },
   };
 
+  // Note agrégée « Société des Avis Garantis » -> étoiles dans les résultats Google.
+  if (p.reviews && p.reviews.count > 0) {
+    product.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: p.reviews.rate,
+      bestRating: 5,
+      worstRating: 1,
+      reviewCount: p.reviews.count,
+    };
+  }
+
   const blocks: object[] = [product];
   if (Array.isArray(p.faq) && p.faq.length) {
     blocks.push({
@@ -138,6 +149,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
       ? (p.composition as RawCompo[]).map((c) => ({ k: c.k ?? '', v: c.v ?? '' })).filter((c) => c.k && c.v)
       : [],
     rpps_required: !!p.rpps_required,
+    reviews: p.reviews ?? null,
   };
 
   const rel = await bridgeGetCached(
