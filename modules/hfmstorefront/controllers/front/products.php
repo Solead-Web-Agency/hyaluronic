@@ -507,10 +507,130 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
     }
 
     /**
-     * Avis « Société des Avis Garantis » (module steavisgarantis) d'un produit, dans la langue
-     * courante. Lus en base (import SAG), pas d'appel API live. Renvoie null si aucun avis.
+     * Avis « Société des Avis Garantis » d'un produit (langue courante).
+     * Fetch LIVE depuis l'API SAG (frais), avec repli sur le snapshot en base si l'API échoue.
+     * Gate sur la présence en base : évite d'appeler l'API sur les produits jamais notés.
+     * (Mis en cache 24 h via le cache de la fiche produit -> ~1 appel/produit/jour.)
      */
     protected function productReviews($idProduct, $idLang)
+    {
+        $lang = (string) (int) $idLang;
+        $hasReviews = (int) Db::getInstance()->getValue(
+            'SELECT reviews_nb FROM `' . _DB_PREFIX_ . 'steavisgarantis_average_rating`
+             WHERE product_id = \'' . pSQL((string) (int) $idProduct) . '\' AND id_lang = \'' . pSQL($lang) . '\''
+        );
+        if ($hasReviews < 1) {
+            return null;
+        }
+        $live = $this->sagLiveReviews($idProduct, $idLang);
+        return $live !== null ? $live : $this->reviewsFromDb($idProduct, $idLang);
+    }
+
+    /** Récupère les avis EN DIRECT depuis l'API SAG (reviews.php par produit). null si échec. */
+    protected function sagLiveReviews($idProduct, $idLang)
+    {
+        $apiKey = Configuration::get('steavisgarantis_apiKey_' . (int) $idLang);
+        if (!$apiKey || strpos($apiKey, '/') === false) {
+            return null;
+        }
+        $parts = explode('/', $apiKey);
+        $langCode = isset($parts[1]) ? $parts[1] : 'fr';
+        $url = $this->sagDomain($langCode)
+            . 'wp-content/plugins/ag-core/api/reviews.php?translation=1&apiPost=1&productID=' . (int) $idProduct;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'apiKey=' . urlencode($apiKey));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        $resp = curl_exec($ch);
+        curl_close($ch);
+        if (!$resp) {
+            return null;
+        }
+        $resp = preg_replace('/^\xEF\xBB\xBF/', '', $resp);
+        $data = json_decode($resp, true);
+        if (!is_array($data) || empty($data)) {
+            return null;
+        }
+
+        $items = [];
+        $sum = 0;
+        $dist = [0, 0, 0, 0, 0];
+        foreach ($data as $r) {
+            if (!is_array($r) || (string) (isset($r['review_status']) ? $r['review_status'] : '') !== '1') {
+                continue;
+            }
+            $rate = (int) (isset($r['review_rating']) ? $r['review_rating'] : 0);
+            if ($rate < 1 || $rate > 5) {
+                continue;
+            }
+            $name = trim((string) (isset($r['reviewer_name']) ? $r['reviewer_name'] : ''));
+            $last = trim((string) (isset($r['lastname']) ? $r['lastname'] : ''));
+            if ($last !== '') {
+                $name = trim($name . ' ' . Tools::strtoupper(Tools::substr($last, 0, 1)) . '.');
+            }
+            $order = (string) (isset($r['order_date']) ? $r['order_date'] : '');
+            $answer = trim((string) (isset($r['answer_text']) ? $r['answer_text'] : ''));
+            $items[] = [
+                'name' => $name,
+                'rate' => $rate,
+                'review' => (string) (isset($r['review_text']) ? $r['review_text'] : ''),
+                'date' => $this->sagDate(isset($r['date_time']) ? $r['date_time'] : ''),
+                'orderDate' => ($order !== '' && $order !== 'None' && $order !== '0000-00-00 00:00:00') ? $order : null,
+                'translated' => (string) (isset($r['translated']) ? $r['translated'] : '0') === '1',
+                'sourceLang' => (string) (isset($r['sourceLang']) ? $r['sourceLang'] : ''),
+                'answer' => $answer !== '' ? $answer : null,
+                'answerDate' => null,
+            ];
+            $sum += $rate;
+            $dist[$rate - 1]++;
+        }
+        $count = count($items);
+        if ($count < 1) {
+            return null;
+        }
+        usort($items, function ($a, $b) {
+            return strcmp((string) $b['date'], (string) $a['date']);
+        });
+        $rate = round($sum / $count, 2);
+        $cert = Configuration::get('steavisgarantis_certificateUrl_' . (int) $idLang);
+        if (!$cert) {
+            $cert = Configuration::get('steavisgarantis_certificateUrl_1');
+        }
+
+        return [
+            'rate' => (float) $rate,
+            'rate10' => round($rate * 2, 1),
+            'count' => $count,
+            'distribution' => $dist,
+            'certificateUrl' => $cert ?: null,
+            'items' => $items,
+        ];
+    }
+
+    /** Domaine de l'API SAG selon le code langue. */
+    protected function sagDomain($langCode)
+    {
+        switch ($langCode) {
+            case 'en': return 'https://www.guaranteed-reviews.com/';
+            case 'de': return 'https://www.g-g-b.de/';
+            case 'es': return 'https://www.sociedad-de-opiniones-contrastadas.es/';
+            case 'it': return 'https://www.societa-recensioni-garantite.it/';
+            case 'nl': return 'https://www.g-b-n.nl/';
+            case 'pl': return 'https://www.gwarantowane-opinie.pl/';
+            case 'pt': return 'https://www.sdag.pt/';
+            case 'fr':
+            default: return 'https://www.societe-des-avis-garantis.fr/';
+        }
+    }
+
+    /** Avis SAG lus dans le snapshot en base (repli si l'API live échoue). */
+    protected function reviewsFromDb($idProduct, $idLang)
     {
         $pid = (string) (int) $idProduct;
         $lang = (string) (int) $idLang;

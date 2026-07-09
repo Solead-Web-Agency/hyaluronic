@@ -149,6 +149,8 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '34px', lineHeight: 1.2, color: '#2B2B2B', margin: '8px 0 0' }}>{product.name}</h1>
           {product.reviews && product.reviews.count > 0 ? (
             <button type="button" onClick={() => setTab('reviews')} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '12px', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/reviews/sag-cocarde.svg" alt="Société des Avis Garantis" width={11} height={21} style={{ display: 'block', flex: 'none' }} />
               <span style={{ display: 'inline-flex', gap: '1px' }} aria-label={`${product.reviews.rate}/5`}>
                 {[1, 2, 3, 4, 5].map((i) => (
                   <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill={i <= Math.round(product.reviews!.rate) ? '#f5c518' : '#E2DECF'} stroke="none"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17l-5.2 2.6 1-5.8L3.5 9.7l5.9-.9z" /></svg>
