@@ -26,6 +26,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...['levres', 'pommettes', 'cernes', 'rides', 'ovale', 'skinbooster'].map((z) => entry(`/zone/${z}`, 'weekly', 0.7)),
   ];
 
+  // Pages catégorie /{categorie} (parité prod : catégories actives ayant des produits).
+  try {
+    const taxo = await bridgeGetCached(
+      'taxonomy',
+      { action: 'all_active', id_lang: idLangFor(defaultLocale) },
+      { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
+    );
+    for (const c of taxo.categories ?? []) {
+      if (c?.link_rewrite) {
+        out.push(entry(`/${c.link_rewrite}`, 'weekly', 0.7));
+      }
+    }
+  } catch {
+    // Bridge indisponible : sitemap reste valable sans les catégories.
+  }
+
   // Articles de blog (module ph_simpleblog).
   try {
     const blog = await bridgeGetCached(

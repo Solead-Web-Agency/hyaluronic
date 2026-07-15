@@ -32,6 +32,8 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                     return ['categories' => $this->categories($idLang)];
                 case 'category':
                     return ['category' => $this->categoryBySlug($idLang)];
+                case 'all_active':
+                    return ['categories' => $this->allActiveCategories($idLang)];
                 case 'menu':
                     return ['menu' => $this->menuTree($idLang)];
                 case 'manufacturers':
@@ -81,6 +83,33 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
             'nb_products' => $nbp,
             'id_parent' => (int) $row['id_parent'],
         ];
+    }
+
+    /** TOUTES les catégories actives ayant des produits (pour le sitemap : pages /{categorie}). */
+    protected function allActiveCategories($idLang)
+    {
+        $idShop = (int) $this->context->shop->id;
+        $rows = Db::getInstance()->executeS(
+            'SELECT c.id_category, cl.link_rewrite,
+                    (SELECT COUNT(*) FROM ' . _DB_PREFIX_ . 'category_product cp
+                       INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                          ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1 AND ps.visibility != "none")
+                       WHERE cp.id_category = c.id_category) AS nb_products
+             FROM ' . _DB_PREFIX_ . 'category c
+             INNER JOIN ' . _DB_PREFIX_ . 'category_shop cs ON (cs.id_category = c.id_category AND cs.id_shop = ' . $idShop . ')
+             INNER JOIN ' . _DB_PREFIX_ . 'category_lang cl ON (cl.id_category = c.id_category AND cl.id_lang = ' . (int) $idLang . ' AND cl.id_shop = ' . $idShop . ')
+             WHERE c.active = 1 AND c.id_parent > 0
+             HAVING nb_products > 0
+             ORDER BY nb_products DESC'
+        );
+        $out = [];
+        foreach ((array) $rows as $r) {
+            if (empty($r['link_rewrite'])) {
+                continue;
+            }
+            $out[] = ['id_category' => (int) $r['id_category'], 'link_rewrite' => $r['link_rewrite'], 'nb_products' => (int) $r['nb_products']];
+        }
+        return $out;
     }
 
     /** Catégories actives sous un parent (par défaut les enfants de la catégorie racine de la boutique). */
