@@ -4,7 +4,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { bridgeGetCached, type ProductCard as PC } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFor } from '@/lib/seo';
+import { alternatesFor, breadcrumbJsonLd, urlFor } from '@/lib/seo';
 import { toCard } from '@/lib/cardModel';
 import Chrome from '../../components/Chrome';
 import Footer from '../../components/Footer';
@@ -78,6 +78,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
 
   return (
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd([
+            { name: 'Accueil', url: urlFor(locale, '') },
+            { name: cat.name, url: urlFor(locale, `/${category}`) },
+          ])),
+        }}
+      />
       <Chrome />
       <main className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '44px 28px 80px' }}>
         <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(28px,4vw,40px)', color: '#2B2B2B', margin: 0 }}>{cat.name}</h1>

@@ -4,7 +4,7 @@ import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFor, textFromHtml, urlFor } from '@/lib/seo';
+import { alternatesFor, breadcrumbJsonLd, textFromHtml, urlFor } from '@/lib/seo';
 import { sanitizeCatalogHtml, structureDescription } from '@/lib/sanitize';
 import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
@@ -92,6 +92,15 @@ function jsonLd(p: Record<string, any>, path: string, locale: string): object[] 
   }
 
   const blocks: object[] = [product];
+
+  // Fil d'Ariane : Accueil > Catégorie > Produit.
+  const crumbs = [{ name: 'Accueil', url: urlFor(locale, '') }];
+  if (p.category && p.category_name) {
+    crumbs.push({ name: p.category_name, url: urlFor(locale, `/${p.category}`) });
+  }
+  crumbs.push({ name: p.name, url: urlFor(locale, path) });
+  blocks.push(breadcrumbJsonLd(crumbs));
+
   if (Array.isArray(p.faq) && p.faq.length) {
     blocks.push({
       '@context': 'https://schema.org',
