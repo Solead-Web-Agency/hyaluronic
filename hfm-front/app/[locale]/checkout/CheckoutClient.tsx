@@ -6,7 +6,7 @@ import { Link } from '@/i18n/navigation';
 import { useRouter } from '@/i18n/navigation';
 import { useStore } from '../../store';
 import { fmt } from '@/lib/cardModel';
-import { trackPurchase } from '@/lib/gtm';
+import { trackPurchase, type EcItem } from '@/lib/gtm';
 import AddressForm, { type Address } from '../../components/AddressForm';
 import AmazonPayButton from '../../components/AmazonPayButton';
 
@@ -186,7 +186,7 @@ export default function CheckoutClient() {
   const [placing, setPlacing] = useState(false);
   const [orderErr, setOrderErr] = useState<string | null>(null);
   const [rppsErr, setRppsErr] = useState<string | null>(null);
-  const [confirmation, setConfirmation] = useState<{ reference: string; id_order: number; total_paid: number } | null>(null);
+  const [confirmation, setConfirmation] = useState<{ reference: string; id_order: number; total_paid: number; items?: EcItem[] } | null>(null);
 
   // GA4 purchase (conversion) à la confirmation. Dédup par référence (évite le double-comptage
   // sur un rafraîchissement de la page de retour paiement viva/paypal/amazon).
@@ -195,7 +195,7 @@ export default function CheckoutClient() {
     const k = 'hfm_purchase_' + confirmation.reference;
     if (localStorage.getItem(k)) return;
     localStorage.setItem(k, '1');
-    trackPurchase({ reference: confirmation.reference, value: confirmation.total_paid });
+    trackPurchase({ reference: confirmation.reference, value: confirmation.total_paid, items: confirmation.items });
   }, [confirmation]);
 
   // Code promo
@@ -349,10 +349,20 @@ export default function CheckoutClient() {
       return;
     }
     if (params.get('viva_paid') || params.get('paypal_paid') || params.get('amazon_paid')) {
+      // Items GA4 stashés avant la redirection PSP (best effort).
+      let items: EcItem[] | undefined;
+      try {
+        const raw = localStorage.getItem('hfm_pending_items');
+        if (raw) items = JSON.parse(raw) as EcItem[];
+      } catch {
+        /* ignore */
+      }
+      localStorage.removeItem('hfm_pending_items');
       setConfirmation({
         reference: params.get('ref') || '',
         id_order: Number(params.get('order') || 0),
         total_paid: Number(params.get('total') || 0),
+        items,
       });
       localStorage.removeItem('id_cart');
       refreshCart();
@@ -488,7 +498,14 @@ export default function CheckoutClient() {
       setOrderErr(err);
       return false;
     }
-    setConfirmation({ reference: d.reference, id_order: d.id_order, total_paid: d.total_paid });
+    // Snapshot des lignes AVANT vidage du panier -> items GA4 du purchase (prix TTC, cohérent view_item).
+    const purchaseItems: EcItem[] = cart.products.map((l) => ({
+      id: l.id_product,
+      name: l.name,
+      price: l.unit_price_incl_tax,
+      quantity: l.quantity,
+    }));
+    setConfirmation({ reference: d.reference, id_order: d.id_order, total_paid: d.total_paid, items: purchaseItems });
     localStorage.removeItem('id_cart');
     await refreshCart();
     window.scrollTo({ top: 0 });
@@ -506,6 +523,19 @@ export default function CheckoutClient() {
     setRppsErr(null);
     setCardError(null);
     try {
+      // Snapshot des lignes panier AVANT toute redirection PSP -> items GA4 relus au retour
+      // (un seul checkout en vol, clé fixe). Le chemin offline enrichit directement (pas de redirection).
+      try {
+        const pending: EcItem[] = cart.products.map((l) => ({
+          id: l.id_product,
+          name: l.name,
+          price: l.unit_price_incl_tax,
+          quantity: l.quantity,
+        }));
+        localStorage.setItem('hfm_pending_items', JSON.stringify(pending));
+      } catch {
+        /* localStorage indisponible : purchase suivra sans items détaillés */
+      }
       // Chemin carte bancaire (Viva Wallet) : on crée l'order puis on REDIRIGE vers Smart Checkout.
       if (cardConfigured && payment === VIVA_PAYMENT) {
         // La commande Viva est créée plus tard côté serveur (/api/payment/return), qui lit

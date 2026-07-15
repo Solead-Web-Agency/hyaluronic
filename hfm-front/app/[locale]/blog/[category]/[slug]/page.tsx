@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
-import { alternatesFor, breadcrumbJsonLd, textFromHtml, urlFor } from '@/lib/seo';
+import { alternatesFromSlugs, breadcrumbJsonLd, jsonLdString, textFromHtml, urlFor } from '@/lib/seo';
 import { sanitizeCatalogHtml } from '@/lib/sanitize';
 import { fetchBlogPost } from '@/lib/blog';
 import Chrome from '../../../../components/Chrome';
@@ -32,7 +32,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description,
-    alternates: alternatesFor(locale, path),
+    // hreflang : slug article + slug catégorie blog varient par langue (repli langue par défaut).
+    alternates: alternatesFromSlugs(locale, path, (idLang) => {
+      const a = p.alternates?.[idLang];
+      return a?.slug ? `/blog/${a.category || 'article'}/${a.slug}` : null;
+    }),
     openGraph: {
       title,
       description,
@@ -80,11 +84,11 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ lo
 
   return (
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(p, path, locale)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd(p, path, locale)) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbJsonLd([
+          __html: jsonLdString(breadcrumbJsonLd([
             { name: 'Accueil', url: urlFor(locale, '') },
             { name: t('title'), url: urlFor(locale, '/blog') },
             ...(p.category?.name ? [{ name: p.category.name, url: urlFor(locale, `/blog/${p.category.slug}`) }] : []),

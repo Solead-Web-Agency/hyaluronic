@@ -4,7 +4,7 @@ import { bridgeGetCached, type ProductCard } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { toCard, type Card } from '@/lib/cardModel';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFor, textFromHtml, organizationJsonLd, websiteJsonLd } from '@/lib/seo';
+import { alternatesFor, jsonLdString, textFromHtml, organizationJsonLd, websiteJsonLd } from '@/lib/seo';
 import { fetchBlogLatest } from '@/lib/blog';
 import { Link } from '@/i18n/navigation';
 import Chrome from '../components/Chrome';
@@ -98,7 +98,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
       {[organizationJsonLd(), websiteJsonLd(locale)].map((block, i) => (
-        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(block) }} />
       ))}
       <Chrome />
       <main>

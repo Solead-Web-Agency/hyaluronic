@@ -1,7 +1,20 @@
-import { locales, defaultLocale } from '@/lib/i18n-config';
+import { locales, defaultLocale, idLangFor } from '@/lib/i18n-config';
 
 // Base publique du site (canonique, OG, sitemap). PUBLIC_BASE_URL en prod.
-export const SITE_URL = (process.env.PUBLIC_BASE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+const RAW_BASE = (process.env.PUBLIC_BASE_URL ?? '').replace(/\/$/, '');
+
+// Garde-fou go-live : en prod indexable, un PUBLIC_BASE_URL absent ou pointant sur localhost
+// ferait émettre des canoniques / hreflang / sitemap vers localhost -> désastre SEO silencieux.
+// On échoue FORT au démarrage plutôt que de laisser passer. En staging (non indexable), le repli
+// localhost reste toléré pour le dev.
+if (process.env.SITE_INDEXABLE === 'true' && (!RAW_BASE || /localhost|127\.0\.0\.1/.test(RAW_BASE))) {
+  throw new Error(
+    '[SEO] PUBLIC_BASE_URL manquant ou localhost alors que SITE_INDEXABLE=true. '
+    + 'Définir PUBLIC_BASE_URL sur l’URL publique (https://…) avant la mise en ligne.',
+  );
+}
+
+export const SITE_URL = RAW_BASE || 'http://localhost:3000';
 
 export function urlFor(locale: string, path = ''): string {
   return `${SITE_URL}/${locale}${path}`;
@@ -9,6 +22,8 @@ export function urlFor(locale: string, path = ''): string {
 
 // Bloc alternates de Next Metadata : canonique de la locale courante +
 // hreflang vers les 22 locales + x-default sur la locale par défaut.
+// NB : ne PAS utiliser pour produit/catégorie/blog dont le slug varie par langue
+// -> passer par alternatesFromSlugs (sinon les hreflang pointent vers des 404).
 export function alternatesFor(locale: string, path = '') {
   const languages: Record<string, string> = {};
   for (const l of locales) {
@@ -18,6 +33,32 @@ export function alternatesFor(locale: string, path = '') {
 
   return {
     canonical: urlFor(locale, path),
+    languages,
+  };
+}
+
+// hreflang quand le SLUG varie d'une langue à l'autre (produit, catégorie, article de blog).
+// `pathFor(idLang)` renvoie le chemin relatif (sans /{locale}) pour cette langue PrestaShop,
+// ou null si la langue n'a pas d'entrée dédiée -> on retombe alors sur la locale par défaut
+// (cohérent avec une page qui rend le contenu par défaut, ex. blog non traduit).
+export function alternatesFromSlugs(
+  locale: string,
+  currentPath: string,
+  pathFor: (idLang: number) => string | null,
+) {
+  const languages: Record<string, string> = {};
+  const defPath = pathFor(idLangFor(defaultLocale));
+  for (const l of locales) {
+    const p = pathFor(idLangFor(l)) ?? defPath;
+    if (p) {
+      languages[l] = urlFor(l, p);
+    }
+  }
+  if (defPath) {
+    languages['x-default'] = urlFor(defaultLocale, defPath);
+  }
+  return {
+    canonical: urlFor(locale, currentPath),
     languages,
   };
 }
@@ -66,6 +107,18 @@ export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
       item: it.url,
     })),
   };
+}
+
+// Sérialise un objet JSON-LD pour injection dans <script type="application/ld+json">.
+// Échappe < > & (et séparateurs de ligne JS) pour qu'aucune donnée produit ne puisse
+// fermer la balise (</script>) ni casser le parsing -> à utiliser partout au lieu de JSON.stringify.
+export function jsonLdString(data: unknown): string {
+  return JSON.stringify(data)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
 }
 
 // Description propre à partir d'un HTML (meta absente : on retombe sur le texte).

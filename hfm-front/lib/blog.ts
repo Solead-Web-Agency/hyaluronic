@@ -7,7 +7,7 @@ import { idLangFor } from './i18n-config';
 
 export type BlogCover = { src: string; wide: string; thumb: string } | null;
 
-export type BlogCategory = { id: number; name: string; slug: string };
+export type BlogCategory = { id: number; name: string; slug: string; alternates?: Record<string, string> };
 
 export type BlogCard = {
   id: number;
@@ -31,6 +31,8 @@ export type BlogPost = BlogCard & {
   externalUrl: string;
   tags: string[];
   relatedProductIds: number[];
+  // hreflang : slug article + slug catégorie par langue (id_lang -> {category, slug}).
+  alternates?: Record<string, { category?: string; slug?: string }>;
 };
 
 export type BlogList = {

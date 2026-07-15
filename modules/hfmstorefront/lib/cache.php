@@ -33,6 +33,9 @@ class HfmCache
     const TAG_PRODUCTS = 'products';
     const TAG_CONTENT = 'content';
     const TAG_BLOG = 'blog';
+    // Avis SAG : tag DÉDIÉ (découplé de products) -> non purgé par les mouvements de stock,
+    // donc l'appel API SAG live ne se relance pas à chaque commande (perf fiche produit).
+    const TAG_REVIEWS = 'reviews';
 
     /** TTL par défaut (secondes), alignés sur le contrat partagé.
      *  Longs car la purge est ÉVÉNEMENTIELLE : tout changement catalogue (produit,
@@ -42,6 +45,7 @@ class HfmCache
     const TTL_PRODUCTS = 86400; // 24 h
     const TTL_CONTENT = 86400;  // 24 h
     const TTL_BLOG = 86400;     // 24 h
+    const TTL_REVIEWS = 43200;  // 12 h (avis SAG, rafraîchis 2×/jour)
 
     /** Préfixe de clé Configuration pour les compteurs de version par tag. */
     const VER_PREFIX = 'HFM_CACHE_VER_';

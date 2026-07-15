@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { updateConsent } from '@/lib/gtm';
 
 const KEY = 'hfm_consent';
+// Évènement global pour rouvrir le bandeau (retrait/modification du consentement depuis le footer).
+export const CONSENT_EVENT = 'hfm:manage-consent';
 
 // Bandeau de consentement (RGPD + Google Consent Mode v2). Par défaut le consentement
 // est REFUSÉ (défini dans le layout) ; ce bandeau permet d'accepter/refuser et met à jour GTM.
@@ -15,6 +17,13 @@ export default function ConsentBanner() {
     if (choice === 'granted') updateConsent(true);
     else if (choice === 'denied') updateConsent(false);
     else setShow(true); // pas encore de choix -> on affiche le bandeau
+  }, []);
+
+  // Retrait du consentement : le lien « Gérer les cookies » du footer rouvre le bandeau.
+  useEffect(() => {
+    const open = () => setShow(true);
+    window.addEventListener(CONSENT_EVENT, open);
+    return () => window.removeEventListener(CONSENT_EVENT, open);
   }, []);
 
   if (!show) return null;

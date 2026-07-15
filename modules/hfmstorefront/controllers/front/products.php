@@ -23,6 +23,10 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $slug = (string) $this->in('link_rewrite');
             if ($slug !== '') {
                 $idProduct = $this->productIdFromSlug($slug);
+                // Slug fourni mais introuvable -> 404 explicite (pas de repli sur la liste complète).
+                if (!$idProduct) {
+                    return ['error' => 'product_not_found'];
+                }
             }
         }
 
@@ -33,6 +37,15 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'disc', ['slug' => $discSlug, 'id_lang' => $idLang, 'id_shop' => $idShop]);
             return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($discSlug, $idLang) {
                 return ['discontinued_category' => $this->discontinuedCategory($discSlug, $idLang)];
+            });
+        }
+
+        // Carte des slugs par langue de TOUS les produits actifs (pour l'hreflang du sitemap).
+        // Sortie compacte { items: [ { id, alt: { <id_lang>: { c: catSlug, s: slug } } } ] }.
+        if ((string) $this->in('action') === 'slugmap') {
+            $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'slugmap', ['id_shop' => $idShop]);
+            return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($idShop) {
+                return ['items' => $this->slugMap($idShop)];
             });
         }
 
@@ -99,7 +112,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $ids = array_slice($ids, $start, $limit);
             $rows = array_map(function ($id) { return ['id_product' => $id]; }, $ids);
         } elseif ($filter !== '') {
-            $rows = $this->filtered($filter, $idLang, $start, $limit);
+            $rows = $this->filtered($filter, $idLang, $page, $limit);
         } elseif ($idManufacturer) {
             $rows = Manufacturer::getProducts($idManufacturer, $idLang, $page, $limit, 'id_product', 'DESC');
         } elseif ($idCategory) {
@@ -128,15 +141,19 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
      *   nolido  -> produits SANS lidocaïne (le complément de la recherche « lidocaïne »)
      * Renvoie un tableau de lignes contenant au moins 'id_product'.
      */
-    protected function filtered($filter, $idLang, $start, $limit)
+    protected function filtered($filter, $idLang, $page, $limit)
     {
+        // NB conventions PS : getNewProducts / getPricesDrop attendent un numéro de page
+        // 1-based ; getBestSalesLight est 0-based. Passer un offset comme numéro de page
+        // (bug d'origine) faisait sauter offset*limit produits dès la page 2.
+        $start = ($page - 1) * $limit;
         switch ($filter) {
             case 'new':
-                return (array) Product::getNewProducts($idLang, $start, $limit);
+                return (array) Product::getNewProducts($idLang, $page, $limit);
             case 'best':
-                return (array) ProductSale::getBestSalesLight($idLang, $start, $limit);
+                return (array) ProductSale::getBestSalesLight($idLang, $page - 1, $limit);
             case 'promo':
-                return (array) Product::getPricesDrop($idLang, $start, $limit);
+                return (array) Product::getPricesDrop($idLang, $page, $limit);
             case 'nolido':
                 $idShop = (int) $this->context->shop->id;
                 $sql = 'SELECT p.id_product
@@ -484,6 +501,110 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         return [$cat->link_rewrite, $cat->name];
     }
 
+    /**
+     * Slugs par langue (id_lang => ['category' => ..., 'slug' => ...]) pour des hreflang corrects.
+     * Le link_rewrite du produit ET celui de sa catégorie par défaut varient d'une langue à l'autre
+     * (ex. FR « vivacy » -> DE « lebhaftigkeit ») : sans ça, l'alternate /de pointerait vers le slug FR
+     * (404). Indexé sur id_lang ; le front mappe locale -> id_lang. Ne renvoie que les langues où le
+     * produit existe réellement (ligne product_lang présente).
+     */
+    protected function alternateSlugs($idProduct, $idCategoryDefault)
+    {
+        $idShop = (int) $this->context->shop->id;
+        $out = [];
+        $rows = Db::getInstance()->executeS(
+            'SELECT id_lang, link_rewrite FROM `' . _DB_PREFIX_ . 'product_lang`
+             WHERE id_product = ' . (int) $idProduct . ' AND id_shop = ' . $idShop
+        );
+        foreach ((array) $rows as $r) {
+            if ((string) $r['link_rewrite'] === '') {
+                continue;
+            }
+            $out[(int) $r['id_lang']] = ['slug' => (string) $r['link_rewrite'], 'category' => null];
+        }
+        if ((int) $idCategoryDefault) {
+            $catRows = Db::getInstance()->executeS(
+                'SELECT id_lang, link_rewrite FROM `' . _DB_PREFIX_ . 'category_lang`
+                 WHERE id_category = ' . (int) $idCategoryDefault . ' AND id_shop = ' . $idShop
+            );
+            foreach ((array) $catRows as $r) {
+                $l = (int) $r['id_lang'];
+                if (isset($out[$l]) && (string) $r['link_rewrite'] !== '') {
+                    $out[$l]['category'] = (string) $r['link_rewrite'];
+                }
+            }
+        }
+        return $out;
+    }
+
+    /**
+     * Slugs par langue de TOUS les produits actifs, en 3 requêtes batch (pas d'objet Product).
+     * Sert l'hreflang du sitemap : chaque produit -> { id, alt: { id_lang: { c: catSlug, s: slug } } }.
+     * Ne renvoie que les langues où le produit a un slug non vide ; catégorie = catégorie par défaut.
+     */
+    protected function slugMap($idShop)
+    {
+        // 1) Produits actifs + leur catégorie par défaut.
+        $prod = [];
+        $catIds = [];
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT p.id_product, p.id_category_default
+             FROM ' . _DB_PREFIX_ . 'product p
+             INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                ON (ps.id_product = p.id_product AND ps.id_shop = ' . (int) $idShop . '
+                    AND ps.active = 1 AND ps.visibility != "none")'
+        ) as $r) {
+            $id = (int) $r['id_product'];
+            $prod[$id] = ['cat' => (int) $r['id_category_default'], 'alt' => []];
+            if ((int) $r['id_category_default']) {
+                $catIds[(int) $r['id_category_default']] = true;
+            }
+        }
+        if (!$prod) {
+            return [];
+        }
+        $ids = array_map('intval', array_keys($prod));
+
+        // 2) Slugs produit par langue.
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_product, id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'product_lang
+             WHERE id_shop = ' . (int) $idShop . ' AND id_product IN (' . implode(',', $ids) . ')'
+        ) as $r) {
+            $id = (int) $r['id_product'];
+            if (isset($prod[$id]) && (string) $r['link_rewrite'] !== '') {
+                $prod[$id]['alt'][(int) $r['id_lang']] = ['s' => (string) $r['link_rewrite'], 'c' => null];
+            }
+        }
+
+        // 3) Slugs catégorie par défaut par langue.
+        $catSlugs = [];
+        if ($catIds) {
+            foreach ((array) Db::getInstance()->executeS(
+                'SELECT id_category, id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'category_lang
+                 WHERE id_shop = ' . (int) $idShop . ' AND id_category IN (' . implode(',', array_map('intval', array_keys($catIds))) . ')'
+            ) as $r) {
+                if ((string) $r['link_rewrite'] !== '') {
+                    $catSlugs[(int) $r['id_category']][(int) $r['id_lang']] = (string) $r['link_rewrite'];
+                }
+            }
+        }
+
+        $out = [];
+        foreach ($prod as $id => $info) {
+            $cat = $info['cat'];
+            foreach ($info['alt'] as $l => &$entry) {
+                if ($cat && isset($catSlugs[$cat][$l])) {
+                    $entry['c'] = $catSlugs[$cat][$l];
+                }
+            }
+            unset($entry);
+            if ($info['alt']) {
+                $out[] = ['id' => (int) $id, 'alt' => $info['alt']];
+            }
+        }
+        return $out;
+    }
+
     protected function single($idProduct, $idLang)
     {
         $p = new Product($idProduct, true, $idLang);
@@ -521,6 +642,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'link_rewrite' => $p->link_rewrite,
             'category' => $catSlug,
             'category_name' => $catName,
+            'alternates' => $this->alternateSlugs($idProduct, $p->id_category_default),
             'description' => $p->description,
             'description_short' => $p->description_short,
             'meta_title' => (string) $p->meta_title,
@@ -545,7 +667,11 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
      * Avis « Société des Avis Garantis » d'un produit (langue courante).
      * Fetch LIVE depuis l'API SAG (frais), avec repli sur le snapshot en base si l'API échoue.
      * Gate sur la présence en base : évite d'appeler l'API sur les produits jamais notés.
-     * (Mis en cache 24 h via le cache de la fiche produit -> ~1 appel/produit/jour.)
+     *
+     * Cache DÉDIÉ (tag reviews, TTL 12 h) et NON products : la fiche produit se reconstruit à
+     * chaque commande (purge products via actionUpdateQuantity) ; sans ce découplage, l'appel API
+     * SAG bloquant (curl jusqu'à 5 s) se relancerait au premier affichage post-commande. Ici il ne
+     * se relance qu'à l'expiration du TTL avis -> ~2 appels/produit/jour, indépendants des stocks.
      */
     protected function productReviews($idProduct, $idLang)
     {
@@ -557,8 +683,14 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         if ($hasReviews < 1) {
             return null;
         }
-        $live = $this->sagLiveReviews($idProduct, $idLang);
-        return $live !== null ? $live : $this->reviewsFromDb($idProduct, $idLang);
+        $key = HfmCache::key(HfmCache::TAG_REVIEWS, 'sag', [
+            'id_product' => (int) $idProduct,
+            'id_lang' => (int) $idLang,
+        ]);
+        return HfmCache::remember($key, HfmCache::TTL_REVIEWS, function () use ($idProduct, $idLang) {
+            $live = $this->sagLiveReviews($idProduct, $idLang);
+            return $live !== null ? $live : $this->reviewsFromDb($idProduct, $idLang);
+        });
     }
 
     /** Récupère les avis EN DIRECT depuis l'API SAG (reviews.php par produit). null si échec. */
@@ -578,8 +710,9 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, 'apiKey=' . urlencode($apiKey));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        // TLS vérifié (la clé API transite dans le POST -> pas de MITM). Domaines SAG en HTTPS valide.
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         $resp = curl_exec($ch);

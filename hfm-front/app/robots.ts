@@ -17,8 +17,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      // Espaces privés et API : inutiles à l'index.
-      disallow: ['/api/', '/*/panier', '/*/compte', '/*/commande', '/*/favoris'],
+      // Espaces privés et API : inutiles à l'index (routes réelles : checkout / compte / favoris).
+      disallow: ['/api/', '/*/checkout', '/*/compte', '/*/favoris'],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };

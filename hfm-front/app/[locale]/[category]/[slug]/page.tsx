@@ -4,7 +4,7 @@ import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFor, breadcrumbJsonLd, textFromHtml, urlFor } from '@/lib/seo';
+import { alternatesFromSlugs, breadcrumbJsonLd, jsonLdString, textFromHtml, urlFor } from '@/lib/seo';
 import { sanitizeCatalogHtml, structureDescription } from '@/lib/sanitize';
 import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
@@ -40,11 +40,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   // Canonique = catégorie CANONIQUE du produit (pas forcément celle de l'URL demandée).
   const path = `/${p.category || 'produit'}/${slug}`;
   const images = Array.isArray(p.images) && p.images.length ? [{ url: p.images[0] as string }] : undefined;
+  // hreflang : slug produit ET slug catégorie varient par langue -> map id_lang renvoyée par le bridge.
+  const alt = p.alternates as Record<string, { category?: string; slug?: string }> | undefined;
 
   return {
     title,
     description,
-    alternates: alternatesFor(locale, path),
+    alternates: alternatesFromSlugs(locale, path, (idLang) => {
+      const a = alt?.[idLang];
+      return a?.slug ? `/${a.category || 'produit'}/${a.slug}` : null;
+    }),
     openGraph: {
       title,
       description,
@@ -193,7 +198,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
   return (
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
       {jsonLd(p, path, locale).map((block, i) => (
-        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(block) }} />
       ))}
       <Chrome />
       <ProductDetail product={view} related={related} />

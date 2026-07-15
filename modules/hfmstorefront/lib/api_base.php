@@ -41,7 +41,13 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
         try {
             $this->respond($this->{$handler}(), 200);
         } catch (\Throwable $e) {
-            $this->respond(['error' => $e->getMessage(), 'where' => basename($e->getFile()) . ':' . $e->getLine()], 400);
+            // Détail journalisé côté serveur uniquement : jamais renvoyé au client (même authentifié),
+            // pour ne pas exposer chemins de fichiers, lignes ou messages SGBD.
+            PrestaShopLogger::addLog(
+                'HFM bridge: ' . $e->getMessage() . ' @ ' . basename($e->getFile()) . ':' . $e->getLine(),
+                3
+            );
+            $this->respond(['error' => 'server_error'], 400);
         }
     }
 

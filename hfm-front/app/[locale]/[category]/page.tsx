@@ -4,7 +4,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { bridgeGetCached, type ProductCard as PC } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFor, breadcrumbJsonLd, urlFor } from '@/lib/seo';
+import { alternatesFromSlugs, breadcrumbJsonLd, jsonLdString, urlFor } from '@/lib/seo';
 import { toCard } from '@/lib/cardModel';
 import Chrome from '../../components/Chrome';
 import Footer from '../../components/Footer';
@@ -19,6 +19,7 @@ type Cat = {
   active: boolean;
   nb_products: number;
   id_parent: number;
+  alternates?: Record<string, string>; // id_lang -> slug (hreflang)
 };
 
 // Anciennes pages « virtuelles » PS (pas de vraie catégorie en base) -> redirection 301.
@@ -46,7 +47,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
   return {
     title: `${cat.name} — Hyaluronic Filler Market`,
-    alternates: alternatesFor(locale, `/${category}`),
+    // hreflang : le slug catégorie varie par langue (FR « comblement » -> EN « filler »).
+    alternates: alternatesFromSlugs(locale, `/${category}`, (idLang) => {
+      const s = cat.alternates?.[idLang];
+      return s ? `/${s}` : null;
+    }),
   };
 }
 
@@ -81,7 +86,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbJsonLd([
+          __html: jsonLdString(breadcrumbJsonLd([
             { name: 'Accueil', url: urlFor(locale, '') },
             { name: cat.name, url: urlFor(locale, `/${category}`) },
           ])),

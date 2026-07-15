@@ -7,9 +7,11 @@ import { StoreProvider } from '../store';
 import { WishlistProvider } from '../wishlist';
 import ConsentBanner from '../components/ConsentBanner';
 
-// Conteneur GTM (mêmes tags GA4/Ads/remarketing que l'ancien site). Gaté par env :
-// non défini = pas de tracking (staging propre) ; au cutover, mettre NEXT_PUBLIC_GTM_ID=GTM-NR6D62Z.
+// Conteneur GTM (mêmes tags GA4/Ads/remarketing que l'ancien site). Chargé UNIQUEMENT en prod
+// indexable (SITE_INDEXABLE=true) ET avec un ID défini : le staging reste 100 % propre (aucune
+// pollution GA4/Ads/conversions) même si NEXT_PUBLIC_GTM_ID traîne dans l'env. Cutover : les deux.
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const GTM_ENABLED = !!GTM_ID && process.env.SITE_INDEXABLE === 'true';
 
 // Consent Mode v2 : refus par défaut (EEA) AVANT le chargement de GTM ; le bandeau met à jour.
 const CONSENT_DEFAULT = `
@@ -42,10 +44,10 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={isRtl(locale) ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>
-        {GTM_ID ? (
+        {GTM_ENABLED ? (
           <>
             <script dangerouslySetInnerHTML={{ __html: CONSENT_DEFAULT }} />
-            <script dangerouslySetInnerHTML={{ __html: GTM_LOADER(GTM_ID) }} />
+            <script dangerouslySetInnerHTML={{ __html: GTM_LOADER(GTM_ID as string) }} />
           </>
         ) : null}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -56,7 +58,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body suppressHydrationWarning>
-        {GTM_ID ? (
+        {GTM_ENABLED ? (
           <noscript>
             <iframe
               src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}

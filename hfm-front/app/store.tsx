@@ -167,7 +167,14 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         const d = await r.json();
         if (d.error === 'out_of_stock') return; // produit en rupture : on n'ajoute pas
         applyCart(d);
-        trackAddToCart({ id: p.id, quantity: p.quantity ?? 1 });
+        // Event GA4 enrichi (nom + prix TTC, cohérent avec view_item) depuis la ligne panier renvoyée.
+        const line = (d.products as CartLine[] | undefined)?.find((l) => l.id_product === p.id);
+        trackAddToCart({
+          id: p.id,
+          quantity: p.quantity ?? 1,
+          name: line?.name,
+          price: line?.unit_price_incl_tax,
+        });
         setCartOpen(true);
       } catch {
         /* ignore */

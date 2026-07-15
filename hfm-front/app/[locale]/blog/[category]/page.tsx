@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { alternatesFor } from '@/lib/seo';
+import { alternatesFromSlugs } from '@/lib/seo';
 import { fetchBlogList, fetchBlogCategories } from '@/lib/blog';
 import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
@@ -14,10 +14,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'blog' });
   const list = await fetchBlogList(locale, { limit: 1, category });
   const name = list.category?.name;
+  const alt = list.category?.alternates;
   return {
     title: name ? `${name} — ${t('title')}` : t('title'),
     description: t('lead'),
-    alternates: alternatesFor(locale, `/blog/${category}`),
+    // hreflang : le slug de catégorie blog varie par langue (repli langue par défaut).
+    alternates: alternatesFromSlugs(locale, `/blog/${category}`, (idLang) => {
+      const s = alt?.[idLang];
+      return s ? `/blog/${s}` : null;
+    }),
   };
 }
 

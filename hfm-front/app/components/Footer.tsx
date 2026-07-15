@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { idLangFor } from '@/lib/i18n-config';
+import { CONSENT_EVENT } from './ConsentBanner';
 
 type Cat = { id_category: number; name: string; nb_products: number };
 type MenuCat = Cat & { children: Cat[] };
@@ -89,6 +90,15 @@ export default function Footer() {
           ) : (
             <Link key={s.key} href={s.href} className="hfm-footlink" style={{ ...linkStyle, color: '#94A580', fontSize: '12px' }}>{t(s.key)}</Link>
           ))}
+          {/* Retrait/modification du consentement (RGPD) : rouvre le bandeau cookies. */}
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event(CONSENT_EVENT))}
+            className="hfm-footlink"
+            style={{ ...linkStyle, color: '#94A580', fontSize: '12px', background: 'none', border: 0, padding: 0, font: 'inherit' }}
+          >
+            {t('serviceCookies')}
+          </button>
         </div>
         <span>{t('payments')}</span>
       </div>

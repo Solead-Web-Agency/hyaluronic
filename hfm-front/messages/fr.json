@@ -87,7 +87,8 @@
     "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
     "zonesTitle": "Par zone",
     "effectsTitle": "Par effet",
-    "allBrands": "Toutes les marques"
+    "allBrands": "Toutes les marques",
+    "serviceCookies": "Gérer les cookies"
   },
   "home": {
     "badge": "10 ans · grossiste agréé esthétique médicale",

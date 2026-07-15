@@ -75,6 +75,18 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                 ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1 AND ps.visibility != "none")
              WHERE cp.id_category = ' . (int) $row['id_category']
         );
+        // Slugs par langue (id_lang => link_rewrite) pour des hreflang corrects : le slug catégorie
+        // varie d'une langue à l'autre (ex. FR « comblement » -> EN « filler »).
+        $alt = [];
+        $altRows = Db::getInstance()->executeS(
+            'SELECT id_lang, link_rewrite FROM `' . _DB_PREFIX_ . 'category_lang`
+             WHERE id_category = ' . (int) $row['id_category'] . ' AND id_shop = ' . $idShop
+        );
+        foreach ((array) $altRows as $r) {
+            if ((string) $r['link_rewrite'] !== '') {
+                $alt[(int) $r['id_lang']] = (string) $r['link_rewrite'];
+            }
+        }
         return [
             'id_category' => (int) $row['id_category'],
             'name' => $row['name'],
@@ -82,6 +94,7 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
             'active' => (bool) (int) $row['active'],
             'nb_products' => $nbp,
             'id_parent' => (int) $row['id_parent'],
+            'alternates' => $alt,
         ];
     }
 
@@ -103,12 +116,31 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
              ORDER BY nb_products DESC'
         );
         $out = [];
+        $ids = [];
         foreach ((array) $rows as $r) {
             if (empty($r['link_rewrite'])) {
                 continue;
             }
+            $ids[] = (int) $r['id_category'];
             $out[] = ['id_category' => (int) $r['id_category'], 'link_rewrite' => $r['link_rewrite'], 'nb_products' => (int) $r['nb_products']];
         }
+        if (!$ids) {
+            return $out;
+        }
+        // Slugs par langue (id_category => id_lang => link_rewrite) pour l'hreflang du sitemap.
+        $altByCat = [];
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_category, id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'category_lang
+             WHERE id_shop = ' . $idShop . ' AND id_category IN (' . implode(',', $ids) . ')'
+        ) as $r) {
+            if ((string) $r['link_rewrite'] !== '') {
+                $altByCat[(int) $r['id_category']][(int) $r['id_lang']] = (string) $r['link_rewrite'];
+            }
+        }
+        foreach ($out as &$c) {
+            $c['alternates'] = isset($altByCat[$c['id_category']]) ? $altByCat[$c['id_category']] : [];
+        }
+        unset($c);
         return $out;
     }
 

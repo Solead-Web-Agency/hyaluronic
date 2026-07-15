@@ -40,6 +40,9 @@ class HfmstorefrontBlogModuleFrontController extends HfmStorefrontApiController
                     return $this->post();
                 case 'categories':
                     return ['categories' => $this->categories()];
+                case 'slugmap':
+                    // Slugs par langue de tous les articles actifs (hreflang du sitemap).
+                    return ['items' => $this->slugMap()];
                 case 'latest':
                     $limit = (int) $this->in('limit');
                     $limit = ($limit > 0 && $limit <= 12) ? $limit : 3;
@@ -210,7 +213,102 @@ class HfmstorefrontBlogModuleFrontController extends HfmStorefrontApiController
             'externalUrl' => (string) $row['external_url'],
             'tags' => $this->tags($id, $idLang, $defLang),
             'relatedProductIds' => $this->relatedProductIds($id),
+            'alternates' => $this->postAlternates($id, (int) $row['id_category'], $defLang),
         ]];
+    }
+
+    /**
+     * Slugs par langue (id_lang => ['category' => ..., 'slug' => ...]) pour des hreflang corrects.
+     * Le slug de l'article ET celui de sa catégorie blog varient par langue quand l'article est
+     * traduit. On applique le même repli sur la langue par défaut que la lecture (COALESCE) : une
+     * langue sans slug d'article dédié retombe sur le slug par défaut, cohérent avec la page rendue.
+     */
+    protected function postAlternates($idPost, $idCategory, $defLang)
+    {
+        $postSlugs = [];
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'simpleblog_post_lang
+             WHERE id_simpleblog_post = ' . (int) $idPost
+        ) as $r) {
+            if ((string) $r['link_rewrite'] !== '') {
+                $postSlugs[(int) $r['id_lang']] = (string) $r['link_rewrite'];
+            }
+        }
+        $catSlugs = [];
+        if ($idCategory) {
+            foreach ((array) Db::getInstance()->executeS(
+                'SELECT id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'simpleblog_category_lang
+                 WHERE id_simpleblog_category = ' . (int) $idCategory
+            ) as $r) {
+                if ((string) $r['link_rewrite'] !== '') {
+                    $catSlugs[(int) $r['id_lang']] = (string) $r['link_rewrite'];
+                }
+            }
+        }
+        $defCat = isset($catSlugs[$defLang]) ? $catSlugs[$defLang] : null;
+        $out = [];
+        foreach ($postSlugs as $l => $s) {
+            $out[$l] = ['slug' => $s, 'category' => isset($catSlugs[$l]) ? $catSlugs[$l] : $defCat];
+        }
+        return $out;
+    }
+
+    /**
+     * Slugs par langue de TOUS les articles actifs (3 requêtes batch) pour l'hreflang du sitemap.
+     * -> [ { id, alt: { id_lang: { c: catSlug, s: slug } } } ], repli catégorie sur la langue par défaut.
+     */
+    protected function slugMap()
+    {
+        $defLang = (int) Configuration::get('PS_LANG_DEFAULT');
+        $posts = [];
+        $catIds = [];
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_simpleblog_post, id_simpleblog_category FROM ' . _DB_PREFIX_ . 'simpleblog_post
+             WHERE active = 1'
+        ) as $r) {
+            $id = (int) $r['id_simpleblog_post'];
+            $posts[$id] = ['cat' => (int) $r['id_simpleblog_category'], 'alt' => []];
+            if ((int) $r['id_simpleblog_category']) {
+                $catIds[(int) $r['id_simpleblog_category']] = true;
+            }
+        }
+        if (!$posts) {
+            return [];
+        }
+        $ids = array_map('intval', array_keys($posts));
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_simpleblog_post, id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'simpleblog_post_lang
+             WHERE id_simpleblog_post IN (' . implode(',', $ids) . ')'
+        ) as $r) {
+            $id = (int) $r['id_simpleblog_post'];
+            if (isset($posts[$id]) && (string) $r['link_rewrite'] !== '') {
+                $posts[$id]['alt'][(int) $r['id_lang']] = ['s' => (string) $r['link_rewrite'], 'c' => null];
+            }
+        }
+        $catSlugs = [];
+        if ($catIds) {
+            foreach ((array) Db::getInstance()->executeS(
+                'SELECT id_simpleblog_category, id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'simpleblog_category_lang
+                 WHERE id_simpleblog_category IN (' . implode(',', array_map('intval', array_keys($catIds))) . ')'
+            ) as $r) {
+                if ((string) $r['link_rewrite'] !== '') {
+                    $catSlugs[(int) $r['id_simpleblog_category']][(int) $r['id_lang']] = (string) $r['link_rewrite'];
+                }
+            }
+        }
+        $out = [];
+        foreach ($posts as $id => $info) {
+            $cat = $info['cat'];
+            $defCat = ($cat && isset($catSlugs[$cat][$defLang])) ? $catSlugs[$cat][$defLang] : null;
+            foreach ($info['alt'] as $l => &$entry) {
+                $entry['c'] = ($cat && isset($catSlugs[$cat][$l])) ? $catSlugs[$cat][$l] : $defCat;
+            }
+            unset($entry);
+            if ($info['alt']) {
+                $out[] = ['id' => (int) $id, 'alt' => $info['alt']];
+            }
+        }
+        return $out;
     }
 
     protected function tags($idPost, $idLang, $defLang)
@@ -300,7 +398,17 @@ class HfmstorefrontBlogModuleFrontController extends HfmStorefrontApiController
         if (!$r) {
             return null;
         }
-        return ['id' => (int) $idCat, 'name' => $r['name'], 'slug' => $r['slug']];
+        // Slugs par langue (id_lang => link_rewrite) pour l'hreflang de /blog/{categorie}.
+        $alt = [];
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'simpleblog_category_lang
+             WHERE id_simpleblog_category = ' . (int) $idCat
+        ) as $a) {
+            if ((string) $a['link_rewrite'] !== '') {
+                $alt[(int) $a['id_lang']] = (string) $a['link_rewrite'];
+            }
+        }
+        return ['id' => (int) $idCat, 'name' => $r['name'], 'slug' => $r['slug'], 'alternates' => $alt];
     }
 
     /* ------------------------------------------------------------------ helpers */
@@ -410,8 +518,12 @@ class HfmstorefrontBlogModuleFrontController extends HfmStorefrontApiController
     protected function fixUrls($html)
     {
         $base = $this->baseUrl();
-        $html = str_replace(['src="/', 'href="/'], ['src="' . $base . '/', 'href="' . $base . '/'], $html);
-        $html = str_replace([$base . '/http', $base . '//'], ['http', $base . '/'], $html);
+        // Rewrite des URLs racine-relatives (src="/..", href="/..") en absolu, SANS toucher aux
+        // URLs protocole-relatives (src="//cdn..") ni absolues : le lookahead (?!/) exclut le second
+        // slash. L'ancienne version transformait //cdn.externe en {base}/cdn.externe (lien cassé).
+        $html = preg_replace('#(src|href)="/(?!/)#i', '$1="' . $base . '/', $html);
+        // Filet : défait un préfixe ajouté par erreur devant une URL absolue mal formée (src="/https://..).
+        $html = str_replace($base . '/http', 'http', $html);
         return $html;
     }
 }
