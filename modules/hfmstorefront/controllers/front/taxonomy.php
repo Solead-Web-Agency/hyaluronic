@@ -23,12 +23,15 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
             'id_lang' => $idLang,
             'id_shop' => $idShop,
             'id_parent' => (int) $this->in('id_parent'),
+            'slug' => (string) $this->in('slug'),
         ]);
 
         return HfmCache::remember($key, HfmCache::TTL_TAXONOMY, function () use ($action, $idLang) {
             switch ($action) {
                 case 'categories':
                     return ['categories' => $this->categories($idLang)];
+                case 'category':
+                    return ['category' => $this->categoryBySlug($idLang)];
                 case 'menu':
                     return ['menu' => $this->menuTree($idLang)];
                 case 'manufacturers':
@@ -39,6 +42,45 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                     return ['error' => 'unknown_action'];
             }
         });
+    }
+
+    /**
+     * Résout une catégorie par son slug (link_rewrite), dans la langue courante.
+     * Renvoie active + nb_products pour que le front décide : page dédiée (active + produits),
+     * redirection (inactive/vide) ou 404 (slug inconnu). Sert la parité des URLs catégorie prod.
+     */
+    protected function categoryBySlug($idLang)
+    {
+        $slug = (string) $this->in('slug');
+        if ($slug === '') {
+            return null;
+        }
+        $idShop = (int) $this->context->shop->id;
+        $row = Db::getInstance()->getRow(
+            'SELECT c.id_category, c.id_parent, c.active, cl.name, cl.link_rewrite
+             FROM ' . _DB_PREFIX_ . 'category_lang cl
+             INNER JOIN ' . _DB_PREFIX_ . 'category c ON c.id_category = cl.id_category
+             WHERE cl.link_rewrite = \'' . pSQL($slug) . '\'
+               AND cl.id_lang = ' . (int) $idLang . ' AND cl.id_shop = ' . $idShop . '
+             ORDER BY c.active DESC'
+        );
+        if (!$row) {
+            return null;
+        }
+        $nbp = (int) Db::getInstance()->getValue(
+            'SELECT COUNT(*) FROM ' . _DB_PREFIX_ . 'category_product cp
+             INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1 AND ps.visibility != "none")
+             WHERE cp.id_category = ' . (int) $row['id_category']
+        );
+        return [
+            'id_category' => (int) $row['id_category'],
+            'name' => $row['name'],
+            'link_rewrite' => $row['link_rewrite'],
+            'active' => (bool) (int) $row['active'],
+            'nb_products' => $nbp,
+            'id_parent' => (int) $row['id_parent'],
+        ];
     }
 
     /** Catégories actives sous un parent (par défaut les enfants de la catégorie racine de la boutique). */
