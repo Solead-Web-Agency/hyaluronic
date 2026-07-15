@@ -110,7 +110,21 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
   const { locale, category, slug } = await params;
   setRequestLocale(locale);
   const p = await fetchProductBySlug(slug, locale) as Record<string, any>;
-  if (!p.name) notFound();
+  if (!p.name) {
+    // Produit discontinué (inactif/supprimé) : 301 vers SA catégorie par défaut (résolue même si
+    // le produit est inactif), sinon 404. Préserve le jus SEO + l'UX. Si cette catégorie est
+    // elle-même désactivée, sa page redirige à son tour vers le catalogue.
+    const tx = await bridgeGetCached(
+      'products',
+      { disc_slug: slug, id_lang: idLangFor(locale) },
+      { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
+    ).catch(() => null);
+    const catSlug = (tx as { discontinued_category?: string | null } | null)?.discontinued_category;
+    if (catSlug) {
+      permanentRedirect(`/${locale}/${catSlug}`);
+    }
+    notFound();
+  }
 
   // Redirection 301 vers l'URL canonique si le segment catégorie ne correspond pas
   // (préserve les anciennes URLs indexées : /fr/accueil/{slug} -> /fr/{cat}/{slug}).

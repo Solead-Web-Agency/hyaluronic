@@ -26,6 +26,16 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             }
         }
 
+        // Produit discontinué : renvoie le slug de sa catégorie par défaut (produit actif OU inactif)
+        // pour que le front redirige 301 une ancienne URL produit indexée vers sa catégorie.
+        $discSlug = (string) $this->in('disc_slug');
+        if ($discSlug !== '') {
+            $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'disc', ['slug' => $discSlug, 'id_lang' => $idLang, 'id_shop' => $idShop]);
+            return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($discSlug, $idLang) {
+                return ['discontinued_category' => $this->discontinuedCategory($discSlug, $idLang)];
+            });
+        }
+
         // Cross-selling d'une fiche produit (accessoires, marque, catégorie, zone).
         $idRelated = (int) $this->in('related');
         if ($idRelated) {
@@ -420,6 +430,31 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             return 'in_stock';
         }
         return Product::isAvailableWhenOutOfStock((int) $oos) ? 'backorder' : 'unavailable';
+    }
+
+    /** Slug de la catégorie par défaut d'un produit (ACTIF OU INACTIF) résolu par son slug. null sinon. */
+    protected function discontinuedCategory($slug, $idLang)
+    {
+        $idShop = (int) $this->context->shop->id;
+        $idProduct = (int) Db::getInstance()->getValue(
+            'SELECT id_product FROM ' . _DB_PREFIX_ . 'product_lang
+             WHERE link_rewrite = \'' . pSQL($slug) . '\' AND id_lang = ' . (int) $idLang . '
+             ORDER BY id_product DESC'
+        );
+        if (!$idProduct) {
+            return null;
+        }
+        $idCat = (int) Db::getInstance()->getValue(
+            'SELECT id_category_default FROM ' . _DB_PREFIX_ . 'product WHERE id_product = ' . $idProduct
+        );
+        if (!$idCat) {
+            return null;
+        }
+        $lr = Db::getInstance()->getValue(
+            'SELECT link_rewrite FROM ' . _DB_PREFIX_ . 'category_lang
+             WHERE id_category = ' . $idCat . ' AND id_lang = ' . (int) $idLang . ' AND id_shop = ' . $idShop
+        );
+        return $lr ?: null;
     }
 
     /** Résout un slug produit (link_rewrite) en id_product actif. Newest gagne (slugs ~uniques). */
