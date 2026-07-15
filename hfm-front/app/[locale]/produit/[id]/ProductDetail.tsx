@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
+import { trackViewItem } from '@/lib/gtm';
 import { Link } from '@/i18n/navigation';
 import { useStore } from '../../../store';
 import { fmt } from '@/lib/cardModel';
@@ -66,6 +67,10 @@ export default function ProductDetail({ product, related }: { product: ProductVi
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState<TabKey>('description');
   const tabsRef = useRef<HTMLElement>(null);
+  // GA4 view_item (dataLayer) à l'affichage de la fiche.
+  useEffect(() => {
+    trackViewItem({ id: product.id, name: product.name, price: product.ttc, brand: product.brand });
+  }, [product.id, product.name, product.ttc, product.brand]);
   // Ouvre l'onglet Avis et scrolle jusqu'aux onglets (depuis le résumé étoilé sous le titre).
   const goToReviews = () => {
     setTab('reviews');

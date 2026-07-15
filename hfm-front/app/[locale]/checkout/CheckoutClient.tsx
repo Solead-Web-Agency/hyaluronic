@@ -6,6 +6,7 @@ import { Link } from '@/i18n/navigation';
 import { useRouter } from '@/i18n/navigation';
 import { useStore } from '../../store';
 import { fmt } from '@/lib/cardModel';
+import { trackPurchase } from '@/lib/gtm';
 import AddressForm, { type Address } from '../../components/AddressForm';
 import AmazonPayButton from '../../components/AmazonPayButton';
 
@@ -186,6 +187,16 @@ export default function CheckoutClient() {
   const [orderErr, setOrderErr] = useState<string | null>(null);
   const [rppsErr, setRppsErr] = useState<string | null>(null);
   const [confirmation, setConfirmation] = useState<{ reference: string; id_order: number; total_paid: number } | null>(null);
+
+  // GA4 purchase (conversion) à la confirmation. Dédup par référence (évite le double-comptage
+  // sur un rafraîchissement de la page de retour paiement viva/paypal/amazon).
+  useEffect(() => {
+    if (!confirmation?.reference) return;
+    const k = 'hfm_purchase_' + confirmation.reference;
+    if (localStorage.getItem(k)) return;
+    localStorage.setItem(k, '1');
+    trackPurchase({ reference: confirmation.reference, value: confirmation.total_paid });
+  }, [confirmation]);
 
   // Code promo
   const [voucherCode, setVoucherCode] = useState('');

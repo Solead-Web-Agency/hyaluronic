@@ -8,6 +8,7 @@ import React, {
   useState,
 } from 'react';
 import type { Card } from '@/lib/cardModel';
+import { trackAddToCart } from '@/lib/gtm';
 
 type CartLine = {
   id_product: number;
@@ -166,6 +167,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         const d = await r.json();
         if (d.error === 'out_of_stock') return; // produit en rupture : on n'ajoute pas
         applyCart(d);
+        trackAddToCart({ id: p.id, quantity: p.quantity ?? 1 });
         setCartOpen(true);
       } catch {
         /* ignore */

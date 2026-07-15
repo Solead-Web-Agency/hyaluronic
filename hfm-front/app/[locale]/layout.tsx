@@ -5,6 +5,20 @@ import { routing } from '@/i18n/routing';
 import { isRtl } from '@/lib/i18n-config';
 import { StoreProvider } from '../store';
 import { WishlistProvider } from '../wishlist';
+import ConsentBanner from '../components/ConsentBanner';
+
+// Conteneur GTM (mêmes tags GA4/Ads/remarketing que l'ancien site). Gaté par env :
+// non défini = pas de tracking (staging propre) ; au cutover, mettre NEXT_PUBLIC_GTM_ID=GTM-NR6D62Z.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
+// Consent Mode v2 : refus par défaut (EEA) AVANT le chargement de GTM ; le bandeau met à jour.
+const CONSENT_DEFAULT = `
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+gtag('set','ads_data_redaction',true);gtag('set','url_passthrough',true);`;
+
+const GTM_LOADER = (id: string) => `
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${id}');`;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -28,6 +42,12 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={isRtl(locale) ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>
+        {GTM_ID ? (
+          <>
+            <script dangerouslySetInnerHTML={{ __html: CONSENT_DEFAULT }} />
+            <script dangerouslySetInnerHTML={{ __html: GTM_LOADER(GTM_ID) }} />
+          </>
+        ) : null}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
@@ -36,9 +56,20 @@ export default async function LocaleLayout({
         />
       </head>
       <body suppressHydrationWarning>
+        {GTM_ID ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        ) : null}
         <NextIntlClientProvider>
           <StoreProvider>
             <WishlistProvider>{children}</WishlistProvider>
+            <ConsentBanner />
           </StoreProvider>
         </NextIntlClientProvider>
       </body>
