@@ -20,7 +20,8 @@
     "seeCatalogue": "Bekijk de catalogus",
     "myOrders": "Mijn bestellingen",
     "myInfo": "Mijn gegevens",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Home"
   },
   "header": {
     "topbarShipping": "Dezelfde dag verzonden — bestel vóór 15.00 uur · DHL & Colissimo Express",

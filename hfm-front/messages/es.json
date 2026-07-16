@@ -20,7 +20,8 @@
     "seeCatalogue": "Ver el catálogo",
     "myOrders": "Mis pedidos",
     "myInfo": "Mis datos",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Inicio"
   },
   "header": {
     "topbarShipping": "Envío el mismo día — pedidos antes de las 15 h · DHL & Colissimo Express",

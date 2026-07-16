@@ -20,7 +20,8 @@
     "seeCatalogue": "Visa katalogen",
     "myOrders": "Mina beställningar",
     "myInfo": "Mina uppgifter",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Hem"
   },
   "header": {
     "topbarShipping": "Leverans samma dag — beställ före kl. 15 · DHL & Colissimo Express",

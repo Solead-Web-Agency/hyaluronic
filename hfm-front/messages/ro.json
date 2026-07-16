@@ -20,7 +20,8 @@
     "seeCatalogue": "Vezi catalogul",
     "myOrders": "Comenzile mele",
     "myInfo": "Datele mele",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Acasă"
   },
   "header": {
     "topbarShipping": "Expediere în aceeași zi — comandă înainte de ora 15:00 · DHL & Colissimo Express",

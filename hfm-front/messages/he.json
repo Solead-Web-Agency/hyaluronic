@@ -20,7 +20,8 @@
     "seeCatalogue": "צפו בקטלוג",
     "myOrders": "ההזמנות שלי",
     "myInfo": "הפרטים שלי",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "דף הבית"
   },
   "header": {
     "topbarShipping": "משלוח באותו יום — הזמינו לפני 15:00 · DHL ו-Colissimo Express",

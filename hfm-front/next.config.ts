@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { LEGACY_REDIRECTS } from "./lib/legacyRedirects";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
@@ -20,9 +21,28 @@ const nextConfig: NextConfig = {
   // -> fiche par id (qui redirige ensuite 308 vers l'URL canonique /{categorie}/{slug}).
   async redirects() {
     return [
+      // Redirections historiques de l'ancien site (module ets_seo) — exactes, donc en premier.
+      ...LEGACY_REDIRECTS.map((r) => ({ ...r, permanent: true })),
       {
         source: '/:locale([a-z]{2})/:productId(\\d{1,})-:slug([^/]+\\.html)',
         destination: '/:locale/produit/:productId',
+        permanent: true,
+      },
+      // Format legacy SANS réécriture d'URL (l'ancien PS avait PS_REWRITING_SETTINGS=0, donc
+      // `/index.php?id_product=N` est le format le plus susceptible d'être indexé). Le middleware
+      // ne peut PAS le couvrir : son matcher exclut les chemins contenant un point.
+      // Pas de locale dans ces URLs -> on atterrit sur la locale par défaut, puis la route par id
+      // redirige (308) vers l'URL canonique.
+      {
+        source: '/index.php',
+        has: [{ type: 'query', key: 'id_product', value: '(?<pid>\\d+)' }],
+        destination: '/fr/produit/:pid',
+        permanent: true,
+      },
+      {
+        source: '/index.php',
+        has: [{ type: 'query', key: 'id_category', value: '(?<cid>\\d+)' }],
+        destination: '/fr/catalogue?category=:cid',
         permanent: true,
       },
     ];

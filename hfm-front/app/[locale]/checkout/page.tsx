@@ -3,6 +3,13 @@ import Chrome from '../../components/Chrome';
 import Footer from '../../components/Footer';
 import CheckoutClient from './CheckoutClient';
 
+// Rendu à la REQUÊTE, jamais prérendu au build. C'est la page qui porte la conversion Google Ads :
+// le layout n'injecte gtag/GTM que si SITE_INDEXABLE=true, or cette variable serait figée AU BUILD
+// sur une page statique. Un déploiement où l'on active le tracking sans reconstruire servirait alors
+// un /checkout SANS gtag (conversions perdues en silence) pendant que le reste du site, rendu à la
+// requête, aurait bien le tag — panne invisible. force-dynamic supprime cette asymétrie.
+export const dynamic = 'force-dynamic';
+
 export default async function CheckoutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);

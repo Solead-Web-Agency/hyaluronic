@@ -20,7 +20,8 @@
     "seeCatalogue": "Δείτε τον κατάλογο",
     "myOrders": "Οι παραγγελίες μου",
     "myInfo": "Τα στοιχεία μου",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Αρχική"
   },
   "header": {
     "topbarShipping": "Αποστολή την ίδια ημέρα — παραγγελία πριν τις 15:00 · DHL & Colissimo Express",

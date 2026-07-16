@@ -20,7 +20,8 @@
     "seeCatalogue": "Katalog ansehen",
     "myOrders": "Meine Bestellungen",
     "myInfo": "Meine Daten",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Startseite"
   },
   "header": {
     "topbarShipping": "Versand am selben Tag — Bestellung vor 15 Uhr · DHL & Colissimo Express",

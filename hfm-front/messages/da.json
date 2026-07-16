@@ -20,7 +20,8 @@
     "seeCatalogue": "Se kataloget",
     "myOrders": "Mine ordrer",
     "myInfo": "Mine oplysninger",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Forside"
   },
   "header": {
     "topbarShipping": "Afsendelse samme dag — bestil før kl. 15 · DHL & Colissimo Express",

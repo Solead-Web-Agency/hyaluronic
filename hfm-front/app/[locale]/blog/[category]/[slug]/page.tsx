@@ -79,6 +79,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ lo
   const path = `/blog/${canonicalCat || 'article'}/${slug}`;
 
   const t = await getTranslations('blog');
+  const tc = await getTranslations('common');
   const html = sanitizeCatalogHtml(p.content);
   const date = formatDate(p.date, locale);
 
@@ -89,7 +90,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ lo
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdString(breadcrumbJsonLd([
-            { name: 'Accueil', url: urlFor(locale, '') },
+            { name: tc('breadcrumbHome'), url: urlFor(locale, '') },
             { name: t('title'), url: urlFor(locale, '/blog') },
             ...(p.category?.name ? [{ name: p.category.name, url: urlFor(locale, `/blog/${p.category.slug}`) }] : []),
             { name: p.title, url: urlFor(locale, path) },

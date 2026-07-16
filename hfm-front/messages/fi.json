@@ -20,7 +20,8 @@
     "seeCatalogue": "Katso katalogi",
     "myOrders": "Tilaukseni",
     "myInfo": "Tietoni",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Etusivu"
   },
   "header": {
     "topbarShipping": "Toimitus samana päivänä — tilaa ennen klo 15 · DHL & Colissimo Express",

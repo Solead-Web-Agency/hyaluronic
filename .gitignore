@@ -5,3 +5,9 @@
 .DS_Store
 **/.DS_Store
 /deploy/
+
+# Matériel de référence de l'ancien site (fourni en local, JAMAIS committé) :
+# dump base 2,2 Go (contient clés API + données clients RGPD) et webroot 5,4 Go.
+hfm_db_*.sql
+*.sql.gz
+www_/

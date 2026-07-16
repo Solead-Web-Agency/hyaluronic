@@ -20,7 +20,8 @@
     "seeCatalogue": "카탈로그 보기",
     "myOrders": "내 주문",
     "myInfo": "내 정보",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "홈"
   },
   "header": {
     "topbarShipping": "당일 발송 — 오후 3시 이전 주문 · DHL & Colissimo Express",

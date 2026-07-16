@@ -20,7 +20,8 @@
     "seeCatalogue": "カタログを見る",
     "myOrders": "注文履歴",
     "myInfo": "登録情報",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "ホーム"
   },
   "header": {
     "topbarShipping": "当日発送 — 15時までのご注文 · DHL & Colissimo Express",

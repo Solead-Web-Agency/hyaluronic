@@ -20,7 +20,8 @@
     "seeCatalogue": "Vedi il catalogo",
     "myOrders": "I miei ordini",
     "myInfo": "I miei dati",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Home"
   },
   "header": {
     "topbarShipping": "Spedizione in giornata — ordini entro le 15:00 · DHL & Colissimo Express",

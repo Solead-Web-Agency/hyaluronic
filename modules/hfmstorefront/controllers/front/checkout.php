@@ -160,7 +160,14 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         $existingId = (int) Order::getIdByCartId((int) $cart->id);
         if ($existingId) {
             $existing = new Order($existingId);
-            return ['ok' => true, 'id_order' => $existingId, 'reference' => $existing->reference, 'total_paid' => (float) $existing->total_paid, 'already' => true];
+            return [
+                'ok' => true,
+                'id_order' => $existingId,
+                'reference' => $existing->reference,
+                'total_paid' => (float) $existing->total_paid,
+                'paid' => $this->orderIsPaid($existing),
+                'already' => true,
+            ];
         }
         $customer = new Customer((int) $cart->id_customer);
         // Passerelle de paiement headless = ce module lui-même (commande rattachée à "hfmstorefront").
@@ -227,9 +234,26 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             'id_order' => $idOrder,
             'reference' => $order->reference,
             'total_paid' => (float) $order->total_paid,
+            'paid' => $this->orderIsPaid($order),
             'transaction_id' => $transactionId,
             'rpps' => $orderRpps,
         ];
+    }
+
+    /**
+     * La commande est-elle réellement ENCAISSÉE (argent capté par le PSP) ?
+     *
+     * Sert au front à ne déclencher la conversion Google Ads que sur du CA réel — parité avec
+     * l'ancien module `gadwordstracking` qui ne taguait que si `$oOrder->valid` (virement/chèque
+     * = état d'attente non logable = jamais de conversion). ATTENTION : ici on ne peut PAS se fier
+     * à `$order->valid` ni au flag `paid` de l'état : ce contrôleur place les commandes non
+     * encaissées en PS_OS_PREPARATION, qui est logable ET paid=1 dans PrestaShop. On compare donc
+     * explicitement à l'état « Paiement accepté ».
+     */
+    protected function orderIsPaid(Order $order)
+    {
+        $paidState = (int) Configuration::get('PS_OS_PAYMENT');
+        return $paidState > 0 && (int) $order->getCurrentState() === $paidState;
     }
 
     /**

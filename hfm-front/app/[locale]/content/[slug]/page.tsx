@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
 import { sanitizeCatalogHtml } from '@/lib/sanitize';
@@ -7,11 +7,22 @@ import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
 import { prepareCms } from '@/lib/cms-toc';
-import { alternatesFor, socialMeta, breadcrumbJsonLd, jsonLdString, urlFor } from '@/lib/seo';
+import { alternatesFromSlugs, socialMeta, breadcrumbJsonLd, jsonLdString, urlFor } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
-type CmsPage = { title: string; meta_description?: string; content: string; link_rewrite: string; date_upd?: string | null };
+// `link_rewrite` = slug CANONIQUE de la locale demandée (le bridge le résout) ; `alternates` =
+// slug par langue. Une page CMS a un slug différent par langue (mentions-legales /
+// rechtlicher-hinweis / avviso-legale / aviso-legal) et le bridge résout n'importe lequel sous
+// n'importe quelle locale -> sans canonicalisation, chaque variante serait auto-canonique.
+type CmsPage = {
+  title: string;
+  meta_description?: string;
+  content: string;
+  link_rewrite: string;
+  date_upd?: string | null;
+  alternates?: Record<string, string>;
+};
 
 async function getPage(slug: string, locale: string): Promise<CmsPage | null> {
   // Le bridge sert la traduction éditée en BO (table multilingue, 22 langues),
@@ -43,12 +54,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
   const title = `${page.title} — Hyaluronic Filler Market`;
   const description = page.meta_description || undefined;
-  const path = `/content/${slug}`;
+  // Canonique = slug de la locale (PAS celui demandé) : une vieille URL localisée servie sous une
+  // autre locale ne doit pas devenir une variante auto-canonique concurrente.
+  const path = `/content/${page.link_rewrite || slug}`;
   return {
     title,
     description,
-    // Slug CMS identique pour toutes les langues (contenu localisé servi) -> canonical + hreflang simples.
-    alternates: alternatesFor(locale, path),
+    // hreflang : le slug CMS varie par langue -> map id_lang renvoyée par le bridge.
+    alternates: alternatesFromSlugs(locale, path, (idLang) => {
+      const s = page.alternates?.[idLang];
+      return s ? `/content/${s}` : null;
+    }),
     ...socialMeta(locale, path, title, description),
   };
 }
@@ -59,7 +75,16 @@ export default async function ContentPage({ params }: { params: Promise<{ locale
   const page = await getPage(slug, locale);
   if (!page) notFound();
 
+  // 301 vers le slug de la locale : le bridge résout n'importe quel slug (toutes langues) pour
+  // préserver les anciennes URLs indexées (/de/content/mentions-legales, /fr/content/aviso-legal…),
+  // mais une seule URL doit être servie en 200 par locale, sinon duplicate content.
+  const canonicalSlug = page.link_rewrite || slug;
+  if (canonicalSlug && canonicalSlug !== slug) {
+    permanentRedirect(`/${locale}/content/${canonicalSlug}`);
+  }
+
   const t = await getTranslations('content');
+  const tc = await getTranslations('common');
   // Sanitisation liste blanche AVANT la préparation (les ancres de sommaire
   // sont ajoutées ensuite par prepareCms et survivent donc au nettoyage).
   const { html, toc, subtitle } = prepareCms(sanitizeCatalogHtml(page.content));
@@ -74,8 +99,8 @@ export default async function ContentPage({ params }: { params: Promise<{ locale
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdString(breadcrumbJsonLd([
-            { name: 'Accueil', url: urlFor(locale, '') },
-            { name: page.title, url: urlFor(locale, `/content/${slug}`) },
+            { name: tc('breadcrumbHome'), url: urlFor(locale, '') },
+            { name: page.title, url: urlFor(locale, `/content/${canonicalSlug}`) },
           ])),
         }}
       />

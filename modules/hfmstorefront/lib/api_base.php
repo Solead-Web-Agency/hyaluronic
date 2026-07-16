@@ -43,10 +43,17 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
         } catch (\Throwable $e) {
             // Détail journalisé côté serveur uniquement : jamais renvoyé au client (même authentifié),
             // pour ne pas exposer chemins de fichiers, lignes ou messages SGBD.
-            PrestaShopLogger::addLog(
-                'HFM bridge: ' . $e->getMessage() . ' @ ' . basename($e->getFile()) . ':' . $e->getLine(),
-                3
-            );
+            // addLog fait des I/O BASE : si l'exception vient justement d'une base indisponible,
+            // il relancerait et on servirait un 500 vide au lieu du JSON d'erreur. On l'isole donc
+            // pour garantir une dégradation propre — c'est précisément là qu'on en a besoin.
+            try {
+                PrestaShopLogger::addLog(
+                    'HFM bridge: ' . $e->getMessage() . ' @ ' . basename($e->getFile()) . ':' . $e->getLine(),
+                    3
+                );
+            } catch (\Throwable $logError) {
+                // journalisation impossible : on répond quand même proprement
+            }
             $this->respond(['error' => 'server_error'], 400);
         }
     }

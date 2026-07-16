@@ -20,7 +20,8 @@
     "seeCatalogue": "查看产品目录",
     "myOrders": "我的订单",
     "myInfo": "我的资料",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "首页"
   },
   "header": {
     "topbarShipping": "当日发货 — 15点前下单 · DHL 与 Colissimo Express",

@@ -20,7 +20,8 @@
     "seeCatalogue": "Oglejte si katalog",
     "myOrders": "Moja naročila",
     "myInfo": "Moji podatki",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Domov"
   },
   "header": {
     "topbarShipping": "Odprema še isti dan — naročilo do 15. ure · DHL & Colissimo Express",

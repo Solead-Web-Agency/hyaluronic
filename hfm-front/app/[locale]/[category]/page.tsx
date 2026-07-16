@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { bridgeGetCached, type ProductCard as PC } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
@@ -88,6 +88,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
   ).catch(() => ({ products: [] as PC[] }));
   const cards = (((d as { products?: PC[] }).products) ?? []).map(toCard);
+  const tc = await getTranslations('common');
 
   return (
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
@@ -95,7 +96,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdString(breadcrumbJsonLd([
-            { name: 'Accueil', url: urlFor(locale, '') },
+            { name: tc('breadcrumbHome'), url: urlFor(locale, '') },
             { name: cat.name, url: urlFor(locale, `/${category}`) },
           ])),
         }}

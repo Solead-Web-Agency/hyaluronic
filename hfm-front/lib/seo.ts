@@ -1,4 +1,4 @@
-import { locales, defaultLocale, idLangFor } from '@/lib/i18n-config';
+import { locales, defaultLocale, idLangFor, localeMeta, type Locale } from '@/lib/i18n-config';
 
 // Base publique du site (canonique, OG, sitemap). PUBLIC_BASE_URL en prod.
 const RAW_BASE = (process.env.PUBLIC_BASE_URL ?? '').replace(/\/$/, '');
@@ -37,13 +37,22 @@ export function alternatesFor(locale: string, path = '') {
   };
 }
 
-// Image OG par défaut (partage social) quand la page n'a pas d'image propre.
-export const OG_DEFAULT_IMAGE = `${SITE_URL}/hero/hero-1.png`;
+// og:locale attend `language_TERRITORY` (fr_FR) : `fr` seul est ignoré par Facebook, qui retombe
+// alors sur en_US. On reconstruit depuis le pays déjà porté par localeMeta (fr->FR, en->GB, ja->JP…).
+export function ogLocale(locale: string): string {
+  const country = localeMeta[locale as Locale]?.country;
+  return country ? `${locale}_${country.toUpperCase()}` : locale;
+}
 
 // Bloc Open Graph + Twitter Card partagé (parité avec l'ancien site qui avait l'OG partout).
 // À étaler dans generateMetadata : `...socialMeta(locale, path, title, description)`.
-// NB : og:type=product (fiche) se gère à part via `other: { 'og:type': 'product' }` — Next
-// n'émet pas les types hors de son enum, donc on ne le passe pas ici.
+// NB1 : og:type=product (fiche) se gère à part — Next n'émet pas les types hors de son enum
+// (et son champ `other` sortirait un <meta name=…>, invalide pour l'OG).
+// NB2 : sans `images`, on retombe sur l'image générée 1200×630 (route /api/og). Aucun visuel du
+// projet n'était exploitable (le plus grand : 710×553 ; la hero 299×480 en portrait passait sous
+// le minimum Twitter de 300×157 -> carte dégradée sur toutes les pages sans visuel propre).
+export const OG_DEFAULT_IMAGE = `${SITE_URL}/api/og`;
+
 export function socialMeta(
   locale: string,
   path: string,
@@ -58,7 +67,7 @@ export function socialMeta(
       description,
       url: urlFor(locale, path),
       siteName: 'Hyaluronic Filler Market',
-      locale,
+      locale: ogLocale(locale),
       type: 'website' as const,
       images: imgs,
     },

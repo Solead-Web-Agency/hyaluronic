@@ -30,12 +30,15 @@ gtag('set','ads_data_redaction',true);gtag('set','url_passthrough',true);`;
 
 // gtag('config') Ads = tag de remarketing/audience sur toutes les pages (l'ancien site avait
 // GR_REMARKETING_DYNAMIC=0 -> remarketing simple, pas de paramètres dynamiques à reproduire).
+// `send_page_view:false` = parité stricte avec l'ancien module (gremarketing/.../footer.tpl:30) :
+// sans ce flag on enverrait un hit page_view à Ads sur CHAQUE page, ce que l'ancien site ne faisait
+// pas -> risque de conversions fantômes si une action Ads est basée sur une règle d'URL.
 // On injecte gtag.js DEPUIS cet inline (et non via <script async src>) : React hisse les scripts à
 // `src` tout en haut du <head>, ils pourraient donc s'exécuter AVANT le Consent Mode -> Ads
 // partirait sans consentement. Ici l'ordre d'exécution est garanti (inline séquentiels).
 const ADS_LOADER = (id: string) => `
 (function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${id}';document.head.appendChild(s);})();
-gtag('js',new Date());gtag('config','${id}');`;
+gtag('js',new Date());gtag('config','${id}',{'send_page_view':false});`;
 
 const GTM_LOADER = (id: string) => `
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${id}');`;

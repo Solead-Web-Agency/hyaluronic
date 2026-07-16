@@ -20,7 +20,8 @@
     "seeCatalogue": "Zobrazit katalog",
     "myOrders": "Moje objednávky",
     "myInfo": "Moje údaje",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Domů"
   },
   "header": {
     "topbarShipping": "Odeslání týž den — objednejte do 15:00 · DHL & Colissimo Express",

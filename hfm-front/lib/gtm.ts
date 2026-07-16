@@ -61,16 +61,22 @@ export const ADS_CONVERSION_LABEL = process.env.NEXT_PUBLIC_ADS_LABEL ?? '1HwQCI
  * Le remarketing de base est assuré par le gtag('config', ADS_ID) posé dans le layout
  * (l'ancien site avait GR_REMARKETING_DYNAMIC=0 -> pas de remarketing dynamique à reproduire).
  * Respecte le Consent Mode v2 : gtag n'envoie rien tant qu'ad_storage est refusé.
+ *
+ * PARITÉ STRICTE avec l'ancien module (vérifiée sur son source, modules/gadwordstracking) :
+ *  - `transaction_id` = id_order NUMÉRIQUE (et non la référence) — hook-display_class.php:122 ;
+ *  - pas de conversion si la valeur est vide/nulle — garde `!empty($fTotalPaid)` du header.tpl ;
+ *  - l'appelant ne doit tirer que sur une commande ENCAISSÉE (garde `$oOrder->valid`).
  */
-export function trackAdsConversion(o: { reference: string; value: number }): void {
+export function trackAdsConversion(o: { transactionId: string | number; value: number }): void {
   if (typeof window === 'undefined') return;
   const w = window as unknown as { gtag?: (...a: unknown[]) => void };
   if (typeof w.gtag !== 'function') return;
+  if (!(o.value > 0)) return;
   w.gtag('event', 'conversion', {
     send_to: `${ADS_ID}/${ADS_CONVERSION_LABEL}`,
     value: o.value,
     currency: 'EUR',
-    transaction_id: o.reference,
+    transaction_id: String(o.transactionId),
   });
 }
 

@@ -20,7 +20,8 @@
     "seeCatalogue": "See the catalogue",
     "myOrders": "My orders",
     "myInfo": "My details",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Home"
   },
   "header": {
     "topbarShipping": "Same-day shipping — order before 3pm · DHL & Colissimo Express",

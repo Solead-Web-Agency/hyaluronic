@@ -4,7 +4,7 @@ import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFromSlugs, breadcrumbJsonLd, jsonLdString, textFromHtml, urlFor } from '@/lib/seo';
+import { alternatesFromSlugs, breadcrumbJsonLd, jsonLdString, ogLocale, textFromHtml, urlFor } from '@/lib/seo';
 import { sanitizeCatalogHtml, structureDescription } from '@/lib/sanitize';
 import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
@@ -58,13 +58,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       url: urlFor(locale, path),
       images,
       siteName: 'Hyaluronic Filler Market',
-      locale,
+      locale: ogLocale(locale),
     },
     twitter: { card: 'summary_large_image', title, description, images },
   };
 }
 
-function jsonLd(p: Record<string, any>, path: string, locale: string): object[] {
+function jsonLd(p: Record<string, any>, path: string, locale: string, homeLabel: string): object[] {
   const availability = p.availability === 'in_stock' ? 'https://schema.org/InStock'
     : p.availability === 'backorder' ? 'https://schema.org/PreOrder'
     : 'https://schema.org/OutOfStock';
@@ -115,7 +115,7 @@ function jsonLd(p: Record<string, any>, path: string, locale: string): object[] 
   const blocks: object[] = [product];
 
   // Fil d'Ariane : Accueil > Catégorie > Produit.
-  const crumbs = [{ name: 'Accueil', url: urlFor(locale, '') }];
+  const crumbs = [{ name: homeLabel, url: urlFor(locale, '') }];
   if (p.category && p.category_name) {
     crumbs.push({ name: p.category_name, url: urlFor(locale, `/${p.category}`) });
   }
@@ -165,6 +165,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
   const path = `/${canonicalCat || 'produit'}/${slug}`;
 
   const t = await getTranslations('product');
+  const tc = await getTranslations('common');
   const id = String(p.id_product);
 
   const view: ProductView = {
@@ -215,7 +216,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
       {/* og:type=product : Next n'émet pas ce type via Metadata -> balise brute hissée au <head> par React. */}
       <meta property="og:type" content="product" />
-      {jsonLd(p, path, locale).map((block, i) => (
+      {jsonLd(p, path, locale, tc('breadcrumbHome')).map((block, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(block) }} />
       ))}
       <Chrome />

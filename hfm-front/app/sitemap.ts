@@ -147,5 +147,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Idem : dégradation propre.
   }
 
-  return out;
+  // Dédoublonnage défensif : la base porte des slugs DUPLIQUÉS sur des entités distinctes
+  // (2 catégories « neauvia », 2 produits « silhouette-soft-8-cones », 2 articles…), qui
+  // produisent la même URL canonique. Google dédoublonne, mais un sitemap propre évite le bruit.
+  const seen = new Set<string>();
+  return out.filter((e) => {
+    const u = String(e.url);
+    if (seen.has(u)) {
+      return false;
+    }
+    seen.add(u);
+    return true;
+  });
 }

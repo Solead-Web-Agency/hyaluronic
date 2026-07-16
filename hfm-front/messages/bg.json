@@ -20,7 +20,8 @@
     "seeCatalogue": "Вижте каталога",
     "myOrders": "Моите поръчки",
     "myInfo": "Моите данни",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "Начало"
   },
   "header": {
     "topbarShipping": "Експедиция в същия ден — поръчка преди 15 ч. · DHL & Colissimo Express",

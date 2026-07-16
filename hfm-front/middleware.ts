@@ -13,6 +13,18 @@ function legacyRedirect(req: NextRequest): NextResponse | null {
   const seg = pathname.split('/')[1];
   const locale = (routing.locales as readonly string[]).includes(seg) ? seg : routing.defaultLocale;
 
+  // Reprise d'une redirection 301 CUSTOM de l'ancien site (.htaccess) :
+  //   RewriteRule "^(.*)dmae(.*)$" "/$1dma-e$2" [R=301,L,NC]
+  // Les slugs « dmae » ont été renommés en « dma-e » et cette règle faisait le pont. Elle est
+  // toujours active en prod (vérifié) et 30 URLs « dmae » figurent dans les anciens sitemaps
+  // (7 produits actifs concernés) -> sans elle, ces URLs indexées tomberaient en 404.
+  // Pas de boucle possible : « dma-e » ne contient plus « dmae ».
+  if (/dmae/i.test(pathname)) {
+    const url = req.nextUrl.clone();
+    url.pathname = pathname.replace(/dmae/gi, 'dma-e');
+    return NextResponse.redirect(url, 308);
+  }
+
   const idProduct = searchParams.get('id_product');
   if (idProduct && /^\d+$/.test(idProduct)) {
     const url = req.nextUrl.clone();

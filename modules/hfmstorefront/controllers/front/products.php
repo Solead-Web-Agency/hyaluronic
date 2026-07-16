@@ -512,9 +512,13 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
     {
         $idShop = (int) $this->context->shop->id;
         $out = [];
+        // INNER JOIN lang active : product_lang porte encore des slugs pour des langues
+        // DÉSINSTALLÉES (6 et 7 ici, sur ~325 produits) -> sans ce filtre elles fuiteraient dans
+        // chaque réponse (bloat) et piégeraient tout consommateur qui itère les clés de la map.
         $rows = Db::getInstance()->executeS(
-            'SELECT id_lang, link_rewrite FROM `' . _DB_PREFIX_ . 'product_lang`
-             WHERE id_product = ' . (int) $idProduct . ' AND id_shop = ' . $idShop
+            'SELECT pl.id_lang, pl.link_rewrite FROM `' . _DB_PREFIX_ . 'product_lang` pl
+             INNER JOIN `' . _DB_PREFIX_ . 'lang` l ON (l.id_lang = pl.id_lang AND l.active = 1)
+             WHERE pl.id_product = ' . (int) $idProduct . ' AND pl.id_shop = ' . $idShop
         );
         foreach ((array) $rows as $r) {
             if ((string) $r['link_rewrite'] === '') {
@@ -565,10 +569,11 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         }
         $ids = array_map('intval', array_keys($prod));
 
-        // 2) Slugs produit par langue.
+        // 2) Slugs produit par langue (langues INSTALLÉES uniquement : cf. alternateSlugs).
         foreach ((array) Db::getInstance()->executeS(
-            'SELECT id_product, id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'product_lang
-             WHERE id_shop = ' . (int) $idShop . ' AND id_product IN (' . implode(',', $ids) . ')'
+            'SELECT pl.id_product, pl.id_lang, pl.link_rewrite FROM ' . _DB_PREFIX_ . 'product_lang pl
+             INNER JOIN ' . _DB_PREFIX_ . 'lang l ON (l.id_lang = pl.id_lang AND l.active = 1)
+             WHERE pl.id_shop = ' . (int) $idShop . ' AND pl.id_product IN (' . implode(',', $ids) . ')'
         ) as $r) {
             $id = (int) $r['id_product'];
             if (isset($prod[$id]) && (string) $r['link_rewrite'] !== '') {
@@ -716,8 +721,21 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         $resp = curl_exec($ch);
+        $curlErrNo = curl_errno($ch);
+        $curlErr = $curlErrNo ? curl_error($ch) : '';
         curl_close($ch);
         if (!$resp) {
+            // Échec = repli SILENCIEUX sur le snapshot en base : les avis se figeraient
+            // indéfiniment sans aucun signal (typiquement un bundle CA manquant/périmé côté
+            // hébergeur depuis l'activation de la vérification TLS). On loggue pour rendre
+            // la panne détectable ; on ne casse jamais la fiche produit pour autant.
+            if ($curlErrNo) {
+                try {
+                    PrestaShopLogger::addLog('HFM SAG: curl #' . $curlErrNo . ' ' . $curlErr, 2);
+                } catch (\Throwable $e) {
+                    // le log ne doit jamais faire échouer la lecture des avis
+                }
+            }
             return null;
         }
         $resp = preg_replace('/^\xEF\xBB\xBF/', '', $resp);
@@ -855,15 +873,21 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
     }
 
     /** Normalise une date SAG (timestamp Unix OU datetime) en 'Y-m-d H:i:s'. */
+    /**
+     * Date d'avis normalisée en ISO 8601 (ex. 2024-10-24T19:08:08+00:00).
+     * schema.org/datePublished exige de l'ISO : « 2024-10-24 19:08:08 » (espace, sans fuseau)
+     * n'est pas valide et fait tomber le champ côté Google.
+     */
     protected function sagDate($v)
     {
         $v = trim((string) $v);
         if ($v === '') {
             return '';
         }
-        if (ctype_digit($v)) {
-            return date('Y-m-d H:i:s', (int) $v);
+        $ts = ctype_digit($v) ? (int) $v : strtotime($v);
+        if (!$ts) {
+            return '';
         }
-        return $v;
+        return date('c', $ts);
     }
 }

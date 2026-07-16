@@ -186,19 +186,66 @@ export default function CheckoutClient() {
   const [placing, setPlacing] = useState(false);
   const [orderErr, setOrderErr] = useState<string | null>(null);
   const [rppsErr, setRppsErr] = useState<string | null>(null);
-  const [confirmation, setConfirmation] = useState<{ reference: string; id_order: number; total_paid: number; items?: EcItem[] } | null>(null);
+  const [confirmation, setConfirmation] = useState<{ reference: string; id_order: number; total_paid: number; paid?: boolean; items?: EcItem[] } | null>(null);
 
-  // GA4 purchase (conversion) à la confirmation. Dédup par référence (évite le double-comptage
-  // sur un rafraîchissement de la page de retour paiement viva/paypal/amazon).
+  // Snapshot des lignes panier, à écrire AVANT toute redirection PSP : au retour, la page est
+  // rechargée et le panier déjà converti -> sans ça le purchase GA4 partirait sans items.
+  // Clé fixe (un seul checkout en vol) : on l'écrit à chaque départ et on la purge à chaque issue,
+  // pour qu'un paiement abandonné ne laisse jamais ses items contaminer la commande suivante.
+  const stashPendingItems = () => {
+    try {
+      const pending: EcItem[] = cart.products.map((l) => ({
+        id: l.id_product,
+        name: l.name,
+        price: l.unit_price_incl_tax,
+        quantity: l.quantity,
+      }));
+      localStorage.setItem('hfm_pending_items', JSON.stringify(pending));
+    } catch {
+      /* localStorage indisponible : le purchase partira sans items détaillés */
+    }
+  };
+  const clearPendingItems = () => {
+    try {
+      localStorage.removeItem('hfm_pending_items');
+    } catch {
+      /* ignore */
+    }
+  };
+
+  // GA4 purchase + conversion Google Ads à la confirmation. Dédup par référence (évite le
+  // double-comptage sur un rafraîchissement de la page de retour paiement viva/paypal/amazon).
   useEffect(() => {
     if (!confirmation?.reference) return;
     const k = 'hfm_purchase_' + confirmation.reference;
-    if (localStorage.getItem(k)) return;
-    localStorage.setItem(k, '1');
+    // localStorage peut lever (Safari « bloquer les cookies », politique d'entreprise, extension) :
+    // on NE laisse JAMAIS la dédup faire échouer l'envoi. En cas d'indisponibilité on tire quand
+    // même (une conversion en double vaut mieux qu'une conversion perdue — et Google dédoublonne
+    // de toute façon sur transaction_id).
+    let alreadySent = false;
+    try {
+      alreadySent = !!localStorage.getItem(k);
+    } catch {
+      /* stockage indisponible : on tire, quitte à doublonner (Google dédoublonne par transaction_id) */
+    }
+    if (alreadySent) return;
+
     trackPurchase({ reference: confirmation.reference, value: confirmation.total_paid, items: confirmation.items });
     // Conversion Google Ads en direct (parité ancien site, indépendant du conteneur GTM).
-    // Même dédup par référence -> pas de double comptage sur rafraîchissement.
-    trackAdsConversion({ reference: confirmation.reference, value: confirmation.total_paid });
+    // UNIQUEMENT si la commande est ENCAISSÉE : l'ancien module ne taguait que les commandes
+    // `valid` -> un virement/chèque en attente de paiement n'a JAMAIS généré de conversion.
+    // Sans ce garde, le Smart Bidding enchérit sur du CA qui peut ne jamais rentrer.
+    // transaction_id = id_order numérique (parité stricte avec l'ancien module).
+    if (confirmation.paid) {
+      trackAdsConversion({ transactionId: confirmation.id_order, value: confirmation.total_paid });
+    }
+
+    // Marque APRÈS envoi : si l'écriture échoue, le tracking est déjà parti.
+    try {
+      localStorage.setItem(k, '1');
+    } catch {
+      /* ignore */
+    }
   }, [confirmation]);
 
   // Code promo
@@ -320,6 +367,16 @@ export default function CheckoutClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payment, attestation, rppsMode, rppsNeeded]);
 
+  // Amazon Pay : le bouton SDK redirige SANS passer par placeOrder -> le snapshot des lignes n'y
+  // serait jamais écrit, et le purchase du retour lirait un stash périmé laissé par un paiement
+  // précédent (items d'une AUTRE commande). On le réécrit donc dès qu'Amazon est sélectionné.
+  useEffect(() => {
+    if (payment === AMAZON_PAYMENT && cart.products.length) {
+      stashPendingItems();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [payment, cart.products]);
+
   // Retour depuis Viva : /api/payment/return a vérifié + créé la commande, puis nous a
   // redirigés vers /{langue}/checkout avec le résultat en query (viva_paid / viva_failed).
   useEffect(() => {
@@ -328,26 +385,31 @@ export default function CheckoutClient() {
     const clean = () => window.history.replaceState({}, '', window.location.pathname);
     if (params.get('viva_failed')) {
       setOrderErr(t('paymentNotConfirmed'));
+      clearPendingItems();
       clean();
       return;
     }
     if (params.get('viva_cancel')) {
       setOrderErr(t('paymentCancelled'));
+      clearPendingItems();
       clean();
       return;
     }
     if (params.get('paypal_failed')) {
       setOrderErr(t('paymentNotConfirmed'));
+      clearPendingItems();
       clean();
       return;
     }
     if (params.get('paypal_cancel')) {
       setOrderErr(t('paymentCancelled'));
+      clearPendingItems();
       clean();
       return;
     }
     if (params.get('amazon_failed')) {
       setOrderErr(t('paymentNotConfirmed'));
+      clearPendingItems();
       clean();
       return;
     }
@@ -360,11 +422,13 @@ export default function CheckoutClient() {
       } catch {
         /* ignore */
       }
-      localStorage.removeItem('hfm_pending_items');
+      clearPendingItems();
       setConfirmation({
         reference: params.get('ref') || '',
         id_order: Number(params.get('order') || 0),
         total_paid: Number(params.get('total') || 0),
+        // Retour PSP `*_paid` = paiement réellement capté -> conversion Ads légitime.
+        paid: true,
         items,
       });
       localStorage.removeItem('id_cart');
@@ -508,7 +572,12 @@ export default function CheckoutClient() {
       price: l.unit_price_incl_tax,
       quantity: l.quantity,
     }));
-    setConfirmation({ reference: d.reference, id_order: d.id_order, total_paid: d.total_paid, items: purchaseItems });
+    // `paid` vient du bridge (état « Paiement accepté » uniquement) : virement/chèque -> false,
+    // donc pas de conversion Ads tant que l'argent n'est pas encaissé (parité ancien module).
+    setConfirmation({ reference: d.reference, id_order: d.id_order, total_paid: d.total_paid, paid: !!d.paid, items: purchaseItems });
+    // Chemin offline : pas de redirection, les items viennent directement d'ici. On purge quand
+    // même le stash (posé au début de placeOrder) pour ne rien laisser traîner.
+    clearPendingItems();
     localStorage.removeItem('id_cart');
     await refreshCart();
     window.scrollTo({ top: 0 });
@@ -526,19 +595,8 @@ export default function CheckoutClient() {
     setRppsErr(null);
     setCardError(null);
     try {
-      // Snapshot des lignes panier AVANT toute redirection PSP -> items GA4 relus au retour
-      // (un seul checkout en vol, clé fixe). Le chemin offline enrichit directement (pas de redirection).
-      try {
-        const pending: EcItem[] = cart.products.map((l) => ({
-          id: l.id_product,
-          name: l.name,
-          price: l.unit_price_incl_tax,
-          quantity: l.quantity,
-        }));
-        localStorage.setItem('hfm_pending_items', JSON.stringify(pending));
-      } catch {
-        /* localStorage indisponible : purchase suivra sans items détaillés */
-      }
+      // Snapshot des lignes AVANT toute redirection PSP -> items GA4 relus au retour.
+      stashPendingItems();
       // Chemin carte bancaire (Viva Wallet) : on crée l'order puis on REDIRIGE vers Smart Checkout.
       if (cardConfigured && payment === VIVA_PAYMENT) {
         // La commande Viva est créée plus tard côté serveur (/api/payment/return), qui lit

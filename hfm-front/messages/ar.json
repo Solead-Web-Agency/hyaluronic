@@ -20,7 +20,8 @@
     "seeCatalogue": "عرض الكتالوج",
     "myOrders": "طلباتي",
     "myInfo": "بياناتي",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "breadcrumbHome": "الرئيسية"
   },
   "header": {
     "topbarShipping": "الشحن في نفس اليوم — اطلب قبل الساعة 15:00 · DHL و Colissimo Express",
