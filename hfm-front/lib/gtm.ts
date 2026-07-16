@@ -46,6 +46,34 @@ export function trackPurchase(o: { reference: string; value: number; items?: EcI
   });
 }
 
+// --- Google Ads (parité ancien site) ---
+// L'ancien site chargeait gtag EN DIRECT pour Google Ads (modules `gadwordstracking` conversion +
+// `gremarketing`), EN PLUS du conteneur GTM. On reproduit ce câblage à l'identique pour ne pas
+// dépendre du contenu du conteneur GTM (conversions Ads + audiences de remarketing).
+// Valeurs reprises telles quelles de la config PrestaShop migrée (GACT_CONVERSION_ID /
+// GACT_CONVERSION_LABEL / GR_REMARKETING_ID). Ce sont des identifiants PUBLICS (visibles dans le
+// source de n'importe quelle page) — surchargeables par env si la config Ads change.
+export const ADS_ID = process.env.NEXT_PUBLIC_ADS_ID ?? 'AW-527878129';
+export const ADS_CONVERSION_LABEL = process.env.NEXT_PUBLIC_ADS_LABEL ?? '1HwQCIPdwokCEPGP2_sB';
+
+/**
+ * Conversion Google Ads à la confirmation de commande (équivalent du module gadwordstracking).
+ * Le remarketing de base est assuré par le gtag('config', ADS_ID) posé dans le layout
+ * (l'ancien site avait GR_REMARKETING_DYNAMIC=0 -> pas de remarketing dynamique à reproduire).
+ * Respecte le Consent Mode v2 : gtag n'envoie rien tant qu'ad_storage est refusé.
+ */
+export function trackAdsConversion(o: { reference: string; value: number }): void {
+  if (typeof window === 'undefined') return;
+  const w = window as unknown as { gtag?: (...a: unknown[]) => void };
+  if (typeof w.gtag !== 'function') return;
+  w.gtag('event', 'conversion', {
+    send_to: `${ADS_ID}/${ADS_CONVERSION_LABEL}`,
+    value: o.value,
+    currency: 'EUR',
+    transaction_id: o.reference,
+  });
+}
+
 // Consent Mode v2 : met à jour le consentement (bandeau CMP) + notifie GTM.
 export function updateConsent(granted: boolean): void {
   if (typeof window === 'undefined') return;

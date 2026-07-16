@@ -6,7 +6,7 @@ import { Link } from '@/i18n/navigation';
 import { useRouter } from '@/i18n/navigation';
 import { useStore } from '../../store';
 import { fmt } from '@/lib/cardModel';
-import { trackPurchase, type EcItem } from '@/lib/gtm';
+import { trackPurchase, trackAdsConversion, type EcItem } from '@/lib/gtm';
 import AddressForm, { type Address } from '../../components/AddressForm';
 import AmazonPayButton from '../../components/AmazonPayButton';
 
@@ -196,6 +196,9 @@ export default function CheckoutClient() {
     if (localStorage.getItem(k)) return;
     localStorage.setItem(k, '1');
     trackPurchase({ reference: confirmation.reference, value: confirmation.total_paid, items: confirmation.items });
+    // Conversion Google Ads en direct (parité ancien site, indépendant du conteneur GTM).
+    // Même dédup par référence -> pas de double comptage sur rafraîchissement.
+    trackAdsConversion({ reference: confirmation.reference, value: confirmation.total_paid });
   }, [confirmation]);
 
   // Code promo
