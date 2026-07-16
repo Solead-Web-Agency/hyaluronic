@@ -51,13 +51,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       return a?.slug ? `/${a.category || 'produit'}/${a.slug}` : null;
     }),
     openGraph: {
+      // Pas de `type` ici : Next n'émet pas og:type=product depuis son enum, et `other` sortirait un
+      // <meta name=…> (invalide pour l'OG). On pose donc <meta property="og:type"> dans le composant.
       title,
       description,
       url: urlFor(locale, path),
-      type: 'website',
       images,
       siteName: 'Hyaluronic Filler Market',
+      locale,
     },
+    twitter: { card: 'summary_large_image', title, description, images },
   };
 }
 
@@ -94,6 +97,19 @@ function jsonLd(p: Record<string, any>, path: string, locale: string): object[] 
       worstRating: 1,
       reviewCount: p.reviews.count,
     };
+    // Avis individuels (parité ancien site) : Review + Person, limités pour borner le JSON-LD.
+    const items = Array.isArray(p.reviews.items) ? p.reviews.items : [];
+    const reviews = items.slice(0, 20).map((r: Record<string, any>) => {
+      const rv: Record<string, unknown> = {
+        '@type': 'Review',
+        author: { '@type': 'Person', name: (r.name && String(r.name).trim()) || 'Client' },
+        reviewRating: { '@type': 'Rating', ratingValue: r.rate, bestRating: 5, worstRating: 1 },
+      };
+      if (r.review && String(r.review).trim()) rv.reviewBody = String(r.review);
+      if (r.date) rv.datePublished = String(r.date);
+      return rv;
+    });
+    if (reviews.length) product.review = reviews;
   }
 
   const blocks: object[] = [product];
@@ -197,6 +213,8 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
 
   return (
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
+      {/* og:type=product : Next n'émet pas ce type via Metadata -> balise brute hissée au <head> par React. */}
+      <meta property="og:type" content="product" />
       {jsonLd(p, path, locale).map((block, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(block) }} />
       ))}

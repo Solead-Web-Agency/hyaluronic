@@ -7,6 +7,7 @@ import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
 import { prepareCms } from '@/lib/cms-toc';
+import { alternatesFor, socialMeta, breadcrumbJsonLd, jsonLdString, urlFor } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,9 +38,18 @@ function formatDate(raw: string | null | undefined, locale: string): string {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
   const page = await getPage(slug, locale);
+  if (!page) {
+    return { title: 'Hyaluronic Filler Market', robots: { index: false } };
+  }
+  const title = `${page.title} — Hyaluronic Filler Market`;
+  const description = page.meta_description || undefined;
+  const path = `/content/${slug}`;
   return {
-    title: page ? `${page.title} — Hyaluronic Filler Market` : 'Hyaluronic Filler Market',
-    description: page?.meta_description || undefined,
+    title,
+    description,
+    // Slug CMS identique pour toutes les langues (contenu localisé servi) -> canonical + hreflang simples.
+    alternates: alternatesFor(locale, path),
+    ...socialMeta(locale, path, title, description),
   };
 }
 
@@ -60,6 +70,15 @@ export default async function ContentPage({ params }: { params: Promise<{ locale
 
   return (
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdString(breadcrumbJsonLd([
+            { name: 'Accueil', url: urlFor(locale, '') },
+            { name: page.title, url: urlFor(locale, `/content/${slug}`) },
+          ])),
+        }}
+      />
       <Chrome />
       <main className="hfm-wrap" style={{ maxWidth: '1100px', margin: '0 auto', padding: '52px 28px 90px' }}>
         {/* Hero : titre + sous-titre + date de mise à jour */}

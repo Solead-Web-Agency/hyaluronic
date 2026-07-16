@@ -4,7 +4,7 @@ import { bridgeGetCached, type ProductCard } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { toCard, type Card } from '@/lib/cardModel';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFor, jsonLdString, textFromHtml, organizationJsonLd, websiteJsonLd } from '@/lib/seo';
+import { alternatesFor, jsonLdString, socialMeta, textFromHtml, organizationJsonLd, websiteJsonLd } from '@/lib/seo';
 import { fetchBlogLatest } from '@/lib/blog';
 import { Link } from '@/i18n/navigation';
 import Chrome from '../components/Chrome';
@@ -49,10 +49,15 @@ function imgSlot(src: string, href: string, label: string, sub?: string, priorit
   );
 }
 
-// Canonique + hreflang des 22 locales pour la page d'accueil.
+// Canonique + hreflang des 22 locales + Open Graph/Twitter pour la page d'accueil.
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return { alternates: alternatesFor(locale, '') };
+  const title = "Hyaluronic Filler Market — L'injectable de référence";
+  const description = 'La marketplace de référence des injectables esthétiques.';
+  return {
+    alternates: alternatesFor(locale, ''),
+    ...socialMeta(locale, '', title, description),
+  };
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {

@@ -59,7 +59,8 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
         }
         $idShop = (int) $this->context->shop->id;
         $row = Db::getInstance()->getRow(
-            'SELECT c.id_category, c.id_parent, c.active, cl.name, cl.link_rewrite
+            'SELECT c.id_category, c.id_parent, c.active, cl.name, cl.link_rewrite,
+                    cl.meta_title, cl.meta_description, cl.description
              FROM ' . _DB_PREFIX_ . 'category_lang cl
              INNER JOIN ' . _DB_PREFIX_ . 'category c ON c.id_category = cl.id_category
              WHERE cl.link_rewrite = \'' . pSQL($slug) . '\'
@@ -94,6 +95,9 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
             'active' => (bool) (int) $row['active'],
             'nb_products' => $nbp,
             'id_parent' => (int) $row['id_parent'],
+            'meta_title' => (string) $row['meta_title'],
+            'meta_description' => (string) $row['meta_description'],
+            'description' => (string) $row['description'],
             'alternates' => $alt,
         ];
     }

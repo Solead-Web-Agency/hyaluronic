@@ -125,9 +125,9 @@ class HfmstorefrontContentModuleFrontController extends HfmStorefrontApiControll
     protected function fixUrls($html)
     {
         $base = rtrim(Tools::getShopDomainSsl(true) . __PS_BASE_URI__, '/');
-        $html = str_replace(['src="/', 'href="/'], ['src="' . $base . '/', 'href="' . $base . '/'], $html);
-        // Évite de doubler si déjà absolu (http remplacé par erreur)
-        $html = str_replace([$base . '/http', $base . '//'], ['http', $base . '/'], $html);
+        // Rewrite racine-relatif -> absolu, SANS toucher aux URLs protocole-relatives (//cdn) ni absolues.
+        $html = preg_replace('#(src|href)="/(?!/)#i', '$1="' . $base . '/', $html);
+        $html = str_replace($base . '/http', 'http', $html);
         return $html;
     }
 }

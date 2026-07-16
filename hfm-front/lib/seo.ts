@@ -37,6 +37,40 @@ export function alternatesFor(locale: string, path = '') {
   };
 }
 
+// Image OG par défaut (partage social) quand la page n'a pas d'image propre.
+export const OG_DEFAULT_IMAGE = `${SITE_URL}/hero/hero-1.png`;
+
+// Bloc Open Graph + Twitter Card partagé (parité avec l'ancien site qui avait l'OG partout).
+// À étaler dans generateMetadata : `...socialMeta(locale, path, title, description)`.
+// NB : og:type=product (fiche) se gère à part via `other: { 'og:type': 'product' }` — Next
+// n'émet pas les types hors de son enum, donc on ne le passe pas ici.
+export function socialMeta(
+  locale: string,
+  path: string,
+  title: string,
+  description?: string,
+  images?: string[],
+) {
+  const imgs = images && images.length ? images : [OG_DEFAULT_IMAGE];
+  return {
+    openGraph: {
+      title,
+      description,
+      url: urlFor(locale, path),
+      siteName: 'Hyaluronic Filler Market',
+      locale,
+      type: 'website' as const,
+      images: imgs,
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title,
+      description,
+      images: imgs,
+    },
+  };
+}
+
 // hreflang quand le SLUG varie d'une langue à l'autre (produit, catégorie, article de blog).
 // `pathFor(idLang)` renvoie le chemin relatif (sans /{locale}) pour cette langue PrestaShop,
 // ou null si la langue n'a pas d'entrée dédiée -> on retombe alors sur la locale par défaut
@@ -119,6 +153,20 @@ export function jsonLdString(data: unknown): string {
     .replace(/&/g, '\\u0026')
     .replace(/\u2028/g, '\\u2028')
     .replace(/\u2029/g, '\\u2029');
+}
+
+// Liste de produits structurée (page catégorie) -> parité ancien site (ItemList).
+export function itemListJsonLd(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: items.map((it, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: it.url,
+      name: it.name,
+    })),
+  };
 }
 
 // Description propre à partir d'un HTML (meta absente : on retombe sur le texte).

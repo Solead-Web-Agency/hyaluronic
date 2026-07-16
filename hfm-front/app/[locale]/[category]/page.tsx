@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { bridgeGetCached, type ProductCard as PC } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFromSlugs, breadcrumbJsonLd, jsonLdString, urlFor } from '@/lib/seo';
-import { toCard } from '@/lib/cardModel';
+import { alternatesFromSlugs, breadcrumbJsonLd, itemListJsonLd, jsonLdString, socialMeta, urlFor } from '@/lib/seo';
+import { toCard, productHref } from '@/lib/cardModel';
 import Chrome from '../../components/Chrome';
 import Footer from '../../components/Footer';
 import ProductCard from '../../components/ProductCard';
@@ -19,6 +19,9 @@ type Cat = {
   active: boolean;
   nb_products: number;
   id_parent: number;
+  meta_title?: string;
+  meta_description?: string;
+  description?: string;
   alternates?: Record<string, string>; // id_lang -> slug (hreflang)
 };
 
@@ -45,13 +48,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!cat || !cat.active || cat.nb_products === 0) {
     return { robots: { index: false } };
   }
+  // Titre/description = ceux édités en BO (parité ancien site), sinon repli propre.
+  const title = cat.meta_title?.trim() ? cat.meta_title : `${cat.name} — Hyaluronic Filler Market`;
+  const description = cat.meta_description?.trim() || undefined;
   return {
-    title: `${cat.name} — Hyaluronic Filler Market`,
+    title,
+    description,
     // hreflang : le slug catégorie varie par langue (FR « comblement » -> EN « filler »).
     alternates: alternatesFromSlugs(locale, `/${category}`, (idLang) => {
       const s = cat.alternates?.[idLang];
       return s ? `/${s}` : null;
     }),
+    ...socialMeta(locale, `/${category}`, title, description),
   };
 }
 
@@ -92,6 +100,16 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
           ])),
         }}
       />
+      {cards.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLdString(itemListJsonLd(
+              cards.map((c) => ({ name: c.name, url: urlFor(locale, productHref(c)) })),
+            )),
+          }}
+        />
+      )}
       <Chrome />
       <main className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '44px 28px 80px' }}>
         <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(28px,4vw,40px)', color: '#2B2B2B', margin: 0 }}>{cat.name}</h1>
