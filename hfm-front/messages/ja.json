@@ -277,7 +277,9 @@
     "volumeDiscounts": "数量割引",
     "fromQty": "{qty}個以上",
     "share": "共有",
-    "viewedTitle": "最近見た商品"
+    "viewedTitle": "最近見た商品",
+    "compare": "Compare",
+    "compareFull": "Compare: {max} products maximum."
   },
   "quickView": {
     "refStock": "品番 {reference} · {status}。",
@@ -596,5 +598,20 @@
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
     "errFileType": "File type not accepted."
+  },
+  "compare": {
+    "button": "Compare",
+    "title": "Comparison",
+    "cta": "Compare ({n})",
+    "remove": "Remove",
+    "clear": "Clear all",
+    "empty": "No product selected.",
+    "browse": "Browse the catalogue",
+    "price": "Price",
+    "brand": "Brand",
+    "reference": "Reference",
+    "availability": "Availability",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock"
   }
 }

@@ -285,7 +285,9 @@
     "volumeDiscounts": "Tarifs dégressifs",
     "fromQty": "dès {qty}",
     "share": "Partager",
-    "viewedTitle": "Déjà vus"
+    "viewedTitle": "Déjà vus",
+    "compare": "Comparer",
+    "compareFull": "Comparateur : 4 produits maximum."
   },
   "quickView": {
     "refStock": "Réf. {reference} · {status}.",
@@ -625,5 +627,20 @@
     "error": "L'envoi a échoué. Réessayez.",
     "errFileBig": "Fichier trop lourd (2 Mo max).",
     "errFileType": "Type de fichier non accepté."
+  },
+  "compare": {
+    "button": "Comparer",
+    "title": "Comparaison",
+    "cta": "Comparer ({n})",
+    "remove": "Retirer",
+    "clear": "Tout effacer",
+    "empty": "Aucun produit sélectionné.",
+    "browse": "Parcourir le catalogue",
+    "price": "Prix",
+    "brand": "Marque",
+    "reference": "Référence",
+    "availability": "Disponibilité",
+    "inStock": "En stock",
+    "outOfStock": "Épuisé"
   }
 }

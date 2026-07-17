@@ -277,7 +277,9 @@
     "volumeDiscounts": "Mengderabatt",
     "fromQty": "fra {qty}",
     "share": "Del",
-    "viewedTitle": "Nylig sett"
+    "viewedTitle": "Nylig sett",
+    "compare": "Compare",
+    "compareFull": "Compare: {max} products maximum."
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -596,5 +598,20 @@
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
     "errFileType": "File type not accepted."
+  },
+  "compare": {
+    "button": "Compare",
+    "title": "Comparison",
+    "cta": "Compare ({n})",
+    "remove": "Remove",
+    "clear": "Clear all",
+    "empty": "No product selected.",
+    "browse": "Browse the catalogue",
+    "price": "Price",
+    "brand": "Brand",
+    "reference": "Reference",
+    "availability": "Availability",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock"
   }
 }

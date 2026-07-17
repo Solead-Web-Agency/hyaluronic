@@ -1,16 +1,33 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/navigation';
 import type { Card } from '@/lib/cardModel';
 import { fmt, productHref } from '@/lib/cardModel';
 import { useStore } from '../store';
 import { useWishlist } from '../wishlist';
+import { COMPARE_EVENT, COMPARE_MAX, readCompare, toggleCompare } from '@/lib/compare';
 
 export default function ProductCard({ product }: { product: Card }) {
   const { addToCart, openQuick, customer } = useStore();
   const { has, toggle } = useWishlist();
+  // Comparateur : la sélection vit en localStorage. On la relit sur l'évènement global pour que
+  // toutes les cartes ET la barre flottante restent synchronisées (arbres React distincts).
+  const [inCompare, setInCompare] = useState(false);
+  useEffect(() => {
+    const sync = () => setInCompare(readCompare().includes(product.id));
+    sync();
+    window.addEventListener(COMPARE_EVENT, sync);
+    return () => window.removeEventListener(COMPARE_EVENT, sync);
+  }, [product.id]);
+  const onCompare = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation(); // la carte entière est cliquable -> ne pas naviguer
+    if (!toggleCompare(product.id)) {
+      alert(tp('compareFull', { max: COMPARE_MAX }));
+    }
+  };
   const router = useRouter();
   const tp = useTranslations('product');
   const tc = useTranslations('common');
@@ -124,6 +141,26 @@ export default function ProductCard({ product }: { product: Card }) {
             fill={fav ? '#A8503A' : 'none'} stroke="currentColor" strokeWidth="2"
             strokeLinecap="round" strokeLinejoin="round">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        </button>
+        {/* Comparateur (parité ancien site) : sous le favori, même gabarit. */}
+        <button
+          onClick={onCompare}
+          title={tp('compare')}
+          aria-label={tp('compare')}
+          aria-pressed={inCompare}
+          style={{
+            position: 'absolute', top: '50px', left: '10px', zIndex: 2,
+            width: '34px', height: '34px', borderRadius: '50%',
+            background: 'rgba(255,255,255,.94)', border: '1px solid #E2DECF',
+            color: inCompare ? '#5E8E1F' : '#9C9686',
+            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            transition: 'color .2s ease',
+          }}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
           </svg>
         </button>
         <button

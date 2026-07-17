@@ -6,6 +6,7 @@ import { isRtl } from '@/lib/i18n-config';
 import { StoreProvider } from '../store';
 import { WishlistProvider } from '../wishlist';
 import ConsentBanner from '../components/ConsentBanner';
+import CompareBar from '../components/CompareBar';
 import { ADS_ID } from '@/lib/gtm';
 
 // Tout le tracking est chargé UNIQUEMENT en prod indexable : le staging reste 100 % propre
@@ -96,6 +97,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <StoreProvider>
             <WishlistProvider>{children}</WishlistProvider>
+            <CompareBar />
             <ConsentBanner />
           </StoreProvider>
         </NextIntlClientProvider>

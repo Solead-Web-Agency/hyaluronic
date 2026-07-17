@@ -40,6 +40,44 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             });
         }
 
+        // Comparateur : cartes + caractéristiques pour une liste d'ids (max 4, comme l'ancien site).
+        // NB : aujourd'hui la matière est maigre (4 produits actifs sur 578 ont une caractéristique
+        // non vide) -> le tableau s'appuie surtout sur prix/marque/dispo. Il se remplira de lui-même
+        // quand les fiches produit seront refondues, sans toucher à ce code.
+        if ((string) $this->in('action') === 'compare') {
+            $ids = $this->parseIds((string) $this->in('ids'), 4);
+            if (!$ids) {
+                return ['items' => []];
+            }
+            $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'compare', [
+                'ids' => implode(',', $ids),
+                'id_lang' => $idLang,
+                'id_shop' => $idShop,
+                'id_currency' => $idCurrency,
+            ]);
+            return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($ids, $idLang) {
+                $cards = $this->cardsForIds($ids, $idLang);
+                $items = [];
+                foreach ($ids as $id) {
+                    if (!isset($cards[$id])) {
+                        continue;
+                    }
+                    $p = new Product($id, false, $idLang);
+                    $features = [];
+                    if (Validate::isLoadedObject($p)) {
+                        foreach ($p->getFrontFeatures($idLang) as $f) {
+                            // Caractéristique sans valeur = bruit dans un tableau comparatif.
+                            if (trim((string) $f['value']) !== '') {
+                                $features[] = ['name' => $f['name'], 'value' => $f['value']];
+                            }
+                        }
+                    }
+                    $items[] = array_merge($cards[$id], ['features' => $features]);
+                }
+                return ['items' => $items];
+            });
+        }
+
         // Cartes produit pour une LISTE d'ids, dans l'ordre demandé (« Déjà vus » : l'ordre porte
         // l'information de récence). Les ids inconnus/inactifs sont simplement omis.
         $idsRaw = (string) $this->in('ids');
