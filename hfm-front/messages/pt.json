@@ -157,7 +157,7 @@
     "blog3Cat": "Skin quality",
     "blog3Date": "Dez. 2022",
     "blog3Title": "Skinbooster: o efeito de luminosidade que revela a pele",
-    "newsBadge": "★ −10 % de boas-vindas",
+    "newsBadge": "★ Novidades em primeira mão",
     "newsTitlePart1": "Novidades, formações &",
     "newsTitleEmphasis": "pré-vendas",
     "newsLead": "Junte-se a 4 200 profissionais. 1 e-mail por semana, cancelamento em 1 clique.",
@@ -170,7 +170,10 @@
     "tabNew": "Novidades",
     "tabPromos": "Promoções",
     "prev": "Anterior",
-    "next": "Seguinte"
+    "next": "Seguinte",
+    "newsOk": "Obrigado! A sua subscrição está confirmada.",
+    "newsAlready": "Este endereço já está subscrito.",
+    "newsError": "Não foi possível subscrever. Tente novamente."
   },
   "product": {
     "removeFromFavorites": "Remover dos favoritos",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "Escolha uma variante",
+    "volumeDiscounts": "Preços por volume",
+    "fromQty": "a partir de {qty}"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

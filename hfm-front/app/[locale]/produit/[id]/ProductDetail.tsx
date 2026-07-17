@@ -27,6 +27,24 @@ export type ProductView = {
   composition: { k: string; v: string }[];
   rpps_required: boolean;
   reviews: ProductReviews | null;
+  // Déclinaisons (taille, conditionnement, teinte…). Vide = produit simple.
+  combinations?: Combination[];
+  // Prix AVANT remise : si > au prix courant, on affiche le barré + le badge (parité ancien site).
+  priceWithoutReductionTtc?: number;
+  // Paliers dégressifs publics (« dès 10 : 51,40 € »).
+  quantityDiscounts?: { from_quantity: number; price_incl_tax: number; price_excl_tax: number }[];
+};
+
+// Une déclinaison vendable. Son prix vient du moteur PS (promos incluses), pas d'un simple impact.
+export type Combination = {
+  id_product_attribute: number;
+  label: string;
+  reference: string;
+  default: boolean;
+  quantity: number;
+  available: boolean;
+  price_incl_tax: number;
+  price_excl_tax: number;
 };
 
 export type ProductReviews = {
@@ -66,6 +84,18 @@ export default function ProductDetail({ product, related }: { product: ProductVi
   const { addToCart } = useStore();
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState<TabKey>('description');
+  // Déclinaison sélectionnée : par défaut celle marquée `default` (c'est son prix que la fiche
+  // affiche, et c'est le comportement de l'ancien site). Le prix suit ensuite la sélection.
+  const combos = product.combinations ?? [];
+  const [comboId, setComboId] = useState<number | null>(
+    combos.length ? (combos.find((c) => c.default) ?? combos[0]).id_product_attribute : null,
+  );
+  const combo = combos.find((c) => c.id_product_attribute === comboId) ?? null;
+  const priceTtc = combo ? combo.price_incl_tax : product.ttc;
+  const priceHt = combo ? combo.price_excl_tax : product.ht;
+  // Promo = prix avant remise strictement supérieur au prix courant (tolérance centime).
+  const hasPromo = (product.priceWithoutReductionTtc ?? 0) > product.ttc + 0.009;
+  const tiers = product.quantityDiscounts ?? [];
   const tabsRef = useRef<HTMLElement>(null);
   // GA4 view_item (dataLayer) à l'affichage de la fiche.
   useEffect(() => {
@@ -120,7 +150,9 @@ export default function ProductDetail({ product, related }: { product: ProductVi
     { key: 'reviews', label: `${t('tabReviews')} (${product.reviews?.count ?? 0})` },
   ];
 
-  const canBuy = product.availabilityState !== 'out';
+  // Avec déclinaisons, la dispo est celle de la variante choisie (le produit peut être « en
+  // stock » globalement alors que la variante sélectionnée est épuisée).
+  const canBuy = combo ? combo.available : product.availabilityState !== 'out';
   const availability = product.availabilityState === 'in'
     ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#3F7256' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5FA33C' }} />{t('inStockShipToday')}</span>
     : product.availabilityState === 'backorder'
@@ -178,11 +210,37 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           {/* Panneau prix */}
           <div style={{ ...card, padding: '20px 22px', marginTop: '22px' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px' }}>
-              <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '34px', color: '#2B2B2B' }}>{fmt(product.ttc)} €</span>
+              <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '34px', color: '#2B2B2B' }}>{fmt(priceTtc)} €</span>
               <span style={{ fontSize: '12.5px', color: '#8A8170', fontWeight: 600 }}>{t('ttcPerUnit')}</span>
             </div>
-            <div style={{ fontSize: '13.5px', color: '#6E7585', marginTop: '4px' }}>{t('htB2b', { amount: fmt(product.ht) })}</div>
+            <div style={{ fontSize: '13.5px', color: '#6E7585', marginTop: '4px' }}>{t('htB2b', { amount: fmt(priceHt) })}</div>
+            {/* Promo : prix barré + montant économisé. La remise était bien APPLIQUÉE mais
+                invisible ; l'ancien site l'affichait. Masqué dès qu'une déclinaison est choisie
+                (le prix barré porte sur le produit, pas sur la variante). */}
+            {!combo && hasPromo ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '8px' }}>
+                <span style={{ fontSize: '15px', color: '#8A8170', textDecoration: 'line-through' }}>{fmt(product.priceWithoutReductionTtc!)} €</span>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#fff', background: '#C0664E', borderRadius: '999px', padding: '3px 10px' }}>
+                  −{fmt(product.priceWithoutReductionTtc! - priceTtc)} €
+                </span>
+              </div>
+            ) : null}
             <div style={{ marginTop: '12px' }}>{availability}</div>
+            {/* Paliers dégressifs : le moteur les applique au panier, encore faut-il que le
+                client B2B sache qu'ils existent. */}
+            {tiers.length ? (
+              <div style={{ marginTop: '14px', paddingTop: '14px', borderTop: '1px solid #ECEAE3' }}>
+                <div style={{ fontSize: '12.5px', fontWeight: 600, color: '#6E7585', marginBottom: '8px' }}>{t('volumeDiscounts')}</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {tiers.map((d) => (
+                    <div key={d.from_quantity} style={{ border: '1px solid #E2DECF', borderRadius: '7px', padding: '7px 11px', background: '#FAFAF7' }}>
+                      <div style={{ fontSize: '11.5px', color: '#8A8170' }}>{t('fromQty', { qty: d.from_quantity })}</div>
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#3F7256' }}>{fmt(d.price_incl_tax)} €</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           {product.availabilityState === 'in' ? (
@@ -198,13 +256,49 @@ export default function ProductDetail({ product, related }: { product: ProductVi
             </div>
           ) : null}
 
+          {/* Déclinaisons : le prix, la disponibilité et l'ajout au panier suivent la sélection.
+              Une variante épuisée reste visible mais non sélectionnable (comme l'ancien site). */}
+          {combos.length > 1 ? (
+            <div style={{ marginTop: '22px' }}>
+              <div style={{ fontSize: '12.5px', fontWeight: 600, color: '#6E7585', marginBottom: '9px' }}>{t('chooseVariant')}</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '9px' }}>
+                {combos.map((c) => {
+                  const active = c.id_product_attribute === comboId;
+                  return (
+                    <button
+                      key={c.id_product_attribute}
+                      type="button"
+                      onClick={() => c.available && setComboId(c.id_product_attribute)}
+                      disabled={!c.available}
+                      aria-pressed={active}
+                      style={{
+                        fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '13.5px', fontWeight: 600,
+                        padding: '10px 15px', borderRadius: '8px', textAlign: 'left',
+                        border: active ? '1.5px solid #8CC63F' : '1.5px solid #E2DECF',
+                        background: active ? 'rgba(140,198,63,.08)' : '#fff',
+                        color: c.available ? '#434343' : '#A9A9A9',
+                        cursor: c.available ? 'pointer' : 'not-allowed',
+                        opacity: c.available ? 1 : 0.55,
+                      }}
+                    >
+                      <span style={{ display: 'block' }}>{c.label}</span>
+                      <span style={{ display: 'block', fontWeight: 400, fontSize: '12.5px', color: '#6E7585', marginTop: '2px' }}>
+                        {fmt(c.price_incl_tax)} €{c.available ? '' : ` · ${t('unavailableLine')}`}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
           {/* Quantité + panier */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginTop: '22px' }}>
             <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid #E2DECF', borderRadius: '7px', overflow: 'hidden' }}><button onClick={() => setQty((q) => Math.max(1, q - 1))} style={{ width: '46px', height: '52px', background: '#fff', border: 'none', fontSize: '18px', color: '#434343', cursor: 'pointer' }}>−</button><span style={{ width: '46px', textAlign: 'center', fontSize: '15px', fontWeight: 600 }}>{qty}</span><button onClick={() => setQty((q) => q + 1)} style={{ width: '46px', height: '52px', background: '#fff', border: 'none', fontSize: '18px', color: '#434343', cursor: 'pointer' }}>+</button></div>
             {/* En stock ou précommande : achat (bouton vert identique, la ligne de
                 disponibilité porte le délai). Indisponible : alerte retour. */}
             {canBuy ? (
-              <button onClick={() => addToCart({ id: product.id, quantity: qty })} style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', cursor: 'pointer', transition: 'background .2s ease' }}>{tc('addToCart')}</button>
+              <button onClick={() => addToCart({ id: product.id, quantity: qty, id_product_attribute: comboId ?? undefined })} style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', cursor: 'pointer', transition: 'background .2s ease' }}>{tc('addToCart')}</button>
             ) : (
               <button disabled style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#6E7585', background: 'rgba(242,240,234,.7)', border: '1px solid rgba(226,222,207,.9)', borderRadius: '999px', cursor: 'default' }}>{t('notifyOnReturn')}</button>
             )}

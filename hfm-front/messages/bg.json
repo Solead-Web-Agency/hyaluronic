@@ -157,7 +157,7 @@
     "blog3Cat": "Качество на кожата",
     "blog3Date": "Дек. 2022",
     "blog3Title": "Скин бустер: блясъкът, който разкрива кожата",
-    "newsBadge": "★ −10 % за добре дошли",
+    "newsBadge": "★ Новостите първи",
     "newsTitlePart1": "Новости, обучения &",
     "newsTitleEmphasis": "предварителни продажби",
     "newsLead": "Присъединете се към 4 200 практикуващи. 1 имейл седмично, отписване с 1 клик.",
@@ -170,7 +170,10 @@
     "tabNew": "Новости",
     "tabPromos": "Промоции",
     "prev": "Предишен",
-    "next": "Следващ"
+    "next": "Следващ",
+    "newsOk": "Благодарим! Записването е потвърдено.",
+    "newsAlready": "Този адрес вече е записан.",
+    "newsError": "Записването е неуспешно. Опитайте отново."
   },
   "product": {
     "removeFromFavorites": "Премахни от любими",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "Изберете вариант",
+    "volumeDiscounts": "Отстъпки за количество",
+    "fromQty": "от {qty}"
   },
   "quickView": {
     "refStock": "Реф. {reference} · {status}.",

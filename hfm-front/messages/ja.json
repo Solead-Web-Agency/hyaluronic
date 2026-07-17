@@ -157,7 +157,7 @@
     "blog3Cat": "スキンクオリティ",
     "blog3Date": "2022年12月",
     "blog3Title": "スキンブースター:肌を引き立てるツヤ",
-    "newsBadge": "★ ご入会で −10 %",
+    "newsBadge": "★ 新商品をいち早く",
     "newsTitlePart1": "新製品、研修 &",
     "newsTitleEmphasis": "先行販売",
     "newsLead": "4,200名の施術者にご参加いただいています。週1回のメール、1クリックで配信停止。",
@@ -170,7 +170,10 @@
     "tabNew": "新製品",
     "tabPromos": "セール",
     "prev": "前へ",
-    "next": "次へ"
+    "next": "次へ",
+    "newsOk": "ご登録ありがとうございます。",
+    "newsAlready": "このアドレスは登録済みです。",
+    "newsError": "登録できませんでした。もう一度お試しください。"
   },
   "product": {
     "removeFromFavorites": "お気に入りから削除",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "オプションを選択",
+    "volumeDiscounts": "数量割引",
+    "fromQty": "{qty}個以上"
   },
   "quickView": {
     "refStock": "品番 {reference} · {status}。",

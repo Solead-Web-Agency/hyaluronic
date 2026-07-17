@@ -157,7 +157,7 @@
     "blog3Cat": "肌肤质量",
     "blog3Date": "2022 年 12 月",
     "blog3Title": "水光针：唤醒肌肤的焕亮之选",
-    "newsBadge": "★ 欢迎礼 −10%",
+    "newsBadge": "★ 抢先获知新品",
     "newsTitlePart1": "新品、培训与",
     "newsTitleEmphasis": "预售",
     "newsLead": "加入 4,200 名执业者。每周 1 封邮件，一键退订。",
@@ -170,7 +170,10 @@
     "tabNew": "新品",
     "tabPromos": "促销",
     "prev": "上一个",
-    "next": "下一个"
+    "next": "下一个",
+    "newsOk": "感谢您的订阅！",
+    "newsAlready": "该邮箱已订阅。",
+    "newsError": "订阅失败，请重试。"
   },
   "product": {
     "removeFromFavorites": "取消收藏",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "选择规格",
+    "volumeDiscounts": "批量价格",
+    "fromQty": "{qty} 起"
   },
   "quickView": {
     "refStock": "货号 {reference} · {status}。",

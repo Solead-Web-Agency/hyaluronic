@@ -195,6 +195,9 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
       : [],
     rpps_required: !!p.rpps_required,
     reviews: p.reviews ?? null,
+    combinations: Array.isArray(p.combinations) ? p.combinations : [],
+    priceWithoutReductionTtc: p.price_without_reduction_incl_tax ?? undefined,
+    quantityDiscounts: Array.isArray(p.quantity_discounts) ? p.quantity_discounts : [],
   };
 
   const rel = await bridgeGetCached(

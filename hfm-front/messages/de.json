@@ -157,7 +157,7 @@
     "blog3Cat": "Hautqualität",
     "blog3Date": "Dez. 2022",
     "blog3Title": "Skinbooster: der Frische-Kick, der die Haut zum Strahlen bringt",
-    "newsBadge": "★ −10 % Willkommensrabatt",
+    "newsBadge": "★ Neuheiten zuerst",
     "newsTitlePart1": "Neuheiten, Schulungen &",
     "newsTitleEmphasis": "Vorverkäufe",
     "newsLead": "Schließen Sie sich 4.200 Fachleuten an. 1 E-Mail pro Woche, Abmeldung mit 1 Klick.",
@@ -170,7 +170,10 @@
     "tabNew": "Neuheiten",
     "tabPromos": "Angebote",
     "prev": "Zurück",
-    "next": "Weiter"
+    "next": "Weiter",
+    "newsOk": "Danke! Ihre Anmeldung ist bestätigt.",
+    "newsAlready": "Diese Adresse ist bereits angemeldet.",
+    "newsError": "Anmeldung fehlgeschlagen. Bitte erneut versuchen."
   },
   "product": {
     "removeFromFavorites": "Aus Favoriten entfernen",
@@ -269,7 +272,10 @@
     "medDeviceP1": "Dieses Produkt ist ein Medizinprodukt, das qualifizierten Gesundheitsfachkräften (zugelassenen Ärzten, Zahnärzten) mit gültiger Berufsnummer vorbehalten ist. Von Selbstinjektion wird dringend abgeraten. Lesen Sie vor der Anwendung sorgfältig die Herstellerangaben und beachten Sie Indikationen, Kontraindikationen und gute Injektionspraxis.",
     "medDeviceP2": "CE-Kennzeichnung gemäß Verordnung (EU) 2017/745. Jeder Vorfall im Zusammenhang mit einem Medizinprodukt ist der zuständigen Behörde im Rahmen der Materiovigilanz zu melden.",
     "unavailableBadge": "Nicht verfügbar",
-    "unavailableLine": "Derzeit nicht verfügbar"
+    "unavailableLine": "Derzeit nicht verfügbar",
+    "chooseVariant": "Variante wählen",
+    "volumeDiscounts": "Mengenrabatte",
+    "fromQty": "ab {qty}"
   },
   "quickView": {
     "refStock": "Art. {reference} · {status}.",

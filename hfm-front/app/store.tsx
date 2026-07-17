@@ -82,7 +82,7 @@ type StoreCtx = {
   closeMenu: () => void;
   openQuick: (p: Card) => void;
   closeQuick: () => void;
-  addToCart: (p: { id: number; quantity?: number }) => Promise<void>;
+  addToCart: (p: { id: number; quantity?: number; id_product_attribute?: number }) => Promise<void>;
   updateLine: (id_product: number, quantity: number) => Promise<void>;
   removeLine: (id_product: number) => Promise<void>;
   refreshCart: () => Promise<void>;
@@ -150,13 +150,16 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   };
 
   const addToCart = useCallback(
-    async (p: { id: number; quantity?: number }) => {
+    async (p: { id: number; quantity?: number; id_product_attribute?: number }) => {
       const id_cart = localStorage.getItem('id_cart');
       const body: Record<string, unknown> = {
         action: 'add',
         id_product: p.id,
         qty: p.quantity ?? 1,
       };
+      // Déclinaison choisie (cart.php la gère nativement) : sans elle, PS ajoute la variante
+      // par défaut et le client reçoit autre chose que ce qu'il a sélectionné.
+      if (p.id_product_attribute) body.id_product_attribute = p.id_product_attribute;
       if (id_cart) body.id_cart = Number(id_cart);
       try {
         const r = await fetch('/api/cart', {

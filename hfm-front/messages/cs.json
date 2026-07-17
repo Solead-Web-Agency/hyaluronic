@@ -157,7 +157,7 @@
     "blog3Cat": "Skin quality",
     "blog3Date": "Pros. 2022",
     "blog3Title": "Skinbooster: rozjasnění, které odhalí pleť",
-    "newsBadge": "★ −10 % na uvítanou",
+    "newsBadge": "★ Novinky jako první",
     "newsTitlePart1": "Novinky, školení &",
     "newsTitleEmphasis": "předprodeje",
     "newsLead": "Připojte se ke 4 200 odborníkům. 1 e-mail týdně, odhlášení jedním kliknutím.",
@@ -170,7 +170,10 @@
     "tabNew": "Novinky",
     "tabPromos": "Akce",
     "prev": "Předchozí",
-    "next": "Další"
+    "next": "Další",
+    "newsOk": "Děkujeme! Přihlášení potvrzeno.",
+    "newsAlready": "Tato adresa je již přihlášena.",
+    "newsError": "Přihlášení se nezdařilo. Zkuste to znovu."
   },
   "product": {
     "removeFromFavorites": "Odebrat z oblíbených",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "Vyberte variantu",
+    "volumeDiscounts": "Množstevní slevy",
+    "fromQty": "od {qty}"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

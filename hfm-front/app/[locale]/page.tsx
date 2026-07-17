@@ -10,6 +10,7 @@ import { Link } from '@/i18n/navigation';
 import Chrome from '../components/Chrome';
 import Footer from '../components/Footer';
 import HomeTabs from '../components/HomeTabs';
+import NewsletterForm from '../components/NewsletterForm';
 import DragCarousel from '../components/DragCarousel';
 
 const MARQUEE = ['Juvéderm', 'Restylane', 'Teoxane', 'Vivacy', 'Belotero', 'Radiesse', 'Profhilo', 'Revolax', 'Neauvia', 'Fillmed', 'Croma', 'Sinclair', 'Juvéderm', 'Restylane', 'Teoxane', 'Vivacy', 'Belotero', 'Radiesse', 'Profhilo', 'Revolax', 'Neauvia', 'Fillmed', 'Croma', 'Sinclair'];
@@ -257,7 +258,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '7px 14px', background: 'rgba(140,198,63,.16)', border: '1px solid rgba(183,228,134,.3)', borderRadius: '999px', fontSize: '11px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#B7E486' }}>{t('newsBadge')}</div>
             <h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(26px,3.2vw,34px)', color: '#fff', margin: '16px 0 0' }}>{t('newsTitlePart1')} <span style={{ fontStyle: 'italic', color: '#B7E486' }}>{t('newsTitleEmphasis')}</span></h2>
             <p style={{ fontSize: '14.5px', color: '#CBD8BC', margin: '12px 0 0' }}>{t('newsLead')}</p>
-            <div style={{ display: 'flex', gap: '10px', maxWidth: '480px', margin: '28px auto 0', background: 'rgba(255,255,255,.10)', border: '1px solid rgba(255,255,255,.16)', borderRadius: '999px', padding: '6px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}><input placeholder={t('newsPlaceholder')} style={{ flex: 1, height: '46px', padding: '0 20px', border: 'none', borderRadius: '999px', background: 'transparent', color: '#fff', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', outline: 'none' }} /><button style={{ color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 24px -10px rgba(140,198,63,.6)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', padding: '0 28px', height: '46px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}>{t('newsSubmit')}</button></div>
+            <NewsletterForm />
             <div style={{ fontSize: '11.5px', color: '#94A580', marginTop: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
               <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="#94A580" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
               <span>{t('newsGdpr')}</span>

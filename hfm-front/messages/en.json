@@ -157,7 +157,7 @@
     "blog3Cat": "Skin quality",
     "blog3Date": "Dec. 2022",
     "blog3Title": "Skinbooster: the glow that reveals the skin",
-    "newsBadge": "★ −10% welcome offer",
+    "newsBadge": "★ New products first",
     "newsTitlePart1": "New arrivals, training &",
     "newsTitleEmphasis": "pre-sales",
     "newsLead": "Join 4,200 practitioners. 1 email per week, unsubscribe in 1 click.",
@@ -170,7 +170,10 @@
     "tabNew": "New arrivals",
     "tabPromos": "Deals",
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "newsOk": "Thank you! Your subscription is confirmed.",
+    "newsAlready": "This address is already subscribed.",
+    "newsError": "Subscription failed. Please try again."
   },
   "product": {
     "removeFromFavorites": "Remove from favorites",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "Choose an option",
+    "volumeDiscounts": "Volume pricing",
+    "fromQty": "from {qty}"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

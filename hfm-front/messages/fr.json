@@ -157,7 +157,7 @@
     "blog3Cat": "Skin quality",
     "blog3Date": "Déc. 2022",
     "blog3Title": "Skinbooster : le coup d'éclat qui révèle la peau",
-    "newsBadge": "★ −10 % de bienvenue",
+    "newsBadge": "★ Nouveautés en avant-première",
     "newsTitlePart1": "Nouveautés, formations &",
     "newsTitleEmphasis": "pré-ventes",
     "newsLead": "Rejoignez 4 200 praticiens. 1 e-mail par semaine, désinscription en 1 clic.",
@@ -170,7 +170,10 @@
     "tabNew": "Nouveautés",
     "tabPromos": "Promos",
     "prev": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "newsOk": "Merci ! Votre inscription est confirmée.",
+    "newsAlready": "Cette adresse est déjà inscrite.",
+    "newsError": "Inscription impossible. Réessayez."
   },
   "product": {
     "removeFromFavorites": "Retirer des favoris",
@@ -277,7 +280,10 @@
     "reviewsPublishedOn": "Publié le",
     "reviewsOrderedOn": "Commande du",
     "reviewsReply": "Réponse du vendeur",
-    "reviewsCount": "{count} avis"
+    "reviewsCount": "{count} avis",
+    "chooseVariant": "Choisir une déclinaison",
+    "volumeDiscounts": "Tarifs dégressifs",
+    "fromQty": "dès {qty}"
   },
   "quickView": {
     "refStock": "Réf. {reference} · {status}.",

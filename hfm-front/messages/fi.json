@@ -157,7 +157,7 @@
     "blog3Cat": "Skin quality",
     "blog3Date": "Joulukuu 2022",
     "blog3Title": "Skinbooster: hehku, joka tuo ihon esiin",
-    "newsBadge": "★ −10 % tervetuliaisalennus",
+    "newsBadge": "★ Uutuudet ensin",
     "newsTitlePart1": "Uutuudet, koulutukset &",
     "newsTitleEmphasis": "ennakkomyynnit",
     "newsLead": "Liity 4 200 hoitajan joukkoon. 1 sähköposti viikossa, peruutus yhdellä klikkauksella.",
@@ -170,7 +170,10 @@
     "tabNew": "Uutuudet",
     "tabPromos": "Tarjoukset",
     "prev": "Edellinen",
-    "next": "Seuraava"
+    "next": "Seuraava",
+    "newsOk": "Kiitos! Tilauksesi on vahvistettu.",
+    "newsAlready": "Tämä osoite on jo tilaajana.",
+    "newsError": "Tilaus epäonnistui. Yritä uudelleen."
   },
   "product": {
     "removeFromFavorites": "Poista suosikeista",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "Valitse vaihtoehto",
+    "volumeDiscounts": "Määräalennukset",
+    "fromQty": "alk. {qty}"
   },
   "quickView": {
     "refStock": "Koodi {reference} · {status}.",

@@ -610,6 +610,111 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         return $out;
     }
 
+    /**
+     * Déclinaisons vendables d'un produit (taille, teinte…).
+     *
+     * Le bridge ne lisait que `id_product_attribute = 0` : les variantes étaient donc invisibles et
+     * INVENDABLES côté headless (11 variantes en stock sur 5 produits actifs, dont une à 248,75 € HT
+     * avec 98 en stock), alors que l'ancien site affichait un sélecteur. Le panier (cart.php) sait
+     * déjà les gérer : il ne manquait que l'exposition.
+     *
+     * Le prix est demandé au moteur PS PAR déclinaison (getPriceStatic) : il inclut donc les
+     * promotions/specific_price propres à la variante, au lieu du simple « impact » brut.
+     */
+    protected function combinations($idProduct, $idLang)
+    {
+        $p = new Product($idProduct, false, $idLang);
+        if (!Validate::isLoadedObject($p)) {
+            return [];
+        }
+        $rows = $p->getAttributeCombinations($idLang);
+        if (!$rows) {
+            return [];
+        }
+        // Une ligne PAR attribut : on regroupe par déclinaison et on concatène les libellés
+        // (ex. « Volume : 10 ml » + « Teinte : Ivoire »).
+        $byId = [];
+        foreach ((array) $rows as $r) {
+            $id = (int) $r['id_product_attribute'];
+            if (!isset($byId[$id])) {
+                $byId[$id] = [
+                    'id_product_attribute' => $id,
+                    'parts' => [],
+                    'reference' => (string) $r['reference'],
+                    'default' => (bool) (int) $r['default_on'],
+                    'quantity' => (int) $r['quantity'],
+                ];
+            }
+            $label = trim((string) $r['group_name'] . ' : ' . (string) $r['attribute_name']);
+            $byId[$id]['parts'][] = $label;
+        }
+        $out = [];
+        foreach ($byId as $id => $c) {
+            $qty = (int) $c['quantity'];
+            $out[] = [
+                'id_product_attribute' => $id,
+                'label' => implode(' · ', array_unique($c['parts'])),
+                'reference' => $c['reference'],
+                'default' => $c['default'],
+                'quantity' => $qty,
+                'available' => $qty > 0,
+                'price_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($idProduct, true, $id), 2),
+                'price_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($idProduct, false, $id), 2),
+            ];
+        }
+        // Déclinaison par défaut en tête (c'est celle dont le prix s'affiche sur la fiche).
+        usort($out, function ($a, $b) {
+            return ($b['default'] ? 1 : 0) - ($a['default'] ? 1 : 0);
+        });
+        return $out;
+    }
+
+    /**
+     * Paliers de remise par quantité (« à partir de 10 : x € »).
+     *
+     * L'ancien site affichait ce tableau sur la fiche (2 produits actifs concernés). Le nouveau
+     * front APPLIQUE bien le dégressif au panier (le moteur PS le fait), mais ne l'affichait pas :
+     * le client B2B ignorait donc que le palier existait -> upsell perdu.
+     * Le prix de chaque palier est demandé au moteur PS avec la quantité correspondante.
+     */
+    protected function quantityDiscounts($idProduct)
+    {
+        $idShop = (int) $this->context->shop->id;
+        $idCurrency = (int) $this->context->currency->id;
+        $idCountry = (int) $this->context->country->id;
+        $idGroup = (int) Group::getCurrent()->id;
+
+        $rows = SpecificPrice::getQuantityDiscounts(
+            (int) $idProduct,
+            $idShop,
+            $idCurrency,
+            $idCountry,
+            $idGroup,
+            null,
+            false,
+            0
+        );
+        $seen = [];
+        $out = [];
+        foreach ((array) $rows as $r) {
+            $q = (int) (isset($r['from_quantity']) ? $r['from_quantity'] : 0);
+            // from_quantity <= 1 = une promo simple, pas un palier : déjà reflétée par le prix affiché.
+            if ($q < 2 || isset($seen[$q])) {
+                continue;
+            }
+            $seen[$q] = true;
+            $out[] = [
+                'from_quantity' => $q,
+                'price_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($idProduct, true, null, 2, null, false, true, $q), 2),
+                'price_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($idProduct, false, null, 2, null, false, true, $q), 2),
+            ];
+        }
+        usort($out, function ($a, $b) {
+            return $a['from_quantity'] - $b['from_quantity'];
+        });
+        return $out;
+    }
+
     protected function single($idProduct, $idLang)
     {
         $p = new Product($idProduct, true, $idLang);
@@ -665,6 +770,15 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'faq' => $extra ? $decode($extra['faq']) : [],
             'composition' => $extra ? $decode($extra['composition']) : [],
             'reviews' => $this->productReviews($idProduct, $idLang),
+            'combinations' => $this->combinations($idProduct, $idLang),
+            // Prix AVANT remise : permet au front d'afficher le prix barré + le badge « -X € »
+            // (l'ancien site les affichait ; sans ça la promo s'applique mais ne se voit pas).
+            'price_without_reduction_incl_tax' => (float) Tools::ps_round(
+                Product::getPriceStatic($idProduct, true, null, 2, null, false, false),
+                2
+            ),
+            // Paliers dégressifs publics (l'ancien site affichait le tableau « 2 → x € »).
+            'quantity_discounts' => $this->quantityDiscounts($idProduct),
         ]];
     }
 

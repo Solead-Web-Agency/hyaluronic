@@ -157,7 +157,7 @@
     "blog3Cat": "Qualità della pelle",
     "blog3Date": "Dic. 2022",
     "blog3Title": "Skinbooster: il tocco di luminosità che rivela la pelle",
-    "newsBadge": "★ −10 % di benvenuto",
+    "newsBadge": "★ Novità in anteprima",
     "newsTitlePart1": "Novità, corsi &",
     "newsTitleEmphasis": "prevendite",
     "newsLead": "Unisciti a 4.200 professionisti. 1 email a settimana, disiscrizione in 1 clic.",
@@ -170,7 +170,10 @@
     "tabNew": "Novità",
     "tabPromos": "Promo",
     "prev": "Precedente",
-    "next": "Successivo"
+    "next": "Successivo",
+    "newsOk": "Grazie! La tua iscrizione è confermata.",
+    "newsAlready": "Questo indirizzo è già iscritto.",
+    "newsError": "Iscrizione non riuscita. Riprova."
   },
   "product": {
     "removeFromFavorites": "Rimuovi dai preferiti",
@@ -269,7 +272,10 @@
     "medDeviceP1": "Questo prodotto è un dispositivo medico riservato a professionisti sanitari qualificati (medici, odontoiatri abilitati) con numero di iscrizione in corso di validità. L’autoiniezione è fortemente sconsigliata. Leggere attentamente il foglietto del produttore prima dell’uso e rispettare indicazioni, controindicazioni e buone pratiche di iniezione.",
     "medDeviceP2": "Marcatura CE conforme al Regolamento (UE) 2017/745. Qualsiasi incidente relativo a un dispositivo medico deve essere segnalato all’autorità competente nell’ambito della materiovigilanza.",
     "unavailableBadge": "Non disponibile",
-    "unavailableLine": "Attualmente non disponibile"
+    "unavailableLine": "Attualmente non disponibile",
+    "chooseVariant": "Scegli una variante",
+    "volumeDiscounts": "Prezzi a volume",
+    "fromQty": "da {qty}"
   },
   "quickView": {
     "refStock": "Rif. {reference} · {status}.",

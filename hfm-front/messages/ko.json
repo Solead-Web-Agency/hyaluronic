@@ -157,7 +157,7 @@
     "blog3Cat": "피부 퀄리티",
     "blog3Date": "2022년 12월",
     "blog3Title": "스킨 부스터: 피부를 살려주는 광채의 비결",
-    "newsBadge": "★ 가입 혜택 −10%",
+    "newsBadge": "★ 신제품 우선 안내",
     "newsTitlePart1": "신제품, 교육 &",
     "newsTitleEmphasis": "사전 판매",
     "newsLead": "4,200명의 시술자와 함께하세요. 주 1회 이메일, 클릭 한 번으로 구독 해지.",
@@ -170,7 +170,10 @@
     "tabNew": "신제품",
     "tabPromos": "프로모션",
     "prev": "이전",
-    "next": "다음"
+    "next": "다음",
+    "newsOk": "감사합니다! 구독이 확인되었습니다.",
+    "newsAlready": "이미 등록된 주소입니다.",
+    "newsError": "구독에 실패했습니다. 다시 시도해 주세요."
   },
   "product": {
     "removeFromFavorites": "즐겨찾기에서 제거",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "옵션 선택",
+    "volumeDiscounts": "수량 할인",
+    "fromQty": "{qty}개부터"
   },
   "quickView": {
     "refStock": "품번 {reference} · {status}.",

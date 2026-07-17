@@ -157,7 +157,7 @@
     "blog3Cat": "Skin quality",
     "blog3Date": "Dec. 2022",
     "blog3Title": "Skinbooster: glansen som framhäver huden",
-    "newsBadge": "★ −10 % i välkomstrabatt",
+    "newsBadge": "★ Nyheter först",
     "newsTitlePart1": "Nyheter, utbildningar &",
     "newsTitleEmphasis": "förhandsförsäljning",
     "newsLead": "Anslut dig till 4 200 praktiker. 1 e-post i veckan, avregistrering med ett klick.",
@@ -170,7 +170,10 @@
     "tabNew": "Nyheter",
     "tabPromos": "Kampanjer",
     "prev": "Föregående",
-    "next": "Nästa"
+    "next": "Nästa",
+    "newsOk": "Tack! Din prenumeration är bekräftad.",
+    "newsAlready": "Denna adress är redan registrerad.",
+    "newsError": "Registreringen misslyckades. Försök igen."
   },
   "product": {
     "removeFromFavorites": "Ta bort från favoriter",
@@ -269,7 +272,10 @@
     "medDeviceP1": "This product is a medical device reserved for qualified healthcare professionals (licensed physicians, dental surgeons) holding a valid registration number. Self-injection is strongly discouraged. Read the manufacturer’s leaflet carefully before use and follow the indications, contraindications and good injection practices.",
     "medDeviceP2": "CE marking compliant with Regulation (EU) 2017/745. Any incident involving a medical device must be reported to the competent authority under materiovigilance rules.",
     "unavailableBadge": "Unavailable",
-    "unavailableLine": "Currently unavailable"
+    "unavailableLine": "Currently unavailable",
+    "chooseVariant": "Välj variant",
+    "volumeDiscounts": "Mängdrabatt",
+    "fromQty": "från {qty}"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
