@@ -23,6 +23,21 @@
     "cancel": "Annuler",
     "breadcrumbHome": "Accueil"
   },
+  "error": {
+    "eyebrow": "Incident temporaire",
+    "title": "Une erreur est survenue",
+    "lead": "Nous n'avons pas pu afficher cette page. Il s'agit le plus souvent d'un incident temporaire : réessayez dans un instant.",
+    "retry": "Réessayer",
+    "home": "Retour à l'accueil",
+    "reference": "Référence de l'incident : {digest}"
+  },
+  "notFound": {
+    "eyebrow": "Erreur 404",
+    "title": "Page introuvable",
+    "lead": "La page que vous recherchez n'existe pas, a été déplacée ou n'est plus disponible.",
+    "home": "Retour à l'accueil",
+    "catalogue": "Parcourir le catalogue"
+  },
   "header": {
     "topbarShipping": "Expédition le jour même — commande avant 15h · DHL & Colissimo Express",
     "topbarFreeShipping": "Livraison offerte dès 400 € HT",
@@ -371,6 +386,7 @@
     "addAddress": "+ Ajouter une adresse",
     "noAddresses": "Aucune adresse enregistrée.",
     "addressFallback": "Adresse",
+    "forgotPassword": "Mot de passe oublié ?",
     "errors": {
       "bad_credentials": "Identifiants incorrects.",
       "auth_failed": "Identifiants incorrects.",
@@ -381,6 +397,49 @@
       "password_too_short": "Mot de passe trop court (8 caractères min.).",
       "generic": "Une erreur est survenue.",
       "network": "Erreur réseau."
+    }
+  },
+  "password": {
+    "forgot": {
+      "breadcrumb": "Mot de passe oublié",
+      "breadcrumbAccount": "Mon compte",
+      "title": "Mot de passe oublié",
+      "lead": "Saisissez l'adresse e-mail de votre compte : nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+      "email": "E-mail",
+      "emailPlaceholder": "vous@cabinet.fr",
+      "submit": "Envoyer le lien",
+      "sending": "Envoi…",
+      "sent": "Si un compte existe pour cette adresse, un e-mail contenant un lien de réinitialisation vient d'être envoyé. Pensez à vérifier vos courriers indésirables.",
+      "backToLogin": "Retour à la connexion",
+      "errors": {
+        "invalid_email": "E-mail invalide.",
+        "network": "Erreur réseau.",
+        "generic": "Une erreur est survenue."
+      }
+    },
+    "reset": {
+      "breadcrumb": "Réinitialiser le mot de passe",
+      "breadcrumbAccount": "Mon compte",
+      "title": "Nouveau mot de passe",
+      "lead": "Choisissez un nouveau mot de passe pour votre compte.",
+      "password": "Nouveau mot de passe",
+      "passwordPlaceholder": "8 caractères min.",
+      "confirm": "Confirmer le mot de passe",
+      "submit": "Réinitialiser mon mot de passe",
+      "saving": "Réinitialisation…",
+      "success": "Votre mot de passe a été réinitialisé. Vous êtes maintenant connecté(e).",
+      "goToAccount": "Aller à mon compte",
+      "invalidLink": "Ce lien de réinitialisation est invalide ou incomplet. Merci de refaire une demande.",
+      "requestNew": "Demander un nouveau lien",
+      "errors": {
+        "password_mismatch": "Les deux mots de passe ne correspondent pas.",
+        "password_too_short": "Mot de passe trop court (8 caractères min.).",
+        "invalid_or_expired_token": "Ce lien a expiré ou n'est plus valide. Merci de refaire une demande.",
+        "missing_fields": "Formulaire incomplet.",
+        "reset_failed": "La réinitialisation a échoué. Merci de réessayer.",
+        "network": "Erreur réseau.",
+        "generic": "Une erreur est survenue."
+      }
     }
   },
   "addressForm": {
@@ -436,6 +495,17 @@
     "addAddress": "+ Ajouter une adresse",
     "paymentTransfer": "Virement bancaire",
     "paymentCheck": "Chèque",
+    "payWireTitle": "Effectuez votre virement bancaire",
+    "payChequeTitle": "Envoyez votre chèque",
+    "payAmountLabel": "Montant à régler",
+    "payOwnerLabel": "Titulaire du compte",
+    "payDetailsLabel": "Coordonnées bancaires",
+    "payBankLabel": "Banque",
+    "payChequeOrderLabel": "Chèque à l’ordre de",
+    "payChequeAddressLabel": "Adresse d’envoi",
+    "payWireReference": "Indiquez la référence <b>{reference}</b> en libellé de votre virement.",
+    "payChequeReference": "Indiquez la référence <b>{reference}</b> au dos de votre chèque.",
+    "payReservation": "Vos articles sont réservés pendant {days} jours dans l’attente de votre règlement.",
     "paymentCard": "Carte bancaire",
     "cardUnavailable": "Le paiement par carte est indisponible pour le moment.",
     "cardRedirect": "Vous serez redirigé vers la page de paiement sécurisée <b>Viva Wallet</b> (CB, Apple Pay, Google Pay), puis ramené ici.",

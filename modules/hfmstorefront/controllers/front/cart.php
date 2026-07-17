@@ -15,12 +15,24 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
         if (!Validate::isLoadedObject($cart)) {
             return ['error' => 'cart_not_found'];
         }
+        // Anti-IDOR : on ne renvoie JAMAIS le contenu (PII : nom/adresse) d'un panier qui
+        // n'appartient pas à l'appelant (client de session OU jeton de panier invité signé).
+        if (!$this->cartAccessAllowed($cart)) {
+            return ['error' => 'forbidden'];
+        }
         return $this->cartPayload($cart);
     }
 
     public function handlePost()
     {
+        $idCart = (int) $this->in('id_cart');
         $cart = $this->loadOrCreateCart();
+        // Anti-IDOR : si l'appelant a DÉSIGNÉ un panier existant, il doit y avoir droit AVANT
+        // tout rattachement client ou mutation. Un panier fraîchement créé (id différent de
+        // celui demandé, ou aucun demandé) est implicitement autorisé : son jeton part dans la réponse.
+        if ($idCart && (int) $cart->id === $idCart && !$this->cartAccessAllowed($cart)) {
+            return ['error' => 'forbidden'];
+        }
         $this->attachCustomer($cart);
         $action = (string) $this->in('action', 'add');
 
@@ -216,6 +228,9 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
 
         return [
             'id_cart' => (int) $cart->id,
+            // Jeton signé à conserver côté front (localStorage) et à renvoyer avec l'id_cart :
+            // seule preuve d'appartenance d'un panier INVITÉ (id_customer = 0).
+            'cart_token' => $this->signCartToken((int) $cart->id),
             'id_currency' => (int) $cart->id_currency,
             'id_customer' => (int) $cart->id_customer,
             'id_address_delivery' => (int) $cart->id_address_delivery,

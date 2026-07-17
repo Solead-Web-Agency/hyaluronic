@@ -122,6 +122,73 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
         exit;
     }
 
+    // ---------- Anti-IDOR panier : appartenance + jeton signé (invités) ----------
+    // Le panier est une donnée PAR CLIENT (PII : nom, adresse). Un panier ne peut être lu ni muté
+    // que si (a) il appartient au client de la session (id_customer injecté par Next depuis le
+    // cookie HMAC), OU (b) c'est un panier invité (id_customer = 0) et l'appelant présente un
+    // jeton signé émis à la création du panier. Le jeton reprend le schéma de
+    // hfm-front/lib/session.ts : "<payload>.<sig>", payload = base64url(json),
+    // sig = base64url(HMAC-SHA256(payload)). Signé ET vérifié ici (côté serveur).
+
+    protected function b64url($bin)
+    {
+        return rtrim(strtr(base64_encode((string) $bin), '+/', '-_'), '=');
+    }
+
+    protected function b64urlDecode($str)
+    {
+        return (string) base64_decode(strtr((string) $str, '-_', '+/'));
+    }
+
+    /** Secret HMAC des jetons de panier (réutilise le secret partagé du bridge). */
+    protected function cartTokenSecret()
+    {
+        return (string) Configuration::get('HFMSTOREFRONT_SECRET');
+    }
+
+    /** Émet un jeton de panier signé liant l'id_cart (à stocker côté front à côté de l'id_cart). */
+    protected function signCartToken($idCart)
+    {
+        $secret = $this->cartTokenSecret();
+        if ($secret === '') {
+            return '';
+        }
+        $payload = $this->b64url(json_encode(['id_cart' => (int) $idCart, 'iat' => (int) round(microtime(true) * 1000)]));
+        $sig = $this->b64url(hash_hmac('sha256', $payload, $secret, true));
+        return $payload . '.' . $sig;
+    }
+
+    /** Le jeton présenté correspond-il bien à CE panier (signature valide + même id_cart) ? */
+    protected function cartTokenValid($token, $idCart)
+    {
+        $secret = $this->cartTokenSecret();
+        if ($secret === '' || !is_string($token) || strpos($token, '.') === false) {
+            return false;
+        }
+        list($payload, $sig) = explode('.', $token, 2);
+        $expected = $this->b64url(hash_hmac('sha256', $payload, $secret, true));
+        if (!hash_equals($expected, (string) $sig)) {
+            return false;
+        }
+        $data = json_decode($this->b64urlDecode($payload), true);
+        return is_array($data) && isset($data['id_cart']) && (int) $data['id_cart'] === (int) $idCart;
+    }
+
+    /**
+     * Contrôle d'appartenance du panier (invariant commun cart + checkout) :
+     *  (a) panier rattaché à un client -> exige le MÊME id_customer que la session ; OU
+     *  (b) panier invité (id_customer = 0) -> exige un jeton de panier signé valide.
+     */
+    protected function cartAccessAllowed(Cart $cart)
+    {
+        $cartCustomer = (int) $cart->id_customer;
+        if ($cartCustomer > 0) {
+            $sessionCustomer = (int) $this->in('id_customer');
+            return $sessionCustomer > 0 && $sessionCustomer === $cartCustomer;
+        }
+        return $this->cartTokenValid($this->in('cart_token'), (int) $cart->id);
+    }
+
     // ---------- Contenu CMS multilingue (pages éditables en BO, 22 langues) ----------
 
     protected function cmsI18nTable()

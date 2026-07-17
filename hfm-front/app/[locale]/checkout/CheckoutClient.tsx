@@ -28,6 +28,14 @@ type Totals = {
   total_discounts?: number;
 };
 
+// Coordonnées de paiement hors-ligne (virement / chèque), renvoyées par le bridge à la
+// confirmation quand la commande est en attente de règlement. Lues côté PS depuis la config
+// (ps_wirepayment / ps_checkpayment) — jamais codées en dur.
+type PayInstructions = {
+  wire: { owner: string; details: string; address: string; reservation_days: number };
+  cheque: { payee: string; address: string };
+};
+
 const PAYMENTS = ['Virement bancaire', 'Chèque'];
 const VIVA_PAYMENT = 'Carte bancaire (Viva Wallet)';
 const PAYPAL_PAYMENT = 'PayPal';
@@ -186,7 +194,7 @@ export default function CheckoutClient() {
   const [placing, setPlacing] = useState(false);
   const [orderErr, setOrderErr] = useState<string | null>(null);
   const [rppsErr, setRppsErr] = useState<string | null>(null);
-  const [confirmation, setConfirmation] = useState<{ reference: string; id_order: number; total_paid: number; paid?: boolean; items?: EcItem[] } | null>(null);
+  const [confirmation, setConfirmation] = useState<{ reference: string; id_order: number; total_paid: number; paid?: boolean; items?: EcItem[]; method?: string; instructions?: PayInstructions | null } | null>(null);
 
   // Snapshot des lignes panier, à écrire AVANT toute redirection PSP : au retour, la page est
   // rechargée et le panier déjà converti -> sans ça le purchase GA4 partirait sans items.
@@ -309,7 +317,12 @@ export default function CheckoutClient() {
   const reloadTotals = useCallback(async () => {
     if (!idCart) return;
     try {
-      const r = await fetch(`/api/cart?id_cart=${idCart}`);
+      // cart_token = preuve d'appartenance d'un panier INVITÉ (stocké par le store à côté de
+      // l'id_cart) : sans lui, le bridge refuse la lecture du panier invité.
+      const token = typeof window !== 'undefined' ? localStorage.getItem('cart_token') : null;
+      const r = await fetch(
+        `/api/cart?id_cart=${idCart}${token ? `&cart_token=${encodeURIComponent(token)}` : ''}`
+      );
       const d = await r.json();
       if (d.totals) setTotals(d.totals as Totals);
     } catch {
@@ -574,7 +587,9 @@ export default function CheckoutClient() {
     }));
     // `paid` vient du bridge (état « Paiement accepté » uniquement) : virement/chèque -> false,
     // donc pas de conversion Ads tant que l'argent n'est pas encaissé (parité ancien module).
-    setConfirmation({ reference: d.reference, id_order: d.id_order, total_paid: d.total_paid, paid: !!d.paid, items: purchaseItems });
+    // `instructions` = coordonnées virement/chèque renvoyées par le bridge (null si encaissé) ;
+    // `method` = le moyen retenu, pour choisir le bloc à afficher sur l'écran de confirmation.
+    setConfirmation({ reference: d.reference, id_order: d.id_order, total_paid: d.total_paid, paid: !!d.paid, items: purchaseItems, method: paymentMethod, instructions: (d.payment_instructions as PayInstructions) ?? null });
     // Chemin offline : pas de redirection, les items viennent directement d'ici. On purge quand
     // même le stash (posé au début de placeOrder) pour ne rien laisser traîner.
     clearPendingItems();
@@ -704,11 +719,51 @@ export default function CheckoutClient() {
 
 
   if (confirmation) {
+    // Encart « où régler » : affiché seulement pour un paiement hors-ligne (virement / chèque)
+    // dont les coordonnées ont été renvoyées par le bridge (commande en attente de règlement).
+    const inst = confirmation.instructions;
+    const isWire = confirmation.method === 'Virement bancaire';
+    const isCheque = confirmation.method === 'Chèque';
+    const showPayInfo = !!inst && (isWire || isCheque);
+    // Découpe une valeur multi-lignes (IBAN/BIC, adresse) en lignes propres.
+    const multiline = (s: string) => s.split('\n').map((l) => l.trim()).filter(Boolean);
+    const payLabel: React.CSSProperties = { fontSize: '11px', fontWeight: 700, letterSpacing: '.03em', textTransform: 'uppercase', color: '#8A8170', margin: '0 0 3px' };
+    const payValue: React.CSSProperties = { fontSize: '14.5px', color: '#2B2B2B', lineHeight: 1.5, fontWeight: 600 };
     return (
       <main data-screen-label="Confirmation" className="hfm-wrap" style={{ maxWidth: '620px', margin: '0 auto', padding: '90px 28px', textAlign: 'center' }}>
         <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: '#3F7256', color: '#fff', fontSize: '34px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>✓</div>
         <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(25px,3.6vw,34px)', color: '#2B2B2B', margin: '26px 0 0' }}>{t('confirmedTitle', { reference: confirmation.reference })}</h1>
         <p style={{ fontSize: '15px', color: '#55606F', margin: '14px 0 0' }}>{t.rich('confirmedBody', { id: confirmation.id_order, reference: confirmation.reference, amount: fmt(confirmation.total_paid), b: (c) => <b style={{ color: '#434343' }}>{c}</b> })}</p>
+        {showPayInfo && inst ? (
+          <div style={{ textAlign: 'left', background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '10px', padding: '20px 22px', margin: '26px 0 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              {isCheque ? ChequeIcon : BankIcon}
+              <span style={{ fontFamily: "'Spectral',serif", fontSize: '17px', color: '#2B2B2B' }}>{isCheque ? t('payChequeTitle') : t('payWireTitle')}</span>
+            </div>
+            <div style={{ marginBottom: '13px' }}>
+              <div style={payLabel}>{t('payAmountLabel')}</div>
+              <div style={{ ...payValue, fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '18px', fontWeight: 700, color: '#434343' }}>{fmt(confirmation.total_paid)} €</div>
+            </div>
+            {isWire ? (
+              <>
+                <div style={{ marginBottom: '13px' }}><div style={payLabel}>{t('payOwnerLabel')}</div><div style={payValue}>{inst.wire.owner}</div></div>
+                <div style={{ marginBottom: '13px' }}><div style={payLabel}>{t('payDetailsLabel')}</div><div style={payValue}>{multiline(inst.wire.details).map((l, i) => <div key={i}>{l}</div>)}</div></div>
+                <div style={{ marginBottom: '13px' }}><div style={payLabel}>{t('payBankLabel')}</div><div style={payValue}>{multiline(inst.wire.address).map((l, i) => <div key={i}>{l}</div>)}</div></div>
+              </>
+            ) : (
+              <>
+                <div style={{ marginBottom: '13px' }}><div style={payLabel}>{t('payChequeOrderLabel')}</div><div style={payValue}>{inst.cheque.payee.trim()}</div></div>
+                <div style={{ marginBottom: '13px' }}><div style={payLabel}>{t('payChequeAddressLabel')}</div><div style={payValue}>{multiline(inst.cheque.address).map((l, i) => <div key={i}>{l}</div>)}</div></div>
+              </>
+            )}
+            <div style={{ marginTop: '4px', padding: '11px 13px', background: 'rgba(140,198,63,0.08)', border: '1px solid rgba(155,209,89,.5)', borderRadius: '7px', fontSize: '12.5px', lineHeight: 1.55, color: '#4B6A1E' }}>
+              {t.rich(isCheque ? 'payChequeReference' : 'payWireReference', { reference: confirmation.reference, b: (c) => <b>{c}</b> })}
+            </div>
+            {isWire && inst.wire.reservation_days > 0 ? (
+              <div style={{ marginTop: '10px', fontSize: '12px', color: '#8A8170', lineHeight: 1.5 }}>{t('payReservation', { days: inst.wire.reservation_days })}</div>
+            ) : null}
+          </div>
+        ) : null}
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '30px' }}>
           <button onClick={() => router.push('/catalogue')} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', borderRadius: '999px', padding: '14px 26px', cursor: 'pointer' }}>{t('continueShopping')}</button>
           <button onClick={() => router.push('/')} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, color: '#5E8E1F', background: 'rgba(140,198,63,0.08)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '14px 26px', cursor: 'pointer' }}>{tc('home')}</button>

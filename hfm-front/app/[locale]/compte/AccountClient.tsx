@@ -257,6 +257,9 @@ export default function AccountClient() {
               </div>
               {error ? <div style={{ fontSize: '13px', color: '#A8503A' }}>{error}</div> : null}
               <button type="submit" disabled={busy} style={{ ...primaryBtn, opacity: busy ? 0.7 : 1 }}>{busy ? t('loggingIn') : t('signIn')}</button>
+              <div style={{ textAlign: 'center' }}>
+                <Link href="/mot-de-passe-oublie" style={{ fontSize: '13px', color: '#8A8170', textDecoration: 'none' }}>{t('forgotPassword')}</Link>
+              </div>
             </form>
           ) : (
             <form onSubmit={doRegister} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

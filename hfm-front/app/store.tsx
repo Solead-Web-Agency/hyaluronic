@@ -48,6 +48,8 @@ function normalize(d: {
   id_cart?: number;
   products?: CartLine[];
   rpps_required?: boolean;
+  cart_token?: string;
+  error?: string;
   totals?: {
     products_excl_tax?: number;
     products_incl_tax?: number;
@@ -122,16 +124,35 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [authReady, setAuthReady] = useState(false);
 
-  const loadCart = useCallback(async (id_cart: number) => {
-    try {
-      const r = await fetch(`/api/cart?id_cart=${id_cart}`);
-      const d = await r.json();
-      const n = normalize(d);
-      setCart({ ...n, id_cart: n.id_cart ?? id_cart });
-    } catch {
-      /* ignore */
-    }
+  // Panier refusé/introuvable par le bridge : on repart sur un panier neuf (id_cart + jeton
+  // purgés) au lieu de boucler en erreur sur un panier qui ne nous appartient plus.
+  const resetCart = useCallback(() => {
+    localStorage.removeItem('id_cart');
+    localStorage.removeItem('cart_token');
+    setCart(EMPTY_CART);
   }, []);
+
+  const loadCart = useCallback(
+    async (id_cart: number) => {
+      try {
+        // cart_token = preuve d'appartenance d'un panier INVITÉ : relayé au bridge en query.
+        const token = localStorage.getItem('cart_token');
+        const url = `/api/cart?id_cart=${id_cart}${token ? `&cart_token=${encodeURIComponent(token)}` : ''}`;
+        const r = await fetch(url);
+        const d = await r.json();
+        if (d?.error === 'forbidden' || d?.error === 'cart_not_found') {
+          resetCart();
+          return;
+        }
+        if (d?.cart_token) localStorage.setItem('cart_token', d.cart_token);
+        const n = normalize(d);
+        setCart({ ...n, id_cart: n.id_cart ?? id_cart });
+      } catch {
+        /* ignore */
+      }
+    },
+    [resetCart]
+  );
 
   useEffect(() => {
     const stored = localStorage.getItem('id_cart');
@@ -143,15 +164,24 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     if (stored) await loadCart(Number(stored));
   }, [loadCart]);
 
-  const applyCart = (raw: Parameters<typeof normalize>[0]) => {
+  // Persiste id_cart + cart_token depuis une réponse /api/cart. Renvoie false (et réinitialise
+  // le panier) si le bridge a refusé le panier, pour que l'appelant s'arrête là.
+  const applyCart = (raw: Parameters<typeof normalize>[0]): boolean => {
+    if (raw?.error === 'forbidden' || raw?.error === 'cart_not_found') {
+      resetCart();
+      return false;
+    }
     const n = normalize(raw);
     if (n.id_cart) localStorage.setItem('id_cart', String(n.id_cart));
+    if (raw?.cart_token) localStorage.setItem('cart_token', raw.cart_token);
     setCart((prev) => ({ ...n, id_cart: n.id_cart ?? prev.id_cart }));
+    return true;
   };
 
   const addToCart = useCallback(
     async (p: { id: number; quantity?: number; id_product_attribute?: number }) => {
       const id_cart = localStorage.getItem('id_cart');
+      const cart_token = localStorage.getItem('cart_token');
       const body: Record<string, unknown> = {
         action: 'add',
         id_product: p.id,
@@ -161,6 +191,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       // par défaut et le client reçoit autre chose que ce qu'il a sélectionné.
       if (p.id_product_attribute) body.id_product_attribute = p.id_product_attribute;
       if (id_cart) body.id_cart = Number(id_cart);
+      if (cart_token) body.cart_token = cart_token; // preuve d'appartenance panier invité
       try {
         const r = await fetch('/api/cart', {
           method: 'POST',
@@ -169,7 +200,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         });
         const d = await r.json();
         if (d.error === 'out_of_stock') return; // produit en rupture : on n'ajoute pas
-        applyCart(d);
+        if (!applyCart(d)) return; // panier refusé/introuvable : réinitialisé, on s'arrête
         // Event GA4 enrichi (nom + prix TTC, cohérent avec view_item) depuis la ligne panier renvoyée.
         const line = (d.products as CartLine[] | undefined)?.find((l) => l.id_product === p.id);
         trackAddToCart({
@@ -191,6 +222,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     async (id_product: number, quantity: number) => {
       const id_cart = localStorage.getItem('id_cart');
       if (!id_cart) return;
+      const cart_token = localStorage.getItem('cart_token');
       const r = await fetch('/api/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -199,6 +231,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           id_cart: Number(id_cart),
           id_product,
           qty: quantity,
+          ...(cart_token ? { cart_token } : {}),
         }),
       });
       applyCart(await r.json());
@@ -209,6 +242,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const removeLine = useCallback(async (id_product: number) => {
     const id_cart = localStorage.getItem('id_cart');
     if (!id_cart) return;
+    const cart_token = localStorage.getItem('cart_token');
     const r = await fetch('/api/cart', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -216,6 +250,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         action: 'remove',
         id_cart: Number(id_cart),
         id_product,
+        ...(cart_token ? { cart_token } : {}),
       }),
     });
     applyCart(await r.json());
@@ -234,11 +269,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const attachCart = useCallback(async () => {
     const id_cart = localStorage.getItem('id_cart');
     if (!id_cart) return;
+    // Le panier est encore INVITÉ (id_customer=0) au moment du rattachement : sans le jeton,
+    // le bridge refuserait l'accès et le rattachement échouerait.
+    const cart_token = localStorage.getItem('cart_token');
     try {
       const r = await fetch('/api/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'attach', id_cart: Number(id_cart) }),
+        body: JSON.stringify({
+          action: 'attach',
+          id_cart: Number(id_cart),
+          ...(cart_token ? { cart_token } : {}),
+        }),
       });
       applyCart(await r.json());
     } catch {

@@ -4,6 +4,8 @@
  * Appelé serveur-à-serveur par le backend Next.js (en-tête X-Storefront-Token).
  *   POST {action:login,    email, password}
  *   POST {action:register, email, password, firstname, lastname, id_lang?}
+ *   POST {action:forgot-password, email, reset_url_base?}   -> { sent:true } (réponse non-oracle)
+ *   POST {action:reset-password, id_customer|email, reset_token, password} -> { reset:true, customer }
  *   GET  ?action=me&id_customer=..
  *   GET  ?action=addresses&id_customer=..
  *   POST {action:add-address, id_customer, alias, firstname, lastname, address1, postcode, city, id_country, phone?}
@@ -22,6 +24,10 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
                 return $this->register();
             case 'guest':
                 return $this->registerGuest();
+            case 'forgot-password':
+                return $this->forgotPassword();
+            case 'reset-password':
+                return $this->resetPassword();
             case 'add-address':
                 return $this->addAddress();
             case 'update-address':
@@ -134,6 +140,186 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             return ['error' => 'create_failed'];
         }
         return ['created' => true, 'guest' => true, 'customer' => $this->customerPayload($customer)];
+    }
+
+    /**
+     * « Mot de passe oublié » — DEMANDE.
+     * Reçoit un e-mail et (optionnel) `reset_url_base` = URL de la page front de réinitialisation.
+     * Si le compte existe et est actif : on pose le jeton natif PS (stampResetPasswordToken) et on
+     * envoie l'e-mail natif « password_query » avec le lien vers le front (id_customer + reset_token).
+     *
+     * SÉCURITÉ : la réponse est TOUJOURS identique (`sent:true`) que l'e-mail existe ou non — aucun
+     * oracle d'énumération de comptes (cf. faille newsletter connue). Le seul cas d'erreur renvoyé
+     * concerne un format d'e-mail invalide (ne révèle rien sur l'existence d'un compte).
+     */
+    protected function forgotPassword()
+    {
+        $email = trim((string) $this->in('email'));
+        if (!Validate::isEmail($email)) {
+            return ['error' => 'invalid_email'];
+        }
+
+        // getByEmail() lève une exception sur un e-mail au format invalide : déjà filtré ci-dessus.
+        $customer = new Customer();
+        $customer->getByEmail($email);
+
+        if (Validate::isLoadedObject($customer) && $customer->active) {
+            // Ne régénère pas un jeton encore récent/valide (évite le harcèlement du lien « oublié »),
+            // mais renvoie tout de même l'e-mail avec le jeton courant — comportement natif PS.
+            if (!$customer->hasRecentResetPasswordToken()) {
+                $customer->stampResetPasswordToken();
+                $customer->update();
+            }
+            $this->sendResetLink($customer, (string) $this->in('reset_url_base'));
+        }
+
+        // Réponse volontairement invariante.
+        return ['sent' => true];
+    }
+
+    /**
+     * Construit le lien de réinitialisation vers le FRONT headless et envoie l'e-mail natif
+     * « password_query ». Best-effort : un échec SMTP ne modifie pas la réponse renvoyée au client
+     * (on reste non-oracle). Le lien porte id_customer + reset_token (le jeton sha1 natif est le secret).
+     */
+    protected function sendResetLink(Customer $customer, $resetUrlBase)
+    {
+        try {
+            $token = (string) $customer->reset_password_token;
+            if ($token === '') {
+                return;
+            }
+            $query = 'id_customer=' . (int) $customer->id
+                . '&reset_token=' . $token
+                . '&token=' . urlencode((string) $customer->secure_key);
+
+            // reset_url_base est fourni par le front (URL localisée de la page de réinitialisation).
+            // Repli défensif sur le lien natif PS si absent (utile hors contexte headless).
+            $base = trim((string) $resetUrlBase);
+            if ($base !== '' && preg_match('#^https?://#i', $base)) {
+                $url = $base . (strpos($base, '?') !== false ? '&' : '?') . $query;
+            } else {
+                $url = $this->context->link->getPageLink(
+                    'password',
+                    null,
+                    null,
+                    'token=' . $customer->secure_key . '&id_customer=' . (int) $customer->id . '&reset_token=' . $token
+                );
+            }
+
+            Mail::Send(
+                (int) $this->context->language->id,
+                'password_query',
+                (string) Mail::l('Password query confirmation', (int) $this->context->language->id),
+                [
+                    '{email}' => $customer->email,
+                    '{lastname}' => $customer->lastname,
+                    '{firstname}' => $customer->firstname,
+                    '{url}' => $url,
+                ],
+                $customer->email,
+                $customer->firstname . ' ' . $customer->lastname,
+                null,
+                null,
+                null,
+                null,
+                _PS_MAIL_DIR_,
+                false,
+                (int) $this->context->shop->id
+            );
+        } catch (\Throwable $e) {
+            try {
+                PrestaShopLogger::addLog('HFM forgot-password: mail KO - ' . $e->getMessage(), 2);
+            } catch (\Throwable $e2) {
+                // journalisation impossible : on ignore, la réponse reste non-oracle
+            }
+        }
+    }
+
+    /**
+     * « Mot de passe oublié » — RÉINITIALISATION.
+     * Reçoit (id_customer OU email) + reset_token + password. Vérifie le jeton natif ET sa validité
+     * temporelle (getValidResetPasswordToken), refuse si expiré/invalide, met à jour le mot de passe
+     * (hashing PS9) puis invalide le jeton. Renvoie le client pour permettre l'auto-connexion côté front.
+     */
+    protected function resetPassword()
+    {
+        $idCustomer = (int) $this->in('id_customer');
+        $email = trim((string) $this->in('email'));
+        $token = (string) $this->in('reset_token');
+        $password = (string) $this->in('password');
+
+        if ($token === '' || $password === '' || (!$idCustomer && $email === '')) {
+            return ['error' => 'missing_fields'];
+        }
+
+        // Chargement par id (prioritaire) ou par e-mail.
+        if ($idCustomer) {
+            $customer = new Customer($idCustomer);
+        } else {
+            if (!Validate::isEmail($email)) {
+                return ['error' => 'invalid_or_expired_token'];
+            }
+            $customer = new Customer();
+            $customer->getByEmail($email);
+        }
+        // Message VOLONTAIREMENT générique (compte introuvable/inactif/jeton faux se ressemblent)
+        // pour ne pas distinguer « ce compte existe » de « ce jeton est faux ».
+        if (!Validate::isLoadedObject($customer) || !$customer->active) {
+            return ['error' => 'invalid_or_expired_token'];
+        }
+
+        // Vérifie le jeton natif ET sa fenêtre de validité (reset_password_validity).
+        if ($customer->getValidResetPasswordToken() !== $token) {
+            return ['error' => 'invalid_or_expired_token'];
+        }
+
+        if (!Validate::isAcceptablePasswordLength($password)) {
+            return ['error' => 'password_too_short'];
+        }
+
+        // Hash PS9 + horodatage (utilisé par les fenêtres anti-rejeu natives).
+        $customer->passwd = $this->hashPassword($password);
+        $customer->last_passwd_gen = date('Y-m-d H:i:s');
+        if (!$customer->update()) {
+            return ['error' => 'reset_failed'];
+        }
+
+        // Parité PS : notifie les modules (sécurité/fidélité), invalide le jeton, confirme par e-mail.
+        Hook::exec('actionPasswordRenew', ['customer' => $customer, 'password' => $password]);
+        $customer->removeResetPasswordToken();
+        $customer->update();
+        $this->sendResetConfirmation($customer);
+
+        return ['reset' => true, 'customer' => $this->customerPayload($customer)];
+    }
+
+    /** E-mail natif « password » de confirmation après changement (best-effort, jamais bloquant). */
+    protected function sendResetConfirmation(Customer $customer)
+    {
+        try {
+            Mail::Send(
+                (int) $this->context->language->id,
+                'password',
+                (string) Mail::l('Your new password', (int) $this->context->language->id),
+                [
+                    '{email}' => $customer->email,
+                    '{lastname}' => $customer->lastname,
+                    '{firstname}' => $customer->firstname,
+                ],
+                $customer->email,
+                $customer->firstname . ' ' . $customer->lastname,
+                null,
+                null,
+                null,
+                null,
+                _PS_MAIL_DIR_,
+                false,
+                (int) $this->context->shop->id
+            );
+        } catch (\Throwable $e) {
+            // La réinitialisation a réussi : l'e-mail de confirmation ne doit pas la faire échouer.
+        }
     }
 
     /** Mise à jour du profil (prénom/nom/e-mail, et mot de passe si fourni). id_customer imposé par la session. */

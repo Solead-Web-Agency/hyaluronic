@@ -44,6 +44,14 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         if (!Validate::isLoadedObject($cart)) {
             throw new Exception('cart_not_found');
         }
+        // Anti-IDOR : l'appartenance est vérifiée AVANT toute opération (adresse, commande) ET
+        // AVANT de lier l'identité au contexte — même invariant que l'endpoint cart. Sans ce
+        // contrôle, un client authentifié pouvait piloter le panier/commande d'autrui, et la
+        // ligne ci-dessous écrasait l'id_customer de session par celui du panier.
+        if (!$this->cartAccessAllowed($cart)) {
+            $this->respond(['error' => 'forbidden'], 403);
+        }
+        // Panier rattaché à un client : c'est bien celui de la session (vérifié ci-dessus).
         if ($cart->id_customer) {
             $this->context->customer = new Customer((int) $cart->id_customer);
         }
@@ -167,6 +175,7 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 'total_paid' => (float) $existing->total_paid,
                 'paid' => $this->orderIsPaid($existing),
                 'already' => true,
+                'payment_instructions' => $this->orderIsPaid($existing) ? null : $this->paymentInstructions(),
             ];
         }
         $customer = new Customer((int) $cart->id_customer);
@@ -184,8 +193,13 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         }
         $total = (float) $cart->getOrderTotal(true, Cart::BOTH);
         $paymentName = (string) $this->in('payment_method', 'Headless (' . $paymentModule->name . ')');
-        // Paiement encaissé (CB/PayPlug) => "Paiement accepté" ; sinon (virement/chèque) "en préparation".
-        $orderState = ((int) $this->in('paid') === 1)
+        // "Paiement accepté" UNIQUEMENT si l'encaissement a été confirmé côté serveur : le flag
+        // `paid` DOIT être corroboré par une référence de transaction PSP (posée par les retours
+        // PSP vérifiés : Viva/PayPal/Amazon/webhook, qui appellent le bridge en direct). Le tunnel
+        // client, lui, ne transmet ni `paid` ni `transaction_id` (filtrés dans
+        // app/api/checkout/route.ts) -> commande "en préparation". Aucune commande "payée" ne peut
+        // être créée sur la seule foi d'un flag envoyé par le client.
+        $orderState = ((int) $this->in('paid') === 1 && trim((string) $this->in('transaction_id')) !== '')
             ? (int) Configuration::get('PS_OS_PAYMENT')
             : (int) Configuration::get('PS_OS_PREPARATION');
         try {
@@ -237,6 +251,32 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             'paid' => $this->orderIsPaid($order),
             'transaction_id' => $transactionId,
             'rpps' => $orderRpps,
+            // Coordonnées de paiement hors-ligne (virement / chèque) : renvoyées UNIQUEMENT pour une
+            // commande NON encaissée (le client doit encore régler). Le front les affiche sur l'écran
+            // de confirmation puisque, la commande étant rattachée à hfmstorefront, l'email natif
+            // « coordonnées bancaires » de ps_wirepayment ne se déclenche pas.
+            'payment_instructions' => $this->orderIsPaid($order) ? null : $this->paymentInstructions(),
+        ];
+    }
+
+    /**
+     * Coordonnées de paiement HORS-LIGNE, LUES AU RUNTIME depuis la configuration PrestaShop
+     * (modules natifs ps_wirepayment / ps_checkpayment) — JAMAIS codées en dur, pour survivre à
+     * un ré-import de la boutique. Le front choisit le bloc à afficher selon le moyen retenu.
+     */
+    protected function paymentInstructions()
+    {
+        return [
+            'wire' => [
+                'owner' => (string) Configuration::get('BANK_WIRE_OWNER'),
+                'details' => (string) Configuration::get('BANK_WIRE_DETAILS'),
+                'address' => (string) Configuration::get('BANK_WIRE_ADDRESS'),
+                'reservation_days' => (int) Configuration::get('BANK_WIRE_RESERVATION_DAYS'),
+            ],
+            'cheque' => [
+                'payee' => (string) Configuration::get('CHEQUE_NAME'),
+                'address' => (string) Configuration::get('CHEQUE_ADDRESS'),
+            ],
         ];
     }
 
