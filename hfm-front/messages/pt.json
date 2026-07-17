@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Escolha uma variante",
     "volumeDiscounts": "Preços por volume",
-    "fromQty": "a partir de {qty}"
+    "fromQty": "a partir de {qty}",
+    "share": "Partilhar",
+    "viewedTitle": "Vistos recentemente"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

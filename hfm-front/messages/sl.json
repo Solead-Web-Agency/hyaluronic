@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Izberite različico",
     "volumeDiscounts": "Količinski popusti",
-    "fromQty": "od {qty}"
+    "fromQty": "od {qty}",
+    "share": "Deli",
+    "viewedTitle": "Nazadnje ogledano"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

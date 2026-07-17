@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "בחר וריאנט",
     "volumeDiscounts": "תמחור לפי כמות",
-    "fromQty": "מ-{qty}"
+    "fromQty": "מ-{qty}",
+    "share": "שיתוף",
+    "viewedTitle": "נצפו לאחרונה"
   },
   "quickView": {
     "refStock": "מק\"ט {reference} · {status}.",

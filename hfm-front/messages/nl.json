@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Kies een variant",
     "volumeDiscounts": "Staffelprijzen",
-    "fromQty": "vanaf {qty}"
+    "fromQty": "vanaf {qty}",
+    "share": "Delen",
+    "viewedTitle": "Recent bekeken"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

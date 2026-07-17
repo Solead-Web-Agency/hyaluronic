@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Velg variant",
     "volumeDiscounts": "Mengderabatt",
-    "fromQty": "fra {qty}"
+    "fromQty": "fra {qty}",
+    "share": "Del",
+    "viewedTitle": "Nylig sett"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

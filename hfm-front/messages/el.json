@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Επιλέξτε παραλλαγή",
     "volumeDiscounts": "Εκπτώσεις όγκου",
-    "fromQty": "από {qty}"
+    "fromQty": "από {qty}",
+    "share": "Κοινοποίηση",
+    "viewedTitle": "Πρόσφατα προβεβλημένα"
   },
   "quickView": {
     "refStock": "Κωδ. {reference} · {status}.",

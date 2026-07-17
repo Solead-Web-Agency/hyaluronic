@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Изберете вариант",
     "volumeDiscounts": "Отстъпки за количество",
-    "fromQty": "от {qty}"
+    "fromQty": "от {qty}",
+    "share": "Споделяне",
+    "viewedTitle": "Наскоро разгледани"
   },
   "quickView": {
     "refStock": "Реф. {reference} · {status}.",

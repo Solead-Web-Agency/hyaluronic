@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Vælg variant",
     "volumeDiscounts": "Mængderabat",
-    "fromQty": "fra {qty}"
+    "fromQty": "fra {qty}",
+    "share": "Del",
+    "viewedTitle": "Senest sete"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

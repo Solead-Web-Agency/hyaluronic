@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Valitse vaihtoehto",
     "volumeDiscounts": "Määräalennukset",
-    "fromQty": "alk. {qty}"
+    "fromQty": "alk. {qty}",
+    "share": "Jaa",
+    "viewedTitle": "Viimeksi katsotut"
   },
   "quickView": {
     "refStock": "Koodi {reference} · {status}.",

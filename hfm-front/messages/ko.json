@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "옵션 선택",
     "volumeDiscounts": "수량 할인",
-    "fromQty": "{qty}개부터"
+    "fromQty": "{qty}개부터",
+    "share": "공유",
+    "viewedTitle": "최근 본 상품"
   },
   "quickView": {
     "refStock": "품번 {reference} · {status}.",

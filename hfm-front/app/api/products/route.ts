@@ -7,7 +7,7 @@ import { CACHE_TAGS, CACHE_TTL, cdnCacheControl } from '@/lib/cacheContract';
 export async function GET(req: NextRequest) {
   const sp = req.nextUrl.searchParams;
   const params: Record<string, string> = {};
-  for (const k of ['limit', 'page', 'id_category', 'id_manufacturer', 'q', 'filter', 'id_product', 'related', 'id_lang', 'id_currency']) {
+  for (const k of ['limit', 'page', 'id_category', 'id_manufacturer', 'q', 'filter', 'id_product', 'related', 'ids', 'id_lang', 'id_currency']) {
     const v = sp.get(k);
     if (v) params[k] = v;
   }

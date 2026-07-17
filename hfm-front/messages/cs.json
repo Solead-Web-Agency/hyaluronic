@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Vyberte variantu",
     "volumeDiscounts": "Množstevní slevy",
-    "fromQty": "od {qty}"
+    "fromQty": "od {qty}",
+    "share": "Sdílet",
+    "viewedTitle": "Naposledy zobrazené"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

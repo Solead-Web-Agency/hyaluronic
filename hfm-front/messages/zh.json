@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "选择规格",
     "volumeDiscounts": "批量价格",
-    "fromQty": "{qty} 起"
+    "fromQty": "{qty} 起",
+    "share": "分享",
+    "viewedTitle": "最近浏览"
   },
   "quickView": {
     "refStock": "货号 {reference} · {status}。",

@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "اختر خيارًا",
     "volumeDiscounts": "أسعار الكميات",
-    "fromQty": "من {qty}"
+    "fromQty": "من {qty}",
+    "share": "مشاركة",
+    "viewedTitle": "شوهدت مؤخرًا"
   },
   "quickView": {
     "refStock": "المرجع {reference} · {status}.",

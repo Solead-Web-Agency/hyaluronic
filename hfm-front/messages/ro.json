@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Alegeți o variantă",
     "volumeDiscounts": "Prețuri pe volum",
-    "fromQty": "de la {qty}"
+    "fromQty": "de la {qty}",
+    "share": "Distribuie",
+    "viewedTitle": "Vizualizate recent"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

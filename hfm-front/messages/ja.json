@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "オプションを選択",
     "volumeDiscounts": "数量割引",
-    "fromQty": "{qty}個以上"
+    "fromQty": "{qty}個以上",
+    "share": "共有",
+    "viewedTitle": "最近見た商品"
   },
   "quickView": {
     "refStock": "品番 {reference} · {status}。",

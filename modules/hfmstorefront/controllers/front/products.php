@@ -40,6 +40,39 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             });
         }
 
+        // Cartes produit pour une LISTE d'ids, dans l'ordre demandé (« Déjà vus » : l'ordre porte
+        // l'information de récence). Les ids inconnus/inactifs sont simplement omis.
+        $idsRaw = (string) $this->in('ids');
+        if ($idsRaw !== '') {
+            $ids = [];
+            foreach (explode(',', $idsRaw) as $v) {
+                $v = (int) trim($v);
+                if ($v > 0 && !in_array($v, $ids, true)) {
+                    $ids[] = $v;
+                }
+            }
+            $ids = array_slice($ids, 0, 24);
+            if (!$ids) {
+                return ['products' => []];
+            }
+            $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'byids', [
+                'ids' => implode(',', $ids),
+                'id_lang' => $idLang,
+                'id_shop' => $idShop,
+                'id_currency' => $idCurrency,
+            ]);
+            return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($ids, $idLang) {
+                $cards = $this->cardsForIds($ids, $idLang);
+                $out = [];
+                foreach ($ids as $id) {
+                    if (isset($cards[$id])) {
+                        $out[] = $cards[$id];
+                    }
+                }
+                return ['products' => $out];
+            });
+        }
+
         // Carte des slugs par langue de TOUS les produits actifs (pour l'hreflang du sitemap).
         // Sortie compacte { items: [ { id, alt: { <id_lang>: { c: catSlug, s: slug } } } ] }.
         if ((string) $this->in('action') === 'slugmap') {

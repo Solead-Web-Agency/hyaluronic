@@ -7,6 +7,8 @@ import { Link } from '@/i18n/navigation';
 import { useStore } from '../../../store';
 import { fmt } from '@/lib/cardModel';
 import RelatedSections, { type RelatedView } from './RelatedSections';
+import ViewedProducts from '../../../components/ViewedProducts';
+import { pushViewed } from '@/lib/viewed';
 
 export type ProductView = {
   id: number;
@@ -33,6 +35,8 @@ export type ProductView = {
   priceWithoutReductionTtc?: number;
   // Paliers dégressifs publics (« dès 10 : 51,40 € »).
   quantityDiscounts?: { from_quantity: number; price_incl_tax: number; price_excl_tax: number }[];
+  // URL canonique absolue : sert aux liens de partage (corrects dès le rendu serveur).
+  canonicalUrl?: string;
 };
 
 // Une déclinaison vendable. Son prix vient du moteur PS (promos incluses), pas d'un simple impact.
@@ -100,6 +104,8 @@ export default function ProductDetail({ product, related }: { product: ProductVi
   // GA4 view_item (dataLayer) à l'affichage de la fiche.
   useEffect(() => {
     trackViewItem({ id: product.id, name: product.name, price: product.ttc, brand: product.brand });
+    // Historique « Déjà vus » (client uniquement).
+    pushViewed(product.id);
   }, [product.id, product.name, product.ttc, product.brand]);
   // Ouvre l'onglet Avis et scrolle jusqu'aux onglets (depuis le résumé étoilé sous le titre).
   const goToReviews = () => {
@@ -253,6 +259,30 @@ export default function ProductDetail({ product, related }: { product: ProductVi
             <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginTop: '16px', padding: '12px 14px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '8px' }}>
               <span style={{ color: '#A8503A', fontSize: '15px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>
               <span style={{ fontSize: '13px', lineHeight: 1.5, color: '#A8503A', fontWeight: 500 }}>{t('rppsNotice')}</span>
+            </div>
+          ) : null}
+
+          {/* Partage social (parité ancien site : facebook / twitter / pinterest). Liens simples,
+              sans SDK tiers -> aucun script externe, aucun cookie, rien à consentir. */}
+          {product.canonicalUrl ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '18px' }}>
+              <span style={{ fontSize: '12.5px', color: '#8A8170' }}>{t('share')}</span>
+              {([
+                ['Facebook', `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(product.canonicalUrl)}`],
+                ['X', `https://twitter.com/intent/tweet?url=${encodeURIComponent(product.canonicalUrl)}&text=${encodeURIComponent(product.name)}`],
+                ['Pinterest', `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(product.canonicalUrl)}&description=${encodeURIComponent(product.name)}${product.images[0] ? `&media=${encodeURIComponent(product.images[0])}` : ''}`],
+              ] as const).map(([label, href]) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  aria-label={`${t('share')} ${label}`}
+                  style={{ fontSize: '12.5px', fontWeight: 600, color: '#5E6152', textDecoration: 'none', border: '1px solid #E2DECF', borderRadius: '999px', padding: '5px 12px', background: '#fff' }}
+                >
+                  {label}
+                </a>
+              ))}
             </div>
           ) : null}
 
@@ -435,6 +465,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
 
       {/* Cross-selling + encadré réglementaire */}
       <RelatedSections related={related} />
+      <ViewedProducts excludeId={product.id} />
     </main>
   );
 }

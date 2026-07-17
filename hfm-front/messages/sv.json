@@ -275,7 +275,9 @@
     "unavailableLine": "Currently unavailable",
     "chooseVariant": "Välj variant",
     "volumeDiscounts": "Mängdrabatt",
-    "fromQty": "från {qty}"
+    "fromQty": "från {qty}",
+    "share": "Dela",
+    "viewedTitle": "Nyligen visade"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",

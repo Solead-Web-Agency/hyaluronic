@@ -283,7 +283,9 @@
     "reviewsCount": "{count} avis",
     "chooseVariant": "Choisir une déclinaison",
     "volumeDiscounts": "Tarifs dégressifs",
-    "fromQty": "dès {qty}"
+    "fromQty": "dès {qty}",
+    "share": "Partager",
+    "viewedTitle": "Déjà vus"
   },
   "quickView": {
     "refStock": "Réf. {reference} · {status}.",
