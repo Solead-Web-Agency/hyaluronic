@@ -44,14 +44,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         // l'information de récence). Les ids inconnus/inactifs sont simplement omis.
         $idsRaw = (string) $this->in('ids');
         if ($idsRaw !== '') {
-            $ids = [];
-            foreach (explode(',', $idsRaw) as $v) {
-                $v = (int) trim($v);
-                if ($v > 0 && !in_array($v, $ids, true)) {
-                    $ids[] = $v;
-                }
-            }
-            $ids = array_slice($ids, 0, 24);
+            $ids = $this->parseIds($idsRaw, 24);
             if (!$ids) {
                 return ['products' => []];
             }
@@ -641,6 +634,19 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             }
         }
         return $out;
+    }
+
+    /** Liste d'ids « ?ids=1,2,3 » -> entiers positifs uniques, bornés (garde-fou de charge). */
+    protected function parseIds($raw, $max)
+    {
+        $out = [];
+        foreach (explode(',', (string) $raw) as $v) {
+            $v = (int) trim($v);
+            if ($v > 0 && !in_array($v, $out, true)) {
+                $out[] = $v;
+            }
+        }
+        return array_slice($out, 0, (int) $max);
     }
 
     /**
