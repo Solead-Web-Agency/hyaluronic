@@ -611,5 +611,19 @@
     "noArticles": "Aucun article pour le moment.",
     "relatedTitle": "À lire aussi",
     "articlesCount": "{count, plural, =0 {aucun article} one {# article} other {# articles}}"
+  },
+  "contact": {
+    "title": "Nous contacter",
+    "lead": "Une question sur un produit, une commande ou votre compte ? Écrivez-nous, nous répondons sous 24 h ouvrées.",
+    "subject": "Service",
+    "email": "E-mail",
+    "message": "Message",
+    "attachment": "Pièce jointe (facultatif)",
+    "attachmentHint": "txt, pdf, doc, zip, images — 2 Mo max.",
+    "submit": "Envoyer",
+    "sent": "Merci, votre message est bien reçu. Notre équipe vous répond sous 24 h ouvrées.",
+    "error": "L'envoi a échoué. Réessayez.",
+    "errFileBig": "Fichier trop lourd (2 Mo max).",
+    "errFileType": "Type de fichier non accepté."
   }
 }

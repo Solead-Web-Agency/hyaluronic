@@ -582,5 +582,19 @@
   "content": {
     "summary": "Índice",
     "updatedOn": "Actualizado el"
+  },
+  "contact": {
+    "title": "Contacto",
+    "lead": "¿Una pregunta sobre un producto, un pedido o su cuenta? Escríbanos, respondemos en 24 h laborables.",
+    "subject": "Asunto",
+    "email": "Correo electrónico",
+    "message": "Mensaje",
+    "attachment": "Archivo adjunto (opcional)",
+    "attachmentHint": "txt, pdf, doc, zip, imágenes — 2 MB máx.",
+    "submit": "Enviar",
+    "sent": "Gracias, hemos recibido su mensaje. Respondemos en 24 h laborables.",
+    "error": "No se pudo enviar. Inténtelo de nuevo.",
+    "errFileBig": "Archivo demasiado grande (2 MB máx.).",
+    "errFileType": "Tipo de archivo no aceptado."
   }
 }

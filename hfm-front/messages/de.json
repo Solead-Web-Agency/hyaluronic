@@ -582,5 +582,19 @@
   "content": {
     "summary": "Inhalt",
     "updatedOn": "Aktualisiert am"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "lead": "Fragen zu einem Produkt, einer Bestellung oder Ihrem Konto? Schreiben Sie uns, wir antworten innerhalb von 24 Werkstunden.",
+    "subject": "Betreff",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "attachment": "Anhang (optional)",
+    "attachmentHint": "txt, pdf, doc, zip, Bilder — max. 2 MB.",
+    "submit": "Senden",
+    "sent": "Vielen Dank, Ihre Nachricht ist eingegangen. Wir antworten innerhalb von 24 Werkstunden.",
+    "error": "Senden fehlgeschlagen. Bitte erneut versuchen.",
+    "errFileBig": "Datei zu groß (max. 2 MB).",
+    "errFileType": "Dateityp nicht zulässig."
   }
 }

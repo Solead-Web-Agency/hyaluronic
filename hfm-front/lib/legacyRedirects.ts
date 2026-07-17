@@ -39,4 +39,10 @@ export const LEGACY_REDIRECTS: { source: string; destination: string }[] = [
   { source: '/it/cytocare', destination: '/it/cytocare-1' },
   { source: '/de/cytocare', destination: '/de/cytocare-1' },
   { source: '/fr/brand/restylane', destination: '/fr/restylane' },
+  // Page de contact de l'ancien site : l'URL était localisée par langue (ps_meta).
+  { source: '/fr/nous-contacter', destination: '/fr/contact' },
+  { source: '/en/contact-us', destination: '/en/contact' },
+  { source: '/de/kontakt', destination: '/de/contact' },
+  { source: '/it/contattaci', destination: '/it/contact' },
+  { source: '/es/contacto-con-nosotros', destination: '/es/contact' },
 ];

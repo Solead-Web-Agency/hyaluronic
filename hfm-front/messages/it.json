@@ -582,5 +582,19 @@
   "content": {
     "summary": "Indice",
     "updatedOn": "Aggiornato il"
+  },
+  "contact": {
+    "title": "Contattaci",
+    "lead": "Una domanda su un prodotto, un ordine o il tuo account? Scrivici, rispondiamo entro 24 ore lavorative.",
+    "subject": "Oggetto",
+    "email": "Email",
+    "message": "Messaggio",
+    "attachment": "Allegato (facoltativo)",
+    "attachmentHint": "txt, pdf, doc, zip, immagini — max 2 MB.",
+    "submit": "Invia",
+    "sent": "Grazie, il tuo messaggio è stato ricevuto. Rispondiamo entro 24 ore lavorative.",
+    "error": "Invio non riuscito. Riprova.",
+    "errFileBig": "File troppo grande (max 2 MB).",
+    "errFileType": "Tipo di file non accettato."
   }
 }

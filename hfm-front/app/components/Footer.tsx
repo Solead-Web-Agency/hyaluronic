@@ -14,12 +14,12 @@ const colWrap: React.CSSProperties = { display: 'flex', flexDirection: 'column',
 const linkStyle: React.CSSProperties = { cursor: 'pointer', color: '#C7D2BA', textDecoration: 'none', transition: 'color .15s ease' };
 
 // Pages CMS / légales (barre du bas). Éditables en BO.
-// external:true -> rendu en <a> (mailto). Contact = mailto tant qu'il n'y a pas de page CMS dédiée.
+// external:true -> rendu en <a> (mailto).
 const LEGAL_LINKS: { key: string; href: string; external?: boolean }[] = [
   { key: 'serviceDelivery', href: '/content/livraison-retours' },
   { key: 'serviceTerms', href: '/content/conditions-generales-de-ventes' },
   { key: 'servicePrivacy', href: '/content/politique-de-confidentialite' },
-  { key: 'serviceContact', href: 'mailto:sales@hyaluronicfillermarket.com', external: true },
+  { key: 'serviceContact', href: '/contact' },
 ];
 
 // Lien d'une catégorie : sa page si elle a des produits, sinon recherche sur son nom (jamais de page vide).

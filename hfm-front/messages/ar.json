@@ -582,5 +582,19 @@
   "content": {
     "summary": "المحتويات",
     "updatedOn": "تاريخ التحديث"
+  },
+  "contact": {
+    "title": "Contact us",
+    "lead": "A question about a product, an order or your account? Write to us, we reply within 24 business hours.",
+    "subject": "Subject",
+    "email": "Email",
+    "message": "Message",
+    "attachment": "Attachment (optional)",
+    "attachmentHint": "txt, pdf, doc, zip, images — 2 MB max.",
+    "submit": "Send",
+    "sent": "Thank you, your message has been received. We reply within 24 business hours.",
+    "error": "Sending failed. Please try again.",
+    "errFileBig": "File too large (2 MB max).",
+    "errFileType": "File type not accepted."
   }
 }
