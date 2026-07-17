@@ -160,6 +160,28 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
 
     protected function cartPayload(Cart $cart)
     {
+        // Règles panier AUTOMATIQUES (sans code) : PrestaShop ne les applique QUE via ce point
+        // d'entrée, normalement appelé par le FrontController natif — que le headless n'emprunte
+        // jamais (le bridge a son propre panier). Sans cet appel, une remise automatique
+        // configurée en back-office ne s'appliquerait tout simplement JAMAIS côté headless.
+        //
+        // On l'appelle ici, au seul endroit qui calcule les totaux : toute lecture ET toute
+        // mutation du panier (ajout, quantité, suppression) repasse par là, donc la remise est
+        // toujours recalculée — pas de remise périmée possible.
+        // Sans effet aujourd'hui (aucune règle automatique en base), mais indispensable pour que
+        // les offres de type « produit X à -54 % si Y est au panier » fonctionnent.
+        $this->context->cart = $cart;
+        try {
+            CartRule::autoAddToCart($this->context);
+        } catch (\Throwable $e) {
+            // Une règle mal configurée ne doit jamais casser l'affichage du panier.
+            try {
+                PrestaShopLogger::addLog('HFM cart: autoAddToCart KO - ' . $e->getMessage(), 2);
+            } catch (\Throwable $e2) {
+                // ignore
+            }
+        }
+
         $products = [];
         foreach ($cart->getProducts() as $p) {
             $products[] = [
