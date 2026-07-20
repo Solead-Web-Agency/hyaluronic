@@ -38,7 +38,7 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         }
     }
 
-    protected function loadCart()
+    protected function loadCart($enforceOwnership = true)
     {
         $cart = new Cart((int) $this->in('id_cart'));
         if (!Validate::isLoadedObject($cart)) {
@@ -48,7 +48,10 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         // AVANT de lier l'identité au contexte — même invariant que l'endpoint cart. Sans ce
         // contrôle, un client authentifié pouvait piloter le panier/commande d'autrui, et la
         // ligne ci-dessous écrasait l'id_customer de session par celui du panier.
-        if (!$this->cartAccessAllowed($cart)) {
+        // SEULE exception : la création de commande DÉJÀ ENCAISSÉE (retour/webhook PSP vérifié
+        // côté serveur), qui n'a ni id_customer ni cart_token — cf. createOrder(). Ce chemin est
+        // inatteignable par le tunnel client (paid/transaction_id y sont filtrés).
+        if ($enforceOwnership && !$this->cartAccessAllowed($cart)) {
             $this->respond(['error' => 'forbidden'], 403);
         }
         // Panier rattaché à un client : c'est bien celui de la session (vérifié ci-dessus).
@@ -91,11 +94,23 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         $cart = $this->loadCart();
         $idDelivery = (int) $this->in('id_address_delivery');
         $idInvoice = (int) $this->in('id_address_invoice', $idDelivery);
-        if (!Address::addressExists($idDelivery)) {
+        $idInvoice = $idInvoice ?: $idDelivery;
+        // Anti-IDOR / anti-oracle : l'adresse posée sur le panier DOIT appartenir au client du panier
+        // (id_customer déjà vérifié par cartAccessAllowed via loadCart). Sans ce contrôle, un attaquant
+        // posait l'adresse d'un tiers sur SON panier puis la relisait via cart.php (delivery_address)
+        // -> fuite PII. On exige l'appartenance pour la livraison ET la facturation, sur le même
+        // invariant que customer.php::updateAddress()/deleteAddress().
+        $idCustomer = (int) $cart->id_customer;
+        $delivery = new Address($idDelivery);
+        if (!Validate::isLoadedObject($delivery) || (int) $delivery->id_customer !== $idCustomer) {
+            return ['error' => 'invalid_address'];
+        }
+        $invoice = new Address($idInvoice);
+        if (!Validate::isLoadedObject($invoice) || (int) $invoice->id_customer !== $idCustomer) {
             return ['error' => 'invalid_address'];
         }
         $cart->id_address_delivery = $idDelivery;
-        $cart->id_address_invoice = $idInvoice ?: $idDelivery;
+        $cart->id_address_invoice = $idInvoice;
         $cart->update();
         return ['ok' => true, 'id_cart' => (int) $cart->id];
     }
@@ -137,7 +152,15 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
 
     protected function createOrder()
     {
-        $cart = $this->loadCart();
+        // Chemin PSP ENCAISSÉ (retours/webhook Viva/PayPal/Amazon) : identifié par `paid==1` ET un
+        // `transaction_id` non vide. Ce couple ne peut PROVENIR que d'une route serveur qui a déjà
+        // revérifié l'encaissement chez le PSP (bridgePost direct), JAMAIS du tunnel client :
+        // app/api/checkout/route.ts retire `paid` et `transaction_id` du corps. On n'exige donc pas
+        // l'appartenance du panier pour ce chemin — sinon le webhook (sans id_customer ni cart_token)
+        // ne pourrait plus créer la commande -> risque « client débité, aucune commande ».
+        // Le tunnel client (paid absent) conserve, lui, le gate anti-IDOR complet.
+        $isPaidPsp = ((int) $this->in('paid') === 1 && trim((string) $this->in('transaction_id')) !== '');
+        $cart = $this->loadCart(!$isPaidPsp);
         if (!$cart->id_customer || !$cart->id_address_delivery || !$cart->id_carrier) {
             return ['error' => 'cart_incomplete', 'detail' => 'client, adresse et transporteur requis'];
         }
