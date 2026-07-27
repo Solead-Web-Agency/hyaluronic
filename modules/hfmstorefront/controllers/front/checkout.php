@@ -101,6 +101,13 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         // -> fuite PII. On exige l'appartenance pour la livraison ET la facturation, sur le même
         // invariant que customer.php::updateAddress()/deleteAddress().
         $idCustomer = (int) $cart->id_customer;
+        // Un panier INVITÉ (id_customer=0) n'a aucune adresse enregistrée légitime : il en crée une
+        // fraîche, et il est rattaché à un client (>0) avant toute commande (createOrder l'exige).
+        // Sans ce garde-fou, le test d'appartenance ci-dessous devient "=== 0" et matcherait TOUTES
+        // les adresses id_customer=0 de la base -> oracle de fuite PII via un simple panier invité.
+        if ($idCustomer <= 0) {
+            return ['error' => 'invalid_address'];
+        }
         $delivery = new Address($idDelivery);
         if (!Validate::isLoadedObject($delivery) || (int) $delivery->id_customer !== $idCustomer) {
             return ['error' => 'invalid_address'];
@@ -216,15 +223,29 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         }
         $total = (float) $cart->getOrderTotal(true, Cart::BOTH);
         $paymentName = (string) $this->in('payment_method', 'Headless (' . $paymentModule->name . ')');
-        // "Paiement accepté" UNIQUEMENT si l'encaissement a été confirmé côté serveur : le flag
-        // `paid` DOIT être corroboré par une référence de transaction PSP (posée par les retours
-        // PSP vérifiés : Viva/PayPal/Amazon/webhook, qui appellent le bridge en direct). Le tunnel
-        // client, lui, ne transmet ni `paid` ni `transaction_id` (filtrés dans
-        // app/api/checkout/route.ts) -> commande "en préparation". Aucune commande "payée" ne peut
-        // être créée sur la seule foi d'un flag envoyé par le client.
-        $orderState = ((int) $this->in('paid') === 1 && trim((string) $this->in('transaction_id')) !== '')
-            ? (int) Configuration::get('PS_OS_PAYMENT')
-            : (int) Configuration::get('PS_OS_PREPARATION');
+        // "Paiement accepté" UNIQUEMENT si l'encaissement a été confirmé côté serveur (flag `paid`
+        // + `transaction_id` PSP, posés par les retours vérifiés qui appellent le bridge en direct ;
+        // le tunnel client filtre ces deux champs -> commande "en préparation"). ET garde-fou anti
+        // « payer 50 recevoir 500 » : le montant réellement encaissé (`amount_paid`, EN EUROS,
+        // transmis par le retour PSP) DOIT couvrir le total du panier. Sinon la commande est créée
+        // en « Erreur de paiement » (traçable/remboursable) au lieu de « Paiement accepté ».
+        // `amount_paid` absent (retour pas encore mis à jour) -> comportement antérieur conservé +
+        // journalisation : on ne casse rien au déploiement, et seules des routes serveur de
+        // confiance peuvent atteindre ce chemin (le tunnel client ne peut pas envoyer `paid`).
+        if ($isPaidPsp) {
+            $amountPaidRaw = $this->in('amount_paid');
+            if ($amountPaidRaw === null || $amountPaidRaw === '') {
+                $orderState = (int) Configuration::get('PS_OS_PAYMENT');
+                PrestaShopLogger::addLog('HFM checkout: paiement PSP sans amount_paid (garde-fou montant inactif), cart=' . (int) $cart->id, 2);
+            } elseif ((float) $amountPaidRaw + 0.01 >= $total) {
+                $orderState = (int) Configuration::get('PS_OS_PAYMENT');
+            } else {
+                $orderState = (int) Configuration::get('PS_OS_ERROR');
+                PrestaShopLogger::addLog('HFM checkout: montant encaisse ' . (float) $amountPaidRaw . ' EUR < total panier ' . $total . ' EUR -> Erreur de paiement, cart=' . (int) $cart->id, 3);
+            }
+        } else {
+            $orderState = (int) Configuration::get('PS_OS_PREPARATION');
+        }
         try {
             $paymentModule->validateOrder(
                 (int) $cart->id,

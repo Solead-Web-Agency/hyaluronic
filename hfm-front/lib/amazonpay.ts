@@ -101,7 +101,16 @@ export async function updateCheckoutSession(sessionId: string, amountEUR: number
 }
 
 /** Après le retour "result" : lit l'état de la session (Completed = payé). */
-export async function getCheckoutSession(sessionId: string): Promise<{ ok: boolean; state?: string; chargeId?: string; data: any }> {
+export async function getCheckoutSession(sessionId: string): Promise<{ ok: boolean; state?: string; chargeId?: string; amount?: number; data: any }> {
   const { status, data } = await api('GET', `checkoutSessions/${encodeURIComponent(sessionId)}`);
-  return { ok: status >= 200 && status < 300, state: data?.statusDetails?.state, chargeId: data?.chargeId, data };
+  // Montant réellement facturé (EUR) : Amazon renvoie chargeAmount.amount en unité principale (euros)
+  // sous paymentDetails (posé par updateCheckoutSession). Sert au garde-fou montant côté bridge.
+  const rawAmount = data?.paymentDetails?.chargeAmount?.amount ?? data?.chargeAmount?.amount;
+  return {
+    ok: status >= 200 && status < 300,
+    state: data?.statusDetails?.state,
+    chargeId: data?.chargeId,
+    amount: rawAmount != null && rawAmount !== '' ? Number(rawAmount) : undefined,
+    data,
+  };
 }

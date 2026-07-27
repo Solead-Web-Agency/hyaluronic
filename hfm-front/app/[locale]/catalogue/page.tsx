@@ -20,7 +20,9 @@ async function fetchInitial(search: Search, locale: string): Promise<CatalogueIn
   const q = search.q ?? null;
   const filter = search.filter ?? null;
 
-  const productParams: Record<string, string | number> = { limit: 300, id_lang: idLang };
+  // Charge TOUT le catalogue actif (~578) : le filtrage se fait côté client, donc une limite basse
+  // rendait invisibles ET infiltrables les produits au-delà. 700 = marge au-dessus du catalogue actuel.
+  const productParams: Record<string, string | number> = { limit: 700, id_lang: idLang };
   if (category) productParams.id_category = category;
   else if (brand) productParams.id_manufacturer = brand;
   else if (q) productParams.q = q;

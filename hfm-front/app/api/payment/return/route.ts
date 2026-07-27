@@ -43,6 +43,10 @@ export async function GET(req: NextRequest) {
     paid: 1,
     payment_method: 'Carte bancaire (Viva Wallet)',
     transaction_id: String(t),
+    // Montant réellement encaissé (EUR) -> le bridge refuse de marquer "payé" s'il ne couvre
+    // pas le total du panier (garde-fou anti « payer 50 recevoir 500 »). API classique Viva :
+    // /api/transactions renvoie Amount en euros. Absent -> garde-fou inactif (fail-open) côté bridge.
+    amount_paid: tx.amount,
   }).catch(() => null);
 
   if (!order?.ok) return redirect('viva_failed=1');

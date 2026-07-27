@@ -38,6 +38,8 @@ export async function GET(req: NextRequest) {
     paid: 1,
     payment_method: 'PayPal',
     transaction_id: cap.captureId || String(orderId),
+    // Montant réellement capturé (EUR) -> garde-fou montant côté bridge (anti sous-paiement).
+    amount_paid: cap.amount,
   }).catch(() => null);
 
   if (!order?.ok) return redirect('paypal_failed=1');

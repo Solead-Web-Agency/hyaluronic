@@ -29,6 +29,8 @@ export async function GET(req: NextRequest) {
     paid: 1,
     payment_method: 'Amazon Pay',
     transaction_id: sess.chargeId || sessionId,
+    // Montant réellement facturé (EUR) -> garde-fou montant côté bridge (anti sous-paiement).
+    amount_paid: sess.amount,
   }).catch(() => null);
 
   if (!order?.ok) return redirect('amazon_failed=1');

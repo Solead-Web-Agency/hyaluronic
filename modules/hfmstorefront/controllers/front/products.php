@@ -148,7 +148,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'q' => trim((string) $this->in('q')),
             'filter' => (string) $this->in('filter'),
             'page' => max(1, (int) $this->in('page', 1)),
-            'limit' => min(300, max(1, (int) $this->in('limit', 24))),
+            'limit' => min(1000, max(1, (int) $this->in('limit', 24))),
             'id_lang' => $idLang,
             'id_shop' => $idShop,
             'id_currency' => $idCurrency,
@@ -160,7 +160,10 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
 
     protected function listing($idLang)
     {
-        $limit = min(300, max(1, (int) $this->in('limit', 24)));
+        // Plafond relevé de 300 à 1000 : garde-fou anti-DoS conservé, mais assez large pour couvrir
+        // tout le catalogue actif (~578) en une page -> le catalogue front (filtres côté client)
+        // et la recherche voient l'intégralité, plus de « 52 % introuvable ».
+        $limit = min(1000, max(1, (int) $this->in('limit', 24)));
         $page = max(1, (int) $this->in('page', 1));
         $start = ($page - 1) * $limit;
         $idCategory = (int) $this->in('id_category');

@@ -84,7 +84,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
 
   const d = await bridgeGetCached(
     'products',
-    { id_category: cat.id_category, limit: 60, id_lang: idLangFor(locale) },
+    // limit 60 -> 300 : certaines catégories dépassent 60 produits (jusqu'à ~257) et étaient
+    // tronquées sans lien « page suivante » -> produits injoignables. 300 couvre la plus grosse.
+    { id_category: cat.id_category, limit: 300, id_lang: idLangFor(locale) },
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
   ).catch(() => ({ products: [] as PC[] }));
   const cards = (((d as { products?: PC[] }).products) ?? []).map(toCard);

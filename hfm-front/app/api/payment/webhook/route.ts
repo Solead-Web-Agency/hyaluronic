@@ -39,6 +39,8 @@ export async function POST(req: NextRequest) {
     paid: 1,
     payment_method: 'Carte bancaire (Viva Wallet)',
     transaction_id: String(transactionId),
+    // Montant encaissé (EUR, cf. return/route.ts) -> garde-fou montant côté bridge.
+    amount_paid: tx.amount,
   });
   return NextResponse.json({ ok: true, event: eventTypeId || EVENT_SUCCESS });
 }

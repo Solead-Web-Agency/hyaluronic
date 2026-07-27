@@ -7,6 +7,15 @@ const SECRET = process.env.HFM_BRIDGE_SECRET || '';
 
 const DEFAULTS = { id_lang: 1, id_currency: 1 };
 
+// Délais d'attente vers le bridge PHP (mutualisé) : sans eux, un back LENT (pas mort — le cas le
+// plus fréquent d'un mutualisé saturé) empile les fonctions Vercel jusqu'à la limite plateforme.
+// Lectures = rapides -> timeout court, une panne remonte proprement en 5xx (error.tsx). Mutations
+// (surtout la création de commande + génération de facture) = légitimement plus lentes -> délai
+// généreux pour NE JAMAIS couper une commande en cours (un retour PSP tronqué = « client débité,
+// aucune commande »). L'idempotence du bridge (Order::getIdByCartId) couvre un éventuel rejeu.
+const READ_TIMEOUT_MS = 8000;
+const WRITE_TIMEOUT_MS = 25000;
+
 function bridgeUrl(controller: string, params: Record<string, string | number> = {}) {
   const qs = new URLSearchParams({ fc: 'module', module: 'hfmstorefront', controller });
   for (const [k, v] of Object.entries({ ...DEFAULTS, ...params })) qs.set(k, String(v));
@@ -41,6 +50,10 @@ export async function bridgeGet(controller: string, params: Record<string, strin
   const r = await fetch(bridgeUrl(controller, params), {
     headers: { 'X-Storefront-Token': SECRET },
     cache: 'no-store',
+    // Timeout lecture : un back lent -> AbortError qui se propage -> 5xx (error.tsx), au lieu de
+    // bloquer la fonction Vercel. N'interfère PAS avec les erreurs de contrôle-de-flux Next
+    // (jetées par le rendu, pas par le fetch).
+    signal: AbortSignal.timeout(READ_TIMEOUT_MS),
   });
 
   if (!r.ok) {
@@ -60,6 +73,9 @@ export async function bridgePost(controller: string, body: Record<string, unknow
     headers: { 'Content-Type': 'application/json', 'X-Storefront-Token': SECRET },
     body: JSON.stringify({ ...DEFAULTS, ...body }),
     cache: 'no-store',
+    // Timeout écriture généreux : borne un vrai blocage sans jamais couper une création de
+    // commande légitime (idempotence côté bridge en filet si rejeu).
+    signal: AbortSignal.timeout(WRITE_TIMEOUT_MS),
   });
   return r.json();
 }
