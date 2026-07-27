@@ -279,7 +279,15 @@
     "share": "Teilen",
     "viewedTitle": "Zuletzt angesehen",
     "compare": "Vergleichen",
-    "compareFull": "Vergleich: maximal {max} Produkte."
+    "compareFull": "Vergleich: maximal {max} Produkte.",
+    "reviewsBasedOn": "Basierend auf {count} Bewertungen",
+    "reviewsBy": "Bewertungen zertifiziert von",
+    "reviewsCertificate": "Zertifikat ansehen",
+    "reviewsCount": "{count} Bewertungen",
+    "reviewsOrderedOn": "Bestellt am",
+    "reviewsPublishedOn": "Veröffentlicht am",
+    "reviewsReply": "Antwort des Verkäufers",
+    "reviewsTranslated": "Übersetzte Bewertung"
   },
   "quickView": {
     "refStock": "Art. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Passwort zu kurz (mind. 8 Zeichen).",
       "generic": "Ein Fehler ist aufgetreten.",
       "network": "Netzwerkfehler."
-    }
+    },
+    "forgotPassword": "Passwort vergessen?"
   },
   "addressForm": {
     "address": "Adresse",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Zu zahlender Betrag",
+    "payBankLabel": "Bank",
+    "payChequeAddressLabel": "Versandadresse",
+    "payChequeOrderLabel": "Scheck ausstellen auf",
+    "payChequeReference": "Bitte vermerken Sie die Referenz <b>{reference}</b> auf der Rückseite Ihres Schecks.",
+    "payChequeTitle": "Senden Sie Ihren Scheck",
+    "payDetailsLabel": "Bankverbindung",
+    "payOwnerLabel": "Kontoinhaber",
+    "payReservation": "Ihre Artikel werden {days} Tage lang bis zum Zahlungseingang reserviert.",
+    "payWireReference": "Geben Sie die Referenz <b>{reference}</b> im Verwendungszweck Ihrer Überweisung an.",
+    "payWireTitle": "Führen Sie Ihre Banküberweisung durch"
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",
@@ -613,5 +633,84 @@
     "availability": "Verfügbarkeit",
     "inStock": "Auf Lager",
     "outOfStock": "Ausverkauft"
+  },
+  "blog": {
+    "allArticles": "Alle Beiträge",
+    "allCategories": "Alle Kategorien",
+    "articlesCount": "{count, plural, =0 {keine Beiträge} one {# Beitrag} other {# Beiträge}}",
+    "backToBlog": "← Zurück zum Blog",
+    "by": "von",
+    "categories": "Kategorien",
+    "eyebrow": "Expertise & Ratgeber",
+    "lead": "Expertenrat, Produktneuheiten und Best Practices der ästhetischen Injektion.",
+    "navLink": "Blog",
+    "next": "Weiter",
+    "noArticles": "Noch keine Beiträge.",
+    "of": "von",
+    "pageLabel": "Seite",
+    "previous": "Zurück",
+    "publishedOn": "Veröffentlicht am",
+    "readArticle": "Beitrag lesen",
+    "relatedTitle": "Das könnte Sie auch interessieren",
+    "title": "Der Blog",
+    "updatedOn": "Aktualisiert am"
+  },
+  "error": {
+    "eyebrow": "Vorübergehende Störung",
+    "home": "Zurück zur Startseite",
+    "lead": "Diese Seite konnte nicht angezeigt werden. Meist handelt es sich um eine vorübergehende Störung: Bitte versuchen Sie es gleich noch einmal.",
+    "reference": "Vorfallreferenz: {digest}",
+    "retry": "Erneut versuchen",
+    "title": "Ein Fehler ist aufgetreten"
+  },
+  "notFound": {
+    "catalogue": "Katalog durchsuchen",
+    "eyebrow": "Fehler 404",
+    "home": "Zurück zur Startseite",
+    "lead": "Die gesuchte Seite existiert nicht, wurde verschoben oder ist nicht mehr verfügbar.",
+    "title": "Seite nicht gefunden"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Zurück zur Anmeldung",
+      "breadcrumb": "Passwort vergessen",
+      "breadcrumbAccount": "Mein Konto",
+      "email": "E-Mail",
+      "emailPlaceholder": "sie@praxis.de",
+      "errors": {
+        "generic": "Ein Fehler ist aufgetreten.",
+        "invalid_email": "Ungültige E-Mail.",
+        "network": "Netzwerkfehler."
+      },
+      "lead": "Geben Sie die E-Mail-Adresse Ihres Kontos ein: Wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+      "sending": "Wird gesendet…",
+      "sent": "Falls für diese Adresse ein Konto besteht, wurde soeben eine E-Mail mit einem Link zum Zurücksetzen versendet. Bitte prüfen Sie auch Ihren Spam-Ordner.",
+      "submit": "Link senden",
+      "title": "Passwort vergessen"
+    },
+    "reset": {
+      "breadcrumb": "Passwort zurücksetzen",
+      "breadcrumbAccount": "Mein Konto",
+      "confirm": "Passwort bestätigen",
+      "errors": {
+        "generic": "Ein Fehler ist aufgetreten.",
+        "invalid_or_expired_token": "Dieser Link ist abgelaufen oder nicht mehr gültig. Bitte fordern Sie einen neuen an.",
+        "missing_fields": "Unvollständiges Formular.",
+        "network": "Netzwerkfehler.",
+        "password_mismatch": "Die beiden Passwörter stimmen nicht überein.",
+        "password_too_short": "Passwort zu kurz (mind. 8 Zeichen).",
+        "reset_failed": "Das Zurücksetzen ist fehlgeschlagen. Bitte versuchen Sie es erneut."
+      },
+      "goToAccount": "Zu meinem Konto",
+      "invalidLink": "Dieser Link zum Zurücksetzen ist ungültig oder unvollständig. Bitte fordern Sie einen neuen an.",
+      "lead": "Wählen Sie ein neues Passwort für Ihr Konto.",
+      "password": "Neues Passwort",
+      "passwordPlaceholder": "mind. 8 Zeichen",
+      "requestNew": "Neuen Link anfordern",
+      "saving": "Wird zurückgesetzt…",
+      "submit": "Passwort zurücksetzen",
+      "success": "Ihr Passwort wurde zurückgesetzt. Sie sind jetzt angemeldet.",
+      "title": "Neues Passwort"
+    }
   }
 }

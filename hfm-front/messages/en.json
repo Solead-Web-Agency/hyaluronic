@@ -279,7 +279,15 @@
     "share": "Share",
     "viewedTitle": "Recently viewed",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Based on {count} reviews",
+    "reviewsBy": "Reviews certified by",
+    "reviewsCertificate": "View certificate",
+    "reviewsCount": "{count} reviews",
+    "reviewsOrderedOn": "Ordered on",
+    "reviewsPublishedOn": "Published on",
+    "reviewsReply": "Seller's reply",
+    "reviewsTranslated": "Translated review"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Password too short (8 characters min.).",
       "generic": "An error occurred.",
       "network": "Network error."
-    }
+    },
+    "forgotPassword": "Forgot your password?"
   },
   "addressForm": {
     "address": "Address",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Amount to pay",
+    "payBankLabel": "Bank",
+    "payChequeAddressLabel": "Mailing address",
+    "payChequeOrderLabel": "Make cheque payable to",
+    "payChequeReference": "Please write reference <b>{reference}</b> on the back of your cheque.",
+    "payChequeTitle": "Send your cheque",
+    "payDetailsLabel": "Bank details",
+    "payOwnerLabel": "Account holder",
+    "payReservation": "Your items are held for {days} days while we await your payment.",
+    "payWireReference": "Include reference <b>{reference}</b> in your transfer description.",
+    "payWireTitle": "Make your bank transfer"
   },
   "orders": {
     "loginRequired": "Login required",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "All articles",
+    "allCategories": "All categories",
+    "articlesCount": "{count, plural, =0 {no articles} one {# article} other {# articles}}",
+    "backToBlog": "← Back to blog",
+    "by": "by",
+    "categories": "Categories",
+    "eyebrow": "Expertise & advice",
+    "lead": "Expert advice, product news and best practices in aesthetic injection.",
+    "navLink": "Blog",
+    "next": "Next",
+    "noArticles": "No articles yet.",
+    "of": "of",
+    "pageLabel": "Page",
+    "previous": "Previous",
+    "publishedOn": "Published on",
+    "readArticle": "Read article",
+    "relatedTitle": "Related reading",
+    "title": "The Blog",
+    "updatedOn": "Updated on"
+  },
+  "error": {
+    "eyebrow": "Temporary issue",
+    "home": "Back to home",
+    "lead": "We couldn't display this page. This is usually a temporary issue: please try again in a moment.",
+    "reference": "Incident reference: {digest}",
+    "retry": "Try again",
+    "title": "Something went wrong"
+  },
+  "notFound": {
+    "catalogue": "Browse the catalogue",
+    "eyebrow": "Error 404",
+    "home": "Back to home",
+    "lead": "The page you are looking for doesn't exist, has been moved or is no longer available.",
+    "title": "Page not found"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Back to sign in",
+      "breadcrumb": "Forgot password",
+      "breadcrumbAccount": "My account",
+      "email": "Email",
+      "emailPlaceholder": "you@clinic.com",
+      "errors": {
+        "generic": "Something went wrong.",
+        "invalid_email": "Invalid email.",
+        "network": "Network error."
+      },
+      "lead": "Enter your account email address and we'll send you a link to reset your password.",
+      "sending": "Sending…",
+      "sent": "If an account exists for this address, an email with a reset link has just been sent. Remember to check your spam folder.",
+      "submit": "Send the link",
+      "title": "Forgot password"
+    },
+    "reset": {
+      "breadcrumb": "Reset password",
+      "breadcrumbAccount": "My account",
+      "confirm": "Confirm password",
+      "errors": {
+        "generic": "Something went wrong.",
+        "invalid_or_expired_token": "This link has expired or is no longer valid. Please request a new one.",
+        "missing_fields": "Incomplete form.",
+        "network": "Network error.",
+        "password_mismatch": "The two passwords do not match.",
+        "password_too_short": "Password too short (8 characters min.).",
+        "reset_failed": "Reset failed. Please try again."
+      },
+      "goToAccount": "Go to my account",
+      "invalidLink": "This reset link is invalid or incomplete. Please request a new one.",
+      "lead": "Choose a new password for your account.",
+      "password": "New password",
+      "passwordPlaceholder": "8 characters min.",
+      "requestNew": "Request a new link",
+      "saving": "Resetting…",
+      "submit": "Reset my password",
+      "success": "Your password has been reset. You are now signed in.",
+      "title": "New password"
+    }
   }
 }

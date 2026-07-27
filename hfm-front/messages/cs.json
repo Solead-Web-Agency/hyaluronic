@@ -279,7 +279,15 @@
     "share": "Sdílet",
     "viewedTitle": "Naposledy zobrazené",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Na základě {count} hodnocení",
+    "reviewsBy": "Hodnocení certifikuje",
+    "reviewsCertificate": "Zobrazit certifikát",
+    "reviewsCount": "{count} hodnocení",
+    "reviewsOrderedOn": "Objednávka z",
+    "reviewsPublishedOn": "Zveřejněno",
+    "reviewsReply": "Odpověď prodejce",
+    "reviewsTranslated": "Přeložené hodnocení"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Heslo je příliš krátké (min. 8 znaků).",
       "generic": "Došlo k chybě.",
       "network": "Chyba sítě."
-    }
+    },
+    "forgotPassword": "Zapomněli jste heslo?"
   },
   "addressForm": {
     "address": "Adresa",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Částka k úhradě",
+    "payBankLabel": "Banka",
+    "payChequeAddressLabel": "Adresa pro zaslání",
+    "payChequeOrderLabel": "Šek na jméno",
+    "payChequeReference": "Na zadní stranu šeku uveďte referenci <b>{reference}</b>.",
+    "payChequeTitle": "Zašlete svůj šek",
+    "payDetailsLabel": "Bankovní údaje",
+    "payOwnerLabel": "Majitel účtu",
+    "payReservation": "Vaše zboží je rezervováno po dobu {days} dnů, než obdržíme vaši platbu.",
+    "payWireReference": "Do zprávy pro příjemce uveďte referenci <b>{reference}</b>.",
+    "payWireTitle": "Proveďte bankovní převod"
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Všechny články",
+    "allCategories": "Všechny kategorie",
+    "articlesCount": "{count, plural, =0 {žádné články} one {# článek} few {# články} other {# článků}}",
+    "backToBlog": "← Zpět na blog",
+    "by": "autor",
+    "categories": "Kategorie",
+    "eyebrow": "Odbornost a rady",
+    "lead": "Rady odborníků, novinky o produktech a osvědčené postupy estetické injekce.",
+    "navLink": "Blog",
+    "next": "Další",
+    "noArticles": "Zatím žádné články.",
+    "of": "z",
+    "pageLabel": "Strana",
+    "previous": "Předchozí",
+    "publishedOn": "Zveřejněno",
+    "readArticle": "Přečíst článek",
+    "relatedTitle": "Přečtěte si také",
+    "title": "Blog",
+    "updatedOn": "Aktualizováno"
+  },
+  "error": {
+    "eyebrow": "Dočasný problém",
+    "home": "Zpět na úvodní stránku",
+    "lead": "Tuto stránku se nepodařilo zobrazit. Nejčastěji jde o dočasný problém: zkuste to prosím za okamžik znovu.",
+    "reference": "Referenční číslo incidentu: {digest}",
+    "retry": "Zkusit znovu",
+    "title": "Došlo k chybě"
+  },
+  "notFound": {
+    "catalogue": "Procházet katalog",
+    "eyebrow": "Chyba 404",
+    "home": "Zpět na úvodní stránku",
+    "lead": "Stránka, kterou hledáte, neexistuje, byla přesunuta nebo již není dostupná.",
+    "title": "Stránka nenalezena"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Zpět na přihlášení",
+      "breadcrumb": "Zapomenuté heslo",
+      "breadcrumbAccount": "Můj účet",
+      "email": "E-mail",
+      "emailPlaceholder": "vy@ordinace.cz",
+      "errors": {
+        "generic": "Došlo k chybě.",
+        "invalid_email": "Neplatný e-mail.",
+        "network": "Chyba sítě."
+      },
+      "lead": "Zadejte e-mailovou adresu svého účtu: zašleme vám odkaz pro obnovení hesla.",
+      "sending": "Odesílání…",
+      "sent": "Pokud pro tuto adresu existuje účet, byl právě odeslán e-mail s odkazem pro obnovení hesla. Zkontrolujte prosím i složku se spamem.",
+      "submit": "Odeslat odkaz",
+      "title": "Zapomenuté heslo"
+    },
+    "reset": {
+      "breadcrumb": "Obnovení hesla",
+      "breadcrumbAccount": "Můj účet",
+      "confirm": "Potvrďte heslo",
+      "errors": {
+        "generic": "Došlo k chybě.",
+        "invalid_or_expired_token": "Tento odkaz vypršel nebo již není platný. Požádejte prosím o nový.",
+        "missing_fields": "Neúplný formulář.",
+        "network": "Chyba sítě.",
+        "password_mismatch": "Hesla se neshodují.",
+        "password_too_short": "Heslo je příliš krátké (min. 8 znaků).",
+        "reset_failed": "Obnovení se nezdařilo. Zkuste to prosím znovu."
+      },
+      "goToAccount": "Přejít na můj účet",
+      "invalidLink": "Tento odkaz pro obnovení je neplatný nebo neúplný. Požádejte prosím o nový.",
+      "lead": "Zvolte si nové heslo pro svůj účet.",
+      "password": "Nové heslo",
+      "passwordPlaceholder": "min. 8 znaků",
+      "requestNew": "Požádat o nový odkaz",
+      "saving": "Obnovování…",
+      "submit": "Obnovit heslo",
+      "success": "Vaše heslo bylo obnoveno. Nyní jste přihlášeni.",
+      "title": "Nové heslo"
+    }
   }
 }

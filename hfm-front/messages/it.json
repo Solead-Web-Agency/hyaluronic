@@ -279,7 +279,15 @@
     "share": "Condividi",
     "viewedTitle": "Visti di recente",
     "compare": "Confronta",
-    "compareFull": "Confronto: massimo {max} prodotti."
+    "compareFull": "Confronto: massimo {max} prodotti.",
+    "reviewsBasedOn": "Basato su {count} recensioni",
+    "reviewsBy": "Recensioni certificate da",
+    "reviewsCertificate": "Vedi l'attestato",
+    "reviewsCount": "{count} recensioni",
+    "reviewsOrderedOn": "Ordine del",
+    "reviewsPublishedOn": "Pubblicato il",
+    "reviewsReply": "Risposta del venditore",
+    "reviewsTranslated": "Recensione tradotta"
   },
   "quickView": {
     "refStock": "Rif. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Password troppo corta (min. 8 caratteri).",
       "generic": "Si è verificato un errore.",
       "network": "Errore di rete."
-    }
+    },
+    "forgotPassword": "Password dimenticata?"
   },
   "addressForm": {
     "address": "Indirizzo",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Importo da pagare",
+    "payBankLabel": "Banca",
+    "payChequeAddressLabel": "Indirizzo di spedizione",
+    "payChequeOrderLabel": "Assegno intestato a",
+    "payChequeReference": "Indichi il riferimento <b>{reference}</b> sul retro del suo assegno.",
+    "payChequeTitle": "Invii il suo assegno",
+    "payDetailsLabel": "Coordinate bancarie",
+    "payOwnerLabel": "Intestatario del conto",
+    "payReservation": "I suoi articoli restano riservati per {days} giorni in attesa del pagamento.",
+    "payWireReference": "Indichi il riferimento <b>{reference}</b> nella causale del bonifico.",
+    "payWireTitle": "Effettui il suo bonifico bancario"
   },
   "orders": {
     "loginRequired": "Accesso richiesto",
@@ -613,5 +633,84 @@
     "availability": "Disponibilità",
     "inStock": "Disponibile",
     "outOfStock": "Esaurito"
+  },
+  "blog": {
+    "allArticles": "Tutti gli articoli",
+    "allCategories": "Tutte le categorie",
+    "articlesCount": "{count, plural, =0 {nessun articolo} one {# articolo} other {# articoli}}",
+    "backToBlog": "← Torna al blog",
+    "by": "di",
+    "categories": "Categorie",
+    "eyebrow": "Competenza e consigli",
+    "lead": "Consigli di esperti, novità sui prodotti e buone pratiche dell'iniezione estetica.",
+    "navLink": "Blog",
+    "next": "Successivo",
+    "noArticles": "Ancora nessun articolo.",
+    "of": "di",
+    "pageLabel": "Pagina",
+    "previous": "Precedente",
+    "publishedOn": "Pubblicato il",
+    "readArticle": "Leggi l'articolo",
+    "relatedTitle": "Da leggere anche",
+    "title": "Il Blog",
+    "updatedOn": "Aggiornato il"
+  },
+  "error": {
+    "eyebrow": "Problema temporaneo",
+    "home": "Torna alla home",
+    "lead": "Non è stato possibile visualizzare questa pagina. Di solito si tratta di un problema temporaneo: riprovi tra un istante.",
+    "reference": "Riferimento dell'incidente: {digest}",
+    "retry": "Riprova",
+    "title": "Si è verificato un errore"
+  },
+  "notFound": {
+    "catalogue": "Sfoglia il catalogo",
+    "eyebrow": "Errore 404",
+    "home": "Torna alla home",
+    "lead": "La pagina che sta cercando non esiste, è stata spostata o non è più disponibile.",
+    "title": "Pagina non trovata"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Torna all'accesso",
+      "breadcrumb": "Password dimenticata",
+      "breadcrumbAccount": "Il mio account",
+      "email": "E-mail",
+      "emailPlaceholder": "tu@studio.it",
+      "errors": {
+        "generic": "Si è verificato un errore.",
+        "invalid_email": "E-mail non valida.",
+        "network": "Errore di rete."
+      },
+      "lead": "Inserisca l'indirizzo e-mail del suo account: le invieremo un link per reimpostare la password.",
+      "sending": "Invio in corso…",
+      "sent": "Se esiste un account per questo indirizzo, è stata appena inviata un'e-mail con un link di reimpostazione. Controlli anche la cartella spam.",
+      "submit": "Invia il link",
+      "title": "Password dimenticata"
+    },
+    "reset": {
+      "breadcrumb": "Reimposta la password",
+      "breadcrumbAccount": "Il mio account",
+      "confirm": "Conferma la password",
+      "errors": {
+        "generic": "Si è verificato un errore.",
+        "invalid_or_expired_token": "Questo link è scaduto o non è più valido. La preghiamo di richiederne uno nuovo.",
+        "missing_fields": "Modulo incompleto.",
+        "network": "Errore di rete.",
+        "password_mismatch": "Le due password non corrispondono.",
+        "password_too_short": "Password troppo corta (min. 8 caratteri).",
+        "reset_failed": "La reimpostazione non è riuscita. Riprovi."
+      },
+      "goToAccount": "Vai al mio account",
+      "invalidLink": "Questo link di reimpostazione non è valido o è incompleto. La preghiamo di richiederne uno nuovo.",
+      "lead": "Scelga una nuova password per il suo account.",
+      "password": "Nuova password",
+      "passwordPlaceholder": "min. 8 caratteri",
+      "requestNew": "Richiedi un nuovo link",
+      "saving": "Reimpostazione…",
+      "submit": "Reimposta la password",
+      "success": "La sua password è stata reimpostata. Ora è connesso.",
+      "title": "Nuova password"
+    }
   }
 }

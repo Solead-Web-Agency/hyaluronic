@@ -279,7 +279,15 @@
     "share": "分享",
     "viewedTitle": "最近浏览",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "基于 {count} 条评价",
+    "reviewsBy": "评价认证机构",
+    "reviewsCertificate": "查看证书",
+    "reviewsCount": "{count} 条评价",
+    "reviewsOrderedOn": "下单日期",
+    "reviewsPublishedOn": "发布于",
+    "reviewsReply": "卖家回复",
+    "reviewsTranslated": "翻译后的评价"
   },
   "quickView": {
     "refStock": "货号 {reference} · {status}。",
@@ -373,7 +381,8 @@
       "password_too_short": "密码太短（至少 8 个字符）。",
       "generic": "发生错误。",
       "network": "网络错误。"
-    }
+    },
+    "forgotPassword": "忘记密码？"
   },
   "addressForm": {
     "address": "地址",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "应付金额",
+    "payBankLabel": "银行",
+    "payChequeAddressLabel": "邮寄地址",
+    "payChequeOrderLabel": "支票抬头",
+    "payChequeReference": "请在支票背面注明参考号 <b>{reference}</b>。",
+    "payChequeTitle": "寄出您的支票",
+    "payDetailsLabel": "银行账户信息",
+    "payOwnerLabel": "账户持有人",
+    "payReservation": "在我们收到您的付款之前，您的商品将保留 {days} 天。",
+    "payWireReference": "请在转账备注中注明参考号 <b>{reference}</b>。",
+    "payWireTitle": "请完成银行转账"
   },
   "orders": {
     "loginRequired": "需要登录",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "所有文章",
+    "allCategories": "所有分类",
+    "articlesCount": "{count, plural, =0 {暂无文章} other {# 篇文章}}",
+    "backToBlog": "← 返回博客",
+    "by": "作者",
+    "categories": "分类",
+    "eyebrow": "专业知识与建议",
+    "lead": "专家建议、产品资讯以及美容注射的最佳实践。",
+    "navLink": "博客",
+    "next": "下一页",
+    "noArticles": "暂无文章。",
+    "of": "/",
+    "pageLabel": "页",
+    "previous": "上一页",
+    "publishedOn": "发布于",
+    "readArticle": "阅读文章",
+    "relatedTitle": "延伸阅读",
+    "title": "博客",
+    "updatedOn": "更新于"
+  },
+  "error": {
+    "eyebrow": "临时故障",
+    "home": "返回首页",
+    "lead": "无法显示此页面。这通常是临时故障：请稍后重试。",
+    "reference": "事件参考号：{digest}",
+    "retry": "重试",
+    "title": "发生错误"
+  },
+  "notFound": {
+    "catalogue": "浏览目录",
+    "eyebrow": "错误 404",
+    "home": "返回首页",
+    "lead": "您查找的页面不存在、已被移动或不再可用。",
+    "title": "未找到页面"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "返回登录",
+      "breadcrumb": "忘记密码",
+      "breadcrumbAccount": "我的账户",
+      "email": "电子邮箱",
+      "emailPlaceholder": "you@clinic.cn",
+      "errors": {
+        "generic": "发生错误。",
+        "invalid_email": "电子邮箱无效。",
+        "network": "网络错误。"
+      },
+      "lead": "请输入您账户的电子邮箱：我们将向您发送重置密码的链接。",
+      "sending": "发送中…",
+      "sent": "如果该邮箱存在账户，我们刚刚已发送一封包含重置链接的邮件。请记得检查垃圾邮件文件夹。",
+      "submit": "发送链接",
+      "title": "忘记密码"
+    },
+    "reset": {
+      "breadcrumb": "重置密码",
+      "breadcrumbAccount": "我的账户",
+      "confirm": "确认密码",
+      "errors": {
+        "generic": "发生错误。",
+        "invalid_or_expired_token": "此链接已过期或不再有效。请重新申请。",
+        "missing_fields": "表单不完整。",
+        "network": "网络错误。",
+        "password_mismatch": "两次输入的密码不一致。",
+        "password_too_short": "密码太短（至少 8 个字符）。",
+        "reset_failed": "重置失败。请重试。"
+      },
+      "goToAccount": "前往我的账户",
+      "invalidLink": "此重置链接无效或不完整。请重新申请。",
+      "lead": "请为您的账户设置新密码。",
+      "password": "新密码",
+      "passwordPlaceholder": "至少 8 个字符",
+      "requestNew": "申请新链接",
+      "saving": "重置中…",
+      "submit": "重置我的密码",
+      "success": "您的密码已重置。您现在已登录。",
+      "title": "新密码"
+    }
   }
 }

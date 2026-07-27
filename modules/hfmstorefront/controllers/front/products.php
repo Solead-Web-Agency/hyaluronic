@@ -572,6 +572,17 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             ];
         }
 
+        // 7) Repli des slugs CASSÉS (JA « -1ml »…) : slugs FR/EN, chargés en UNE requête, et
+        //    seulement pour les produits dont le slug de la langue courante est dégénéré (aucune
+        //    requête si la langue est saine, ex. FR). Le slug reste inchangé pour les produits sains.
+        $degenIds = [];
+        foreach ($base as $id => $b) {
+            if ($this->isDegenerateSlug($b['link_rewrite'])) {
+                $degenIds[] = $id;
+            }
+        }
+        $fb = $degenIds ? $this->fallbackSlugs($degenIds) : [];
+
         // Assemblage — l'ordre d'entrée est préservé (utile pour le tri des listes).
         $out = [];
         foreach ($ids as $id) {
@@ -583,18 +594,26 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $oos = isset($stock[$id]) ? $stock[$id]['oos'] : 0;
             $availability = $this->availabilityFromStock($qty, $oos);
             $idImage = isset($covers[$id]) ? $covers[$id] : 0;
+            // Slug de repli si le slug de la langue courante est cassé (sinon : slug d'origine intact).
+            $slug = $this->pickHealthySlug(
+                $b['link_rewrite'],
+                isset($fb[$id][1]) ? $fb[$id][1] : '',
+                isset($fb[$id][2]) ? $fb[$id][2] : '',
+                $b['name'],
+                $b['reference']
+            );
 
             $out[$id] = [
                 'id_product' => $id,
                 'name' => $b['name'],
                 'reference' => $b['reference'],
-                'link_rewrite' => $b['link_rewrite'],
+                'link_rewrite' => $slug,
                 'category' => isset($catSlug[$id]) ? $catSlug[$id] : null,
                 'rating' => isset($ratings[$id]) ? $ratings[$id] : null,
                 'brand' => $b['id_manufacturer'] ? $b['brand'] : null,
                 'price_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, true), 2),
                 'price_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, false), 2),
-                'image' => $idImage ? $this->context->link->getImageLink($b['link_rewrite'], $idImage, 'home_default') : null,
+                'image' => $idImage ? $this->context->link->getImageLink($slug, $idImage, 'home_default') : null,
                 'quantity' => $qty,
                 'available' => $availability !== 'unavailable',
                 'availability' => $availability,
@@ -641,18 +660,135 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         return $lr ?: null;
     }
 
-    /** Résout un slug produit (link_rewrite) en id_product actif. Newest gagne (slugs ~uniques). */
+    /**
+     * Un slug de langue est-il DÉGÉNÉRÉ (inutilisable pour une URL propre) ?
+     *   - vide ;
+     *   - commence par un tiret (translittération JA qui a vidé le nom -> il ne reste que
+     *     le suffixe volume/code : « -1ml », « -nctf-135-ha- », « -516-5ml10 », « -l-1ml2 ») ;
+     *   - ne contient QUE des chiffres et des tirets ;
+     *   - moins de 2 lettres latines « utiles ».
+     * Sains : « hyamira-forte », « juvederm-voluma ».
+     */
+    protected function isDegenerateSlug($s)
+    {
+        $s = trim((string) $s);
+        if ($s === '' || $s[0] === '-') {
+            return true;
+        }
+        if (preg_match('/^[0-9-]+$/', $s)) {
+            return true;
+        }
+        return preg_match_all('/[a-z]/i', $s) < 2;
+    }
+
+    /** Rogne les tirets parasites en tête/fin (réversible via SQL TRIM lors de la résolution). */
+    protected function trimDashes($s)
+    {
+        return trim((string) $s, '-');
+    }
+
+    /**
+     * Slug de repli VALIDE pour une langue au slug cassé. On NE TOUCHE JAMAIS un slug sain
+     * (retour immédiat). Sinon, premier candidat sain parmi, dans l'ordre :
+     *   FR (1) brut, EN (2) brut, FR/EN débarrassés d'un tiret parasite, puis (dernier recours)
+     *   un slug dérivé du nom (déjà latin) ou de la référence. À défaut : on garde le slug d'origine.
+     * Sur ce catalogue, FR/EN (brut ou rogné) couvrent 100 % des 205 slugs JA cassés ; la dérivation
+     * nom/référence n'est qu'un garde-fou (jamais atteint ici) — cf. rapport.
+     */
+    protected function pickHealthySlug($rawSlug, $frSlug, $enSlug, $name = '', $reference = '')
+    {
+        if (!$this->isDegenerateSlug($rawSlug)) {
+            return (string) $rawSlug;
+        }
+        $candidates = [
+            (string) $frSlug,
+            (string) $enSlug,
+            $this->trimDashes($frSlug),
+            $this->trimDashes($enSlug),
+            Tools::str2url((string) $name),
+            Tools::str2url((string) $reference),
+        ];
+        foreach ($candidates as $c) {
+            if ($c !== '' && !$this->isDegenerateSlug($c)) {
+                return $c;
+            }
+        }
+        return (string) $rawSlug;
+    }
+
+    /**
+     * Slugs FR (1) et EN (2) d'une liste de produits, en une requête groupée.
+     * Source de repli des slugs cassés (typiquement le JA). Vide si $ids vide.
+     *
+     * @return array<int, array<int, string>> [id_product => [id_lang => slug]]
+     */
+    protected function fallbackSlugs(array $ids)
+    {
+        $ids = array_values(array_unique(array_filter(array_map('intval', $ids))));
+        if (empty($ids)) {
+            return [];
+        }
+        $idShop = (int) $this->context->shop->id;
+        $out = [];
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_product, id_lang, link_rewrite FROM ' . _DB_PREFIX_ . 'product_lang
+             WHERE id_shop = ' . $idShop . ' AND id_lang IN (1, 2) AND id_product IN (' . implode(',', $ids) . ')'
+        ) as $r) {
+            $out[(int) $r['id_product']][(int) $r['id_lang']] = (string) $r['link_rewrite'];
+        }
+        return $out;
+    }
+
+    /**
+     * Résout un slug produit (link_rewrite) en id_product actif. Newest gagne (slugs ~uniques).
+     *
+     * Robuste au REPLI de slug : une langue au slug cassé (JA) est servie avec le slug FR/EN.
+     * On résout donc en cascade : (1) langue courante exacte (comportement historique) ; sinon
+     * (2) FR/EN exact (le slug de repli qu'on a émis) ; sinon (3) FR/EN une fois les tirets
+     * parasites rognés (repli « assaini »). FR est préféré à EN, puis le plus récent.
+     */
     protected function productIdFromSlug($slug)
     {
         $idShop = (int) $this->context->shop->id;
         $idLang = (int) $this->context->language->id;
-        return (int) Db::getInstance()->getValue(
-            'SELECT pl.id_product FROM ' . _DB_PREFIX_ . 'product_lang pl
-             INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
-                ON (ps.id_product = pl.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1)
-             WHERE pl.link_rewrite = \'' . pSQL($slug) . '\' AND pl.id_lang = ' . $idLang . '
+        $db = Db::getInstance();
+        $s = pSQL((string) $slug);
+        $join = ' INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                    ON (ps.id_product = pl.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1)';
+
+        // 1) Correspondance exacte dans la langue demandée (inchangé).
+        $id = (int) $db->getValue(
+            'SELECT pl.id_product FROM ' . _DB_PREFIX_ . 'product_lang pl' . $join . '
+             WHERE pl.link_rewrite = \'' . $s . '\' AND pl.id_lang = ' . $idLang . '
              ORDER BY pl.id_product DESC'
         );
+        if ($id) {
+            return $id;
+        }
+        // Un slug ENTRANT dégénéré est une vieille URL indexée : elle se résout à l'étape 1
+        // (la ligne cassée existe toujours en base). On ne tente le repli FR/EN que pour un slug
+        // propre resté introuvable dans la langue courante = le slug de repli qu'on a nous-mêmes servi.
+        if (!$this->isDegenerateSlug($slug)) {
+            // 2) Le slug servi pour une langue cassée EST un slug FR/EN : on le résout dans ces langues.
+            $id = (int) $db->getValue(
+                'SELECT pl.id_product FROM ' . _DB_PREFIX_ . 'product_lang pl' . $join . '
+                 WHERE pl.link_rewrite = \'' . $s . '\' AND pl.id_lang IN (1, 2)
+                 ORDER BY (pl.id_lang = 1) DESC, pl.id_product DESC'
+            );
+            if ($id) {
+                return $id;
+            }
+            // 3) Repli « assaini » : le slug émis a pu perdre un tiret parasite -> on re-trimme en base.
+            $id = (int) $db->getValue(
+                'SELECT pl.id_product FROM ' . _DB_PREFIX_ . 'product_lang pl' . $join . '
+                 WHERE TRIM(BOTH \'-\' FROM pl.link_rewrite) = \'' . $s . '\' AND pl.id_lang IN (1, 2)
+                 ORDER BY (pl.id_lang = 1) DESC, pl.id_product DESC'
+            );
+            if ($id) {
+                return $id;
+            }
+        }
+        return 0;
     }
 
     /** Slug + nom de la catégorie par défaut d'un produit (pour l'URL /{categorie}/{slug}). */
@@ -675,7 +811,7 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
      * (404). Indexé sur id_lang ; le front mappe locale -> id_lang. Ne renvoie que les langues où le
      * produit existe réellement (ligne product_lang présente).
      */
-    protected function alternateSlugs($idProduct, $idCategoryDefault)
+    protected function alternateSlugs($idProduct, $idCategoryDefault, $name = '', $reference = '')
     {
         $idShop = (int) $this->context->shop->id;
         $out = [];
@@ -687,11 +823,20 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
              INNER JOIN `' . _DB_PREFIX_ . 'lang` l ON (l.id_lang = pl.id_lang AND l.active = 1)
              WHERE pl.id_product = ' . (int) $idProduct . ' AND pl.id_shop = ' . $idShop
         );
+        // Slugs bruts indexés par langue (on GARDE les vides : ils recevront un repli).
+        $raw = [];
         foreach ((array) $rows as $r) {
-            if ((string) $r['link_rewrite'] === '') {
-                continue;
+            $raw[(int) $r['id_lang']] = (string) $r['link_rewrite'];
+        }
+        $fr = isset($raw[1]) ? $raw[1] : '';
+        $en = isset($raw[2]) ? $raw[2] : '';
+        foreach ($raw as $l => $s) {
+            // Slug cassé (JA « -1ml »…) OU vide -> repli FR/EN ; slug sain -> inchangé.
+            $slug = $this->pickHealthySlug($s, $fr, $en, $name, $reference);
+            if ($slug === '') {
+                continue; // aucun repli exploitable : on omet la langue (comme avant sur slug vide)
             }
-            $out[(int) $r['id_lang']] = ['slug' => (string) $r['link_rewrite'], 'category' => null];
+            $out[$l] = ['slug' => $slug, 'category' => null];
         }
         if ((int) $idCategoryDefault) {
             $catRows = Db::getInstance()->executeS(
@@ -737,14 +882,27 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         $ids = array_map('intval', array_keys($prod));
 
         // 2) Slugs produit par langue (langues INSTALLÉES uniquement : cf. alternateSlugs).
+        //    On collecte d'abord les slugs BRUTS (même vides) pour appliquer ensuite le même repli
+        //    FR/EN que la fiche : sans ça l'hreflang JA du sitemap pointerait vers « -1ml » (cassé).
+        $raw = []; // [id_product][id_lang] = slug brut
         foreach ((array) Db::getInstance()->executeS(
             'SELECT pl.id_product, pl.id_lang, pl.link_rewrite FROM ' . _DB_PREFIX_ . 'product_lang pl
              INNER JOIN ' . _DB_PREFIX_ . 'lang l ON (l.id_lang = pl.id_lang AND l.active = 1)
              WHERE pl.id_shop = ' . (int) $idShop . ' AND pl.id_product IN (' . implode(',', $ids) . ')'
         ) as $r) {
             $id = (int) $r['id_product'];
-            if (isset($prod[$id]) && (string) $r['link_rewrite'] !== '') {
-                $prod[$id]['alt'][(int) $r['id_lang']] = ['s' => (string) $r['link_rewrite'], 'c' => null];
+            if (isset($prod[$id])) {
+                $raw[$id][(int) $r['id_lang']] = (string) $r['link_rewrite'];
+            }
+        }
+        foreach ($raw as $id => $byLang) {
+            $fr = isset($byLang[1]) ? $byLang[1] : '';
+            $en = isset($byLang[2]) ? $byLang[2] : '';
+            foreach ($byLang as $l => $s) {
+                $slug = $this->pickHealthySlug($s, $fr, $en); // pas de nom/réf en batch : FR/EN suffit
+                if ($slug !== '') {
+                    $prod[$id]['alt'][(int) $l] = ['s' => $slug, 'c' => null];
+                }
             }
         }
 
@@ -902,9 +1060,22 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             return ['error' => 'product_not_found'];
         }
         list($catSlug, $catName) = $this->defaultCategory($p->id_category_default, $idLang);
+        // Slugs par langue (repli déjà appliqué sur les langues cassées, ex. JA « -1ml »).
+        $alternates = $this->alternateSlugs($idProduct, $p->id_category_default, $p->name, $p->reference);
+        // Slug de CETTE fiche : celui de la langue courante après repli (ou reconstruit si la
+        // ligne de langue est absente/vide). Sert au link_rewrite ET aux URLs d'image.
+        $selfSlug = (isset($alternates[$idLang]['slug']) && $alternates[$idLang]['slug'] !== '')
+            ? $alternates[$idLang]['slug']
+            : $this->pickHealthySlug(
+                (string) $p->link_rewrite,
+                isset($alternates[1]['slug']) ? $alternates[1]['slug'] : '',
+                isset($alternates[2]['slug']) ? $alternates[2]['slug'] : '',
+                $p->name,
+                $p->reference
+            );
         $images = [];
         foreach ($p->getImages($idLang) as $img) {
-            $images[] = $this->context->link->getImageLink($p->link_rewrite, (int) $img['id_image'], 'large_default');
+            $images[] = $this->context->link->getImageLink($selfSlug, (int) $img['id_image'], 'large_default');
         }
         $features = [];
         foreach ($p->getFrontFeatures($idLang) as $f) {
@@ -929,10 +1100,10 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'name' => $p->name,
             'reference' => $p->reference,
             'ean13' => (string) $p->ean13,
-            'link_rewrite' => $p->link_rewrite,
+            'link_rewrite' => $selfSlug,
             'category' => $catSlug,
             'category_name' => $catName,
-            'alternates' => $this->alternateSlugs($idProduct, $p->id_category_default),
+            'alternates' => $alternates,
             'description' => $p->description,
             'description_short' => $p->description_short,
             'meta_title' => (string) $p->meta_title,

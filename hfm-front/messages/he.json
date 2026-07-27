@@ -279,7 +279,15 @@
     "share": "שיתוף",
     "viewedTitle": "נצפו לאחרונה",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "מבוסס על {count} ביקורות",
+    "reviewsBy": "ביקורות מאומתות על ידי",
+    "reviewsCertificate": "צפייה באישור",
+    "reviewsCount": "{count} ביקורות",
+    "reviewsOrderedOn": "הזמנה מתאריך",
+    "reviewsPublishedOn": "פורסם ב־",
+    "reviewsReply": "תגובת המוכר",
+    "reviewsTranslated": "ביקורת מתורגמת"
   },
   "quickView": {
     "refStock": "מק\"ט {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "הסיסמה קצרה מדי (8 תווים לפחות).",
       "generic": "אירעה שגיאה.",
       "network": "שגיאת רשת."
-    }
+    },
+    "forgotPassword": "שכחת את הסיסמה?"
   },
   "addressForm": {
     "address": "כתובת",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "סכום לתשלום",
+    "payBankLabel": "בנק",
+    "payChequeAddressLabel": "כתובת למשלוח",
+    "payChequeOrderLabel": "המחאה לפקודת",
+    "payChequeReference": "נא לציין את המספר המזהה <b>{reference}</b> בגב ההמחאה.",
+    "payChequeTitle": "שלחו את ההמחאה שלכם",
+    "payDetailsLabel": "פרטי חשבון הבנק",
+    "payOwnerLabel": "בעל החשבון",
+    "payReservation": "הפריטים שלכם שמורים למשך {days} ימים עד לקבלת התשלום.",
+    "payWireReference": "נא לציין את המספר המזהה <b>{reference}</b> בפרטי ההעברה.",
+    "payWireTitle": "בצעו את ההעברה הבנקאית"
   },
   "orders": {
     "loginRequired": "נדרשת התחברות",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "כל המאמרים",
+    "allCategories": "כל הקטגוריות",
+    "articlesCount": "{count, plural, =0 {אין מאמרים} one {מאמר אחד} two {שני מאמרים} many {# מאמרים} other {# מאמרים}}",
+    "backToBlog": "→ חזרה לבלוג",
+    "by": "מאת",
+    "categories": "קטגוריות",
+    "eyebrow": "מומחיות וייעוץ",
+    "lead": "עצות מומחים, חדשות מוצרים ושיטות עבודה מומלצות בהזרקה אסתטית.",
+    "navLink": "בלוג",
+    "next": "הבא",
+    "noArticles": "אין מאמרים עדיין.",
+    "of": "מתוך",
+    "pageLabel": "עמוד",
+    "previous": "הקודם",
+    "publishedOn": "פורסם ב־",
+    "readArticle": "קריאת המאמר",
+    "relatedTitle": "קראו גם",
+    "title": "הבלוג",
+    "updatedOn": "עודכן ב־"
+  },
+  "error": {
+    "eyebrow": "תקלה זמנית",
+    "home": "חזרה לדף הבית",
+    "lead": "לא הצלחנו להציג את הדף הזה. לרוב מדובר בתקלה זמנית: נסו שוב בעוד רגע.",
+    "reference": "מזהה התקלה: {digest}",
+    "retry": "נסו שוב",
+    "title": "אירעה שגיאה"
+  },
+  "notFound": {
+    "catalogue": "עיון בקטלוג",
+    "eyebrow": "שגיאה 404",
+    "home": "חזרה לדף הבית",
+    "lead": "הדף שאתם מחפשים אינו קיים, הועבר או אינו זמין עוד.",
+    "title": "הדף לא נמצא"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "חזרה להתחברות",
+      "breadcrumb": "שכחתי סיסמה",
+      "breadcrumbAccount": "החשבון שלי",
+      "email": "דוא\"ל",
+      "emailPlaceholder": "you@clinic.co.il",
+      "errors": {
+        "generic": "אירעה שגיאה.",
+        "invalid_email": "דוא\"ל לא תקין.",
+        "network": "שגיאת רשת."
+      },
+      "lead": "הזינו את כתובת הדוא\"ל של החשבון שלכם: נשלח לכם קישור לאיפוס הסיסמה.",
+      "sending": "שולח…",
+      "sent": "אם קיים חשבון עבור כתובת זו, זה עתה נשלח דוא\"ל עם קישור לאיפוס. זכרו לבדוק גם את תיקיית הדואר הזבל.",
+      "submit": "שליחת הקישור",
+      "title": "שכחתי סיסמה"
+    },
+    "reset": {
+      "breadcrumb": "איפוס סיסמה",
+      "breadcrumbAccount": "החשבון שלי",
+      "confirm": "אישור הסיסמה",
+      "errors": {
+        "generic": "אירעה שגיאה.",
+        "invalid_or_expired_token": "פג תוקפו של הקישור או שהוא אינו תקף עוד. נא לבקש קישור חדש.",
+        "missing_fields": "הטופס אינו מלא.",
+        "network": "שגיאת רשת.",
+        "password_mismatch": "שתי הסיסמאות אינן תואמות.",
+        "password_too_short": "הסיסמה קצרה מדי (8 תווים לפחות).",
+        "reset_failed": "האיפוס נכשל. נא לנסות שוב."
+      },
+      "goToAccount": "מעבר לחשבון שלי",
+      "invalidLink": "קישור האיפוס אינו תקף או אינו מלא. נא לבקש קישור חדש.",
+      "lead": "בחרו סיסמה חדשה לחשבונכם.",
+      "password": "סיסמה חדשה",
+      "passwordPlaceholder": "8 תווים לפחות",
+      "requestNew": "בקשת קישור חדש",
+      "saving": "מאפס…",
+      "submit": "איפוס הסיסמה שלי",
+      "success": "הסיסמה שלכם אופסה. אתם מחוברים כעת.",
+      "title": "סיסמה חדשה"
+    }
   }
 }

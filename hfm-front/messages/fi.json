@@ -279,7 +279,15 @@
     "share": "Jaa",
     "viewedTitle": "Viimeksi katsotut",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Perustuu {count} arvosteluun",
+    "reviewsBy": "Arvostelut sertifioinut",
+    "reviewsCertificate": "Näytä todistus",
+    "reviewsCount": "{count} arvostelua",
+    "reviewsOrderedOn": "Tilaus",
+    "reviewsPublishedOn": "Julkaistu",
+    "reviewsReply": "Myyjän vastaus",
+    "reviewsTranslated": "Käännetty arvostelu"
   },
   "quickView": {
     "refStock": "Koodi {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Salasana on liian lyhyt (vähintään 8 merkkiä).",
       "generic": "Tapahtui virhe.",
       "network": "Verkkovirhe."
-    }
+    },
+    "forgotPassword": "Unohditko salasanasi?"
   },
   "addressForm": {
     "address": "Osoite",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Maksettava summa",
+    "payBankLabel": "Pankki",
+    "payChequeAddressLabel": "Postitusosoite",
+    "payChequeOrderLabel": "Sekki saajalle",
+    "payChequeReference": "Merkitse viite <b>{reference}</b> sekin taakse.",
+    "payChequeTitle": "Lähetä sekkisi",
+    "payDetailsLabel": "Pankkitiedot",
+    "payOwnerLabel": "Tilinomistaja",
+    "payReservation": "Tuotteesi on varattu {days} päivän ajan maksuasi odottaessa.",
+    "payWireReference": "Merkitse viite <b>{reference}</b> tilisiirtosi viestikenttään.",
+    "payWireTitle": "Tee pankkisiirto"
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Kaikki artikkelit",
+    "allCategories": "Kaikki kategoriat",
+    "articlesCount": "{count, plural, =0 {ei artikkeleita} one {# artikkeli} other {# artikkelia}}",
+    "backToBlog": "← Takaisin blogiin",
+    "by": "kirjoittaja",
+    "categories": "Kategoriat",
+    "eyebrow": "Asiantuntemus ja vinkit",
+    "lead": "Asiantuntijoiden neuvoja, tuoteuutisia ja esteettisen injektion parhaita käytäntöjä.",
+    "navLink": "Blogi",
+    "next": "Seuraava",
+    "noArticles": "Ei vielä artikkeleita.",
+    "of": "/",
+    "pageLabel": "Sivu",
+    "previous": "Edellinen",
+    "publishedOn": "Julkaistu",
+    "readArticle": "Lue artikkeli",
+    "relatedTitle": "Lue myös",
+    "title": "Blogi",
+    "updatedOn": "Päivitetty"
+  },
+  "error": {
+    "eyebrow": "Tilapäinen häiriö",
+    "home": "Takaisin etusivulle",
+    "lead": "Emme voineet näyttää tätä sivua. Kyse on useimmiten tilapäisestä häiriöstä: yritä hetken kuluttua uudelleen.",
+    "reference": "Häiriön viite: {digest}",
+    "retry": "Yritä uudelleen",
+    "title": "Tapahtui virhe"
+  },
+  "notFound": {
+    "catalogue": "Selaa luetteloa",
+    "eyebrow": "Virhe 404",
+    "home": "Takaisin etusivulle",
+    "lead": "Etsimääsi sivua ei ole olemassa, se on siirretty tai se ei ole enää saatavilla.",
+    "title": "Sivua ei löytynyt"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Takaisin kirjautumiseen",
+      "breadcrumb": "Salasana unohtunut",
+      "breadcrumbAccount": "Oma tili",
+      "email": "Sähköposti",
+      "emailPlaceholder": "sina@klinikka.fi",
+      "errors": {
+        "generic": "Tapahtui virhe.",
+        "invalid_email": "Virheellinen sähköposti.",
+        "network": "Verkkovirhe."
+      },
+      "lead": "Anna tilisi sähköpostiosoite: lähetämme sinulle linkin salasanan palauttamista varten.",
+      "sending": "Lähetetään…",
+      "sent": "Jos tälle osoitteelle on tili, palautuslinkin sisältävä sähköposti on juuri lähetetty. Muista tarkistaa myös roskapostikansio.",
+      "submit": "Lähetä linkki",
+      "title": "Salasana unohtunut"
+    },
+    "reset": {
+      "breadcrumb": "Salasanan palautus",
+      "breadcrumbAccount": "Oma tili",
+      "confirm": "Vahvista salasana",
+      "errors": {
+        "generic": "Tapahtui virhe.",
+        "invalid_or_expired_token": "Tämä linkki on vanhentunut tai ei ole enää voimassa. Pyydä uusi.",
+        "missing_fields": "Puutteellinen lomake.",
+        "network": "Verkkovirhe.",
+        "password_mismatch": "Salasanat eivät täsmää.",
+        "password_too_short": "Salasana on liian lyhyt (väh. 8 merkkiä).",
+        "reset_failed": "Palautus epäonnistui. Yritä uudelleen."
+      },
+      "goToAccount": "Siirry omalle tililleni",
+      "invalidLink": "Tämä palautuslinkki on virheellinen tai puutteellinen. Pyydä uusi.",
+      "lead": "Valitse tilillesi uusi salasana.",
+      "password": "Uusi salasana",
+      "passwordPlaceholder": "väh. 8 merkkiä",
+      "requestNew": "Pyydä uusi linkki",
+      "saving": "Palautetaan…",
+      "submit": "Palauta salasanani",
+      "success": "Salasanasi on palautettu. Olet nyt kirjautuneena sisään.",
+      "title": "Uusi salasana"
+    }
   }
 }

@@ -279,7 +279,15 @@
     "share": "공유",
     "viewedTitle": "최근 본 상품",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "{count}개의 리뷰 기준",
+    "reviewsBy": "리뷰 인증 기관",
+    "reviewsCertificate": "인증서 보기",
+    "reviewsCount": "리뷰 {count}개",
+    "reviewsOrderedOn": "주문일",
+    "reviewsPublishedOn": "게시일",
+    "reviewsReply": "판매자 답변",
+    "reviewsTranslated": "번역된 리뷰"
   },
   "quickView": {
     "refStock": "품번 {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "비밀번호가 너무 짧습니다 (최소 8자).",
       "generic": "오류가 발생했습니다.",
       "network": "네트워크 오류입니다."
-    }
+    },
+    "forgotPassword": "비밀번호를 잊으셨나요?"
   },
   "addressForm": {
     "address": "주소",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "결제 금액",
+    "payBankLabel": "은행",
+    "payChequeAddressLabel": "발송 주소",
+    "payChequeOrderLabel": "수표 수취인",
+    "payChequeReference": "수표 뒷면에 참조 번호 <b>{reference}</b>를 기재해 주세요.",
+    "payChequeTitle": "수표를 보내주세요",
+    "payDetailsLabel": "은행 계좌 정보",
+    "payOwnerLabel": "예금주",
+    "payReservation": "결제가 확인될 때까지 상품이 {days}일 동안 예약됩니다.",
+    "payWireReference": "계좌 이체 시 참조 번호 <b>{reference}</b>를 적요란에 기재해 주세요.",
+    "payWireTitle": "계좌 이체를 진행해 주세요"
   },
   "orders": {
     "loginRequired": "로그인이 필요합니다",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "모든 게시글",
+    "allCategories": "모든 카테고리",
+    "articlesCount": "{count, plural, =0 {게시글 없음} other {게시글 #개}}",
+    "backToBlog": "← 블로그로 돌아가기",
+    "by": "작성자",
+    "categories": "카테고리",
+    "eyebrow": "전문 지식과 조언",
+    "lead": "전문가의 조언, 제품 소식, 미용 주사 시술의 모범 사례.",
+    "navLink": "블로그",
+    "next": "다음",
+    "noArticles": "아직 게시글이 없습니다.",
+    "of": "/",
+    "pageLabel": "페이지",
+    "previous": "이전",
+    "publishedOn": "게시일",
+    "readArticle": "글 읽기",
+    "relatedTitle": "함께 읽으면 좋은 글",
+    "title": "블로그",
+    "updatedOn": "수정일"
+  },
+  "error": {
+    "eyebrow": "일시적인 오류",
+    "home": "홈으로 돌아가기",
+    "lead": "이 페이지를 표시할 수 없습니다. 대부분 일시적인 오류이니 잠시 후 다시 시도해 주세요.",
+    "reference": "오류 참조 번호: {digest}",
+    "retry": "다시 시도",
+    "title": "오류가 발생했습니다"
+  },
+  "notFound": {
+    "catalogue": "카탈로그 둘러보기",
+    "eyebrow": "오류 404",
+    "home": "홈으로 돌아가기",
+    "lead": "찾으시는 페이지가 존재하지 않거나 이동되었거나 더 이상 제공되지 않습니다.",
+    "title": "페이지를 찾을 수 없습니다"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "로그인으로 돌아가기",
+      "breadcrumb": "비밀번호 찾기",
+      "breadcrumbAccount": "내 계정",
+      "email": "이메일",
+      "emailPlaceholder": "you@clinic.kr",
+      "errors": {
+        "generic": "오류가 발생했습니다.",
+        "invalid_email": "유효하지 않은 이메일입니다.",
+        "network": "네트워크 오류입니다."
+      },
+      "lead": "계정 이메일 주소를 입력하시면 비밀번호 재설정 링크를 보내드립니다.",
+      "sending": "전송 중…",
+      "sent": "해당 주소로 계정이 존재하는 경우, 재설정 링크가 담긴 이메일이 방금 발송되었습니다. 스팸함도 확인해 주세요.",
+      "submit": "링크 보내기",
+      "title": "비밀번호 찾기"
+    },
+    "reset": {
+      "breadcrumb": "비밀번호 재설정",
+      "breadcrumbAccount": "내 계정",
+      "confirm": "비밀번호 확인",
+      "errors": {
+        "generic": "오류가 발생했습니다.",
+        "invalid_or_expired_token": "이 링크는 만료되었거나 더 이상 유효하지 않습니다. 다시 요청해 주세요.",
+        "missing_fields": "입력이 완료되지 않았습니다.",
+        "network": "네트워크 오류입니다.",
+        "password_mismatch": "두 비밀번호가 일치하지 않습니다.",
+        "password_too_short": "비밀번호가 너무 짧습니다(최소 8자).",
+        "reset_failed": "재설정에 실패했습니다. 다시 시도해 주세요."
+      },
+      "goToAccount": "내 계정으로 이동",
+      "invalidLink": "이 재설정 링크는 유효하지 않거나 불완전합니다. 다시 요청해 주세요.",
+      "lead": "계정의 새 비밀번호를 선택하세요.",
+      "password": "새 비밀번호",
+      "passwordPlaceholder": "최소 8자",
+      "requestNew": "새 링크 요청",
+      "saving": "재설정 중…",
+      "submit": "비밀번호 재설정",
+      "success": "비밀번호가 재설정되었습니다. 현재 로그인되어 있습니다.",
+      "title": "새 비밀번호"
+    }
   }
 }

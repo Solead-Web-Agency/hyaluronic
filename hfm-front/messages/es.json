@@ -279,7 +279,15 @@
     "share": "Compartir",
     "viewedTitle": "Vistos recientemente",
     "compare": "Comparar",
-    "compareFull": "Comparador: máximo {max} productos."
+    "compareFull": "Comparador: máximo {max} productos.",
+    "reviewsBasedOn": "Basado en {count} opiniones",
+    "reviewsBy": "Opiniones certificadas por",
+    "reviewsCertificate": "Ver el certificado",
+    "reviewsCount": "{count} opiniones",
+    "reviewsOrderedOn": "Pedido del",
+    "reviewsPublishedOn": "Publicado el",
+    "reviewsReply": "Respuesta del vendedor",
+    "reviewsTranslated": "Opinión traducida"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Contraseña demasiado corta (8 caracteres mín.).",
       "generic": "Se ha producido un error.",
       "network": "Error de red."
-    }
+    },
+    "forgotPassword": "¿Olvidó su contraseña?"
   },
   "addressForm": {
     "address": "Dirección",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Importe a pagar",
+    "payBankLabel": "Banco",
+    "payChequeAddressLabel": "Dirección de envío",
+    "payChequeOrderLabel": "Cheque a nombre de",
+    "payChequeReference": "Indique la referencia <b>{reference}</b> en el reverso de su cheque.",
+    "payChequeTitle": "Envíe su cheque",
+    "payDetailsLabel": "Datos bancarios",
+    "payOwnerLabel": "Titular de la cuenta",
+    "payReservation": "Sus artículos quedan reservados durante {days} días a la espera de su pago.",
+    "payWireReference": "Indique la referencia <b>{reference}</b> en el concepto de su transferencia.",
+    "payWireTitle": "Realice su transferencia bancaria"
   },
   "orders": {
     "loginRequired": "Inicio de sesión requerido",
@@ -613,5 +633,84 @@
     "availability": "Disponibilidad",
     "inStock": "En stock",
     "outOfStock": "Agotado"
+  },
+  "blog": {
+    "allArticles": "Todos los artículos",
+    "allCategories": "Todas las categorías",
+    "articlesCount": "{count, plural, =0 {ningún artículo} one {# artículo} other {# artículos}}",
+    "backToBlog": "← Volver al blog",
+    "by": "por",
+    "categories": "Categorías",
+    "eyebrow": "Experiencia y consejos",
+    "lead": "Consejos de expertos, novedades de producto y buenas prácticas de la inyección estética.",
+    "navLink": "Blog",
+    "next": "Siguiente",
+    "noArticles": "Aún no hay artículos.",
+    "of": "de",
+    "pageLabel": "Página",
+    "previous": "Anterior",
+    "publishedOn": "Publicado el",
+    "readArticle": "Leer el artículo",
+    "relatedTitle": "También le puede interesar",
+    "title": "El Blog",
+    "updatedOn": "Actualizado el"
+  },
+  "error": {
+    "eyebrow": "Incidencia temporal",
+    "home": "Volver al inicio",
+    "lead": "No hemos podido mostrar esta página. Suele tratarse de una incidencia temporal: vuelva a intentarlo en un momento.",
+    "reference": "Referencia de la incidencia: {digest}",
+    "retry": "Reintentar",
+    "title": "Se ha producido un error"
+  },
+  "notFound": {
+    "catalogue": "Explorar el catálogo",
+    "eyebrow": "Error 404",
+    "home": "Volver al inicio",
+    "lead": "La página que busca no existe, se ha movido o ya no está disponible.",
+    "title": "Página no encontrada"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Volver al inicio de sesión",
+      "breadcrumb": "Contraseña olvidada",
+      "breadcrumbAccount": "Mi cuenta",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "usted@clinica.es",
+      "errors": {
+        "generic": "Se ha producido un error.",
+        "invalid_email": "Correo electrónico no válido.",
+        "network": "Error de red."
+      },
+      "lead": "Introduzca el correo electrónico de su cuenta: le enviaremos un enlace para restablecer su contraseña.",
+      "sending": "Enviando…",
+      "sent": "Si existe una cuenta para esta dirección, acabamos de enviar un correo con un enlace de restablecimiento. Recuerde revisar su carpeta de correo no deseado.",
+      "submit": "Enviar el enlace",
+      "title": "Contraseña olvidada"
+    },
+    "reset": {
+      "breadcrumb": "Restablecer la contraseña",
+      "breadcrumbAccount": "Mi cuenta",
+      "confirm": "Confirmar la contraseña",
+      "errors": {
+        "generic": "Se ha producido un error.",
+        "invalid_or_expired_token": "Este enlace ha caducado o ya no es válido. Solicite uno nuevo.",
+        "missing_fields": "Formulario incompleto.",
+        "network": "Error de red.",
+        "password_mismatch": "Las dos contraseñas no coinciden.",
+        "password_too_short": "Contraseña demasiado corta (mín. 8 caracteres).",
+        "reset_failed": "El restablecimiento ha fallado. Inténtelo de nuevo."
+      },
+      "goToAccount": "Ir a mi cuenta",
+      "invalidLink": "Este enlace de restablecimiento no es válido o está incompleto. Solicite uno nuevo.",
+      "lead": "Elija una nueva contraseña para su cuenta.",
+      "password": "Nueva contraseña",
+      "passwordPlaceholder": "mín. 8 caracteres",
+      "requestNew": "Solicitar un nuevo enlace",
+      "saving": "Restableciendo…",
+      "submit": "Restablecer mi contraseña",
+      "success": "Su contraseña se ha restablecido. Ya ha iniciado sesión.",
+      "title": "Nueva contraseña"
+    }
   }
 }

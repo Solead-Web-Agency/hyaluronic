@@ -279,7 +279,15 @@
     "share": "Споделяне",
     "viewedTitle": "Наскоро разгледани",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Въз основа на {count} отзива",
+    "reviewsBy": "Отзиви, сертифицирани от",
+    "reviewsCertificate": "Вижте сертификата",
+    "reviewsCount": "{count} отзива",
+    "reviewsOrderedOn": "Поръчка от",
+    "reviewsPublishedOn": "Публикувано на",
+    "reviewsReply": "Отговор на продавача",
+    "reviewsTranslated": "Преведен отзив"
   },
   "quickView": {
     "refStock": "Реф. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Паролата е твърде кратка (мин. 8 символа).",
       "generic": "Възникна грешка.",
       "network": "Мрежова грешка."
-    }
+    },
+    "forgotPassword": "Забравена парола?"
   },
   "addressForm": {
     "address": "Адрес",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Сума за плащане",
+    "payBankLabel": "Банка",
+    "payChequeAddressLabel": "Адрес за изпращане",
+    "payChequeOrderLabel": "Чек на името на",
+    "payChequeReference": "Посочете референция <b>{reference}</b> на гърба на вашия чек.",
+    "payChequeTitle": "Изпратете вашия чек",
+    "payDetailsLabel": "Банкови данни",
+    "payOwnerLabel": "Титуляр на сметката",
+    "payReservation": "Вашите артикули са запазени за {days} дни в очакване на вашето плащане.",
+    "payWireReference": "Посочете референция <b>{reference}</b> в основанието на вашия банков превод.",
+    "payWireTitle": "Извършете вашия банков превод"
   },
   "orders": {
     "loginRequired": "Изисква се вход",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Всички статии",
+    "allCategories": "Всички категории",
+    "articlesCount": "{count, plural, =0 {няма статии} one {# статия} other {# статии}}",
+    "backToBlog": "← Обратно към блога",
+    "by": "от",
+    "categories": "Категории",
+    "eyebrow": "Експертиза и съвети",
+    "lead": "Експертни съвети, продуктови новини и добри практики в естетичната инжекция.",
+    "navLink": "Блог",
+    "next": "Следваща",
+    "noArticles": "Все още няма статии.",
+    "of": "от",
+    "pageLabel": "Страница",
+    "previous": "Предишна",
+    "publishedOn": "Публикувано на",
+    "readArticle": "Прочети статията",
+    "relatedTitle": "Прочетете също",
+    "title": "Блогът",
+    "updatedOn": "Актуализирано на"
+  },
+  "error": {
+    "eyebrow": "Временен проблем",
+    "home": "Обратно към началото",
+    "lead": "Не успяхме да покажем тази страница. Най-често това е временен проблем: опитайте отново след малко.",
+    "reference": "Референция на инцидента: {digest}",
+    "retry": "Опитайте отново",
+    "title": "Възникна грешка"
+  },
+  "notFound": {
+    "catalogue": "Разгледайте каталога",
+    "eyebrow": "Грешка 404",
+    "home": "Обратно към началото",
+    "lead": "Страницата, която търсите, не съществува, преместена е или вече не е достъпна.",
+    "title": "Страницата не е намерена"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Обратно към входа",
+      "breadcrumb": "Забравена парола",
+      "breadcrumbAccount": "Моят профил",
+      "email": "Имейл",
+      "emailPlaceholder": "vie@klinika.bg",
+      "errors": {
+        "generic": "Възникна грешка.",
+        "invalid_email": "Невалиден имейл.",
+        "network": "Мрежова грешка."
+      },
+      "lead": "Въведете имейл адреса на вашия профил: ще ви изпратим връзка за възстановяване на паролата.",
+      "sending": "Изпращане…",
+      "sent": "Ако за този адрес съществува профил, току-що беше изпратен имейл с връзка за възстановяване. Не забравяйте да проверите папката със спам.",
+      "submit": "Изпрати връзката",
+      "title": "Забравена парола"
+    },
+    "reset": {
+      "breadcrumb": "Възстановяване на паролата",
+      "breadcrumbAccount": "Моят профил",
+      "confirm": "Потвърдете паролата",
+      "errors": {
+        "generic": "Възникна грешка.",
+        "invalid_or_expired_token": "Тази връзка е изтекла или вече не е валидна. Моля, поискайте нова.",
+        "missing_fields": "Непълен формуляр.",
+        "network": "Мрежова грешка.",
+        "password_mismatch": "Двете пароли не съвпадат.",
+        "password_too_short": "Паролата е твърде кратка (мин. 8 знака).",
+        "reset_failed": "Възстановяването е неуспешно. Моля, опитайте отново."
+      },
+      "goToAccount": "Към моя профил",
+      "invalidLink": "Тази връзка за възстановяване е невалидна или непълна. Моля, поискайте нова.",
+      "lead": "Изберете нова парола за вашия профил.",
+      "password": "Нова парола",
+      "passwordPlaceholder": "мин. 8 знака",
+      "requestNew": "Поискайте нова връзка",
+      "saving": "Възстановяване…",
+      "submit": "Възстанови паролата",
+      "success": "Вашата парола беше възстановена. Сега сте влезли в профила си.",
+      "title": "Нова парола"
+    }
   }
 }

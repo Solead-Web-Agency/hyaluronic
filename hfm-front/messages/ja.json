@@ -279,7 +279,15 @@
     "share": "共有",
     "viewedTitle": "最近見た商品",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "{count} 件のレビューに基づく",
+    "reviewsBy": "レビュー認証",
+    "reviewsCertificate": "証明書を見る",
+    "reviewsCount": "{count} 件のレビュー",
+    "reviewsOrderedOn": "注文日",
+    "reviewsPublishedOn": "公開日",
+    "reviewsReply": "販売者からの返信",
+    "reviewsTranslated": "翻訳されたレビュー"
   },
   "quickView": {
     "refStock": "品番 {reference} · {status}。",
@@ -373,7 +381,8 @@
       "password_too_short": "パスワードが短すぎます(8文字以上)。",
       "generic": "エラーが発生しました。",
       "network": "ネットワークエラー。"
-    }
+    },
+    "forgotPassword": "パスワードをお忘れですか？"
   },
   "addressForm": {
     "address": "住所",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "お支払い金額",
+    "payBankLabel": "銀行",
+    "payChequeAddressLabel": "送付先住所",
+    "payChequeOrderLabel": "小切手の受取人",
+    "payChequeReference": "小切手の裏面に参照番号 <b>{reference}</b> をご記入ください。",
+    "payChequeTitle": "小切手をご送付ください",
+    "payDetailsLabel": "銀行口座情報",
+    "payOwnerLabel": "口座名義",
+    "payReservation": "お支払いを確認するまで、商品は {days} 日間お取り置きいたします。",
+    "payWireReference": "お振り込みの摘要欄に参照番号 <b>{reference}</b> をご記入ください。",
+    "payWireTitle": "銀行振込をお願いします"
   },
   "orders": {
     "loginRequired": "ログインが必要です",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "すべての記事",
+    "allCategories": "すべてのカテゴリー",
+    "articlesCount": "{count, plural, =0 {記事はありません} other {# 件の記事}}",
+    "backToBlog": "← ブログに戻る",
+    "by": "投稿者",
+    "categories": "カテゴリー",
+    "eyebrow": "専門知識とアドバイス",
+    "lead": "美容注入に関する専門家のアドバイス、製品ニュース、ベストプラクティス。",
+    "navLink": "ブログ",
+    "next": "次へ",
+    "noArticles": "まだ記事がありません。",
+    "of": "/",
+    "pageLabel": "ページ",
+    "previous": "前へ",
+    "publishedOn": "公開日",
+    "readArticle": "記事を読む",
+    "relatedTitle": "あわせて読みたい",
+    "title": "ブログ",
+    "updatedOn": "更新日"
+  },
+  "error": {
+    "eyebrow": "一時的な問題",
+    "home": "ホームに戻る",
+    "lead": "このページを表示できませんでした。多くの場合、一時的な問題です。しばらくしてからもう一度お試しください。",
+    "reference": "インシデント参照番号：{digest}",
+    "retry": "再試行",
+    "title": "エラーが発生しました"
+  },
+  "notFound": {
+    "catalogue": "カタログを見る",
+    "eyebrow": "エラー 404",
+    "home": "ホームに戻る",
+    "lead": "お探しのページは存在しないか、移動されたか、現在ご利用いただけません。",
+    "title": "ページが見つかりません"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "ログインに戻る",
+      "breadcrumb": "パスワードをお忘れの方",
+      "breadcrumbAccount": "マイアカウント",
+      "email": "メールアドレス",
+      "emailPlaceholder": "you@clinic.jp",
+      "errors": {
+        "generic": "エラーが発生しました。",
+        "invalid_email": "メールアドレスが無効です。",
+        "network": "ネットワークエラーです。"
+      },
+      "lead": "アカウントのメールアドレスを入力してください。パスワードを再設定するためのリンクをお送りします。",
+      "sending": "送信中…",
+      "sent": "このアドレスのアカウントが存在する場合、再設定用リンクを記載したメールを送信しました。迷惑メールフォルダもご確認ください。",
+      "submit": "リンクを送信",
+      "title": "パスワードをお忘れの方"
+    },
+    "reset": {
+      "breadcrumb": "パスワードの再設定",
+      "breadcrumbAccount": "マイアカウント",
+      "confirm": "パスワードの確認",
+      "errors": {
+        "generic": "エラーが発生しました。",
+        "invalid_or_expired_token": "このリンクは有効期限が切れているか、無効になっています。お手数ですが再度お申し込みください。",
+        "missing_fields": "入力が不完全です。",
+        "network": "ネットワークエラーです。",
+        "password_mismatch": "2つのパスワードが一致しません。",
+        "password_too_short": "パスワードが短すぎます（8文字以上）。",
+        "reset_failed": "再設定に失敗しました。もう一度お試しください。"
+      },
+      "goToAccount": "マイアカウントへ",
+      "invalidLink": "この再設定リンクは無効または不完全です。お手数ですが再度お申し込みください。",
+      "lead": "アカウントの新しいパスワードを設定してください。",
+      "password": "新しいパスワード",
+      "passwordPlaceholder": "8文字以上",
+      "requestNew": "新しいリンクを申し込む",
+      "saving": "再設定中…",
+      "submit": "パスワードを再設定",
+      "success": "パスワードが再設定されました。現在ログインしています。",
+      "title": "新しいパスワード"
+    }
   }
 }

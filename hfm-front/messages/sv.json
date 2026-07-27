@@ -279,7 +279,15 @@
     "share": "Dela",
     "viewedTitle": "Nyligen visade",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Baserat på {count} omdömen",
+    "reviewsBy": "Omdömen certifierade av",
+    "reviewsCertificate": "Visa intyget",
+    "reviewsCount": "{count} omdömen",
+    "reviewsOrderedOn": "Beställning från",
+    "reviewsPublishedOn": "Publicerad den",
+    "reviewsReply": "Säljarens svar",
+    "reviewsTranslated": "Översatt omdöme"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Lösenordet är för kort (minst 8 tecken).",
       "generic": "Ett fel uppstod.",
       "network": "Nätverksfel."
-    }
+    },
+    "forgotPassword": "Glömt lösenordet?"
   },
   "addressForm": {
     "address": "Adress",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Belopp att betala",
+    "payBankLabel": "Bank",
+    "payChequeAddressLabel": "Postadress",
+    "payChequeOrderLabel": "Utställ checken till",
+    "payChequeReference": "Ange referensen <b>{reference}</b> på baksidan av din check.",
+    "payChequeTitle": "Skicka din check",
+    "payDetailsLabel": "Bankuppgifter",
+    "payOwnerLabel": "Kontoinnehavare",
+    "payReservation": "Dina varor reserveras i {days} dagar i väntan på din betalning.",
+    "payWireReference": "Ange referensen <b>{reference}</b> som meddelande på din betalning.",
+    "payWireTitle": "Genomför din banköverföring"
   },
   "orders": {
     "loginRequired": "Inloggning krävs",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Alla artiklar",
+    "allCategories": "Alla kategorier",
+    "articlesCount": "{count, plural, =0 {inga artiklar} one {# artikel} other {# artiklar}}",
+    "backToBlog": "← Tillbaka till bloggen",
+    "by": "av",
+    "categories": "Kategorier",
+    "eyebrow": "Expertis & råd",
+    "lead": "Expertråd, produktnyheter och bästa praxis inom estetisk injektion.",
+    "navLink": "Blogg",
+    "next": "Nästa",
+    "noArticles": "Inga artiklar ännu.",
+    "of": "av",
+    "pageLabel": "Sida",
+    "previous": "Föregående",
+    "publishedOn": "Publicerad den",
+    "readArticle": "Läs artikeln",
+    "relatedTitle": "Läs även",
+    "title": "Bloggen",
+    "updatedOn": "Uppdaterad den"
+  },
+  "error": {
+    "eyebrow": "Tillfälligt fel",
+    "home": "Tillbaka till startsidan",
+    "lead": "Vi kunde inte visa den här sidan. Det handlar oftast om ett tillfälligt fel: försök igen om en stund.",
+    "reference": "Incidentreferens: {digest}",
+    "retry": "Försök igen",
+    "title": "Ett fel uppstod"
+  },
+  "notFound": {
+    "catalogue": "Bläddra i katalogen",
+    "eyebrow": "Fel 404",
+    "home": "Tillbaka till startsidan",
+    "lead": "Sidan du söker finns inte, har flyttats eller är inte längre tillgänglig.",
+    "title": "Sidan hittades inte"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Tillbaka till inloggning",
+      "breadcrumb": "Glömt lösenord",
+      "breadcrumbAccount": "Mitt konto",
+      "email": "E-post",
+      "emailPlaceholder": "du@klinik.se",
+      "errors": {
+        "generic": "Ett fel uppstod.",
+        "invalid_email": "Ogiltig e-post.",
+        "network": "Nätverksfel."
+      },
+      "lead": "Ange e-postadressen till ditt konto: vi skickar en länk för att återställa ditt lösenord.",
+      "sending": "Skickar…",
+      "sent": "Om det finns ett konto för denna adress har ett e-postmeddelande med en återställningslänk just skickats. Kom ihåg att kontrollera skräpposten.",
+      "submit": "Skicka länken",
+      "title": "Glömt lösenord"
+    },
+    "reset": {
+      "breadcrumb": "Återställ lösenord",
+      "breadcrumbAccount": "Mitt konto",
+      "confirm": "Bekräfta lösenord",
+      "errors": {
+        "generic": "Ett fel uppstod.",
+        "invalid_or_expired_token": "Den här länken har gått ut eller är inte längre giltig. Begär en ny.",
+        "missing_fields": "Ofullständigt formulär.",
+        "network": "Nätverksfel.",
+        "password_mismatch": "De två lösenorden stämmer inte överens.",
+        "password_too_short": "Lösenordet är för kort (minst 8 tecken).",
+        "reset_failed": "Återställningen misslyckades. Försök igen."
+      },
+      "goToAccount": "Gå till mitt konto",
+      "invalidLink": "Den här återställningslänken är ogiltig eller ofullständig. Begär en ny.",
+      "lead": "Välj ett nytt lösenord för ditt konto.",
+      "password": "Nytt lösenord",
+      "passwordPlaceholder": "minst 8 tecken",
+      "requestNew": "Begär en ny länk",
+      "saving": "Återställer…",
+      "submit": "Återställ mitt lösenord",
+      "success": "Ditt lösenord har återställts. Du är nu inloggad.",
+      "title": "Nytt lösenord"
+    }
   }
 }

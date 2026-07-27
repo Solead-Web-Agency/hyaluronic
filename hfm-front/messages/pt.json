@@ -279,7 +279,15 @@
     "share": "Partilhar",
     "viewedTitle": "Vistos recentemente",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Com base em {count} avaliações",
+    "reviewsBy": "Avaliações certificadas por",
+    "reviewsCertificate": "Ver o certificado",
+    "reviewsCount": "{count} avaliações",
+    "reviewsOrderedOn": "Encomenda de",
+    "reviewsPublishedOn": "Publicado a",
+    "reviewsReply": "Resposta do vendedor",
+    "reviewsTranslated": "Avaliação traduzida"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Palavra-passe demasiado curta (8 caracteres mín.).",
       "generic": "Ocorreu um erro.",
       "network": "Erro de rede."
-    }
+    },
+    "forgotPassword": "Esqueceu-se da palavra-passe?"
   },
   "addressForm": {
     "address": "Endereço",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Montante a pagar",
+    "payBankLabel": "Banco",
+    "payChequeAddressLabel": "Morada de envio",
+    "payChequeOrderLabel": "Cheque à ordem de",
+    "payChequeReference": "Indique a referência <b>{reference}</b> no verso do seu cheque.",
+    "payChequeTitle": "Envie o seu cheque",
+    "payDetailsLabel": "Dados bancários",
+    "payOwnerLabel": "Titular da conta",
+    "payReservation": "Os seus artigos ficam reservados durante {days} dias enquanto aguardamos o seu pagamento.",
+    "payWireReference": "Indique a referência <b>{reference}</b> na descrição da sua transferência.",
+    "payWireTitle": "Efetue a sua transferência bancária"
   },
   "orders": {
     "loginRequired": "Sessão necessária",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Todos os artigos",
+    "allCategories": "Todas as categorias",
+    "articlesCount": "{count, plural, =0 {nenhum artigo} one {# artigo} other {# artigos}}",
+    "backToBlog": "← Voltar ao blogue",
+    "by": "por",
+    "categories": "Categorias",
+    "eyebrow": "Especialização e conselhos",
+    "lead": "Conselhos de especialistas, novidades de produtos e boas práticas da injeção estética.",
+    "navLink": "Blogue",
+    "next": "Seguinte",
+    "noArticles": "Ainda não há artigos.",
+    "of": "de",
+    "pageLabel": "Página",
+    "previous": "Anterior",
+    "publishedOn": "Publicado a",
+    "readArticle": "Ler o artigo",
+    "relatedTitle": "Leia também",
+    "title": "O Blogue",
+    "updatedOn": "Atualizado a"
+  },
+  "error": {
+    "eyebrow": "Incidente temporário",
+    "home": "Voltar ao início",
+    "lead": "Não foi possível apresentar esta página. Trata-se geralmente de um incidente temporário: tente novamente dentro de instantes.",
+    "reference": "Referência do incidente: {digest}",
+    "retry": "Tentar novamente",
+    "title": "Ocorreu um erro"
+  },
+  "notFound": {
+    "catalogue": "Explorar o catálogo",
+    "eyebrow": "Erro 404",
+    "home": "Voltar ao início",
+    "lead": "A página que procura não existe, foi movida ou já não está disponível.",
+    "title": "Página não encontrada"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Voltar ao início de sessão",
+      "breadcrumb": "Palavra-passe esquecida",
+      "breadcrumbAccount": "A minha conta",
+      "email": "E-mail",
+      "emailPlaceholder": "voce@clinica.pt",
+      "errors": {
+        "generic": "Ocorreu um erro.",
+        "invalid_email": "E-mail inválido.",
+        "network": "Erro de rede."
+      },
+      "lead": "Introduza o e-mail da sua conta: enviamos-lhe uma ligação para redefinir a sua palavra-passe.",
+      "sending": "A enviar…",
+      "sent": "Se existir uma conta para este endereço, acabámos de enviar um e-mail com uma ligação de redefinição. Não se esqueça de verificar a pasta de spam.",
+      "submit": "Enviar a ligação",
+      "title": "Palavra-passe esquecida"
+    },
+    "reset": {
+      "breadcrumb": "Redefinir a palavra-passe",
+      "breadcrumbAccount": "A minha conta",
+      "confirm": "Confirmar a palavra-passe",
+      "errors": {
+        "generic": "Ocorreu um erro.",
+        "invalid_or_expired_token": "Esta ligação expirou ou já não é válida. Solicite uma nova.",
+        "missing_fields": "Formulário incompleto.",
+        "network": "Erro de rede.",
+        "password_mismatch": "As duas palavras-passe não coincidem.",
+        "password_too_short": "Palavra-passe demasiado curta (mín. 8 caracteres).",
+        "reset_failed": "A redefinição falhou. Tente novamente."
+      },
+      "goToAccount": "Ir para a minha conta",
+      "invalidLink": "Esta ligação de redefinição é inválida ou está incompleta. Solicite uma nova.",
+      "lead": "Escolha uma nova palavra-passe para a sua conta.",
+      "password": "Nova palavra-passe",
+      "passwordPlaceholder": "mín. 8 caracteres",
+      "requestNew": "Solicitar uma nova ligação",
+      "saving": "A redefinir…",
+      "submit": "Redefinir a minha palavra-passe",
+      "success": "A sua palavra-passe foi redefinida. A sessão está agora iniciada.",
+      "title": "Nova palavra-passe"
+    }
   }
 }

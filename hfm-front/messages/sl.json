@@ -279,7 +279,15 @@
     "share": "Deli",
     "viewedTitle": "Nazadnje ogledano",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Na podlagi {count} mnenj",
+    "reviewsBy": "Mnenja potrjuje",
+    "reviewsCertificate": "Poglej potrdilo",
+    "reviewsCount": "{count} mnenj",
+    "reviewsOrderedOn": "Naročilo z dne",
+    "reviewsPublishedOn": "Objavljeno",
+    "reviewsReply": "Odgovor prodajalca",
+    "reviewsTranslated": "Prevedeno mnenje"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Geslo je prekratko (najmanj 8 znakov).",
       "generic": "Prišlo je do napake.",
       "network": "Napaka omrežja."
-    }
+    },
+    "forgotPassword": "Ste pozabili geslo?"
   },
   "addressForm": {
     "address": "Naslov",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Znesek za plačilo",
+    "payBankLabel": "Banka",
+    "payChequeAddressLabel": "Naslov za pošiljanje",
+    "payChequeOrderLabel": "Ček na ime",
+    "payChequeReference": "Na hrbtno stran čeka navedite sklic <b>{reference}</b>.",
+    "payChequeTitle": "Pošljite svoj ček",
+    "payDetailsLabel": "Bančni podatki",
+    "payOwnerLabel": "Imetnik računa",
+    "payReservation": "Vaši izdelki so rezervirani {days} dni, dokler ne prejmemo vašega plačila.",
+    "payWireReference": "V sklic nakazila navedite <b>{reference}</b>.",
+    "payWireTitle": "Izvedite bančno nakazilo"
   },
   "orders": {
     "loginRequired": "Potrebna prijava",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Vsi članki",
+    "allCategories": "Vse kategorije",
+    "articlesCount": "{count, plural, =0 {ni člankov} one {# članek} two {# članka} few {# članki} other {# člankov}}",
+    "backToBlog": "← Nazaj na blog",
+    "by": "avtor",
+    "categories": "Kategorije",
+    "eyebrow": "Strokovnost in nasveti",
+    "lead": "Strokovni nasveti, novosti o izdelkih in dobre prakse estetskih injekcij.",
+    "navLink": "Blog",
+    "next": "Naslednja",
+    "noArticles": "Zaenkrat ni člankov.",
+    "of": "od",
+    "pageLabel": "Stran",
+    "previous": "Prejšnja",
+    "publishedOn": "Objavljeno",
+    "readArticle": "Preberi članek",
+    "relatedTitle": "Preberite tudi",
+    "title": "Blog",
+    "updatedOn": "Posodobljeno"
+  },
+  "error": {
+    "eyebrow": "Začasna težava",
+    "home": "Nazaj na domačo stran",
+    "lead": "Te strani ni bilo mogoče prikazati. Običajno gre za začasno težavo: poskusite znova čez trenutek.",
+    "reference": "Sklic incidenta: {digest}",
+    "retry": "Poskusi znova",
+    "title": "Prišlo je do napake"
+  },
+  "notFound": {
+    "catalogue": "Prebrskaj katalog",
+    "eyebrow": "Napaka 404",
+    "home": "Nazaj na domačo stran",
+    "lead": "Stran, ki jo iščete, ne obstaja, je bila premaknjena ali ni več na voljo.",
+    "title": "Strani ni mogoče najti"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Nazaj na prijavo",
+      "breadcrumb": "Pozabljeno geslo",
+      "breadcrumbAccount": "Moj račun",
+      "email": "E-pošta",
+      "emailPlaceholder": "vi@ambulanta.si",
+      "errors": {
+        "generic": "Prišlo je do napake.",
+        "invalid_email": "Neveljavna e-pošta.",
+        "network": "Napaka omrežja."
+      },
+      "lead": "Vnesite e-poštni naslov svojega računa: poslali vam bomo povezavo za ponastavitev gesla.",
+      "sending": "Pošiljanje…",
+      "sent": "Če za ta naslov obstaja račun, smo pravkar poslali e-poštno sporočilo s povezavo za ponastavitev. Preverite tudi mapo z neželeno pošto.",
+      "submit": "Pošlji povezavo",
+      "title": "Pozabljeno geslo"
+    },
+    "reset": {
+      "breadcrumb": "Ponastavitev gesla",
+      "breadcrumbAccount": "Moj račun",
+      "confirm": "Potrdite geslo",
+      "errors": {
+        "generic": "Prišlo je do napake.",
+        "invalid_or_expired_token": "Ta povezava je potekla ali ni več veljavna. Zaprosite za novo.",
+        "missing_fields": "Nepopoln obrazec.",
+        "network": "Napaka omrežja.",
+        "password_mismatch": "Gesli se ne ujemata.",
+        "password_too_short": "Geslo je prekratko (najmanj 8 znakov).",
+        "reset_failed": "Ponastavitev ni uspela. Poskusite znova."
+      },
+      "goToAccount": "Pojdi na moj račun",
+      "invalidLink": "Ta povezava za ponastavitev je neveljavna ali nepopolna. Zaprosite za novo.",
+      "lead": "Izberite novo geslo za svoj račun.",
+      "password": "Novo geslo",
+      "passwordPlaceholder": "najmanj 8 znakov",
+      "requestNew": "Zaprosi za novo povezavo",
+      "saving": "Ponastavljanje…",
+      "submit": "Ponastavi geslo",
+      "success": "Vaše geslo je bilo ponastavljeno. Zdaj ste prijavljeni.",
+      "title": "Novo geslo"
+    }
   }
 }

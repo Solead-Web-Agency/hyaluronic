@@ -279,7 +279,15 @@
     "share": "Distribuie",
     "viewedTitle": "Vizualizate recent",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Pe baza a {count} recenzii",
+    "reviewsBy": "Recenzii certificate de",
+    "reviewsCertificate": "Vezi atestatul",
+    "reviewsCount": "{count} recenzii",
+    "reviewsOrderedOn": "Comandă din",
+    "reviewsPublishedOn": "Publicat la",
+    "reviewsReply": "Răspunsul vânzătorului",
+    "reviewsTranslated": "Recenzie tradusă"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Parolă prea scurtă (min. 8 caractere).",
       "generic": "A apărut o eroare.",
       "network": "Eroare de rețea."
-    }
+    },
+    "forgotPassword": "Ați uitat parola?"
   },
   "addressForm": {
     "address": "Adresă",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Sumă de plată",
+    "payBankLabel": "Bancă",
+    "payChequeAddressLabel": "Adresă de expediere",
+    "payChequeOrderLabel": "Cec pe numele",
+    "payChequeReference": "Indicați referința <b>{reference}</b> pe spatele cecului dumneavoastră.",
+    "payChequeTitle": "Trimiteți cecul",
+    "payDetailsLabel": "Coordonate bancare",
+    "payOwnerLabel": "Titularul contului",
+    "payReservation": "Articolele dumneavoastră sunt rezervate timp de {days} zile în așteptarea plății.",
+    "payWireReference": "Indicați referința <b>{reference}</b> în descrierea transferului.",
+    "payWireTitle": "Efectuați transferul bancar"
   },
   "orders": {
     "loginRequired": "Autentificare necesară",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Toate articolele",
+    "allCategories": "Toate categoriile",
+    "articlesCount": "{count, plural, =0 {niciun articol} one {# articol} few {# articole} other {# de articole}}",
+    "backToBlog": "← Înapoi la blog",
+    "by": "de",
+    "categories": "Categorii",
+    "eyebrow": "Expertiză și sfaturi",
+    "lead": "Sfaturi de experți, noutăți despre produse și bune practici în injectarea estetică.",
+    "navLink": "Blog",
+    "next": "Următorul",
+    "noArticles": "Încă niciun articol.",
+    "of": "din",
+    "pageLabel": "Pagina",
+    "previous": "Anteriorul",
+    "publishedOn": "Publicat la",
+    "readArticle": "Citește articolul",
+    "relatedTitle": "Citește și",
+    "title": "Blogul",
+    "updatedOn": "Actualizat la"
+  },
+  "error": {
+    "eyebrow": "Problemă temporară",
+    "home": "Înapoi la pagina principală",
+    "lead": "Nu am putut afișa această pagină. De cele mai multe ori este o problemă temporară: încercați din nou într-o clipă.",
+    "reference": "Referința incidentului: {digest}",
+    "retry": "Încercați din nou",
+    "title": "A apărut o eroare"
+  },
+  "notFound": {
+    "catalogue": "Răsfoiește catalogul",
+    "eyebrow": "Eroare 404",
+    "home": "Înapoi la pagina principală",
+    "lead": "Pagina pe care o căutați nu există, a fost mutată sau nu mai este disponibilă.",
+    "title": "Pagină negăsită"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Înapoi la autentificare",
+      "breadcrumb": "Parolă uitată",
+      "breadcrumbAccount": "Contul meu",
+      "email": "E-mail",
+      "emailPlaceholder": "dvs@cabinet.ro",
+      "errors": {
+        "generic": "A apărut o eroare.",
+        "invalid_email": "E-mail invalid.",
+        "network": "Eroare de rețea."
+      },
+      "lead": "Introduceți adresa de e-mail a contului: vă vom trimite un link pentru resetarea parolei.",
+      "sending": "Se trimite…",
+      "sent": "Dacă există un cont pentru această adresă, tocmai a fost trimis un e-mail cu un link de resetare. Verificați și folderul de spam.",
+      "submit": "Trimite linkul",
+      "title": "Parolă uitată"
+    },
+    "reset": {
+      "breadcrumb": "Resetare parolă",
+      "breadcrumbAccount": "Contul meu",
+      "confirm": "Confirmați parola",
+      "errors": {
+        "generic": "A apărut o eroare.",
+        "invalid_or_expired_token": "Acest link a expirat sau nu mai este valabil. Vă rugăm să solicitați unul nou.",
+        "missing_fields": "Formular incomplet.",
+        "network": "Eroare de rețea.",
+        "password_mismatch": "Cele două parole nu coincid.",
+        "password_too_short": "Parolă prea scurtă (min. 8 caractere).",
+        "reset_failed": "Resetarea a eșuat. Încercați din nou."
+      },
+      "goToAccount": "Mergi la contul meu",
+      "invalidLink": "Acest link de resetare este invalid sau incomplet. Vă rugăm să solicitați unul nou.",
+      "lead": "Alegeți o parolă nouă pentru contul dumneavoastră.",
+      "password": "Parolă nouă",
+      "passwordPlaceholder": "min. 8 caractere",
+      "requestNew": "Solicitați un link nou",
+      "saving": "Se resetează…",
+      "submit": "Resetează parola",
+      "success": "Parola dumneavoastră a fost resetată. Acum sunteți autentificat.",
+      "title": "Parolă nouă"
+    }
   }
 }

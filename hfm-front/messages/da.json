@@ -279,7 +279,15 @@
     "share": "Del",
     "viewedTitle": "Senest sete",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Baseret på {count} anmeldelser",
+    "reviewsBy": "Anmeldelser certificeret af",
+    "reviewsCertificate": "Se attesten",
+    "reviewsCount": "{count} anmeldelser",
+    "reviewsOrderedOn": "Bestilling fra",
+    "reviewsPublishedOn": "Offentliggjort den",
+    "reviewsReply": "Sælgerens svar",
+    "reviewsTranslated": "Oversat anmeldelse"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Adgangskoden er for kort (mindst 8 tegn).",
       "generic": "Der opstod en fejl.",
       "network": "Netværksfejl."
-    }
+    },
+    "forgotPassword": "Glemt adgangskode?"
   },
   "addressForm": {
     "address": "Adresse",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Beløb at betale",
+    "payBankLabel": "Bank",
+    "payChequeAddressLabel": "Forsendelsesadresse",
+    "payChequeOrderLabel": "Check udstedt til",
+    "payChequeReference": "Angiv referencen <b>{reference}</b> på bagsiden af din check.",
+    "payChequeTitle": "Send din check",
+    "payDetailsLabel": "Bankoplysninger",
+    "payOwnerLabel": "Kontohaver",
+    "payReservation": "Dine varer er reserveret i {days} dage, mens vi afventer din betaling.",
+    "payWireReference": "Angiv referencen <b>{reference}</b> i beskedfeltet på din overførsel.",
+    "payWireTitle": "Gennemfør din bankoverførsel"
   },
   "orders": {
     "loginRequired": "Login påkrævet",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Alle artikler",
+    "allCategories": "Alle kategorier",
+    "articlesCount": "{count, plural, =0 {ingen artikler} one {# artikel} other {# artikler}}",
+    "backToBlog": "← Tilbage til bloggen",
+    "by": "af",
+    "categories": "Kategorier",
+    "eyebrow": "Ekspertise & råd",
+    "lead": "Ekspertråd, produktnyheder og bedste praksis inden for æstetisk injektion.",
+    "navLink": "Blog",
+    "next": "Næste",
+    "noArticles": "Ingen artikler endnu.",
+    "of": "af",
+    "pageLabel": "Side",
+    "previous": "Forrige",
+    "publishedOn": "Offentliggjort den",
+    "readArticle": "Læs artiklen",
+    "relatedTitle": "Læs også",
+    "title": "Bloggen",
+    "updatedOn": "Opdateret den"
+  },
+  "error": {
+    "eyebrow": "Midlertidig fejl",
+    "home": "Tilbage til forsiden",
+    "lead": "Vi kunne ikke vise denne side. Det er som regel en midlertidig fejl: prøv igen om et øjeblik.",
+    "reference": "Hændelsesreference: {digest}",
+    "retry": "Prøv igen",
+    "title": "Der opstod en fejl"
+  },
+  "notFound": {
+    "catalogue": "Gennemse kataloget",
+    "eyebrow": "Fejl 404",
+    "home": "Tilbage til forsiden",
+    "lead": "Den side, du leder efter, findes ikke, er blevet flyttet eller er ikke længere tilgængelig.",
+    "title": "Siden blev ikke fundet"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Tilbage til login",
+      "breadcrumb": "Glemt adgangskode",
+      "breadcrumbAccount": "Min konto",
+      "email": "E-mail",
+      "emailPlaceholder": "dig@klinik.dk",
+      "errors": {
+        "generic": "Der opstod en fejl.",
+        "invalid_email": "Ugyldig e-mail.",
+        "network": "Netværksfejl."
+      },
+      "lead": "Indtast e-mailadressen på din konto: vi sender dig et link til at nulstille din adgangskode.",
+      "sending": "Sender…",
+      "sent": "Hvis der findes en konto for denne adresse, er der netop sendt en e-mail med et nulstillingslink. Husk at tjekke din spammappe.",
+      "submit": "Send linket",
+      "title": "Glemt adgangskode"
+    },
+    "reset": {
+      "breadcrumb": "Nulstil adgangskode",
+      "breadcrumbAccount": "Min konto",
+      "confirm": "Bekræft adgangskode",
+      "errors": {
+        "generic": "Der opstod en fejl.",
+        "invalid_or_expired_token": "Dette link er udløbet eller ikke længere gyldigt. Anmod om et nyt.",
+        "missing_fields": "Ufuldstændig formular.",
+        "network": "Netværksfejl.",
+        "password_mismatch": "De to adgangskoder stemmer ikke overens.",
+        "password_too_short": "Adgangskoden er for kort (mindst 8 tegn).",
+        "reset_failed": "Nulstillingen mislykkedes. Prøv igen."
+      },
+      "goToAccount": "Gå til min konto",
+      "invalidLink": "Dette nulstillingslink er ugyldigt eller ufuldstændigt. Anmod om et nyt.",
+      "lead": "Vælg en ny adgangskode til din konto.",
+      "password": "Ny adgangskode",
+      "passwordPlaceholder": "mindst 8 tegn",
+      "requestNew": "Anmod om et nyt link",
+      "saving": "Nulstiller…",
+      "submit": "Nulstil min adgangskode",
+      "success": "Din adgangskode er blevet nulstillet. Du er nu logget ind.",
+      "title": "Ny adgangskode"
+    }
   }
 }

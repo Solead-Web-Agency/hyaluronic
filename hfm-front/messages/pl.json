@@ -279,7 +279,15 @@
     "share": "Udostępnij",
     "viewedTitle": "Ostatnio oglądane",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Na podstawie {count} opinii",
+    "reviewsBy": "Opinie certyfikowane przez",
+    "reviewsCertificate": "Zobacz certyfikat",
+    "reviewsCount": "{count} opinii",
+    "reviewsOrderedOn": "Zamówienie z",
+    "reviewsPublishedOn": "Opublikowano",
+    "reviewsReply": "Odpowiedź sprzedawcy",
+    "reviewsTranslated": "Przetłumaczona opinia"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Hasło zbyt krótkie (min. 8 znaków).",
       "generic": "Wystąpił błąd.",
       "network": "Błąd sieci."
-    }
+    },
+    "forgotPassword": "Nie pamiętasz hasła?"
   },
   "addressForm": {
     "address": "Adres",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Kwota do zapłaty",
+    "payBankLabel": "Bank",
+    "payChequeAddressLabel": "Adres wysyłki",
+    "payChequeOrderLabel": "Czek na",
+    "payChequeReference": "Na odwrocie czeku wpisz numer referencyjny <b>{reference}</b>.",
+    "payChequeTitle": "Wyślij czek",
+    "payDetailsLabel": "Dane bankowe",
+    "payOwnerLabel": "Właściciel konta",
+    "payReservation": "Twoje produkty są zarezerwowane przez {days} dni w oczekiwaniu na płatność.",
+    "payWireReference": "W tytule przelewu podaj numer referencyjny <b>{reference}</b>.",
+    "payWireTitle": "Wykonaj przelew bankowy"
   },
   "orders": {
     "loginRequired": "Wymagane logowanie",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Wszystkie artykuły",
+    "allCategories": "Wszystkie kategorie",
+    "articlesCount": "{count, plural, =0 {brak artykułów} one {# artykuł} few {# artykuły} many {# artykułów} other {# artykułów}}",
+    "backToBlog": "← Powrót do bloga",
+    "by": "autor",
+    "categories": "Kategorie",
+    "eyebrow": "Wiedza i porady",
+    "lead": "Porady ekspertów, nowości produktowe i dobre praktyki w iniekcjach estetycznych.",
+    "navLink": "Blog",
+    "next": "Następna",
+    "noArticles": "Brak artykułów.",
+    "of": "z",
+    "pageLabel": "Strona",
+    "previous": "Poprzednia",
+    "publishedOn": "Opublikowano",
+    "readArticle": "Przeczytaj artykuł",
+    "relatedTitle": "Przeczytaj także",
+    "title": "Blog",
+    "updatedOn": "Zaktualizowano"
+  },
+  "error": {
+    "eyebrow": "Tymczasowy problem",
+    "home": "Powrót do strony głównej",
+    "lead": "Nie udało się wyświetlić tej strony. Najczęściej jest to problem tymczasowy: spróbuj ponownie za chwilę.",
+    "reference": "Numer referencyjny incydentu: {digest}",
+    "retry": "Spróbuj ponownie",
+    "title": "Wystąpił błąd"
+  },
+  "notFound": {
+    "catalogue": "Przeglądaj katalog",
+    "eyebrow": "Błąd 404",
+    "home": "Powrót do strony głównej",
+    "lead": "Strona, której szukasz, nie istnieje, została przeniesiona lub nie jest już dostępna.",
+    "title": "Nie znaleziono strony"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Powrót do logowania",
+      "breadcrumb": "Nie pamiętam hasła",
+      "breadcrumbAccount": "Moje konto",
+      "email": "E-mail",
+      "emailPlaceholder": "ty@gabinet.pl",
+      "errors": {
+        "generic": "Wystąpił błąd.",
+        "invalid_email": "Nieprawidłowy adres e-mail.",
+        "network": "Błąd sieci."
+      },
+      "lead": "Wpisz adres e-mail przypisany do konta: wyślemy Ci link do zresetowania hasła.",
+      "sending": "Wysyłanie…",
+      "sent": "Jeśli dla tego adresu istnieje konto, właśnie wysłaliśmy wiadomość z linkiem do resetowania hasła. Sprawdź także folder ze spamem.",
+      "submit": "Wyślij link",
+      "title": "Nie pamiętam hasła"
+    },
+    "reset": {
+      "breadcrumb": "Resetowanie hasła",
+      "breadcrumbAccount": "Moje konto",
+      "confirm": "Potwierdź hasło",
+      "errors": {
+        "generic": "Wystąpił błąd.",
+        "invalid_or_expired_token": "Ten link wygasł lub jest już nieważny. Poproś o nowy.",
+        "missing_fields": "Niekompletny formularz.",
+        "network": "Błąd sieci.",
+        "password_mismatch": "Oba hasła nie są takie same.",
+        "password_too_short": "Hasło za krótkie (min. 8 znaków).",
+        "reset_failed": "Resetowanie nie powiodło się. Spróbuj ponownie."
+      },
+      "goToAccount": "Przejdź do mojego konta",
+      "invalidLink": "Ten link do resetowania jest nieprawidłowy lub niekompletny. Poproś o nowy.",
+      "lead": "Wybierz nowe hasło do swojego konta.",
+      "password": "Nowe hasło",
+      "passwordPlaceholder": "min. 8 znaków",
+      "requestNew": "Poproś o nowy link",
+      "saving": "Resetowanie…",
+      "submit": "Zresetuj hasło",
+      "success": "Twoje hasło zostało zresetowane. Jesteś teraz zalogowany.",
+      "title": "Nowe hasło"
+    }
   }
 }

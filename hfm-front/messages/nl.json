@@ -279,7 +279,15 @@
     "share": "Delen",
     "viewedTitle": "Recent bekeken",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Gebaseerd op {count} beoordelingen",
+    "reviewsBy": "Beoordelingen gecertificeerd door",
+    "reviewsCertificate": "Certificaat bekijken",
+    "reviewsCount": "{count} beoordelingen",
+    "reviewsOrderedOn": "Besteld op",
+    "reviewsPublishedOn": "Gepubliceerd op",
+    "reviewsReply": "Antwoord van de verkoper",
+    "reviewsTranslated": "Vertaalde beoordeling"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Wachtwoord te kort (min. 8 tekens).",
       "generic": "Er is een fout opgetreden.",
       "network": "Netwerkfout."
-    }
+    },
+    "forgotPassword": "Wachtwoord vergeten?"
   },
   "addressForm": {
     "address": "Adres",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Te betalen bedrag",
+    "payBankLabel": "Bank",
+    "payChequeAddressLabel": "Verzendadres",
+    "payChequeOrderLabel": "Cheque uitschrijven aan",
+    "payChequeReference": "Vermeld referentie <b>{reference}</b> op de achterkant van uw cheque.",
+    "payChequeTitle": "Stuur uw cheque",
+    "payDetailsLabel": "Bankgegevens",
+    "payOwnerLabel": "Rekeninghouder",
+    "payReservation": "Uw artikelen blijven {days} dagen gereserveerd in afwachting van uw betaling.",
+    "payWireReference": "Vermeld referentie <b>{reference}</b> in de omschrijving van uw overschrijving.",
+    "payWireTitle": "Voer uw bankoverschrijving uit"
   },
   "orders": {
     "loginRequired": "Inloggen vereist",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Alle artikelen",
+    "allCategories": "Alle categorieën",
+    "articlesCount": "{count, plural, =0 {geen artikelen} one {# artikel} other {# artikelen}}",
+    "backToBlog": "← Terug naar blog",
+    "by": "door",
+    "categories": "Categorieën",
+    "eyebrow": "Expertise & advies",
+    "lead": "Deskundig advies, productnieuws en best practices voor esthetische injecties.",
+    "navLink": "Blog",
+    "next": "Volgende",
+    "noArticles": "Nog geen artikelen.",
+    "of": "van",
+    "pageLabel": "Pagina",
+    "previous": "Vorige",
+    "publishedOn": "Gepubliceerd op",
+    "readArticle": "Artikel lezen",
+    "relatedTitle": "Lees ook",
+    "title": "De Blog",
+    "updatedOn": "Bijgewerkt op"
+  },
+  "error": {
+    "eyebrow": "Tijdelijke storing",
+    "home": "Terug naar home",
+    "lead": "We konden deze pagina niet weergeven. Meestal gaat het om een tijdelijke storing: probeer het zo dadelijk opnieuw.",
+    "reference": "Incidentreferentie: {digest}",
+    "retry": "Opnieuw proberen",
+    "title": "Er is een fout opgetreden"
+  },
+  "notFound": {
+    "catalogue": "Blader door de catalogus",
+    "eyebrow": "Fout 404",
+    "home": "Terug naar home",
+    "lead": "De pagina die u zoekt bestaat niet, is verplaatst of is niet meer beschikbaar.",
+    "title": "Pagina niet gevonden"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Terug naar inloggen",
+      "breadcrumb": "Wachtwoord vergeten",
+      "breadcrumbAccount": "Mijn account",
+      "email": "E-mail",
+      "emailPlaceholder": "u@praktijk.nl",
+      "errors": {
+        "generic": "Er is een fout opgetreden.",
+        "invalid_email": "Ongeldige e-mail.",
+        "network": "Netwerkfout."
+      },
+      "lead": "Voer het e-mailadres van uw account in: we sturen u een link om uw wachtwoord opnieuw in te stellen.",
+      "sending": "Verzenden…",
+      "sent": "Als er een account voor dit adres bestaat, is er zojuist een e-mail met een herstellink verzonden. Vergeet niet uw spammap te controleren.",
+      "submit": "Stuur de link",
+      "title": "Wachtwoord vergeten"
+    },
+    "reset": {
+      "breadcrumb": "Wachtwoord opnieuw instellen",
+      "breadcrumbAccount": "Mijn account",
+      "confirm": "Wachtwoord bevestigen",
+      "errors": {
+        "generic": "Er is een fout opgetreden.",
+        "invalid_or_expired_token": "Deze link is verlopen of niet meer geldig. Vraag een nieuwe aan.",
+        "missing_fields": "Onvolledig formulier.",
+        "network": "Netwerkfout.",
+        "password_mismatch": "De twee wachtwoorden komen niet overeen.",
+        "password_too_short": "Wachtwoord te kort (min. 8 tekens).",
+        "reset_failed": "Opnieuw instellen mislukt. Probeer het opnieuw."
+      },
+      "goToAccount": "Naar mijn account",
+      "invalidLink": "Deze herstellink is ongeldig of onvolledig. Vraag een nieuwe aan.",
+      "lead": "Kies een nieuw wachtwoord voor uw account.",
+      "password": "Nieuw wachtwoord",
+      "passwordPlaceholder": "min. 8 tekens",
+      "requestNew": "Nieuwe link aanvragen",
+      "saving": "Opnieuw instellen…",
+      "submit": "Mijn wachtwoord opnieuw instellen",
+      "success": "Uw wachtwoord is opnieuw ingesteld. U bent nu ingelogd.",
+      "title": "Nieuw wachtwoord"
+    }
   }
 }

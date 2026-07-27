@@ -279,7 +279,15 @@
     "share": "Κοινοποίηση",
     "viewedTitle": "Πρόσφατα προβεβλημένα",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Με βάση {count} κριτικές",
+    "reviewsBy": "Πιστοποιημένες κριτικές από",
+    "reviewsCertificate": "Δείτε το πιστοποιητικό",
+    "reviewsCount": "{count} κριτικές",
+    "reviewsOrderedOn": "Παραγγελία της",
+    "reviewsPublishedOn": "Δημοσιεύτηκε στις",
+    "reviewsReply": "Απάντηση του πωλητή",
+    "reviewsTranslated": "Μεταφρασμένη κριτική"
   },
   "quickView": {
     "refStock": "Κωδ. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Πολύ σύντομος κωδικός πρόσβασης (8 χαρακτήρες ελάχ.).",
       "generic": "Παρουσιάστηκε σφάλμα.",
       "network": "Σφάλμα δικτύου."
-    }
+    },
+    "forgotPassword": "Ξεχάσατε τον κωδικό σας;"
   },
   "addressForm": {
     "address": "Διεύθυνση",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Ποσό πληρωμής",
+    "payBankLabel": "Τράπεζα",
+    "payChequeAddressLabel": "Διεύθυνση αποστολής",
+    "payChequeOrderLabel": "Επιταγή στο όνομα",
+    "payChequeReference": "Αναγράψτε την αναφορά <b>{reference}</b> στο πίσω μέρος της επιταγής σας.",
+    "payChequeTitle": "Στείλτε την επιταγή σας",
+    "payDetailsLabel": "Τραπεζικά στοιχεία",
+    "payOwnerLabel": "Δικαιούχος λογαριασμού",
+    "payReservation": "Τα προϊόντα σας κρατούνται για {days} ημέρες εν αναμονή της πληρωμής σας.",
+    "payWireReference": "Αναγράψτε την αναφορά <b>{reference}</b> στην αιτιολογία του εμβάσματός σας.",
+    "payWireTitle": "Πραγματοποιήστε το τραπεζικό σας έμβασμα"
   },
   "orders": {
     "loginRequired": "Απαιτείται σύνδεση",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Όλα τα άρθρα",
+    "allCategories": "Όλες οι κατηγορίες",
+    "articlesCount": "{count, plural, =0 {κανένα άρθρο} one {# άρθρο} other {# άρθρα}}",
+    "backToBlog": "← Επιστροφή στο blog",
+    "by": "από",
+    "categories": "Κατηγορίες",
+    "eyebrow": "Τεχνογνωσία & συμβουλές",
+    "lead": "Συμβουλές ειδικών, νέα προϊόντων και βέλτιστες πρακτικές της αισθητικής ένεσης.",
+    "navLink": "Blog",
+    "next": "Επόμενο",
+    "noArticles": "Δεν υπάρχουν ακόμη άρθρα.",
+    "of": "από",
+    "pageLabel": "Σελίδα",
+    "previous": "Προηγούμενο",
+    "publishedOn": "Δημοσιεύτηκε στις",
+    "readArticle": "Διαβάστε το άρθρο",
+    "relatedTitle": "Διαβάστε επίσης",
+    "title": "Το Blog",
+    "updatedOn": "Ενημερώθηκε στις"
+  },
+  "error": {
+    "eyebrow": "Προσωρινό πρόβλημα",
+    "home": "Επιστροφή στην αρχική",
+    "lead": "Δεν ήταν δυνατή η εμφάνιση αυτής της σελίδας. Συνήθως πρόκειται για προσωρινό πρόβλημα: δοκιμάστε ξανά σε λίγο.",
+    "reference": "Αναφορά συμβάντος: {digest}",
+    "retry": "Δοκιμάστε ξανά",
+    "title": "Παρουσιάστηκε σφάλμα"
+  },
+  "notFound": {
+    "catalogue": "Περιήγηση στον κατάλογο",
+    "eyebrow": "Σφάλμα 404",
+    "home": "Επιστροφή στην αρχική",
+    "lead": "Η σελίδα που αναζητάτε δεν υπάρχει, έχει μετακινηθεί ή δεν είναι πλέον διαθέσιμη.",
+    "title": "Η σελίδα δεν βρέθηκε"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Επιστροφή στη σύνδεση",
+      "breadcrumb": "Ξεχάσατε τον κωδικό",
+      "breadcrumbAccount": "Ο λογαριασμός μου",
+      "email": "E-mail",
+      "emailPlaceholder": "eseis@kliniki.gr",
+      "errors": {
+        "generic": "Παρουσιάστηκε σφάλμα.",
+        "invalid_email": "Μη έγκυρο e-mail.",
+        "network": "Σφάλμα δικτύου."
+      },
+      "lead": "Εισαγάγετε τη διεύθυνση e-mail του λογαριασμού σας: θα σας στείλουμε έναν σύνδεσμο για την επαναφορά του κωδικού σας.",
+      "sending": "Αποστολή…",
+      "sent": "Εάν υπάρχει λογαριασμός για αυτήν τη διεύθυνση, μόλις στάλθηκε ένα e-mail με σύνδεσμο επαναφοράς. Θυμηθείτε να ελέγξετε τον φάκελο ανεπιθύμητης αλληλογραφίας.",
+      "submit": "Αποστολή συνδέσμου",
+      "title": "Ξεχάσατε τον κωδικό"
+    },
+    "reset": {
+      "breadcrumb": "Επαναφορά κωδικού",
+      "breadcrumbAccount": "Ο λογαριασμός μου",
+      "confirm": "Επιβεβαίωση κωδικού",
+      "errors": {
+        "generic": "Παρουσιάστηκε σφάλμα.",
+        "invalid_or_expired_token": "Αυτός ο σύνδεσμος έληξε ή δεν είναι πλέον έγκυρος. Ζητήστε έναν νέο.",
+        "missing_fields": "Ελλιπής φόρμα.",
+        "network": "Σφάλμα δικτύου.",
+        "password_mismatch": "Οι δύο κωδικοί δεν ταιριάζουν.",
+        "password_too_short": "Ο κωδικός είναι πολύ σύντομος (τουλάχιστον 8 χαρακτήρες).",
+        "reset_failed": "Η επαναφορά απέτυχε. Δοκιμάστε ξανά."
+      },
+      "goToAccount": "Μετάβαση στον λογαριασμό μου",
+      "invalidLink": "Αυτός ο σύνδεσμος επαναφοράς είναι μη έγκυρος ή ελλιπής. Ζητήστε έναν νέο.",
+      "lead": "Επιλέξτε έναν νέο κωδικό για τον λογαριασμό σας.",
+      "password": "Νέος κωδικός",
+      "passwordPlaceholder": "τουλάχιστον 8 χαρακτήρες",
+      "requestNew": "Ζητήστε νέο σύνδεσμο",
+      "saving": "Επαναφορά…",
+      "submit": "Επαναφορά κωδικού",
+      "success": "Ο κωδικός σας επαναφέρθηκε. Έχετε πλέον συνδεθεί.",
+      "title": "Νέος κωδικός"
+    }
   }
 }

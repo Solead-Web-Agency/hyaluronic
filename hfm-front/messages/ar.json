@@ -279,7 +279,15 @@
     "share": "مشاركة",
     "viewedTitle": "شوهدت مؤخرًا",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "استنادًا إلى {count} تقييم",
+    "reviewsBy": "تقييمات موثّقة من",
+    "reviewsCertificate": "عرض الشهادة",
+    "reviewsCount": "{count} تقييم",
+    "reviewsOrderedOn": "طلب بتاريخ",
+    "reviewsPublishedOn": "نُشر في",
+    "reviewsReply": "رد البائع",
+    "reviewsTranslated": "تقييم مترجم"
   },
   "quickView": {
     "refStock": "المرجع {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "كلمة المرور قصيرة جدًا (8 أحرف على الأقل).",
       "generic": "حدث خطأ.",
       "network": "خطأ في الشبكة."
-    }
+    },
+    "forgotPassword": "هل نسيت كلمة المرور؟"
   },
   "addressForm": {
     "address": "العنوان",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "المبلغ المستحق",
+    "payBankLabel": "البنك",
+    "payChequeAddressLabel": "عنوان الإرسال",
+    "payChequeOrderLabel": "الشيك لأمر",
+    "payChequeReference": "يرجى كتابة المرجع <b>{reference}</b> على ظهر الشيك.",
+    "payChequeTitle": "أرسل الشيك الخاص بك",
+    "payDetailsLabel": "التفاصيل المصرفية",
+    "payOwnerLabel": "صاحب الحساب",
+    "payReservation": "يتم حجز منتجاتك لمدة {days} أيام في انتظار دفعتك.",
+    "payWireReference": "يرجى ذكر المرجع <b>{reference}</b> في بيان التحويل الخاص بك.",
+    "payWireTitle": "قم بإجراء التحويل المصرفي"
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "جميع المقالات",
+    "allCategories": "جميع الفئات",
+    "articlesCount": "{count, plural, =0 {لا توجد مقالات} one {مقالة واحدة} two {مقالتان} few {# مقالات} many {# مقالة} other {# مقالة}}",
+    "backToBlog": "→ العودة إلى المدونة",
+    "by": "بقلم",
+    "categories": "الفئات",
+    "eyebrow": "الخبرة والنصائح",
+    "lead": "نصائح الخبراء وأخبار المنتجات وأفضل الممارسات في الحقن التجميلي.",
+    "navLink": "المدونة",
+    "next": "التالي",
+    "noArticles": "لا توجد مقالات بعد.",
+    "of": "من",
+    "pageLabel": "صفحة",
+    "previous": "السابق",
+    "publishedOn": "نُشر في",
+    "readArticle": "قراءة المقالة",
+    "relatedTitle": "اقرأ أيضًا",
+    "title": "المدونة",
+    "updatedOn": "تم التحديث في"
+  },
+  "error": {
+    "eyebrow": "خلل مؤقت",
+    "home": "العودة إلى الصفحة الرئيسية",
+    "lead": "تعذّر عرض هذه الصفحة. عادةً ما يكون ذلك خللاً مؤقتًا: يرجى المحاولة مرة أخرى بعد لحظات.",
+    "reference": "مرجع الحادث: {digest}",
+    "retry": "إعادة المحاولة",
+    "title": "حدث خطأ"
+  },
+  "notFound": {
+    "catalogue": "تصفّح الكتالوج",
+    "eyebrow": "خطأ 404",
+    "home": "العودة إلى الصفحة الرئيسية",
+    "lead": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها أو لم تعد متاحة.",
+    "title": "الصفحة غير موجودة"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "العودة إلى تسجيل الدخول",
+      "breadcrumb": "نسيت كلمة المرور",
+      "breadcrumbAccount": "حسابي",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "you@clinic.com",
+      "errors": {
+        "generic": "حدث خطأ.",
+        "invalid_email": "بريد إلكتروني غير صالح.",
+        "network": "خطأ في الشبكة."
+      },
+      "lead": "أدخل عنوان البريد الإلكتروني لحسابك: سنرسل إليك رابطًا لإعادة تعيين كلمة المرور.",
+      "sending": "جارٍ الإرسال…",
+      "sent": "إذا كان هناك حساب لهذا العنوان، فقد أُرسلت للتو رسالة تحتوي على رابط لإعادة التعيين. لا تنسَ التحقق من مجلد الرسائل غير المرغوب فيها.",
+      "submit": "إرسال الرابط",
+      "title": "نسيت كلمة المرور"
+    },
+    "reset": {
+      "breadcrumb": "إعادة تعيين كلمة المرور",
+      "breadcrumbAccount": "حسابي",
+      "confirm": "تأكيد كلمة المرور",
+      "errors": {
+        "generic": "حدث خطأ.",
+        "invalid_or_expired_token": "انتهت صلاحية هذا الرابط أو لم يعد صالحًا. يرجى طلب رابط جديد.",
+        "missing_fields": "النموذج غير مكتمل.",
+        "network": "خطأ في الشبكة.",
+        "password_mismatch": "كلمتا المرور غير متطابقتين.",
+        "password_too_short": "كلمة المرور قصيرة جدًا (8 أحرف على الأقل).",
+        "reset_failed": "فشلت إعادة التعيين. يرجى المحاولة مرة أخرى."
+      },
+      "goToAccount": "الانتقال إلى حسابي",
+      "invalidLink": "رابط إعادة التعيين هذا غير صالح أو غير مكتمل. يرجى طلب رابط جديد.",
+      "lead": "اختر كلمة مرور جديدة لحسابك.",
+      "password": "كلمة مرور جديدة",
+      "passwordPlaceholder": "8 أحرف على الأقل",
+      "requestNew": "طلب رابط جديد",
+      "saving": "جارٍ إعادة التعيين…",
+      "submit": "إعادة تعيين كلمة المرور",
+      "success": "تمت إعادة تعيين كلمة المرور. أنت الآن مسجّل الدخول.",
+      "title": "كلمة مرور جديدة"
+    }
   }
 }

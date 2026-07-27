@@ -279,7 +279,15 @@
     "share": "Del",
     "viewedTitle": "Nylig sett",
     "compare": "Compare",
-    "compareFull": "Compare: {max} products maximum."
+    "compareFull": "Compare: {max} products maximum.",
+    "reviewsBasedOn": "Basert på {count} anmeldelser",
+    "reviewsBy": "Anmeldelser sertifisert av",
+    "reviewsCertificate": "Se attesten",
+    "reviewsCount": "{count} anmeldelser",
+    "reviewsOrderedOn": "Bestilling fra",
+    "reviewsPublishedOn": "Publisert den",
+    "reviewsReply": "Selgerens svar",
+    "reviewsTranslated": "Oversatt anmeldelse"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -373,7 +381,8 @@
       "password_too_short": "Passordet er for kort (minst 8 tegn).",
       "generic": "Det oppstod en feil.",
       "network": "Nettverksfeil."
-    }
+    },
+    "forgotPassword": "Glemt passord?"
   },
   "addressForm": {
     "address": "Adresse",
@@ -496,7 +505,18 @@
     "vatValidBadge": "VAT validated",
     "vatInvalidBadge": "VAT not validated",
     "vatPendingBadge": "VAT pending",
-    "vatNotApplicable": "Exemption not applicable"
+    "vatNotApplicable": "Exemption not applicable",
+    "payAmountLabel": "Beløp å betale",
+    "payBankLabel": "Bank",
+    "payChequeAddressLabel": "Postadresse",
+    "payChequeOrderLabel": "Sjekk utstedt til",
+    "payChequeReference": "Oppgi referansen <b>{reference}</b> på baksiden av sjekken din.",
+    "payChequeTitle": "Send sjekken din",
+    "payDetailsLabel": "Bankopplysninger",
+    "payOwnerLabel": "Kontoinnehaver",
+    "payReservation": "Varene dine er reservert i {days} dager i påvente av betalingen din.",
+    "payWireReference": "Oppgi referansen <b>{reference}</b> i meldingsfeltet på overføringen din.",
+    "payWireTitle": "Gjennomfør bankoverføringen din"
   },
   "orders": {
     "loginRequired": "Innlogging kreves",
@@ -613,5 +633,84 @@
     "availability": "Availability",
     "inStock": "In stock",
     "outOfStock": "Out of stock"
+  },
+  "blog": {
+    "allArticles": "Alle artikler",
+    "allCategories": "Alle kategorier",
+    "articlesCount": "{count, plural, =0 {ingen artikler} one {# artikkel} other {# artikler}}",
+    "backToBlog": "← Tilbake til bloggen",
+    "by": "av",
+    "categories": "Kategorier",
+    "eyebrow": "Ekspertise og råd",
+    "lead": "Ekspertråd, produktnyheter og beste praksis innen estetisk injeksjon.",
+    "navLink": "Blogg",
+    "next": "Neste",
+    "noArticles": "Ingen artikler ennå.",
+    "of": "av",
+    "pageLabel": "Side",
+    "previous": "Forrige",
+    "publishedOn": "Publisert den",
+    "readArticle": "Les artikkelen",
+    "relatedTitle": "Les også",
+    "title": "Bloggen",
+    "updatedOn": "Oppdatert den"
+  },
+  "error": {
+    "eyebrow": "Midlertidig feil",
+    "home": "Tilbake til forsiden",
+    "lead": "Vi kunne ikke vise denne siden. Det er som regel en midlertidig feil: prøv igjen om et øyeblikk.",
+    "reference": "Hendelsesreferanse: {digest}",
+    "retry": "Prøv igjen",
+    "title": "Det oppstod en feil"
+  },
+  "notFound": {
+    "catalogue": "Bla gjennom katalogen",
+    "eyebrow": "Feil 404",
+    "home": "Tilbake til forsiden",
+    "lead": "Siden du leter etter, finnes ikke, er flyttet eller er ikke lenger tilgjengelig.",
+    "title": "Fant ikke siden"
+  },
+  "password": {
+    "forgot": {
+      "backToLogin": "Tilbake til innlogging",
+      "breadcrumb": "Glemt passord",
+      "breadcrumbAccount": "Min konto",
+      "email": "E-post",
+      "emailPlaceholder": "deg@klinikk.no",
+      "errors": {
+        "generic": "Det oppstod en feil.",
+        "invalid_email": "Ugyldig e-post.",
+        "network": "Nettverksfeil."
+      },
+      "lead": "Skriv inn e-postadressen til kontoen din: vi sender deg en lenke for å tilbakestille passordet ditt.",
+      "sending": "Sender…",
+      "sent": "Hvis det finnes en konto for denne adressen, er det nettopp sendt en e-post med en tilbakestillingslenke. Husk å sjekke søppelpostmappen.",
+      "submit": "Send lenken",
+      "title": "Glemt passord"
+    },
+    "reset": {
+      "breadcrumb": "Tilbakestill passord",
+      "breadcrumbAccount": "Min konto",
+      "confirm": "Bekreft passord",
+      "errors": {
+        "generic": "Det oppstod en feil.",
+        "invalid_or_expired_token": "Denne lenken har utløpt eller er ikke lenger gyldig. Be om en ny.",
+        "missing_fields": "Ufullstendig skjema.",
+        "network": "Nettverksfeil.",
+        "password_mismatch": "De to passordene stemmer ikke overens.",
+        "password_too_short": "Passordet er for kort (minst 8 tegn).",
+        "reset_failed": "Tilbakestillingen mislyktes. Prøv igjen."
+      },
+      "goToAccount": "Gå til min konto",
+      "invalidLink": "Denne tilbakestillingslenken er ugyldig eller ufullstendig. Be om en ny.",
+      "lead": "Velg et nytt passord for kontoen din.",
+      "password": "Nytt passord",
+      "passwordPlaceholder": "minst 8 tegn",
+      "requestNew": "Be om en ny lenke",
+      "saving": "Tilbakestiller…",
+      "submit": "Tilbakestill passordet mitt",
+      "success": "Passordet ditt er tilbakestilt. Du er nå logget inn.",
+      "title": "Nytt passord"
+    }
   }
 }
