@@ -141,12 +141,14 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             });
         }
 
-        // Liste : clé = id_category|id_manufacturer|q|filter|page|limit|id_lang|id_currency.
+        // Liste : clé = id_category|id_manufacturer|q|filter|order|page|limit|id_lang|id_currency.
+        // « order » DOIT figurer dans la clé : deux tris différents ne partagent pas le même cache.
         $key = HfmCache::key(HfmCache::TAG_PRODUCTS, 'list', [
             'id_category' => (int) $this->in('id_category'),
             'id_manufacturer' => (int) $this->in('id_manufacturer'),
             'q' => trim((string) $this->in('q')),
             'filter' => (string) $this->in('filter'),
+            'order' => (string) $this->in('order', 'position'),
             'page' => max(1, (int) $this->in('page', 1)),
             'limit' => min(1000, max(1, (int) $this->in('limit', 24))),
             'id_lang' => $idLang,
@@ -160,9 +162,10 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
 
     protected function listing($idLang)
     {
-        // Plafond relevé de 300 à 1000 : garde-fou anti-DoS conservé, mais assez large pour couvrir
-        // tout le catalogue actif (~578) en une page -> le catalogue front (filtres côté client)
-        // et la recherche voient l'intégralité, plus de « 52 % introuvable ».
+        // Plafond 1000 : garde-fou anti-DoS conservé. La VRAIE pagination se fait désormais côté
+        // front (infinite scroll, ~48/page) qui demande page 2, 3… à la demande ; le catalogue ne
+        // « charge plus tout ». On renvoie aussi le TOTAL du filtre courant (avant pagination) pour
+        // que le front sache quand s'arrêter (hasMore = chargés < total).
         $limit = min(1000, max(1, (int) $this->in('limit', 24)));
         $page = max(1, (int) $this->in('page', 1));
         $start = ($page - 1) * $limit;
@@ -171,22 +174,35 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         $q = trim((string) $this->in('q'));
         // Filtres dynamiques de l'onglet « Promos & Top » (pas des catégories).
         $filter = (string) $this->in('filter');
+        // Tri demandé : position (défaut) | name-asc | price-asc | price-desc.
+        $order = (string) $this->in('order', 'position');
 
+        $total = 0;
         if ($q !== '') {
-            // Recherche plein-texte sur le nom : on récupère les ids puis on pagine.
+            // Recherche plein-texte sur le nom : on récupère TOUS les ids (pour le total) puis on pagine.
+            // NB : l'ordre est celui de searchByName (pertinence/nom) ; le tri « order » ne s'y applique pas.
             $found = Product::searchByName($idLang, $q);
-            $ids = array_map(function ($r) { return (int) $r['id_product']; }, (array) $found);
-            $ids = array_slice($ids, $start, $limit);
+            $allIds = array_map(function ($r) { return (int) $r['id_product']; }, (array) $found);
+            $total = count($allIds);
+            $ids = array_slice($allIds, $start, $limit);
             $rows = array_map(function ($id) { return ['id_product' => $id]; }, $ids);
         } elseif ($filter !== '') {
             $rows = $this->filtered($filter, $idLang, $page, $limit);
+            $total = $this->filteredTotal($filter, $idLang);
         } elseif ($idManufacturer) {
-            $rows = Manufacturer::getProducts($idManufacturer, $idLang, $page, $limit, 'id_product', 'DESC');
+            list($orderBy, $orderWay) = $this->orderFor($order, 'manufacturer');
+            $rows = Manufacturer::getProducts($idManufacturer, $idLang, $page, $limit, $orderBy, $orderWay);
+            $total = (int) Manufacturer::getProducts($idManufacturer, $idLang, 1, 1, null, null, true);
         } elseif ($idCategory) {
+            list($orderBy, $orderWay) = $this->orderFor($order, 'category');
             $category = new Category($idCategory, $idLang);
-            $rows = $category->getProducts($idLang, $page, $limit, 'id_product', 'DESC');
+            $rows = $category->getProducts($idLang, $page, $limit, $orderBy, $orderWay);
+            // 6e argument getTotal=true -> compte les produits de la catégorie (mêmes filtres actif/visibilité).
+            $total = (int) $category->getProducts($idLang, 1, 1, null, null, true);
         } else {
-            $rows = Product::getProducts($idLang, $start, $limit, 'id_product', 'DESC', false, true);
+            list($orderBy, $orderWay) = $this->orderFor($order, 'all');
+            $rows = Product::getProducts($idLang, $start, $limit, $orderBy, $orderWay, false, true);
+            $total = $this->allProductsTotal($idLang);
         }
         // Batch : une seule passe groupée pour toutes les cartes de la liste.
         $ids = array_map(function ($r) { return (int) $r['id_product']; }, (array) $rows);
@@ -197,7 +213,91 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                 $items[] = $cards[$id];
             }
         }
-        return ['page' => $page, 'limit' => $limit, 'count' => count($items), 'products' => $items];
+        return ['page' => $page, 'limit' => $limit, 'total' => (int) $total, 'count' => count($items), 'products' => $items];
+    }
+
+    /**
+     * Mappe le tri demandé par le front -> couple (orderBy, orderWay) de PrestaShop.
+     *   position (défaut) | name-asc | price-asc | price-desc
+     *
+     * NOTE HONNÊTE (tri prix) : l'ordre s'appuie sur la colonne `price` de base du produit
+     * (product_shop.price). Le prix FINAL réellement affiché sur la carte (specific_price,
+     * promotions, remises groupe/quantité via getPriceStatic) n'est PAS triable en SQL simple :
+     * l'ordre peut donc différer à la marge du prix affiché. Limitation PrestaShop assumée.
+     *
+     * @param string $order  clé de tri front
+     * @param string $source 'category' | 'manufacturer' | 'all' (pour le défaut « position »)
+     *
+     * @return array{0:string,1:string} [orderBy, orderWay]
+     */
+    protected function orderFor($order, $source)
+    {
+        switch ($order) {
+            case 'name-asc':
+                return ['name', 'ASC'];
+            case 'price-asc':
+                return ['price', 'ASC'];
+            case 'price-desc':
+                return ['price', 'DESC'];
+            case 'position':
+            default:
+                // « position » = ordre catalogue PS (drag-drop BO). Hors catégorie (liste « tout le
+                // catalogue »), la position n'existe pas -> on garde l'ordre historique id_product DESC.
+                // Pour un fabricant, PS remappe lui-même « position » -> nom.
+                return $source === 'all' ? ['id_product', 'DESC'] : ['position', 'ASC'];
+        }
+    }
+
+    /** Total du catalogue complet (mêmes conditions que Product::getProducts en front : actif + visible). */
+    protected function allProductsTotal($idLang)
+    {
+        $idShop = (int) $this->context->shop->id;
+        return (int) Db::getInstance()->getValue(
+            'SELECT COUNT(DISTINCT p.id_product)
+             FROM ' . _DB_PREFIX_ . 'product p
+             INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                ON (ps.id_product = p.id_product AND ps.id_shop = ' . $idShop . '
+                    AND ps.active = 1 AND ps.visibility IN ("both","catalog"))
+             INNER JOIN ' . _DB_PREFIX_ . 'product_lang pl
+                ON (pl.id_product = p.id_product AND pl.id_lang = ' . (int) $idLang . ' AND pl.id_shop = ' . $idShop . ')'
+        );
+    }
+
+    /**
+     * Total d'un filtre « Promos & Top » (avant pagination), pour la même population que filtered() :
+     *   new/promo -> compteur natif PS ; best -> pas de compteur natif (compte les produits vendus,
+     *   actifs & visibles, comme getBestSalesLight) ; nolido -> COUNT du même SQL.
+     */
+    protected function filteredTotal($filter, $idLang)
+    {
+        $idShop = (int) $this->context->shop->id;
+        switch ($filter) {
+            case 'new':
+                return (int) Product::getNewProducts($idLang, 1, 1, true);
+            case 'promo':
+                return (int) Product::getPricesDrop($idLang, 1, 1, true);
+            case 'best':
+                return (int) Db::getInstance()->getValue(
+                    'SELECT COUNT(DISTINCT ps.id_product)
+                     FROM ' . _DB_PREFIX_ . 'product_sale ps
+                     INNER JOIN ' . _DB_PREFIX_ . 'product p ON p.id_product = ps.id_product
+                     INNER JOIN ' . _DB_PREFIX_ . 'product_shop pshop
+                        ON (pshop.id_product = p.id_product AND pshop.id_shop = ' . $idShop . ' AND pshop.active = 1)
+                     WHERE p.visibility != "none"'
+                );
+            case 'nolido':
+                return (int) Db::getInstance()->getValue(
+                    'SELECT COUNT(DISTINCT p.id_product)
+                     FROM ' . _DB_PREFIX_ . 'product p
+                     INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                        ON (ps.id_product = p.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1 AND ps.visibility != "none")
+                     INNER JOIN ' . _DB_PREFIX_ . 'product_lang pl
+                        ON (pl.id_product = p.id_product AND pl.id_lang = ' . (int) $idLang . ' AND pl.id_shop = ' . $idShop . ')
+                     WHERE pl.name NOT LIKE "%lidoca%"'
+                );
+            default:
+                return 0;
+        }
     }
 
     /**

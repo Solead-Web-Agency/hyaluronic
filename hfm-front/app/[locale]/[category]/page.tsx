@@ -8,7 +8,8 @@ import { alternatesFromSlugs, breadcrumbJsonLd, itemListJsonLd, jsonLdString, so
 import { toCard, productHref } from '@/lib/cardModel';
 import Chrome from '../../components/Chrome';
 import Footer from '../../components/Footer';
-import ProductCard from '../../components/ProductCard';
+import CategoryProducts from './CategoryProducts';
+import { PRODUCT_PAGE_SIZE } from '@/lib/useProductPagination';
 
 // Page CATÉGORIE (parité prod : /{locale}/{category}, self-canonical). Les anciennes URLs
 // catégorie indexées (marques-catégories, familles) restent des pages dédiées -> pas de perte SEO.
@@ -82,14 +83,18 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
     permanentRedirect(`/${locale}/catalogue`);
   }
 
+  const idLang = idLangFor(locale);
+  // Page 1 rendue côté serveur (SEO, 48 produits) + total. Les pages suivantes sont fetchées à la
+  // demande côté client (infinite scroll) -> on ne « charge plus tout » (une catégorie ~257 était
+  // servie en un bloc de 300). Le rendu serveur initial et les redirections restent inchangés.
   const d = await bridgeGetCached(
     'products',
-    // limit 60 -> 300 : certaines catégories dépassent 60 produits (jusqu'à ~257) et étaient
-    // tronquées sans lien « page suivante » -> produits injoignables. 300 couvre la plus grosse.
-    { id_category: cat.id_category, limit: 300, id_lang: idLangFor(locale) },
+    { id_category: cat.id_category, limit: PRODUCT_PAGE_SIZE, page: 1, order: 'position', id_lang: idLang },
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
-  ).catch(() => ({ products: [] as PC[] }));
-  const cards = (((d as { products?: PC[] }).products) ?? []).map(toCard);
+  ).catch(() => ({ products: [] as PC[], total: 0 }));
+  const page1 = ((d as { products?: PC[] }).products) ?? [];
+  const total = Number((d as { total?: number }).total ?? page1.length);
+  const cards = page1.map(toCard);
   const tc = await getTranslations('common');
 
   return (
@@ -117,11 +122,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
       <main className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '44px 28px 80px' }}>
         <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(28px,4vw,40px)', color: '#2B2B2B', margin: 0 }}>{cat.name}</h1>
         <div style={{ fontSize: '13px', color: '#8A8170', margin: '8px 0 30px' }}>{cat.nb_products} produits</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(228px,1fr))', gap: '18px' }}>
-          {cards.map((c) => (
-            <ProductCard key={c.id} product={c} />
-          ))}
-        </div>
+        <CategoryProducts initial={page1} total={total} idCategory={cat.id_category} idLang={idLang} />
       </main>
       <Footer />
     </div>

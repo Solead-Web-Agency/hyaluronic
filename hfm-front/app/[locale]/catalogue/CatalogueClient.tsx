@@ -1,23 +1,25 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
-import { useRouter } from '@/i18n/navigation';
-import { toCard, type Card } from '@/lib/cardModel';
+import { Link, useRouter } from '@/i18n/navigation';
 import type { ProductCard as ProductCardData } from '@/lib/ps';
-import { useAutoLoad } from '@/lib/useAutoLoad';
+import { useProductPagination } from '@/lib/useProductPagination';
 import ProductCard from '../../components/ProductCard';
 
 export type Cat = { id_category: number; id_parent: number; name: string; link_rewrite: string; nb_products: number };
 export type Manu = { id_manufacturer: number; name: string; nb_products: number };
 
-// Tout vient du SERVEUR (SEO) : produits du filtre courant, taxonomie ET filtres actifs.
-// Pas de useSearchParams ici — il ferait basculer le rendu côté client ; un changement
-// de filtre navigue (router.push) et la page se re-rend côté serveur avec les props à jour.
+// Tout vient du SERVEUR (SEO) : la PAGE 1 (48 produits) du filtre courant, son TOTAL, la taxonomie
+// ET les filtres actifs. Pas de useSearchParams ici — il ferait basculer le rendu côté client ;
+// un changement de filtre navigue (router.push) et la page se re-rend côté serveur avec les props à
+// jour (la `key` du composant force alors une réinitialisation propre de la pagination).
 export type CatalogueInitial = {
   search: { category: string | null; brand: string | null; q: string | null; filter: string | null };
   products: ProductCardData[];
+  total: number;
+  order: string;
+  idLang: number;
   cats: Cat[];
   manus: Manu[];
 };
@@ -28,6 +30,11 @@ const SORT_DEFS: [string, 'sortPop' | 'sortPriceAsc' | 'sortPriceDesc'][] = [
   ['price-desc', 'sortPriceDesc'],
 ];
 
+// Tri UI -> paramètre « order » du bridge. « pop » = ordre catalogue par défaut (position).
+function orderForSort(sort: string): string {
+  return sort === 'price-asc' ? 'price-asc' : sort === 'price-desc' ? 'price-desc' : 'position';
+}
+
 export default function CatalogueClient({ initial }: { initial: CatalogueInitial }) {
   const t = useTranslations('catalogue');
   const tc = useTranslations('common');
@@ -36,15 +43,24 @@ export default function CatalogueClient({ initial }: { initial: CatalogueInitial
 
   const cats = initial.cats;
   const manus = initial.manus;
-  const products = useMemo(() => initial.products.map(toCard), [initial.products]);
-  const loading = false;
   const [sort, setSort] = useState('pop');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(q ?? '');
 
+  // Vraie pagination serveur : page 1 = rendu serveur, pages suivantes fetchées au scroll.
+  const { items, total, loading, hasMore, sentinelRef, reload } = useProductPagination({
+    initial: initial.products,
+    total: initial.total,
+    idLang: initial.idLang,
+    filters: { id_category: category, id_manufacturer: brand, q, filter },
+    initialOrder: initial.order,
+  });
+  const count = total;
+
   useEffect(() => { setSearchTerm(q ?? ''); }, [q]);
 
-  // Navigation vers un filtre (remplace l'URL).
+  // Navigation vers un filtre (remplace l'URL). La `key` du composant côté serveur réinitialise
+  // ensuite la pagination (page 1 + tri par défaut du nouveau filtre).
   const go = (next: { category?: number; brand?: number; q?: string } | null) => {
     setFiltersOpen(false);
     if (!next) { router.push('/catalogue'); return; }
@@ -55,15 +71,14 @@ export default function CatalogueClient({ initial }: { initial: CatalogueInitial
     router.push(`/catalogue?${p.toString()}`);
   };
 
-  const list = useMemo(() => {
-    let l = products;
-    if (sort === 'price-asc') l = [...l].sort((a, b) => a.ht - b.ht);
-    else if (sort === 'price-desc') l = [...l].sort((a, b) => b.ht - a.ht);
-    return l;
-  }, [products, sort]);
+  // Tri : on repart en PAGE 1 côté serveur avec le nouvel ordre (le bridge trie), on REMPLACE la
+  // liste. Le tri n'est plus fait côté client sur un sous-ensemble déjà chargé.
+  const changeSort = (next: string) => {
+    if (next === sort) return;
+    setSort(next);
+    reload(orderForSort(next));
+  };
 
-  const count = list.length;
-  const { visible, sentinelRef } = useAutoLoad(count);
   const activeFilterCount = (category ? 1 : 0) + (brand ? 1 : 0) + (q ? 1 : 0) + (filter ? 1 : 0);
   const noFilter = !category && !brand && !q && !filter;
 
@@ -89,7 +104,7 @@ export default function CatalogueClient({ initial }: { initial: CatalogueInitial
     <main data-screen-label="Catalogue" className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '34px 28px 70px' }}>
       <div style={{ fontSize: '12.5px', color: '#9A9A9A', marginBottom: '18px' }}><Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  {t('breadcrumb')}</div>
       <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: '38px', color: '#2B2B2B', margin: 0 }}>{heading}</h1>
-      <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '8px' }}>{loading ? tc('loading') : t('productsCount', { count })}</div>
+      <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '8px' }}>{t('productsCount', { count })}</div>
 
       <button onClick={() => setFiltersOpen((o) => !o)} className="hfm-filterbar" style={{ display: 'none', alignItems: 'center', gap: '10px', width: '100%', marginTop: '18px', height: '50px', padding: '0 18px', background: '#fff', border: '1px solid #E7E3DA', borderRadius: '14px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#34352F', cursor: 'pointer', boxShadow: '0 2px 10px -6px rgba(40,50,25,.25)' }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5E8E1F" strokeWidth="1.9" strokeLinecap="round"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
@@ -150,23 +165,28 @@ export default function CatalogueClient({ initial }: { initial: CatalogueInitial
 
         <div style={{ flex: '1 1 480px', minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', gap: '14px', flexWrap: 'wrap' }}>
-            <div style={{ fontSize: '13px', color: '#6E7585' }}>{loading ? '…' : t('resultsCount', { count })}</div>
+            <div style={{ fontSize: '13px', color: '#6E7585' }}>{t('resultsCount', { count })}</div>
             <div style={{ display: 'flex', gap: '6px', background: '#fff', border: '1px solid #E7E3DA', borderRadius: '7px', padding: '4px' }}>
               {SORT_DEFS.map(([k, labelKey]) => sort === k ? (
                 <button key={k} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '12.5px', fontWeight: 600, color: '#fff', background: '#434343', border: 'none', borderRadius: '4px', padding: '7px 14px', cursor: 'pointer' }}>{t(labelKey)}</button>
               ) : (
-                <button key={k} onClick={() => setSort(k)} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '12.5px', fontWeight: 600, color: '#55606F', background: 'transparent', border: 'none', borderRadius: '4px', padding: '7px 14px', cursor: 'pointer' }}>{t(labelKey)}</button>
+                <button key={k} onClick={() => changeSort(k)} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '12.5px', fontWeight: 600, color: '#55606F', background: 'transparent', border: 'none', borderRadius: '4px', padding: '7px 14px', cursor: 'pointer' }}>{t(labelKey)}</button>
               ))}
             </div>
           </div>
-          {!loading && count === 0 ? (
+          {total === 0 && items.length === 0 ? (
             <div style={{ padding: '60px 0', textAlign: 'center', color: '#8A8170', fontSize: '15px' }}>{t('noResults')}</div>
           ) : (
             <>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(210px,1fr))', gap: '18px' }}>
-                {list.slice(0, visible).map((item) => <ProductCard key={item.id} product={item} />)}
+                {items.map((item) => <ProductCard key={item.id} product={item} />)}
               </div>
               <div ref={sentinelRef} aria-hidden="true" style={{ height: '1px' }} />
+              {loading ? (
+                <div style={{ padding: '26px 0', textAlign: 'center', color: '#8A8170', fontSize: '14px' }}>{tc('loading')}</div>
+              ) : !hasMore && items.length > 0 ? (
+                <div style={{ padding: '26px 0', textAlign: 'center', color: '#B4AE9E', fontSize: '13px' }}>{t('productsCount', { count })}</div>
+              ) : null}
             </>
           )}
         </div>
