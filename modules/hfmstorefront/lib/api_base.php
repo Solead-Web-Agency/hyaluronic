@@ -177,16 +177,37 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
     /**
      * Contrôle d'appartenance du panier (invariant commun cart + checkout) :
      *  (a) panier rattaché à un client -> exige le MÊME id_customer que la session ; OU
-     *  (b) panier invité (id_customer = 0) -> exige un jeton de panier signé valide.
+     *  (b) panier invité (id_customer = 0) OU rattaché à une fiche INVITÉE (is_guest = 1)
+     *      -> exige un jeton de panier signé valide.
+     * Le cas (b) « fiche invitée » couvre le changement d'e-mail au checkout (nouvelle fiche invitée)
+     * et la connexion à un compte après un début de commande en invité : sans lui, le panier
+     * devenait `forbidden` pour la nouvelle identité et le front le vidait. Une fiche invitée n'a
+     * pas de mot de passe et n'est pas connectable : le jeton (détenu par le seul navigateur qui a
+     * créé le panier) reste la preuve d'appartenance pertinente. Un panier rattaché à un COMPTE
+     * (is_guest = 0) exige toujours la session de ce compte.
      */
     protected function cartAccessAllowed(Cart $cart)
     {
         $cartCustomer = (int) $cart->id_customer;
         if ($cartCustomer > 0) {
             $sessionCustomer = (int) $this->in('id_customer');
-            return $sessionCustomer > 0 && $sessionCustomer === $cartCustomer;
+            if ($sessionCustomer > 0 && $sessionCustomer === $cartCustomer) {
+                return true;
+            }
+            if (!$this->isGuestCustomer($cartCustomer)) {
+                return false;
+            }
         }
         return $this->cartTokenValid($this->in('cart_token'), (int) $cart->id);
+    }
+
+    /** Fiche client « invitée » (commande sans compte) ? Db::getValue ajoute déjà LIMIT 1. */
+    protected function isGuestCustomer($idCustomer)
+    {
+        return (int) Db::getInstance()->getValue(
+            'SELECT is_guest FROM `' . _DB_PREFIX_ . 'customer` WHERE id_customer = ' . (int) $idCustomer,
+            false
+        ) === 1;
     }
 
     // ---------- Contenu CMS multilingue (pages éditables en BO, 22 langues) ----------
@@ -552,6 +573,20 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
                 $email = $this->customerEmail($idCustomer);
             }
             $er = $this->getRppsByEmail($email);
+            if (!$er && $email !== '') {
+                // Repli : RPPS/attestation posés sur une AUTRE fiche client de même e-mail (typiquement
+                // le compte enregistré, quand on commande en invité avec l'e-mail de ce compte, ou une
+                // donnée antérieure à la mémorisation par e-mail). Db::getRow ajoute déjà LIMIT 1.
+                $er = Db::getInstance()->getRow(
+                    'SELECT r.rpps, r.attestation, r.pro_doc
+                     FROM `' . _DB_PREFIX_ . 'hfm_customer_rpps` r
+                     INNER JOIN `' . _DB_PREFIX_ . 'customer` c ON c.id_customer = r.id_customer
+                     WHERE c.email = \'' . pSQL($email) . '\' AND r.id_customer <> ' . (int) $idCustomer . '
+                       AND (r.rpps <> \'\' OR r.attestation = 1)
+                     ORDER BY r.date_upd DESC, r.id_customer DESC',
+                    false
+                ) ?: null;
+            }
             if ($er) {
                 $rpps = (string) $er['rpps'];
                 $attestation = (int) $er['attestation'];

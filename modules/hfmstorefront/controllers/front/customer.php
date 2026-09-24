@@ -110,16 +110,21 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         if (!Validate::isName($firstname) || !Validate::isName($lastname)) {
             return ['error' => 'invalid_name'];
         }
-        // Si un VRAI compte existe déjà avec cet e-mail, on invite à se connecter.
-        if (Customer::customerExists($email)) {
-            $existing = (new Customer())->getByEmail($email);
-            if ($existing && !$existing->is_guest) {
-                return ['error' => 'email_already_exists'];
-            }
-        }
+        // ANTI-FRICTION : un VRAI compte peut exister avec cet e-mail, on ne bloque PAS. Le client
+        // commande en invité sur une fiche is_guest=1 DISTINCTE (le compte enregistré n'est ni
+        // touché ni connecté) ; ses RPPS/attestation déjà validés sont retrouvés par e-mail
+        // (resolveProData). Le lien « J'ai déjà un compte » reste proposé dans le formulaire.
         // Réutilise un INVITÉ existant pour ce même e-mail (cas édition) au lieu de créer un doublon.
-        $existingGuest = (new Customer())->getByEmail($email, null, false);
-        if (Validate::isLoadedObject($existingGuest) && $existingGuest->is_guest) {
+        // NB : getByEmail() renverrait la 1re fiche trouvée (potentiellement le compte enregistré) :
+        // on cible explicitement la fiche invitée. (Db::getValue ajoute déjà LIMIT 1.)
+        $idGuest = (int) Db::getInstance()->getValue(
+            'SELECT id_customer FROM `' . _DB_PREFIX_ . 'customer`
+             WHERE email = \'' . pSQL($email) . '\' AND is_guest = 1 AND deleted = 0
+             ORDER BY id_customer DESC',
+            false
+        );
+        $existingGuest = $idGuest ? new Customer($idGuest) : null;
+        if ($existingGuest && Validate::isLoadedObject($existingGuest) && (int) $existingGuest->is_guest === 1) {
             $existingGuest->firstname = $firstname;
             $existingGuest->lastname = $lastname;
             $existingGuest->id_lang = (int) ($this->in('id_lang') ?: $existingGuest->id_lang);

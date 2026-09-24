@@ -121,10 +121,13 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
             return;
         }
         $cart->id_customer = $idCustomer;
-        if (!$cart->id_address_delivery) {
-            $cart->id_address_delivery = (int) Address::getFirstCustomerAddressId($idCustomer);
-            $cart->id_address_invoice = $cart->id_address_delivery;
-        }
+        // Panier repris par une AUTRE identité (e-mail modifié au checkout -> nouvelle fiche invitée,
+        // ou connexion après un début en invité) : les adresses de l'ancienne fiche ne lui
+        // appartiennent plus -> on repart sur la 1re adresse du nouveau client (0 si aucune), lignes
+        // du panier comprises (cart_product.id_address_delivery), comme pour un panier neuf.
+        $cart->id_address_delivery = (int) Address::getFirstCustomerAddressId($idCustomer);
+        $cart->id_address_invoice = $cart->id_address_delivery;
+        Db::getInstance()->update('cart_product', ['id_address_delivery' => (int) $cart->id_address_delivery], 'id_cart = ' . (int) $cart->id);
         $cart->update();
     }
 
