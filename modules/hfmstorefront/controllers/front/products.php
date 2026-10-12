@@ -190,10 +190,11 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
 
         $total = 0;
         if ($q !== '') {
-            // Recherche plein-texte sur le nom : on récupère TOUS les ids (pour le total) puis on pagine.
-            // NB : l'ordre est celui de searchByName (pertinence/nom) ; le tri « order » ne s'y applique pas.
-            $found = Product::searchByName($idLang, $q);
-            $allIds = array_map(function ($r) { return (int) $r['id_product']; }, (array) $found);
+            // Recherche : ids des produits ACTIFS et visibles en recherche, filtrés AVANT pagination
+            // (Product::searchByName renvoyait aussi les inactifs : la page 1 perdait des résultats,
+            // ex. « hyamira » -> 11 trouvés dont 5 inactifs -> Hyamira Forte absent). Le tri « order »
+            // ne s'applique pas : ordre de pertinence (nom commençant par la requête, puis alphabétique).
+            $allIds = $this->searchIds($q, $idLang);
             $total = count($allIds);
             $ids = array_slice($allIds, $start, $limit);
             $rows = array_map(function ($id) { return ['id_product' => $id]; }, $ids);
@@ -225,6 +226,40 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             }
         }
         return ['page' => $page, 'limit' => $limit, 'total' => (int) $total, 'count' => count($items), 'products' => $items];
+    }
+
+    /**
+     * Ids des produits actifs, visibles en recherche (visibility both|search), dont CHAQUE mot de la
+     * requête apparaît dans le nom (langue courante), la marque, la référence ou l'EAN. Ordre :
+     * nom commençant par la requête d'abord, puis alphabétique. Plafond 1000 (garde-fou).
+     */
+    protected function searchIds($q, $idLang)
+    {
+        $words = array_values(array_filter(preg_split('/\s+/u', Tools::strtolower(trim((string) $q))), function ($w) {
+            return Tools::strlen($w) >= 1;
+        }));
+        if (!$words) {
+            return [];
+        }
+        $words = array_slice($words, 0, 6);
+        $conds = [];
+        foreach ($words as $w) {
+            $like = '\'%' . pSQL(addcslashes($w, '%_')) . '%\'';
+            $conds[] = '(pl.name LIKE ' . $like . ' OR m.name LIKE ' . $like . ' OR p.reference LIKE ' . $like . ' OR p.ean13 LIKE ' . $like . ')';
+        }
+        $prefix = '\'' . pSQL(addcslashes(Tools::strtolower(trim((string) $q)), '%_')) . '%\'';
+        $idShop = (int) $this->context->shop->id;
+        $rows = Db::getInstance()->executeS(
+            'SELECT DISTINCT p.id_product, pl.name, (pl.name LIKE ' . $prefix . ') AS starts
+             FROM `' . _DB_PREFIX_ . 'product` p
+             INNER JOIN `' . _DB_PREFIX_ . 'product_shop` ps ON ps.id_product = p.id_product AND ps.id_shop = ' . $idShop . '
+             INNER JOIN `' . _DB_PREFIX_ . 'product_lang` pl ON pl.id_product = p.id_product AND pl.id_lang = ' . (int) $idLang . ' AND pl.id_shop = ' . $idShop . '
+             LEFT JOIN `' . _DB_PREFIX_ . 'manufacturer` m ON m.id_manufacturer = p.id_manufacturer
+             WHERE ps.active = 1 AND ps.visibility IN (\'both\', \'search\') AND ' . implode(' AND ', $conds) . '
+             ORDER BY starts DESC, pl.name ASC
+             LIMIT 1000'
+        );
+        return array_map(function ($r) { return (int) $r['id_product']; }, (array) $rows);
     }
 
     /**

@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { idLangFor } from '@/lib/i18n-config';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../store';
 import { toCard, fmt, type Card } from '@/lib/cardModel';
@@ -19,26 +20,53 @@ const SEARCH_CATS = [
 
 export default function SearchOverlay() {
   const t = useTranslations('search');
+  const tcat = useTranslations('catalogue');
   const { searchOpen, closeSearch } = useStore();
   const router = useRouter();
+  const locale = useLocale();
+  const idLang = idLangFor(locale);
   const [q, setQ] = useState('');
-  const [all, setAll] = useState<Card[]>([]);
+  const [pop, setPop] = useState<Card[]>([]);
+  const [results, setResults] = useState<Card[]>([]);
+  const [total, setTotal] = useState(0);
 
+  // Suggestions « populaires » : 4 cartes, chargées une fois à l'ouverture.
   useEffect(() => {
-    if (!searchOpen || all.length) return;
-    fetch('/api/products?limit=300')
+    if (!searchOpen || pop.length) return;
+    fetch(`/api/products?limit=4&id_lang=${idLang}`)
       .then((r) => r.json())
-      .then((d) => setAll((d.products ?? []).map((p: ProductCard) => toCard(p))))
+      .then((d) => setPop((d.products ?? []).map((p: ProductCard) => toCard(p))))
       .catch(() => {});
-  }, [searchOpen, all.length]);
+  }, [searchOpen, pop.length, idLang]);
+
+  // Recherche CÔTÉ SERVEUR sur tout le catalogue actif (nom, marque, référence, EAN ; chaque mot,
+  // accents ignorés), avec anti-rebond. Avant : filtre navigateur sur les 300 premiers produits
+  // seulement -> ~280 produits introuvables (ex. Hyamira Forte).
+  const query = q.trim();
+  useEffect(() => {
+    if (!searchOpen) return;
+    if (!query) {
+      setResults([]);
+      setTotal(0);
+      return;
+    }
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => {
+      fetch(`/api/products?q=${encodeURIComponent(query)}&limit=8&id_lang=${idLang}`, { signal: ctrl.signal })
+        .then((r) => r.json())
+        .then((d) => {
+          setResults((d.products ?? []).map((p: ProductCard) => toCard(p)));
+          setTotal(Number(d.total ?? (d.products ?? []).length));
+        })
+        .catch(() => {});
+    }, 220);
+    return () => {
+      clearTimeout(timer);
+      ctrl.abort();
+    };
+  }, [query, searchOpen, idLang]);
 
   if (!searchOpen) return null;
-
-  const query = q.trim().toLowerCase();
-  const results = query
-    ? all.filter((p) => (p.name + ' ' + (p.brand ?? '')).toLowerCase().includes(query)).slice(0, 8)
-    : [];
-  const pop = all.slice(0, 4);
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 60, animation: 'fdOverlay .2s ease' }}>
@@ -56,10 +84,15 @@ export default function SearchOverlay() {
           </div>
           {query ? (
             <>
-              <div style={{ fontSize: '13px', color: '#6E7585', margin: '24px 4px 16px' }}>{t.rich('resultsCount', { count: results.length, query: q, b: (c) => <b style={{ color: '#34352F' }}>{c}</b> })}</div>
+              <div style={{ fontSize: '13px', color: '#6E7585', margin: '24px 4px 16px' }}>{t.rich('resultsCount', { count: total, query: q, b: (c) => <b style={{ color: '#34352F' }}>{c}</b> })}</div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '18px' }}>
                 {results.map((p) => <div key={p.id} onClick={closeSearch}><ProductCardComp product={p} /></div>)}
               </div>
+              {total > results.length && (
+                <div style={{ textAlign: 'center', marginTop: '22px' }}>
+                  <button onClick={() => { closeSearch(); router.push(`/${locale}/catalogue?q=${encodeURIComponent(query)}`); }} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, color: '#5E8E1F', background: '#fff', border: '1px solid #CFE3B4', borderRadius: '999px', padding: '11px 22px', cursor: 'pointer' }}>{tcat('seeProducts', { count: total })} →</button>
+                </div>
+              )}
             </>
           ) : (
             <div className="hfm-searchgrid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: '30px', marginTop: '28px' }}>
