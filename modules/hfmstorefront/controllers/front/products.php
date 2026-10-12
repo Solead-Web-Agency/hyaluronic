@@ -40,6 +40,17 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             });
         }
 
+        // Avis BOUTIQUE (home) : vraies statistiques Société des Avis Garantis + derniers avis réels.
+        // Remplace les témoignages et le « 4,8/5 — 2 412 avis » codés en dur côté front, qui
+        // n'existaient pas chez SAG (pratique commerciale trompeuse).
+        if ((string) $this->in('action') === 'shop-reviews') {
+            $limit = max(1, min(6, (int) $this->in('limit', 3)));
+            $key = HfmCache::key(HfmCache::TAG_REVIEWS, 'shop-reviews', ['id_lang' => $idLang, 'limit' => $limit]);
+            return HfmCache::remember($key, HfmCache::TTL_REVIEWS, function () use ($idLang, $limit) {
+                return $this->shopReviews($idLang, $limit);
+            });
+        }
+
         // Comparateur : cartes + caractéristiques pour une liste d'ids (max 4, comme l'ancien site).
         // NB : aujourd'hui la matière est maigre (4 produits actifs sur 578 ont une caractéristique
         // non vide) -> le tableau s'appuie surtout sur prix/marque/dispo. Il se remplira de lui-même
@@ -1281,6 +1292,60 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
     }
 
     /** Avis SAG lus dans le snapshot en base (repli si l'API live échoue). */
+    /**
+     * Statistiques boutique SAG (`steavisgarantis_shopStats_{id_lang}` = {"globalRate":9.4,"reviewsCount":452},
+     * note /10) + derniers avis réels avec texte, dans la langue demandée. SAG ne couvre que
+     * quelques langues : repli sur l'anglais (id_lang 2) pour les autres. Renvoie `null` dans
+     * `stats` si aucune donnée : le front masque alors la section au lieu d'inventer.
+     */
+    protected function shopReviews($idLang, $limit)
+    {
+        $db = Db::getInstance();
+        $pick = function ($lang) {
+            $raw = Configuration::get('steavisgarantis_shopStats_' . (int) $lang);
+            $s = $raw ? json_decode((string) $raw, true) : null;
+            if (!is_array($s) || empty($s['reviewsCount']) || !isset($s['globalRate'])) {
+                return null;
+            }
+            return ['rate10' => round((float) $s['globalRate'], 1), 'count' => (int) $s['reviewsCount']];
+        };
+        $lang = (int) $idLang;
+        $stats = $pick($lang);
+        if (!$stats) {
+            $lang = (int) Language::getIdByIso('en') ?: 2;
+            $stats = $pick($lang);
+        }
+        if (!$stats) {
+            return ['stats' => null, 'items' => []];
+        }
+        $stats['rate5'] = round($stats['rate10'] / 2, 1);
+        $cert = (string) Configuration::get('steavisgarantis_certificateUrl_' . $lang);
+        $stats['certificateUrl'] = $cert !== '' ? $cert : null;
+
+        $rows = $db->executeS(
+            'SELECT r.ag_reviewer_name, r.rate, r.review, r.date_time, r.product_id
+             FROM `' . _DB_PREFIX_ . 'steavisgarantis_reviews` r
+             WHERE r.id_lang = \'' . pSQL((string) $lang) . '\' AND CAST(r.rate AS DECIMAL(3,1)) >= 4
+               AND CHAR_LENGTH(r.review) BETWEEN 60 AND 400'
+        );
+        $items = [];
+        foreach ((array) $rows as $r) {
+            $items[] = [
+                'name' => (string) $r['ag_reviewer_name'],
+                'rate' => (int) round((float) $r['rate']),
+                'review' => trim((string) $r['review']),
+                'date' => $this->sagDate($r['date_time']),
+                'id_product' => (int) $r['product_id'],
+            ];
+        }
+        // Meilleures notes d'abord, puis les plus récents (avis réels uniquement, note globale affichée à côté).
+        usort($items, function ($a, $b) {
+            return $b['rate'] <=> $a['rate'] ?: strcmp((string) $b['date'], (string) $a['date']);
+        });
+
+        return ['stats' => $stats, 'items' => array_slice($items, 0, (int) $limit)];
+    }
+
     protected function reviewsFromDb($idProduct, $idLang)
     {
         $pid = (string) (int) $idProduct;

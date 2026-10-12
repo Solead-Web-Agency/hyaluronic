@@ -3,7 +3,8 @@
 //  bouton signé -> Amazon -> review (UpdateCheckoutSession) -> Amazon -> result (GetCheckoutSession) -> commande.
 import crypto from 'crypto';
 
-const ENV = process.env.AMAZONPAY_ENV === 'sandbox' ? 'sandbox' : 'live';
+// LIVE uniquement si demandé EXPLICITEMENT (AMAZONPAY_ENV=live), sinon sandbox.
+const ENV = process.env.AMAZONPAY_ENV === 'live' ? 'live' : 'sandbox';
 const REGION_TLD = 'eu'; // AMAZONPAY_REGION=EU
 const HOST = 'pay-api.amazon.eu';
 const MERCHANT_ID = process.env.AMAZONPAY_MERCHANT_ID || '';

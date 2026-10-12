@@ -1,7 +1,9 @@
 // Client serveur Viva Wallet — API "classique" en Basic auth (Merchant ID + API Key).
 // AUCUN identifiant dédié PrestaShop / canal partenaire => PAS de commission 0,3 %.
 // Cette voie ne nécessite ni Client Secret ni Source Code (contrairement au Smart Checkout v2 OAuth).
-const ENV = process.env.VIVA_ENV === 'demo' ? 'demo' : 'live';
+// LIVE uniquement si demandé EXPLICITEMENT (VIVA_ENV=live) : une variable absente ou mal saisie
+// ne doit jamais faire encaisser de l'argent réel (ex. sur la pré-prod).
+const ENV = process.env.VIVA_ENV === 'live' ? 'live' : 'demo';
 const MERCHANT_ID = process.env.VIVA_MERCHANT_ID || '';
 const API_KEY = process.env.VIVA_API_KEY || '';
 // Source de paiement optionnelle (sinon la source par défaut du compte est utilisée).
@@ -12,8 +14,11 @@ const WEB = ENV === 'demo' ? 'https://demo.vivapayments.com' : 'https://www.viva
 
 const BASIC = 'Basic ' + Buffer.from(`${MERCHANT_ID}:${API_KEY}`).toString('base64');
 
-// Statuts de transaction Viva : F=payée, A/C=autorisée/capturée, E=échec.
-export const VIVA_SUCCESS_STATUS = ['F', 'A', 'C'];
+// Statuts de transaction Viva (API classique) : F = finalisée (payée), C = en compensation
+// (clearing, fonds acquis), A = PRÉ-AUTORISÉE NON CAPTURÉE, E = échec, X = annulée, R = remboursée.
+// `A` n'est PAS un paiement : une pré-autorisation jamais capturée expire sans fonds. On ne crée
+// donc la commande « payée » que sur F/C.
+export const VIVA_SUCCESS_STATUS = ['F', 'C'];
 export const VIVA_FAILED_STATUS = ['E'];
 
 // Tout passe par Merchant ID + API Key (qu'on possède déjà).
@@ -72,12 +77,24 @@ export async function getTransaction(transactionId: string): Promise<{
   });
   const data = await r.json().catch(() => ({}));
   if (!r.ok) return { ok: false, raw: data };
+  // L'API classique renvoie une ENVELOPPE : { ErrorCode, ErrorText, Success, Transactions: [ {...} ] }
+  // (cf. module officiel modules/vivawallet/controllers/front/success.php). Une transaction
+  // inconnue répond HTTP 200 avec ErrorCode 404 et Transactions vide. Lire StatusId à la racine
+  // (ancien code) donnait toujours `undefined` -> tout paiement CB finissait en « non confirmé ».
+  // Repli sur la racine si un jour la réponse n'est plus enveloppée.
+  const errorCode = Number(data?.ErrorCode ?? 0);
+  const list: unknown[] = Array.isArray(data?.Transactions) ? data.Transactions : [];
+  const t = (list.find(
+    (x) => String((x as { TransactionId?: string })?.TransactionId || '').toLowerCase() === transactionId.toLowerCase()
+  ) ?? list[0] ?? (data?.StatusId ? data : null)) as Record<string, unknown> | null;
+  if (errorCode !== 0 || !t) return { ok: false, raw: data };
+  const amount = Number(t.Amount);
   return {
     ok: true,
-    statusId: data.StatusId,
-    amount: typeof data.Amount === 'number' ? data.Amount : undefined,
-    merchantTrns: data.MerchantTrns,
-    orderCode: data.OrderCode,
+    statusId: typeof t.StatusId === 'string' ? t.StatusId : undefined,
+    amount: Number.isFinite(amount) ? amount : undefined,
+    merchantTrns: typeof t.MerchantTrns === 'string' ? t.MerchantTrns : undefined,
+    orderCode: t.OrderCode as string | number | undefined,
     raw: data,
   };
 }

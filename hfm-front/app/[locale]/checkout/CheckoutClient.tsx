@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useRouter } from '@/i18n/navigation';
@@ -288,6 +288,23 @@ export default function CheckoutClient() {
   useEffect(() => {
     if (customer) loadAddresses();
   }, [customer, loadAddresses]);
+
+  // Changement d'IDENTITÉ en cours de tunnel (e-mail invité modifié -> nouvelle fiche invitée) :
+  // le bridge rattache le panier au nouveau client et remet son adresse à zéro, et les adresses de
+  // l'ancienne fiche ne lui appartiennent plus. On repart donc d'une sélection vide, sinon le
+  // bouton Commander resterait actif sur une adresse/un transporteur périmés (`cart_incomplete`,
+  // voire débit CB sans commande).
+  const prevCustomerId = useRef<number | null>(null);
+  useEffect(() => {
+    const id = customer?.id_customer ?? null;
+    if (prevCustomerId.current !== null && id !== prevCustomerId.current) {
+      setSelAddress(null);
+      setSelCarrier(null);
+      setCarriers([]);
+      setAddresses([]);
+    }
+    prevCustomerId.current = id;
+  }, [customer?.id_customer]);
 
   // Préremplit le statut "pro" si déjà validé pour ce compte OU cet email (anti-friction).
   useEffect(() => {

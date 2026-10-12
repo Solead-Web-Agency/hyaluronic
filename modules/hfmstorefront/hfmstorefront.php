@@ -498,6 +498,7 @@ class Hfmstorefront extends PaymentModule
             'livraison-retours' => 'Livraison & retours',
             'conditions-generales-de-ventes' => 'Conditions générales de vente',
             'politique-de-confidentialite' => 'Politique de confidentialité',
+            'mentions-legales' => 'Mentions légales',
         ];
     }
 

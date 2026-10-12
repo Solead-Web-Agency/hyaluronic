@@ -19,6 +19,7 @@ const LEGAL_LINKS: { key: string; href: string; external?: boolean }[] = [
   { key: 'serviceDelivery', href: '/content/livraison-retours' },
   { key: 'serviceTerms', href: '/content/conditions-generales-de-ventes' },
   { key: 'servicePrivacy', href: '/content/politique-de-confidentialite' },
+  { key: 'serviceLegal', href: '/content/mentions-legales' },
   { key: 'serviceContact', href: '/contact' },
 ];
 

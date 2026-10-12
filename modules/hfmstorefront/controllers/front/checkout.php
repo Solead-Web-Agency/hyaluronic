@@ -244,7 +244,14 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 PrestaShopLogger::addLog('HFM checkout: montant encaisse ' . (float) $amountPaidRaw . ' EUR < total panier ' . $total . ' EUR -> Erreur de paiement, cart=' . (int) $cart->id, 3);
             }
         } else {
-            $orderState = (int) Configuration::get('PS_OS_PREPARATION');
+            // Paiement HORS LIGNE (virement / chèque) : rien n'est encaissé. On utilise les états
+            // natifs « En attente de virement » / « En attente du paiement par chèque » (paid=0,
+            // invoice=0) comme l'ancien site, au lieu de « En cours de préparation » (paid=1,
+            // invoice=1) qui émettait une facture et un OrderPayment du total sans aucun encaissement.
+            // Ces états envoient aussi le mail natif bankwire/cheque avec les coordonnées de paiement.
+            $offline = $this->offlineOrderState($paymentName);
+            $orderState = $offline['state'];
+            $mailVars = $offline['mail_vars'];
         }
         try {
             $paymentModule->validateOrder(
@@ -253,7 +260,7 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 $total,
                 $paymentName,
                 null,
-                [],
+                isset($mailVars) ? $mailVars : [],
                 (int) $cart->id_currency,
                 false,
                 $customer->secure_key
@@ -334,6 +341,37 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
      * encaissées en PS_OS_PREPARATION, qui est logable ET paid=1 dans PrestaShop. On compare donc
      * explicitement à l'état « Paiement accepté ».
      */
+    /**
+     * État initial + variables d'email d'une commande payée HORS LIGNE.
+     * `payment_method` vient du front (valeurs internes FR « Virement bancaire » / « Chèque »,
+     * cf. CheckoutClient PAYMENTS). Tout autre libellé hors ligne est traité comme un virement
+     * (jamais comme « payé »). Repli sur PS_OS_PREPARATION seulement si l'état natif n'existe pas.
+     */
+    protected function offlineOrderState($paymentName)
+    {
+        $isCheque = in_array(Tools::strtolower(trim((string) $paymentName)), ['chèque', 'cheque'], true);
+        if ($isCheque) {
+            $state = (int) Configuration::get('PS_OS_CHEQUE');
+            $address = (string) Configuration::get('CHEQUE_ADDRESS');
+            $vars = [
+                '{check_name}' => (string) Configuration::get('CHEQUE_NAME'),
+                '{check_address}' => $address,
+                '{check_address_html}' => str_replace("\n", '<br />', $address),
+            ];
+        } else {
+            $state = (int) Configuration::get('PS_OS_BANKWIRE');
+            $vars = [
+                '{bankwire_owner}' => (string) Configuration::get('BANK_WIRE_OWNER'),
+                '{bankwire_details}' => nl2br((string) Configuration::get('BANK_WIRE_DETAILS')),
+                '{bankwire_address}' => nl2br((string) Configuration::get('BANK_WIRE_ADDRESS')),
+            ];
+        }
+        if ($state <= 0) {
+            $state = (int) Configuration::get('PS_OS_PREPARATION');
+        }
+        return ['state' => $state, 'mail_vars' => $vars];
+    }
+
     protected function orderIsPaid(Order $order)
     {
         $paidState = (int) Configuration::get('PS_OS_PAYMENT');

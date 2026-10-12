@@ -88,6 +88,16 @@ class HfmstorefrontContentModuleFrontController extends HfmStorefrontApiControll
         // 1) Traduction éditée en BO (table multilingue) pour cette locale.
         if ($slug !== '' && $locale !== '') {
             $tr = $this->getCmsTranslation($slug, $locale);
+            // La table est indexée par le slug FR (clé d'édition en BO). Une URL au slug localisé
+            // (rechtlicher-hinweis, privacy-policy…) doit retrouver la même traduction : on essaie
+            // donc aussi chacun des slugs de cette page CMS.
+            if (!$tr) {
+                foreach (array_unique(array_values($alt)) as $altSlug) {
+                    if ($altSlug !== $slug && ($tr = $this->getCmsTranslation($altSlug, $locale))) {
+                        break;
+                    }
+                }
+            }
             if ($tr) {
                 return ['page' => [
                     'id_cms' => $idCms,

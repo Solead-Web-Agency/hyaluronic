@@ -24,7 +24,12 @@ const ZONES = [
   { labelKey: 'zoneSkinbooster', count: 54, key: 'skinbooster' },
 ] as const;
 
-const REVIEW_KEYS = [1, 2, 3] as const;
+// Avis BOUTIQUE réels (Société des Avis Garantis) servis par le bridge (`products?action=shop-reviews`).
+// Ne JAMAIS remettre de témoignages ou de chiffres codés en dur : ils n'existaient pas chez SAG.
+type ShopReviews = {
+  stats: { rate10: number; rate5: number; count: number; certificateUrl: string | null } | null;
+  items: { name: string; rate: number; review: string; date: string }[];
+};
 
 const BLOG_KEYS = [1, 2, 3] as const;
 
@@ -75,8 +80,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const live: ProductCard[] = data.products ?? [];
   const cards: Card[] = live.map(toCard);
 
-  // 3 derniers articles du blog (repli silencieux si le bridge ne répond pas).
-  const latestPosts = await fetchBlogLatest(locale, 3);
+  // 3 derniers articles du blog + avis boutique réels, en parallèle. Section non critique :
+  // si le bridge ne répond pas, la section avis est simplement masquée (jamais de chiffre inventé).
+  const [latestPosts, shopReviews] = await Promise.all([
+    fetchBlogLatest(locale, 3),
+    bridgeGetCached(
+      'products',
+      { action: 'shop-reviews', limit: 3, id_lang: idLangFor(locale) },
+      { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
+    ).then((d) => d as ShopReviews).catch((): ShopReviews => ({ stats: null, items: [] })),
+  ]);
+  const revStats = shopReviews?.stats ?? null;
+  const revItems = shopReviews?.items ?? [];
+  const fmtRate = (n: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(n);
+  const stars = (n: number) => '★'.repeat(Math.max(0, Math.min(5, Math.round(n)))) + '☆'.repeat(Math.max(0, 5 - Math.min(5, Math.round(n))));
   const blogDate = (raw: string) => {
     const d = new Date((raw || '').replace(' ', 'T'));
     if (isNaN(d.getTime())) return '';
@@ -97,9 +114,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const TRUST = [
     { el: <svg width={19} height={19} viewBox="0 0 24 24" fill="none" stroke="#5E8E1F" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z" /></svg>, title: t('trustShipTitle'), sub: t('trustShipSub') },
     { el: <svg width={19} height={19} viewBox="0 0 24 24" fill="none" stroke="#5E8E1F" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l8 3.5v5c0 4.8-3.4 7.8-8 9-4.6-1.2-8-4.2-8-9v-5z" /><path d="M9 12l2 2 4-4" /></svg>, title: t('trustCeTitle'), sub: t('trustCeSub') },
-    { el: <svg width={19} height={19} viewBox="0 0 24 24" fill="#5E8E1F" stroke="#5E8E1F" strokeWidth={1.2} strokeLinejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17l-5.2 2.6 1-5.8L3.5 9.7l5.9-.9z" /></svg>, title: t('trustReviewsTitle'), sub: t('trustReviewsSub') },
+    { el: <svg width={19} height={19} viewBox="0 0 24 24" fill="#5E8E1F" stroke="#5E8E1F" strokeWidth={1.2} strokeLinejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17l-5.2 2.6 1-5.8L3.5 9.7l5.9-.9z" /></svg>, title: revStats ? `${fmtRate(revStats.rate5)}/5` : '', sub: revStats ? t('reviewsLine', { count: revStats.count }) : '' },
     { el: <svg width={19} height={19} viewBox="0 0 24 24" fill="none" stroke="#5E8E1F" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1" /><path d="M4 13a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" /><path d="M20 13a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2 1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z" /><path d="M18 19a4 4 0 0 1-4 3h-2" /></svg>, title: t('trustSupportTitle'), sub: t('trustSupportSub') },
-  ];
+  ].filter((x) => x.title !== ''); // pas d'avis réels -> pas de pastille avis (jamais de chiffre inventé)
 
   return (
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
@@ -122,11 +139,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 <a href="/catalogue" style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#5E8E1F', background: 'rgba(140,198,63,0.08)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '15px 28px', cursor: 'pointer', textDecoration: 'none' }}>{t('ctaPractitionerRates')}</a>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '26px', marginTop: '34px', flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                  <span style={{ color: '#8CC63F', fontSize: '14px', letterSpacing: '1px' }}>★★★★★</span>
-                  <span style={{ fontSize: '12.5px', color: '#6E7585' }}><b style={{ color: '#1B2433' }}>4,8/5</b>{t('reviewsLine').replace(/^4,8\/5\s*/, ' ')}</span>
-                </div>
-                <div style={{ width: '1px', height: '34px', background: '#E2DECF' }} />
+                {revStats && (
+                  <>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      <span style={{ color: '#8CC63F', fontSize: '14px', letterSpacing: '1px' }}>{stars(revStats.rate5)}</span>
+                      <span style={{ fontSize: '12.5px', color: '#6E7585' }}><b style={{ color: '#1B2433' }}>{fmtRate(revStats.rate5)}/5</b> · {t('reviewsLine', { count: revStats.count })}</span>
+                    </div>
+                    <div style={{ width: '1px', height: '34px', background: '#E2DECF' }} />
+                  </>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <span style={{ fontFamily: "'Spectral',serif", fontSize: '21px', color: '#434343' }}>{t('brandsLine')}</span>
                   <span style={{ fontSize: '12.5px', color: '#6E7585' }}>{t('brandsSub')}</span>
@@ -201,24 +222,38 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}><span style={{ fontFamily: "'Spectral',serif", fontSize: '30px', color: '#2B2B2B' }}>{t('editoBadgeDelay')}</span></div>
                 <div style={{ fontSize: '12.5px', color: '#55606F', marginTop: '2px' }}>{t('editoBadgeDelaySub')}</div>
               </div>
-              <div className="hfm-badge-tr" style={{ position: 'absolute', right: '-16px', top: '24px', background: 'rgba(255,255,255,.65)', backdropFilter: 'blur(16px) saturate(150%)', WebkitBackdropFilter: 'blur(16px) saturate(150%)', border: '1px solid rgba(255,255,255,.7)', boxShadow: '0 22px 44px -26px rgba(40,50,25,.5)', borderRadius: '14px', padding: '13px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ color: '#8CC63F', fontSize: '13px', letterSpacing: '1px' }}>★★★★★</span><span style={{ fontSize: '12.5px', color: '#2B2B2B', fontWeight: 600 }}>4,8/5</span>
-              </div>
+              {revStats && (
+                <div className="hfm-badge-tr" style={{ position: 'absolute', right: '-16px', top: '24px', background: 'rgba(255,255,255,.65)', backdropFilter: 'blur(16px) saturate(150%)', WebkitBackdropFilter: 'blur(16px) saturate(150%)', border: '1px solid rgba(255,255,255,.7)', boxShadow: '0 22px 44px -26px rgba(40,50,25,.5)', borderRadius: '14px', padding: '13px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ color: '#8CC63F', fontSize: '13px', letterSpacing: '1px' }}>{stars(revStats.rate5)}</span><span style={{ fontSize: '12.5px', color: '#2B2B2B', fontWeight: 600 }}>{fmtRate(revStats.rate5)}/5</span>
+                </div>
+              )}
             </div>
           </div>
         </section>
 
-        {/* REVIEWS */}
+        {/* REVIEWS — avis réels SAG uniquement ; section masquée sans données. */}
+        {revStats && revItems.length > 0 && (
         <section style={{ background: '#fff', borderTop: '1px solid #E7E3DA', borderBottom: '1px solid #E7E3DA', marginTop: '64px' }}>
           <div className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '56px 28px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}><span style={{ color: '#8CC63F', fontSize: '18px', letterSpacing: '2px' }}>★★★★★</span><span style={{ fontSize: '14px', color: '#1B2433' }}>{t.rich('reviewsHeader', { b: (c) => <b>{c}</b>, span: (c) => <span style={{ color: '#9A9A9A' }}>{c}</span> })}</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+              <span style={{ color: '#8CC63F', fontSize: '18px', letterSpacing: '2px' }}>{stars(revStats.rate5)}</span>
+              <span style={{ fontSize: '14px', color: '#1B2433' }}>{t.rich('reviewsHeader', { rate: fmtRate(revStats.rate10), count: revStats.count, b: (c) => <b>{c}</b>, span: (c) => <span style={{ color: '#9A9A9A' }}>{c}</span> })}</span>
+              {revStats.certificateUrl && (
+                <a href={revStats.certificateUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: '#5E8E1F', fontWeight: 600 }}>{t('reviewsCertificate')}</a>
+              )}
+            </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '18px', marginTop: '28px' }}>
-              {REVIEW_KEYS.map((i) => (
-                <div key={i} style={{ border: '1px solid #ECEAE3', borderRadius: '8px', padding: '24px' }}><span style={{ color: '#8CC63F', fontSize: '13px', letterSpacing: '1px' }}>★★★★★</span><p style={{ fontFamily: "'Spectral',serif", fontSize: '16px', lineHeight: 1.5, color: '#2A3447', margin: '14px 0 16px' }}>« {t(`review${i}Text`)} »</p><div style={{ fontSize: '12.5px', color: '#6E7585' }}><b style={{ color: '#1B2433' }}>{t(`review${i}Name`)}</b> · {t(`review${i}Role`)}</div></div>
+              {revItems.map((r, i) => (
+                <div key={i} style={{ border: '1px solid #ECEAE3', borderRadius: '8px', padding: '24px' }}>
+                  <span style={{ color: '#8CC63F', fontSize: '13px', letterSpacing: '1px' }} aria-label={`${r.rate}/5`}>{stars(r.rate)}</span>
+                  <p style={{ fontFamily: "'Spectral',serif", fontSize: '16px', lineHeight: 1.5, color: '#2A3447', margin: '14px 0 16px' }}>« {r.review} »</p>
+                  <div style={{ fontSize: '12.5px', color: '#6E7585' }}><b style={{ color: '#1B2433' }}>{r.name}</b>{r.date ? <> · {blogDate(r.date)}</> : null}</div>
+                </div>
               ))}
             </div>
           </div>
         </section>
+        )}
 
         {/* EXPERTISE / BLOG */}
         <section className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '64px 28px 8px' }}>

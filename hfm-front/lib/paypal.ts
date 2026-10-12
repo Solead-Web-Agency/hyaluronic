@@ -1,6 +1,7 @@
 // Client serveur PayPal — REST Orders v2 (flux par redirection "approve").
 // Clés reprises du module PrestaShop 'paypal' (PAYPAL_API_CLIENT_ID/SECRET).
-const ENV = process.env.PAYPAL_ENV === 'sandbox' ? 'sandbox' : 'live';
+// LIVE uniquement si demandé EXPLICITEMENT (PAYPAL_ENV=live), sinon sandbox.
+const ENV = process.env.PAYPAL_ENV === 'live' ? 'live' : 'sandbox';
 const CLIENT_ID = process.env.PAYPAL_CLIENT_ID || '';
 const CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET || '';
 

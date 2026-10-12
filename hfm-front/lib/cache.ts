@@ -8,7 +8,30 @@ const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
 const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 
 // Redis n'est activé que si les deux variables sont présentes. Sinon : passe-plat.
-const redis = REDIS_URL && REDIS_TOKEN ? new Redis({ url: REDIS_URL, token: REDIS_TOKEN }) : null;
+// Le cache ne doit JAMAIS ralentir le site : par défaut le client Upstash réessaie 5 fois
+// (~4,3 s cumulées) quand l'hôte ne répond pas -> chaque page coûtait 5 à 10 s pendant la
+// panne Upstash d'octobre 2026. On coupe donc les tentatives, on borne chaque appel à
+// REDIS_TIMEOUT_MS, et un disjoncteur ignore Redis pendant REDIS_COOLDOWN_MS après une erreur.
+const REDIS_TIMEOUT_MS = 400;
+const REDIS_COOLDOWN_MS = 60_000;
+const redis = REDIS_URL && REDIS_TOKEN
+  ? new Redis({
+      url: REDIS_URL,
+      token: REDIS_TOKEN,
+      retry: { retries: 0 },
+      signal: () => AbortSignal.timeout(REDIS_TIMEOUT_MS),
+    })
+  : null;
+
+let redisDownUntil = 0;
+const redisUsable = () => redis != null && Date.now() >= redisDownUntil;
+function redisFailed(err: unknown) {
+  // Un seul log par fenêtre de coupure : visible dans les logs Vercel, sans inonder.
+  if (Date.now() >= redisDownUntil) {
+    console.error(`[cache] Redis indisponible, ignoré ${REDIS_COOLDOWN_MS / 1000}s :`, err instanceof Error ? err.message : err);
+  }
+  redisDownUntil = Date.now() + REDIS_COOLDOWN_MS;
+}
 
 export const redisEnabled = redis != null;
 
@@ -38,13 +61,14 @@ export async function cachedJson<T>(
   tags: string[],
   fetcher: () => Promise<T>,
 ): Promise<T> {
-  if (!redis) return fetcher();
+  if (!redis || !redisUsable()) return fetcher();
 
   try {
     const hit = await redis.get<T>(key);
     if (hit != null) return hit;
-  } catch {
+  } catch (err) {
     // Lecture Redis en échec : on ignore et on va chercher la donnée fraîche.
+    redisFailed(err);
     return fetcher();
   }
 
@@ -64,8 +88,9 @@ export async function cachedJson<T>(
         tags.map((tag) => redis.sadd(tagIndexKey(tag), key)),
       );
     }
-  } catch {
+  } catch (err) {
     // Écriture Redis en échec : on renvoie quand même la valeur fraîche.
+    redisFailed(err);
   }
 
   return value;
