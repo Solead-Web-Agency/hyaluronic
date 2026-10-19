@@ -10,8 +10,8 @@
  *
  * Cibles NORMALISÉES : les données d'origine omettaient parfois la locale (ex. `/fr/cytocare` ->
  * `/cytocare-1`), on préfixe donc avec la locale de la source. Les 25 cibles ont été vérifiées 200
- * sur le nouveau front. Non reprise : la source à query `/module/iqitsearch/searchiqit?s=Restylane`
- * (aucune route équivalente en headless).
+ * sur le nouveau front. Les recherches `/module/iqitsearch/searchiqit?s=…` sont redirigées de façon
+ * générique vers `/catalogue?q=…` dans next.config.
  */
 export const LEGACY_REDIRECTS: { source: string; destination: string }[] = [
   { source: '/fr/juvederm-allergan', destination: '/fr/juvederm' },
@@ -39,6 +39,10 @@ export const LEGACY_REDIRECTS: { source: string; destination: string }[] = [
   { source: '/it/cytocare', destination: '/it/cytocare-1' },
   { source: '/de/cytocare', destination: '/de/cytocare-1' },
   { source: '/fr/brand/restylane', destination: '/fr/restylane' },
+  // Lien cité dans les descriptions produit (fabricant IBSA, id 37).
+  { source: '/brand/ibsa', destination: '/fr/marque/37' },
+  { source: '/fr/brand/ibsa', destination: '/fr/marque/37' },
+  { source: '/en/brand/ibsa', destination: '/en/marque/37' },
   // Page de contact de l'ancien site : l'URL était localisée par langue (ps_meta).
   { source: '/fr/nous-contacter', destination: '/fr/contact' },
   { source: '/en/contact-us', destination: '/en/contact' },

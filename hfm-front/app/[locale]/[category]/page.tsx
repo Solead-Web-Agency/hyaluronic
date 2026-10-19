@@ -43,6 +43,21 @@ async function fetchCategory(slug: string, locale: string): Promise<Cat | null> 
   return (d as { category?: Cat | null })?.category ?? null;
 }
 
+// Ancien format PS « {id}-{slug} » (ex. /fr/167-rides-du-visage, encore cité dans les descriptions
+// produit et indexé) -> slug actuel de la catégorie {id}. Consulté seulement quand aucun slug ne
+// correspond : une vraie catégorie au slug numérique (« 131-hyamira ») reste servie telle quelle.
+async function legacyCategorySlug(slug: string, locale: string): Promise<string | null> {
+  const m = /^(\d+)-/.exec(slug);
+  if (!m) return null;
+  const d = await bridgeGetCached(
+    'taxonomy',
+    { action: 'all_active', id_lang: idLangFor(locale) },
+    { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
+  ).catch(() => null);
+  const cats = (d as { categories?: { id_category: number; link_rewrite: string }[] })?.categories ?? [];
+  return cats.find((c) => c.id_category === Number(m[1]))?.link_rewrite ?? null;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string }> }): Promise<Metadata> {
   const { locale, category } = await params;
   const cat = await fetchCategory(category, locale);
@@ -73,6 +88,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
   // Ancienne page virtuelle PS -> redirection 301 vers le catalogue filtré.
   if (!cat && VIRTUAL[category]) {
     permanentRedirect(`/${locale}${VIRTUAL[category]}`);
+  }
+  // Ancienne URL « {id}-{slug} » -> 301 vers l'URL actuelle de la catégorie.
+  if (!cat) {
+    const current = await legacyCategorySlug(category, locale);
+    if (current) permanentRedirect(`/${locale}/${current}`);
   }
   // Slug inconnu (CMS/fonctionnel) -> 404 propre.
   if (!cat) {

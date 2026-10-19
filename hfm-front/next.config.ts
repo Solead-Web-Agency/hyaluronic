@@ -28,6 +28,36 @@ const nextConfig: NextConfig = {
         destination: '/:locale/produit/:productId',
         permanent: true,
       },
+      // Variantes du même format encore citées dans les descriptions produit : avec segment
+      // catégorie (/fr/peeling/493-me-line….html) et/ou sans locale (/dermal-fillers/21-stylage….html).
+      {
+        source: '/:locale([a-z]{2})/:cat([^/.]+)/:productId(\\d{1,})-:slug([^/]+\\.html)',
+        destination: '/:locale/produit/:productId',
+        permanent: true,
+      },
+      {
+        source: '/:cat([^/.]+)/:productId(\\d{1,})-:slug([^/]+\\.html)',
+        destination: '/fr/produit/:productId',
+        permanent: true,
+      },
+      {
+        source: '/:productId(\\d{1,})-:slug([^/]+\\.html)',
+        destination: '/fr/produit/:productId',
+        permanent: true,
+      },
+      // Recherche de l'ancien thème (module iqitsearch) -> recherche du catalogue.
+      {
+        source: '/:locale([a-z]{2})/module/iqitsearch/searchiqit',
+        has: [{ type: 'query', key: 's', value: '(?<s>.*)' }],
+        destination: '/:locale/catalogue?q=:s',
+        permanent: true,
+      },
+      {
+        source: '/module/iqitsearch/searchiqit',
+        has: [{ type: 'query', key: 's', value: '(?<s>.*)' }],
+        destination: '/fr/catalogue?q=:s',
+        permanent: true,
+      },
       // Format legacy SANS réécriture d'URL (l'ancien PS avait PS_REWRITING_SETTINGS=0, donc
       // `/index.php?id_product=N` est le format le plus susceptible d'être indexé). Le middleware
       // ne peut PAS le couvrir : son matcher exclut les chemins contenant un point.
