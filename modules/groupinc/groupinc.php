@@ -61,6 +61,15 @@ class GroupInc extends Module
             'visible' => true,
         );
 
+        // [HFM] PS >= 1.7.1 : l'onglet est créé par PrestaShop à partir de $this->tabs (addTab() ne fait
+        // plus rien) -> sans cette déclaration, l'écran des règles n'apparaissait dans aucun menu.
+        $this->tabs = array(array(
+            'class_name' => 'AdminGroupinc',
+            'parent_class_name' => 'AdminCatalog',
+            'name' => 'Majorations et remises',
+            'visible' => true,
+        ));
+
         /* Backward compatibility */
         if (version_compare(_PS_VERSION_, '1.5', '<')) {
             require(_PS_MODULE_DIR_.$this->name.'/backward_compatibility/backward.php');
@@ -69,6 +78,17 @@ class GroupInc extends Module
 
     public function copyOverrideFolder()
     {
+        // [HFM] PrestaShop 9 / headless : AUCUNE surcharge du cœur (celles de groupinc ne sont pas
+        // compatibles PS9 et cassent le site). Les règles sont appliquées par le module
+        // hfmstorefront (lib/country_rules.php) via le hook natif PS9. On s'assure seulement
+        // qu'aucun dossier override/ n'est présent pour que l'installeur PS n'en copie pas.
+        if (version_compare(_PS_VERSION_, '9.0.0', '>=')) {
+            $override_folder = _PS_MODULE_DIR_.$this->name.'/override';
+            if (file_exists($override_folder) && is_dir($override_folder)) {
+                $this->recursiveRmdir($override_folder);
+            }
+            return true;
+        }
         if (!is_writable(_PS_MODULE_DIR_.$this->name)) {
             return false;
         }
@@ -146,6 +166,15 @@ class GroupInc extends Module
             $this->registerHook('displayAdminProductsExtra');
         }
 
+        // [HFM] PS9 headless : seulement l'écran back-office + les tables. Aucun hook front ni hook
+        // de prix (le calcul est fait par hfmstorefront ; un 2e calcul ici doublerait les règles).
+        if (version_compare(_PS_VERSION_, '9.0.0', '>=')) {
+            return parent::install()
+                && $this->initSQLGI()
+                && $this->addTab($this->tabMenu)
+                && Configuration::updateValue('GI_GROUP_VALUES', '');
+        }
+
         return parent::install()
             && $this->initSQLGI()
             && $this->addTab($this->tabMenu)
@@ -160,6 +189,11 @@ class GroupInc extends Module
 
     public function uninstall()
     {
+        // [HFM] Désinstaller ne doit jamais effacer les règles (tables lues par hfmstorefront).
+        if (version_compare(_PS_VERSION_, '9.0.0', '>=')) {
+            return parent::uninstall() && $this->removeTab($this->tabMenu);
+        }
+
         return parent::uninstall()
             && Configuration::deleteByName('GI_GROUP_VALUES')
             && (version_compare(_PS_VERSION_, '1.5', '>=') || (version_compare(_PS_VERSION_, '1.5', '<') && !$this->removeGIOverride()))
@@ -314,6 +348,11 @@ class GroupInc extends Module
 
     public function hookActionProductPriceCalculation(&$params)
     {
+        // [HFM] Désactivé en PS9 : prix calculés par hfmstorefront (HfmCountryRules). Conçu pour
+        // l'ancien appel AVANT calcul, ce hook renverrait un prix nul sans règle applicable.
+        if (version_compare(_PS_VERSION_, '9.0.0', '>=')) {
+            return;
+        }
         /*$context = Context::getContext();
         if (isset($context->controller) && $context->controller->controller_type == 'admin') {
             if (Tools::isSubmit('newPrice')) {

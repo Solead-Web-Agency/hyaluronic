@@ -38,7 +38,11 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                     return ['menu' => $this->menuTree($idLang)];
                 case 'rule-countries':
                     // Pays ayant des règles de prix / produits interdits (cf. lib/country_rules.php).
-                    return ['countries' => HfmCountryRules::specialCountryIsos()];
+                    return [
+                        'countries' => HfmCountryRules::specialCountryIsos(),
+                        // Groupes clients à tarif particulier : le front transmet alors le client.
+                        'groups' => HfmCountryRules::specialGroupIds(),
+                    ];
                 case 'manufacturers':
                     return ['manufacturers' => $this->manufacturers($idLang)];
                 case 'countries':

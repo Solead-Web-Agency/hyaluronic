@@ -108,22 +108,22 @@ function buildCart($cart, $id_lang, $code, $iso = 'fr') {
         }
         $rows .= '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:10px;border-collapse:collapse;"><tr>'
             . '<td width="80" valign="middle" style="padding:6px;width:80px;"><img src="' . htmlspecialchars($img) . '" width="74" style="display:block;border-radius:6px;border:1px solid #eee;"></td>'
-            . '<td valign="middle" align="left" style="padding:6px;font-family:Montserrat,Arial,sans-serif;color:#333;font-size:14px;"><strong>'
+            . '<td valign="middle" align="left" style="padding:6px;font-family:Hanken Grotesk,Arial,sans-serif;color:#333;font-size:14px;"><strong>'
             . htmlspecialchars($p['name']) . '</strong><br><span style="color:#777;">Qté : ' . (int)$p['cart_quantity'] . '</span></td>'
-            . '<td width="90" valign="middle" align="right" style="padding:6px;width:90px;font-family:Montserrat,Arial,sans-serif;color:#333;font-size:14px;white-space:nowrap;"><strong>'
+            . '<td width="90" valign="middle" align="right" style="padding:6px;width:90px;font-family:Hanken Grotesk,Arial,sans-serif;color:#333;font-size:14px;white-space:nowrap;"><strong>'
             . fmtPrice($p['price_wt'] * $p['cart_quantity']) . '</strong></td></tr></table>';
     }
     $subtotal = $cart->getOrderTotal(true, Cart::BOTH);
     $hasReduc = (bool)$code;
     $total = $hasReduc ? max(0, $subtotal - 5) : $subtotal;
-    $sumrows = '<tr><td align="right" style="padding:4px 8px;font-family:Montserrat,Arial,sans-serif;font-size:13px;color:#666;">Sous-total :</td>'
-             . '<td width="110" align="right" style="padding:4px 8px;width:110px;font-family:Montserrat,Arial,sans-serif;font-size:13px;color:#666;white-space:nowrap;">' . fmtPrice($subtotal) . '</td></tr>';
+    $sumrows = '<tr><td align="right" style="padding:4px 8px;font-family:Hanken Grotesk,Arial,sans-serif;font-size:13px;color:#666;">Sous-total :</td>'
+             . '<td width="110" align="right" style="padding:4px 8px;width:110px;font-family:Hanken Grotesk,Arial,sans-serif;font-size:13px;color:#666;white-space:nowrap;">' . fmtPrice($subtotal) . '</td></tr>';
     if ($hasReduc) {
-        $sumrows .= '<tr><td align="right" style="padding:4px 8px;font-family:Montserrat,Arial,sans-serif;font-size:13px;color:#94c55d;">Réduction (' . $code . ') :</td>'
-                  . '<td align="right" style="padding:4px 8px;font-family:Montserrat,Arial,sans-serif;font-size:13px;color:#94c55d;white-space:nowrap;">- ' . fmtPrice(5) . '</td></tr>';
+        $sumrows .= '<tr><td align="right" style="padding:4px 8px;font-family:Hanken Grotesk,Arial,sans-serif;font-size:13px;color:#4F7A1A;">Réduction (' . $code . ') :</td>'
+                  . '<td align="right" style="padding:4px 8px;font-family:Hanken Grotesk,Arial,sans-serif;font-size:13px;color:#4F7A1A;white-space:nowrap;">- ' . fmtPrice(5) . '</td></tr>';
     }
-    $sumrows .= '<tr><td align="right" style="padding:8px;border-top:2px solid #333;font-family:Montserrat,Arial,sans-serif;font-size:15px;font-weight:bold;color:#333;">Total :</td>'
-              . '<td align="right" style="padding:8px;border-top:2px solid #333;font-family:Montserrat,Arial,sans-serif;font-size:15px;font-weight:bold;color:#333;white-space:nowrap;">' . fmtPrice($total) . '</td></tr>';
+    $sumrows .= '<tr><td align="right" style="padding:8px;border-top:2px solid #333;font-family:Hanken Grotesk,Arial,sans-serif;font-size:15px;font-weight:bold;color:#333;">Total :</td>'
+              . '<td align="right" style="padding:8px;border-top:2px solid #333;font-family:Hanken Grotesk,Arial,sans-serif;font-size:15px;font-weight:bold;color:#333;white-space:nowrap;">' . fmtPrice($total) . '</td></tr>';
     $rows .= '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin-top:6px;">' . $sumrows . '</table>';
     $p_raw = implode(',', $plist);
     $c_raw = $code ? $code : '';
@@ -231,7 +231,7 @@ foreach ($carts as $row) {
 
     // promo box (étapes 2-3)
     $promoBox = ($nextStep >= 2 && $code)
-        ? '<div style="text-align:center;padding:6px 40px;"><div style="display:inline-block;background:#94c55d;color:#fff;font-family:Montserrat,Arial,sans-serif;font-size:18px;font-weight:bold;letter-spacing:2px;border:2px solid #e771bd;border-radius:4px;padding:12px 28px;">' . $code . '</div></div>'
+        ? '<div style="text-align:center;padding:6px 40px;"><div style="display:inline-block;background:#4F7A1A;color:#fff;font-family:Hanken Grotesk,Arial,sans-serif;font-size:18px;font-weight:bold;letter-spacing:2px;border:2px solid #8CC63F;border-radius:4px;padding:12px 28px;">' . $code . '</div></div>'
         : '';
 
     $html = strtr($htmlT, [

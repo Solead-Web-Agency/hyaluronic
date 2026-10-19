@@ -122,6 +122,11 @@ class Hfmstorefront extends PaymentModule
             'actionObjectManufacturerAddAfter',
             'actionObjectManufacturerUpdateAfter',
             'actionObjectManufacturerDeleteAfter',
+            // Règles de prix (écran « Majorations et remises » du module groupinc) : prix et liste
+            // des pays/groupes concernés changent -> purge immédiate.
+            'actionObjectGroupincConfigurationAddAfter',
+            'actionObjectGroupincConfigurationUpdateAfter',
+            'actionObjectGroupincConfigurationDeleteAfter',
         ];
     }
 
@@ -204,6 +209,21 @@ class Hfmstorefront extends PaymentModule
 
     /** Produit modifié -> les listes/fiches ET les compteurs de catégorie changent. */
     public function hookActionObjectProductAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
+    }
+
+    public function hookActionObjectGroupincConfigurationAddAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
+    }
+
+    public function hookActionObjectGroupincConfigurationUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
+    }
+
+    public function hookActionObjectGroupincConfigurationDeleteAfter($params)
     {
         $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
     }

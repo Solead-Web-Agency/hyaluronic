@@ -15,6 +15,9 @@ export type SessionUser = {
   lastname: string;
   id_lang?: number;
   is_guest?: number;
+  // Groupe client par défaut (tarifs par groupe : B2B exonéré, réductions…). Absent des sessions
+  // ouvertes avant son ajout : tarif public jusqu'à la prochaine connexion.
+  id_group?: number;
 };
 
 function b64url(buf: Buffer | string): string {
@@ -44,6 +47,7 @@ export function verifySession(token: string | undefined | null): SessionUser | n
       lastname: String(data.lastname || ''),
       id_lang: data.id_lang ? Number(data.id_lang) : undefined,
       is_guest: data.is_guest ? Number(data.is_guest) : 0,
+      ...(data.id_group ? { id_group: Number(data.id_group) } : {}),
     };
   } catch {
     return null;

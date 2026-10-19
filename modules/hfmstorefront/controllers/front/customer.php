@@ -675,6 +675,7 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             'id_lang' => (int) $c->id_lang,
             'is_guest' => (int) $c->is_guest,
             'groups' => array_map('intval', $c->getGroups()),
+            'id_default_group' => (int) $c->id_default_group,
             'rpps' => $pro['rpps'],
             'pro_attestation' => (int) $pro['attestation'],
             'rpps_validated' => $validated,

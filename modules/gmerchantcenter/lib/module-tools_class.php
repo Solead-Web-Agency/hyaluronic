@@ -305,6 +305,14 @@ class BT_GmcModuleTools
     {
         $sProdUrl = '';
 
+        // [HFM] Site headless : les fiches produit sont servies par le front Next.js
+        // (HFM_FRONT_URL) en /{langue}/{catégorie}/{produit}. Le segment catégorie est cosmétique
+        // (le front résout par le slug produit et redirige vers l'URL canonique).
+        $sFront = rtrim((string) Configuration::get('HFM_FRONT_URL'), '/');
+        if ($sFront !== '' && Validate::isLoadedObject($oProduct)) {
+            return self::hfmFrontProductLink($oProduct, (int) $iLangId, $sFront);
+        }
+
         if (!empty(GMerchantCenter::$bCompare1550)) {
             $sProdUrl = Context::getContext()->link->getProductLink(
                 $oProduct,
@@ -343,6 +351,38 @@ class BT_GmcModuleTools
         }
 
         return $sProdUrl;
+    }
+
+    /**
+     * [HFM] URL de la fiche produit sur le front headless. Slug produit de la langue, sinon slug
+     * français quand celui de la langue est dégradé (ex. japonais réduit à « -1ml »).
+     */
+    public static function hfmFrontProductLink($oProduct, $iLangId, $sFront)
+    {
+        $iso = Language::getIsoById($iLangId) ?: 'fr';
+        $slug = function ($table, $idCol, $id, $lang) {
+            return (string) Db::getInstance()->getValue(
+                'SELECT link_rewrite FROM `' . _DB_PREFIX_ . $table . '_lang` WHERE `' . $idCol . '` = ' . (int) $id
+                . ' AND id_lang = ' . (int) $lang . ' AND id_shop = ' . (int) Context::getContext()->shop->id
+            );
+        };
+        $healthy = function ($s) {
+            return (bool) preg_match('/[a-z]{2}/', (string) $s) && Tools::substr((string) $s, 0, 1) !== '-';
+        };
+        $idFr = (int) Language::getIdByIso('fr') ?: 1;
+        $prod = $slug('product', 'id_product', $oProduct->id, $iLangId);
+        if (!$healthy($prod)) {
+            $prod = $slug('product', 'id_product', $oProduct->id, $idFr);
+        }
+        $cat = $slug('category', 'id_category', (int) $oProduct->id_category_default, $iLangId);
+        if (!$healthy($cat)) {
+            $cat = $slug('category', 'id_category', (int) $oProduct->id_category_default, $idFr);
+        }
+        if ($cat === '') {
+            $cat = 'catalogue';
+        }
+
+        return $sFront . '/' . $iso . '/' . $cat . '/' . $prod;
     }
 
     /**
@@ -406,6 +446,11 @@ class BT_GmcModuleTools
                 }
 
                 // use case - get valid IMG URI before  Prestashop 1.4
+                // [HFM] Headless : les images restent servies par le back PrestaShop (son propre
+                // domaine, en https) -> on n'impose pas le domaine de la boutique (GMC_LINK).
+                if ((string) Configuration::get('HFM_FRONT_URL') !== '') {
+                    $sForceDomainName = null;
+                }
                 $sImgUrl = self::detectHttpUri($sImgUrl, $sForceDomainName);
             }
         }

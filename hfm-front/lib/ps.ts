@@ -3,6 +3,7 @@
 import { cachedJson, cacheKey } from './cache';
 import { headers, cookies } from 'next/headers';
 import { unstable_rethrow } from 'next/navigation';
+import { getSessionUser } from './session';
 
 const BASE = process.env.PS_URL || 'http://localhost:8080';
 const SECRET = process.env.HFM_BRIDGE_SECRET || '';
@@ -24,11 +25,16 @@ const WRITE_TIMEOUT_MS = 25000;
 // (liste servie par le bridge) : tous les autres visiteurs partagent le même cache.
 const COUNTRY_CONTROLLERS = new Set(['products', 'cart', 'checkout', 'wishlist']);
 const RULE_COUNTRIES_TTL_MS = 10 * 60 * 1000;
-let ruleCountries: { list: string[]; at: number } | null = null;
+let ruleCountries: { list: string[]; groups: number[]; at: number } | null = null;
 
 async function ruleCountryList(): Promise<string[]> {
-  if (ruleCountries && Date.now() - ruleCountries.at < RULE_COUNTRIES_TTL_MS) return ruleCountries.list;
+  return (await ruleInfo()).list;
+}
+
+async function ruleInfo(): Promise<{ list: string[]; groups: number[] }> {
+  if (ruleCountries && Date.now() - ruleCountries.at < RULE_COUNTRIES_TTL_MS) return ruleCountries;
   let list: string[] = ruleCountries?.list ?? [];
+  let groups: number[] = ruleCountries?.groups ?? [];
   try {
     const r = await fetch(bridgeUrl('taxonomy', { action: 'rule-countries' }), {
       headers: { 'X-Storefront-Token': SECRET },
@@ -37,11 +43,31 @@ async function ruleCountryList(): Promise<string[]> {
     });
     const d = r.ok ? await r.json() : null;
     if (Array.isArray(d?.countries)) list = d.countries.map((c: unknown) => String(c).toUpperCase());
+    if (Array.isArray(d?.groups)) groups = d.groups.map((g: unknown) => Number(g)).filter((g: number) => g > 0);
   } catch (e) {
     unstable_rethrow(e);
   }
-  ruleCountries = { list, at: Date.now() };
-  return list;
+  ruleCountries = { list, groups, at: Date.now() };
+  return ruleCountries;
+}
+
+// Prix par GROUPE client dans le catalogue : on transmet le client connecté au bridge seulement si
+// son groupe a un tarif particulier (B2B exonéré de TVA, réductions…). Le cache Redis est alors
+// propre à ce client ; tous les autres visiteurs partagent le cache public.
+const GROUP_CONTROLLERS = new Set(['products', 'wishlist']);
+async function withGroup<T extends Record<string, unknown>>(controller: string, params: T): Promise<T> {
+  if (!GROUP_CONTROLLERS.has(controller) || 'id_customer' in params) return params;
+  let user = null;
+  try {
+    user = await getSessionUser();
+  } catch (e) {
+    unstable_rethrow(e);
+    return params;
+  }
+  if (!user?.id_group) return params;
+  const { groups } = await ruleInfo();
+  if (!groups.includes(user.id_group)) return params;
+  return { ...params, id_customer: user.id_customer };
 }
 
 async function visitorCountry(): Promise<string | null> {
@@ -59,6 +85,7 @@ async function visitorCountry(): Promise<string | null> {
 }
 
 async function withCountry<T extends Record<string, unknown>>(controller: string, params: T): Promise<T> {
+  params = await withGroup(controller, params);
   if (!COUNTRY_CONTROLLERS.has(controller) || 'country' in params) return params;
   const c = await visitorCountry();
   if (!c) return params;

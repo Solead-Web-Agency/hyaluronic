@@ -770,6 +770,18 @@ abstract class BT_BaseXml
             $bProcess = false;
         }
 
+        // [HFM] Transporteur le MOINS CHER, au tarif RÉEL : on simule un panier livré dans le pays du
+        // flux et on demande à PrestaShop ses options de livraison (modules DHL / GLS / UPS, franco
+        // HT compris), comme le tunnel de commande. Tarif mis en cache par pays + tranche de poids
+        // (0,5 kg) + tranche de prix (100 €) : quelques dizaines de simulations par flux.
+        if ($bProcess && isset($this->data->p->id)) {
+            $fBest = self::hfmCheapestShipping($this->data->p, (int) $this->data->countryId, (float) $this->data->step->weight);
+            if ($fBest !== null) {
+                $fBest = Tools::convertPrice($fBest, $this->data->currency);
+                return number_format((float) $fBest, 2, '.', '') . $this->data->currency->iso_code;
+            }
+        }
+
         // only in case of not free shipping weight or price
         if ($bProcess && is_a($this->data->currentCarrier, 'Carrier')) {
             // Get shipping method - Version 1.4 / 1.5
@@ -817,6 +829,96 @@ abstract class BT_BaseXml
         }
 
         return $fShippingFees;
+    }
+
+    /**
+     * [HFM] Frais de port TTC les moins chers pour livrer ce produit dans le pays, d'après les
+     * options de livraison réelles de PrestaShop (panier simulé). null si aucun transporteur.
+     */
+    protected static function hfmCheapestShipping($oProduct, $iCountryId, $fWeight)
+    {
+        static $cache = array();
+        static $cart = null;
+        static $addresses = array();
+
+        $fPriceHT = (float) Product::getPriceStatic((int) $oProduct->id, false);
+        $sKey = $iCountryId . '|' . (int) ceil(max(0.01, $fWeight) * 2) . '|' . (int) floor($fPriceHT / 100);
+        if (array_key_exists($sKey, $cache)) {
+            return $cache[$sKey];
+        }
+
+        $oContext = Context::getContext();
+        if ($cart === null) {
+            $cart = new Cart();
+            $cart->id_lang = (int) $oContext->language->id;
+            $cart->id_currency = (int) Configuration::get('PS_CURRENCY_DEFAULT');
+            $cart->id_shop = (int) $oContext->shop->id;
+            $cart->id_shop_group = (int) $oContext->shop->id_shop_group;
+            $cart->add();
+            // Nettoyage en fin de génération : ni panier ni adresse temporaires ne restent en base.
+            register_shutdown_function(function () use (&$cart, &$addresses) {
+                if ($cart && Validate::isLoadedObject($cart)) {
+                    $cart->delete();
+                }
+                foreach ($addresses as $oAddr) {
+                    Db::getInstance()->delete('address', 'id_address = ' . (int) $oAddr->id);
+                }
+            });
+        }
+        if (!isset($addresses[$iCountryId])) {
+            $oCountry = new Country($iCountryId);
+            $oAddr = new Address();
+            $oAddr->id_country = $iCountryId;
+            $oAddr->alias = 'gmc-feed';
+            $oAddr->lastname = 'Feed';
+            $oAddr->firstname = 'Merchant';
+            $oAddr->address1 = 'Merchant feed';
+            $oAddr->city = 'Feed';
+            $oAddr->postcode = $oCountry->zip_code_format
+                ? str_replace(array('N', 'L', 'C'), array('1', 'A', $oCountry->iso_code), $oCountry->zip_code_format)
+                : '75001';
+            if ($oCountry->contains_states) {
+                $aStates = State::getStatesByIdCountry($iCountryId, true);
+                $oAddr->id_state = !empty($aStates) ? (int) $aStates[0]['id_state'] : 0;
+            }
+            $oAddr->phone = '0100000000';
+            $oAddr->deleted = 1; // jamais visible ni réutilisable
+            $oAddr->add();
+            $addresses[$iCountryId] = $oAddr;
+        }
+
+        try {
+            foreach ($cart->getProducts(true) as $aLine) {
+                $cart->deleteProduct((int) $aLine['id_product'], (int) $aLine['id_product_attribute']);
+            }
+            $cart->id_address_delivery = (int) $addresses[$iCountryId]->id;
+            $cart->id_address_invoice = (int) $addresses[$iCountryId]->id;
+            $cart->update();
+            // Sans contrôle de stock : un produit en rupture reste exporté (disponibilité « out of
+            // stock ») et doit avoir ses vrais frais de port.
+            $cart->updateQty(1, (int) $oProduct->id, null, false, 'up', (int) $addresses[$iCountryId]->id, null, false, true);
+            $oContext->cart = $cart;
+            $aOptions = $cart->getDeliveryOptionList(new Country($iCountryId), true);
+            $fBest = null;
+            foreach ((array) $aOptions as $aByAddress) {
+                foreach ((array) $aByAddress as $aOption) {
+                    if (isset($aOption['total_price_with_tax']) && ($fBest === null || $aOption['total_price_with_tax'] < $fBest)) {
+                        $fBest = (float) $aOption['total_price_with_tax'];
+                    }
+                }
+            }
+            // Pas de cache d'un échec (aucune option) : le produit suivant de la tranche réessaie.
+            if ($fBest !== null) {
+                $cache[$sKey] = $fBest;
+            } else {
+                unset($cache[$sKey]);
+            }
+            return $fBest;
+        } catch (\Throwable $e) {
+            PrestaShopLogger::addLog('HFM flux Merchant : simulation livraison impossible (' . $e->getMessage() . ')', 2);
+        }
+
+        return null;
     }
 
     /**

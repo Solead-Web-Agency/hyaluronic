@@ -102,6 +102,11 @@ class HfmCache
             if ($bucket !== '') {
                 $parts['__country'] = $bucket;
             }
+            // Prix par groupe client (B2B exonéré, réductions de groupe…) : compartiment dédié.
+            $grp = HfmCountryRules::groupBucket();
+            if ($grp !== '') {
+                $parts['__group'] = $grp;
+            }
         }
         $flat = [];
         foreach ($parts as $k => $v) {

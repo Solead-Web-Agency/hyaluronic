@@ -90,6 +90,51 @@ class HfmCountryRules
         return array_values(array_unique($out));
     }
 
+    /**
+     * Groupes clients dont les prix diffèrent du tarif public : réduction de groupe, réductions
+     * par catégorie, prix spécifiques, exonération de TVA (module taxexempt), affichage HT, ou
+     * règle groupinc ciblant le groupe. Le catalogue n'est calculé « par groupe » que pour eux.
+     */
+    public static function specialGroupIds()
+    {
+        static $cache = null;
+        if ($cache !== null) {
+            return $cache;
+        }
+        $db = Db::getInstance();
+        $p = _DB_PREFIX_;
+        $ids = [];
+        foreach ((array) $db->executeS("SELECT id_group FROM `{$p}group` WHERE reduction <> 0 OR price_display_method = 1") as $r) {
+            $ids[] = (int) $r['id_group'];
+        }
+        foreach ((array) $db->executeS("SELECT DISTINCT id_group FROM `{$p}group_reduction`") as $r) {
+            $ids[] = (int) $r['id_group'];
+        }
+        foreach ((array) $db->executeS("SELECT DISTINCT id_group FROM `{$p}specific_price` WHERE id_group > 0") as $r) {
+            $ids[] = (int) $r['id_group'];
+        }
+        foreach (preg_split('/[;,]/', (string) Configuration::get('TAXEXEMPT_GROUPS')) as $g) {
+            $ids[] = (int) $g;
+        }
+        foreach (self::rules() as $r) {
+            $ids = array_merge($ids, $r['groups']);
+        }
+        $ids = array_values(array_unique(array_filter($ids, function ($x) { return $x > 0; })));
+        sort($ids);
+        return $cache = $ids;
+    }
+
+    /** Compartiment de cache « groupe » du client du contexte ('' = tarif public). */
+    public static function groupBucket()
+    {
+        $customer = Context::getContext()->customer;
+        if (!$customer || !Validate::isLoadedObject($customer)) {
+            return '';
+        }
+        $g = (int) $customer->id_default_group;
+        return in_array($g, self::specialGroupIds(), true) ? 'g' . $g : '';
+    }
+
     /** Pays ayant au moins une règle de prix ou un blocage. `true` = règle sans filtre pays. */
     protected static function specialCountries()
     {

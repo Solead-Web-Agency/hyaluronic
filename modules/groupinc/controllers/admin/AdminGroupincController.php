@@ -299,6 +299,10 @@ class AdminGroupincController extends ModuleAdminController
             'translateLinks' => $translateLinks,
         ));
 
+        // [HFM] PS9 : ce gabarit du back-office 1.7 n'existe plus -> pas de fenêtre « traduire ».
+        if (!$this->context->smarty->templateExists('controllers/modules/modal_translation.tpl')) {
+            return;
+        }
         $modal_content = $this->context->smarty->fetch('controllers/modules/modal_translation.tpl');
 
         $this->modals[] = array(
