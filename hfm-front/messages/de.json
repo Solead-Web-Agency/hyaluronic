@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "Bestellt am",
     "reviewsPublishedOn": "Veröffentlicht am",
     "reviewsReply": "Antwort des Verkäufers",
-    "reviewsTranslated": "Übersetzte Bewertung"
+    "reviewsTranslated": "Übersetzte Bewertung",
+    "blockedCountry": "Dieses Produkt ist in Ihrem Land nicht erhältlich."
   },
   "quickView": {
     "refStock": "Art. {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "MwSt. (20 %)",
     "totalIncl": "Gesamtsumme inkl. MwSt.",
     "checkout": "Bestellen · {amount} €",
-    "securePayment": "Sichere Zahlung 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Sichere Zahlung 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Dieses Produkt ist in Ihrem Land nicht erhältlich und wurde nicht hinzugefügt.",
+    "noticeOutOfStock": "Dieses Produkt ist nicht vorrätig und wurde nicht hinzugefügt.",
+    "blockedItems": "Nicht in Ihr Land lieferbar: {names}. Entfernen Sie diese Produkte, um zu bestellen."
   },
   "search": {
     "title": "Suche",
@@ -514,7 +518,9 @@
     "vat": "MwSt.",
     "vatRate": "MwSt. {rate} %",
     "vatBase": "auf {base} €",
-    "vatExempt": "MwSt.-Befreiung angewendet (innergemeinschaftliches Reverse-Charge-Verfahren oder Ausfuhr)."
+    "vatExempt": "MwSt.-Befreiung angewendet (innergemeinschaftliches Reverse-Charge-Verfahren oder Ausfuhr).",
+    "blockedProducts": "Diese Produkte können nicht in das Land der gewählten Adresse geliefert werden: {names}. Entfernen Sie sie oder wählen Sie eine andere Adresse.",
+    "blockedProductsShort": "Ein Produkt im Warenkorb kann nicht in dieses Land geliefert werden."
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",

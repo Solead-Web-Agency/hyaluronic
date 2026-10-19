@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "주문일",
     "reviewsPublishedOn": "게시일",
     "reviewsReply": "판매자 답변",
-    "reviewsTranslated": "번역된 리뷰"
+    "reviewsTranslated": "번역된 리뷰",
+    "blockedCountry": "이 제품은 고객님의 국가에서 판매되지 않습니다."
   },
   "quickView": {
     "refStock": "품번 {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "부가세 (20%)",
     "totalIncl": "부가세 포함 합계",
     "checkout": "주문하기 · {amount} €",
-    "securePayment": "3D-Secure 안전 결제 · DHL & Colissimo Express"
+    "securePayment": "3D-Secure 안전 결제 · DHL & Colissimo Express",
+    "noticeBlockedCountry": "이 제품은 고객님의 국가에서 판매되지 않아 추가되지 않았습니다.",
+    "noticeOutOfStock": "이 제품은 품절되어 추가되지 않았습니다.",
+    "blockedItems": "고객님의 국가로 배송할 수 없습니다: {names}. 주문하려면 이 제품을 삭제하세요."
   },
   "search": {
     "title": "검색",
@@ -514,7 +518,9 @@
     "vat": "VAT",
     "vatRate": "VAT {rate}%",
     "vatBase": "과세표준 {base} €",
-    "vatExempt": "VAT 면제가 적용되었습니다(EU 역내 역과세 또는 수출)."
+    "vatExempt": "VAT 면제가 적용되었습니다(EU 역내 역과세 또는 수출).",
+    "blockedProducts": "선택한 주소의 국가로 다음 제품을 배송할 수 없습니다: {names}. 제품을 삭제하거나 다른 주소를 선택하세요.",
+    "blockedProductsShort": "장바구니의 제품 중 하나를 이 국가로 배송할 수 없습니다."
   },
   "orders": {
     "loginRequired": "로그인이 필요합니다",

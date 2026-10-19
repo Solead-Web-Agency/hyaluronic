@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "Objednávka z",
     "reviewsPublishedOn": "Zveřejněno",
     "reviewsReply": "Odpověď prodejce",
-    "reviewsTranslated": "Přeložené hodnocení"
+    "reviewsTranslated": "Přeložené hodnocení",
+    "blockedCountry": "Tento produkt se ve vaší zemi neprodává."
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "DPH (20 %)",
     "totalIncl": "Celkem s DPH",
     "checkout": "Objednat · {amount} €",
-    "securePayment": "Zabezpečená platba 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Zabezpečená platba 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Tento produkt se ve vaší zemi neprodává, a proto nebyl přidán.",
+    "noticeOutOfStock": "Tento produkt není skladem, a proto nebyl přidán.",
+    "blockedItems": "Nelze doručit do vaší země: {names}. Pro objednání tyto produkty odeberte."
   },
   "search": {
     "title": "Hledání",
@@ -514,7 +518,9 @@
     "vat": "DPH",
     "vatRate": "DPH {rate} %",
     "vatBase": "ze základu {base} €",
-    "vatExempt": "Uplatněno osvobození od DPH (přenesení daňové povinnosti v rámci EU nebo vývoz)."
+    "vatExempt": "Uplatněno osvobození od DPH (přenesení daňové povinnosti v rámci EU nebo vývoz).",
+    "blockedProducts": "Tyto produkty nelze doručit do země zvolené adresy: {names}. Odeberte je nebo zvolte jinou adresu.",
+    "blockedProductsShort": "Jeden z produktů v košíku nelze doručit do této země."
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",

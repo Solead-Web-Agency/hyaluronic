@@ -194,6 +194,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
       ? (p.composition as RawCompo[]).map((c) => ({ k: c.k ?? '', v: c.v ?? '' })).filter((c) => c.k && c.v)
       : [],
     rpps_required: !!p.rpps_required,
+    blocked_country: !!p.blocked_country,
     reviews: p.reviews ?? null,
     combinations: Array.isArray(p.combinations) ? p.combinations : [],
     priceWithoutReductionTtc: p.price_without_reduction_incl_tax ?? undefined,

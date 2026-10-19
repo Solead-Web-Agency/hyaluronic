@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "Comandă din",
     "reviewsPublishedOn": "Publicat la",
     "reviewsReply": "Răspunsul vânzătorului",
-    "reviewsTranslated": "Recenzie tradusă"
+    "reviewsTranslated": "Recenzie tradusă",
+    "blockedCountry": "Acest produs nu este disponibil la vânzare în țara dvs."
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "TVA (20 %)",
     "totalIncl": "Total cu TVA",
     "checkout": "Comandă · {amount} €",
-    "securePayment": "Plată securizată 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Plată securizată 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Acest produs nu este disponibil în țara dvs. și nu a fost adăugat.",
+    "noticeOutOfStock": "Acest produs nu este în stoc și nu a fost adăugat.",
+    "blockedItems": "Nu se livrează în țara dvs.: {names}. Eliminați aceste produse pentru a comanda."
   },
   "search": {
     "title": "Căutare",
@@ -514,7 +518,9 @@
     "vat": "TVA",
     "vatRate": "TVA {rate}%",
     "vatBase": "la {base} €",
-    "vatExempt": "S-a aplicat scutirea de TVA (taxare inversă intracomunitară sau export)."
+    "vatExempt": "S-a aplicat scutirea de TVA (taxare inversă intracomunitară sau export).",
+    "blockedProducts": "Aceste produse nu pot fi livrate în țara adresei alese: {names}. Eliminați-le sau alegeți altă adresă.",
+    "blockedProductsShort": "Un produs din coș nu poate fi livrat în această țară."
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

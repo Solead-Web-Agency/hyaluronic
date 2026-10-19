@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "Bestilling fra",
     "reviewsPublishedOn": "Offentliggjort den",
     "reviewsReply": "Sælgerens svar",
-    "reviewsTranslated": "Oversat anmeldelse"
+    "reviewsTranslated": "Oversat anmeldelse",
+    "blockedCountry": "Dette produkt sælges ikke i dit land."
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "Moms (20 %)",
     "totalIncl": "Total inkl. moms",
     "checkout": "Bestil · {amount} €",
-    "securePayment": "Sikker betaling 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Sikker betaling 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Dette produkt sælges ikke i dit land og blev ikke tilføjet.",
+    "noticeOutOfStock": "Dette produkt er udsolgt og blev ikke tilføjet.",
+    "blockedItems": "Kan ikke leveres til dit land: {names}. Fjern disse produkter for at bestille."
   },
   "search": {
     "title": "Søg",
@@ -514,7 +518,9 @@
     "vat": "Moms",
     "vatRate": "Moms {rate} %",
     "vatBase": "af {base} €",
-    "vatExempt": "Momsfritagelse anvendt (omvendt betalingspligt i EU eller eksport)."
+    "vatExempt": "Momsfritagelse anvendt (omvendt betalingspligt i EU eller eksport).",
+    "blockedProducts": "Disse produkter kan ikke leveres til landet for den valgte adresse: {names}. Fjern dem eller vælg en anden adresse.",
+    "blockedProductsShort": "Et produkt i kurven kan ikke leveres til dette land."
   },
   "orders": {
     "loginRequired": "Login påkrævet",

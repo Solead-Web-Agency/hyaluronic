@@ -28,6 +28,8 @@ export type ProductView = {
   faq: { q: string; a: string }[];
   composition: { k: string; v: string }[];
   rpps_required: boolean;
+  // Produit interdit à la vente dans le pays du visiteur (règles par pays).
+  blocked_country?: boolean;
   reviews: ProductReviews | null;
   // Déclinaisons (taille, conditionnement, teinte…). Vide = produit simple.
   combinations?: Combination[];
@@ -158,7 +160,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
 
   // Avec déclinaisons, la dispo est celle de la variante choisie (le produit peut être « en
   // stock » globalement alors que la variante sélectionnée est épuisée).
-  const canBuy = combo ? combo.available : product.availabilityState !== 'out';
+  const canBuy = !product.blocked_country && (combo ? combo.available : product.availabilityState !== 'out');
   const availability = product.availabilityState === 'in'
     ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#3F7256' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5FA33C' }} />{t('inStockShipToday')}</span>
     : product.availabilityState === 'backorder'
@@ -252,6 +254,12 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           {product.availabilityState === 'in' ? (
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', marginTop: '14px', padding: '9px 14px', background: 'rgba(140,198,63,.1)', border: '1px solid rgba(140,198,63,.28)', borderRadius: '999px', fontSize: '12.5px', fontWeight: 600, color: '#3F7256' }}>
               <span style={{ display: 'inline-flex', color: '#5E8E1F' }}>{icons.truck}</span>{t('deliveredTomorrow')}
+            </div>
+          ) : null}
+
+          {product.blocked_country ? (
+            <div role="alert" style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginTop: '16px', padding: '12px 14px', background: 'rgba(180,35,24,.06)', border: '1px solid rgba(180,35,24,.25)', borderRadius: '8px' }}>
+              <span style={{ fontSize: '13px', lineHeight: 1.5, color: '#B42318', fontWeight: 600 }}>{t('blockedCountry')}</span>
             </div>
           ) : null}
 

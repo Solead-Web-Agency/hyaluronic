@@ -171,6 +171,16 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         if (!$cart->id_customer || !$cart->id_address_delivery || !$cart->id_carrier) {
             return ['error' => 'cart_incomplete', 'detail' => 'client, adresse et transporteur requis'];
         }
+        // Produits interdits à la vente dans le pays de livraison (blockproductsbycountry).
+        // Pas sur le chemin PSP déjà encaissé : on ne refuse jamais une commande payée (traitée en BO).
+        if (!$isPaidPsp) {
+            $deliveryCountry = (int) (new Address((int) $cart->id_address_delivery))->id_country;
+            foreach ($cart->getProducts() as $p) {
+                if (HfmCountryRules::isBlocked((int) $p['id_product'], $deliveryCountry)) {
+                    return ['error' => 'blocked_country', 'detail' => (string) $p['name']];
+                }
+            }
+        }
 
         // Contrôle RPPS : si le panier contient un produit réservé aux praticiens, on exige
         // un numéro au FORMAT permissif (9-13 chiffres). La validité réelle est confirmée

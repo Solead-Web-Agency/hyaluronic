@@ -31,6 +31,8 @@ type CartData = {
   shipping_incl_tax: number;
   grand_total_incl_tax: number;
   rpps_required: boolean;
+  // Produits interdits dans le pays de livraison (règles par pays) : la commande sera refusée.
+  blocked_products: { id_product: number; name: string }[];
 };
 
 export type Customer = {
@@ -48,6 +50,7 @@ function normalize(d: {
   id_cart?: number;
   products?: CartLine[];
   rpps_required?: boolean;
+  blocked_products?: { id_product: number; name: string }[];
   cart_token?: string;
   error?: string;
   totals?: {
@@ -66,11 +69,15 @@ function normalize(d: {
     shipping_incl_tax: d.totals?.shipping_incl_tax ?? 0,
     grand_total_incl_tax: d.totals?.total_incl_tax ?? productsIncl,
     rpps_required: d.rpps_required ?? false,
+    blocked_products: d.blocked_products ?? [],
   };
 }
 
 type StoreCtx = {
   cartOpen: boolean;
+  // Message affiché en tête du panier après un ajout refusé (rupture, produit interdit dans le pays).
+  cartNotice: 'out_of_stock' | 'blocked_country' | null;
+  clearCartNotice: () => void;
   searchOpen: boolean;
   menuOpen: boolean;
   quickProduct: Card | null;
@@ -105,6 +112,7 @@ const EMPTY_CART: CartData = {
   shipping_incl_tax: 0,
   grand_total_incl_tax: 0,
   rpps_required: false,
+  blocked_products: [],
 };
 
 const Ctx = createContext<StoreCtx | null>(null);
@@ -117,6 +125,7 @@ export function useStore(): StoreCtx {
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [cartOpen, setCartOpen] = useState(false);
+  const [cartNotice, setCartNotice] = useState<'out_of_stock' | 'blocked_country' | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [quickProduct, setQuickProduct] = useState<Card | null>(null);
@@ -199,7 +208,13 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           body: JSON.stringify(body),
         });
         const d = await r.json();
-        if (d.error === 'out_of_stock') return; // produit en rupture : on n'ajoute pas
+        // Ajout refusé (rupture / produit interdit dans le pays) : on l'explique au lieu d'échouer en silence.
+        if (d.error === 'out_of_stock' || d.error === 'blocked_country') {
+          setCartNotice(d.error);
+          setCartOpen(true);
+          return;
+        }
+        setCartNotice(null);
         if (!applyCart(d)) return; // panier refusé/introuvable : réinitialisé, on s'arrête
         // Event GA4 enrichi (nom + prix TTC, cohérent avec view_item) depuis la ligne panier renvoyée.
         const line = (d.products as CartLine[] | undefined)?.find((l) => l.id_product === p.id);
@@ -349,6 +364,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const value: StoreCtx = {
     cartOpen,
+    cartNotice,
+    clearCartNotice: () => setCartNotice(null),
     searchOpen,
     menuOpen,
     quickProduct,
@@ -358,7 +375,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setCartOpen(true);
       setMenuOpen(false);
     },
-    closeCart: () => setCartOpen(false),
+    closeCart: () => {
+      setCartOpen(false);
+      setCartNotice(null);
+    },
     openSearch: () => {
       setSearchOpen(true);
       setMenuOpen(false);

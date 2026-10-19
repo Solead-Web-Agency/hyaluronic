@@ -95,6 +95,14 @@ class HfmCache
     {
         $ver = self::version($tag);
         // Normalise les composantes en chaîne déterministe.
+        // Les prix et la visibilité des produits dépendent du pays du visiteur (règles par pays) :
+        // compartiment de cache dédié pour les seuls pays concernés (cf. HfmCountryRules).
+        if ($tag === self::TAG_PRODUCTS && class_exists('HfmCountryRules')) {
+            $bucket = HfmCountryRules::cacheBucket();
+            if ($bucket !== '') {
+                $parts['__country'] = $bucket;
+            }
+        }
         $flat = [];
         foreach ($parts as $k => $v) {
             $flat[] = $k . '=' . (is_scalar($v) ? (string) $v : json_encode($v));

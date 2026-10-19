@@ -8,12 +8,13 @@ import { fmt } from '@/lib/cardModel';
 export default function CartDrawer() {
   const t = useTranslations('cart');
   const tc = useTranslations('common');
-  const { cartOpen, closeCart, cart, updateLine, removeLine } = useStore();
+  const { cartOpen, closeCart, cart, updateLine, removeLine, cartNotice } = useStore();
   const router = useRouter();
   if (!cartOpen) return null;
 
   const subtotal = cart.total_excl_tax;
-  const vat = subtotal * 0.2;
+  // TVA réelle des produits (TTC − HT) : 0 en cas d'exonération, taux réduits pris en compte.
+  const vat = Math.max(0, cart.total_incl_tax - subtotal);
   const ttc = cart.total_incl_tax;
   const remain = Math.max(0, 400 - subtotal);
   const pct = Math.min(100, (subtotal / 400) * 100);
@@ -30,6 +31,16 @@ export default function CartDrawer() {
       <div onClick={closeCart} style={{ position: 'absolute', inset: 0, background: 'rgba(30,30,30,.45)' }} />
       <div style={{ position: 'absolute', top: 0, right: 0, height: '100%', width: '420px', maxWidth: '92vw', background: '#fff', borderLeft: '1px solid #E7E3DA', boxShadow: '-30px 0 60px -30px rgba(30,40,15,.45)', display: 'flex', flexDirection: 'column', animation: 'fdDrawer .32s cubic-bezier(.22,1,.36,1)' }}>
         <div style={{ padding: '22px 24px', borderBottom: '1px solid #E7E3DA', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fff' }}><span style={{ fontFamily: "'Spectral',serif", fontSize: '21px', color: '#2B2B2B' }}>{t('title')}</span><button onClick={closeCart} style={{ background: 'none', border: 'none', fontSize: '22px', color: '#8A8170', cursor: 'pointer', lineHeight: 1 }}>×</button></div>
+        {cartNotice ? (
+          <div role="alert" style={{ margin: '14px 24px 0', padding: '11px 13px', fontSize: '13px', lineHeight: 1.45, color: '#B42318', background: 'rgba(180,35,24,.06)', border: '1px solid rgba(180,35,24,.25)', borderRadius: '8px' }}>
+            {cartNotice === 'blocked_country' ? t('noticeBlockedCountry') : t('noticeOutOfStock')}
+          </div>
+        ) : null}
+        {cart.blocked_products.length ? (
+          <div role="alert" style={{ margin: '14px 24px 0', padding: '11px 13px', fontSize: '13px', lineHeight: 1.45, color: '#B42318', background: 'rgba(180,35,24,.06)', border: '1px solid rgba(180,35,24,.25)', borderRadius: '8px' }}>
+            {t('blockedItems', { names: cart.blocked_products.map((b) => b.name).join(', ') })}
+          </div>
+        ) : null}
         {!hasItems ? (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', padding: '40px' }}><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#C9C2AF" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 8h12l-1 11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /></svg><div style={{ fontSize: '14px', color: '#8A8170', textAlign: 'center' }}>{t('empty')}</div><button onClick={() => { closeCart(); router.push('/catalogue'); }} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '13.5px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', padding: '13px 24px', cursor: 'pointer' }}>{tc('browseCatalogue')}</button></div>
         ) : (

@@ -544,6 +544,8 @@ export default function CheckoutClient() {
       });
       await loadCarriers();
       await reloadTotals();
+      // Le pays de livraison change les produits autorisés (règles par pays) : panier rafraîchi.
+      await refreshCart();
     } catch {
       /* ignore */
     }
@@ -854,7 +856,9 @@ export default function CheckoutClient() {
     return [{ rate: null, base: null, amount: totalTax }];
   })();
   const taxExempt = !!totals && taxRows.every((l) => l.amount === 0) && subtotalHT > 0;
-  const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && (!rppsNeeded || rppsSatisfied) && acceptedTerms;
+  // Produits interdits dans le pays de livraison (règles par pays) : commande impossible.
+  const blockedItems = cart.blocked_products ?? [];
+  const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && (!rppsNeeded || rppsSatisfied) && acceptedTerms && !blockedItems.length;
 
   return (
     <main data-screen-label="Commande" className="hfm-wrap" style={{ maxWidth: '1180px', margin: '0 auto', padding: '34px 28px 70px' }}>
@@ -1302,7 +1306,12 @@ export default function CheckoutClient() {
             {taxExempt ? <div style={{ fontSize: '11.5px', color: '#3F7256', marginTop: '4px' }}>{t('vatExempt')}</div> : null}
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '17px', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #E7E3DA' }}><span style={{ fontWeight: 600, color: '#2B2B2B' }}>{t('totalIncl')}</span><span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, color: '#434343' }}>{fmt(grandTTC)} €</span></div>
           </div>
-          {orderErr ? <div style={{ fontSize: '13px', color: '#A8503A', marginTop: '14px', textAlign: 'center' }}>{t('orderError', { error: orderErr })}</div> : null}
+          {blockedItems.length ? (
+            <div role="alert" style={{ fontSize: '13px', lineHeight: 1.45, color: '#B42318', background: 'rgba(180,35,24,.06)', border: '1px solid rgba(180,35,24,.25)', borderRadius: '8px', padding: '10px 12px', marginTop: '14px' }}>
+              {t('blockedProducts', { names: blockedItems.map((b) => b.name).join(', ') })}
+            </div>
+          ) : null}
+          {orderErr ? <div style={{ fontSize: '13px', color: '#A8503A', marginTop: '14px', textAlign: 'center' }}>{orderErr === 'blocked_country' ? t('blockedProductsShort') : t('orderError', { error: orderErr })}</div> : null}
           {rppsNeeded && !rppsSatisfied ? (
             <div style={{ display: 'flex', gap: '9px', alignItems: 'flex-start', marginTop: '14px', padding: '10px 12px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '7px' }}>
               <span style={{ color: '#A8503A', fontSize: '13px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>

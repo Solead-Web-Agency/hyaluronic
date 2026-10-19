@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "Besteld op",
     "reviewsPublishedOn": "Gepubliceerd op",
     "reviewsReply": "Antwoord van de verkoper",
-    "reviewsTranslated": "Vertaalde beoordeling"
+    "reviewsTranslated": "Vertaalde beoordeling",
+    "blockedCountry": "Dit product is in uw land niet te koop."
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "Btw (20 %)",
     "totalIncl": "Totaal incl. btw",
     "checkout": "Bestellen · {amount} €",
-    "securePayment": "Veilig betalen met 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Veilig betalen met 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Dit product is in uw land niet te koop en is niet toegevoegd.",
+    "noticeOutOfStock": "Dit product is niet op voorraad en is niet toegevoegd.",
+    "blockedItems": "Niet leverbaar in uw land: {names}. Verwijder deze producten om te bestellen."
   },
   "search": {
     "title": "Zoeken",
@@ -514,7 +518,9 @@
     "vat": "btw",
     "vatRate": "btw {rate}%",
     "vatBase": "over € {base}",
-    "vatExempt": "Btw-vrijstelling toegepast (intracommunautaire verlegging of export)."
+    "vatExempt": "Btw-vrijstelling toegepast (intracommunautaire verlegging of export).",
+    "blockedProducts": "Deze producten kunnen niet worden geleverd in het land van het gekozen adres: {names}. Verwijder ze of kies een ander adres.",
+    "blockedProductsShort": "Een product in uw winkelwagen kan niet in dit land worden geleverd."
   },
   "orders": {
     "loginRequired": "Inloggen vereist",

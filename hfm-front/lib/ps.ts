@@ -1,6 +1,8 @@
 // Client serveur du module bridge PrestaShop "hfmstorefront".
 // Les secrets restent ici (serveur), jamais envoyés au navigateur.
 import { cachedJson, cacheKey } from './cache';
+import { headers, cookies } from 'next/headers';
+import { unstable_rethrow } from 'next/navigation';
 
 const BASE = process.env.PS_URL || 'http://localhost:8080';
 const SECRET = process.env.HFM_BRIDGE_SECRET || '';
@@ -15,6 +17,55 @@ const DEFAULTS = { id_lang: 1, id_currency: 1 };
 // aucune commande »). L'idempotence du bridge (Order::getIdByCartId) couvre un éventuel rejeu.
 const READ_TIMEOUT_MS = 8000;
 const WRITE_TIMEOUT_MS = 25000;
+
+// ---------- Pays du visiteur (règles de prix / produits interdits par pays) ----------
+// Le bridge applique les règles du pays de LIVRAISON quand le panier en a une ; sinon celles du
+// pays du VISITEUR (géolocalisation Vercel). On ne transmet ce pays QUE s'il a des règles
+// (liste servie par le bridge) : tous les autres visiteurs partagent le même cache.
+const COUNTRY_CONTROLLERS = new Set(['products', 'cart', 'checkout', 'wishlist']);
+const RULE_COUNTRIES_TTL_MS = 10 * 60 * 1000;
+let ruleCountries: { list: string[]; at: number } | null = null;
+
+async function ruleCountryList(): Promise<string[]> {
+  if (ruleCountries && Date.now() - ruleCountries.at < RULE_COUNTRIES_TTL_MS) return ruleCountries.list;
+  let list: string[] = ruleCountries?.list ?? [];
+  try {
+    const r = await fetch(bridgeUrl('taxonomy', { action: 'rule-countries' }), {
+      headers: { 'X-Storefront-Token': SECRET },
+      cache: 'no-store',
+      signal: AbortSignal.timeout(READ_TIMEOUT_MS),
+    });
+    const d = r.ok ? await r.json() : null;
+    if (Array.isArray(d?.countries)) list = d.countries.map((c: unknown) => String(c).toUpperCase());
+  } catch (e) {
+    unstable_rethrow(e);
+  }
+  ruleCountries = { list, at: Date.now() };
+  return list;
+}
+
+async function visitorCountry(): Promise<string | null> {
+  try {
+    const h = await headers();
+    let c = h.get('x-vercel-ip-country');
+    // En local (pas d'en-tête Vercel) : cookie `hfm_geo=US` pour tester les règles.
+    if (!c && process.env.NODE_ENV !== 'production') c = (await cookies()).get('hfm_geo')?.value ?? null;
+    return c && /^[A-Za-z]{2}$/.test(c) ? c.toUpperCase() : null;
+  } catch (e) {
+    // Hors requête (build) : pas de pays. Les erreurs de contrôle de flux Next remontent intactes.
+    unstable_rethrow(e);
+    return null;
+  }
+}
+
+async function withCountry<T extends Record<string, unknown>>(controller: string, params: T): Promise<T> {
+  if (!COUNTRY_CONTROLLERS.has(controller) || 'country' in params) return params;
+  const c = await visitorCountry();
+  if (!c) return params;
+  const list = await ruleCountryList();
+  if (!list.includes('*') && !list.includes(c)) return params;
+  return { ...params, country: c };
+}
 
 function bridgeUrl(controller: string, params: Record<string, string | number> = {}) {
   const qs = new URLSearchParams({ fc: 'module', module: 'hfmstorefront', controller });
@@ -47,6 +98,7 @@ export async function bridgeGet(controller: string, params: Record<string, strin
   // `no-store` en génération statique, `notFound()`, `redirect()`…) qui doivent remonter INTACTES
   // — les capturer casserait la détection statique/dynamique au build. Une vraie panne réseau
   // (connexion refusée, DNS, timeout) se propage déjà d'elle-même en erreur -> 5xx.
+  params = await withCountry(controller, params);
   const r = await fetch(bridgeUrl(controller, params), {
     headers: { 'X-Storefront-Token': SECRET },
     cache: 'no-store',
@@ -68,6 +120,7 @@ export async function bridgeGet(controller: string, params: Record<string, strin
 }
 
 export async function bridgePost(controller: string, body: Record<string, unknown>) {
+  body = await withCountry(controller, body);
   const r = await fetch(bridgeUrl(controller), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-Storefront-Token': SECRET },
@@ -87,9 +140,11 @@ export async function bridgeGetCached(
   params: Record<string, string | number> = {},
   opts: { ttl: number; tags: string[] },
 ) {
-  const merged = { ...DEFAULTS, ...params };
+  // Le pays (s'il a des règles) fait partie de la clé de cache : prix/produits différents.
+  const p = await withCountry(controller, params);
+  const merged = { ...DEFAULTS, ...p };
   const key = cacheKey(controller, merged);
-  return cachedJson(key, opts.ttl, opts.tags, () => bridgeGet(controller, params));
+  return cachedJson(key, opts.ttl, opts.tags, () => bridgeGet(controller, p));
 }
 
 export type ProductCard = {

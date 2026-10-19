@@ -9,6 +9,7 @@
 if (!defined('_PS_VERSION_')) {
     exit;
 }
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/country_rules.php';
 
 abstract class HfmStorefrontApiController extends ModuleFrontController
 {
@@ -107,6 +108,9 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
                 $ctx->customer = $customer;
             }
         }
+        // Pays du visiteur (géolocalisation transmise par le front) : sert aux règles de prix et
+        // aux produits interdits par pays tant que le panier n'a pas d'adresse de livraison.
+        HfmCountryRules::setPricingCountryIso((string) $this->in('country', ''));
     }
 
     protected function in($key, $default = null)

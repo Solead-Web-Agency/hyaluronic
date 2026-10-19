@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "注文日",
     "reviewsPublishedOn": "公開日",
     "reviewsReply": "販売者からの返信",
-    "reviewsTranslated": "翻訳されたレビュー"
+    "reviewsTranslated": "翻訳されたレビュー",
+    "blockedCountry": "この製品はお住まいの国では販売していません。"
   },
   "quickView": {
     "refStock": "品番 {reference} · {status}。",
@@ -288,7 +289,10 @@
     "vat": "VAT(20 %)",
     "totalIncl": "合計(税込)",
     "checkout": "注文する · {amount} €",
-    "securePayment": "3D-Secureによる安全なお支払い · DHL & Colissimo Express"
+    "securePayment": "3D-Secureによる安全なお支払い · DHL & Colissimo Express",
+    "noticeBlockedCountry": "この製品はお住まいの国では販売していないため、追加されませんでした。",
+    "noticeOutOfStock": "この製品は在庫切れのため、追加されませんでした。",
+    "blockedItems": "お住まいの国へは配送できません：{names}。注文するにはこれらの製品を削除してください。"
   },
   "search": {
     "title": "検索",
@@ -514,7 +518,9 @@
     "vat": "VAT",
     "vatRate": "VAT {rate}%",
     "vatBase": "対象額 {base} €",
-    "vatExempt": "VAT免除が適用されています（EU域内リバースチャージまたは輸出）。"
+    "vatExempt": "VAT免除が適用されています（EU域内リバースチャージまたは輸出）。",
+    "blockedProducts": "選択した住所の国へは次の製品を配送できません：{names}。削除するか、別の住所を選択してください。",
+    "blockedProductsShort": "カート内の製品の一部はこの国へ配送できません。"
   },
   "orders": {
     "loginRequired": "ログインが必要です",

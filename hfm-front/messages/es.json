@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "Pedido del",
     "reviewsPublishedOn": "Publicado el",
     "reviewsReply": "Respuesta del vendedor",
-    "reviewsTranslated": "Opinión traducida"
+    "reviewsTranslated": "Opinión traducida",
+    "blockedCountry": "Este producto no está disponible para la venta en su país."
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "IVA (20 %)",
     "totalIncl": "Total con IVA",
     "checkout": "Tramitar pedido · {amount} €",
-    "securePayment": "Pago seguro 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Pago seguro 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Este producto no está disponible en su país: no se ha añadido.",
+    "noticeOutOfStock": "Este producto está agotado: no se ha añadido.",
+    "blockedItems": "No disponible para envío a su país: {names}. Retire estos productos para hacer el pedido."
   },
   "search": {
     "title": "Búsqueda",
@@ -514,7 +518,9 @@
     "vat": "IVA",
     "vatRate": "IVA {rate} %",
     "vatBase": "sobre {base} €",
-    "vatExempt": "Exención de IVA aplicada (inversión del sujeto pasivo intracomunitaria o exportación)."
+    "vatExempt": "Exención de IVA aplicada (inversión del sujeto pasivo intracomunitaria o exportación).",
+    "blockedProducts": "Estos productos no se pueden enviar al país de la dirección elegida: {names}. Retírelos o elija otra dirección.",
+    "blockedProductsShort": "Un producto del carrito no se puede enviar a este país."
   },
   "orders": {
     "loginRequired": "Inicio de sesión requerido",

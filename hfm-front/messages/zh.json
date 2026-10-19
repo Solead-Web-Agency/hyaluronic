@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "下单日期",
     "reviewsPublishedOn": "发布于",
     "reviewsReply": "卖家回复",
-    "reviewsTranslated": "翻译后的评价"
+    "reviewsTranslated": "翻译后的评价",
+    "blockedCountry": "该产品在您所在的国家/地区不予销售。"
   },
   "quickView": {
     "refStock": "货号 {reference} · {status}。",
@@ -288,7 +289,10 @@
     "vat": "增值税 (20%)",
     "totalIncl": "含税总计",
     "checkout": "结算 · {amount} €",
-    "securePayment": "3D-Secure 安全支付 · DHL 与 Colissimo Express"
+    "securePayment": "3D-Secure 安全支付 · DHL 与 Colissimo Express",
+    "noticeBlockedCountry": "该产品在您所在的国家/地区不予销售，未加入购物车。",
+    "noticeOutOfStock": "该产品缺货，未加入购物车。",
+    "blockedItems": "无法配送至您所在的国家/地区：{names}。请删除这些产品后再下单。"
   },
   "search": {
     "title": "搜索",
@@ -514,7 +518,9 @@
     "vat": "增值税",
     "vatRate": "增值税 {rate}%",
     "vatBase": "计税基数 {base} €",
-    "vatExempt": "已适用增值税豁免（欧盟内部反向征税或出口）。"
+    "vatExempt": "已适用增值税豁免（欧盟内部反向征税或出口）。",
+    "blockedProducts": "以下产品无法配送至所选地址所在的国家/地区：{names}。请删除这些产品或选择其他地址。",
+    "blockedProductsShort": "购物车中的某个产品无法配送至该国家/地区。"
   },
   "orders": {
     "loginRequired": "需要登录",

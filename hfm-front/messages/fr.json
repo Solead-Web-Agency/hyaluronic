@@ -285,7 +285,8 @@
     "share": "Partager",
     "viewedTitle": "Déjà vus",
     "compare": "Comparer",
-    "compareFull": "Comparateur : 4 produits maximum."
+    "compareFull": "Comparateur : 4 produits maximum.",
+    "blockedCountry": "Ce produit n'est pas disponible à la vente dans votre pays."
   },
   "quickView": {
     "refStock": "Réf. {reference} · {status}.",
@@ -303,7 +304,10 @@
     "vat": "TVA (20 %)",
     "totalIncl": "Total TTC",
     "checkout": "Commander · {amount} €",
-    "securePayment": "Paiement sécurisé 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Paiement sécurisé 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Ce produit n'est pas disponible à la vente dans votre pays : il n'a pas été ajouté.",
+    "noticeOutOfStock": "Ce produit est en rupture de stock : il n'a pas été ajouté.",
+    "blockedItems": "Non livrable dans votre pays : {names}. Retirez ces produits pour commander."
   },
   "search": {
     "title": "Recherche",
@@ -572,7 +576,9 @@
     "vat": "TVA",
     "vatRate": "TVA {rate} %",
     "vatBase": "base {base} €",
-    "vatExempt": "Exonération de TVA appliquée (autoliquidation intracommunautaire ou export)."
+    "vatExempt": "Exonération de TVA appliquée (autoliquidation intracommunautaire ou export).",
+    "blockedProducts": "Ces produits ne peuvent pas être livrés dans le pays de l'adresse choisie : {names}. Retirez-les ou choisissez une autre adresse.",
+    "blockedProductsShort": "Un produit du panier ne peut pas être livré dans ce pays."
   },
   "orders": {
     "loginRequired": "Connexion requise",

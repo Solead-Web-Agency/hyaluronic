@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "طلب بتاريخ",
     "reviewsPublishedOn": "نُشر في",
     "reviewsReply": "رد البائع",
-    "reviewsTranslated": "تقييم مترجم"
+    "reviewsTranslated": "تقييم مترجم",
+    "blockedCountry": "هذا المنتج غير متاح للبيع في بلدك."
   },
   "quickView": {
     "refStock": "المرجع {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "ضريبة القيمة المضافة (20٪)",
     "totalIncl": "الإجمالي شامل الضريبة",
     "checkout": "إتمام الطلب · {amount} €",
-    "securePayment": "دفع آمن 3D-Secure · DHL و Colissimo Express"
+    "securePayment": "دفع آمن 3D-Secure · DHL و Colissimo Express",
+    "noticeBlockedCountry": "هذا المنتج غير متاح للبيع في بلدك، ولم تتم إضافته.",
+    "noticeOutOfStock": "هذا المنتج غير متوفر في المخزون، ولم تتم إضافته.",
+    "blockedItems": "غير قابل للتوصيل إلى بلدك: {names}. أزل هذه المنتجات لإتمام الطلب."
   },
   "search": {
     "title": "البحث",
@@ -514,7 +518,9 @@
     "vat": "ضريبة القيمة المضافة",
     "vatRate": "ضريبة القيمة المضافة {rate}%",
     "vatBase": "على {base} €",
-    "vatExempt": "تم تطبيق الإعفاء من ضريبة القيمة المضافة (التكليف العكسي داخل الاتحاد الأوروبي أو التصدير)."
+    "vatExempt": "تم تطبيق الإعفاء من ضريبة القيمة المضافة (التكليف العكسي داخل الاتحاد الأوروبي أو التصدير).",
+    "blockedProducts": "لا يمكن توصيل هذه المنتجات إلى بلد العنوان المحدد: {names}. أزلها أو اختر عنوانًا آخر.",
+    "blockedProductsShort": "لا يمكن توصيل أحد منتجات السلة إلى هذا البلد."
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",

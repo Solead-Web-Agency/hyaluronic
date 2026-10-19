@@ -189,12 +189,34 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         $order = (string) $this->in('order', 'position');
 
         $total = 0;
-        if ($q !== '') {
+        $blocked = HfmCountryRules::blockedForVisitor();
+        if ($blocked && $q === '') {
+            // Pays avec produits interdits (aujourd'hui US/JP) : on récupère la liste complète du
+            // filtre courant, on retire les interdits, PUIS on pagine -> total et pages exacts.
+            if ($filter !== '') {
+                $all = $this->filtered($filter, $idLang, 1, 1000);
+            } elseif ($idManufacturer) {
+                list($orderBy, $orderWay) = $this->orderFor($order, 'manufacturer');
+                $all = Manufacturer::getProducts($idManufacturer, $idLang, 1, 1000, $orderBy, $orderWay);
+            } elseif ($idCategory) {
+                list($orderBy, $orderWay) = $this->orderFor($order, 'category');
+                $all = (new Category($idCategory, $idLang))->getProducts($idLang, 1, 1000, $orderBy, $orderWay);
+            } else {
+                list($orderBy, $orderWay) = $this->orderFor($order, 'all');
+                $all = Product::getProducts($idLang, 0, 1000, $orderBy, $orderWay, false, true);
+            }
+            $allIds = array_values(array_diff(array_map(function ($r) { return (int) $r['id_product']; }, (array) $all), $blocked));
+            $total = count($allIds);
+            $rows = array_map(function ($id) { return ['id_product' => $id]; }, array_slice($allIds, $start, $limit));
+        } elseif ($q !== '') {
             // Recherche : ids des produits ACTIFS et visibles en recherche, filtrés AVANT pagination
             // (Product::searchByName renvoyait aussi les inactifs : la page 1 perdait des résultats,
             // ex. « hyamira » -> 11 trouvés dont 5 inactifs -> Hyamira Forte absent). Le tri « order »
             // ne s'applique pas : ordre de pertinence (nom commençant par la requête, puis alphabétique).
             $allIds = $this->searchIds($q, $idLang);
+            if ($blocked) {
+                $allIds = array_values(array_diff($allIds, $blocked));
+            }
             $total = count($allIds);
             $ids = array_slice($allIds, $start, $limit);
             $rows = array_map(function ($id) { return ['id_product' => $id]; }, $ids);
@@ -534,6 +556,11 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
     protected function cardsForIds(array $ids, $idLang)
     {
         $ids = array_values(array_unique(array_filter(array_map('intval', $ids))));
+        // Produits interdits dans le pays du visiteur (blockproductsbycountry) : jamais listés.
+        $blocked = HfmCountryRules::blockedForVisitor();
+        if ($blocked) {
+            $ids = array_values(array_diff($ids, $blocked));
+        }
         if (empty($ids)) {
             return [];
         }
@@ -1161,6 +1188,9 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'available' => $this->availability($idProduct, (int) Product::getQuantity($idProduct)) !== 'unavailable',
             'availability' => $this->availability($idProduct, (int) Product::getQuantity($idProduct)),
             'rpps_required' => $this->productRequiresRpps($idProduct),
+            // Produit interdit à la vente dans le pays du visiteur : la fiche reste consultable
+            // (SEO) mais l'achat est désactivé côté front et refusé au panier.
+            'blocked_country' => HfmCountryRules::isBlocked($idProduct, (int) HfmCountryRules::pricingCountryId()),
             'images' => $images,
             'features' => $features,
             'key_points' => $extra ? $decode($extra['key_points']) : [],

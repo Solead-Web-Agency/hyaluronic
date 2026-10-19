@@ -47,6 +47,10 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
 
         switch ($action) {
             case 'add':
+                // Produit interdit à la vente dans le pays de livraison (ou du visiteur si pas encore d'adresse).
+                if (HfmCountryRules::isBlocked($idProduct, $this->effectiveCountry($cart))) {
+                    return ['error' => 'blocked_country'] + $this->cartPayload($cart);
+                }
                 // Refus si le produit est en rupture et que la vente hors stock n'est pas autorisée.
                 if (!$this->isProductOrderable($idProduct, $idAttribute)) {
                     return ['error' => 'out_of_stock'] + $this->cartPayload($cart);
@@ -189,6 +193,33 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
         ];
     }
 
+    /** Pays qui fait foi : celui de l'adresse de livraison, sinon celui du visiteur. */
+    protected function effectiveCountry(Cart $cart)
+    {
+        if ((int) $cart->id_address_delivery) {
+            $a = new Address((int) $cart->id_address_delivery);
+            if (Validate::isLoadedObject($a)) {
+                return (int) $a->id_country;
+            }
+        }
+        return (int) HfmCountryRules::pricingCountryId();
+    }
+
+    protected function blockedInCart(Cart $cart)
+    {
+        $idCountry = $this->effectiveCountry($cart);
+        $out = [];
+        if (!$idCountry || !Validate::isLoadedObject($cart)) {
+            return $out;
+        }
+        foreach ($cart->getProducts() as $p) {
+            if (HfmCountryRules::isBlocked((int) $p['id_product'], $idCountry)) {
+                $out[] = ['id_product' => (int) $p['id_product'], 'name' => (string) $p['name']];
+            }
+        }
+        return $out;
+    }
+
     protected function productQty($cart, $idProduct, $idAttribute)
     {
         foreach ($cart->getProducts() as $p) {
@@ -297,6 +328,8 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
             'id_address_delivery' => (int) $cart->id_address_delivery,
             'delivery_address' => $deliveryAddress,
             'rpps_required' => $this->cartRequiresRpps($cart),
+            // Produits du panier interdits dans le pays de livraison (la commande sera refusée).
+            'blocked_products' => $this->blockedInCart($cart),
             'nb_items' => (int) $cart->nbProducts(),
             'products' => $products,
             'totals' => $this->cartTotals($cart),

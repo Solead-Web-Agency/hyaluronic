@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "Tilaus",
     "reviewsPublishedOn": "Julkaistu",
     "reviewsReply": "Myyjän vastaus",
-    "reviewsTranslated": "Käännetty arvostelu"
+    "reviewsTranslated": "Käännetty arvostelu",
+    "blockedCountry": "Tätä tuotetta ei myydä maassasi."
   },
   "quickView": {
     "refStock": "Koodi {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "ALV (20 %)",
     "totalIncl": "Yhteensä sis. alv",
     "checkout": "Tilaa · {amount} €",
-    "securePayment": "Turvallinen maksu 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Turvallinen maksu 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Tätä tuotetta ei myydä maassasi, joten sitä ei lisätty.",
+    "noticeOutOfStock": "Tämä tuote on loppu varastosta, joten sitä ei lisätty.",
+    "blockedItems": "Ei toimitusta maahasi: {names}. Poista nämä tuotteet tilataksesi."
   },
   "search": {
     "title": "Haku",
@@ -514,7 +518,9 @@
     "vat": "ALV",
     "vatRate": "ALV {rate} %",
     "vatBase": "{base} €:sta",
-    "vatExempt": "ALV-vapautus sovellettu (EU:n sisäinen käännetty verovelvollisuus tai vienti)."
+    "vatExempt": "ALV-vapautus sovellettu (EU:n sisäinen käännetty verovelvollisuus tai vienti).",
+    "blockedProducts": "Näitä tuotteita ei voi toimittaa valitun osoitteen maahan: {names}. Poista ne tai valitse toinen osoite.",
+    "blockedProductsShort": "Ostoskorin tuotetta ei voi toimittaa tähän maahan."
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

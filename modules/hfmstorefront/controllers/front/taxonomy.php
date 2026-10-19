@@ -36,6 +36,9 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                     return ['categories' => $this->allActiveCategories($idLang)];
                 case 'menu':
                     return ['menu' => $this->menuTree($idLang)];
+                case 'rule-countries':
+                    // Pays ayant des règles de prix / produits interdits (cf. lib/country_rules.php).
+                    return ['countries' => HfmCountryRules::specialCountryIsos()];
                 case 'manufacturers':
                     return ['manufacturers' => $this->manufacturers($idLang)];
                 case 'countries':

@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "Поръчка от",
     "reviewsPublishedOn": "Публикувано на",
     "reviewsReply": "Отговор на продавача",
-    "reviewsTranslated": "Преведен отзив"
+    "reviewsTranslated": "Преведен отзив",
+    "blockedCountry": "Този продукт не се продава във вашата държава."
   },
   "quickView": {
     "refStock": "Реф. {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "ДДС (20 %)",
     "totalIncl": "Общо с ДДС",
     "checkout": "Поръчай · {amount} €",
-    "securePayment": "Сигурно плащане 3D-Secure · DHL & Colissimo Express"
+    "securePayment": "Сигурно плащане 3D-Secure · DHL & Colissimo Express",
+    "noticeBlockedCountry": "Този продукт не се продава във вашата държава и не беше добавен.",
+    "noticeOutOfStock": "Този продукт е изчерпан и не беше добавен.",
+    "blockedItems": "Не се доставя до вашата държава: {names}. Премахнете тези продукти, за да поръчате."
   },
   "search": {
     "title": "Търсене",
@@ -514,7 +518,9 @@
     "vat": "ДДС",
     "vatRate": "ДДС {rate}%",
     "vatBase": "върху {base} €",
-    "vatExempt": "Приложено е освобождаване от ДДС (обратно начисляване в ЕС или износ)."
+    "vatExempt": "Приложено е освобождаване от ДДС (обратно начисляване в ЕС или износ).",
+    "blockedProducts": "Тези продукти не могат да бъдат доставени до държавата на избрания адрес: {names}. Премахнете ги или изберете друг адрес.",
+    "blockedProductsShort": "Продукт от количката не може да бъде доставен до тази държава."
   },
   "orders": {
     "loginRequired": "Изисква се вход",

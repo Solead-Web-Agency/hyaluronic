@@ -15,6 +15,7 @@ if (!defined('_PS_VERSION_')) {
 }
 
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/cache.php';
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/country_rules.php';
 
 class Hfmstorefront extends PaymentModule
 {
@@ -76,6 +77,8 @@ class Hfmstorefront extends PaymentModule
         foreach ($this->purgeHooks() as $hook) {
             $this->registerHook($hook);
         }
+        // Règles de prix par pays / groupe (table groupinc_configuration), cf. lib/country_rules.php.
+        $this->registerHook('actionProductPriceCalculation');
 
         return true;
     }
@@ -129,7 +132,8 @@ class Hfmstorefront extends PaymentModule
      */
     protected function ensurePurgeHooksRegistered()
     {
-        foreach ($this->purgeHooks() as $hook) {
+        // + hooks fonctionnels ajoutés après l'installation (règles de prix par pays/groupe).
+        foreach (array_merge($this->purgeHooks(), ['actionProductPriceCalculation']) as $hook) {
             if (!$this->isRegisteredInHook($hook)) {
                 $this->registerHook($hook);
             }
@@ -141,6 +145,15 @@ class Hfmstorefront extends PaymentModule
      * (le front Next gère l'UI). On renvoie donc une liste vide tout en restant un module
      * de paiement valide pour validateOrder().
      */
+    /**
+     * Majorations / remises par pays, groupe, fabricant… (règles groupinc) appliquées par le
+     * moteur de prix NATIF de PrestaShop 9 : catalogue, panier, commande et facture cohérents.
+     */
+    public function hookActionProductPriceCalculation($params)
+    {
+        HfmCountryRules::applyPrice($params);
+    }
+
     public function hookPaymentOptions($params)
     {
         return [];

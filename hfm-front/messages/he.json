@@ -270,7 +270,8 @@
     "reviewsOrderedOn": "הזמנה מתאריך",
     "reviewsPublishedOn": "פורסם ב־",
     "reviewsReply": "תגובת המוכר",
-    "reviewsTranslated": "ביקורת מתורגמת"
+    "reviewsTranslated": "ביקורת מתורגמת",
+    "blockedCountry": "מוצר זה אינו זמין למכירה במדינה שלכם."
   },
   "quickView": {
     "refStock": "מק\"ט {reference} · {status}.",
@@ -288,7 +289,10 @@
     "vat": "מע\"מ (20%)",
     "totalIncl": "סה\"כ כולל מע\"מ",
     "checkout": "להזמנה · {amount} €",
-    "securePayment": "תשלום מאובטח 3D-Secure · DHL ו-Colissimo Express"
+    "securePayment": "תשלום מאובטח 3D-Secure · DHL ו-Colissimo Express",
+    "noticeBlockedCountry": "מוצר זה אינו זמין למכירה במדינה שלכם ולכן לא נוסף.",
+    "noticeOutOfStock": "מוצר זה אזל מהמלאי ולכן לא נוסף.",
+    "blockedItems": "לא ניתן לשלוח למדינה שלכם: {names}. הסירו מוצרים אלה כדי להזמין."
   },
   "search": {
     "title": "חיפוש",
@@ -514,7 +518,9 @@
     "vat": "מע\"מ",
     "vatRate": "מע\"מ {rate}%",
     "vatBase": "על {base} €",
-    "vatExempt": "הוחל פטור ממע\"מ (חיוב הפוך בתוך האיחוד האירופי או יצוא)."
+    "vatExempt": "הוחל פטור ממע\"מ (חיוב הפוך בתוך האיחוד האירופי או יצוא).",
+    "blockedProducts": "לא ניתן לשלוח את המוצרים הבאים למדינת הכתובת שנבחרה: {names}. הסירו אותם או בחרו כתובת אחרת.",
+    "blockedProductsShort": "לא ניתן לשלוח את אחד המוצרים בעגלה למדינה זו."
   },
   "orders": {
     "loginRequired": "נדרשת התחברות",
