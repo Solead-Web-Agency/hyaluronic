@@ -203,6 +203,11 @@ final class BT_XmlStrategy
             $this->data->currentCarrier = new Carrier((int)GMerchantCenter::$conf['GMC_SHIP_CARRIERS'][Tools::strtoupper($this->aParams['sCountryIso'])]);
         }
         $this->data->countryId = Country::getByIso($this->aParams['sCountryIso']);
+        // [HFM] prix calculés pour le pays du flux dès le 1er produit (règles de prix par pays) :
+        // sans ça, le contexte reste sur le pays par défaut jusqu'à la 1re simulation de port.
+        if ((int) $this->data->countryId > 0) {
+            Context::getContext()->country = new Country((int) $this->data->countryId);
+        }
         $this->data->currentZone = new stdClass();
         $this->data->currentZone = new Zone((int)Country::getIdZone((int)$this->data->countryId));
         $this->data->shippingConfig = Configuration::getMultiple(array(
