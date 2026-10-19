@@ -365,7 +365,9 @@
       "generic": "오류가 발생했습니다.",
       "network": "네트워크 오류입니다."
     },
-    "forgotPassword": "비밀번호를 잊으셨나요?"
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "editAddress": "수정",
+    "editAddressTitle": "주소 수정"
   },
   "addressForm": {
     "address": "주소",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "시/도 / 주",
+    "statePlaceholder": "선택하세요…",
+    "stateRequired": "시/도 또는 주를 선택하세요.",
+    "dni": "납세자 번호",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "이 국가에서는 납세자 번호가 필수입니다.",
+    "postcodeInvalid": "이 국가의 우편번호 형식이 아닙니다(예: {example}).",
+    "vatPrefixMismatch": "번호는 {prefix}(으)로 시작해야 합니다."
   },
   "checkout": {
     "breadcrumb": "주문",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "예금주",
     "payReservation": "결제가 확인될 때까지 상품이 {days}일 동안 예약됩니다.",
     "payWireReference": "계좌 이체 시 참조 번호 <b>{reference}</b>를 적요란에 기재해 주세요.",
-    "payWireTitle": "계좌 이체를 진행해 주세요"
+    "payWireTitle": "계좌 이체를 진행해 주세요",
+    "excl": "VAT 별도",
+    "vat": "VAT",
+    "vatRate": "VAT {rate}%",
+    "vatBase": "과세표준 {base} €",
+    "vatExempt": "VAT 면제가 적용되었습니다(EU 역내 역과세 또는 수출)."
   },
   "orders": {
     "loginRequired": "로그인이 필요합니다",
@@ -695,5 +710,11 @@
       "success": "비밀번호가 재설정되었습니다. 현재 로그인되어 있습니다.",
       "title": "새 비밀번호"
     }
+  },
+  "proNotice": {
+    "title": "전문가 안내",
+    "text": "의료기기는 자격을 갖춘 의료 전문가가 사용하도록 고안되었습니다.",
+    "ok": "확인했습니다",
+    "close": "닫기"
   }
 }

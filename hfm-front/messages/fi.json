@@ -365,7 +365,9 @@
       "generic": "Tapahtui virhe.",
       "network": "Verkkovirhe."
     },
-    "forgotPassword": "Unohditko salasanasi?"
+    "forgotPassword": "Unohditko salasanasi?",
+    "editAddress": "Muokkaa",
+    "editAddressTitle": "Muokkaa osoitetta"
   },
   "addressForm": {
     "address": "Osoite",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Alue / Osavaltio",
+    "statePlaceholder": "Valitse…",
+    "stateRequired": "Valitse alue tai osavaltio.",
+    "dni": "Verotunniste",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Tähän maahan verotunniste on pakollinen.",
+    "postcodeInvalid": "Virheellinen postinumero tälle maalle (esimerkki: {example}).",
+    "vatPrefixMismatch": "Numeron on alettava {prefix}."
   },
   "checkout": {
     "breadcrumb": "Tilaus",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Tilinomistaja",
     "payReservation": "Tuotteesi on varattu {days} päivän ajan maksuasi odottaessa.",
     "payWireReference": "Merkitse viite <b>{reference}</b> tilisiirtosi viestikenttään.",
-    "payWireTitle": "Tee pankkisiirto"
+    "payWireTitle": "Tee pankkisiirto",
+    "excl": "alv 0 %",
+    "vat": "ALV",
+    "vatRate": "ALV {rate} %",
+    "vatBase": "{base} €:sta",
+    "vatExempt": "ALV-vapautus sovellettu (EU:n sisäinen käännetty verovelvollisuus tai vienti)."
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",
@@ -695,5 +710,11 @@
       "success": "Salasanasi on palautettu. Olet nyt kirjautuneena sisään.",
       "title": "Uusi salasana"
     }
+  },
+  "proNotice": {
+    "title": "Ammattilaistieto",
+    "text": "Lääkinnälliset laitteet on tarkoitettu pätevien terveydenhuollon ammattilaisten käyttöön.",
+    "ok": "OK, ymmärrän",
+    "close": "Sulje"
   }
 }

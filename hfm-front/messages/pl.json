@@ -365,7 +365,9 @@
       "generic": "Wystąpił błąd.",
       "network": "Błąd sieci."
     },
-    "forgotPassword": "Nie pamiętasz hasła?"
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "editAddress": "Edytuj",
+    "editAddressTitle": "Edytuj adres"
   },
   "addressForm": {
     "address": "Adres",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Województwo / Stan",
+    "statePlaceholder": "Wybierz…",
+    "stateRequired": "Wybierz województwo lub stan.",
+    "dni": "Numer identyfikacji podatkowej",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Dla tego kraju numer identyfikacji podatkowej jest wymagany.",
+    "postcodeInvalid": "Nieprawidłowy kod pocztowy dla tego kraju (przykład: {example}).",
+    "vatPrefixMismatch": "Numer musi zaczynać się od {prefix}."
   },
   "checkout": {
     "breadcrumb": "Zamówienie",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Właściciel konta",
     "payReservation": "Twoje produkty są zarezerwowane przez {days} dni w oczekiwaniu na płatność.",
     "payWireReference": "W tytule przelewu podaj numer referencyjny <b>{reference}</b>.",
-    "payWireTitle": "Wykonaj przelew bankowy"
+    "payWireTitle": "Wykonaj przelew bankowy",
+    "excl": "netto",
+    "vat": "VAT",
+    "vatRate": "VAT {rate}%",
+    "vatBase": "od {base} €",
+    "vatExempt": "Zastosowano zwolnienie z VAT (odwrotne obciążenie wewnątrzwspólnotowe lub eksport)."
   },
   "orders": {
     "loginRequired": "Wymagane logowanie",
@@ -695,5 +710,11 @@
       "success": "Twoje hasło zostało zresetowane. Jesteś teraz zalogowany.",
       "title": "Nowe hasło"
     }
+  },
+  "proNotice": {
+    "title": "Informacja dla profesjonalistów",
+    "text": "Wyroby medyczne są przeznaczone do stosowania przez wykwalifikowanych pracowników ochrony zdrowia.",
+    "ok": "OK, rozumiem",
+    "close": "Zamknij"
   }
 }

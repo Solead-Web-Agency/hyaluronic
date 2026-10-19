@@ -15,17 +15,21 @@ import DragCarousel from '../components/DragCarousel';
 
 const MARQUEE = ['Juvéderm', 'Restylane', 'Teoxane', 'Vivacy', 'Belotero', 'Radiesse', 'Profhilo', 'Revolax', 'Neauvia', 'Fillmed', 'Croma', 'Sinclair', 'Juvéderm', 'Restylane', 'Teoxane', 'Vivacy', 'Belotero', 'Radiesse', 'Profhilo', 'Revolax', 'Neauvia', 'Fillmed', 'Croma', 'Sinclair'];
 
+// Tuiles « par zone » -> vraies catégories éditoriales (Par zone 331-342, Par effet 351-359,
+// Skinboosters 313). Lien et compteur viennent du menu (nb_products actifs) : plus de chiffre en dur.
 const ZONES = [
-  { labelKey: 'zoneLevres', count: 35, key: 'levres' },
-  { labelKey: 'zonePommettes', count: 21, key: 'pommettes' },
-  { labelKey: 'zoneCernes', count: 25, key: 'cernes' },
-  { labelKey: 'zoneRides', count: 88, key: 'rides' },
-  { labelKey: 'zoneOvale', count: 17, key: 'ovale' },
-  { labelKey: 'zoneSkinbooster', count: 54, key: 'skinbooster' },
+  { labelKey: 'zoneLevres', catId: 331, key: 'levres' },
+  { labelKey: 'zonePommettes', catId: 332, key: 'pommettes' },
+  { labelKey: 'zoneCernes', catId: 333, key: 'cernes' },
+  { labelKey: 'zoneRides', catId: 352, key: 'rides' },
+  { labelKey: 'zoneOvale', catId: 336, key: 'ovale' },
+  { labelKey: 'zoneSkinbooster', catId: 313, key: 'skinbooster' },
 ] as const;
 
 // Avis BOUTIQUE réels (Société des Avis Garantis) servis par le bridge (`products?action=shop-reviews`).
 // Ne JAMAIS remettre de témoignages ou de chiffres codés en dur : ils n'existaient pas chez SAG.
+type MenuNode = { id_category: number; link_rewrite?: string; nb_products?: number; children?: MenuNode[] };
+
 type ShopReviews = {
   stats: { rate10: number; rate5: number; count: number; certificateUrl: string | null } | null;
   items: { name: string; rate: number; review: string; date: string }[];
@@ -82,14 +86,32 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   // 3 derniers articles du blog + avis boutique réels, en parallèle. Section non critique :
   // si le bridge ne répond pas, la section avis est simplement masquée (jamais de chiffre inventé).
-  const [latestPosts, shopReviews] = await Promise.all([
+  const [latestPosts, shopReviews, menu] = await Promise.all([
     fetchBlogLatest(locale, 3),
     bridgeGetCached(
       'products',
       { action: 'shop-reviews', limit: 3, id_lang: idLangFor(locale) },
       { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
     ).then((d) => d as ShopReviews).catch((): ShopReviews => ({ stats: null, items: [] })),
+    bridgeGetCached(
+      'taxonomy',
+      { action: 'menu', id_lang: idLangFor(locale) },
+      { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
+    ).then((d) => (d?.menu ?? []) as MenuNode[]).catch((): MenuNode[] => []),
   ]);
+  // Catégorie de chaque tuile zone (slug localisé + nombre réel de produits actifs).
+  const findCat = (nodes: MenuNode[], id: number): MenuNode | null => {
+    for (const n of nodes) {
+      if (n.id_category === id) return n;
+      const hit = findCat(n.children ?? [], id);
+      if (hit) return hit;
+    }
+    return null;
+  };
+  const zoneTiles = ZONES.map((z) => {
+    const cat = findCat(menu, z.catId);
+    return { ...z, href: cat?.link_rewrite ? `/${cat.link_rewrite}` : `/zone/${z.key}`, count: cat?.nb_products ?? null };
+  });
   const revStats = shopReviews?.stats ?? null;
   const revItems = shopReviews?.items ?? [];
   const fmtRate = (n: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(n);
@@ -193,11 +215,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
           <DragCarousel className="hfm-carousel" style={{ display: 'flex', gap: '16px', marginTop: '28px', overflowX: 'auto', padding: '4px 2px 16px' }}>
-            {ZONES.map((z) => (
-              <a key={z.key} href={`/zone/${z.key}`} style={{ flex: 'none', width: '236px', cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 14px 34px -28px rgba(40,50,25,.5)', textDecoration: 'none' }}>
+            {zoneTiles.map((z) => (
+              <Link key={z.key} href={z.href} style={{ flex: 'none', width: '236px', cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 14px 34px -28px rgba(40,50,25,.5)', textDecoration: 'none' }}>
                 <div style={{ position: 'relative', height: '148px', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/zones/${z.key}.png`} alt={t(z.labelKey)} loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-                <div style={{ padding: '15px 17px 17px' }}><div style={{ fontFamily: "'Spectral',serif", fontSize: '17px', color: '#2B2B2B' }}>{t(z.labelKey)}</div><div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '3px' }}>{t('zoneRefs', { count: z.count })}</div></div>
-              </a>
+                <div style={{ padding: '15px 17px 17px' }}><div style={{ fontFamily: "'Spectral',serif", fontSize: '17px', color: '#2B2B2B' }}>{t(z.labelKey)}</div><div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '3px' }}>{z.count != null ? t('zoneRefs', { count: z.count }) : null}</div></div>
+              </Link>
             ))}
           </DragCarousel>
         </section>

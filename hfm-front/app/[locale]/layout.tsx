@@ -6,6 +6,7 @@ import { isRtl } from '@/lib/i18n-config';
 import { StoreProvider } from '../store';
 import { WishlistProvider } from '../wishlist';
 import ConsentBanner from '../components/ConsentBanner';
+import ProNoticePopup from '../components/ProNoticePopup';
 import CompareBar from '../components/CompareBar';
 import { ADS_ID } from '@/lib/gtm';
 
@@ -99,6 +100,7 @@ export default async function LocaleLayout({
             <WishlistProvider>{children}</WishlistProvider>
             <CompareBar />
             <ConsentBanner />
+            <ProNoticePopup />
           </StoreProvider>
         </NextIntlClientProvider>
       </body>

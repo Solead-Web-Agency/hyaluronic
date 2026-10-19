@@ -26,6 +26,11 @@ type Totals = {
   total_excl_tax: number;
   total_incl_tax: number;
   total_discounts?: number;
+  // Détail TVA (bridge cart.php::cartTotals) — absents si bridge plus ancien.
+  shipping_excl_tax?: number;
+  discounts_excl_tax?: number;
+  tax_total?: number;
+  tax_lines?: { rate: number; base: number; amount: number }[];
 };
 
 // Coordonnées de paiement hors-ligne (virement / chèque), renvoyées par le bridge à la
@@ -36,7 +41,10 @@ type PayInstructions = {
   cheque: { payee: string; address: string };
 };
 
-const PAYMENTS = ['Virement bancaire', 'Chèque'];
+// Hors ligne : virement uniquement (le chèque n'est plus proposé, demande client 10/2026).
+const PAYMENTS = ['Virement bancaire'];
+// Rouge des messages bloquants (contraste AA sur fond clair).
+const MISSING_RED = '#B42318';
 const VIVA_PAYMENT = 'Carte bancaire (Viva Wallet)';
 const PAYPAL_PAYMENT = 'PayPal';
 const AMAZON_PAYMENT = 'Amazon Pay';
@@ -514,6 +522,14 @@ export default function CheckoutClient() {
     }
   }, [idCart]);
 
+  // DHL présélectionné par défaut (demande client) : « DHL Express » en priorité, sinon le premier
+  // transporteur DHL proposé pour l'adresse. Ne s'applique que tant qu'aucun transporteur n'est
+  // choisi : un choix manuel du client n'est jamais écrasé.
+  const defaultCarrier = (list: Carrier[]): Carrier | undefined => {
+    const norm = (n: string) => n.trim().toLowerCase();
+    return list.find((c) => norm(c.name) === 'dhl express') ?? list.find((c) => /\bdhl\b/i.test(c.name));
+  };
+
   // Sélection d'une adresse -> set-address puis (re)chargement des transporteurs.
   const chooseAddress = async (id_address: number) => {
     if (!idCart) return;
@@ -549,6 +565,14 @@ export default function CheckoutClient() {
       /* ignore */
     }
   };
+
+  useEffect(() => {
+    if (selCarrier || !selAddress || !carriers.length) return;
+    const dhl = defaultCarrier(carriers);
+    if (dhl) void chooseCarrier(dhl.id_carrier);
+    // chooseCarrier/defaultCarrier sont recréés à chaque rendu : on ne réagit qu'aux données.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carriers, selCarrier, selAddress]);
 
   const onAddressCreated = (list: Address[], id_address: number) => {
     setAddresses(list);
@@ -810,6 +834,26 @@ export default function CheckoutClient() {
   const grandTTC = selCarrier ? (totals?.total_incl_tax ?? cart.total_incl_tax) : (totals?.products_incl_tax ?? cart.total_incl_tax);
   // Remise : préfère le total réel du panier, sinon le retour de l'API voucher.
   const discount = (totals?.total_discounts ?? 0) || voucherDiscount;
+  // Récap tout en HT + TVA détaillée. Avant le choix du transporteur, la livraison n'est pas comptée :
+  // on ventile alors la TVA des seuls produits.
+  const shippingHT = selCarrier ? (totals?.shipping_excl_tax ?? null) : null;
+  const fmtRate = (r: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(r);
+  const taxRows: { rate: number | null; base: number | null; amount: number }[] = (() => {
+    const totalTax = selCarrier
+      ? (totals?.tax_total ?? Math.max(0, grandTTC - (totals?.total_excl_tax ?? grandTTC)))
+      : Math.max(0, (totals?.products_incl_tax ?? 0) - (totals?.products_excl_tax ?? 0));
+    const lines = (totals?.tax_lines ?? []).filter((l) => l.base > 0);
+    const linesSum = lines.reduce((a, l) => a + l.amount, 0);
+    // Ventilation fiable seulement avec transporteur choisi, sans remise, et si la somme colle au total.
+    if (selCarrier && lines.length && !(discount > 0) && Math.abs(linesSum - totalTax) < 0.02) {
+      return lines.map((l) => ({ rate: l.rate, base: l.base, amount: l.amount }));
+    }
+    if (!selCarrier && lines.length === 1 && !(discount > 0)) {
+      return [{ rate: lines[0].rate, base: totals?.products_excl_tax ?? null, amount: totalTax }];
+    }
+    return [{ rate: null, base: null, amount: totalTax }];
+  })();
+  const taxExempt = !!totals && taxRows.every((l) => l.amount === 0) && subtotalHT > 0;
   const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && (!rppsNeeded || rppsSatisfied) && acceptedTerms;
 
   return (
@@ -1245,8 +1289,17 @@ export default function CheckoutClient() {
 
           <div style={{ borderTop: '1px solid #E7E3DA', marginTop: '16px', paddingTop: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#55606F' }}><span>{t('subtotalExcl')}</span><span style={{ color: '#1B2433', fontWeight: 600 }}>{fmt(subtotalHT)} €</span></div>
-            {discount > 0 ? <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#3F7256', marginTop: '6px' }}><span>{t('discount')}</span><span style={{ fontWeight: 600 }}>−{fmt(discount)} €</span></div> : null}
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#55606F', marginTop: '6px' }}><span>{t('shipping')}</span><span style={{ color: shipping ? '#1B2433' : '#8A8170', fontWeight: 600 }}>{shipping === null ? t('shippingToCalculate') : shipping ? `${fmt(shipping)} €` : t('shippingFree')}</span></div>
+            {discount > 0 ? <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#3F7256', marginTop: '6px' }}><span>{t('discount')}</span><span style={{ fontWeight: 600 }}>−{fmt(totals?.discounts_excl_tax ?? discount)} €{totals?.discounts_excl_tax != null ? ` ${t('excl')}` : ''}</span></div> : null}
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#55606F', marginTop: '6px' }}><span>{t('shipping')}{shippingHT !== null && shippingHT > 0 ? ` (${t('excl')})` : ''}</span><span style={{ color: shipping ? '#1B2433' : '#8A8170', fontWeight: 600 }}>{shipping === null ? t('shippingToCalculate') : shipping ? `${fmt(shippingHT ?? shipping)} €` : t('shippingFree')}</span></div>
+            {/* Détail de la TVA (demande client) : par taux tant qu'aucune remise ne fausse la ventilation,
+                sinon TVA globale exacte. Exonération (VIES / export) -> ligne TVA à 0. */}
+            {taxRows.map((l, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#55606F', marginTop: '6px' }}>
+                <span>{l.rate === null ? t('vat') : t('vatRate', { rate: fmtRate(l.rate) })}{l.base !== null ? <span style={{ color: '#9A9A9A' }}> · {t('vatBase', { base: fmt(l.base) })}</span> : null}</span>
+                <span style={{ color: '#1B2433', fontWeight: 600 }}>{fmt(l.amount)} €</span>
+              </div>
+            ))}
+            {taxExempt ? <div style={{ fontSize: '11.5px', color: '#3F7256', marginTop: '4px' }}>{t('vatExempt')}</div> : null}
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '17px', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #E7E3DA' }}><span style={{ fontWeight: 600, color: '#2B2B2B' }}>{t('totalIncl')}</span><span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, color: '#434343' }}>{fmt(grandTTC)} €</span></div>
           </div>
           {orderErr ? <div style={{ fontSize: '13px', color: '#A8503A', marginTop: '14px', textAlign: 'center' }}>{t('orderError', { error: orderErr })}</div> : null}
@@ -1260,7 +1313,7 @@ export default function CheckoutClient() {
             selAddress && selCarrier && idCart && (!rppsNeeded || rppsSatisfied) && acceptedTerms ? (
               <div style={{ marginTop: '18px' }}><AmazonPayButton idCart={idCart} /></div>
             ) : (
-              <div style={{ width: '100%', marginTop: '18px', minHeight: '52px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', textAlign: 'center', borderRadius: '999px', background: '#EFEDE5', color: '#9A9A9A', fontSize: '13px', lineHeight: 1.4 }}>{rppsNeeded && !rppsSatisfied ? t('rppsRequiredNotice') : !acceptedTerms ? t('acceptTermsShort') : t('selectAddressCarrier')}</div>
+              <div style={{ width: '100%', marginTop: '18px', minHeight: '52px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', textAlign: 'center', borderRadius: '999px', background: '#EFEDE5', color: '#9A9A9A', fontSize: '13px', lineHeight: 1.4 }}>{rppsNeeded && !rppsSatisfied ? t('rppsRequiredNotice') : !acceptedTerms ? t('acceptTermsShort') : <span style={{ color: MISSING_RED, fontWeight: 600 }}>{t('selectAddressCarrier')}</span>}</div>
             )
           ) : (
             <button
@@ -1271,7 +1324,7 @@ export default function CheckoutClient() {
               {placing ? t('validating') : t('placeOrder', { amount: fmt(grandTTC) })}
             </button>
           )}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', fontSize: '11.5px', color: '#9A9A9A', marginTop: '12px' }}>{!selAddress || !selCarrier ? t('selectAddressCarrier') : !acceptedTerms ? t('acceptTermsShort') : (<><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }} aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>{t('secureOrder')}</>)}</div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', fontSize: '11.5px', color: '#9A9A9A', marginTop: '12px' }}>{!selAddress || !selCarrier ? <span style={{ color: MISSING_RED, fontWeight: 600 }}>{t('selectAddressCarrier')}</span> : !acceptedTerms ? t('acceptTermsShort') : (<><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }} aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>{t('secureOrder')}</>)}</div>
         </div>
       </div>
     </main>

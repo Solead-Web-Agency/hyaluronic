@@ -365,7 +365,9 @@
       "generic": "A apărut o eroare.",
       "network": "Eroare de rețea."
     },
-    "forgotPassword": "Ați uitat parola?"
+    "forgotPassword": "Ați uitat parola?",
+    "editAddress": "Modifică",
+    "editAddressTitle": "Modifică adresa"
   },
   "addressForm": {
     "address": "Adresă",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Județ / Stat",
+    "statePlaceholder": "Selectați…",
+    "stateRequired": "Selectați județul sau statul.",
+    "dni": "Cod de identificare fiscală",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Codul de identificare fiscală este obligatoriu pentru această țară.",
+    "postcodeInvalid": "Cod poștal invalid pentru această țară (exemplu: {example}).",
+    "vatPrefixMismatch": "Numărul trebuie să înceapă cu {prefix}."
   },
   "checkout": {
     "breadcrumb": "Comandă",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Titularul contului",
     "payReservation": "Articolele dumneavoastră sunt rezervate timp de {days} zile în așteptarea plății.",
     "payWireReference": "Indicați referința <b>{reference}</b> în descrierea transferului.",
-    "payWireTitle": "Efectuați transferul bancar"
+    "payWireTitle": "Efectuați transferul bancar",
+    "excl": "fără TVA",
+    "vat": "TVA",
+    "vatRate": "TVA {rate}%",
+    "vatBase": "la {base} €",
+    "vatExempt": "S-a aplicat scutirea de TVA (taxare inversă intracomunitară sau export)."
   },
   "orders": {
     "loginRequired": "Autentificare necesară",
@@ -695,5 +710,11 @@
       "success": "Parola dumneavoastră a fost resetată. Acum sunteți autentificat.",
       "title": "Parolă nouă"
     }
+  },
+  "proNotice": {
+    "title": "Informație profesională",
+    "text": "Dispozitivele medicale sunt destinate utilizării de către profesioniști din domeniul sănătății calificați.",
+    "ok": "OK, am înțeles",
+    "close": "Închide"
   }
 }

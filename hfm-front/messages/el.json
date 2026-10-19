@@ -365,7 +365,9 @@
       "generic": "Παρουσιάστηκε σφάλμα.",
       "network": "Σφάλμα δικτύου."
     },
-    "forgotPassword": "Ξεχάσατε τον κωδικό σας;"
+    "forgotPassword": "Ξεχάσατε τον κωδικό σας;",
+    "editAddress": "Επεξεργασία",
+    "editAddressTitle": "Επεξεργασία διεύθυνσης"
   },
   "addressForm": {
     "address": "Διεύθυνση",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Περιφέρεια / Πολιτεία",
+    "statePlaceholder": "Επιλέξτε…",
+    "stateRequired": "Επιλέξτε περιφέρεια ή πολιτεία.",
+    "dni": "Αριθμός φορολογικού μητρώου",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Ο αριθμός φορολογικού μητρώου είναι υποχρεωτικός για αυτή τη χώρα.",
+    "postcodeInvalid": "Μη έγκυρος ταχυδρομικός κώδικας για αυτή τη χώρα (παράδειγμα: {example}).",
+    "vatPrefixMismatch": "Ο αριθμός πρέπει να ξεκινά με {prefix}."
   },
   "checkout": {
     "breadcrumb": "Παραγγελία",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Δικαιούχος λογαριασμού",
     "payReservation": "Τα προϊόντα σας κρατούνται για {days} ημέρες εν αναμονή της πληρωμής σας.",
     "payWireReference": "Αναγράψτε την αναφορά <b>{reference}</b> στην αιτιολογία του εμβάσματός σας.",
-    "payWireTitle": "Πραγματοποιήστε το τραπεζικό σας έμβασμα"
+    "payWireTitle": "Πραγματοποιήστε το τραπεζικό σας έμβασμα",
+    "excl": "χωρίς ΦΠΑ",
+    "vat": "ΦΠΑ",
+    "vatRate": "ΦΠΑ {rate}%",
+    "vatBase": "επί {base} €",
+    "vatExempt": "Εφαρμόστηκε απαλλαγή ΦΠΑ (ενδοκοινοτική αντιστροφή επιβάρυνσης ή εξαγωγή)."
   },
   "orders": {
     "loginRequired": "Απαιτείται σύνδεση",
@@ -695,5 +710,11 @@
       "success": "Ο κωδικός σας επαναφέρθηκε. Έχετε πλέον συνδεθεί.",
       "title": "Νέος κωδικός"
     }
+  },
+  "proNotice": {
+    "title": "Επαγγελματική πληροφορία",
+    "text": "Τα ιατροτεχνολογικά προϊόντα προορίζονται για χρήση από εξειδικευμένους επαγγελματίες υγείας.",
+    "ok": "Εντάξει, κατάλαβα",
+    "close": "Κλείσιμο"
   }
 }

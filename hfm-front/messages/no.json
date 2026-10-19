@@ -365,7 +365,9 @@
       "generic": "Det oppstod en feil.",
       "network": "Nettverksfeil."
     },
-    "forgotPassword": "Glemt passord?"
+    "forgotPassword": "Glemt passord?",
+    "editAddress": "Endre",
+    "editAddressTitle": "Endre adresse"
   },
   "addressForm": {
     "address": "Adresse",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Region / Delstat",
+    "statePlaceholder": "Velg…",
+    "stateRequired": "Velg region eller delstat.",
+    "dni": "Skatteidentifikasjonsnummer",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Et skatteidentifikasjonsnummer er påkrevd for dette landet.",
+    "postcodeInvalid": "Ugyldig postnummer for dette landet (eksempel: {example}).",
+    "vatPrefixMismatch": "Nummeret må begynne med {prefix}."
   },
   "checkout": {
     "breadcrumb": "Bestilling",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Kontoinnehaver",
     "payReservation": "Varene dine er reservert i {days} dager i påvente av betalingen din.",
     "payWireReference": "Oppgi referansen <b>{reference}</b> i meldingsfeltet på overføringen din.",
-    "payWireTitle": "Gjennomfør bankoverføringen din"
+    "payWireTitle": "Gjennomfør bankoverføringen din",
+    "excl": "ekskl. mva.",
+    "vat": "MVA",
+    "vatRate": "MVA {rate} %",
+    "vatBase": "av {base} €",
+    "vatExempt": "MVA-fritak brukt (omvendt avgiftsplikt i EU eller eksport)."
   },
   "orders": {
     "loginRequired": "Innlogging kreves",
@@ -695,5 +710,11 @@
       "success": "Passordet ditt er tilbakestilt. Du er nå logget inn.",
       "title": "Nytt passord"
     }
+  },
+  "proNotice": {
+    "title": "Profesjonell informasjon",
+    "text": "Medisinsk utstyr er beregnet for bruk av kvalifisert helsepersonell.",
+    "ok": "OK, jeg forstår",
+    "close": "Lukk"
   }
 }

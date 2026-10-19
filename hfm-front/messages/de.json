@@ -365,7 +365,9 @@
       "generic": "Ein Fehler ist aufgetreten.",
       "network": "Netzwerkfehler."
     },
-    "forgotPassword": "Passwort vergessen?"
+    "forgotPassword": "Passwort vergessen?",
+    "editAddress": "Bearbeiten",
+    "editAddressTitle": "Adresse bearbeiten"
   },
   "addressForm": {
     "address": "Adresse",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Bundesland / Region",
+    "statePlaceholder": "Auswählen…",
+    "stateRequired": "Bitte wählen Sie das Bundesland bzw. die Region.",
+    "dni": "Steuer-Identifikationsnummer",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Für dieses Land ist eine Steuer-Identifikationsnummer erforderlich.",
+    "postcodeInvalid": "Ungültige Postleitzahl für dieses Land (Beispiel: {example}).",
+    "vatPrefixMismatch": "Die Nummer muss mit {prefix} beginnen."
   },
   "checkout": {
     "breadcrumb": "Bestellung",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Kontoinhaber",
     "payReservation": "Ihre Artikel werden {days} Tage lang bis zum Zahlungseingang reserviert.",
     "payWireReference": "Geben Sie die Referenz <b>{reference}</b> im Verwendungszweck Ihrer Überweisung an.",
-    "payWireTitle": "Führen Sie Ihre Banküberweisung durch"
+    "payWireTitle": "Führen Sie Ihre Banküberweisung durch",
+    "excl": "netto",
+    "vat": "MwSt.",
+    "vatRate": "MwSt. {rate} %",
+    "vatBase": "auf {base} €",
+    "vatExempt": "MwSt.-Befreiung angewendet (innergemeinschaftliches Reverse-Charge-Verfahren oder Ausfuhr)."
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",
@@ -695,5 +710,11 @@
       "success": "Ihr Passwort wurde zurückgesetzt. Sie sind jetzt angemeldet.",
       "title": "Neues Passwort"
     }
+  },
+  "proNotice": {
+    "title": "Fachinformation",
+    "text": "Medizinprodukte sind zur Anwendung durch qualifizierte medizinische Fachkräfte bestimmt.",
+    "ok": "OK, verstanden",
+    "close": "Schließen"
   }
 }

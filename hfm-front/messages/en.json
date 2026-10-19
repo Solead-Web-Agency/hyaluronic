@@ -365,7 +365,9 @@
       "generic": "An error occurred.",
       "network": "Network error."
     },
-    "forgotPassword": "Forgot your password?"
+    "forgotPassword": "Forgot your password?",
+    "editAddress": "Edit",
+    "editAddressTitle": "Edit address"
   },
   "addressForm": {
     "address": "Address",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "State / Region",
+    "statePlaceholder": "Select…",
+    "stateRequired": "Please select the state or region.",
+    "dni": "Tax ID number",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "A tax ID number is required for this country.",
+    "postcodeInvalid": "Invalid postcode for this country (example: {example}).",
+    "vatPrefixMismatch": "The number must start with {prefix}."
   },
   "checkout": {
     "breadcrumb": "Order",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Account holder",
     "payReservation": "Your items are held for {days} days while we await your payment.",
     "payWireReference": "Include reference <b>{reference}</b> in your transfer description.",
-    "payWireTitle": "Make your bank transfer"
+    "payWireTitle": "Make your bank transfer",
+    "excl": "excl. VAT",
+    "vat": "VAT",
+    "vatRate": "VAT {rate}%",
+    "vatBase": "on €{base}",
+    "vatExempt": "VAT exemption applied (EU reverse charge or export)."
   },
   "orders": {
     "loginRequired": "Login required",
@@ -695,5 +710,11 @@
       "success": "Your password has been reset. You are now signed in.",
       "title": "New password"
     }
+  },
+  "proNotice": {
+    "title": "Professional information",
+    "text": "Medical devices are intended for use by qualified healthcare professionals.",
+    "ok": "OK, I understand",
+    "close": "Close"
   }
 }

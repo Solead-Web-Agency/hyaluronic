@@ -380,7 +380,9 @@
       "password_too_short": "Mot de passe trop court (8 caractères min.).",
       "generic": "Une erreur est survenue.",
       "network": "Erreur réseau."
-    }
+    },
+    "editAddress": "Modifier",
+    "editAddressTitle": "Modifier l’adresse"
   },
   "password": {
     "forgot": {
@@ -451,7 +453,15 @@
     "vatValid": "Numéro de TVA validé — exonération de TVA appliquée.",
     "vatInvalid": "Numéro non validé via VIES — TVA appliquée. Vérifiez le numéro et le pays.",
     "vatChecking": "Vérification du numéro de TVA…",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "state": "Région / État",
+    "statePlaceholder": "Sélectionnez…",
+    "stateRequired": "Sélectionnez la région ou l’État.",
+    "dni": "N° d’identification fiscale",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Le numéro d’identification fiscale est obligatoire pour ce pays.",
+    "postcodeInvalid": "Code postal invalide pour ce pays (exemple : {example}).",
+    "vatPrefixMismatch": "Le numéro doit commencer par {prefix}."
   },
   "checkout": {
     "breadcrumb": "Commande",
@@ -557,7 +567,12 @@
     "vatValidBadge": "TVA validée",
     "vatInvalidBadge": "TVA non validée",
     "vatPendingBadge": "TVA à vérifier",
-    "vatNotApplicable": "Exonération non applicable"
+    "vatNotApplicable": "Exonération non applicable",
+    "excl": "HT",
+    "vat": "TVA",
+    "vatRate": "TVA {rate} %",
+    "vatBase": "base {base} €",
+    "vatExempt": "Exonération de TVA appliquée (autoliquidation intracommunautaire ou export)."
   },
   "orders": {
     "loginRequired": "Connexion requise",
@@ -695,5 +710,11 @@
     "availability": "Disponibilité",
     "inStock": "En stock",
     "outOfStock": "Épuisé"
+  },
+  "proNotice": {
+    "title": "Information professionnelle",
+    "text": "Les dispositifs médicaux sont destinés à un usage par des professionnels de santé qualifiés.",
+    "ok": "OK, j'ai compris",
+    "close": "Fermer"
   }
 }

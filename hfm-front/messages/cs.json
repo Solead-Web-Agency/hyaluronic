@@ -365,7 +365,9 @@
       "generic": "Došlo k chybě.",
       "network": "Chyba sítě."
     },
-    "forgotPassword": "Zapomněli jste heslo?"
+    "forgotPassword": "Zapomněli jste heslo?",
+    "editAddress": "Upravit",
+    "editAddressTitle": "Upravit adresu"
   },
   "addressForm": {
     "address": "Adresa",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Kraj / Stát",
+    "statePlaceholder": "Vyberte…",
+    "stateRequired": "Vyberte kraj nebo stát.",
+    "dni": "Daňové identifikační číslo",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Pro tuto zemi je daňové identifikační číslo povinné.",
+    "postcodeInvalid": "Neplatné PSČ pro tuto zemi (příklad: {example}).",
+    "vatPrefixMismatch": "Číslo musí začínat na {prefix}."
   },
   "checkout": {
     "breadcrumb": "Objednávka",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Majitel účtu",
     "payReservation": "Vaše zboží je rezervováno po dobu {days} dnů, než obdržíme vaši platbu.",
     "payWireReference": "Do zprávy pro příjemce uveďte referenci <b>{reference}</b>.",
-    "payWireTitle": "Proveďte bankovní převod"
+    "payWireTitle": "Proveďte bankovní převod",
+    "excl": "bez DPH",
+    "vat": "DPH",
+    "vatRate": "DPH {rate} %",
+    "vatBase": "ze základu {base} €",
+    "vatExempt": "Uplatněno osvobození od DPH (přenesení daňové povinnosti v rámci EU nebo vývoz)."
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",
@@ -695,5 +710,11 @@
       "success": "Vaše heslo bylo obnoveno. Nyní jste přihlášeni.",
       "title": "Nové heslo"
     }
+  },
+  "proNotice": {
+    "title": "Odborná informace",
+    "text": "Zdravotnické prostředky jsou určeny k použití kvalifikovanými zdravotnickými pracovníky.",
+    "ok": "OK, rozumím",
+    "close": "Zavřít"
   }
 }

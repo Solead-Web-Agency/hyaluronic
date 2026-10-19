@@ -94,15 +94,6 @@ export default function RelatedSections({ related }: { related: RelatedView }) {
         />
       ) : null}
 
-      {/* Encadré réglementaire dispositif médical */}
-      <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start', marginTop: '44px', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '10px', padding: '22px 26px' }}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E7585" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '2px' }}><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /><path d="M12 8v5M12 16.5v.5" /></svg>
-        <div>
-          <div style={{ fontSize: '14.5px', fontWeight: 700, color: '#2B2B2B' }}>{t('medDeviceTitle')}</div>
-          <p style={{ fontSize: '13px', lineHeight: 1.65, color: '#55606F', margin: '10px 0 0' }}>{t('medDeviceP1')}</p>
-          <p style={{ fontSize: '13px', lineHeight: 1.65, color: '#55606F', margin: '10px 0 0' }}>{t('medDeviceP2')}</p>
-        </div>
-      </div>
     </div>
   );
 }

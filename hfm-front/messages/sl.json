@@ -365,7 +365,9 @@
       "generic": "Prišlo je do napake.",
       "network": "Napaka omrežja."
     },
-    "forgotPassword": "Ste pozabili geslo?"
+    "forgotPassword": "Ste pozabili geslo?",
+    "editAddress": "Uredi",
+    "editAddressTitle": "Uredi naslov"
   },
   "addressForm": {
     "address": "Naslov",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Regija / Zvezna država",
+    "statePlaceholder": "Izberite…",
+    "stateRequired": "Izberite regijo ali zvezno državo.",
+    "dni": "Davčna identifikacijska številka",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Za to državo je davčna identifikacijska številka obvezna.",
+    "postcodeInvalid": "Neveljavna poštna številka za to državo (primer: {example}).",
+    "vatPrefixMismatch": "Številka se mora začeti s {prefix}."
   },
   "checkout": {
     "breadcrumb": "Naročilo",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Imetnik računa",
     "payReservation": "Vaši izdelki so rezervirani {days} dni, dokler ne prejmemo vašega plačila.",
     "payWireReference": "V sklic nakazila navedite <b>{reference}</b>.",
-    "payWireTitle": "Izvedite bančno nakazilo"
+    "payWireTitle": "Izvedite bančno nakazilo",
+    "excl": "brez DDV",
+    "vat": "DDV",
+    "vatRate": "DDV {rate} %",
+    "vatBase": "od {base} €",
+    "vatExempt": "Uporabljena oprostitev DDV (obrnjena davčna obveznost v EU ali izvoz)."
   },
   "orders": {
     "loginRequired": "Potrebna prijava",
@@ -695,5 +710,11 @@
       "success": "Vaše geslo je bilo ponastavljeno. Zdaj ste prijavljeni.",
       "title": "Novo geslo"
     }
+  },
+  "proNotice": {
+    "title": "Strokovna informacija",
+    "text": "Medicinski pripomočki so namenjeni uporabi s strani usposobljenih zdravstvenih delavcev.",
+    "ok": "V redu, razumem",
+    "close": "Zapri"
   }
 }

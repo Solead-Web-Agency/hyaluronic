@@ -365,7 +365,9 @@
       "generic": "Ett fel uppstod.",
       "network": "Nätverksfel."
     },
-    "forgotPassword": "Glömt lösenordet?"
+    "forgotPassword": "Glömt lösenordet?",
+    "editAddress": "Ändra",
+    "editAddressTitle": "Ändra adress"
   },
   "addressForm": {
     "address": "Adress",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Region / Delstat",
+    "statePlaceholder": "Välj…",
+    "stateRequired": "Välj region eller delstat.",
+    "dni": "Skatteregistreringsnummer",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Ett skatteregistreringsnummer krävs för det här landet.",
+    "postcodeInvalid": "Ogiltigt postnummer för det här landet (exempel: {example}).",
+    "vatPrefixMismatch": "Numret måste börja med {prefix}."
   },
   "checkout": {
     "breadcrumb": "Beställning",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Kontoinnehavare",
     "payReservation": "Dina varor reserveras i {days} dagar i väntan på din betalning.",
     "payWireReference": "Ange referensen <b>{reference}</b> som meddelande på din betalning.",
-    "payWireTitle": "Genomför din banköverföring"
+    "payWireTitle": "Genomför din banköverföring",
+    "excl": "exkl. moms",
+    "vat": "Moms",
+    "vatRate": "Moms {rate} %",
+    "vatBase": "på {base} €",
+    "vatExempt": "Momsbefrielse tillämpad (omvänd skattskyldighet inom EU eller export)."
   },
   "orders": {
     "loginRequired": "Inloggning krävs",
@@ -695,5 +710,11 @@
       "success": "Ditt lösenord har återställts. Du är nu inloggad.",
       "title": "Nytt lösenord"
     }
+  },
+  "proNotice": {
+    "title": "Professionell information",
+    "text": "Medicintekniska produkter är avsedda att användas av behörig hälso- och sjukvårdspersonal.",
+    "ok": "OK, jag förstår",
+    "close": "Stäng"
   }
 }

@@ -372,6 +372,17 @@ class DGridTools
                 'search' => false,
                 'validate' => ''
             ),
+            // [HFM] Produit réservé aux praticiens (caractéristique « RPPS »), lu par le front headless.
+            'rpps' => array(
+                'title' => 'Soumis à RPPS',
+                'active' => 'statusRpps',
+                'align' => 'center rpps',
+                'type' => 'bool',
+                'orderby' => false,
+                'remove_onclick' => true,
+                'search' => false,
+                'validate' => ''
+            ),
             'available_for_order' => array(
                 'title' => 'Available for order',
                 'active' => 'status2',
@@ -523,7 +534,8 @@ class DGridTools
     {
         return array(
             'id_product',
-            'name'
+            'name',
+            'rpps', // [HFM] toujours visible
         );
     }
 
@@ -576,6 +588,7 @@ class DGridTools
             'message' => 'Message',
             'date_upd' => 'Date update',
             'visibility' => 'Visibility',
+            'rpps' => 'Soumis à RPPS',
         );
         return $hints[$name];
     }

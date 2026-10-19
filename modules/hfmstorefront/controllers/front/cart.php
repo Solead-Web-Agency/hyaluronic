@@ -131,6 +131,64 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
         $cart->update();
     }
 
+    /**
+     * Totaux du panier + DÉTAIL DE LA TVA (affiché au récapitulatif) :
+     *  - shipping_excl_tax / discounts : pour présenter un récap tout en HT puis la TVA ;
+     *  - tax_total = total TTC − total HT (exact, remises et exonérations comprises) ;
+     *  - tax_lines = TVA ventilée par taux sur produits + livraison, AVANT remise. Si une remise
+     *    s'applique, la somme des lignes peut différer de tax_total : le front affiche alors la
+     *    TVA globale (cf. CheckoutClient). Exonération (VIES / export) -> tax_total = 0.
+     */
+    protected function cartTotals(Cart $cart)
+    {
+        $r = function ($v) { return (float) Tools::ps_round((float) $v, 2); };
+        $productsExcl = $cart->getOrderTotal(false, Cart::ONLY_PRODUCTS);
+        $productsIncl = $cart->getOrderTotal(true, Cart::ONLY_PRODUCTS);
+        $shipExcl = $cart->getOrderTotal(false, Cart::ONLY_SHIPPING);
+        $shipIncl = $cart->getOrderTotal(true, Cart::ONLY_SHIPPING);
+        $discExcl = $cart->getOrderTotal(false, Cart::ONLY_DISCOUNTS);
+        $discIncl = $cart->getOrderTotal(true, Cart::ONLY_DISCOUNTS);
+        $totalExcl = $cart->getOrderTotal(false, Cart::BOTH);
+        $totalIncl = $cart->getOrderTotal(true, Cart::BOTH);
+
+        $byRate = [];
+        $add = function ($rate, $base, $amount) use (&$byRate) {
+            $key = number_format((float) $rate, 3, '.', '');
+            if (!isset($byRate[$key])) {
+                $byRate[$key] = ['rate' => (float) $rate, 'base' => 0.0, 'amount' => 0.0];
+            }
+            $byRate[$key]['base'] += (float) $base;
+            $byRate[$key]['amount'] += (float) $amount;
+        };
+        foreach ($cart->getProducts() as $p) {
+            $excl = (float) $p['total'];
+            $incl = (float) $p['total_wt'];
+            $rate = $excl > 0 ? round(($incl / $excl - 1) * 100, 1) : (float) ($p['rate'] ?? 0);
+            $add($rate, $excl, $incl - $excl);
+        }
+        if ($shipExcl > 0) {
+            $add(round(($shipIncl / $shipExcl - 1) * 100, 1), $shipExcl, $shipIncl - $shipExcl);
+        }
+        $lines = [];
+        foreach ($byRate as $l) {
+            $lines[] = ['rate' => $l['rate'], 'base' => $r($l['base']), 'amount' => $r($l['amount'])];
+        }
+        usort($lines, function ($a, $b) { return $b['rate'] <=> $a['rate']; });
+
+        return [
+            'products_excl_tax' => $r($productsExcl),
+            'products_incl_tax' => $r($productsIncl),
+            'shipping_excl_tax' => $r($shipExcl),
+            'shipping_incl_tax' => $r($shipIncl),
+            'discounts_excl_tax' => $r($discExcl),
+            'total_discounts' => $r($discIncl),
+            'total_excl_tax' => $r($totalExcl),
+            'total_incl_tax' => $r($totalIncl),
+            'tax_total' => $r($totalIncl - $totalExcl),
+            'tax_lines' => $lines,
+        ];
+    }
+
     protected function productQty($cart, $idProduct, $idAttribute)
     {
         foreach ($cart->getProducts() as $p) {
@@ -241,13 +299,7 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
             'rpps_required' => $this->cartRequiresRpps($cart),
             'nb_items' => (int) $cart->nbProducts(),
             'products' => $products,
-            'totals' => [
-                'products_excl_tax' => (float) Tools::ps_round($cart->getOrderTotal(false, Cart::ONLY_PRODUCTS), 2),
-                'products_incl_tax' => (float) Tools::ps_round($cart->getOrderTotal(true, Cart::ONLY_PRODUCTS), 2),
-                'shipping_incl_tax' => (float) Tools::ps_round($cart->getOrderTotal(true, Cart::ONLY_SHIPPING), 2),
-                'total_excl_tax' => (float) Tools::ps_round($cart->getOrderTotal(false, Cart::BOTH), 2),
-                'total_incl_tax' => (float) Tools::ps_round($cart->getOrderTotal(true, Cart::BOTH), 2),
-            ],
+            'totals' => $this->cartTotals($cart),
         ];
     }
 }

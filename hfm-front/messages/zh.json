@@ -365,7 +365,9 @@
       "generic": "发生错误。",
       "network": "网络错误。"
     },
-    "forgotPassword": "忘记密码？"
+    "forgotPassword": "忘记密码？",
+    "editAddress": "修改",
+    "editAddressTitle": "修改地址"
   },
   "addressForm": {
     "address": "地址",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "省 / 州",
+    "statePlaceholder": "请选择…",
+    "stateRequired": "请选择省或州。",
+    "dni": "税务识别号",
+    "dniPlaceholder": "RFC、NIF…",
+    "dniRequired": "该国家/地区必须填写税务识别号。",
+    "postcodeInvalid": "该国家/地区的邮政编码无效（示例：{example}）。",
+    "vatPrefixMismatch": "号码必须以 {prefix} 开头。"
   },
   "checkout": {
     "breadcrumb": "订单",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "账户持有人",
     "payReservation": "在我们收到您的付款之前，您的商品将保留 {days} 天。",
     "payWireReference": "请在转账备注中注明参考号 <b>{reference}</b>。",
-    "payWireTitle": "请完成银行转账"
+    "payWireTitle": "请完成银行转账",
+    "excl": "不含税",
+    "vat": "增值税",
+    "vatRate": "增值税 {rate}%",
+    "vatBase": "计税基数 {base} €",
+    "vatExempt": "已适用增值税豁免（欧盟内部反向征税或出口）。"
   },
   "orders": {
     "loginRequired": "需要登录",
@@ -695,5 +710,11 @@
       "success": "您的密码已重置。您现在已登录。",
       "title": "新密码"
     }
+  },
+  "proNotice": {
+    "title": "专业信息",
+    "text": "医疗器械仅供合格的医疗专业人员使用。",
+    "ok": "好的，我已了解",
+    "close": "关闭"
   }
 }

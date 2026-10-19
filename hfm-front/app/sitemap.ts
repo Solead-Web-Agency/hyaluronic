@@ -54,7 +54,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry('', 'daily', 1),
     entry('/catalogue', 'daily', 0.9),
     entry('/blog', 'weekly', 0.7),
-    ...['levres', 'pommettes', 'cernes', 'rides', 'ovale', 'skinbooster'].map((z) => entry(`/zone/${z}`, 'weekly', 0.7)),
+    // (Les anciennes pages /zone/{clé} redirigent désormais vers les catégories éditoriales,
+    //  déjà présentes dans le sitemap : on ne les déclare plus.)
   ];
 
   // Pages catégorie /{categorie} (parité prod), avec hreflang par langue (slug traduit).

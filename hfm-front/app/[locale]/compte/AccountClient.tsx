@@ -106,6 +106,8 @@ export default function AccountClient() {
   const [busy, setBusy] = useState(false);
 
   const [addresses, setAddresses] = useState<Address[]>([]);
+  // Adresse en cours de modification (formulaire prérempli sous la liste).
+  const [editAddr, setEditAddr] = useState<Address | null>(null);
   const [showAddrForm, setShowAddrForm] = useState(false);
 
   // Profil affiché (peut être mis à jour localement après "Modifier mon profil"
@@ -342,7 +344,7 @@ export default function AccountClient() {
       <div style={{ ...cardStyle, marginTop: '20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
           <div style={{ fontFamily: "'Spectral',serif", fontSize: '19px', color: '#2B2B2B' }}>{t('myAddresses')}</div>
-          <button onClick={() => setShowAddrForm((o) => !o)} style={{ background: 'rgba(140,198,63,0.1)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '9px 16px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '13px', fontWeight: 600, color: '#5E8E1F', cursor: 'pointer' }}>{showAddrForm ? t('close') : t('addAddress')}</button>
+          <button onClick={() => { setEditAddr(null); setShowAddrForm((o) => !o); }} style={{ background: 'rgba(140,198,63,0.1)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '9px 16px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '13px', fontWeight: 600, color: '#5E8E1F', cursor: 'pointer' }}>{showAddrForm ? t('close') : t('addAddress')}</button>
         </div>
 
         {addresses.length ? (
@@ -352,10 +354,13 @@ export default function AccountClient() {
                 <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#34352F' }}>{a.alias || `${a.firstname} ${a.lastname}`.trim() || t('addressFallback')}</div>
                 <div style={{ fontSize: '13px', color: '#55606F', marginTop: '6px', lineHeight: 1.5 }}>
                   {a.address1}<br />
-                  {a.postcode} {a.city}<br />
+                  {a.postcode} {a.city}{a.state ? `, ${a.state}` : ''}<br />
                   {a.country}
                   {a.phone ? <><br />{a.phone}</> : null}
+                  {a.company ? <><br />{a.company}</> : null}
+                  {a.vat_number ? <><br />{a.vat_number}</> : null}
                 </div>
+                <button onClick={() => { setShowAddrForm(false); setEditAddr(a); }} style={{ marginTop: '10px', background: 'none', border: 'none', padding: 0, fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '12.5px', fontWeight: 600, color: '#5E8E1F', textDecoration: 'underline', cursor: 'pointer' }}>{t('editAddress')}</button>
               </div>
             ))}
           </div>
@@ -366,6 +371,18 @@ export default function AccountClient() {
         {showAddrForm ? (
           <div style={{ marginTop: '22px', borderTop: '1px solid #ECEAE3', paddingTop: '22px' }}>
             <AddressForm onCreated={(list) => { setAddresses(list); setShowAddrForm(false); }} />
+          </div>
+        ) : null}
+
+        {/* Modification d'une adresse existante. NB : si l'adresse a déjà servi à une commande,
+            PrestaShop en crée une nouvelle et masque l'ancienne (historique préservé). */}
+        {editAddr ? (
+          <div style={{ marginTop: '22px', borderTop: '1px solid #ECEAE3', paddingTop: '22px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: '#34352F' }}>{t('editAddressTitle')}</div>
+              <button onClick={() => setEditAddr(null)} style={{ background: 'none', border: 'none', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '12.5px', fontWeight: 600, color: '#6E7585', cursor: 'pointer' }}>{t('close')}</button>
+            </div>
+            <AddressForm key={editAddr.id_address} address={editAddr} onCreated={(list) => { setAddresses(list); setEditAddr(null); }} />
           </div>
         ) : null}
       </div>

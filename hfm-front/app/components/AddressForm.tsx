@@ -14,6 +14,9 @@ export type Address = {
   country: string;
   id_country: number;
   phone: string;
+  id_state?: number;
+  state?: string;
+  dni?: string;
   company?: string;
   vat_number?: string;
   vat_valid?: boolean;
@@ -21,7 +24,44 @@ export type Address = {
   vat_checkable?: boolean;
 };
 
-type Country = { id_country: number; name: string; iso_code: string };
+type State = { id_state: number; name: string; iso_code: string };
+// Règles d'adresse par pays, servies par le bridge (taxonomy action=countries).
+type Country = {
+  id_country: number;
+  name: string;
+  iso_code: string;
+  contains_states?: boolean;
+  states?: State[];
+  need_zip_code?: boolean;
+  zip_code_format?: string;
+  need_identification_number?: boolean;
+  vat_applicable?: boolean;
+};
+
+// Exemples de n° de TVA intracommunautaire par pays (préfixe officiel ; la Grèce utilise « EL »).
+const VAT_EXAMPLES: Record<string, string> = {
+  AT: 'ATU12345678', BE: 'BE0123456789', BG: 'BG123456789', CY: 'CY12345678X', CZ: 'CZ12345678',
+  DE: 'DE123456789', DK: 'DK12345678', EE: 'EE123456789', GR: 'EL123456789', ES: 'ESX1234567X',
+  FI: 'FI12345678', FR: 'FR12345678901', HR: 'HR12345678901', HU: 'HU12345678', IE: 'IE1234567X',
+  IT: 'IT12345678901', LT: 'LT123456789', LU: 'LU12345678', LV: 'LV12345678901', MT: 'MT12345678',
+  NL: 'NL123456789B01', PL: 'PL1234567890', PT: 'PT123456789', RO: 'RO1234567890', SE: 'SE123456789001',
+  SI: 'SI12345678', SK: 'SK1234567890', GB: 'GB123456789', XI: 'XI123456789',
+};
+const vatPrefix = (iso: string) => (iso === 'GR' ? 'EL' : iso);
+
+// Format de code postal PrestaShop (N = chiffre, L = lettre, C = code ISO du pays) -> regex + exemple.
+function zipRule(format: string, iso: string): { re: RegExp; example: string } | null {
+  if (!format) return null;
+  let re = '';
+  let ex = '';
+  for (const ch of format) {
+    if (ch === 'N') { re += '\\d'; ex += '1'; }
+    else if (ch === 'L') { re += '[A-Za-z]'; ex += 'A'; }
+    else if (ch === 'C') { re += iso; ex += iso; }
+    else { re += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); ex += ch; }
+  }
+  return { re: new RegExp(`^${re}$`), example: ex };
+}
 // Statut renvoyé par le bridge après validation VIES/GOV.UK (module Advanced VAT Manager).
 type VatStatus = { number: string; valid: boolean; invalid: boolean; exempt: boolean; available: boolean };
 
@@ -69,6 +109,8 @@ export default function AddressForm({
   const [city, setCity] = useState(address?.city ?? '');
   const [idCountry, setIdCountry] = useState<number | ''>(address?.id_country ?? '');
   const [phone, setPhone] = useState(address?.phone ?? '');
+  const [idState, setIdState] = useState<number | ''>(address?.id_state || '');
+  const [dni, setDni] = useState(address?.dni ?? '');
   const [alias, setAlias] = useState(address?.alias ?? '');
   const [company, setCompany] = useState(address?.company ?? '');
   const [vatNumber, setVatNumber] = useState(address?.vat_number ?? '');
@@ -91,11 +133,38 @@ export default function AddressForm({
       .catch(() => {});
   }, [address]);
 
+  // Pays sélectionné et ses règles (région, code postal, identifiant fiscal, TVA).
+  const country = countries.find((c) => c.id_country === idCountry);
+  const iso = country?.iso_code ?? '';
+  const states = country?.contains_states ? country.states ?? [] : [];
+  const zip = country?.need_zip_code ? zipRule(country.zip_code_format ?? '', iso) : null;
+  const showVat = !!country && (country.vat_applicable || iso === 'FR');
+  const vatExample = VAT_EXAMPLES[iso] ?? '';
+  const vatPrefixWrong = showVat && !!vatNumber.trim() && !!vatExample && !vatNumber.trim().toUpperCase().startsWith(vatPrefix(iso));
+
+  // Changement de pays : la région d'un autre pays n'a plus de sens.
+  const changeCountry = (id: number) => {
+    setIdCountry(id);
+    setIdState('');
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     if (!address1 || !postcode || !city || !idCountry) {
       setError(t('missingFields'));
+      return;
+    }
+    if (states.length && !idState) {
+      setError(t('stateRequired'));
+      return;
+    }
+    if (zip && !zip.re.test(postcode.trim())) {
+      setError(t('postcodeInvalid', { example: zip.example }));
+      return;
+    }
+    if (country?.need_identification_number && !dni.trim()) {
+      setError(t('dniRequired'));
       return;
     }
     if (!phone.trim()) {
@@ -115,15 +184,23 @@ export default function AddressForm({
           postcode,
           city,
           id_country: idCountry,
+          id_state: states.length ? idState : 0,
+          dni: country?.need_identification_number ? dni.trim() : '',
           phone: phone.trim(),
           alias: alias || undefined,
           company: company.trim() || '',
-          vat_number: vatNumber.trim() || '',
+          vat_number: showVat ? vatNumber.trim() : '',
         }),
       });
       const d = await r.json();
       if (!r.ok || !(d.created || d.updated)) {
-        setError(d.error === 'invalid_phone' ? t('phoneRequired') : (d.error || t('saveFailed')));
+        setError(
+          d.error === 'invalid_phone' ? t('phoneRequired')
+          : d.error === 'state_required' ? t('stateRequired')
+          : d.error === 'invalid_postcode' ? t('postcodeInvalid', { example: zip?.example ?? '' })
+          : d.error === 'dni_required' ? t('dniRequired')
+          : (d.error || t('saveFailed'))
+        );
         return;
       }
       // Statut de validation TVA (VIES/GOV.UK) renvoyé par le bridge ; l'exonération éventuelle
@@ -133,6 +210,8 @@ export default function AddressForm({
       setPostcode('');
       setCity('');
       setPhone('');
+      setIdState('');
+      setDni('');
       setAlias('');
       setCompany('');
       setVatNumber('');
@@ -153,7 +232,7 @@ export default function AddressForm({
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '12px' }}>
         <div>
           <label style={labelStyle}>{t('postcode')}</label>
-          <input value={postcode} onChange={(e) => setPostcode(e.target.value)} placeholder={t('postcodePlaceholder')} style={inputStyle} />
+          <input value={postcode} onChange={(e) => setPostcode(e.target.value)} placeholder={zip ? zip.example : t('postcodePlaceholder')} style={inputStyle} />
         </div>
         <div>
           <label style={labelStyle}>{t('city')}</label>
@@ -163,7 +242,7 @@ export default function AddressForm({
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
         <div>
           <label style={labelStyle}>{t('country')}</label>
-          <select value={idCountry} onChange={(e) => setIdCountry(Number(e.target.value))} style={{ ...inputStyle, padding: '0 10px' }}>
+          <select value={idCountry} onChange={(e) => changeCountry(Number(e.target.value))} style={{ ...inputStyle, padding: '0 10px' }}>
             {countries.map((c) => (
               <option key={c.id_country} value={c.id_country}>{c.name}</option>
             ))}
@@ -174,11 +253,32 @@ export default function AddressForm({
           <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={t('phonePlaceholder')} style={inputStyle} required />
         </div>
       </div>
+      {/* Champs dépendants du pays : région (États-Unis, Canada, Japon, Espagne…) et identifiant fiscal. */}
+      {states.length || country?.need_identification_number ? (
+        <div style={{ display: 'grid', gridTemplateColumns: states.length && country?.need_identification_number ? '1fr 1fr' : '1fr', gap: '12px' }}>
+          {states.length ? (
+            <div>
+              <label style={labelStyle}>{t('state')} *</label>
+              <select value={idState} onChange={(e) => setIdState(e.target.value ? Number(e.target.value) : '')} style={{ ...inputStyle, padding: '0 10px' }}>
+                <option value="">{t('statePlaceholder')}</option>
+                {states.map((st) => <option key={st.id_state} value={st.id_state}>{st.name}</option>)}
+              </select>
+            </div>
+          ) : null}
+          {country?.need_identification_number ? (
+            <div>
+              <label style={labelStyle}>{t('dni')} *</label>
+              <input value={dni} onChange={(e) => setDni(e.target.value.toUpperCase())} placeholder={t('dniPlaceholder')} style={inputStyle} />
+            </div>
+          ) : null}
+        </div>
+      ) : null}
       <div>
         <label style={labelStyle}>{t('alias')}</label>
         <input value={alias} onChange={(e) => setAlias(e.target.value)} placeholder={t('aliasPlaceholder')} style={inputStyle} />
       </div>
-      {/* Bloc B2B : société + n° de TVA intracommunautaire (validation VIES/GOV.UK + exonération). */}
+      {/* Bloc B2B : société + n° de TVA intracommunautaire (validation VIES/GOV.UK + exonération).
+          Le n° de TVA n'est proposé que là où il a un sens (UE, Royaume-Uni) ; ailleurs, société seule. */}
       <div style={{ border: '1px solid #E7E3DA', borderRadius: '10px', padding: '14px', background: '#FAFAF7', display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '.04em', color: '#5E6B45', display: 'flex', alignItems: 'center', gap: '7px' }}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M6 21V8l6-4 6 4v13M9 21v-5h6v5" /></svg>
@@ -188,11 +288,17 @@ export default function AddressForm({
           <label style={labelStyle}>{t('company')}</label>
           <input value={company} onChange={(e) => setCompany(e.target.value)} placeholder={t('companyPlaceholder')} style={inputStyle} />
         </div>
-        <div>
-          <label style={labelStyle}>{t('vatNumber')}</label>
-          <input value={vatNumber} onChange={(e) => setVatNumber(e.target.value.toUpperCase())} placeholder={t('vatPlaceholder')} style={inputStyle} autoCapitalize="characters" />
-          <span style={{ display: 'block', fontSize: '11.5px', color: '#9A9A8C', marginTop: '6px', lineHeight: 1.45 }}>{t('vatHint')}</span>
-        </div>
+        {showVat ? (
+          <div>
+            <label style={labelStyle}>{t('vatNumber')}</label>
+            <input value={vatNumber} onChange={(e) => setVatNumber(e.target.value.toUpperCase().replace(/\s+/g, ''))} placeholder={vatExample || t('vatPlaceholder')} style={inputStyle} autoCapitalize="characters" />
+            {vatPrefixWrong ? (
+              <span style={{ display: 'block', fontSize: '11.5px', color: '#B42318', marginTop: '6px', lineHeight: 1.45 }}>{t('vatPrefixMismatch', { prefix: vatPrefix(iso) })}</span>
+            ) : (
+              <span style={{ display: 'block', fontSize: '11.5px', color: '#9A9A8C', marginTop: '6px', lineHeight: 1.45 }}>{t('vatHint')}</span>
+            )}
+          </div>
+        ) : null}
         {vatStatus && vatStatus.number ? (
           vatStatus.valid ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', fontWeight: 600, color: '#4B6B1B', background: 'rgba(140,198,63,.12)', border: '1px solid rgba(140,198,63,.3)', borderRadius: '8px', padding: '9px 11px' }}>

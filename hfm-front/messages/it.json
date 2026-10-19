@@ -365,7 +365,9 @@
       "generic": "Si è verificato un errore.",
       "network": "Errore di rete."
     },
-    "forgotPassword": "Password dimenticata?"
+    "forgotPassword": "Password dimenticata?",
+    "editAddress": "Modifica",
+    "editAddressTitle": "Modifica indirizzo"
   },
   "addressForm": {
     "address": "Indirizzo",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Provincia / Stato",
+    "statePlaceholder": "Seleziona…",
+    "stateRequired": "Seleziona la provincia o lo stato.",
+    "dni": "Codice di identificazione fiscale",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Per questo paese è obbligatorio il codice di identificazione fiscale.",
+    "postcodeInvalid": "CAP non valido per questo paese (esempio: {example}).",
+    "vatPrefixMismatch": "Il numero deve iniziare con {prefix}."
   },
   "checkout": {
     "breadcrumb": "Ordine",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Intestatario del conto",
     "payReservation": "I suoi articoli restano riservati per {days} giorni in attesa del pagamento.",
     "payWireReference": "Indichi il riferimento <b>{reference}</b> nella causale del bonifico.",
-    "payWireTitle": "Effettui il suo bonifico bancario"
+    "payWireTitle": "Effettui il suo bonifico bancario",
+    "excl": "IVA escl.",
+    "vat": "IVA",
+    "vatRate": "IVA {rate}%",
+    "vatBase": "su {base} €",
+    "vatExempt": "Esenzione IVA applicata (inversione contabile intracomunitaria o esportazione)."
   },
   "orders": {
     "loginRequired": "Accesso richiesto",
@@ -695,5 +710,11 @@
       "success": "La sua password è stata reimpostata. Ora è connesso.",
       "title": "Nuova password"
     }
+  },
+  "proNotice": {
+    "title": "Informazione professionale",
+    "text": "I dispositivi medici sono destinati all’uso da parte di professionisti sanitari qualificati.",
+    "ok": "OK, ho capito",
+    "close": "Chiudi"
   }
 }

@@ -349,6 +349,17 @@ export default function ProductDetail({ product, related }: { product: ProductVi
             ))}
           </div>
 
+          {/* Encadré réglementaire dispositif médical : placé entre la réassurance (livraison) et la
+              liste de conformité, à hauteur du bouton d'achat (demande client). */}
+          <div style={{ ...card, padding: '16px 20px', marginTop: '14px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6E7585" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '2px' }} aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /><path d="M12 8v5M12 16.5v.5" /></svg>
+            <div>
+              <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#2B2B2B' }}>{t('medDeviceTitle')}</div>
+              <p style={{ fontSize: '12.5px', lineHeight: 1.6, color: '#55606F', margin: '8px 0 0' }}>{t('medDeviceP1')}</p>
+              <p style={{ fontSize: '12.5px', lineHeight: 1.6, color: '#55606F', margin: '8px 0 0' }}>{t('medDeviceP2')}</p>
+            </div>
+          </div>
+
           {/* Conformité */}
           <div style={{ ...card, padding: '16px 20px', marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {[t('comp1'), t('comp2'), t('comp3'), t('comp4'), t('comp5')].map((line, i) => (

@@ -365,7 +365,9 @@
       "generic": "エラーが発生しました。",
       "network": "ネットワークエラー。"
     },
-    "forgotPassword": "パスワードをお忘れですか？"
+    "forgotPassword": "パスワードをお忘れですか？",
+    "editAddress": "編集",
+    "editAddressTitle": "住所を編集"
   },
   "addressForm": {
     "address": "住所",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "都道府県 / 州",
+    "statePlaceholder": "選択してください…",
+    "stateRequired": "都道府県または州を選択してください。",
+    "dni": "納税者番号",
+    "dniPlaceholder": "RFC、NIF…",
+    "dniRequired": "この国では納税者番号が必須です。",
+    "postcodeInvalid": "この国の郵便番号として無効です（例：{example}）。",
+    "vatPrefixMismatch": "番号は {prefix} で始まる必要があります。"
   },
   "checkout": {
     "breadcrumb": "ご注文",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "口座名義",
     "payReservation": "お支払いを確認するまで、商品は {days} 日間お取り置きいたします。",
     "payWireReference": "お振り込みの摘要欄に参照番号 <b>{reference}</b> をご記入ください。",
-    "payWireTitle": "銀行振込をお願いします"
+    "payWireTitle": "銀行振込をお願いします",
+    "excl": "税抜",
+    "vat": "VAT",
+    "vatRate": "VAT {rate}%",
+    "vatBase": "対象額 {base} €",
+    "vatExempt": "VAT免除が適用されています（EU域内リバースチャージまたは輸出）。"
   },
   "orders": {
     "loginRequired": "ログインが必要です",
@@ -695,5 +710,11 @@
       "success": "パスワードが再設定されました。現在ログインしています。",
       "title": "新しいパスワード"
     }
+  },
+  "proNotice": {
+    "title": "医療従事者向け情報",
+    "text": "医療機器は、資格を有する医療従事者による使用を目的としています。",
+    "ok": "了解しました",
+    "close": "閉じる"
   }
 }

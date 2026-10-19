@@ -1461,6 +1461,25 @@ $('.activ .list-action-enable').live('click', function (e) {
     }, 1);
 });
 
+// [HFM] Bascule « soumis à RPPS » (caractéristique RPPS lue par le site headless).
+$('.rpps .list-action-enable').live('click', function (e) {
+    e.preventDefault();
+    var self = this;
+    var id_product = $(this).attr('href').replace(/.*id\_product\=([0-9]+).*/, '$1');
+    $.ajax({
+        url: ajax_url,
+        type: 'POST',
+        dataType: 'json',
+        data: { id_product: id_product, ajax: true, action: 'set_rpps' },
+        success: function (res) {
+            var on = res && res.rpps;
+            $(self).toggleClass('action-enabled', !!on).toggleClass('action-disabled', !on);
+            $(self).find('.icon-check').toggleClass('hidden', !on);
+            $(self).find('.icon-remove').toggleClass('hidden', !!on);
+        }
+    });
+});
+
 $('.order .list-action-enable').live('click', function (e) {
     e.preventDefault();
     var self = this;

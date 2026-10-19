@@ -268,12 +268,38 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
     protected function countries($idLang)
     {
         $rows = Country::getCountries($idLang, true);
+        // Champ « n° de TVA intracommunautaire » pertinent pour ce pays ? Même règle que le module
+        // Advanced VAT Manager (pays configurés pour la validation VIES/GOV.UK ; la France, pays de
+        // la boutique, n'en fait pas partie : TVA domestique, pas d'exonération).
+        $vatEngine = _PS_MODULE_DIR_ . 'advancedvatmanager/classes/ValidationEngine.php';
+        $hasVatEngine = file_exists($vatEngine);
+        if ($hasVatEngine) {
+            require_once $vatEngine;
+        }
         $out = [];
         foreach ((array) $rows as $r) {
+            $idCountry = (int) $r['id_country'];
+            $hasStates = (int) $r['contains_states'] === 1;
+            $states = [];
+            if ($hasStates) {
+                foreach ((array) State::getStatesByIdCountry($idCountry, true) as $st) {
+                    $states[] = ['id_state' => (int) $st['id_state'], 'name' => (string) $st['name'], 'iso_code' => (string) $st['iso_code']];
+                }
+                usort($states, function ($a, $b) { return strcmp($a['name'], $b['name']); });
+            }
+            // Règles du formulaire d'adresse PAR PAYS (le front adapte les champs à la volée) :
+            // région obligatoire, code postal (exigé + format PS : N=chiffre, L=lettre, C=code ISO),
+            // identifiant fiscal (DNI) exigé, appartenance UE (n° de TVA intracommunautaire).
             $out[] = [
-                'id_country' => (int) $r['id_country'],
+                'id_country' => $idCountry,
                 'name' => $r['country'],
                 'iso_code' => $r['iso_code'],
+                'contains_states' => $hasStates && !empty($states),
+                'states' => $states,
+                'need_zip_code' => (int) $r['need_zip_code'] === 1,
+                'zip_code_format' => (string) $r['zip_code_format'],
+                'need_identification_number' => (int) $r['need_identification_number'] === 1,
+                'vat_applicable' => $hasVatEngine ? !ValidationEngine::skipVATFieldBycountry($idCountry) : true,
             ];
         }
         return $out;

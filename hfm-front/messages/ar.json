@@ -365,7 +365,9 @@
       "generic": "حدث خطأ.",
       "network": "خطأ في الشبكة."
     },
-    "forgotPassword": "هل نسيت كلمة المرور؟"
+    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "editAddress": "تعديل",
+    "editAddressTitle": "تعديل العنوان"
   },
   "addressForm": {
     "address": "العنوان",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "المنطقة / الولاية",
+    "statePlaceholder": "اختر…",
+    "stateRequired": "يرجى اختيار المنطقة أو الولاية.",
+    "dni": "رقم التعريف الضريبي",
+    "dniPlaceholder": "RFC، NIF…",
+    "dniRequired": "رقم التعريف الضريبي إلزامي لهذا البلد.",
+    "postcodeInvalid": "الرمز البريدي غير صالح لهذا البلد (مثال: {example}).",
+    "vatPrefixMismatch": "يجب أن يبدأ الرقم بـ {prefix}."
   },
   "checkout": {
     "breadcrumb": "الطلب",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "صاحب الحساب",
     "payReservation": "يتم حجز منتجاتك لمدة {days} أيام في انتظار دفعتك.",
     "payWireReference": "يرجى ذكر المرجع <b>{reference}</b> في بيان التحويل الخاص بك.",
-    "payWireTitle": "قم بإجراء التحويل المصرفي"
+    "payWireTitle": "قم بإجراء التحويل المصرفي",
+    "excl": "بدون ضريبة",
+    "vat": "ضريبة القيمة المضافة",
+    "vatRate": "ضريبة القيمة المضافة {rate}%",
+    "vatBase": "على {base} €",
+    "vatExempt": "تم تطبيق الإعفاء من ضريبة القيمة المضافة (التكليف العكسي داخل الاتحاد الأوروبي أو التصدير)."
   },
   "orders": {
     "loginRequired": "تسجيل الدخول مطلوب",
@@ -695,5 +710,11 @@
       "success": "تمت إعادة تعيين كلمة المرور. أنت الآن مسجّل الدخول.",
       "title": "كلمة مرور جديدة"
     }
+  },
+  "proNotice": {
+    "title": "معلومات مهنية",
+    "text": "الأجهزة الطبية مخصّصة للاستخدام من قِبل أخصائيي الرعاية الصحية المؤهلين.",
+    "ok": "حسنًا، فهمت",
+    "close": "إغلاق"
   }
 }

@@ -365,7 +365,9 @@
       "generic": "Възникна грешка.",
       "network": "Мрежова грешка."
     },
-    "forgotPassword": "Забравена парола?"
+    "forgotPassword": "Забравена парола?",
+    "editAddress": "Редактиране",
+    "editAddressTitle": "Редактиране на адреса"
   },
   "addressForm": {
     "address": "Адрес",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Област / Щат",
+    "statePlaceholder": "Изберете…",
+    "stateRequired": "Изберете област или щат.",
+    "dni": "Данъчен идентификационен номер",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "За тази държава е задължителен данъчен идентификационен номер.",
+    "postcodeInvalid": "Невалиден пощенски код за тази държава (пример: {example}).",
+    "vatPrefixMismatch": "Номерът трябва да започва с {prefix}."
   },
   "checkout": {
     "breadcrumb": "Поръчка",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Титуляр на сметката",
     "payReservation": "Вашите артикули са запазени за {days} дни в очакване на вашето плащане.",
     "payWireReference": "Посочете референция <b>{reference}</b> в основанието на вашия банков превод.",
-    "payWireTitle": "Извършете вашия банков превод"
+    "payWireTitle": "Извършете вашия банков превод",
+    "excl": "без ДДС",
+    "vat": "ДДС",
+    "vatRate": "ДДС {rate}%",
+    "vatBase": "върху {base} €",
+    "vatExempt": "Приложено е освобождаване от ДДС (обратно начисляване в ЕС или износ)."
   },
   "orders": {
     "loginRequired": "Изисква се вход",
@@ -695,5 +710,11 @@
       "success": "Вашата парола беше възстановена. Сега сте влезли в профила си.",
       "title": "Нова парола"
     }
+  },
+  "proNotice": {
+    "title": "Професионална информация",
+    "text": "Медицинските изделия са предназначени за употреба от квалифицирани медицински специалисти.",
+    "ok": "Добре, разбрах",
+    "close": "Затвори"
   }
 }

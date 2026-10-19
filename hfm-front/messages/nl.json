@@ -365,7 +365,9 @@
       "generic": "Er is een fout opgetreden.",
       "network": "Netwerkfout."
     },
-    "forgotPassword": "Wachtwoord vergeten?"
+    "forgotPassword": "Wachtwoord vergeten?",
+    "editAddress": "Wijzigen",
+    "editAddressTitle": "Adres wijzigen"
   },
   "addressForm": {
     "address": "Adres",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Provincie / Staat",
+    "statePlaceholder": "Selecteer…",
+    "stateRequired": "Selecteer de provincie of staat.",
+    "dni": "Fiscaal identificatienummer",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "Voor dit land is een fiscaal identificatienummer verplicht.",
+    "postcodeInvalid": "Ongeldige postcode voor dit land (voorbeeld: {example}).",
+    "vatPrefixMismatch": "Het nummer moet beginnen met {prefix}."
   },
   "checkout": {
     "breadcrumb": "Bestelling",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Rekeninghouder",
     "payReservation": "Uw artikelen blijven {days} dagen gereserveerd in afwachting van uw betaling.",
     "payWireReference": "Vermeld referentie <b>{reference}</b> in de omschrijving van uw overschrijving.",
-    "payWireTitle": "Voer uw bankoverschrijving uit"
+    "payWireTitle": "Voer uw bankoverschrijving uit",
+    "excl": "excl. btw",
+    "vat": "btw",
+    "vatRate": "btw {rate}%",
+    "vatBase": "over € {base}",
+    "vatExempt": "Btw-vrijstelling toegepast (intracommunautaire verlegging of export)."
   },
   "orders": {
     "loginRequired": "Inloggen vereist",
@@ -695,5 +710,11 @@
       "success": "Uw wachtwoord is opnieuw ingesteld. U bent nu ingelogd.",
       "title": "Nieuw wachtwoord"
     }
+  },
+  "proNotice": {
+    "title": "Professionele informatie",
+    "text": "Medische hulpmiddelen zijn bestemd voor gebruik door gekwalificeerde zorgprofessionals.",
+    "ok": "OK, begrepen",
+    "close": "Sluiten"
   }
 }

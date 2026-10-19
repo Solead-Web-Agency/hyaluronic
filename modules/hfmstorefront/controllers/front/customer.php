@@ -400,6 +400,9 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         if (!Validate::isLoadedObject((new Country($address->id_country)))) {
             return ['error' => 'invalid_country'];
         }
+        if ($err = $this->applyCountryRules($address, null)) {
+            return ['error' => $err];
+        }
         if (!$address->add()) {
             return ['error' => 'address_create_failed'];
         }
@@ -441,6 +444,9 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         $address->city = (string) $this->in('city', $old->city);
         $address->id_country = $idCountry;
         $address->phone = $phone;
+        if ($err = $this->applyCountryRules($address, $old)) {
+            return ['error' => $err];
+        }
         // Société + TVA : le hook Advanced VAT Manager re-valide via VIES/GOV.UK à l'update().
         $address->company = (string) $this->in('company', '');
         $address->vat_number = trim((string) $this->in('vat_number', ''));
@@ -499,6 +505,45 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         return ['number' => $vat, 'valid' => $valid, 'invalid' => $invalid, 'exempt' => $exempt, 'available' => true];
     }
 
+    /**
+     * Règles d'adresse PAR PAYS (miroir des contrôles du checkout PrestaShop natif) :
+     *  - région (id_state) obligatoire et cohérente avec le pays quand le pays a des états ;
+     *  - code postal exigé et conforme au format du pays (Country::checkZipCode) ;
+     *  - identifiant fiscal (DNI) exigé quand le pays le demande.
+     * Renvoie un code d'erreur, ou null si tout est valide. $old = adresse d'origine (édition).
+     */
+    protected function applyCountryRules(Address $address, $old)
+    {
+        $country = new Country((int) $address->id_country);
+        $idState = (int) $this->in('id_state', $old ? (int) $old->id_state : 0);
+        if ($country->contains_states) {
+            $stateCountry = $idState ? (int) Db::getInstance()->getValue(
+                'SELECT id_country FROM `' . _DB_PREFIX_ . 'state` WHERE active = 1 AND id_state = ' . $idState,
+                false
+            ) : 0;
+            if ($stateCountry !== (int) $country->id) {
+                return 'state_required';
+            }
+            $address->id_state = $idState;
+        } else {
+            $address->id_state = 0;
+        }
+        $postcode = trim((string) $address->postcode);
+        if ($country->need_zip_code) {
+            if ($postcode === '' || ($country->zip_code_format && !$country->checkZipCode($postcode))) {
+                return 'invalid_postcode';
+            }
+        }
+        $dni = trim((string) $this->in('dni', $old ? (string) $old->dni : ''));
+        if ($country->need_identification_number) {
+            if ($dni === '' || !Validate::isDniLite($dni)) {
+                return 'dni_required';
+            }
+        }
+        $address->dni = $dni;
+        return null;
+    }
+
     protected function listAddresses($idCustomer)
     {
         $out = [];
@@ -530,6 +575,9 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
                 'country' => $a['country'],
                 'id_country' => (int) $a['id_country'],
                 'phone' => $a['phone'],
+                'id_state' => (int) ($a['id_state'] ?? 0),
+                'state' => isset($a['state']) ? (string) $a['state'] : '',
+                'dni' => isset($a['dni']) ? (string) $a['dni'] : '',
                 'company' => isset($a['company']) ? (string) $a['company'] : '',
                 'vat_number' => $vatNum,
                 'vat_checkable' => (bool) $checkable,

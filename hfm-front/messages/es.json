@@ -365,7 +365,9 @@
       "generic": "Se ha producido un error.",
       "network": "Error de red."
     },
-    "forgotPassword": "¿Olvidó su contraseña?"
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "editAddress": "Modificar",
+    "editAddressTitle": "Modificar la dirección"
   },
   "addressForm": {
     "address": "Dirección",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Provincia / Estado",
+    "statePlaceholder": "Seleccione…",
+    "stateRequired": "Seleccione la provincia o el estado.",
+    "dni": "Número de identificación fiscal",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "El número de identificación fiscal es obligatorio para este país.",
+    "postcodeInvalid": "Código postal no válido para este país (ejemplo: {example}).",
+    "vatPrefixMismatch": "El número debe empezar por {prefix}."
   },
   "checkout": {
     "breadcrumb": "Pedido",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Titular de la cuenta",
     "payReservation": "Sus artículos quedan reservados durante {days} días a la espera de su pago.",
     "payWireReference": "Indique la referencia <b>{reference}</b> en el concepto de su transferencia.",
-    "payWireTitle": "Realice su transferencia bancaria"
+    "payWireTitle": "Realice su transferencia bancaria",
+    "excl": "sin IVA",
+    "vat": "IVA",
+    "vatRate": "IVA {rate} %",
+    "vatBase": "sobre {base} €",
+    "vatExempt": "Exención de IVA aplicada (inversión del sujeto pasivo intracomunitaria o exportación)."
   },
   "orders": {
     "loginRequired": "Inicio de sesión requerido",
@@ -695,5 +710,11 @@
       "success": "Su contraseña se ha restablecido. Ya ha iniciado sesión.",
       "title": "Nueva contraseña"
     }
+  },
+  "proNotice": {
+    "title": "Información profesional",
+    "text": "Los productos sanitarios están destinados a ser utilizados por profesionales sanitarios cualificados.",
+    "ok": "De acuerdo, entendido",
+    "close": "Cerrar"
   }
 }

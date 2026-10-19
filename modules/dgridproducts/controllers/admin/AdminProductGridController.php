@@ -169,7 +169,10 @@ class AdminProductGridController extends ModuleAdminController
          cl.`name` AS `name_category`, sa.`price`, 0 AS `price_final`, pd.`nb_downloadable`, 
          sav.`quantity` AS `sav_quantity`, sa.`active`,sa.`available_for_order`,
          ' . (version_compare(_PS_VERSION_, '1.7.7.1', '>=') ? ' sa.`wholesale_price`,' : '').'
-         IF(sav.`quantity`<=0, 1, 0) AS `badge_danger`';
+         IF(sav.`quantity`<=0, 1, 0) AS `badge_danger`,
+         IF(EXISTS(SELECT 1 FROM `' . _DB_PREFIX_ . 'feature_product` hfp
+             INNER JOIN `' . _DB_PREFIX_ . 'feature_lang` hfl ON hfl.`id_feature` = hfp.`id_feature`
+             WHERE hfp.`id_product` = a.`id_product` AND hfl.`name` = \'RPPS\'), 1, 0) AS `rpps`';
 
         if (Tools::getValue('carriers')) {
             $this->_join .= ' LEFT JOIN `' . _DB_PREFIX_ . 'product_carrier` pc ON (pc.`id_product` = a.`id_product`)';
@@ -516,8 +519,13 @@ class AdminProductGridController extends ModuleAdminController
         $this->addRowAction('duplicate');
         $this->addRowAction('delete');
 
-        $this->bulk_actions = array('delete' => array('text' => $this->l('Delete selected'),
-            'confirm' => $this->l('Would you like to delete the selected items?')));
+        $this->bulk_actions = array(
+            'delete' => array('text' => $this->l('Delete selected'),
+                'confirm' => $this->l('Would you like to delete the selected items?')),
+            // [HFM] Marquage « réservé aux praticiens » en lot.
+            'rppsOn' => array('text' => 'Marquer « soumis à RPPS »', 'icon' => 'icon-check'),
+            'rppsOff' => array('text' => 'Retirer « soumis à RPPS »', 'icon' => 'icon-remove'),
+        );
         $this->module->getContent();
 
         $this->registerSmartyFunctions();
@@ -2236,6 +2244,99 @@ class AdminProductGridController extends ModuleAdminController
             $this->updateObjectField('Product', 'active', $product->id, ($product->active ? 0 : 1));
             Search::indexation(false, $product->id);
         }
+    }
+
+    // [HFM] ---------- Produits soumis à RPPS (caractéristique « RPPS » = « Oui ») ----------
+    // Le front headless (bridge hfmstorefront) considère un produit réservé aux praticiens dès que
+    // la caractéristique « RPPS » lui est associée. Ces méthodes la posent / la retirent.
+
+    /** [id_feature, id_feature_value « Oui »] de la caractéristique RPPS (créées si absentes). */
+    protected function hfmRppsFeature()
+    {
+        $idFeature = (int) Db::getInstance()->getValue(
+            'SELECT `id_feature` FROM `' . _DB_PREFIX_ . 'feature_lang` WHERE `name` = \'RPPS\' ORDER BY `id_feature`'
+        );
+        if (!$idFeature) {
+            $feature = new Feature();
+            foreach (Language::getIDs(false) as $idLang) {
+                $feature->name[(int) $idLang] = 'RPPS';
+            }
+            $feature->add();
+            $idFeature = (int) $feature->id;
+        }
+        $idValue = (int) Db::getInstance()->getValue(
+            'SELECT fv.`id_feature_value` FROM `' . _DB_PREFIX_ . 'feature_value` fv
+             INNER JOIN `' . _DB_PREFIX_ . 'feature_value_lang` fvl ON fvl.`id_feature_value` = fv.`id_feature_value`
+             WHERE fv.`id_feature` = ' . $idFeature . ' AND fv.`custom` = 0 AND fvl.`value` = \'Oui\'
+             ORDER BY fv.`id_feature_value`'
+        );
+        if (!$idValue) {
+            $value = new FeatureValue();
+            $value->id_feature = $idFeature;
+            $value->custom = 0;
+            foreach (Language::getIDs(false) as $idLang) {
+                $value->value[(int) $idLang] = 'Oui';
+            }
+            $value->add();
+            $idValue = (int) $value->id;
+        }
+        return array($idFeature, $idValue);
+    }
+
+    protected function hfmProductHasRpps($idProduct)
+    {
+        return (bool) Db::getInstance()->getValue(
+            'SELECT 1 FROM `' . _DB_PREFIX_ . 'feature_product` fp
+             INNER JOIN `' . _DB_PREFIX_ . 'feature_lang` fl ON fl.`id_feature` = fp.`id_feature`
+             WHERE fp.`id_product` = ' . (int) $idProduct . ' AND fl.`name` = \'RPPS\''
+        );
+    }
+
+    /** Pose ou retire la caractéristique RPPS, puis notifie (purge des caches du site headless). */
+    protected function hfmSetRpps($idProduct, $on)
+    {
+        $idProduct = (int) $idProduct;
+        list($idFeature, $idValue) = $this->hfmRppsFeature();
+        Db::getInstance()->execute(
+            'DELETE FROM `' . _DB_PREFIX_ . 'feature_product` WHERE `id_product` = ' . $idProduct . ' AND `id_feature` = ' . (int) $idFeature
+        );
+        if ($on) {
+            Db::getInstance()->insert('feature_product', array(
+                'id_feature' => (int) $idFeature,
+                'id_product' => $idProduct,
+                'id_feature_value' => (int) $idValue,
+            ));
+        }
+        $product = new Product($idProduct);
+        if (Validate::isLoadedObject($product)) {
+            Hook::exec('actionObjectProductUpdateAfter', array('object' => $product));
+            Hook::exec('actionProductUpdate', array('id_product' => $idProduct, 'product' => $product));
+        }
+    }
+
+    public function ajaxProcessSetRpps()
+    {
+        $idProduct = (int) Tools::getValue('id_product');
+        if ($idProduct > 0) {
+            $this->hfmSetRpps($idProduct, !$this->hfmProductHasRpps($idProduct));
+        }
+        die(json_encode(array('rpps' => $this->hfmProductHasRpps($idProduct))));
+    }
+
+    protected function processBulkRppsOn()
+    {
+        foreach ((array) Tools::getValue($this->table . 'Box') as $idProduct) {
+            $this->hfmSetRpps((int) $idProduct, true);
+        }
+        $this->confirmations[] = 'Produits marqués « soumis à RPPS ».';
+    }
+
+    protected function processBulkRppsOff()
+    {
+        foreach ((array) Tools::getValue($this->table . 'Box') as $idProduct) {
+            $this->hfmSetRpps((int) $idProduct, false);
+        }
+        $this->confirmations[] = 'Marquage « soumis à RPPS » retiré.';
     }
 
     public function ajaxProcessSetOrder()

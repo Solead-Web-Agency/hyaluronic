@@ -365,7 +365,9 @@
       "generic": "אירעה שגיאה.",
       "network": "שגיאת רשת."
     },
-    "forgotPassword": "שכחת את הסיסמה?"
+    "forgotPassword": "שכחת את הסיסמה?",
+    "editAddress": "עריכה",
+    "editAddressTitle": "עריכת כתובת"
   },
   "addressForm": {
     "address": "כתובת",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "מחוז / מדינה",
+    "statePlaceholder": "בחרו…",
+    "stateRequired": "יש לבחור מחוז או מדינה.",
+    "dni": "מספר זיהוי לצורכי מס",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "מספר זיהוי לצורכי מס הוא חובה עבור מדינה זו.",
+    "postcodeInvalid": "מיקוד לא תקין עבור מדינה זו (לדוגמה: {example}).",
+    "vatPrefixMismatch": "המספר חייב להתחיל ב-{prefix}."
   },
   "checkout": {
     "breadcrumb": "הזמנה",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "בעל החשבון",
     "payReservation": "הפריטים שלכם שמורים למשך {days} ימים עד לקבלת התשלום.",
     "payWireReference": "נא לציין את המספר המזהה <b>{reference}</b> בפרטי ההעברה.",
-    "payWireTitle": "בצעו את ההעברה הבנקאית"
+    "payWireTitle": "בצעו את ההעברה הבנקאית",
+    "excl": "ללא מע\"מ",
+    "vat": "מע\"מ",
+    "vatRate": "מע\"מ {rate}%",
+    "vatBase": "על {base} €",
+    "vatExempt": "הוחל פטור ממע\"מ (חיוב הפוך בתוך האיחוד האירופי או יצוא)."
   },
   "orders": {
     "loginRequired": "נדרשת התחברות",
@@ -695,5 +710,11 @@
       "success": "הסיסמה שלכם אופסה. אתם מחוברים כעת.",
       "title": "סיסמה חדשה"
     }
+  },
+  "proNotice": {
+    "title": "מידע מקצועי",
+    "text": "אביזרים רפואיים מיועדים לשימוש על ידי אנשי מקצוע מוסמכים בתחום הבריאות.",
+    "ok": "בסדר, הבנתי",
+    "close": "סגירה"
   }
 }

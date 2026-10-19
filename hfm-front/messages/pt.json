@@ -365,7 +365,9 @@
       "generic": "Ocorreu um erro.",
       "network": "Erro de rede."
     },
-    "forgotPassword": "Esqueceu-se da palavra-passe?"
+    "forgotPassword": "Esqueceu-se da palavra-passe?",
+    "editAddress": "Editar",
+    "editAddressTitle": "Editar morada"
   },
   "addressForm": {
     "address": "Endereço",
@@ -393,7 +395,15 @@
     "vatValid": "VAT number validated — VAT exemption applied.",
     "vatInvalid": "Number not validated via VIES — VAT applied. Check the number and country.",
     "vatChecking": "Checking VAT number…",
-    "save": "Save"
+    "save": "Save",
+    "state": "Distrito / Estado",
+    "statePlaceholder": "Selecione…",
+    "stateRequired": "Selecione o distrito ou o estado.",
+    "dni": "Número de identificação fiscal",
+    "dniPlaceholder": "RFC, NIF…",
+    "dniRequired": "O número de identificação fiscal é obrigatório para este país.",
+    "postcodeInvalid": "Código postal inválido para este país (exemplo: {example}).",
+    "vatPrefixMismatch": "O número deve começar por {prefix}."
   },
   "checkout": {
     "breadcrumb": "Encomenda",
@@ -499,7 +509,12 @@
     "payOwnerLabel": "Titular da conta",
     "payReservation": "Os seus artigos ficam reservados durante {days} dias enquanto aguardamos o seu pagamento.",
     "payWireReference": "Indique a referência <b>{reference}</b> na descrição da sua transferência.",
-    "payWireTitle": "Efetue a sua transferência bancária"
+    "payWireTitle": "Efetue a sua transferência bancária",
+    "excl": "s/ IVA",
+    "vat": "IVA",
+    "vatRate": "IVA {rate} %",
+    "vatBase": "sobre {base} €",
+    "vatExempt": "Isenção de IVA aplicada (autoliquidação intracomunitária ou exportação)."
   },
   "orders": {
     "loginRequired": "Sessão necessária",
@@ -695,5 +710,11 @@
       "success": "A sua palavra-passe foi redefinida. A sessão está agora iniciada.",
       "title": "Nova palavra-passe"
     }
+  },
+  "proNotice": {
+    "title": "Informação profissional",
+    "text": "Os dispositivos médicos destinam-se a ser utilizados por profissionais de saúde qualificados.",
+    "ok": "OK, compreendi",
+    "close": "Fechar"
   }
 }
