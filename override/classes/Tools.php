@@ -45,6 +45,37 @@ class Tools extends ToolsCore
         return $data;
     }
 
+    /**
+     * Supprimée en PS9 — formatage d'un prix avec sa devise. Encore appelée par une dizaine de
+     * modules (statscompta, relances panier abandonné, ps_emailalerts, vivawallet…).
+     * $currency : objet Currency, id, tableau (id_currency) ou null (devise du contexte).
+     */
+    public static function displayPrice($price, $currency = null, $no_utf8 = false, ?Context $context = null)
+    {
+        if (!is_numeric($price)) {
+            return $price;
+        }
+        $context = $context ?: Context::getContext();
+        if ($currency === null) {
+            $currency = $context->currency;
+        } elseif (is_array($currency)) {
+            $currency = Currency::getCurrencyInstance((int) ($currency['id_currency'] ?? ($currency['id'] ?? 0)));
+        } elseif (!is_object($currency)) {
+            $currency = Currency::getCurrencyInstance((int) $currency);
+        }
+        $iso = (is_object($currency) && !empty($currency->iso_code)) ? $currency->iso_code : 'EUR';
+        try {
+            $locale = $context->getCurrentLocale();
+            if ($locale) {
+                return $locale->formatPrice((float) $price, $iso);
+            }
+        } catch (\Throwable $e) {
+            // pas de locale (CLI, contexte partiel) : repli ci-dessous
+        }
+
+        return number_format((float) $price, 2, ',', "\u{202F}") . "\u{00A0}" . $iso;
+    }
+
     /** Supprimée en PS9 — équivalent à getValue (valeur de requête) */
     public static function getValueRaw($key, $default_value = false)
     {

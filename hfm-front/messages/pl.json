@@ -722,5 +722,17 @@
     "text": "Wyroby medyczne są przeznaczone do stosowania przez wykwalifikowanych pracowników ochrony zdrowia.",
     "ok": "OK, rozumiem",
     "close": "Zamknij"
+  },
+  "unsubscribe": {
+    "title": "Wypisz się",
+    "text": "Nie będziesz już otrzymywać na ten adres przypomnień ani newslettera.",
+    "confirm": "Potwierdź wypisanie",
+    "done": "Gotowe: Twój adres został wypisany.",
+    "invalid": "Ten link wypisu jest nieprawidłowy. Napisz do nas na sales@hyaluronicfillermarket.com, a wypiszemy Cię."
+  },
+  "recoverCart": {
+    "title": "Twój koszyk",
+    "loading": "Przywracanie koszyka…",
+    "invalid": "Ten link do koszyka jest nieprawidłowy."
   }
 }

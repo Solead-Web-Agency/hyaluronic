@@ -722,5 +722,17 @@
     "text": "Medizinprodukte sind zur Anwendung durch qualifizierte medizinische Fachkräfte bestimmt.",
     "ok": "OK, verstanden",
     "close": "Schließen"
+  },
+  "unsubscribe": {
+    "title": "Abmelden",
+    "text": "Sie erhalten an diese Adresse keine Erinnerungs-E-Mails und keinen Newsletter mehr.",
+    "confirm": "Abmeldung bestätigen",
+    "done": "Erledigt: Ihre Adresse wurde abgemeldet.",
+    "invalid": "Dieser Abmeldelink ist ungültig. Schreiben Sie uns an sales@hyaluronicfillermarket.com, wir melden Sie ab."
+  },
+  "recoverCart": {
+    "title": "Ihr Warenkorb",
+    "loading": "Ihr Warenkorb wird wiederhergestellt…",
+    "invalid": "Dieser Warenkorb-Link ist ungültig."
   }
 }

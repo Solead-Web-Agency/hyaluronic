@@ -722,5 +722,17 @@
     "text": "Dispozitivele medicale sunt destinate utilizării de către profesioniști din domeniul sănătății calificați.",
     "ok": "OK, am înțeles",
     "close": "Închide"
+  },
+  "unsubscribe": {
+    "title": "Dezabonare",
+    "text": "Nu veți mai primi la această adresă e-mailuri de reamintire și newsletter.",
+    "confirm": "Confirmați dezabonarea",
+    "done": "Gata: adresa dvs. a fost dezabonată.",
+    "invalid": "Acest link de dezabonare nu este valid. Scrieți-ne la sales@hyaluronicfillermarket.com și vă vom dezabona."
+  },
+  "recoverCart": {
+    "title": "Coșul dvs.",
+    "loading": "Se restabilește coșul…",
+    "invalid": "Acest link de coș nu este valid."
   }
 }

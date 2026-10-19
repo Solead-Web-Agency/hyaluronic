@@ -7,6 +7,12 @@
 if (PHP_SAPI !== "cli") { http_response_code(403); exit("forbidden"); }
 define('_PS_ADMIN_DIR_', __DIR__ . '/../../admin78026');
 require __DIR__ . '/../../config/config.inc.php';
+// PrestaShop 9 : le calcul des totaux de panier (règles, taxes) exige le conteneur Symfony,
+// absent en ligne de commande -> on démarre le noyau back-office.
+require_once __DIR__ . '/../../app/AdminKernel.php';
+$hfmKernel = new AdminKernel('prod', false);
+$hfmKernel->boot();
+Context::getContext()->container = $hfmKernel->getContainer();
 Context::getContext()->shop = new Shop((int)Configuration::get('PS_SHOP_DEFAULT'));
 Context::getContext()->language = new Language((int)Configuration::get('PS_LANG_DEFAULT'));
 Context::getContext()->currency = new Currency((int)Configuration::get('PS_CURRENCY_DEFAULT'));
@@ -15,6 +21,14 @@ Context::getContext()->country = new Country((int)Configuration::get('PS_COUNTRY
 $DRY  = in_array('--dry', $argv);
 $TEST = null;
 foreach ($argv as $a) if (strpos($a, '--test=') === 0) $TEST = substr($a, 7);
+
+// INTERRUPTEUR : les relances réelles ne partent que si HFM_RELANCE_ENABLED = 1 (à activer sur la
+// PROD uniquement). Évite tout envoi à de vrais clients depuis une pré-prod / copie de base.
+// --dry et --test=adresse restent utilisables pour vérifier sans activer.
+if (!$DRY && !$TEST && (int) Configuration::get('HFM_RELANCE_ENABLED') !== 1) {
+    echo "Relances désactivées (HFM_RELANCE_ENABLED != 1) : rien n'est envoyé.\n";
+    exit(0);
+}
 $ONLY_CART = null;
 foreach ($argv as $a) if (strpos($a, '--cart=') === 0) $ONLY_CART = (int)substr($a, 7);
 $FORCE_STEP = null;
@@ -34,12 +48,33 @@ $MAX_PER_RUN = (int)getenv('HFM_MAX') ?: 50;  // plafond d'envois par exécution
 
 $now = time();
 
-// SMTP
-$transport = (new Swift_SmtpTransport(
-    Configuration::get('PS_MAIL_SERVER'), Configuration::get('PS_MAIL_SMTP_PORT'), Configuration::get('PS_MAIL_SMTP_ENCRYPTION')
-))->setUsername(Configuration::get('PS_MAIL_USER'))->setPassword(Configuration::get('PS_MAIL_PASSWD'));
-$mailer = new Swift_Mailer($transport);
+// SMTP — PrestaShop 9 n'embarque plus SwiftMailer : Symfony Mailer (fourni par PS9) à la place.
+$enc = Tools::strtolower((string) Configuration::get('PS_MAIL_SMTP_ENCRYPTION'));
+$dsn = sprintf(
+    '%s://%s:%s@%s:%d',
+    $enc === 'ssl' ? 'smtps' : 'smtp',
+    rawurlencode((string) Configuration::get('PS_MAIL_USER')),
+    rawurlencode((string) Configuration::get('PS_MAIL_PASSWD')),
+    (string) Configuration::get('PS_MAIL_SERVER'),
+    (int) Configuration::get('PS_MAIL_SMTP_PORT')
+);
+$mailer = new Symfony\Component\Mailer\Mailer(Symfony\Component\Mailer\Transport::fromDsn($dsn));
 $FROM = Configuration::get('PS_MAIL_USER');
+
+// Site public (front headless) : liens « reprendre mon panier » et « se désinscrire ».
+$FRONT = rtrim((string) Configuration::get('HFM_FRONT_URL'), '/');
+
+// Désinscrits (lien signé des emails, cf. bridge hfmstorefront newsletter?action=unsubscribe).
+Db::getInstance()->execute('CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'hfm_relance_optout` (
+    `email` VARCHAR(255) NOT NULL PRIMARY KEY, `date_add` DATETIME NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+
+function unsubUrl($email, $iso) {
+    global $FRONT;
+    $email = Tools::strtolower(trim((string) $email));
+    $e = rtrim(strtr(base64_encode($email), '+/', '-_'), '=');
+    $s = hash_hmac('sha256', $email, Configuration::get('HFM_RECOVER_SECRET'));
+    return $FRONT . '/' . $iso . '/desabonnement?e=' . $e . '&s=' . $s;
+}
 
 function fmtPrice($p){ return number_format((float)$p, 2, ',', ' ') . ' €'; }
 
@@ -60,7 +95,8 @@ function makeCode($id_customer, $email) {
 }
 
 // construit la grille HTML produits + l'URL de récupération depuis le panier réel
-function buildCart($cart, $id_lang, $code) {
+function buildCart($cart, $id_lang, $code, $iso = 'fr') {
+    global $FRONT;
     $products = $cart->getProducts();
     $rows = ''; $plist = [];
     foreach ($products as $p) {
@@ -92,7 +128,9 @@ function buildCart($cart, $id_lang, $code) {
     $p_raw = implode(',', $plist);
     $c_raw = $code ? $code : '';
     $sig = hash_hmac('sha256', $p_raw . '|' . $c_raw, Configuration::get('HFM_RECOVER_SECRET'));
-    $recover = 'https://' . Configuration::get('PS_SHOP_DOMAIN_SSL') . '/recover-cart.php?p=' . urlencode($p_raw);
+    // Reprise du panier sur le FRONT headless (page /{langue}/reprise-panier) : il recrée le panier
+    // à partir de la liste produits:quantités, puis ouvre le tunnel avec le code promo pré-appliqué.
+    $recover = $FRONT . '/' . $iso . '/reprise-panier?p=' . urlencode($p_raw);
     if ($code) $recover .= '&c=' . urlencode($c_raw);
     $recover .= '&s=' . $sig;
     return [$rows, $recover];
@@ -113,6 +151,7 @@ $sql = "SELECT c.id_cart, c.id_customer, c.id_lang, cu.email, cu.id_customer AS 
           ON latest.id_customer = c.id_customer AND latest.mx = c.date_upd
         WHERE c.id_customer > 0 AND cu.email <> ''
           AND cu.email NOT LIKE '%carts.guru%'
+          AND NOT EXISTS (SELECT 1 FROM {$prefix}hfm_relance_optout o WHERE o.email = LOWER(cu.email))
           AND c.date_upd >= '$dateMin' AND c.date_upd <= '$dateMax'
           AND EXISTS (SELECT 1 FROM {$prefix}cart_product cp WHERE cp.id_cart = c.id_cart)
         GROUP BY c.id_customer
@@ -137,7 +176,7 @@ foreach ($carts as $row) {
     if (!Validate::isLoadedObject($cart)) { $stats['skipped']++; continue; }
 
     // commande déjà passée ? -> converti, sortie (+ montant récupéré si on avait relancé)
-    $id_order = (int)Order::getOrderByCartId($id_cart);
+    $id_order = (int)Order::getIdByCartId($id_cart);
     if ($id_order) {
         $tr = Db::getInstance()->getRow("SELECT step, converted FROM {$prefix}hfm_relance WHERE id_cart=$id_cart");
         if ($tr && (int)$tr['step'] > 0 && !(int)$tr['converted']) {
@@ -188,7 +227,7 @@ foreach ($carts as $row) {
     // données client
     $customer = new Customer((int)$row['id_customer']);
     $firstname = $customer->firstname ?: '';
-    list($cartRows, $recover) = buildCart($cart, (int)$row['id_lang'], ($nextStep >= 2 ? $code : null));
+    list($cartRows, $recover) = buildCart($cart, (int)$row['id_lang'], ($nextStep >= 2 ? $code : null), $iso);
 
     // promo box (étapes 2-3)
     $promoBox = ($nextStep >= 2 && $code)
@@ -200,6 +239,7 @@ foreach ($carts as $row) {
         '{{CART_ROWS}}' => $cartRows,
         '{{PROMO_BOX}}' => $promoBox,
         '{{RECOVER_URL}}' => $recover,
+        '{{UNSUB_URL}}' => htmlspecialchars(unsubUrl($row['email'], $iso)),
     ]);
     $subject = str_replace('{{FIRSTNAME}}', $firstname, $subject);
 
@@ -208,16 +248,22 @@ foreach ($carts as $row) {
         echo "DRY  | cart $id_cart | $iso/$audience step$nextStep | $dest | $subject\n";
     } else {
         try {
-            $msg = (new Swift_Message($subject))->setFrom([$FROM => 'Hyaluronic Filler Market'])
-                ->setTo([$dest])->setBody($html, 'text/html', 'utf-8');
+            $msg = (new Symfony\Component\Mime\Email())
+                ->from(new Symfony\Component\Mime\Address($FROM, 'Hyaluronic Filler Market'))
+                ->to($dest)
+                ->subject($subject)
+                ->html($html);
+            // Désinscription en un clic côté messagerie (Gmail / Yahoo l'exigent pour les envois promotionnels).
+            $msg->getHeaders()->addTextHeader('List-Unsubscribe', '<' . unsubUrl($row['email'], $iso) . '>');
             $mailer->send($msg);
             echo "SENT | cart $id_cart | $iso/$audience step$nextStep | $dest\n";
             $stats['sent']++;
         } catch (Exception $e) { echo "ERR  | cart $id_cart : " . $e->getMessage() . "\n"; continue; }
     }
 
-    // upsert suivi
-    if (!$TEST) {
+    // upsert suivi — ni en essai à blanc (--dry) ni en test (--test) : sinon un dry-run marque
+    // des relances « envoyées » et bloque les vraies (anti-doublon 36 h).
+    if (!$TEST && !$DRY) {
         $nowStr = date('Y-m-d H:i:s');
         $codeSql = $code ? "'" . pSQL($code) . "'" : "NULL";
         $ruleSql = $id_rule ? (int)$id_rule : "NULL";

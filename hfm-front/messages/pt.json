@@ -722,5 +722,17 @@
     "text": "Os dispositivos médicos destinam-se a ser utilizados por profissionais de saúde qualificados.",
     "ok": "OK, compreendi",
     "close": "Fechar"
+  },
+  "unsubscribe": {
+    "title": "Cancelar subscrição",
+    "text": "Deixará de receber os nossos emails de lembrete e a newsletter neste endereço.",
+    "confirm": "Confirmar o cancelamento",
+    "done": "Feito: o seu endereço foi removido.",
+    "invalid": "Esta ligação de cancelamento não é válida. Escreva-nos para sales@hyaluronicfillermarket.com e removeremos o seu endereço."
+  },
+  "recoverCart": {
+    "title": "O seu carrinho",
+    "loading": "A recuperar o seu carrinho…",
+    "invalid": "Esta ligação de carrinho não é válida."
   }
 }

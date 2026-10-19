@@ -507,6 +507,26 @@ export default function CheckoutClient() {
     }
   };
 
+  // Code promo transmis par l'URL (?code=…, lien de relance panier) : pré-rempli puis appliqué
+  // une seule fois dès que le panier existe ; le bridge refuse un code invalide.
+  const urlCodeDone = useRef(false);
+  useEffect(() => {
+    if (urlCodeDone.current || !idCart || typeof window === 'undefined') return;
+    const code = new URLSearchParams(window.location.search).get('code') ?? '';
+    if (!/^[A-Za-z0-9-]{1,40}$/.test(code)) return;
+    urlCodeDone.current = true;
+    setVoucherCode(code);
+    setPendingUrlCode(code);
+  }, [idCart]);
+  const [pendingUrlCode, setPendingUrlCode] = useState<string | null>(null);
+  useEffect(() => {
+    if (!pendingUrlCode || voucherCode !== pendingUrlCode) return;
+    setPendingUrlCode(null);
+    void applyVoucher();
+    // applyVoucher lit voucherCode : on attend que l'état soit à jour avant de l'appeler.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingUrlCode, voucherCode]);
+
   // Charge les transporteurs (après qu'une adresse soit posée sur le panier).
   const loadCarriers = useCallback(async () => {
     if (!idCart) return;

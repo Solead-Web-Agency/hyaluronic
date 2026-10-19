@@ -16,6 +16,9 @@ class HfmstorefrontNewsletterModuleFrontController extends HfmStorefrontApiContr
 {
     public function handlePost()
     {
+        if ((string) $this->in('action') === 'unsubscribe') {
+            return $this->unsubscribe();
+        }
         $email = trim((string) $this->in('email'));
         if ($email === '' || !Validate::isEmail($email)) {
             return ['error' => 'invalid_email'];
@@ -59,5 +62,34 @@ class HfmstorefrontNewsletterModuleFrontController extends HfmStorefrontApiContr
             return ['error' => 'subscribe_failed'];
         }
         return ['ok' => true, 'status' => 'subscribed'];
+    }
+
+    /**
+     * Désinscription depuis le lien des emails de relance (module hfmrelance) / newsletter.
+     * Lien signé : e = e-mail en base64url, s = HMAC-SHA256(e-mail, HFM_RECOVER_SECRET) -> personne
+     * ne peut désinscrire l'adresse d'un tiers ni sonder l'existence d'un compte.
+     * Effets : exclusion définitive des relances (table hfm_relance_optout), newsletter coupée
+     * (ps_emailsubscription + ps_customer.newsletter). Réponse identique que l'adresse soit connue ou non.
+     */
+    protected function unsubscribe()
+    {
+        $raw = strtr((string) $this->in('e'), '-_', '+/');
+        $email = Tools::strtolower(trim((string) base64_decode($raw . str_repeat('=', (4 - strlen($raw) % 4) % 4), true)));
+        $sig = (string) $this->in('s');
+        $secret = (string) Configuration::get('HFM_RECOVER_SECRET');
+        if ($email === '' || !Validate::isEmail($email) || $secret === ''
+            || !hash_equals(hash_hmac('sha256', $email, $secret), $sig)) {
+            return ['error' => 'invalid_link'];
+        }
+        $db = Db::getInstance();
+        $db->execute('CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'hfm_relance_optout` (
+            `email` VARCHAR(255) NOT NULL PRIMARY KEY,
+            `date_add` DATETIME NOT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+        $db->execute('INSERT IGNORE INTO `' . _DB_PREFIX_ . 'hfm_relance_optout` (email, date_add)
+            VALUES (\'' . pSQL($email) . '\', NOW())');
+        $db->execute('DELETE FROM `' . _DB_PREFIX_ . 'emailsubscription` WHERE LOWER(email) = \'' . pSQL($email) . '\'');
+        $db->execute('UPDATE `' . _DB_PREFIX_ . 'customer` SET newsletter = 0 WHERE LOWER(email) = \'' . pSQL($email) . '\'');
+        return ['ok' => true];
     }
 }

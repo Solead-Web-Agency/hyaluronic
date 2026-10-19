@@ -722,5 +722,17 @@
     "text": "Lääkinnälliset laitteet on tarkoitettu pätevien terveydenhuollon ammattilaisten käyttöön.",
     "ok": "OK, ymmärrän",
     "close": "Sulje"
+  },
+  "unsubscribe": {
+    "title": "Peru tilaus",
+    "text": "Et enää saa tähän osoitteeseen muistutusviestejä etkä uutiskirjettä.",
+    "confirm": "Vahvista peruutus",
+    "done": "Valmis: osoitteesi on poistettu.",
+    "invalid": "Peruutuslinkki ei ole kelvollinen. Lähetä viesti osoitteeseen sales@hyaluronicfillermarket.com, niin poistamme osoitteesi."
+  },
+  "recoverCart": {
+    "title": "Ostoskorisi",
+    "loading": "Palautetaan ostoskoria…",
+    "invalid": "Tämä ostoskorilinkki ei ole kelvollinen."
   }
 }

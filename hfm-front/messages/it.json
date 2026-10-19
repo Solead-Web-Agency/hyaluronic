@@ -722,5 +722,17 @@
     "text": "I dispositivi medici sono destinati all’uso da parte di professionisti sanitari qualificati.",
     "ok": "OK, ho capito",
     "close": "Chiudi"
+  },
+  "unsubscribe": {
+    "title": "Annulla iscrizione",
+    "text": "Non riceverai più le nostre email di promemoria né la newsletter a questo indirizzo.",
+    "confirm": "Conferma l'annullamento",
+    "done": "Fatto: il tuo indirizzo è stato rimosso.",
+    "invalid": "Questo link di annullamento non è valido. Scrivici a sales@hyaluronicfillermarket.com e ti rimuoveremo."
+  },
+  "recoverCart": {
+    "title": "Il tuo carrello",
+    "loading": "Recupero del carrello in corso…",
+    "invalid": "Questo link del carrello non è valido."
   }
 }

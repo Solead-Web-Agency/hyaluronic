@@ -722,5 +722,17 @@
     "text": "Medicinski pripomočki so namenjeni uporabi s strani usposobljenih zdravstvenih delavcev.",
     "ok": "V redu, razumem",
     "close": "Zapri"
+  },
+  "unsubscribe": {
+    "title": "Odjava",
+    "text": "Na ta naslov ne boste več prejemali opomnikov in novic.",
+    "confirm": "Potrdite odjavo",
+    "done": "Končano: vaš naslov je odjavljen.",
+    "invalid": "Ta povezava za odjavo ni veljavna. Pišite nam na sales@hyaluronicfillermarket.com in vas bomo odjavili."
+  },
+  "recoverCart": {
+    "title": "Vaša košarica",
+    "loading": "Obnavljanje košarice…",
+    "invalid": "Ta povezava do košarice ni veljavna."
   }
 }

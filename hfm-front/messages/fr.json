@@ -722,5 +722,17 @@
     "text": "Les dispositifs médicaux sont destinés à un usage par des professionnels de santé qualifiés.",
     "ok": "OK, j'ai compris",
     "close": "Fermer"
+  },
+  "unsubscribe": {
+    "title": "Désinscription",
+    "text": "Vous ne recevrez plus nos emails de relance ni notre newsletter à cette adresse.",
+    "confirm": "Confirmer la désinscription",
+    "done": "C'est fait : votre adresse est désinscrite.",
+    "invalid": "Ce lien de désinscription n'est pas valide. Écrivez-nous à sales@hyaluronicfillermarket.com et nous vous désinscrirons."
+  },
+  "recoverCart": {
+    "title": "Votre panier",
+    "loading": "Récupération de votre panier…",
+    "invalid": "Ce lien de panier n'est pas valide."
   }
 }

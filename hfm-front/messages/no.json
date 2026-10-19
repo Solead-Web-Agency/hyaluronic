@@ -722,5 +722,17 @@
     "text": "Medisinsk utstyr er beregnet for bruk av kvalifisert helsepersonell.",
     "ok": "OK, jeg forstår",
     "close": "Lukk"
+  },
+  "unsubscribe": {
+    "title": "Avmeld",
+    "text": "Du vil ikke lenger motta påminnelser eller nyhetsbrev på denne adressen.",
+    "confirm": "Bekreft avmelding",
+    "done": "Ferdig: adressen din er avmeldt.",
+    "invalid": "Avmeldingslenken er ugyldig. Send oss en e-post på sales@hyaluronicfillermarket.com, så melder vi deg av."
+  },
+  "recoverCart": {
+    "title": "Handlekurven din",
+    "loading": "Gjenoppretter handlekurven…",
+    "invalid": "Denne handlekurvlenken er ugyldig."
   }
 }

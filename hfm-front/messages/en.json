@@ -722,5 +722,17 @@
     "text": "Medical devices are intended for use by qualified healthcare professionals.",
     "ok": "OK, I understand",
     "close": "Close"
+  },
+  "unsubscribe": {
+    "title": "Unsubscribe",
+    "text": "You will no longer receive our reminder emails or newsletter at this address.",
+    "confirm": "Confirm unsubscription",
+    "done": "Done: your address has been unsubscribed.",
+    "invalid": "This unsubscribe link is not valid. Email us at sales@hyaluronicfillermarket.com and we will unsubscribe you."
+  },
+  "recoverCart": {
+    "title": "Your cart",
+    "loading": "Restoring your cart…",
+    "invalid": "This cart link is not valid."
   }
 }

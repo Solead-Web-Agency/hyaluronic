@@ -722,5 +722,17 @@
     "text": "Medische hulpmiddelen zijn bestemd voor gebruik door gekwalificeerde zorgprofessionals.",
     "ok": "OK, begrepen",
     "close": "Sluiten"
+  },
+  "unsubscribe": {
+    "title": "Afmelden",
+    "text": "U ontvangt op dit adres geen herinneringsmails en nieuwsbrief meer.",
+    "confirm": "Afmelding bevestigen",
+    "done": "Klaar: uw adres is afgemeld.",
+    "invalid": "Deze afmeldlink is ongeldig. Mail ons via sales@hyaluronicfillermarket.com en wij melden u af."
+  },
+  "recoverCart": {
+    "title": "Uw winkelwagen",
+    "loading": "Uw winkelwagen wordt hersteld…",
+    "invalid": "Deze winkelwagenlink is ongeldig."
   }
 }

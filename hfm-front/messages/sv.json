@@ -722,5 +722,17 @@
     "text": "Medicintekniska produkter är avsedda att användas av behörig hälso- och sjukvårdspersonal.",
     "ok": "OK, jag förstår",
     "close": "Stäng"
+  },
+  "unsubscribe": {
+    "title": "Avregistrera",
+    "text": "Du får inte längre påminnelser eller nyhetsbrev till den här adressen.",
+    "confirm": "Bekräfta avregistrering",
+    "done": "Klart: din adress är avregistrerad.",
+    "invalid": "Avregistreringslänken är ogiltig. Mejla oss på sales@hyaluronicfillermarket.com så avregistrerar vi dig."
+  },
+  "recoverCart": {
+    "title": "Din varukorg",
+    "loading": "Återställer din varukorg…",
+    "invalid": "Den här varukorgslänken är ogiltig."
   }
 }

@@ -722,5 +722,17 @@
     "text": "Los productos sanitarios están destinados a ser utilizados por profesionales sanitarios cualificados.",
     "ok": "De acuerdo, entendido",
     "close": "Cerrar"
+  },
+  "unsubscribe": {
+    "title": "Darse de baja",
+    "text": "Dejará de recibir nuestros correos de recordatorio y nuestra newsletter en esta dirección.",
+    "confirm": "Confirmar la baja",
+    "done": "Hecho: su dirección se ha dado de baja.",
+    "invalid": "Este enlace de baja no es válido. Escríbanos a sales@hyaluronicfillermarket.com y le daremos de baja."
+  },
+  "recoverCart": {
+    "title": "Su carrito",
+    "loading": "Recuperando su carrito…",
+    "invalid": "Este enlace de carrito no es válido."
   }
 }

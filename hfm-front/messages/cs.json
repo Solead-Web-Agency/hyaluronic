@@ -722,5 +722,17 @@
     "text": "Zdravotnické prostředky jsou určeny k použití kvalifikovanými zdravotnickými pracovníky.",
     "ok": "OK, rozumím",
     "close": "Zavřít"
+  },
+  "unsubscribe": {
+    "title": "Odhlášení",
+    "text": "Na tuto adresu již nebudete dostávat připomínky ani newsletter.",
+    "confirm": "Potvrdit odhlášení",
+    "done": "Hotovo: vaše adresa byla odhlášena.",
+    "invalid": "Tento odkaz pro odhlášení není platný. Napište nám na sales@hyaluronicfillermarket.com a odhlásíme vás."
+  },
+  "recoverCart": {
+    "title": "Váš košík",
+    "loading": "Obnovujeme váš košík…",
+    "invalid": "Tento odkaz na košík není platný."
   }
 }
