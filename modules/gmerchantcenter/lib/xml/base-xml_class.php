@@ -256,7 +256,8 @@ abstract class BT_BaseXml
                     $this->data->step->url_default = $this->data->step->url;
 
                     // format the current URL with currency or Google campaign parameters
-                    if (!empty(GMerchantCenter::$conf['GMC_ADD_CURRENCY'])) {
+                    // [HFM] pas de paramètres de devise vers le front headless (devise unique, URLs dupliquées)
+                    if (!empty(GMerchantCenter::$conf['GMC_ADD_CURRENCY']) && !Configuration::get('HFM_FRONT_URL')) {
                         $this->data->step->url .= (strpos($this->data->step->url,
                                 '?') !== false) ? '&SubmitCurrency=1&id_currency=' . (int)$this->data->currencyId : '?SubmitCurrency=1&id_currency=' . (int)$this->data->currencyId;
                     }

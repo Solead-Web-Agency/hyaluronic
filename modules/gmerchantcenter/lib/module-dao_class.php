@@ -351,7 +351,8 @@ class BT_GmcModuleDao
                 }
 
                 // format the current URL with currency or Google campaign parameters
-                if (!empty(GMerchantCenter::$conf['GMC_ADD_CURRENCY'])) {
+                // [HFM] pas de paramètres de devise vers le front headless (devise unique, URLs dupliquées)
+                if (!empty(GMerchantCenter::$conf['GMC_ADD_CURRENCY']) && !Configuration::get('HFM_FRONT_URL')) {
                     $sBaseLink .= (strpos(
                         $sBaseLink,
                         '?'
