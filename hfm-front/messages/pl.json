@@ -520,7 +520,20 @@
     "vatBase": "od {base} €",
     "vatExempt": "Zastosowano zwolnienie z VAT (odwrotne obciążenie wewnątrzwspólnotowe lub eksport).",
     "blockedProducts": "Tych produktów nie można dostarczyć do kraju wybranego adresu: {names}. Usuń je lub wybierz inny adres.",
-    "blockedProductsShort": "Jednego z produktów w koszyku nie można dostarczyć do tego kraju."
+    "blockedProductsShort": "Jednego z produktów w koszyku nie można dostarczyć do tego kraju.",
+    "stepPro": "Weryfikacja zawodowa",
+    "declIntro": "Produkty te są przeznaczone wyłącznie dla profesjonalistów. Wskaż swoją działalność, a następnie potwierdź oświadczenie.",
+    "declProfession": "Zawód (opcjonalnie)",
+    "declProNumber": "Numer wpisu zawodowego (opcjonalnie)",
+    "declTaxNumber": "NIP / numer VAT firmy (opcjonalnie)",
+    "declContinue": "Dalej",
+    "declModalTitle": "Potwierdź swój status zawodowy",
+    "declText": "Oświadczam na własną odpowiedzialność, że jestem pracownikiem ochrony zdrowia lub nabywcą upoważnionym do zakupu wyrobów medycznych i kosmetyków do użytku profesjonalnego. Rozumiem, że produkty te mogą być podawane wyłącznie przez wykwalifikowanego specjalistę, i przyjmuję odpowiedzialność za wszelki import oraz wszelkie niezgodne z przepisami użycie w mojej jurysdykcji.",
+    "declConfirm": "Potwierdzam",
+    "declDone": "Oświadczenie zawodowe zostało zapisane.",
+    "declRequired": "Potwierdź swój status zawodowy, aby zamówić te produkty.",
+    "declError": "Nie udało się zapisać oświadczenia, spróbuj ponownie.",
+    "proForbidden": "Tych produktów przeznaczonych wyłącznie dla profesjonalistów nie można wysłać do tego kraju:"
   },
   "orders": {
     "loginRequired": "Wymagane logowanie",

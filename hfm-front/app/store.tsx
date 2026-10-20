@@ -33,7 +33,13 @@ type CartData = {
   rpps_required: boolean;
   // Produits interdits dans le pays de livraison (règles par pays) : la commande sera refusée.
   blocked_products: { id_product: number; name: string }[];
+  // Produits réservés aux pros : règle du pays de livraison ('pending' tant qu'aucune adresse).
+  pro_rule: ProRule;
+  pro_products: { id_product: number; name: string; quantity: number }[];
+  pro_declared: boolean;
 };
+
+export type ProRule = 'none' | 'rpps' | 'declaration' | 'forbidden' | 'pending';
 
 export type Customer = {
   id_customer: number;
@@ -51,6 +57,9 @@ function normalize(d: {
   products?: CartLine[];
   rpps_required?: boolean;
   blocked_products?: { id_product: number; name: string }[];
+  pro_rule?: ProRule;
+  pro_products?: { id_product: number; name: string; quantity: number }[];
+  pro_declared?: boolean;
   cart_token?: string;
   error?: string;
   totals?: {
@@ -70,6 +79,9 @@ function normalize(d: {
     grand_total_incl_tax: d.totals?.total_incl_tax ?? productsIncl,
     rpps_required: d.rpps_required ?? false,
     blocked_products: d.blocked_products ?? [],
+    pro_rule: d.pro_rule ?? 'none',
+    pro_products: d.pro_products ?? [],
+    pro_declared: d.pro_declared ?? false,
   };
 }
 
@@ -113,6 +125,9 @@ const EMPTY_CART: CartData = {
   grand_total_incl_tax: 0,
   rpps_required: false,
   blocked_products: [],
+  pro_rule: 'none',
+  pro_products: [],
+  pro_declared: false,
 };
 
 const Ctx = createContext<StoreCtx | null>(null);

@@ -520,7 +520,20 @@
     "vatBase": "과세표준 {base} €",
     "vatExempt": "VAT 면제가 적용되었습니다(EU 역내 역과세 또는 수출).",
     "blockedProducts": "선택한 주소의 국가로 다음 제품을 배송할 수 없습니다: {names}. 제품을 삭제하거나 다른 주소를 선택하세요.",
-    "blockedProductsShort": "장바구니의 제품 중 하나를 이 국가로 배송할 수 없습니다."
+    "blockedProductsShort": "장바구니의 제품 중 하나를 이 국가로 배송할 수 없습니다.",
+    "stepPro": "전문가 확인",
+    "declIntro": "이 제품들은 전문가 전용입니다. 종사 분야를 입력하신 후 선서 내용을 확인해 주세요.",
+    "declProfession": "직업 (선택)",
+    "declProNumber": "전문직 등록 번호 (선택)",
+    "declTaxNumber": "사업자 세금 번호 / VAT 번호 (선택)",
+    "declContinue": "계속",
+    "declModalTitle": "전문가 자격을 확인해 주세요",
+    "declText": "본인은 의료 전문가이거나 전문가용 의료기기 및 화장품을 구매할 수 있는 권한을 가진 구매자임을 서약합니다. 본인은 이 제품들이 자격을 갖춘 전문가에 의해서만 시술되어야 함을 이해하며, 본인의 관할 지역에서의 모든 수입 및 부적합한 사용에 대한 책임을 집니다.",
+    "declConfirm": "확인합니다",
+    "declDone": "전문가 선서가 저장되었습니다.",
+    "declRequired": "이 제품을 주문하려면 전문가 자격을 확인해 주세요.",
+    "declError": "선서를 저장할 수 없습니다. 다시 시도해 주세요.",
+    "proForbidden": "전문가 전용인 이 제품들은 해당 국가로 배송할 수 없습니다:"
   },
   "orders": {
     "loginRequired": "로그인이 필요합니다",

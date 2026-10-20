@@ -520,7 +520,20 @@
     "vatBase": "på {base} €",
     "vatExempt": "Momsbefrielse tillämpad (omvänd skattskyldighet inom EU eller export).",
     "blockedProducts": "Dessa produkter kan inte levereras till landet för den valda adressen: {names}. Ta bort dem eller välj en annan adress.",
-    "blockedProductsShort": "En produkt i varukorgen kan inte levereras till det här landet."
+    "blockedProductsShort": "En produkt i varukorgen kan inte levereras till det här landet.",
+    "stepPro": "Yrkesverifiering",
+    "declIntro": "Dessa produkter är endast avsedda för yrkesverksamma. Ange din verksamhet och bekräfta därefter ditt intygande.",
+    "declProfession": "Yrke (valfritt)",
+    "declProNumber": "Yrkesregistreringsnummer (valfritt)",
+    "declTaxNumber": "Företagets skatte-/momsnummer (valfritt)",
+    "declContinue": "Fortsätt",
+    "declModalTitle": "Bekräfta din yrkesstatus",
+    "declText": "Jag försäkrar på heder och samvete att jag är yrkesverksam inom hälso- och sjukvården eller en behörig köpare som har rätt att förvärva medicintekniska produkter och kosmetika för yrkesmässig användning. Jag är införstådd med att dessa produkter uteslutande får administreras av en kvalificerad yrkesperson, och jag tar ansvar för all import och all icke-överensstämmande användning inom min jurisdiktion.",
+    "declConfirm": "Jag bekräftar",
+    "declDone": "Yrkesintyget har sparats.",
+    "declRequired": "Bekräfta din yrkesstatus för att beställa dessa produkter.",
+    "declError": "Intyget kunde inte sparas, försök igen.",
+    "proForbidden": "Dessa produkter, som är förbehållna yrkesverksamma, kan inte skickas till detta land:"
   },
   "orders": {
     "loginRequired": "Inloggning krävs",

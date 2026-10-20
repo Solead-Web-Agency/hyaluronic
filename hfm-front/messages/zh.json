@@ -520,7 +520,20 @@
     "vatBase": "计税基数 {base} €",
     "vatExempt": "已适用增值税豁免（欧盟内部反向征税或出口）。",
     "blockedProducts": "以下产品无法配送至所选地址所在的国家/地区：{names}。请删除这些产品或选择其他地址。",
-    "blockedProductsShort": "购物车中的某个产品无法配送至该国家/地区。"
+    "blockedProductsShort": "购物车中的某个产品无法配送至该国家/地区。",
+    "stepPro": "专业资质核验",
+    "declIntro": "这些产品仅限专业人士购买。请填写您的从业信息，然后确认您的声明。",
+    "declProfession": "职业（选填）",
+    "declProNumber": "职业注册编号（选填）",
+    "declTaxNumber": "企业税号／增值税号（选填）",
+    "declContinue": "继续",
+    "declModalTitle": "请确认您的专业身份",
+    "declText": "本人郑重声明：本人为医疗卫生专业人员，或为获授权采购专业用途医疗器械及化妆品的买方。本人理解，这些产品必须且只能由合格的专业人员施用，并对在本人所在司法辖区内的任何进口行为及任何不合规使用承担责任。",
+    "declConfirm": "我确认",
+    "declDone": "专业声明已保存。",
+    "declRequired": "请确认您的专业身份后再订购这些产品。",
+    "declError": "无法保存声明，请重试。",
+    "proForbidden": "这些仅限专业人士的产品无法发往该国家/地区："
   },
   "orders": {
     "loginRequired": "需要登录",

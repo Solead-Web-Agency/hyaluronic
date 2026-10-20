@@ -578,7 +578,20 @@
     "vatBase": "base {base} €",
     "vatExempt": "Exonération de TVA appliquée (autoliquidation intracommunautaire ou export).",
     "blockedProducts": "Ces produits ne peuvent pas être livrés dans le pays de l'adresse choisie : {names}. Retirez-les ou choisissez une autre adresse.",
-    "blockedProductsShort": "Un produit du panier ne peut pas être livré dans ce pays."
+    "blockedProductsShort": "Un produit du panier ne peut pas être livré dans ce pays.",
+    "stepPro": "Vérification professionnelle",
+    "declIntro": "Ces produits sont réservés aux professionnels. Indiquez votre activité, puis confirmez votre déclaration.",
+    "declProfession": "Profession (facultatif)",
+    "declProNumber": "N° d'inscription professionnelle (facultatif)",
+    "declTaxNumber": "N° fiscal / TVA de l'entreprise (facultatif)",
+    "declContinue": "Continuer",
+    "declModalTitle": "Confirmez votre statut professionnel",
+    "declText": "Je déclare sur l'honneur être un professionnel de santé ou un acheteur autorisé à acquérir des dispositifs médicaux et cosmétiques à usage professionnel. Je comprends que ces produits doivent être administrés exclusivement par un professionnel qualifié, et j'assume la responsabilité de toute importation et de tout usage non conforme dans ma juridiction.",
+    "declConfirm": "Je confirme",
+    "declDone": "Déclaration professionnelle enregistrée.",
+    "declRequired": "Confirmez votre statut professionnel pour commander ces produits.",
+    "declError": "Impossible d'enregistrer la déclaration, veuillez réessayer.",
+    "proForbidden": "Ces produits réservés aux professionnels ne peuvent pas être expédiés vers ce pays :"
   },
   "orders": {
     "loginRequired": "Connexion requise",

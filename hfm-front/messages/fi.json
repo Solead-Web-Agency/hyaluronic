@@ -520,7 +520,20 @@
     "vatBase": "{base} €:sta",
     "vatExempt": "ALV-vapautus sovellettu (EU:n sisäinen käännetty verovelvollisuus tai vienti).",
     "blockedProducts": "Näitä tuotteita ei voi toimittaa valitun osoitteen maahan: {names}. Poista ne tai valitse toinen osoite.",
-    "blockedProductsShort": "Ostoskorin tuotetta ei voi toimittaa tähän maahan."
+    "blockedProductsShort": "Ostoskorin tuotetta ei voi toimittaa tähän maahan.",
+    "stepPro": "Ammattilaisen vahvistus",
+    "declIntro": "Nämä tuotteet on tarkoitettu vain ammattilaisille. Ilmoita toimintasi ja vahvista sitten vakuutuksesi.",
+    "declProfession": "Ammatti (valinnainen)",
+    "declProNumber": "Ammattirekisterinumero (valinnainen)",
+    "declTaxNumber": "Yrityksen verotunniste / ALV-tunnus (valinnainen)",
+    "declContinue": "Jatka",
+    "declModalTitle": "Vahvista ammatillinen asemasi",
+    "declText": "Vakuutan kunniani ja omantuntoni kautta olevani terveydenhuollon ammattilainen tai valtuutettu ostaja, jolla on oikeus hankkia ammattikäyttöön tarkoitettuja lääkinnällisiä laitteita ja kosmetiikkaa. Ymmärrän, että näitä tuotteita saa antaa ainoastaan pätevä ammattilainen, ja otan vastuun kaikesta tuonnista ja kaikesta vaatimustenvastaisesta käytöstä oikeudenkäyttöalueellani.",
+    "declConfirm": "Vahvistan",
+    "declDone": "Ammatillinen vakuutus on tallennettu.",
+    "declRequired": "Vahvista ammatillinen asemasi tilataksesi nämä tuotteet.",
+    "declError": "Vakuutusta ei voitu tallentaa, yritä uudelleen.",
+    "proForbidden": "Näitä vain ammattilaisille tarkoitettuja tuotteita ei voi toimittaa tähän maahan:"
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

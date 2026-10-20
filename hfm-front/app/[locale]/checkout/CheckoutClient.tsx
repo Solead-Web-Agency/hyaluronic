@@ -151,6 +151,54 @@ export default function CheckoutClient() {
   const rppsSatisfied = rppsValidated || (rppsMode === 'pro' ? attestation : rppsValid);
   const PRO_CONTACT_EMAIL = 'sales@hyaluronicfillermarket.com';
 
+  // Règle « produits réservés aux pros » du pays de livraison (bridge lib/pro_rules.php) :
+  // RPPS (France) / déclaration sur l'honneur + double validation (reste de l'Europe) / interdit.
+  const proRule = cart.pro_rule;
+  const proProducts = cart.pro_products ?? [];
+  const declNeeded = proRule === 'declaration' && proProducts.length > 0;
+  const proForbidden = proRule === 'forbidden' && proProducts.length > 0;
+  const showProCard = rppsNeeded || declNeeded || proForbidden;
+  const [profession, setProfession] = useState('');
+  const [proNumber, setProNumber] = useState('');
+  const [taxNumber, setTaxNumber] = useState('');
+  const [declOpen, setDeclOpen] = useState(false); // pop-up de double validation
+  const [declChecked, setDeclChecked] = useState(false);
+  const [declBusy, setDeclBusy] = useState(false);
+  const [declErr, setDeclErr] = useState<string | null>(null);
+  const [declEdit, setDeclEdit] = useState(false);
+  const declared = cart.pro_declared && !declEdit;
+
+  const confirmDeclaration = async () => {
+    if (!declChecked || !cart.id_cart) return;
+    setDeclBusy(true);
+    setDeclErr(null);
+    try {
+      const r = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'pro-declaration',
+          id_cart: cart.id_cart,
+          profession: profession.trim(),
+          pro_number: proNumber.trim(),
+          tax_number: taxNumber.trim(),
+          double_validation: 1,
+          locale,
+          declaration_text: t('declText'),
+        }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok || !d.ok) throw new Error(String(d.error || r.status));
+      setDeclOpen(false);
+      setDeclEdit(false);
+      await refreshCart();
+    } catch {
+      setDeclErr(t('declError'));
+    } finally {
+      setDeclBusy(false);
+    }
+  };
+
   // Enregistre l'attestation pro (+ justificatif optionnel) sur le client, façon set-rpps.
   const submitProAttestation = async () => {
     try {
@@ -878,7 +926,69 @@ export default function CheckoutClient() {
   const taxExempt = !!totals && taxRows.every((l) => l.amount === 0) && subtotalHT > 0;
   // Produits interdits dans le pays de livraison (règles par pays) : commande impossible.
   const blockedItems = cart.blocked_products ?? [];
-  const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && (!rppsNeeded || rppsSatisfied) && acceptedTerms && !blockedItems.length;
+  // Exigence « pro » remplie pour le pays de livraison (RPPS, déclaration confirmée, pas d'interdiction).
+  const proOk = (!rppsNeeded || rppsSatisfied) && (!declNeeded || declared) && !proForbidden;
+  const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && proOk && acceptedTerms && !blockedItems.length;
+
+  const ShieldBadge = (
+    <span style={{ ...stepBadge(0, true), background: '#434343' }} aria-hidden="true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" /></svg>
+    </span>
+  );
+  const proList = (
+    <ul style={{ margin: '8px 0 0', paddingLeft: '18px', fontSize: '12.5px', lineHeight: 1.6, color: '#34352F' }}>
+      {proProducts.map((p) => <li key={p.id_product}>{p.name}{p.quantity > 1 ? ` ×${p.quantity}` : ''}</li>)}
+    </ul>
+  );
+  const ProForbiddenBlock = (
+    <div role="alert" style={{ padding: '12px 14px', background: 'rgba(180,35,24,.06)', border: '1px solid rgba(180,35,24,.25)', borderRadius: '7px', fontSize: '12.5px', color: MISSING_RED, lineHeight: 1.5 }}>
+      <b>{t('proForbidden')}</b>
+      {proList}
+    </div>
+  );
+  const proInput: React.CSSProperties = { width: '100%', boxSizing: 'border-box', height: '44px', padding: '0 12px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '13.5px', color: '#34352F', background: '#fff', border: '1px solid #E2DECF', borderRadius: '6px', outline: 'none' };
+  const proLabel: React.CSSProperties = { display: 'block', fontSize: '11px', fontWeight: 700, letterSpacing: '.04em', textTransform: 'uppercase', color: '#6E7585', marginBottom: '6px' };
+  const DeclarationBlock = declared ? (
+    <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '7px' }}>
+      <span style={{ color: '#3F7256', fontSize: '14px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">✓</span>
+      <span style={{ flex: 1, fontSize: '12.5px', lineHeight: 1.5, color: '#34352F' }}>
+        {t('declDone')}
+        <button type="button" onClick={() => { setDeclEdit(true); setDeclChecked(false); }} style={{ marginLeft: '8px', background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('rppsModify')}</button>
+      </span>
+    </div>
+  ) : (
+    <>
+      <div style={{ padding: '12px 14px', background: 'rgba(196,160,46,.10)', border: '1px solid rgba(196,160,46,.35)', borderRadius: '7px' }}>
+        <b style={{ fontSize: '12.5px', color: '#34352F' }}>{t('declIntro')}</b>
+        {proList}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: '12px', marginTop: '14px' }}>
+        <label><span style={proLabel}>{t('declProfession')}</span><input value={profession} maxLength={128} onChange={(e) => setProfession(e.target.value)} style={proInput} /></label>
+        <label><span style={proLabel}>{t('declProNumber')}</span><input value={proNumber} maxLength={64} onChange={(e) => setProNumber(e.target.value)} style={proInput} /></label>
+        <label><span style={proLabel}>{t('declTaxNumber')}</span><input value={taxNumber} maxLength={64} onChange={(e) => setTaxNumber(e.target.value)} style={proInput} /></label>
+      </div>
+      <button type="button" onClick={() => { setDeclChecked(false); setDeclErr(null); setDeclOpen(true); }} style={{ marginTop: '14px', height: '44px', padding: '0 22px', borderRadius: '999px', color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}>{t('declContinue')}</button>
+    </>
+  );
+  const DeclarationModal = declOpen ? (
+    <div role="dialog" aria-modal="true" aria-labelledby="decl-title" onClick={() => !declBusy && setDeclOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(27,36,51,.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+      <div onClick={(e) => e.stopPropagation()} style={{ background: '#fff', borderRadius: '10px', maxWidth: '520px', width: '100%', maxHeight: '90vh', overflowY: 'auto', padding: '24px', boxShadow: '0 24px 60px -20px rgba(0,0,0,.35)' }}>
+        <div id="decl-title" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '16px', fontWeight: 700, color: '#1B2433' }}>{ShieldBadge}{t('declModalTitle')}</div>
+        {proList}
+        <label style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginTop: '16px', cursor: 'pointer' }}>
+          <input type="checkbox" checked={declChecked} onChange={(e) => setDeclChecked(e.target.checked)} style={{ marginTop: '2px', width: '16px', height: '16px', flex: 'none', accentColor: '#5E8E1F' }} />
+          <span style={{ fontSize: '12.5px', lineHeight: 1.55, color: '#34352F' }}>{t('declText')}</span>
+        </label>
+        {declErr ? <div style={{ fontSize: '12px', color: MISSING_RED, marginTop: '10px' }}>{declErr}</div> : null}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px', flexWrap: 'wrap' }}>
+          <button type="button" onClick={() => setDeclOpen(false)} disabled={declBusy} style={{ height: '42px', padding: '0 18px', borderRadius: '999px', background: '#fff', border: '1px solid #E2DECF', color: '#34352F', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>{t('rppsModify')}</button>
+          <button type="button" onClick={confirmDeclaration} disabled={!declChecked || declBusy} style={{ height: '42px', padding: '0 20px', borderRadius: '999px', color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', fontSize: '13px', fontWeight: 600, cursor: !declChecked || declBusy ? 'not-allowed' : 'pointer', opacity: !declChecked || declBusy ? 0.5 : 1 }}>{declBusy ? '…' : t('declConfirm')}</button>
+        </div>
+      </div>
+    </div>
+  ) : null;
+  // Message bloquant « pro » du récapitulatif (le premier qui s'applique).
+  const proNotice = proForbidden ? t('proForbidden') : rppsNeeded && !rppsSatisfied ? t('rppsRequiredNotice') : declNeeded && !declared ? t('declRequired') : null;
 
   return (
     <main data-screen-label="Commande" className="hfm-wrap" style={{ maxWidth: '1180px', margin: '0 auto', padding: '34px 28px 70px' }}>
@@ -922,125 +1032,6 @@ export default function CheckoutClient() {
                 </div>
               </>
             )}
-
-            {/* Produits réservés praticiens : numéro RPPS OU attestation professionnelle (moins de friction) */}
-            {customer ? (
-            <div style={{ marginTop: '18px', borderTop: '1px solid #ECEAE3', paddingTop: '18px' }}>
-              {rppsNeeded && rppsValidated && !editPro ? (
-                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '7px' }}>
-                  <span style={{ color: '#3F7256', fontSize: '14px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">✓</span>
-                  <span style={{ flex: 1, fontSize: '12.5px', lineHeight: 1.5, color: '#34352F' }}>
-                    {t('rppsAlreadyValidated')}
-                    <button type="button" onClick={() => setEditPro(true)} style={{ marginLeft: '8px', background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('rppsModify')}</button>
-                  </span>
-                </div>
-              ) : (
-              <>
-              {rppsNeeded ? (
-                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '12px', padding: '11px 13px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '7px' }}>
-                  <span style={{ color: '#A8503A', fontSize: '14px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>
-                  <span style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#A8503A', fontWeight: 500 }}>{t('rppsRequiredNotice')}</span>
-                </div>
-              ) : null}
-
-              {/* Choix de la voie (seulement si un produit l'exige) */}
-              {rppsNeeded ? (
-                <div style={{ display: 'flex', gap: '8px', marginBottom: '14px', flexWrap: 'wrap' }}>
-                  {(['number', 'pro'] as const).map((m) => {
-                    const on = rppsMode === m;
-                    return (
-                      <button
-                        key={m}
-                        type="button"
-                        onClick={() => { setRppsMode(m); setRppsErr(null); }}
-                        style={{ cursor: 'pointer', flex: '1 1 0', minWidth: '170px', textAlign: 'left', background: on ? 'rgba(140,198,63,0.08)' : '#fff', border: on ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '11px 13px', display: 'flex', gap: '10px', alignItems: 'center' }}
-                      >
-                        <span style={{ width: '14px', height: '14px', borderRadius: '50%', border: on ? '4.5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
-                        <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#34352F' }}>{m === 'number' ? t('rppsModeNumber') : t('rppsModePro')}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : null}
-
-              {/* Voie 1 — numéro RPPS / ADELI (toujours proposé hors-exigence, en optionnel) */}
-              {!rppsNeeded || rppsMode === 'number' ? (
-                <>
-                  <label htmlFor="rpps" style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F', marginBottom: '8px' }}>
-                    {t('rppsLabel')}{rppsNeeded ? <span style={{ color: '#A8503A' }}> *</span> : null}
-                  </label>
-                  <input
-                    id="rpps"
-                    type="text"
-                    inputMode="numeric"
-                    value={rpps}
-                    onChange={(e) => { setRpps(e.target.value.replace(/\D/g, '').slice(0, 13)); if (rppsErr) setRppsErr(null); if (rppsInfo) setRppsInfo(null); if (rppsSoftNote) setRppsSoftNote(false); }}
-                    onBlur={verifyRppsField}
-                    placeholder={t('rppsPlaceholder')}
-                    style={{ width: '100%', boxSizing: 'border-box', height: '46px', padding: '0 14px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', color: '#34352F', background: '#fff', border: `1px solid ${rppsErr && rppsMode === 'number' ? '#A8503A' : rppsInfo ? '#3F7256' : '#E2DECF'}`, borderRadius: '6px', outline: 'none' }}
-                  />
-                  {rppsChecking ? (
-                    <div style={{ fontSize: '12px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsChecking')}</div>
-                  ) : rppsInfo ? (
-                    <div style={{ fontSize: '12.5px', color: '#3F7256', marginTop: '8px', fontWeight: 600 }}>✓ {[rppsInfo.prenom, rppsInfo.nom].filter(Boolean).join(' ')}{rppsInfo.profession ? ` — ${rppsInfo.profession}` : ''}</div>
-                  ) : rppsErr && rppsMode === 'number' ? (
-                    <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div>
-                  ) : rppsSoftNote ? (
-                    <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsWillBeVerified')}</div>
-                  ) : (
-                    <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsPlaceholder')}</div>
-                  )}
-                </>
-              ) : null}
-
-              {/* Voie 2 — attestation professionnelle */}
-              {rppsNeeded && rppsMode === 'pro' ? (
-                <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
-                  <label style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', cursor: 'pointer' }}>
-                    <input type="checkbox" checked={attestation} onChange={(e) => { setAttestation(e.target.checked); if (rppsErr) setRppsErr(null); }} style={{ marginTop: '2px', width: '16px', height: '16px', flex: 'none', accentColor: '#5E8E1F' }} />
-                    <span style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#34352F' }}>{t('attestationText')}</span>
-                  </label>
-                  <div style={{ marginTop: '14px' }}>
-                    <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#34352F', marginBottom: '10px' }}>{t('attestationDoc')}</div>
-
-                    {/* Option A — téléverser un fichier (bouton stylé, input natif masqué) */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                      <label style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', background: 'rgba(140,198,63,0.08)', border: '1px solid rgba(155,209,89,.8)', color: '#5E8E1F', borderRadius: '8px', padding: '10px 16px', fontSize: '13px', fontWeight: 600 }}>
-                        <span aria-hidden="true" style={{ display: 'inline-flex' }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V4M8 8l4-4 4 4" /><path d="M5 16v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2" /></svg></span>{t('attestationDocChoose')}
-                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,image/*,application/pdf" onChange={(e) => onProDocChange(e.target.files?.[0] || null)} style={{ display: 'none' }} />
-                      </label>
-                      {proDoc ? (
-                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#3F7256', fontWeight: 600, background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '999px', padding: '6px 8px 6px 12px' }}>
-                          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '170px' }}>✓ {proDoc.name}</span>
-                          <button type="button" onClick={() => setProDoc(null)} aria-label="Retirer" style={{ background: 'none', border: 'none', padding: 0, color: '#3F7256', cursor: 'pointer', fontSize: '13px', lineHeight: 1, flex: 'none' }}>✕</button>
-                        </span>
-                      ) : null}
-                    </div>
-
-                    {/* séparateur OU */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '14px 0' }}>
-                      <span style={{ flex: 1, height: '1px', background: '#E7E3DA' }} />
-                      <span style={{ fontSize: '11px', color: '#9A9A9A', textTransform: 'uppercase', letterSpacing: '.1em' }}>{t('orSeparator')}</span>
-                      <span style={{ flex: 1, height: '1px', background: '#E7E3DA' }} />
-                    </div>
-
-                    {/* Option B — par email (encart distinct, mis en évidence) */}
-                    <a href={`mailto:${PRO_CONTACT_EMAIL}`} style={{ display: 'flex', alignItems: 'center', gap: '11px', textDecoration: 'none', background: '#fff', border: '1px solid #E2DECF', borderRadius: '8px', padding: '11px 14px' }}>
-                      <span aria-hidden="true" style={{ flex: 'none', color: '#5E8E1F', display: 'inline-flex' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg></span>
-                      <span style={{ lineHeight: 1.35 }}>
-                        <span style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F' }}>{t('attestationEmailTitle')}</span>
-                        <span style={{ fontSize: '13px', color: '#5E8E1F', fontWeight: 700 }}>{PRO_CONTACT_EMAIL}</span>
-                      </span>
-                    </a>
-                    <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '10px', lineHeight: 1.5 }}>{t('attestationAfterOrder')}</div>
-                  </div>
-                  {rppsErr && rppsMode === 'pro' ? <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div> : null}
-                </div>
-              ) : null}
-              </>
-              )}
-            </div>
-            ) : null}
           </div>
 
           {/* Étapes 2-4 : visibles mais verrouillées tant que l'étape 1 (identité) n'est pas validée */}
@@ -1119,6 +1110,131 @@ export default function CheckoutClient() {
               )}
             </div>
           </div>
+
+          {/* Vérification professionnelle : règle du pays de livraison (RPPS en France,
+              déclaration sur l'honneur ailleurs en Europe, vente interdite selon config BO). */}
+          {customer && showProCard ? (
+            <div style={cardStyle}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>{ShieldBadge}<span style={titleStyle}>{t('stepPro')}</span></div>
+              {proRule === 'rpps' ? (
+              <>
+                {rppsNeeded && rppsValidated && !editPro ? (
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '7px' }}>
+                    <span style={{ color: '#3F7256', fontSize: '14px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">✓</span>
+                    <span style={{ flex: 1, fontSize: '12.5px', lineHeight: 1.5, color: '#34352F' }}>
+                      {t('rppsAlreadyValidated')}
+                      <button type="button" onClick={() => setEditPro(true)} style={{ marginLeft: '8px', background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>{t('rppsModify')}</button>
+                    </span>
+                  </div>
+                ) : (
+                <>
+                {rppsNeeded ? (
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '12px', padding: '11px 13px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '7px' }}>
+                    <span style={{ color: '#A8503A', fontSize: '14px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>
+                    <span style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#A8503A', fontWeight: 500 }}>{t('rppsRequiredNotice')}</span>
+                  </div>
+                ) : null}
+  
+                {/* Choix de la voie (seulement si un produit l'exige) */}
+                {rppsNeeded ? (
+                  <div style={{ display: 'flex', gap: '8px', marginBottom: '14px', flexWrap: 'wrap' }}>
+                    {(['number', 'pro'] as const).map((m) => {
+                      const on = rppsMode === m;
+                      return (
+                        <button
+                          key={m}
+                          type="button"
+                          onClick={() => { setRppsMode(m); setRppsErr(null); }}
+                          style={{ cursor: 'pointer', flex: '1 1 0', minWidth: '170px', textAlign: 'left', background: on ? 'rgba(140,198,63,0.08)' : '#fff', border: on ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '11px 13px', display: 'flex', gap: '10px', alignItems: 'center' }}
+                        >
+                          <span style={{ width: '14px', height: '14px', borderRadius: '50%', border: on ? '4.5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
+                          <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#34352F' }}>{m === 'number' ? t('rppsModeNumber') : t('rppsModePro')}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : null}
+  
+                {/* Voie 1 — numéro RPPS / ADELI (toujours proposé hors-exigence, en optionnel) */}
+                {!rppsNeeded || rppsMode === 'number' ? (
+                  <>
+                    <label htmlFor="rpps" style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F', marginBottom: '8px' }}>
+                      {t('rppsLabel')}{rppsNeeded ? <span style={{ color: '#A8503A' }}> *</span> : null}
+                    </label>
+                    <input
+                      id="rpps"
+                      type="text"
+                      inputMode="numeric"
+                      value={rpps}
+                      onChange={(e) => { setRpps(e.target.value.replace(/\D/g, '').slice(0, 13)); if (rppsErr) setRppsErr(null); if (rppsInfo) setRppsInfo(null); if (rppsSoftNote) setRppsSoftNote(false); }}
+                      onBlur={verifyRppsField}
+                      placeholder={t('rppsPlaceholder')}
+                      style={{ width: '100%', boxSizing: 'border-box', height: '46px', padding: '0 14px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', color: '#34352F', background: '#fff', border: `1px solid ${rppsErr && rppsMode === 'number' ? '#A8503A' : rppsInfo ? '#3F7256' : '#E2DECF'}`, borderRadius: '6px', outline: 'none' }}
+                    />
+                    {rppsChecking ? (
+                      <div style={{ fontSize: '12px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsChecking')}</div>
+                    ) : rppsInfo ? (
+                      <div style={{ fontSize: '12.5px', color: '#3F7256', marginTop: '8px', fontWeight: 600 }}>✓ {[rppsInfo.prenom, rppsInfo.nom].filter(Boolean).join(' ')}{rppsInfo.profession ? ` — ${rppsInfo.profession}` : ''}</div>
+                    ) : rppsErr && rppsMode === 'number' ? (
+                      <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div>
+                    ) : rppsSoftNote ? (
+                      <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsWillBeVerified')}</div>
+                    ) : (
+                      <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsPlaceholder')}</div>
+                    )}
+                  </>
+                ) : null}
+  
+                {/* Voie 2 — attestation professionnelle */}
+                {rppsNeeded && rppsMode === 'pro' ? (
+                  <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
+                    <label style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', cursor: 'pointer' }}>
+                      <input type="checkbox" checked={attestation} onChange={(e) => { setAttestation(e.target.checked); if (rppsErr) setRppsErr(null); }} style={{ marginTop: '2px', width: '16px', height: '16px', flex: 'none', accentColor: '#5E8E1F' }} />
+                      <span style={{ fontSize: '12.5px', lineHeight: 1.5, color: '#34352F' }}>{t('attestationText')}</span>
+                    </label>
+                    <div style={{ marginTop: '14px' }}>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#34352F', marginBottom: '10px' }}>{t('attestationDoc')}</div>
+  
+                      {/* Option A — téléverser un fichier (bouton stylé, input natif masqué) */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                        <label style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', background: 'rgba(140,198,63,0.08)', border: '1px solid rgba(155,209,89,.8)', color: '#5E8E1F', borderRadius: '8px', padding: '10px 16px', fontSize: '13px', fontWeight: 600 }}>
+                          <span aria-hidden="true" style={{ display: 'inline-flex' }}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V4M8 8l4-4 4 4" /><path d="M5 16v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2" /></svg></span>{t('attestationDocChoose')}
+                          <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,image/*,application/pdf" onChange={(e) => onProDocChange(e.target.files?.[0] || null)} style={{ display: 'none' }} />
+                        </label>
+                        {proDoc ? (
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#3F7256', fontWeight: 600, background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '999px', padding: '6px 8px 6px 12px' }}>
+                            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '170px' }}>✓ {proDoc.name}</span>
+                            <button type="button" onClick={() => setProDoc(null)} aria-label="Retirer" style={{ background: 'none', border: 'none', padding: 0, color: '#3F7256', cursor: 'pointer', fontSize: '13px', lineHeight: 1, flex: 'none' }}>✕</button>
+                          </span>
+                        ) : null}
+                      </div>
+  
+                      {/* séparateur OU */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '14px 0' }}>
+                        <span style={{ flex: 1, height: '1px', background: '#E7E3DA' }} />
+                        <span style={{ fontSize: '11px', color: '#9A9A9A', textTransform: 'uppercase', letterSpacing: '.1em' }}>{t('orSeparator')}</span>
+                        <span style={{ flex: 1, height: '1px', background: '#E7E3DA' }} />
+                      </div>
+  
+                      {/* Option B — par email (encart distinct, mis en évidence) */}
+                      <a href={`mailto:${PRO_CONTACT_EMAIL}`} style={{ display: 'flex', alignItems: 'center', gap: '11px', textDecoration: 'none', background: '#fff', border: '1px solid #E2DECF', borderRadius: '8px', padding: '11px 14px' }}>
+                        <span aria-hidden="true" style={{ flex: 'none', color: '#5E8E1F', display: 'inline-flex' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg></span>
+                        <span style={{ lineHeight: 1.35 }}>
+                          <span style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F' }}>{t('attestationEmailTitle')}</span>
+                          <span style={{ fontSize: '13px', color: '#5E8E1F', fontWeight: 700 }}>{PRO_CONTACT_EMAIL}</span>
+                        </span>
+                      </a>
+                      <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '10px', lineHeight: 1.5 }}>{t('attestationAfterOrder')}</div>
+                    </div>
+                    {rppsErr && rppsMode === 'pro' ? <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div> : null}
+                  </div>
+                ) : null}
+                </>
+                )}
+              </>
+              ) : proForbidden ? ProForbiddenBlock : declNeeded ? DeclarationBlock : null}
+            </div>
+          ) : null}
 
           {/* Étape 3 — Transporteur */}
           <div style={cardStyle}>
@@ -1331,18 +1447,18 @@ export default function CheckoutClient() {
               {t('blockedProducts', { names: blockedItems.map((b) => b.name).join(', ') })}
             </div>
           ) : null}
-          {orderErr ? <div style={{ fontSize: '13px', color: '#A8503A', marginTop: '14px', textAlign: 'center' }}>{orderErr === 'blocked_country' ? t('blockedProductsShort') : t('orderError', { error: orderErr })}</div> : null}
-          {rppsNeeded && !rppsSatisfied ? (
+          {orderErr ? <div style={{ fontSize: '13px', color: '#A8503A', marginTop: '14px', textAlign: 'center' }}>{orderErr === 'blocked_country' ? t('blockedProductsShort') : orderErr === 'pro_forbidden' ? t('proForbidden') : orderErr === 'pro_declaration_required' ? t('declRequired') : t('orderError', { error: orderErr })}</div> : null}
+          {proNotice ? (
             <div style={{ display: 'flex', gap: '9px', alignItems: 'flex-start', marginTop: '14px', padding: '10px 12px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '7px' }}>
               <span style={{ color: '#A8503A', fontSize: '13px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>
-              <span style={{ fontSize: '11.5px', lineHeight: 1.45, color: '#A8503A', fontWeight: 500 }}>{t('rppsRequiredNotice')}</span>
+              <span style={{ fontSize: '11.5px', lineHeight: 1.45, color: '#A8503A', fontWeight: 500 }}>{proNotice}</span>
             </div>
           ) : null}
           {payment === AMAZON_PAYMENT && amazonConfigured ? (
-            selAddress && selCarrier && idCart && (!rppsNeeded || rppsSatisfied) && acceptedTerms ? (
+            selAddress && selCarrier && idCart && proOk && acceptedTerms && !blockedItems.length ? (
               <div style={{ marginTop: '18px' }}><AmazonPayButton idCart={idCart} /></div>
             ) : (
-              <div style={{ width: '100%', marginTop: '18px', minHeight: '52px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', textAlign: 'center', borderRadius: '999px', background: '#EFEDE5', color: '#9A9A9A', fontSize: '13px', lineHeight: 1.4 }}>{rppsNeeded && !rppsSatisfied ? t('rppsRequiredNotice') : !acceptedTerms ? t('acceptTermsShort') : <span style={{ color: MISSING_RED, fontWeight: 600 }}>{t('selectAddressCarrier')}</span>}</div>
+              <div style={{ width: '100%', marginTop: '18px', minHeight: '52px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', textAlign: 'center', borderRadius: '999px', background: '#EFEDE5', color: '#9A9A9A', fontSize: '13px', lineHeight: 1.4 }}>{proNotice ? proNotice : !acceptedTerms ? t('acceptTermsShort') : <span style={{ color: MISSING_RED, fontWeight: 600 }}>{t('selectAddressCarrier')}</span>}</div>
             )
           ) : (
             <button
@@ -1356,6 +1472,7 @@ export default function CheckoutClient() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', fontSize: '11.5px', color: '#9A9A9A', marginTop: '12px' }}>{!selAddress || !selCarrier ? <span style={{ color: MISSING_RED, fontWeight: 600 }}>{t('selectAddressCarrier')}</span> : !acceptedTerms ? t('acceptTermsShort') : (<><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none' }} aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>{t('secureOrder')}</>)}</div>
         </div>
       </div>
+      {DeclarationModal}
     </main>
   );
 }

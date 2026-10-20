@@ -520,7 +520,20 @@
     "vatBase": "on €{base}",
     "vatExempt": "VAT exemption applied (EU reverse charge or export).",
     "blockedProducts": "These products cannot be delivered to the country of the selected address: {names}. Remove them or choose another address.",
-    "blockedProductsShort": "A product in your cart cannot be delivered to this country."
+    "blockedProductsShort": "A product in your cart cannot be delivered to this country.",
+    "stepPro": "Professional verification",
+    "declIntro": "These products are reserved for professionals. Tell us about your activity, then confirm your declaration.",
+    "declProfession": "Profession (optional)",
+    "declProNumber": "Professional registration no. (optional)",
+    "declTaxNumber": "Company tax / VAT no. (optional)",
+    "declContinue": "Continue",
+    "declModalTitle": "Confirm your professional status",
+    "declText": "I declare on my honour that I am a healthcare professional or a buyer authorised to purchase medical devices and cosmetics for professional use. I understand that these products must be administered exclusively by a qualified professional, and I take responsibility for any import and any non-compliant use in my jurisdiction.",
+    "declConfirm": "I confirm",
+    "declDone": "Professional declaration recorded.",
+    "declRequired": "Please confirm your professional status to order these products.",
+    "declError": "The declaration could not be saved, please try again.",
+    "proForbidden": "These products reserved for professionals cannot be shipped to this country:"
   },
   "orders": {
     "loginRequired": "Login required",

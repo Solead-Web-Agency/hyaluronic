@@ -520,7 +520,20 @@
     "vatBase": "la {base} €",
     "vatExempt": "S-a aplicat scutirea de TVA (taxare inversă intracomunitară sau export).",
     "blockedProducts": "Aceste produse nu pot fi livrate în țara adresei alese: {names}. Eliminați-le sau alegeți altă adresă.",
-    "blockedProductsShort": "Un produs din coș nu poate fi livrat în această țară."
+    "blockedProductsShort": "Un produs din coș nu poate fi livrat în această țară.",
+    "stepPro": "Verificare profesională",
+    "declIntro": "Aceste produse sunt rezervate profesioniștilor. Indicați activitatea dvs., apoi confirmați declarația.",
+    "declProfession": "Profesie (opțional)",
+    "declProNumber": "Nr. de înscriere profesională (opțional)",
+    "declTaxNumber": "Cod fiscal / cod TVA al companiei (opțional)",
+    "declContinue": "Continuați",
+    "declModalTitle": "Confirmați statutul dvs. profesional",
+    "declText": "Declar pe propria răspundere că sunt profesionist din domeniul sănătății sau cumpărător autorizat să achiziționeze dispozitive medicale și produse cosmetice de uz profesional. Înțeleg că aceste produse trebuie administrate exclusiv de un profesionist calificat și îmi asum responsabilitatea pentru orice import și pentru orice utilizare neconformă în jurisdicția mea.",
+    "declConfirm": "Confirm",
+    "declDone": "Declarația profesională a fost înregistrată.",
+    "declRequired": "Confirmați statutul dvs. profesional pentru a comanda aceste produse.",
+    "declError": "Declarația nu a putut fi înregistrată, vă rugăm să încercați din nou.",
+    "proForbidden": "Aceste produse rezervate profesioniștilor nu pot fi expediate în această țară:"
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

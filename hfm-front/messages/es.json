@@ -520,7 +520,20 @@
     "vatBase": "sobre {base} €",
     "vatExempt": "Exención de IVA aplicada (inversión del sujeto pasivo intracomunitaria o exportación).",
     "blockedProducts": "Estos productos no se pueden enviar al país de la dirección elegida: {names}. Retírelos o elija otra dirección.",
-    "blockedProductsShort": "Un producto del carrito no se puede enviar a este país."
+    "blockedProductsShort": "Un producto del carrito no se puede enviar a este país.",
+    "stepPro": "Verificación profesional",
+    "declIntro": "Estos productos están reservados a profesionales. Indique su actividad y, a continuación, confirme su declaración.",
+    "declProfession": "Profesión (opcional)",
+    "declProNumber": "N.º de colegiación profesional (opcional)",
+    "declTaxNumber": "N.º fiscal / IVA de la empresa (opcional)",
+    "declContinue": "Continuar",
+    "declModalTitle": "Confirme su condición de profesional",
+    "declText": "Declaro bajo mi responsabilidad ser un profesional sanitario o un comprador autorizado para adquirir productos sanitarios y cosméticos de uso profesional. Entiendo que estos productos deben ser administrados exclusivamente por un profesional cualificado y asumo la responsabilidad de cualquier importación y de cualquier uso no conforme en mi jurisdicción.",
+    "declConfirm": "Confirmo",
+    "declDone": "Declaración profesional registrada.",
+    "declRequired": "Confirme su condición de profesional para pedir estos productos.",
+    "declError": "No se ha podido registrar la declaración; inténtelo de nuevo.",
+    "proForbidden": "Estos productos reservados a profesionales no pueden enviarse a este país:"
   },
   "orders": {
     "loginRequired": "Inicio de sesión requerido",

@@ -520,7 +520,20 @@
     "vatBase": "over € {base}",
     "vatExempt": "Btw-vrijstelling toegepast (intracommunautaire verlegging of export).",
     "blockedProducts": "Deze producten kunnen niet worden geleverd in het land van het gekozen adres: {names}. Verwijder ze of kies een ander adres.",
-    "blockedProductsShort": "Een product in uw winkelwagen kan niet in dit land worden geleverd."
+    "blockedProductsShort": "Een product in uw winkelwagen kan niet in dit land worden geleverd.",
+    "stepPro": "Professionele verificatie",
+    "declIntro": "Deze producten zijn voorbehouden aan professionals. Geef uw activiteit aan en bevestig vervolgens uw verklaring.",
+    "declProfession": "Beroep (optioneel)",
+    "declProNumber": "Beroepsregistratienummer (optioneel)",
+    "declTaxNumber": "Fiscaal nummer / btw-nummer van het bedrijf (optioneel)",
+    "declContinue": "Doorgaan",
+    "declModalTitle": "Bevestig uw professionele status",
+    "declText": "Ik verklaar op erewoord een zorgprofessional te zijn of een gemachtigde koper die medische hulpmiddelen en cosmetica voor professioneel gebruik mag aanschaffen. Ik begrijp dat deze producten uitsluitend mogen worden toegediend door een gekwalificeerde professional, en ik aanvaard de verantwoordelijkheid voor elke invoer en elk niet-conform gebruik binnen mijn rechtsgebied.",
+    "declConfirm": "Ik bevestig",
+    "declDone": "Professionele verklaring opgeslagen.",
+    "declRequired": "Bevestig uw professionele status om deze producten te bestellen.",
+    "declError": "De verklaring kon niet worden opgeslagen. Probeer het opnieuw.",
+    "proForbidden": "Deze producten, voorbehouden aan professionals, kunnen niet naar dit land worden verzonden:"
   },
   "orders": {
     "loginRequired": "Inloggen vereist",

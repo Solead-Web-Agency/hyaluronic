@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 // Actions AUTORISÉES depuis le tunnel client. Les opérations privilégiées (marquer une commande
 // payée, rembourser) ne transitent JAMAIS par ici : elles sont appelées en direct par les routes
 // serveur vérifiées (retours PSP -> action 'order' + paid ; /api/payment/refund -> 'refund-order').
-const CLIENT_ACTIONS = new Set(['set-address', 'set-carrier', 'voucher', 'order']);
+const CLIENT_ACTIONS = new Set(['set-address', 'set-carrier', 'voucher', 'pro-declaration', 'order']);
 
 export async function GET(req: NextRequest) {
   const sp = req.nextUrl.searchParams;
@@ -40,5 +40,10 @@ export async function POST(req: NextRequest) {
   const forwarded: Record<string, unknown> = { ...body, id_customer: user.id_customer };
   delete forwarded.paid;
   delete forwarded.transaction_id;
+  // Déclaration pro : l'IP du client (preuve d'acceptation) est lue ici, jamais fournie par le navigateur.
+  delete forwarded.client_ip;
+  if (action === 'pro-declaration') {
+    forwarded.client_ip = (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || req.headers.get('x-real-ip') || '';
+  }
   return NextResponse.json(await bridgePost('checkout', forwarded), { headers: NO_STORE });
 }

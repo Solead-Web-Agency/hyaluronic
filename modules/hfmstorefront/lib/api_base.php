@@ -10,6 +10,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/country_rules.php';
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/pro_rules.php';
 
 abstract class HfmStorefrontApiController extends ModuleFrontController
 {

@@ -318,6 +318,9 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
             }
         }
 
+        $proProducts = HfmProRules::proProducts($cart);
+        $proRule = $proProducts ? HfmProRules::ruleForCart($cart) : HfmProRules::RULE_NONE;
+
         return [
             'id_cart' => (int) $cart->id,
             // Jeton signé à conserver côté front (localStorage) et à renvoyer avec l'id_cart :
@@ -327,7 +330,12 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
             'id_customer' => (int) $cart->id_customer,
             'id_address_delivery' => (int) $cart->id_address_delivery,
             'delivery_address' => $deliveryAddress,
-            'rpps_required' => $this->cartRequiresRpps($cart),
+            // Produits réservés aux pros : la règle dépend du pays de livraison (lib/pro_rules.php).
+            // RPPS seulement là où la règle l'exige (France) ; ailleurs en Europe, déclaration sur l'honneur.
+            'rpps_required' => $proRule === HfmProRules::RULE_RPPS,
+            'pro_rule' => $proRule,
+            'pro_products' => $proProducts,
+            'pro_declared' => $proRule === HfmProRules::RULE_DECLARATION && HfmProRules::declarationForCart((int) $cart->id) !== null,
             // Produits du panier interdits dans le pays de livraison (la commande sera refusée).
             'blocked_products' => $this->blockedInCart($cart),
             'nb_items' => (int) $cart->nbProducts(),

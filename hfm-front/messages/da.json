@@ -520,7 +520,20 @@
     "vatBase": "af {base} €",
     "vatExempt": "Momsfritagelse anvendt (omvendt betalingspligt i EU eller eksport).",
     "blockedProducts": "Disse produkter kan ikke leveres til landet for den valgte adresse: {names}. Fjern dem eller vælg en anden adresse.",
-    "blockedProductsShort": "Et produkt i kurven kan ikke leveres til dette land."
+    "blockedProductsShort": "Et produkt i kurven kan ikke leveres til dette land.",
+    "stepPro": "Faglig verifikation",
+    "declIntro": "Disse produkter er forbeholdt fagfolk. Angiv din virksomhed, og bekræft derefter din erklæring.",
+    "declProfession": "Erhverv (valgfrit)",
+    "declProNumber": "Professionelt registreringsnummer (valgfrit)",
+    "declTaxNumber": "Virksomhedens skatte-/momsnummer (valgfrit)",
+    "declContinue": "Fortsæt",
+    "declModalTitle": "Bekræft din faglige status",
+    "declText": "Jeg erklærer på tro og love at være sundhedsperson eller en autoriseret køber med ret til at erhverve medicinsk udstyr og kosmetik til professionelt brug. Jeg er indforstået med, at disse produkter udelukkende må administreres af en kvalificeret fagperson, og jeg påtager mig ansvaret for enhver import og enhver ikke-overensstemmende brug i min jurisdiktion.",
+    "declConfirm": "Jeg bekræfter",
+    "declDone": "Den faglige erklæring er gemt.",
+    "declRequired": "Bekræft din faglige status for at bestille disse produkter.",
+    "declError": "Erklæringen kunne ikke gemmes. Prøv igen.",
+    "proForbidden": "Disse produkter, som er forbeholdt fagfolk, kan ikke sendes til dette land:"
   },
   "orders": {
     "loginRequired": "Login påkrævet",

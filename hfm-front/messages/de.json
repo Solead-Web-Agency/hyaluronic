@@ -520,7 +520,20 @@
     "vatBase": "auf {base} €",
     "vatExempt": "MwSt.-Befreiung angewendet (innergemeinschaftliches Reverse-Charge-Verfahren oder Ausfuhr).",
     "blockedProducts": "Diese Produkte können nicht in das Land der gewählten Adresse geliefert werden: {names}. Entfernen Sie sie oder wählen Sie eine andere Adresse.",
-    "blockedProductsShort": "Ein Produkt im Warenkorb kann nicht in dieses Land geliefert werden."
+    "blockedProductsShort": "Ein Produkt im Warenkorb kann nicht in dieses Land geliefert werden.",
+    "stepPro": "Berufliche Überprüfung",
+    "declIntro": "Diese Produkte sind ausschließlich für Fachkreise bestimmt. Geben Sie Ihre Tätigkeit an und bestätigen Sie anschließend Ihre Erklärung.",
+    "declProfession": "Beruf (optional)",
+    "declProNumber": "Berufsregistrierungsnummer (optional)",
+    "declTaxNumber": "Steuernummer / USt-IdNr. des Unternehmens (optional)",
+    "declContinue": "Weiter",
+    "declModalTitle": "Bestätigen Sie Ihren beruflichen Status",
+    "declText": "Ich erkläre an Eides statt, dass ich Angehöriger eines Heilberufs oder ein zum Erwerb von Medizinprodukten und Kosmetika für den professionellen Gebrauch berechtigter Käufer bin. Mir ist bewusst, dass diese Produkte ausschließlich von einer qualifizierten Fachkraft angewendet werden dürfen, und ich übernehme die Verantwortung für jede Einfuhr sowie jede nicht konforme Verwendung in meinem Rechtsraum.",
+    "declConfirm": "Ich bestätige",
+    "declDone": "Berufliche Erklärung gespeichert.",
+    "declRequired": "Bestätigen Sie Ihren beruflichen Status, um diese Produkte zu bestellen.",
+    "declError": "Die Erklärung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+    "proForbidden": "Diese ausschließlich für Fachkreise bestimmten Produkte können nicht in dieses Land versandt werden:"
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",

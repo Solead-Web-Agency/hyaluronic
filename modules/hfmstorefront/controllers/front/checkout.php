@@ -5,6 +5,7 @@
  *   POST {action:set-address, id_cart, id_address_delivery, id_address_invoice?}
  *   POST {action:set-carrier, id_cart, id_carrier}
  *   POST {action:voucher,     id_cart, code}
+ *   POST {action:pro-declaration, id_cart, profession?, pro_number?, tax_number?, double_validation:1}
  *   POST {action:order,       id_cart, payment_method?}   -> crée la commande (validateOrder)
  * Les prix passent par le moteur PrestaShop (TVA / exonération incluses).
  */
@@ -29,6 +30,8 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 return $this->setCarrier();
             case 'voucher':
                 return $this->voucher();
+            case 'pro-declaration':
+                return $this->proDeclaration();
             case 'order':
                 return $this->createOrder();
             case 'refund-order':
@@ -157,6 +160,31 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         ];
     }
 
+    /**
+     * Déclaration sur l'honneur (pays à règle « declaration ») : enregistrée sur le panier après la
+     * double validation du tunnel (case cochée + « Je confirme »), puis rattachée à la commande.
+     * L'IP est posée par la route serveur du front (jamais fournie par le navigateur).
+     */
+    protected function proDeclaration()
+    {
+        $cart = $this->loadCart();
+        if (HfmProRules::ruleForCart($cart) !== HfmProRules::RULE_DECLARATION || !HfmProRules::proProducts($cart)) {
+            return ['error' => 'declaration_not_applicable'];
+        }
+        if ((int) $this->in('double_validation') !== 1) {
+            return ['error' => 'double_validation_required'];
+        }
+        HfmProRules::saveDeclaration($cart, [
+            'profession' => $this->in('profession'),
+            'pro_number' => $this->in('pro_number'),
+            'tax_number' => $this->in('tax_number'),
+            'ip' => $this->in('client_ip'),
+            'lang' => $this->in('locale'),
+            'text' => $this->in('declaration_text'),
+        ]);
+        return ['ok' => true];
+    }
+
     protected function createOrder()
     {
         // Chemin PSP ENCAISSÉ (retours/webhook Viva/PayPal/Amazon) : identifié par `paid==1` ET un
@@ -182,11 +210,26 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             }
         }
 
-        // Contrôle RPPS : si le panier contient un produit réservé aux praticiens, on exige
-        // un numéro au FORMAT permissif (9-13 chiffres). La validité réelle est confirmée
+        // Produits réservés aux pros : règle du pays de livraison (lib/pro_rules.php).
+        $proRule = HfmProRules::proProducts($cart) ? HfmProRules::ruleForCart($cart) : HfmProRules::RULE_NONE;
+        if ($proRule === HfmProRules::RULE_FORBIDDEN || $proRule === HfmProRules::RULE_DECLARATION) {
+            $missing = $proRule === HfmProRules::RULE_FORBIDDEN
+                ? 'pro_forbidden'
+                : (HfmProRules::declarationForCart((int) $cart->id) === null ? 'pro_declaration_required' : '');
+            if ($missing !== '') {
+                // Jamais de refus sur une commande déjà encaissée : tracée pour contrôle en BO.
+                if (!$isPaidPsp) {
+                    return ['error' => $missing];
+                }
+                PrestaShopLogger::addLog('HFM checkout: commande encaissée sans ' . $missing . ', cart=' . (int) $cart->id, 2);
+            }
+        }
+
+        // Contrôle RPPS (pays à règle « rpps ») : si le panier contient un produit réservé aux praticiens,
+        // on exige un numéro au FORMAT permissif (9-13 chiffres). La validité réelle est confirmée
         // en back-office via une annotation sur la commande (cf. plus bas). Pas de blocage registre.
         $orderRpps = '';
-        if ($this->cartRequiresRpps($cart)) {
+        if ($proRule === HfmProRules::RULE_RPPS) {
             $idCust = (int) $cart->id_customer;
             $orderRpps = trim((string) $this->in('rpps'));
             if ($orderRpps !== '' && $this->isValidRpps($orderRpps)) {
@@ -289,6 +332,11 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 $payment->transaction_id = $transactionId;
                 $payment->update();
             }
+        }
+
+        // Journal « déclaration professionnelle » de la commande (affiché en BO).
+        if ($proRule !== HfmProRules::RULE_NONE) {
+            HfmProRules::recordForOrder($cart, $idOrder, $proRule, $orderRpps);
         }
 
         // Rattachement "pro" (RPPS / attestation / justificatif) :

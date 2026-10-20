@@ -520,7 +520,20 @@
     "vatBase": "od {base} €",
     "vatExempt": "Uporabljena oprostitev DDV (obrnjena davčna obveznost v EU ali izvoz).",
     "blockedProducts": "Teh izdelkov ni mogoče dostaviti v državo izbranega naslova: {names}. Odstranite jih ali izberite drug naslov.",
-    "blockedProductsShort": "Enega od izdelkov v košarici ni mogoče dostaviti v to državo."
+    "blockedProductsShort": "Enega od izdelkov v košarici ni mogoče dostaviti v to državo.",
+    "stepPro": "Strokovno preverjanje",
+    "declIntro": "Ti izdelki so namenjeni samo strokovnjakom. Navedite svojo dejavnost in nato potrdite izjavo.",
+    "declProfession": "Poklic (neobvezno)",
+    "declProNumber": "Št. poklicne registracije (neobvezno)",
+    "declTaxNumber": "Davčna številka / ID za DDV podjetja (neobvezno)",
+    "declContinue": "Nadaljuj",
+    "declModalTitle": "Potrdite svoj strokovni status",
+    "declText": "Pod častno besedo izjavljam, da sem zdravstveni delavec ali pooblaščeni kupec, upravičen do nakupa medicinskih pripomočkov in kozmetike za profesionalno uporabo. Razumem, da morajo te izdelke aplicirati izključno usposobljeni strokovnjaki, in prevzemam odgovornost za vsak uvoz in vsako neskladno uporabo v moji jurisdikciji.",
+    "declConfirm": "Potrjujem",
+    "declDone": "Strokovna izjava je shranjena.",
+    "declRequired": "Za naročilo teh izdelkov potrdite svoj strokovni status.",
+    "declError": "Izjave ni bilo mogoče shraniti, poskusite znova.",
+    "proForbidden": "Teh izdelkov, namenjenih samo strokovnjakom, ni mogoče poslati v to državo:"
   },
   "orders": {
     "loginRequired": "Potrebna prijava",

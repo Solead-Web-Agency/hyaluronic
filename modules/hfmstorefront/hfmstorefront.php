@@ -16,6 +16,7 @@ if (!defined('_PS_VERSION_')) {
 
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/cache.php';
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/country_rules.php';
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/pro_rules.php';
 
 class Hfmstorefront extends PaymentModule
 {
@@ -424,6 +425,60 @@ class Hfmstorefront extends PaymentModule
     public function hookDisplayAdminOrderTop($params)
     {
         $idOrder = (int) (isset($params['id_order']) ? $params['id_order'] : 0);
+        return $this->rppsOrderBanner($params) . ($idOrder ? $this->proDeclarationCard($idOrder) : '');
+    }
+
+    /**
+     * Encart « Déclaration professionnelle » (journal lib/pro_rules.php) : règle appliquée au pays de
+     * livraison, champs saisis, double validation, produits concernés, date / IP / langue, version du texte.
+     */
+    protected function proDeclarationCard($idOrder)
+    {
+        $d = HfmProRules::forOrder($idOrder);
+        if (!$d) {
+            return '';
+        }
+        $labels = [
+            HfmProRules::RULE_RPPS => 'Numéro RPPS (France)',
+            HfmProRules::RULE_DECLARATION => 'Déclaration sur l\'honneur (modèle Centrale Fillers)',
+            HfmProRules::RULE_FORBIDDEN => 'Pays interdit',
+        ];
+        $country = $d['country_iso'] ? Country::getNameById((int) $this->context->language->id, (int) Country::getByIso($d['country_iso'])) : '';
+        $dash = '—';
+        $e = function ($v) use ($dash) {
+            $v = trim((string) $v);
+            return $v === '' ? $dash : htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+        };
+        $accepted = $d['date_accepted']
+            ? $e($d['date_accepted']) . ($d['ip'] ? ' — IP ' . $e($d['ip']) : '') . ($d['lang'] ? ' — langue ' . $e($d['lang']) : '')
+            : $dash;
+        $rows = [
+            'Règle appliquée' => $e($labels[$d['rule']] ?? $d['rule']),
+            'Pays de livraison' => $e($country ?: $d['country_iso']),
+            'RPPS' => $e($d['rpps']),
+            'Double validation (popup)' => $d['rule'] === HfmProRules::RULE_DECLARATION ? ((int) $d['double_validation'] ? 'oui' : 'non') : $dash,
+            'Profession' => $e($d['profession']),
+            'N° d\'inscription pro' => $e($d['pro_number']),
+            'N° fiscal (TVA / NIF)' => $e($d['tax_number']),
+            'Produits concernés' => $e($d['products']),
+            'Accepté le' => $accepted,
+            'Version du texte' => $e($d['text_version']),
+        ];
+        $html = '<div class="card mb-2"><div class="card-header"><h3 class="card-header-title">&#128737; Déclaration professionnelle</h3></div>'
+            . '<div class="card-body" style="padding:0;"><table class="table" style="margin:0;">';
+        foreach ($rows as $k => $v) {
+            $html .= '<tr><td style="width:240px;font-weight:600;">' . htmlspecialchars($k, ENT_QUOTES, 'UTF-8') . '</td><td>' . $v . '</td></tr>';
+        }
+        if (trim((string) $d['text']) !== '') {
+            $html .= '<tr><td style="font-weight:600;">Texte accepté</td><td style="font-size:12px;color:#55606F;">' . $e($d['text']) . '</td></tr>';
+        }
+        return $html . '</table></div></div>';
+    }
+
+    /** Bandeau RPPS / attestation pro (données client ou commande invité). */
+    protected function rppsOrderBanner($params)
+    {
+        $idOrder = (int) (isset($params['id_order']) ? $params['id_order'] : 0);
         if (!$idOrder) {
             return '';
         }
@@ -677,6 +732,44 @@ class Hfmstorefront extends PaymentModule
         $out .= '</div>';
         $out .= '</form>';
         $out .= '</div>';
+
+        // --- Produits réservés aux professionnels : règle par pays de livraison (lib/pro_rules.php) ---
+        $proFields = [
+            'HFM_PRO_RPPS_COUNTRIES' => ['Numéro RPPS', HfmProRules::DEFAULT_RPPS, 'Parcours RPPS / attestation professionnelle.'],
+            'HFM_PRO_DECLARATION_COUNTRIES' => ['Déclaration sur l\'honneur', HfmProRules::DEFAULT_DECLARATION, 'Profession, n° d\'inscription et n° fiscal facultatifs + double validation.'],
+            'HFM_PRO_FORBIDDEN_COUNTRIES' => ['Vente interdite', '', 'Commande refusée si le panier contient un produit réservé.'],
+        ];
+        $proSaved = '';
+        if (Tools::isSubmit('submitHfmProRules')) {
+            foreach (array_keys($proFields) as $key) {
+                $isos = preg_split('/[\s,;]+/', Tools::strtoupper((string) Tools::getValue($key)));
+                Configuration::updateValue($key, implode(',', array_filter($isos, function ($i) {
+                    return (bool) preg_match('/^[A-Z]{2}$/', $i);
+                })));
+            }
+            $default = (string) Tools::getValue('HFM_PRO_DEFAULT_RULE');
+            Configuration::updateValue('HFM_PRO_DEFAULT_RULE', in_array($default, ['none', 'rpps', 'declaration', 'forbidden'], true) ? $default : 'none');
+            $proSaved = $this->displayConfirmation('Règles « produits réservés aux professionnels » enregistrées.');
+        }
+        $out .= '<div class="panel">' . $proSaved;
+        $out .= '<h3><i class="icon icon-shield"></i> Produits réservés aux professionnels — règle par pays de livraison</h3>';
+        $out .= '<p class="text-muted">Codes pays ISO à 2 lettres séparés par des virgules (FR, BE, DE…). Un produit est « réservé » s\'il porte la caractéristique RPPS. '
+              . 'Chaque commande concernée garde sa déclaration (visible en haut de la fiche commande).</p>';
+        $out .= '<form method="post" action="' . $action . '" class="form-horizontal">';
+        foreach ($proFields as $key => $f) {
+            $val = HfmProRules::countryList($key, $f[1]);
+            $out .= '<div class="form-group"><label class="control-label col-lg-3">' . htmlspecialchars($f[0]) . '</label><div class="col-lg-9">'
+                  . '<input type="text" name="' . $key . '" class="form-control" value="' . htmlspecialchars(implode(', ', $val)) . '"/>'
+                  . '<p class="help-block">' . htmlspecialchars($f[2]) . '</p></div></div>';
+        }
+        $curDefault = (string) Configuration::get('HFM_PRO_DEFAULT_RULE') ?: 'none';
+        $out .= '<div class="form-group"><label class="control-label col-lg-3">Autres pays</label><div class="col-lg-9"><select name="HFM_PRO_DEFAULT_RULE" class="form-control">';
+        foreach (['none' => 'Aucune exigence', 'rpps' => 'Numéro RPPS', 'declaration' => 'Déclaration sur l\'honneur', 'forbidden' => 'Vente interdite'] as $v => $l) {
+            $out .= '<option value="' . $v . '"' . ($v === $curDefault ? ' selected' : '') . '>' . htmlspecialchars($l) . '</option>';
+        }
+        $out .= '</select></div></div>';
+        $out .= '<div class="panel-footer"><button type="submit" name="submitHfmProRules" class="btn btn-default pull-right"><i class="process-icon-save"></i> Enregistrer</button></div>';
+        $out .= '</form></div>';
 
         // --- Infos API (existant) ---
         $secret = Configuration::get('HFMSTOREFRONT_SECRET');

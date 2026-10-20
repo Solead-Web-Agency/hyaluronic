@@ -520,7 +520,20 @@
     "vatBase": "av {base} €",
     "vatExempt": "MVA-fritak brukt (omvendt avgiftsplikt i EU eller eksport).",
     "blockedProducts": "Disse produktene kan ikke leveres til landet for den valgte adressen: {names}. Fjern dem eller velg en annen adresse.",
-    "blockedProductsShort": "Et produkt i handlekurven kan ikke leveres til dette landet."
+    "blockedProductsShort": "Et produkt i handlekurven kan ikke leveres til dette landet.",
+    "stepPro": "Faglig verifisering",
+    "declIntro": "Disse produktene er forbeholdt fagpersoner. Oppgi din virksomhet og bekreft deretter erklæringen din.",
+    "declProfession": "Yrke (valgfritt)",
+    "declProNumber": "Registreringsnummer som fagperson (valgfritt)",
+    "declTaxNumber": "Bedriftens skatte-/MVA-nummer (valgfritt)",
+    "declContinue": "Fortsett",
+    "declModalTitle": "Bekreft din faglige status",
+    "declText": "Jeg erklærer på heder og samvittighet at jeg er helsepersonell eller en autorisert kjøper som har rett til å anskaffe medisinsk utstyr og kosmetikk til profesjonell bruk. Jeg forstår at disse produktene utelukkende skal administreres av en kvalifisert fagperson, og jeg påtar meg ansvaret for all import og all ikke-samsvarende bruk i min jurisdiksjon.",
+    "declConfirm": "Jeg bekrefter",
+    "declDone": "Den faglige erklæringen er lagret.",
+    "declRequired": "Bekreft din faglige status for å bestille disse produktene.",
+    "declError": "Kunne ikke lagre erklæringen. Prøv på nytt.",
+    "proForbidden": "Disse produktene, som er forbeholdt fagpersoner, kan ikke sendes til dette landet:"
   },
   "orders": {
     "loginRequired": "Innlogging kreves",

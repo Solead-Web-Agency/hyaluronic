@@ -520,7 +520,20 @@
     "vatBase": "ze základu {base} €",
     "vatExempt": "Uplatněno osvobození od DPH (přenesení daňové povinnosti v rámci EU nebo vývoz).",
     "blockedProducts": "Tyto produkty nelze doručit do země zvolené adresy: {names}. Odeberte je nebo zvolte jinou adresu.",
-    "blockedProductsShort": "Jeden z produktů v košíku nelze doručit do této země."
+    "blockedProductsShort": "Jeden z produktů v košíku nelze doručit do této země.",
+    "stepPro": "Profesní ověření",
+    "declIntro": "Tyto produkty jsou určeny pouze odborníkům. Uveďte svou činnost a poté potvrďte své prohlášení.",
+    "declProfession": "Profese (nepovinné)",
+    "declProNumber": "Číslo profesní registrace (nepovinné)",
+    "declTaxNumber": "Daňové číslo / DIČ společnosti (nepovinné)",
+    "declContinue": "Pokračovat",
+    "declModalTitle": "Potvrďte svůj profesní status",
+    "declText": "Čestně prohlašuji, že jsem zdravotnický pracovník nebo oprávněný kupující, který je způsobilý pořizovat zdravotnické prostředky a kosmetické přípravky pro profesionální použití. Beru na vědomí, že tyto produkty smí aplikovat výhradně kvalifikovaný odborník, a přebírám odpovědnost za jakýkoli dovoz a jakékoli nevyhovující použití v mé jurisdikci.",
+    "declConfirm": "Potvrzuji",
+    "declDone": "Profesní prohlášení bylo uloženo.",
+    "declRequired": "Pro objednání těchto produktů potvrďte svůj profesní status.",
+    "declError": "Prohlášení se nepodařilo uložit, zkuste to prosím znovu.",
+    "proForbidden": "Tyto produkty určené pouze odborníkům nelze zaslat do této země:"
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",
