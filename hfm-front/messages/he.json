@@ -533,7 +533,16 @@
     "declDone": "ההצהרה המקצועית נשמרה.",
     "declRequired": "אשרו את מעמדכם המקצועי כדי להזמין מוצרים אלה.",
     "declError": "לא ניתן לשמור את ההצהרה, נסו שוב.",
-    "proForbidden": "לא ניתן לשלוח מוצרים אלה, המיועדים לאנשי מקצוע בלבד, למדינה זו:"
+    "proForbidden": "לא ניתן לשלוח מוצרים אלה, המיועדים לאנשי מקצוע בלבד, למדינה זו:",
+    "glsRelayTitle": "בחרו נקודת איסוף של GLS",
+    "glsRelayRequired": "בחרו נקודת איסוף של GLS כדי להמשיך.",
+    "glsRelayPostcode": "מיקוד",
+    "glsRelayCity": "עיר",
+    "glsRelaySearch": "חיפוש",
+    "glsRelayNone": "לא נמצאה נקודת איסוף בקרבת כתובת זו. נסו מיקוד אחר.",
+    "glsRelayError": "חיפוש נקודות איסוף אינו זמין, נסו שוב.",
+    "glsRelayInvalidPostcode": "מיקוד לא תקין עבור מדינה זו.",
+    "glsRelayDistance": "{km} ק״מ"
   },
   "orders": {
     "loginRequired": "נדרשת התחברות",

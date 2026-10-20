@@ -533,7 +533,16 @@
     "declDone": "专业声明已保存。",
     "declRequired": "请确认您的专业身份后再订购这些产品。",
     "declError": "无法保存声明，请重试。",
-    "proForbidden": "这些仅限专业人士的产品无法发往该国家/地区："
+    "proForbidden": "这些仅限专业人士的产品无法发往该国家/地区：",
+    "glsRelayTitle": "请选择您的GLS自提点",
+    "glsRelayRequired": "请选择一个GLS自提点以继续。",
+    "glsRelayPostcode": "邮政编码",
+    "glsRelayCity": "城市",
+    "glsRelaySearch": "搜索",
+    "glsRelayNone": "在此地址附近未找到自提点。请尝试其他邮政编码。",
+    "glsRelayError": "自提点搜索暂不可用，请重试。",
+    "glsRelayInvalidPostcode": "该国家/地区的邮政编码无效。",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "需要登录",

@@ -533,7 +533,16 @@
     "declDone": "専門家宣誓を登録しました。",
     "declRequired": "これらの製品を注文するには、専門家としての資格をご確認ください。",
     "declError": "宣誓を登録できませんでした。もう一度お試しください。",
-    "proForbidden": "専門家向けのこれらの製品は、この国へは発送できません："
+    "proForbidden": "専門家向けのこれらの製品は、この国へは発送できません：",
+    "glsRelayTitle": "GLS受取ポイントを選択してください",
+    "glsRelayRequired": "続行するにはGLS受取ポイントを選択してください。",
+    "glsRelayPostcode": "郵便番号",
+    "glsRelayCity": "市区町村",
+    "glsRelaySearch": "検索",
+    "glsRelayNone": "この住所の近くに受取ポイントが見つかりませんでした。別の郵便番号をお試しください。",
+    "glsRelayError": "受取ポイントの検索をご利用いただけません。もう一度お試しください。",
+    "glsRelayInvalidPostcode": "この国では無効な郵便番号です。",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "ログインが必要です",

@@ -533,7 +533,16 @@
     "declDone": "Professional declaration recorded.",
     "declRequired": "Please confirm your professional status to order these products.",
     "declError": "The declaration could not be saved, please try again.",
-    "proForbidden": "These products reserved for professionals cannot be shipped to this country:"
+    "proForbidden": "These products reserved for professionals cannot be shipped to this country:",
+    "glsRelayTitle": "Choose your GLS pickup point",
+    "glsRelayRequired": "Choose a GLS pickup point to continue.",
+    "glsRelayPostcode": "Postcode",
+    "glsRelayCity": "City",
+    "glsRelaySearch": "Search",
+    "glsRelayNone": "No pickup point found near this address. Try another postcode.",
+    "glsRelayError": "Pickup point search is unavailable, please try again.",
+    "glsRelayInvalidPostcode": "Invalid postcode for this country.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Login required",

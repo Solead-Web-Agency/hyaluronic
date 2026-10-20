@@ -591,7 +591,16 @@
     "declDone": "Déclaration professionnelle enregistrée.",
     "declRequired": "Confirmez votre statut professionnel pour commander ces produits.",
     "declError": "Impossible d'enregistrer la déclaration, veuillez réessayer.",
-    "proForbidden": "Ces produits réservés aux professionnels ne peuvent pas être expédiés vers ce pays :"
+    "proForbidden": "Ces produits réservés aux professionnels ne peuvent pas être expédiés vers ce pays :",
+    "glsRelayTitle": "Choisissez votre point relais GLS",
+    "glsRelayRequired": "Choisissez un point relais GLS pour continuer.",
+    "glsRelayPostcode": "Code postal",
+    "glsRelayCity": "Ville",
+    "glsRelaySearch": "Rechercher",
+    "glsRelayNone": "Aucun point relais trouvé près de cette adresse. Essayez un autre code postal.",
+    "glsRelayError": "Recherche des points relais indisponible, veuillez réessayer.",
+    "glsRelayInvalidPostcode": "Code postal invalide pour ce pays.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Connexion requise",

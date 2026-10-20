@@ -533,7 +533,16 @@
     "declDone": "Profesní prohlášení bylo uloženo.",
     "declRequired": "Pro objednání těchto produktů potvrďte svůj profesní status.",
     "declError": "Prohlášení se nepodařilo uložit, zkuste to prosím znovu.",
-    "proForbidden": "Tyto produkty určené pouze odborníkům nelze zaslat do této země:"
+    "proForbidden": "Tyto produkty určené pouze odborníkům nelze zaslat do této země:",
+    "glsRelayTitle": "Vyberte své výdejní místo GLS",
+    "glsRelayRequired": "Pro pokračování vyberte výdejní místo GLS.",
+    "glsRelayPostcode": "PSČ",
+    "glsRelayCity": "Město",
+    "glsRelaySearch": "Hledat",
+    "glsRelayNone": "V blízkosti této adresy nebylo nalezeno žádné výdejní místo. Zkuste jiné PSČ.",
+    "glsRelayError": "Vyhledávání výdejních míst není dostupné, zkuste to prosím znovu.",
+    "glsRelayInvalidPostcode": "Neplatné PSČ pro tuto zemi.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Vyžadováno přihlášení",

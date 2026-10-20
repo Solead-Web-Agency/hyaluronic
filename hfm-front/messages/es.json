@@ -533,7 +533,16 @@
     "declDone": "Declaración profesional registrada.",
     "declRequired": "Confirme su condición de profesional para pedir estos productos.",
     "declError": "No se ha podido registrar la declaración; inténtelo de nuevo.",
-    "proForbidden": "Estos productos reservados a profesionales no pueden enviarse a este país:"
+    "proForbidden": "Estos productos reservados a profesionales no pueden enviarse a este país:",
+    "glsRelayTitle": "Elija su punto de recogida GLS",
+    "glsRelayRequired": "Elija un punto de recogida GLS para continuar.",
+    "glsRelayPostcode": "Código postal",
+    "glsRelayCity": "Ciudad",
+    "glsRelaySearch": "Buscar",
+    "glsRelayNone": "No se ha encontrado ningún punto de recogida cerca de esta dirección. Pruebe con otro código postal.",
+    "glsRelayError": "La búsqueda de puntos de recogida no está disponible, inténtelo de nuevo.",
+    "glsRelayInvalidPostcode": "Código postal no válido para este país.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Inicio de sesión requerido",

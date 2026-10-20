@@ -2579,7 +2579,7 @@ class NkmGls extends CarrierModule implements WidgetInterface
                         '{lastname}' => $customer->lastname,
                         '{email}' => $customer->email,
                         '{order_name}' => $params['order']->reference,
-                        '{date}' => Tools::displayDate($params['order']->date_add, null),
+                        '{date}' => Tools::displayDate($params['order']->date_add, false), // [HFM] PS9 : displayDate($date, bool $full)
                         '{payment}' => Tools::substr($params['order']->payment, 0, 255),
                         '{carrier}' => $carrier->name,
                         '{address_delivery_formatted_html}' => AddressFormat::generateAddress($addressDelivery['addressObject'], [], Tools::nl2br("\n")),
@@ -2964,7 +2964,7 @@ class NkmGls extends CarrierModule implements WidgetInterface
                             if ($idOrder !== false && (int) $idOrder > 0) {
                                 return [
                                     'current_state' => self::$trackingStates[$status],
-                                    'current_state_date' => Tools::displayDate(date('Y-m-d H:i:s'), null, true),
+                                    'current_state_date' => Tools::displayDate(date('Y-m-d H:i:s'), true), // [HFM] PS9 : displayDate($date, bool $full)
                                 ];
                             }
                         } elseif ($idOrder !== false && (int) $idOrder > 0) {

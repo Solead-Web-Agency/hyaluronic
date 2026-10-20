@@ -17,6 +17,17 @@ type Carrier = {
   price_incl_tax: number;
   price_excl_tax: number;
   logo: string | null;
+  // Transporteur « Relais GLS » : un point relais doit être choisi (bridge lib/gls_relay.php).
+  gls_relay?: boolean;
+};
+
+type GlsRelay = {
+  id: string;
+  name: string;
+  street: string;
+  postcode: string;
+  city: string;
+  distance_km?: number;
 };
 
 type Totals = {
@@ -120,6 +131,13 @@ export default function CheckoutClient() {
   const [carriers, setCarriers] = useState<Carrier[]>([]);
   const [selCarrier, setSelCarrier] = useState<number | null>(null);
   const [loadingCarriers, setLoadingCarriers] = useState(false);
+  // Point relais GLS (transporteur « Relais GLS »).
+  const [glsRelays, setGlsRelays] = useState<GlsRelay[]>([]);
+  const [glsSelected, setGlsSelected] = useState<GlsRelay | null>(null);
+  const [glsLoading, setGlsLoading] = useState(false);
+  const [glsErr, setGlsErr] = useState<string | null>(null);
+  const [glsPostcode, setGlsPostcode] = useState('');
+  const [glsCity, setGlsCity] = useState('');
 
   // Mode invité (commande sans compte)
   const [guestEmail, setGuestEmail] = useState('');
@@ -583,12 +601,52 @@ export default function CheckoutClient() {
       const r = await fetch(`/api/checkout?action=shipping&id_cart=${idCart}`);
       const d = await r.json();
       setCarriers(d.carriers ?? []);
+      setGlsSelected(d.gls_relay ?? null);
     } catch {
       setCarriers([]);
     } finally {
       setLoadingCarriers(false);
     }
   }, [idCart]);
+
+  // Points relais GLS proches de l'adresse de livraison (ou du code postal / de la ville saisis).
+  const searchGlsRelays = async (postcode = '', city = '') => {
+    if (!idCart) return;
+    setGlsLoading(true);
+    setGlsErr(null);
+    try {
+      const qs = new URLSearchParams({ action: 'gls-relays', id_cart: String(idCart), ...(postcode ? { postcode, city } : {}) });
+      const r = await fetch(`/api/checkout?${qs}`);
+      const d = await r.json();
+      setGlsRelays(d.relays ?? []);
+      if (d.selected) setGlsSelected(d.selected);
+      if (d.error === 'invalid_postcode') setGlsErr(t('glsRelayInvalidPostcode'));
+      else if (d.error && d.error !== 'not_found') setGlsErr(t('glsRelayError'));
+      else if (!(d.relays ?? []).length) setGlsErr(t('glsRelayNone'));
+    } catch {
+      setGlsRelays([]);
+      setGlsErr(t('glsRelayError'));
+    } finally {
+      setGlsLoading(false);
+    }
+  };
+
+  const chooseGlsRelay = async (relay: GlsRelay) => {
+    if (!idCart) return;
+    setGlsErr(null);
+    try {
+      const r = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'gls-relay', id_cart: idCart, relay_id: relay.id }),
+      });
+      const d = await r.json();
+      if (!d.ok) throw new Error(d.error);
+      setGlsSelected(d.relay ?? relay);
+    } catch {
+      setGlsErr(t('glsRelayError'));
+    }
+  };
 
   // DHL présélectionné par défaut (demande client) : « DHL Express » en priorité, sinon le premier
   // transporteur DHL proposé pour l'adresse. Ne s'applique que tant qu'aucun transporteur n'est
@@ -631,6 +689,8 @@ export default function CheckoutClient() {
       });
       await r.json();
       await reloadTotals();
+      // Relais GLS : on propose tout de suite les points relais autour de l'adresse de livraison.
+      if (carriers.find((c) => c.id_carrier === id_carrier)?.gls_relay) void searchGlsRelays();
     } catch {
       /* ignore */
     }
@@ -928,7 +988,10 @@ export default function CheckoutClient() {
   const blockedItems = cart.blocked_products ?? [];
   // Exigence « pro » remplie pour le pays de livraison (RPPS, déclaration confirmée, pas d'interdiction).
   const proOk = (!rppsNeeded || rppsSatisfied) && (!declNeeded || declared) && !proForbidden;
-  const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && proOk && acceptedTerms && !blockedItems.length;
+  // Relais GLS : un point relais doit être choisi.
+  const glsNeeded = !!carriers.find((c) => c.id_carrier === selCarrier)?.gls_relay;
+  const glsOk = !glsNeeded || !!glsSelected;
+  const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && proOk && glsOk && acceptedTerms && !blockedItems.length;
 
   const ShieldBadge = (
     <span style={{ ...stepBadge(0, true), background: '#434343' }} aria-hidden="true">
@@ -989,6 +1052,45 @@ export default function CheckoutClient() {
   ) : null;
   // Message bloquant « pro » du récapitulatif (le premier qui s'applique).
   const proNotice = proForbidden ? t('proForbidden') : rppsNeeded && !rppsSatisfied ? t('rppsRequiredNotice') : declNeeded && !declared ? t('declRequired') : null;
+
+  // Choix du point relais GLS (sous le transporteur « Relais GLS » sélectionné).
+  const GlsRelayPicker = (
+    <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
+      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#34352F', marginBottom: '10px' }}>{t('glsRelayTitle')}</div>
+      {glsSelected ? (
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '10px 12px', marginBottom: '12px', background: 'rgba(63,114,86,.08)', border: '1px solid rgba(63,114,86,.25)', borderRadius: '7px', fontSize: '12.5px', color: '#34352F', lineHeight: 1.45 }}>
+          <span style={{ color: '#3F7256', flex: 'none' }} aria-hidden="true">✓</span>
+          <span><b>{glsSelected.name}</b><br />{glsSelected.street}, {glsSelected.postcode} {glsSelected.city}</span>
+        </div>
+      ) : (
+        <div style={{ fontSize: '12px', color: MISSING_RED, fontWeight: 600, marginBottom: '10px' }}>{t('glsRelayRequired')}</div>
+      )}
+      <form onSubmit={(e) => { e.preventDefault(); void searchGlsRelays(glsPostcode.trim(), glsCity.trim()); }} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '10px' }}>
+        <input value={glsPostcode} onChange={(e) => setGlsPostcode(e.target.value)} placeholder={t('glsRelayPostcode')} style={{ flex: '1 1 110px', minWidth: 0, height: '38px', padding: '0 10px', fontSize: '13px', border: '1px solid #E2DECF', borderRadius: '6px', background: '#fff' }} />
+        <input value={glsCity} onChange={(e) => setGlsCity(e.target.value)} placeholder={t('glsRelayCity')} style={{ flex: '2 1 150px', minWidth: 0, height: '38px', padding: '0 10px', fontSize: '13px', border: '1px solid #E2DECF', borderRadius: '6px', background: '#fff' }} />
+        <button type="submit" disabled={glsLoading || !glsPostcode.trim()} style={{ height: '38px', padding: '0 14px', borderRadius: '6px', background: 'rgba(140,198,63,0.1)', border: '1px solid rgba(155,209,89,.7)', color: '#5E8E1F', fontSize: '13px', fontWeight: 600, cursor: glsLoading || !glsPostcode.trim() ? 'not-allowed' : 'pointer', opacity: glsLoading || !glsPostcode.trim() ? 0.5 : 1 }}>{t('glsRelaySearch')}</button>
+      </form>
+      {glsLoading ? <div style={{ fontSize: '12.5px', color: '#8A8170' }}>{tc('loading')}</div> : null}
+      {glsErr ? <div style={{ fontSize: '12px', color: MISSING_RED, marginBottom: '8px' }}>{glsErr}</div> : null}
+      {!glsLoading && glsRelays.length ? (
+        <div role="radiogroup" aria-label={t('glsRelayTitle')} style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '300px', overflowY: 'auto' }}>
+          {glsRelays.map((r) => {
+            const on = glsSelected?.id === r.id;
+            return (
+              <button key={r.id} type="button" role="radio" aria-checked={on} onClick={() => chooseGlsRelay(r)} style={{ textAlign: 'left', cursor: 'pointer', background: on ? 'rgba(140,198,63,0.08)' : '#fff', border: on ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '10px 12px', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                <span style={{ marginTop: '2px', width: '13px', height: '13px', borderRadius: '50%', border: on ? '4.5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
+                <span style={{ flex: 1, minWidth: 0, fontSize: '12.5px', lineHeight: 1.4, color: '#34352F' }}>
+                  <b>{r.name}</b><br />
+                  <span style={{ color: '#6E7585' }}>{r.street}, {r.postcode} {r.city}</span>
+                </span>
+                {r.distance_km != null ? <span style={{ fontSize: '11.5px', color: '#8A8170', flex: 'none' }}>{t('glsRelayDistance', { km: r.distance_km.toLocaleString(locale, { maximumFractionDigits: 1 }) })}</span> : null}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
 
   return (
     <main data-screen-label="Commande" className="hfm-wrap" style={{ maxWidth: '1180px', margin: '0 auto', padding: '34px 28px 70px' }}>
@@ -1247,7 +1349,7 @@ export default function CheckoutClient() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {carriers.map((c) => {
                   const active = selCarrier === c.id_carrier;
-                  return (
+                  const carrierBtn = (
                     <button
                       key={c.id_carrier}
                       onClick={() => chooseCarrier(c.id_carrier)}
@@ -1261,6 +1363,13 @@ export default function CheckoutClient() {
                       </span>
                       <span style={{ fontSize: '13.5px', fontWeight: 700, color: c.price_incl_tax ? '#434343' : '#3F7256', flex: 'none' }}>{c.price_incl_tax ? `${fmt(c.price_incl_tax)} €` : t('free')}</span>
                     </button>
+                  );
+                  if (!(active && c.gls_relay)) return carrierBtn;
+                  return (
+                    <div key={c.id_carrier} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {carrierBtn}
+                      {GlsRelayPicker}
+                    </div>
                   );
                 })}
               </div>
@@ -1447,7 +1556,7 @@ export default function CheckoutClient() {
               {t('blockedProducts', { names: blockedItems.map((b) => b.name).join(', ') })}
             </div>
           ) : null}
-          {orderErr ? <div style={{ fontSize: '13px', color: '#A8503A', marginTop: '14px', textAlign: 'center' }}>{orderErr === 'blocked_country' ? t('blockedProductsShort') : orderErr === 'pro_forbidden' ? t('proForbidden') : orderErr === 'pro_declaration_required' ? t('declRequired') : t('orderError', { error: orderErr })}</div> : null}
+          {orderErr ? <div style={{ fontSize: '13px', color: '#A8503A', marginTop: '14px', textAlign: 'center' }}>{orderErr === 'blocked_country' ? t('blockedProductsShort') : orderErr === 'pro_forbidden' ? t('proForbidden') : orderErr === 'pro_declaration_required' ? t('declRequired') : orderErr === 'gls_relay_required' ? t('glsRelayRequired') : t('orderError', { error: orderErr })}</div> : null}
           {proNotice ? (
             <div style={{ display: 'flex', gap: '9px', alignItems: 'flex-start', marginTop: '14px', padding: '10px 12px', background: 'rgba(168,80,58,.08)', border: '1px solid rgba(168,80,58,.22)', borderRadius: '7px' }}>
               <span style={{ color: '#A8503A', fontSize: '13px', lineHeight: 1.3, flex: 'none' }} aria-hidden="true">⚕</span>
@@ -1455,10 +1564,10 @@ export default function CheckoutClient() {
             </div>
           ) : null}
           {payment === AMAZON_PAYMENT && amazonConfigured ? (
-            selAddress && selCarrier && idCart && proOk && acceptedTerms && !blockedItems.length ? (
+            selAddress && selCarrier && idCart && proOk && glsOk && acceptedTerms && !blockedItems.length ? (
               <div style={{ marginTop: '18px' }}><AmazonPayButton idCart={idCart} /></div>
             ) : (
-              <div style={{ width: '100%', marginTop: '18px', minHeight: '52px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', textAlign: 'center', borderRadius: '999px', background: '#EFEDE5', color: '#9A9A9A', fontSize: '13px', lineHeight: 1.4 }}>{proNotice ? proNotice : !acceptedTerms ? t('acceptTermsShort') : <span style={{ color: MISSING_RED, fontWeight: 600 }}>{t('selectAddressCarrier')}</span>}</div>
+              <div style={{ width: '100%', marginTop: '18px', minHeight: '52px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', textAlign: 'center', borderRadius: '999px', background: '#EFEDE5', color: '#9A9A9A', fontSize: '13px', lineHeight: 1.4 }}>{proNotice ? proNotice : !glsOk ? t('glsRelayRequired') : !acceptedTerms ? t('acceptTermsShort') : <span style={{ color: MISSING_RED, fontWeight: 600 }}>{t('selectAddressCarrier')}</span>}</div>
             )
           ) : (
             <button

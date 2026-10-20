@@ -533,7 +533,16 @@
     "declDone": "Ammatillinen vakuutus on tallennettu.",
     "declRequired": "Vahvista ammatillinen asemasi tilataksesi nämä tuotteet.",
     "declError": "Vakuutusta ei voitu tallentaa, yritä uudelleen.",
-    "proForbidden": "Näitä vain ammattilaisille tarkoitettuja tuotteita ei voi toimittaa tähän maahan:"
+    "proForbidden": "Näitä vain ammattilaisille tarkoitettuja tuotteita ei voi toimittaa tähän maahan:",
+    "glsRelayTitle": "Valitse GLS-noutopiste",
+    "glsRelayRequired": "Valitse GLS-noutopiste jatkaaksesi.",
+    "glsRelayPostcode": "Postinumero",
+    "glsRelayCity": "Kaupunki",
+    "glsRelaySearch": "Hae",
+    "glsRelayNone": "Tämän osoitteen läheltä ei löytynyt noutopistettä. Kokeile toista postinumeroa.",
+    "glsRelayError": "Noutopisteiden haku ei ole käytettävissä, yritä uudelleen.",
+    "glsRelayInvalidPostcode": "Virheellinen postinumero tälle maalle.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Kirjautuminen vaaditaan",

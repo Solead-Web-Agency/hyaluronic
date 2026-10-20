@@ -533,7 +533,16 @@
     "declDone": "Den faglige erklæring er gemt.",
     "declRequired": "Bekræft din faglige status for at bestille disse produkter.",
     "declError": "Erklæringen kunne ikke gemmes. Prøv igen.",
-    "proForbidden": "Disse produkter, som er forbeholdt fagfolk, kan ikke sendes til dette land:"
+    "proForbidden": "Disse produkter, som er forbeholdt fagfolk, kan ikke sendes til dette land:",
+    "glsRelayTitle": "Vælg din GLS-pakkeshop",
+    "glsRelayRequired": "Vælg en GLS-pakkeshop for at fortsætte.",
+    "glsRelayPostcode": "Postnummer",
+    "glsRelayCity": "By",
+    "glsRelaySearch": "Søg",
+    "glsRelayNone": "Der blev ikke fundet nogen pakkeshop i nærheden af denne adresse. Prøv et andet postnummer.",
+    "glsRelayError": "Søgning efter pakkeshops er ikke tilgængelig, prøv igen.",
+    "glsRelayInvalidPostcode": "Ugyldigt postnummer for dette land.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Login påkrævet",

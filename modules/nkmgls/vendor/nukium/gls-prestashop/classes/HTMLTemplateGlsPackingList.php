@@ -87,7 +87,7 @@ class HTMLTemplateGlsPackingList extends HTMLTemplate
             'client_number' => Configuration::get('GLS_API_CUSTOMER_ID') . ' ' . Configuration::get('GLS_API_CONTACT_ID'),
             'nb_labels' => $nbLabels,
             'total_weight' => $total_weight,
-            'packing_list_date' => Tools::displayDate(date('Y-m-d'), null, false),
+            'packing_list_date' => Tools::displayDate(date('Y-m-d'), false), // [HFM] PS9 : displayDate($date, bool $full)
         ]);
 
         if (version_compare(_PS_VERSION_, '1.7.6', '<')) {

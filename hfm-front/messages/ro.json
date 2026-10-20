@@ -533,7 +533,16 @@
     "declDone": "Declarația profesională a fost înregistrată.",
     "declRequired": "Confirmați statutul dvs. profesional pentru a comanda aceste produse.",
     "declError": "Declarația nu a putut fi înregistrată, vă rugăm să încercați din nou.",
-    "proForbidden": "Aceste produse rezervate profesioniștilor nu pot fi expediate în această țară:"
+    "proForbidden": "Aceste produse rezervate profesioniștilor nu pot fi expediate în această țară:",
+    "glsRelayTitle": "Alegeți punctul de ridicare GLS",
+    "glsRelayRequired": "Alegeți un punct de ridicare GLS pentru a continua.",
+    "glsRelayPostcode": "Cod poștal",
+    "glsRelayCity": "Oraș",
+    "glsRelaySearch": "Căutare",
+    "glsRelayNone": "Nu a fost găsit niciun punct de ridicare în apropierea acestei adrese. Încercați un alt cod poștal.",
+    "glsRelayError": "Căutarea punctelor de ridicare nu este disponibilă, vă rugăm să încercați din nou.",
+    "glsRelayInvalidPostcode": "Cod poștal invalid pentru această țară.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Autentificare necesară",

@@ -533,7 +533,16 @@
     "declDone": "Strokovna izjava je shranjena.",
     "declRequired": "Za naročilo teh izdelkov potrdite svoj strokovni status.",
     "declError": "Izjave ni bilo mogoče shraniti, poskusite znova.",
-    "proForbidden": "Teh izdelkov, namenjenih samo strokovnjakom, ni mogoče poslati v to državo:"
+    "proForbidden": "Teh izdelkov, namenjenih samo strokovnjakom, ni mogoče poslati v to državo:",
+    "glsRelayTitle": "Izberite svoje prevzemno mesto GLS",
+    "glsRelayRequired": "Za nadaljevanje izberite prevzemno mesto GLS.",
+    "glsRelayPostcode": "Poštna številka",
+    "glsRelayCity": "Kraj",
+    "glsRelaySearch": "Iskanje",
+    "glsRelayNone": "V bližini tega naslova ni bilo najdenega prevzemnega mesta. Poskusite z drugo poštno številko.",
+    "glsRelayError": "Iskanje prevzemnih mest ni na voljo, poskusite znova.",
+    "glsRelayInvalidPostcode": "Neveljavna poštna številka za to državo.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Potrebna prijava",

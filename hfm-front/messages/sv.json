@@ -533,7 +533,16 @@
     "declDone": "Yrkesintyget har sparats.",
     "declRequired": "Bekräfta din yrkesstatus för att beställa dessa produkter.",
     "declError": "Intyget kunde inte sparas, försök igen.",
-    "proForbidden": "Dessa produkter, som är förbehållna yrkesverksamma, kan inte skickas till detta land:"
+    "proForbidden": "Dessa produkter, som är förbehållna yrkesverksamma, kan inte skickas till detta land:",
+    "glsRelayTitle": "Välj ditt GLS-ombud",
+    "glsRelayRequired": "Välj ett GLS-ombud för att fortsätta.",
+    "glsRelayPostcode": "Postnummer",
+    "glsRelayCity": "Ort",
+    "glsRelaySearch": "Sök",
+    "glsRelayNone": "Inget ombud hittades nära den här adressen. Prova ett annat postnummer.",
+    "glsRelayError": "Sökningen efter ombud är inte tillgänglig, försök igen.",
+    "glsRelayInvalidPostcode": "Ogiltigt postnummer för det här landet.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Inloggning krävs",

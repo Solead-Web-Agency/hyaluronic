@@ -533,7 +533,16 @@
     "declDone": "Dichiarazione professionale registrata.",
     "declRequired": "Confermi il suo status professionale per ordinare questi prodotti.",
     "declError": "Impossibile registrare la dichiarazione, riprovi.",
-    "proForbidden": "Questi prodotti riservati ai professionisti non possono essere spediti in questo paese:"
+    "proForbidden": "Questi prodotti riservati ai professionisti non possono essere spediti in questo paese:",
+    "glsRelayTitle": "Scegli il tuo punto di ritiro GLS",
+    "glsRelayRequired": "Scegli un punto di ritiro GLS per continuare.",
+    "glsRelayPostcode": "CAP",
+    "glsRelayCity": "Città",
+    "glsRelaySearch": "Cerca",
+    "glsRelayNone": "Nessun punto di ritiro trovato vicino a questo indirizzo. Prova con un altro CAP.",
+    "glsRelayError": "Ricerca dei punti di ritiro non disponibile, riprova.",
+    "glsRelayInvalidPostcode": "CAP non valido per questo paese.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Accesso richiesto",

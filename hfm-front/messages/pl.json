@@ -533,7 +533,16 @@
     "declDone": "Oświadczenie zawodowe zostało zapisane.",
     "declRequired": "Potwierdź swój status zawodowy, aby zamówić te produkty.",
     "declError": "Nie udało się zapisać oświadczenia, spróbuj ponownie.",
-    "proForbidden": "Tych produktów przeznaczonych wyłącznie dla profesjonalistów nie można wysłać do tego kraju:"
+    "proForbidden": "Tych produktów przeznaczonych wyłącznie dla profesjonalistów nie można wysłać do tego kraju:",
+    "glsRelayTitle": "Wybierz punkt odbioru GLS",
+    "glsRelayRequired": "Wybierz punkt odbioru GLS, aby kontynuować.",
+    "glsRelayPostcode": "Kod pocztowy",
+    "glsRelayCity": "Miasto",
+    "glsRelaySearch": "Szukaj",
+    "glsRelayNone": "Nie znaleziono punktu odbioru w pobliżu tego adresu. Spróbuj podać inny kod pocztowy.",
+    "glsRelayError": "Wyszukiwanie punktów odbioru jest niedostępne, spróbuj ponownie.",
+    "glsRelayInvalidPostcode": "Nieprawidłowy kod pocztowy dla tego kraju.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Wymagane logowanie",

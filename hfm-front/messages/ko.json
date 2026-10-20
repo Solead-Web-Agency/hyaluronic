@@ -533,7 +533,16 @@
     "declDone": "전문가 선서가 저장되었습니다.",
     "declRequired": "이 제품을 주문하려면 전문가 자격을 확인해 주세요.",
     "declError": "선서를 저장할 수 없습니다. 다시 시도해 주세요.",
-    "proForbidden": "전문가 전용인 이 제품들은 해당 국가로 배송할 수 없습니다:"
+    "proForbidden": "전문가 전용인 이 제품들은 해당 국가로 배송할 수 없습니다:",
+    "glsRelayTitle": "GLS 수령 지점을 선택하세요",
+    "glsRelayRequired": "계속하려면 GLS 수령 지점을 선택하세요.",
+    "glsRelayPostcode": "우편번호",
+    "glsRelayCity": "도시",
+    "glsRelaySearch": "검색",
+    "glsRelayNone": "이 주소 근처에서 수령 지점을 찾을 수 없습니다. 다른 우편번호를 입력해 보세요.",
+    "glsRelayError": "수령 지점 검색을 사용할 수 없습니다. 다시 시도해 주세요.",
+    "glsRelayInvalidPostcode": "이 국가에서 유효하지 않은 우편번호입니다.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "로그인이 필요합니다",

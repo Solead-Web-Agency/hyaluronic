@@ -533,7 +533,16 @@
     "declDone": "Den faglige erklæringen er lagret.",
     "declRequired": "Bekreft din faglige status for å bestille disse produktene.",
     "declError": "Kunne ikke lagre erklæringen. Prøv på nytt.",
-    "proForbidden": "Disse produktene, som er forbeholdt fagpersoner, kan ikke sendes til dette landet:"
+    "proForbidden": "Disse produktene, som er forbeholdt fagpersoner, kan ikke sendes til dette landet:",
+    "glsRelayTitle": "Velg ditt GLS-hentested",
+    "glsRelayRequired": "Velg et GLS-hentested for å fortsette.",
+    "glsRelayPostcode": "Postnummer",
+    "glsRelayCity": "By",
+    "glsRelaySearch": "Søk",
+    "glsRelayNone": "Fant ingen hentesteder nær denne adressen. Prøv et annet postnummer.",
+    "glsRelayError": "Søket etter hentesteder er utilgjengelig, prøv igjen.",
+    "glsRelayInvalidPostcode": "Ugyldig postnummer for dette landet.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Innlogging kreves",

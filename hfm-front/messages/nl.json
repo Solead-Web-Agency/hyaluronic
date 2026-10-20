@@ -533,7 +533,16 @@
     "declDone": "Professionele verklaring opgeslagen.",
     "declRequired": "Bevestig uw professionele status om deze producten te bestellen.",
     "declError": "De verklaring kon niet worden opgeslagen. Probeer het opnieuw.",
-    "proForbidden": "Deze producten, voorbehouden aan professionals, kunnen niet naar dit land worden verzonden:"
+    "proForbidden": "Deze producten, voorbehouden aan professionals, kunnen niet naar dit land worden verzonden:",
+    "glsRelayTitle": "Kies uw GLS-afhaalpunt",
+    "glsRelayRequired": "Kies een GLS-afhaalpunt om door te gaan.",
+    "glsRelayPostcode": "Postcode",
+    "glsRelayCity": "Plaats",
+    "glsRelaySearch": "Zoeken",
+    "glsRelayNone": "Geen afhaalpunt gevonden in de buurt van dit adres. Probeer een andere postcode.",
+    "glsRelayError": "Zoeken naar afhaalpunten is niet beschikbaar, probeer het opnieuw.",
+    "glsRelayInvalidPostcode": "Ongeldige postcode voor dit land.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Inloggen vereist",

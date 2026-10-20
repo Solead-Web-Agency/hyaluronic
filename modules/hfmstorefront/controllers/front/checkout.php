@@ -5,11 +5,14 @@
  *   POST {action:set-address, id_cart, id_address_delivery, id_address_invoice?}
  *   POST {action:set-carrier, id_cart, id_carrier}
  *   POST {action:voucher,     id_cart, code}
+ *   GET  ?action=gls-relays&id_cart=..[&postcode=..&city=..] -> points relais GLS proches
+ *   POST {action:gls-relay, id_cart, relay_id}            -> enregistre le relais choisi
  *   POST {action:pro-declaration, id_cart, profession?, pro_number?, tax_number?, double_validation:1}
  *   POST {action:order,       id_cart, payment_method?}   -> crée la commande (validateOrder)
  * Les prix passent par le moteur PrestaShop (TVA / exonération incluses).
  */
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/api_base.php';
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/gls_relay.php';
 
 class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiController
 {
@@ -17,6 +20,9 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
     {
         if ((string) $this->in('action') === 'shipping') {
             return $this->shipping();
+        }
+        if ((string) $this->in('action') === 'gls-relays') {
+            return $this->glsRelays();
         }
         return ['error' => 'unknown_action'];
     }
@@ -32,6 +38,8 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 return $this->voucher();
             case 'pro-declaration':
                 return $this->proDeclaration();
+            case 'gls-relay':
+                return $this->glsSelectRelay();
             case 'order':
                 return $this->createOrder();
             case 'refund-order':
@@ -87,9 +95,11 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 'price_incl_tax' => (float) Tools::ps_round($c['price'], 2),
                 'price_excl_tax' => isset($c['price_tax_exc']) ? (float) Tools::ps_round($c['price_tax_exc'], 2) : null,
                 'logo' => $logo,
+                // Transporteur « Relais GLS » : le client doit choisir un point relais (glsRelays).
+                'gls_relay' => HfmGlsRelay::isRelayCarrier($idC),
             ];
         }
-        return ['id_cart' => (int) $cart->id, 'id_zone' => $idZone, 'carriers' => $out];
+        return ['id_cart' => (int) $cart->id, 'id_zone' => $idZone, 'carriers' => $out, 'gls_relay' => HfmGlsRelay::selected($cart)];
     }
 
     protected function setAddress()
@@ -185,6 +195,27 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         return ['ok' => true];
     }
 
+    /** Points relais GLS proches de l'adresse de livraison (ou du code postal / de la ville saisis). */
+    protected function glsRelays()
+    {
+        $cart = $this->loadCart();
+        if (!HfmGlsRelay::module()) {
+            return ['error' => 'gls_unavailable'];
+        }
+        $res = HfmGlsRelay::search($cart, (string) $this->in('postcode', ''), (string) $this->in('city', ''));
+        $res['selected'] = HfmGlsRelay::selected($cart);
+        return $res;
+    }
+
+    protected function glsSelectRelay()
+    {
+        $cart = $this->loadCart();
+        if (!HfmGlsRelay::module()) {
+            return ['error' => 'gls_unavailable'];
+        }
+        return HfmGlsRelay::select($cart, (string) $this->in('relay_id'));
+    }
+
     protected function createOrder()
     {
         // Chemin PSP ENCAISSÉ (retours/webhook Viva/PayPal/Amazon) : identifié par `paid==1` ET un
@@ -208,6 +239,11 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                     return ['error' => 'blocked_country', 'detail' => (string) $p['name']];
                 }
             }
+        }
+
+        // Relais GLS : un point relais doit être choisi (le module GLS en fait l'adresse de livraison).
+        if (!$isPaidPsp && HfmGlsRelay::isRelayCarrier((int) $cart->id_carrier) && !HfmGlsRelay::selected($cart)) {
+            return ['error' => 'gls_relay_required'];
         }
 
         // Produits réservés aux pros : règle du pays de livraison (lib/pro_rules.php).
@@ -319,9 +355,15 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 $customer->secure_key
             );
         } catch (\Throwable $e) {
-            return ['error' => 'order_failed', 'detail' => $e->getMessage()];
+            // Un module greffé sur la validation (hook actionValidateOrder…) peut planter APRÈS la
+            // création de la commande : elle existe alors bel et bien. On ne renvoie pas d'erreur au
+            // client dans ce cas (il repaierait / recommanderait), on journalise.
+            if (!(int) Order::getIdByCartId((int) $cart->id)) {
+                return ['error' => 'order_failed', 'detail' => $e->getMessage()];
+            }
+            PrestaShopLogger::addLog('HFM checkout: erreur après création de la commande (cart=' . (int) $cart->id . ') : ' . $e->getMessage(), 3);
         }
-        $idOrder = (int) $paymentModule->currentOrder;
+        $idOrder = (int) $paymentModule->currentOrder ?: (int) Order::getIdByCartId((int) $cart->id);
         $order = new Order($idOrder);
 
         // Trace l'identifiant de transaction PSP (Viva) sur le paiement de la commande

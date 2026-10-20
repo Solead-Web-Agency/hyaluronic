@@ -533,7 +533,16 @@
     "declDone": "Berufliche Erklärung gespeichert.",
     "declRequired": "Bestätigen Sie Ihren beruflichen Status, um diese Produkte zu bestellen.",
     "declError": "Die Erklärung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
-    "proForbidden": "Diese ausschließlich für Fachkreise bestimmten Produkte können nicht in dieses Land versandt werden:"
+    "proForbidden": "Diese ausschließlich für Fachkreise bestimmten Produkte können nicht in dieses Land versandt werden:",
+    "glsRelayTitle": "Wählen Sie Ihren GLS-Paketshop",
+    "glsRelayRequired": "Wählen Sie einen GLS-Paketshop, um fortzufahren.",
+    "glsRelayPostcode": "Postleitzahl",
+    "glsRelayCity": "Ort",
+    "glsRelaySearch": "Suchen",
+    "glsRelayNone": "In der Nähe dieser Adresse wurde kein Paketshop gefunden. Versuchen Sie es mit einer anderen Postleitzahl.",
+    "glsRelayError": "Die Paketshop-Suche ist derzeit nicht verfügbar. Bitte versuchen Sie es erneut.",
+    "glsRelayInvalidPostcode": "Ungültige Postleitzahl für dieses Land.",
+    "glsRelayDistance": "{km} km"
   },
   "orders": {
     "loginRequired": "Anmeldung erforderlich",

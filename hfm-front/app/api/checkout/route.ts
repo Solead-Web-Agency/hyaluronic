@@ -11,12 +11,13 @@ export const dynamic = 'force-dynamic';
 // Actions AUTORISÉES depuis le tunnel client. Les opérations privilégiées (marquer une commande
 // payée, rembourser) ne transitent JAMAIS par ici : elles sont appelées en direct par les routes
 // serveur vérifiées (retours PSP -> action 'order' + paid ; /api/payment/refund -> 'refund-order').
-const CLIENT_ACTIONS = new Set(['set-address', 'set-carrier', 'voucher', 'pro-declaration', 'order']);
+const CLIENT_ACTIONS = new Set(['set-address', 'set-carrier', 'voucher', 'pro-declaration', 'gls-relay', 'order']);
 
 export async function GET(req: NextRequest) {
   const sp = req.nextUrl.searchParams;
   const params: Record<string, string | number> = {};
-  for (const k of ['action', 'id_cart', 'id_lang', 'id_currency', 'cart_token']) {
+  // postcode / city : recherche de points relais GLS (action gls-relays).
+  for (const k of ['action', 'id_cart', 'id_lang', 'id_currency', 'cart_token', 'postcode', 'city']) {
     const v = sp.get(k);
     if (v) params[k] = v;
   }
