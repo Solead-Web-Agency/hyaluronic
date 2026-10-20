@@ -277,8 +277,8 @@ class AdminDhlLabelController extends ModuleAdminController
             }
             $order_reduction_amount_tax_incl = ($order->total_discounts_tax_incl - $shipping_amount_tax_incl);
             $order_reduction_amount_tax_excl = ($order->total_discounts_tax_excl - $shipping_amount_tax_excl);
-            $declared_value_with_taxes = $cart->getOrderTotal(true, Cart::ONLY_PRODUCTS_WITHOUT_SHIPPING) - $order_reduction_amount_tax_incl;
-            $declared_value_without_taxes = $cart->getOrderTotal(false, Cart::ONLY_PRODUCTS_WITHOUT_SHIPPING) - $order_reduction_amount_tax_excl;
+            $declared_value_with_taxes = $cart->getOrderTotal(true, Cart::ONLY_PRODUCTS /* [HFM] PS9 : ONLY_PRODUCTS_WITHOUT_SHIPPING supprimée */) - $order_reduction_amount_tax_incl;
+            $declared_value_without_taxes = $cart->getOrderTotal(false, Cart::ONLY_PRODUCTS /* [HFM] PS9 : ONLY_PRODUCTS_WITHOUT_SHIPPING supprimée */) - $order_reduction_amount_tax_excl;
         }
         $helperUpload = new HelperUploader('eg_pdf_invoice');
         $helperUpload->setId(null);
@@ -299,8 +299,8 @@ class AdminDhlLabelController extends ModuleAdminController
 
         $this->context->smarty->assign(
             array(
-                'declared_value_with_taxes' => $cartRules ? $declared_value_with_taxes : $cart->getOrderTotal(true, Cart::ONLY_PRODUCTS_WITHOUT_SHIPPING),
-                'declared_value_without_taxes' => $cartRules ? $declared_value_without_taxes : $cart->getOrderTotal(false, Cart::ONLY_PRODUCTS_WITHOUT_SHIPPING),
+                'declared_value_with_taxes' => $cartRules ? $declared_value_with_taxes : $cart->getOrderTotal(true, Cart::ONLY_PRODUCTS /* [HFM] PS9 : ONLY_PRODUCTS_WITHOUT_SHIPPING supprimée */),
+                'declared_value_without_taxes' => $cartRules ? $declared_value_without_taxes : $cart->getOrderTotal(false, Cart::ONLY_PRODUCTS /* [HFM] PS9 : ONLY_PRODUCTS_WITHOUT_SHIPPING supprimée */),
                 'currency_iso' => $orderCurency->iso_code,
                 'customer_address' => $customerAddrDelivery,
                 'customer_country_iso' => $customer_country_iso,
