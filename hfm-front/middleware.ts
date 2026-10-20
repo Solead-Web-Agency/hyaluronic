@@ -46,6 +46,14 @@ function legacyRedirect(req: NextRequest): NextResponse | null {
 }
 
 export default function middleware(req: NextRequest) {
+  // Webhook Viva déclaré chez Viva sur l'URL de l'ancien module PrestaShop
+  // (/module/vivawalletsmartcheckout/webhook?environment=live) : réécrit (pas redirigé, Viva poste
+  // en POST) vers la route webhook, sinon le préfixe de langue le casserait après la bascule DNS.
+  if (req.nextUrl.pathname === '/module/vivawalletsmartcheckout/webhook') {
+    const url = req.nextUrl.clone();
+    url.pathname = '/api/payment/webhook';
+    return NextResponse.rewrite(url);
+  }
   return legacyRedirect(req) ?? intl(req);
 }
 
