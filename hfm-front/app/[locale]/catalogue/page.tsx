@@ -8,7 +8,7 @@ import { alternatesFor } from '@/lib/seo';
 import Chrome from '../../components/Chrome';
 import Footer from '../../components/Footer';
 import CatalogueClient, { type CatalogueInitial } from './CatalogueClient';
-import { PRODUCT_PAGE_SIZE } from '@/lib/useProductPagination';
+import { PRODUCT_PAGE_SIZE } from '@/lib/productPageSize';
 
 type Search = { category?: string; brand?: string; q?: string; filter?: string };
 

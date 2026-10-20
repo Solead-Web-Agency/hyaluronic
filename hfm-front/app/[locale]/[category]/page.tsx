@@ -9,7 +9,7 @@ import { toCard, productHref } from '@/lib/cardModel';
 import Chrome from '../../components/Chrome';
 import Footer from '../../components/Footer';
 import CategoryProducts from './CategoryProducts';
-import { PRODUCT_PAGE_SIZE } from '@/lib/useProductPagination';
+import { PRODUCT_PAGE_SIZE } from '@/lib/productPageSize';
 
 // Page CATÉGORIE (parité prod : /{locale}/{category}, self-canonical). Les anciennes URLs
 // catégorie indexées (marques-catégories, familles) restent des pages dédiées -> pas de perte SEO.

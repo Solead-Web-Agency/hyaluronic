@@ -3,12 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toCard, type Card } from '@/lib/cardModel';
 import type { ProductCard } from '@/lib/ps';
+import { PRODUCT_PAGE_SIZE } from '@/lib/productPageSize';
 
 // VRAIE pagination serveur (infinite scroll) : la page 1 vient du rendu serveur (SEO) ; les pages
 // suivantes sont demandées à /api/products (page=N) quand le sentinel approche du viewport, puis
 // APPENDÉES. Le total (renvoyé par le bridge) borne le chargement (hasMore = chargés < total).
 // Un changement de tri repart en page 1 (reload) et REMPLACE la liste.
-export const PRODUCT_PAGE_SIZE = 48;
+export { PRODUCT_PAGE_SIZE };
 
 type Filters = {
   id_category?: string | number | null;
