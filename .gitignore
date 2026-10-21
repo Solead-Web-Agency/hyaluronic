@@ -11,3 +11,6 @@
 hfm_db_*.sql
 *.sql.gz
 www_/
+
+# Cache CSS généré par le thème
+themes/*/assets/cache/
