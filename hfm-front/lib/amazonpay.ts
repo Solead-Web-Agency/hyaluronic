@@ -87,8 +87,13 @@ export function buttonConfig(checkoutReviewReturnUrl: string) {
   };
 }
 
+// Le panier est inscrit DANS la session Amazon (référence marchand) : au retour, on ne fait confiance
+// qu'à cette référence, jamais au paramètre `cart` de l'URL (rejouable sur un autre panier).
+const CART_REF_PREFIX = 'hfm-cart-';
+export const cartReference = (idCart: number) => `${CART_REF_PREFIX}${idCart}`;
+
 /** Après le retour "review" : fixe le montant + l'intention de capture, renvoie l'URL de redirection finale. */
-export async function updateCheckoutSession(sessionId: string, amountEUR: number, resultReturnUrl: string): Promise<{ ok: boolean; redirectUrl?: string; data: any }> {
+export async function updateCheckoutSession(sessionId: string, amountEUR: number, resultReturnUrl: string, idCart: number): Promise<{ ok: boolean; redirectUrl?: string; data: any }> {
   const { status, data } = await api('PATCH', `checkoutSessions/${encodeURIComponent(sessionId)}`, {
     webCheckoutDetails: { checkoutResultReturnUrl: resultReturnUrl },
     paymentDetails: {
@@ -96,13 +101,13 @@ export async function updateCheckoutSession(sessionId: string, amountEUR: number
       canHandlePendingAuthorization: false,
       chargeAmount: { amount: amountEUR.toFixed(2), currencyCode: 'EUR' },
     },
-    merchantMetadata: { merchantStoreName: 'Hyaluronic Filler Market' },
+    merchantMetadata: { merchantStoreName: 'Hyaluronic Filler Market', merchantReferenceId: cartReference(idCart) },
   });
   return { ok: status >= 200 && status < 300, redirectUrl: data?.webCheckoutDetails?.amazonPayRedirectUrl, data };
 }
 
 /** Après le retour "result" : lit l'état de la session (Completed = payé). */
-export async function getCheckoutSession(sessionId: string): Promise<{ ok: boolean; state?: string; chargeId?: string; amount?: number; data: any }> {
+export async function getCheckoutSession(sessionId: string): Promise<{ ok: boolean; state?: string; chargeId?: string; amount?: number; idCart?: number; data: any }> {
   const { status, data } = await api('GET', `checkoutSessions/${encodeURIComponent(sessionId)}`);
   // Montant réellement facturé (EUR) : Amazon renvoie chargeAmount.amount en unité principale (euros)
   // sous paymentDetails (posé par updateCheckoutSession). Sert au garde-fou montant côté bridge.
@@ -112,6 +117,11 @@ export async function getCheckoutSession(sessionId: string): Promise<{ ok: boole
     state: data?.statusDetails?.state,
     chargeId: data?.chargeId,
     amount: rawAmount != null && rawAmount !== '' ? Number(rawAmount) : undefined,
+    // Panier scellé dans la session par updateCheckoutSession (absent = session non conforme).
+    idCart: (() => {
+      const ref = String(data?.merchantMetadata?.merchantReferenceId ?? '');
+      return ref.startsWith(CART_REF_PREFIX) ? Number(ref.slice(CART_REF_PREFIX.length)) || undefined : undefined;
+    })(),
     data,
   };
 }

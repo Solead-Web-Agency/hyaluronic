@@ -297,6 +297,22 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 'payment_instructions' => $this->orderIsPaid($existing) ? null : $this->paymentInstructions(),
             ];
         }
+        // Un paiement PSP ne valide qu'UNE commande : un identifiant de transaction déjà rattaché à la
+        // commande d'un AUTRE panier (retour PSP rejoué sur un autre panier) est refusé. Le même panier
+        // est déjà couvert par l'idempotence ci-dessus (retour + webhook simultanés).
+        if ($isPaidPsp) {
+            $usedBy = (int) Db::getInstance()->getValue(
+                'SELECT o.id_order FROM `' . _DB_PREFIX_ . 'order_payment` op
+                 INNER JOIN `' . _DB_PREFIX_ . 'orders` o ON o.reference = op.order_reference
+                 WHERE op.transaction_id = \'' . pSQL(trim((string) $this->in('transaction_id'))) . '\'
+                   AND o.id_cart <> ' . (int) $cart->id
+            );
+            if ($usedBy) {
+                PrestaShopLogger::addLog('HFM checkout: transaction PSP déjà utilisée par la commande ' . $usedBy . ', refusée pour cart=' . (int) $cart->id, 3);
+                return ['error' => 'transaction_already_used'];
+            }
+        }
+
         $customer = new Customer((int) $cart->id_customer);
         // Passerelle de paiement headless = ce module lui-même (commande rattachée à "hfmstorefront").
         $paymentModule = Module::getInstanceByName('hfmstorefront');

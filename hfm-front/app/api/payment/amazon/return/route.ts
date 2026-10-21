@@ -20,6 +20,12 @@ export async function GET(req: NextRequest) {
 
   const sess = await getCheckoutSession(sessionId).catch(() => null);
   if (!sess || !sess.ok || sess.state !== 'Completed') return redirect('amazon_failed=1');
+  // Le panier payé est celui scellé dans la session Amazon, pas celui de l'URL : une URL de retour
+  // rejouée avec un autre `cart` est refusée (le bridge refuse aussi un paiement déjà utilisé).
+  if (!sess.idCart || sess.idCart !== id_cart) {
+    console.error(`[amazon] panier de l'URL (${id_cart}) différent du panier scellé dans la session (${sess.idCart ?? 'aucun'})`);
+    return redirect('amazon_failed=1');
+  }
 
   const user = await getSessionUser();
   const order = await bridgePost('checkout', {

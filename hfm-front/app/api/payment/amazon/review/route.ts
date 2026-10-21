@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
   if (total <= 0) return fail();
 
   const resultUrl = `${BASE}/api/payment/amazon/return?cart=${id_cart}&lang=${lang}`;
-  const upd = await updateCheckoutSession(sessionId, total, resultUrl).catch(() => null);
+  const upd = await updateCheckoutSession(sessionId, total, resultUrl, id_cart).catch(() => null);
   if (!upd?.ok || !upd.redirectUrl) return fail();
   return NextResponse.redirect(upd.redirectUrl, { status: 303 });
 }

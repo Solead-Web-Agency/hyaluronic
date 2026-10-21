@@ -311,6 +311,17 @@ class Hfmstorefront extends PaymentModule
     /** Stock modifié (rupture / réappro) -> 'quantity' et 'available' des produits. */
     public function hookActionUpdateQuantity($params)
     {
+        // Le front n'affiche que la disponibilité (en stock / rupture), jamais la quantité : on ne vide
+        // le cache produits que si le produit PASSE en rupture ou REVIENT en stock. Avant, chaque commande
+        // vidait tout le cache produits et faisait recalculer toutes les pages d'un coup sur le serveur.
+        // Variation inconnue (delta_quantity absent) : purge par sécurité.
+        if (isset($params['quantity'], $params['delta_quantity']) && $params['delta_quantity'] !== null) {
+            $after = (int) $params['quantity'];
+            $before = $after - (int) $params['delta_quantity'];
+            if (($before > 0) === ($after > 0)) {
+                return;
+            }
+        }
         $this->purge([HfmCache::TAG_PRODUCTS]);
     }
 
