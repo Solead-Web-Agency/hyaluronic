@@ -54,6 +54,12 @@ export default function middleware(req: NextRequest) {
     url.pathname = '/api/payment/webhook';
     return NextResponse.rewrite(url);
   }
+  // Idem pour l'IPN Amazon Pay, déclarée chez Amazon sur /fr/module/amazonpay/ipn.
+  if (/^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?module\/amazonpay\/ipn\/?$/i.test(req.nextUrl.pathname)) {
+    const url = req.nextUrl.clone();
+    url.pathname = '/api/payment/amazon/ipn';
+    return NextResponse.rewrite(url);
+  }
   return legacyRedirect(req) ?? intl(req);
 }
 

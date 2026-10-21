@@ -125,3 +125,35 @@ export async function getCheckoutSession(sessionId: string): Promise<{ ok: boole
     data,
   };
 }
+
+/**
+ * Finalise la session après le retour "result" : sans cet appel (API v2) Amazon ne débite rien et la
+ * session reste "Open" puis expire. Le montant doit être celui posé par updateCheckoutSession.
+ */
+export async function completeCheckoutSession(sessionId: string, amountEUR: number): Promise<{ ok: boolean; state?: string; chargeId?: string; data: any }> {
+  const { status, data } = await api('POST', `checkoutSessions/${encodeURIComponent(sessionId)}/complete`, {
+    chargeAmount: { amount: amountEUR.toFixed(2), currencyCode: 'EUR' },
+  });
+  return { ok: status >= 200 && status < 300, state: data?.statusDetails?.state, chargeId: data?.chargeId, data };
+}
+
+/** État d'un débit (IPN) : Authorized, Captured, Declined, Canceled… + montant capturé et panier scellé. */
+export async function getCharge(chargeId: string): Promise<{ ok: boolean; status: number; state?: string; amount?: number; idCart?: number; data: any }> {
+  const { status, data } = await api('GET', `charges/${encodeURIComponent(chargeId)}`);
+  const raw = data?.captureAmount?.amount ?? data?.chargeAmount?.amount;
+  let idCart: number | undefined;
+  if (data?.chargePermissionId) {
+    // Le panier est inscrit sur l'autorisation de paiement (merchantMetadata de la session).
+    const perm = await api('GET', `chargePermissions/${encodeURIComponent(data.chargePermissionId)}`);
+    const ref = String(perm.data?.merchantMetadata?.merchantReferenceId ?? '');
+    idCart = ref.startsWith(CART_REF_PREFIX) ? Number(ref.slice(CART_REF_PREFIX.length)) || undefined : undefined;
+  }
+  return {
+    ok: status >= 200 && status < 300,
+    status,
+    state: data?.statusDetails?.state,
+    amount: raw != null && raw !== '' ? Number(raw) : undefined,
+    idCart,
+    data,
+  };
+}
