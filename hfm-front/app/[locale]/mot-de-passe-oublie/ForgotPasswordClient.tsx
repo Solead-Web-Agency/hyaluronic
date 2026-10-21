@@ -73,7 +73,7 @@ export default function ForgotPasswordClient() {
       if (!r.ok) {
         const d = await r.json().catch(() => ({}));
         // Seul cas d'erreur possible : format d'e-mail invalide (non-oracle).
-        setError(t(d.error === 'invalid_email' ? 'forgot.errors.invalid_email' : 'forgot.errors.generic'));
+        setError(d.error === 'rate_limited' ? tc('rateLimited') : t(d.error === 'invalid_email' ? 'forgot.errors.invalid_email' : 'forgot.errors.generic'));
         return;
       }
       // Réponse NON-ORACLE : message identique que le compte existe ou non.

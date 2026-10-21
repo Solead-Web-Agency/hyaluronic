@@ -126,11 +126,22 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     }
   };
 
-  // Onglets : faute de métadonnées best/nouveau/promo en live, on répartit simplement la liste.
+  // Onglets : vraies listes PrestaShop (meilleures ventes, nouveautés, prix en baisse). Un onglet
+  // sans produit est masqué par HomeTabs ; les meilleures ventes retombent sur la sélection générale.
+  const filtered = (filter: 'best' | 'new' | 'promo') =>
+    bridgeGetCached(
+      'products',
+      { filter, limit: 8, page: 1, id_lang: idLangFor(locale) },
+      { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
+    ).then((d) => ((d?.products ?? []) as ProductCard[]).map(toCard)).catch((): Card[] => []);
+  const [bestCards, newCards, promoCards] = await Promise.all([filtered('best'), filtered('new'), filtered('promo')]);
+  // « Nouveautés » : produits marqués nouveaux par PrestaShop, complétés par les derniers ajoutés
+  // (la liste générale est triée du plus récent au plus ancien).
+  const latest = [...newCards, ...cards.filter((c) => !newCards.some((n) => n.id === c.id))].slice(0, 8);
   const tabs = {
-    best: cards.slice(0, 8),
-    nouveautes: cards.slice(8, 16).length ? cards.slice(8, 16) : cards.slice(0, 8),
-    promos: cards.slice(16, 24).length ? cards.slice(16, 24) : cards.slice(0, 8),
+    best: bestCards.length ? bestCards : cards.slice(0, 8),
+    nouveautes: latest,
+    promos: promoCards,
   };
 
   const TRUST = [

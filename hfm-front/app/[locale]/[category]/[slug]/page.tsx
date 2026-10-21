@@ -24,7 +24,7 @@ async function fetchProductBySlug(slug: string, locale: string) {
     'products',
     { link_rewrite: slug, id_lang: idLangFor(locale) },
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
-  ).catch(() => ({}));
+  ); // pas de .catch : une panne du bridge remonte en 5xx (error.tsx), jamais en 404 (désindexation)
   return (data as { product?: Record<string, unknown> }).product ?? {};
 }
 
@@ -148,7 +148,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
       'products',
       { disc_slug: slug, id_lang: idLangFor(locale) },
       { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
-    ).catch(() => null);
+    ); // panne -> 5xx, pas 404
     const catSlug = (tx as { discontinued_category?: string | null } | null)?.discontinued_category;
     if (catSlug) {
       permanentRedirect(`/${locale}/${catSlug}`);

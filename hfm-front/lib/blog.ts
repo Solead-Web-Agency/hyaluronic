@@ -58,7 +58,8 @@ export async function fetchBlogList(
     limit,
   };
   if (category) params.category = category;
-  const d = await bridgeGetCached('blog', params, opts).catch(() => null);
+  // Pas de .catch : une panne du bridge remonte en 5xx (une liste vide indexée serait pire).
+  const d = await bridgeGetCached('blog', params, opts);
   return {
     posts: d?.posts ?? [],
     total: d?.total ?? 0,
@@ -73,7 +74,7 @@ export async function fetchBlogPost(locale: string, slug: string): Promise<BlogP
     'blog',
     { action: 'post', id_lang: idLangFor(locale), slug },
     opts,
-  ).catch(() => null);
+  ); // pas de .catch : une panne du bridge remonte en 5xx, jamais en 404
   return d?.post ?? null;
 }
 

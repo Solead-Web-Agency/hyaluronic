@@ -21,7 +21,8 @@
     "myOrders": "My orders",
     "myInfo": "My details",
     "cancel": "Cancel",
-    "breadcrumbHome": "Home"
+    "breadcrumbHome": "Home",
+    "rateLimited": "Too many attempts. Please try again in a few minutes."
   },
   "header": {
     "topbarShipping": "Same-day shipping — order before 3pm · DHL & Colissimo Express",

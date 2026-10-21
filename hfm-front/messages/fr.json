@@ -21,7 +21,8 @@
     "myOrders": "Mes commandes",
     "myInfo": "Mes informations",
     "cancel": "Annuler",
-    "breadcrumbHome": "Accueil"
+    "breadcrumbHome": "Accueil",
+    "rateLimited": "Trop de tentatives. Merci de réessayer dans quelques minutes."
   },
   "error": {
     "eyebrow": "Incident temporaire",

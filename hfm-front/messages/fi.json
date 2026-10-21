@@ -21,7 +21,8 @@
     "myOrders": "Tilaukseni",
     "myInfo": "Tietoni",
     "cancel": "Cancel",
-    "breadcrumbHome": "Etusivu"
+    "breadcrumbHome": "Etusivu",
+    "rateLimited": "Liian monta yritystä. Yritä uudelleen muutaman minuutin kuluttua."
   },
   "header": {
     "topbarShipping": "Toimitus samana päivänä — tilaa ennen klo 15 · DHL & Colissimo Express",

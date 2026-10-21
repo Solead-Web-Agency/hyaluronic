@@ -21,7 +21,8 @@
     "myOrders": "Моите поръчки",
     "myInfo": "Моите данни",
     "cancel": "Cancel",
-    "breadcrumbHome": "Начало"
+    "breadcrumbHome": "Начало",
+    "rateLimited": "Твърде много опити. Моля, опитайте отново след няколко минути."
   },
   "header": {
     "topbarShipping": "Експедиция в същия ден — поръчка преди 15 ч. · DHL & Colissimo Express",

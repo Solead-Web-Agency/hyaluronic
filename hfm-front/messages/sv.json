@@ -21,7 +21,8 @@
     "myOrders": "Mina beställningar",
     "myInfo": "Mina uppgifter",
     "cancel": "Cancel",
-    "breadcrumbHome": "Hem"
+    "breadcrumbHome": "Hem",
+    "rateLimited": "För många försök. Försök igen om några minuter."
   },
   "header": {
     "topbarShipping": "Leverans samma dag — beställ före kl. 15 · DHL & Colissimo Express",

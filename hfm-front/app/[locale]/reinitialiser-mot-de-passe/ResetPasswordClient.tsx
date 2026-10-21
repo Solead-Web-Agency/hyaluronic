@@ -71,7 +71,7 @@ export default function ResetPasswordClient() {
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const mapError = (e?: string) => (e && KNOWN_ERRORS.has(e) ? t(`reset.errors.${e}`) : t('reset.errors.generic'));
+  const mapError = (e?: string) => (e === 'rate_limited' ? tc('rateLimited') : e && KNOWN_ERRORS.has(e) ? t(`reset.errors.${e}`) : t('reset.errors.generic'));
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();

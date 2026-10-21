@@ -21,7 +21,8 @@
     "myOrders": "Meine Bestellungen",
     "myInfo": "Meine Daten",
     "cancel": "Cancel",
-    "breadcrumbHome": "Startseite"
+    "breadcrumbHome": "Startseite",
+    "rateLimited": "Zu viele Versuche. Bitte versuchen Sie es in einigen Minuten erneut."
   },
   "header": {
     "topbarShipping": "Versand am selben Tag — Bestellung vor 15 Uhr · DHL & Colissimo Express",

@@ -21,7 +21,8 @@
     "myOrders": "Moje objednávky",
     "myInfo": "Moje údaje",
     "cancel": "Cancel",
-    "breadcrumbHome": "Domů"
+    "breadcrumbHome": "Domů",
+    "rateLimited": "Příliš mnoho pokusů. Zkuste to prosím znovu za několik minut."
   },
   "header": {
     "topbarShipping": "Odeslání týž den — objednejte do 15:00 · DHL & Colissimo Express",

@@ -21,7 +21,8 @@
     "myOrders": "Moja naročila",
     "myInfo": "Moji podatki",
     "cancel": "Cancel",
-    "breadcrumbHome": "Domov"
+    "breadcrumbHome": "Domov",
+    "rateLimited": "Preveč poskusov. Poskusite znova čez nekaj minut."
   },
   "header": {
     "topbarShipping": "Odprema še isti dan — naročilo do 15. ure · DHL & Colissimo Express",

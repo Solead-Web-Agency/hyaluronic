@@ -4,6 +4,7 @@ import { signSession, getSessionUser, SESSION_COOKIE, type SessionUser } from '@
 import { NO_STORE } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
 import { SITE_URL } from '@/lib/seo';
+import { clientIp, hitAll, LIMITS } from '@/lib/rateLimit';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -44,10 +45,30 @@ export async function GET() {
   return NextResponse.json({ customer: { ...user, is_guest } }, { headers: NO_STORE });
 }
 
+
+// Réponse uniforme quand la limite de tentatives est atteinte (lib/rateLimit.ts).
+const rateLimited = (retryAfter: number) =>
+  NextResponse.json({ error: 'rate_limited', retry_after: retryAfter }, { status: 429, headers: { ...NO_STORE, 'Retry-After': String(retryAfter) } });
+
 // POST {action: login|register|logout, ...}
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
   const action = String(body.action || '');
+
+  // Limite de tentatives : par IP, et par e-mail pour la connexion et le mot de passe oublié.
+  const ip = clientIp(req);
+  const email = String(body.email || '').trim().toLowerCase();
+  const checks: Record<string, [string, string, (typeof LIMITS)[keyof typeof LIMITS]][]> = {
+    login: [['login-ip', ip, LIMITS.loginIp], ['login-email', email, LIMITS.loginEmail]],
+    register: [['register', ip, LIMITS.register]],
+    guest: [['guest', ip, LIMITS.guest]],
+    'forgot-password': [['forgot-ip', ip, LIMITS.forgotIp], ['forgot-email', email, LIMITS.forgotEmail]],
+    'reset-password': [['reset', ip, LIMITS.reset]],
+  };
+  if (checks[action]) {
+    const wait = await hitAll(checks[action]);
+    if (wait > 0) return rateLimited(wait);
+  }
 
   if (action === 'logout') {
     const res = NextResponse.json({ ok: true }, { headers: NO_STORE });

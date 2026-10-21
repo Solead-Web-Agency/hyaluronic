@@ -21,7 +21,8 @@
     "myOrders": "注文履歴",
     "myInfo": "登録情報",
     "cancel": "Cancel",
-    "breadcrumbHome": "ホーム"
+    "breadcrumbHome": "ホーム",
+    "rateLimited": "試行回数が多すぎます。数分後にもう一度お試しください。"
   },
   "header": {
     "topbarShipping": "当日発送 — 15時までのご注文 · DHL & Colissimo Express",

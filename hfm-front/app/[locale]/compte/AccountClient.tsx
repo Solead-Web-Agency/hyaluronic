@@ -85,6 +85,7 @@ export default function AccountClient() {
   const tc = useTranslations('common');
   const mapError = (e?: string) => {
     if (!e) return t('errors.generic');
+    if (e === 'rate_limited') return tc('rateLimited');
     if (KNOWN_ERROR_CODES.has(e)) return t(`errors.${e}`);
     return e;
   };

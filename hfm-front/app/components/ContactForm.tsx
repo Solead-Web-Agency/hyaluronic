@@ -16,6 +16,7 @@ const field: React.CSSProperties = {
 
 export default function ContactForm() {
   const t = useTranslations('contact');
+  const tc = useTranslations('common');
   const locale = useLocale();
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [idContact, setIdContact] = useState<number>(0);
@@ -54,6 +55,7 @@ export default function ContactForm() {
         // l'utilisateur ne sait pas quoi corriger.
         setErrKey(d.error === 'file_too_big' ? 'errFileBig'
           : d.error === 'invalid_file_extension' ? 'errFileType'
+          : d.error === 'rate_limited' ? 'rateLimited'
           : 'error');
         setState('error');
         return;
@@ -107,7 +109,7 @@ export default function ContactForm() {
       </label>
 
       {state === 'error' ? (
-        <div role="alert" style={{ fontSize: '13.5px', color: '#A8503A' }}>{t(errKey)}</div>
+        <div role="alert" style={{ fontSize: '13.5px', color: '#A8503A' }}>{(errKey === 'rateLimited' ? tc('rateLimited') : t(errKey))}</div>
       ) : null}
 
       <button

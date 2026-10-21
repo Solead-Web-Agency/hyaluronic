@@ -21,7 +21,8 @@
     "myOrders": "طلباتي",
     "myInfo": "بياناتي",
     "cancel": "Cancel",
-    "breadcrumbHome": "الرئيسية"
+    "breadcrumbHome": "الرئيسية",
+    "rateLimited": "محاولات كثيرة جدًا. يُرجى المحاولة مرة أخرى بعد بضع دقائق."
   },
   "header": {
     "topbarShipping": "الشحن في نفس اليوم — اطلب قبل الساعة 15:00 · DHL و Colissimo Express",

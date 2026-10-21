@@ -21,7 +21,8 @@
     "myOrders": "Comenzile mele",
     "myInfo": "Datele mele",
     "cancel": "Cancel",
-    "breadcrumbHome": "Acasă"
+    "breadcrumbHome": "Acasă",
+    "rateLimited": "Prea multe încercări. Vă rugăm să încercați din nou peste câteva minute."
   },
   "header": {
     "topbarShipping": "Expediere în aceeași zi — comandă înainte de ora 15:00 · DHL & Colissimo Express",

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { bridgePost } from '@/lib/ps';
 import { NO_STORE } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
+import { clientIp, hit, LIMITS } from '@/lib/rateLimit';
 
 // Inscription newsletter -> table native ps_emailsubscription (même table que l'ancien site,
 // pour que le back-office et les exports continuent de voir tous les inscrits).
@@ -9,6 +10,11 @@ import { idLangFor } from '@/lib/i18n-config';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
+  // Anti-abus : 10 requêtes par heure et par IP (inscription et désinscription).
+  const wait = await hit('newsletter', clientIp(req), LIMITS.newsletter);
+  if (wait > 0) {
+    return NextResponse.json({ error: 'rate_limited', retry_after: wait }, { status: 429, headers: { ...NO_STORE, 'Retry-After': String(wait) } });
+  }
   const body = await req.json().catch(() => ({}));
   // Désinscription depuis le lien signé des emails (relances panier / newsletter).
   if (body?.action === 'unsubscribe') {

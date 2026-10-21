@@ -21,7 +21,8 @@
     "myOrders": "Moje zamówienia",
     "myInfo": "Moje dane",
     "cancel": "Cancel",
-    "breadcrumbHome": "Strona główna"
+    "breadcrumbHome": "Strona główna",
+    "rateLimited": "Zbyt wiele prób. Spróbuj ponownie za kilka minut."
   },
   "header": {
     "topbarShipping": "Wysyłka tego samego dnia — zamów przed 15:00 · DHL & Colissimo Express",

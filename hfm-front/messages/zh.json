@@ -21,7 +21,8 @@
     "myOrders": "我的订单",
     "myInfo": "我的资料",
     "cancel": "Cancel",
-    "breadcrumbHome": "首页"
+    "breadcrumbHome": "首页",
+    "rateLimited": "尝试次数过多，请几分钟后再试。"
   },
   "header": {
     "topbarShipping": "当日发货 — 15点前下单 · DHL 与 Colissimo Express",

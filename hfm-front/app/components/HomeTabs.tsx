@@ -28,7 +28,9 @@ export default function HomeTabs({ tabs }: { tabs: Tabs }) {
     e.scrollTo({ left: e.scrollLeft + dir * step, behavior: 'smooth' });
   };
 
-  const labels: [keyof Tabs, string][] = [['best', t('tabBest')], ['nouveautes', t('tabNew')], ['promos', t('tabPromos')]];
+  // Un onglet sans produit (ex. aucune promotion en cours) n'est pas proposé.
+  const labels = ([['best', t('tabBest')], ['nouveautes', t('tabNew')], ['promos', t('tabPromos')]] as [keyof Tabs, string][])
+    .filter(([k]) => tabs[k].length > 0);
   const list = tabs[active];
 
   return (

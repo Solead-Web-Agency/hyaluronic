@@ -21,7 +21,8 @@
     "myOrders": "As minhas encomendas",
     "myInfo": "Os meus dados",
     "cancel": "Cancel",
-    "breadcrumbHome": "Início"
+    "breadcrumbHome": "Início",
+    "rateLimited": "Demasiadas tentativas. Tente novamente dentro de alguns minutos."
   },
   "header": {
     "topbarShipping": "Envio no próprio dia — encomende antes das 15h · DHL & Colissimo Express",

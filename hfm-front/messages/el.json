@@ -21,7 +21,8 @@
     "myOrders": "Οι παραγγελίες μου",
     "myInfo": "Τα στοιχεία μου",
     "cancel": "Cancel",
-    "breadcrumbHome": "Αρχική"
+    "breadcrumbHome": "Αρχική",
+    "rateLimited": "Πάρα πολλές προσπάθειες. Δοκιμάστε ξανά σε λίγα λεπτά."
   },
   "header": {
     "topbarShipping": "Αποστολή την ίδια ημέρα — παραγγελία πριν τις 15:00 · DHL & Colissimo Express",

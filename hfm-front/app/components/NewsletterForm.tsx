@@ -6,10 +6,11 @@ import { useTranslations, useLocale } from 'next-intl';
 // Formulaire newsletter RÉEL (le bloc était purement décoratif : un <input> et un <button> sans
 // <form> ni handler -> le canal d'acquisition ne captait rien, alors que l'ancien site collectait
 // sur chaque page). Poste vers /api/newsletter -> bridge -> table native ps_emailsubscription.
-type State = 'idle' | 'loading' | 'ok' | 'already' | 'error';
+type State = 'idle' | 'loading' | 'ok' | 'already' | 'error' | 'limited';
 
 export default function NewsletterForm() {
   const t = useTranslations('home');
+  const tc = useTranslations('common');
   const locale = useLocale();
   const [email, setEmail] = useState('');
   const [state, setState] = useState<State>('idle');
@@ -26,7 +27,7 @@ export default function NewsletterForm() {
       });
       const d = await r.json();
       if (!r.ok || d.error) {
-        setState('error');
+        setState(d.error === 'rate_limited' ? 'limited' : 'error');
         return;
       }
       setState(d.status === 'already' ? 'already' : 'ok');
@@ -39,6 +40,7 @@ export default function NewsletterForm() {
   const msg = state === 'ok' ? t('newsOk')
     : state === 'already' ? t('newsAlready')
     : state === 'error' ? t('newsError')
+    : state === 'limited' ? tc('rateLimited')
     : null;
 
   return (
@@ -64,7 +66,7 @@ export default function NewsletterForm() {
       {msg && (
         <div
           role="status"
-          style={{ marginTop: '12px', fontSize: '13.5px', color: state === 'error' ? '#F3B0B0' : '#B7E486' }}
+          style={{ marginTop: '12px', fontSize: '13.5px', color: state === 'error' || state === 'limited' ? '#F3B0B0' : '#B7E486' }}
         >
           {msg}
         </div>

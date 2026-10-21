@@ -21,7 +21,8 @@
     "myOrders": "I miei ordini",
     "myInfo": "I miei dati",
     "cancel": "Cancel",
-    "breadcrumbHome": "Home"
+    "breadcrumbHome": "Home",
+    "rateLimited": "Troppi tentativi. Riprova tra qualche minuto."
   },
   "header": {
     "topbarShipping": "Spedizione in giornata — ordini entro le 15:00 · DHL & Colissimo Express",

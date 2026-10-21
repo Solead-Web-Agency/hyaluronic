@@ -875,6 +875,7 @@ export default function CheckoutClient() {
         res.error === 'email_already_exists' ? t('guestEmailExists')
         : res.error === 'invalid_name' ? t('guestInvalidName')
         : res.error === 'invalid_email' ? t('guestInvalidEmail')
+        : res.error === 'rate_limited' ? tc('rateLimited')
         : tc('networkError')
       );
     } else {

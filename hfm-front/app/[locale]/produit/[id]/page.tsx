@@ -11,7 +11,7 @@ export default async function ProductByIdRedirect({ params }: { params: Promise<
     'products',
     { id_product: id, id_lang: idLangFor(locale) },
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
-  ).catch(() => ({} as Record<string, any>));
+  ); // pas de .catch : une panne du bridge remonte en 5xx, jamais en 404
   const p = (data as { product?: Record<string, any> }).product;
   if (!p?.link_rewrite) notFound();
   const cat = p.category || 'produit';

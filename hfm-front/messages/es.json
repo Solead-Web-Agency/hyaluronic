@@ -21,7 +21,8 @@
     "myOrders": "Mis pedidos",
     "myInfo": "Mis datos",
     "cancel": "Cancel",
-    "breadcrumbHome": "Inicio"
+    "breadcrumbHome": "Inicio",
+    "rateLimited": "Demasiados intentos. Vuelva a intentarlo dentro de unos minutos."
   },
   "header": {
     "topbarShipping": "Envío el mismo día — pedidos antes de las 15 h · DHL & Colissimo Express",

@@ -39,7 +39,7 @@ async function fetchCategory(slug: string, locale: string): Promise<Cat | null> 
     'taxonomy',
     { action: 'category', slug, id_lang: idLangFor(locale) },
     { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
-  ).catch(() => null);
+  ); // pas de .catch : une panne du bridge remonte en 5xx, jamais en 404
   return (d as { category?: Cat | null })?.category ?? null;
 }
 
@@ -111,7 +111,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
     'products',
     { id_category: cat.id_category, limit: PRODUCT_PAGE_SIZE, page: 1, order: 'position', id_lang: idLang },
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
-  ).catch(() => ({ products: [] as PC[], total: 0 }));
+  ); // pas de .catch : une panne remonte en 5xx plutôt qu'une catégorie vide indexée
   const page1 = ((d as { products?: PC[] }).products) ?? [];
   const total = Number((d as { total?: number }).total ?? page1.length);
   const cards = page1.map(toCard);

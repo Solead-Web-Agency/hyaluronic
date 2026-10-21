@@ -3,6 +3,7 @@ import { bridgeGet, bridgePost } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { NO_STORE } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
+import { clientIp, hit, LIMITS } from '@/lib/rateLimit';
 
 // Formulaire de contact -> fil Service Client natif (ps_customer_thread) + notification email.
 // Écriture par-visiteur : jamais de cache.
@@ -18,6 +19,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  // Anti-spam : 5 messages par heure et par IP.
+  const wait = await hit('contact', clientIp(req), LIMITS.contact);
+  if (wait > 0) {
+    return NextResponse.json({ error: 'rate_limited', retry_after: wait }, { status: 429, headers: { ...NO_STORE, 'Retry-After': String(wait) } });
+  }
   const form = await req.formData().catch(() => null);
   if (!form) {
     return NextResponse.json({ error: 'invalid_request' }, { status: 400, headers: NO_STORE });

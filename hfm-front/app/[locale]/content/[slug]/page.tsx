@@ -31,7 +31,7 @@ async function getPage(slug: string, locale: string): Promise<CmsPage | null> {
     'content',
     { action: 'page', link_rewrite: slug, id_lang: idLangFor(locale), locale },
     { ttl: CACHE_TTL.content, tags: [CACHE_TAGS.content] },
-  ).catch(() => null);
+  ); // pas de .catch : une panne du bridge remonte en 5xx, jamais en 404
   return data?.page ?? null;
 }
 

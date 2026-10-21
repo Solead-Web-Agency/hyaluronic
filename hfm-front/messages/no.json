@@ -21,7 +21,8 @@
     "myOrders": "Mine bestillinger",
     "myInfo": "Mine opplysninger",
     "cancel": "Cancel",
-    "breadcrumbHome": "Hjem"
+    "breadcrumbHome": "Hjem",
+    "rateLimited": "For mange forsøk. Prøv igjen om noen minutter."
   },
   "header": {
     "topbarShipping": "Sendes samme dag — bestill før kl. 15 · DHL & Colissimo Express",
