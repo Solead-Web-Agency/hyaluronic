@@ -139,7 +139,7 @@ class Hfmstorefront extends PaymentModule
     protected function ensurePurgeHooksRegistered()
     {
         // + hooks fonctionnels ajoutés après l'installation (règles de prix par pays/groupe).
-        foreach (array_merge($this->purgeHooks(), ['actionProductPriceCalculation']) as $hook) {
+        foreach (array_merge($this->purgeHooks(), ['actionProductPriceCalculation', 'actionSetInvoice']) as $hook) {
             if (!$this->isRegisteredInHook($hook)) {
                 $this->registerHook($hook);
             }
@@ -306,6 +306,37 @@ class Hfmstorefront extends PaymentModule
     public function hookActionObjectSimpleBlogCategoryDeleteAfter($params)
     {
         $this->purge([HfmCache::TAG_BLOG]);
+    }
+
+    /**
+     * La facture n'est émise qu'à l'expédition (cf. deploy/preprod-facture-expedition-*.sql), souvent
+     * par le module DHL qui change le statut sans « use_existing_payment » : PS crée alors la facture
+     * sans y rattacher le paiement encaissé à la commande. On le rattache comme le fait le BO.
+     */
+    public function hookActionSetInvoice($params)
+    {
+        $invoice = $params['OrderInvoice'] ?? null;
+        if (!empty($params['use_existing_payment']) || !$invoice instanceof OrderInvoice) {
+            return null;
+        }
+        $db = Db::getInstance();
+        $payments = $db->executeS(
+            'SELECT DISTINCT op.id_order_payment FROM `' . _DB_PREFIX_ . 'order_payment` op
+             INNER JOIN `' . _DB_PREFIX_ . 'orders` o ON o.reference = op.order_reference
+             LEFT JOIN `' . _DB_PREFIX_ . 'order_invoice_payment` oip ON oip.id_order_payment = op.id_order_payment
+             WHERE oip.id_order_payment IS NULL AND o.id_order = ' . (int) $invoice->id_order
+        ) ?: [];
+        foreach ($payments as $p) {
+            $db->insert('order_invoice_payment', [
+                'id_order_invoice' => (int) $invoice->id,
+                'id_order_payment' => (int) $p['id_order_payment'],
+                'id_order' => (int) $invoice->id_order,
+            ]);
+        }
+        if ($payments) {
+            Cache::clean('order_invoice_paid_*');
+        }
+        return null; // ne pas imposer de numéro de facture
     }
 
     /** Stock modifié (rupture / réappro) -> 'quantity' et 'available' des produits. */
