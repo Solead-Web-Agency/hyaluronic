@@ -37,6 +37,7 @@ export type ProductView = {
   combinations?: Combination[];
   // Prix AVANT remise : si > au prix courant, on affiche le barré + le badge (parité ancien site).
   priceWithoutReductionTtc?: number;
+  priceWithoutReductionHt?: number;
   // Paliers dégressifs publics (« dès 10 : 51,40 € »).
   quantityDiscounts?: { from_quantity: number; price_incl_tax: number; price_excl_tax: number }[];
   // URL canonique absolue : sert aux liens de partage (corrects dès le rendu serveur).
@@ -106,10 +107,10 @@ export default function ProductDetail({ product, related }: { product: ProductVi
   const priceHt = combo ? combo.price_excl_tax : product.ht;
   // Promo = prix avant remise strictement supérieur au prix courant (tolérance centime).
   const hasPromo = (product.priceWithoutReductionTtc ?? 0) > product.ttc + 0.009;
-  // Le bridge ne fournit le prix avant remise qu'en TTC : on le ramène en HT avec le taux du
-  // produit (même règle de taxe), pour afficher le barré dans la même unité que le prix (HT).
+  // Prix barré en HT (même unité que le prix) : fourni par le bridge ; à défaut (ancien cache),
+  // le TTC avant remise ramené en HT avec le taux du produit.
   const priceWithoutReductionHt = hasPromo && product.ttc > 0
-    ? Math.round(product.priceWithoutReductionTtc! * (product.ht / product.ttc) * 100) / 100
+    ? product.priceWithoutReductionHt ?? Math.round(product.priceWithoutReductionTtc! * (product.ht / product.ttc) * 100) / 100
     : 0;
   const tiers = product.quantityDiscounts ?? [];
   const tabsRef = useRef<HTMLElement>(null);
