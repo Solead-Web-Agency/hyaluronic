@@ -91,6 +91,7 @@ const icons = {
 
 export default function ProductDetail({ product, related }: { product: ProductView; related: RelatedView }) {
   const t = useTranslations('product');
+  const locale = useLocale();
   const tc = useTranslations('common');
   const to = useTranslations('offer');
   const { addToCart } = useStore();
@@ -216,7 +217,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
                   <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill={i <= Math.round(product.reviews!.rate) ? '#f5c518' : '#E2DECF'} stroke="none"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17l-5.2 2.6 1-5.8L3.5 9.7l5.9-.9z" /></svg>
                 ))}
               </span>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#1B2433' }}>{product.reviews.rate10}/10</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: '#1B2433' }}>{rate5(product.reviews.rate10, locale)}/5</span>
               <span style={{ fontSize: '13px', fontWeight: 600, color: '#5E8E1F', textDecoration: 'underline' }}>{t('reviewsCount', { count: product.reviews.count })}</span>
             </button>
           ) : null}
@@ -510,6 +511,11 @@ export default function ProductDetail({ product, related }: { product: ProductVi
 }
 
 /** Étoiles pleines/vides sur 5. */
+/** Note sur 5 à une décimale, à partir de la note SAG sur 10 (une seule échelle sur le site, audit 27/10 M8). */
+function rate5(rate10: number, locale: string): string {
+  return new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(Math.round(rate10 * 5) / 10);
+}
+
 function Stars({ rate, size = 15 }: { rate: number; size?: number }) {
   return (
     <span style={{ display: 'inline-flex', gap: '1px' }} aria-label={`${rate}/5`}>
@@ -522,7 +528,7 @@ function Stars({ rate, size = 15 }: { rate: number; size?: number }) {
   );
 }
 
-/** Bloc d'avis « Société des Avis Garantis » : résumé (note /10 + distribution) + liste. */
+/** Bloc d'avis « Société des Avis Garantis » : résumé (note /5 + distribution) + liste. */
 function ReviewsBlock({ reviews }: { reviews: ProductReviews }) {
   const t = useTranslations('product');
   const locale = useLocale();
@@ -563,7 +569,7 @@ function ReviewsBlock({ reviews }: { reviews: ProductReviews }) {
           })}
         </div>
         <div style={{ textAlign: 'center', minWidth: '110px' }}>
-          <div style={{ fontSize: '36px', fontWeight: 800, color: '#1B2433', lineHeight: 1 }}>{reviews.rate10}<span style={{ fontSize: '16px', color: '#8A8170', fontWeight: 600 }}>/10</span></div>
+          <div style={{ fontSize: '36px', fontWeight: 800, color: '#1B2433', lineHeight: 1 }}>{rate5(reviews.rate10, locale)}<span style={{ fontSize: '16px', color: '#8A8170', fontWeight: 600 }}>/5</span></div>
           <div style={{ marginTop: '6px' }}><Stars rate={Math.round(reviews.rate)} /></div>
           <div style={{ fontSize: '12.5px', color: '#6E7062', marginTop: '5px' }}>{t('reviewsBasedOn', { count: reviews.count })}</div>
         </div>
