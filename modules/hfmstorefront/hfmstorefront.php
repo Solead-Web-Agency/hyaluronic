@@ -139,7 +139,7 @@ class Hfmstorefront extends PaymentModule
     protected function ensurePurgeHooksRegistered()
     {
         // + hooks fonctionnels ajoutés après l'installation (règles de prix par pays/groupe).
-        foreach (array_merge($this->purgeHooks(), ['actionProductPriceCalculation', 'actionSetInvoice']) as $hook) {
+        foreach (array_merge($this->purgeHooks(), ['actionProductPriceCalculation', 'actionSetInvoice', 'displayInvoiceLegalFreeText', 'displayPDFOrderSlip']) as $hook) {
             if (!$this->isRegisteredInHook($hook)) {
                 $this->registerHook($hook);
             }
@@ -337,6 +337,93 @@ class Hfmstorefront extends PaymentModule
             Cache::clean('order_invoice_paid_*');
         }
         return null; // ne pas imposer de numéro de facture
+    }
+
+    /**
+     * Mentions légales de la facture (remplacent PS_INVOICE_LEGAL_FREE_TEXT, qui affichait en
+     * anglais le n° de TVA d'une autre société) : exonération avec le BON article du CGI, état du
+     * règlement, conditions de retard entre professionnels. Texte brut (le modèle échappe et
+     * passe à la ligne).
+     */
+    public function hookDisplayInvoiceLegalFreeText($params)
+    {
+        $order = $params['order'] ?? null;
+        if (!$order instanceof Order || !Validate::isLoadedObject($order)) {
+            return '';
+        }
+        $lines = [];
+        if ($exemption = $this->vatExemptionMention($order)) {
+            $lines[] = $exemption;
+        }
+        $paid = 0.0;
+        $paidOn = '';
+        foreach (OrderPayment::getByOrderReference($order->reference) as $payment) {
+            $paid += (float) $payment->amount;
+            $paidOn = $paidOn ?: (string) $payment->date_add;
+        }
+        if ($paid + 0.01 >= (float) $order->total_paid_tax_incl && $paidOn !== '') {
+            $lines[] = 'Facture acquittée le ' . date('d/m/Y', strtotime($paidOn)) . ' (' . $order->payment . ').';
+        } else {
+            $lines[] = 'Règlement à réception de facture (' . $order->payment . ').';
+        }
+        $lines[] = 'Pas d\'escompte pour paiement anticipé. Tout retard de paiement entraîne des pénalités au taux de trois fois '
+            . 'le taux d\'intérêt légal et une indemnité forfaitaire pour frais de recouvrement de 40 € '
+            . '(articles L441-10 et D441-5 du Code de commerce).';
+        return implode("\n", $lines);
+    }
+
+    /**
+     * Avoir : rappel obligatoire de la facture d'origine + mention d'exonération identique à la
+     * facture. HTML (bloc de bas de page du modèle d'avoir).
+     */
+    public function hookDisplayPDFOrderSlip($params)
+    {
+        $slip = $params['object'] ?? null;
+        $order = $slip && !empty($slip->id_order) ? new Order((int) $slip->id_order) : null;
+        if (!$order || !Validate::isLoadedObject($order)) {
+            return '';
+        }
+        $lines = [];
+        $invoice = $order->hasInvoice() ? $order->getInvoicesCollection()->getFirst() : null;
+        if ($invoice && Validate::isLoadedObject($invoice)) {
+            $lines[] = 'Avoir relatif à la facture n° ' . $invoice->getInvoiceNumberFormatted((int) $order->id_lang, (int) $order->id_shop)
+                . ' du ' . date('d/m/Y', strtotime((string) $invoice->date_add)) . ' (commande ' . $order->reference . ').';
+        } else {
+            $lines[] = 'Avoir relatif à la commande ' . $order->reference . '.';
+        }
+        if ($exemption = $this->vatExemptionMention($order)) {
+            $lines[] = $exemption;
+        }
+        return '<table style="width:100%;font-size:8pt;color:#444"><tr><td>'
+            . implode('<br />', array_map(function ($l) { return htmlspecialchars($l, ENT_QUOTES, 'UTF-8'); }, $lines))
+            . '</td></tr></table>';
+    }
+
+    /**
+     * Mention d'exonération de TVA d'une commande vendue sans TVA, selon la destination :
+     * livraison intracommunautaire de biens (262 ter I, n° de TVA de l'acquéreur) ou exportation
+     * hors UE (262 I). Rien si la commande porte de la TVA.
+     */
+    protected function vatExemptionMention(Order $order)
+    {
+        $tax = (float) $order->total_paid_tax_incl - (float) $order->total_paid_tax_excl;
+        if ($tax > 0.01 || (float) $order->total_paid_tax_excl <= 0) {
+            return '';
+        }
+        $delivery = new Address((int) $order->id_address_delivery);
+        $iso = Validate::isLoadedObject($delivery) ? Tools::strtoupper((string) Country::getIsoById((int) $delivery->id_country)) : '';
+        if ($iso === '' || $iso === 'FR' || $iso === 'COS' || $iso === 'MC') {
+            return '';
+        }
+        $eu = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT',
+            'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'];
+        if (in_array($iso, $eu, true)) {
+            $invoiceAddress = new Address((int) $order->id_address_invoice);
+            $vat = Validate::isLoadedObject($invoiceAddress) ? trim((string) $invoiceAddress->vat_number) : '';
+            return 'Exonération de TVA : livraison intracommunautaire de biens (article 262 ter I du CGI)'
+                . ($vat !== '' ? ' — n° de TVA intracommunautaire de l\'acquéreur : ' . $vat : '') . '.';
+        }
+        return 'Exonération de TVA : exportation hors de l\'Union européenne (article 262 I du CGI).';
     }
 
     /** Stock modifié (rupture / réappro) -> 'quantity' et 'available' des produits. */
