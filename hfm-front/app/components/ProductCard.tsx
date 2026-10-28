@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/navigation';
 import type { Card } from '@/lib/cardModel';
-import { fmt, productHref } from '@/lib/cardModel';
+import { canBuyStatus, fmt, productHref } from '@/lib/cardModel';
+import { stockLabelKey } from '@/lib/delivery';
+import { TaxLine } from './Availability';
 import { useStore } from '../store';
 import { useWishlist } from '../wishlist';
 import { COMPARE_EVENT, COMPARE_MAX, readCompare, toggleCompare } from '@/lib/compare';
@@ -31,6 +33,7 @@ export default function ProductCard({ product }: { product: Card }) {
   const router = useRouter();
   const tp = useTranslations('product');
   const tc = useTranslations('common');
+  const to = useTranslations('offer');
   const fav = has(product.id);
 
   const onFav = (e: React.MouseEvent) => {
@@ -45,10 +48,11 @@ export default function ProductCard({ product }: { product: Card }) {
   const [added, setAdded] = useState(false);
   const t = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 3 états : en stock (achat), sur commande (achat + badge), indisponible (alerte retour).
+  // 3 états (statut unique, lib/cardModel.ts) : en stock (achat), sur commande (achat + badge),
+  // indisponible (alerte retour, pas d'ajout au panier).
   const out = product.stock === 'out';
   const backorder = product.stock === 'backorder';
-  const canBuy = !out;
+  const canBuy = canBuyStatus(product.stock);
   const href = productHref(product);
 
   const onAdd = (e: React.MouseEvent) => {
@@ -204,7 +208,7 @@ export default function ProductCard({ product }: { product: Card }) {
               borderRadius: '999px',
             }}
           >
-            {out ? tp('unavailableBadge') : tp('onOrderBadge')}
+            {to(stockLabelKey(product.stock, true))}
           </span>
         ) : null}
         {product.rpps_required ? (
@@ -274,9 +278,7 @@ export default function ProductCard({ product }: { product: Card }) {
             {tc('exclTax')}
           </span>
         </div>
-        <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '11.5px', color: '#9C9686' }}>
-          {tc('inclTaxShort', { amount: fmt(product.ttc) })}
-        </div>
+        <TaxLine ht={product.ht} ttc={product.ttc} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '11.5px', color: '#9C9686' }} />
         {canBuy ? (
           added ? (
             <button

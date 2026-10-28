@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Link } from '@/i18n/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import { idLangFor } from '@/lib/i18n-config';
 import { COMPARE_EVENT, clearCompare, readCompare, removeCompare } from '@/lib/compare';
 
@@ -13,6 +13,9 @@ type Row = { id_product: number; name: string; image: string | null };
 export default function CompareBar() {
   const t = useTranslations('compare');
   const locale = useLocale();
+  // Sur la page de comparaison elle-même, la barre est inutile (son seul lien y mène) et elle
+  // recouvrait la ligne « Ajouter au panier » du tableau : on ne l'affiche pas.
+  const onComparePage = usePathname() === '/comparaison';
   const [rows, setRows] = useState<Row[]>([]);
 
   useEffect(() => {
@@ -32,14 +35,16 @@ export default function CompareBar() {
     return () => window.removeEventListener(COMPARE_EVENT, load);
   }, [locale]);
 
-  if (!rows.length) return null;
+  if (!rows.length || onComparePage) return null;
 
   return (
     <div
       role="region"
       aria-label={t('title')}
+      className="hfm-comparebar"
       style={{
-        position: 'fixed', left: 16, right: 16, bottom: 16, zIndex: 900, maxWidth: '900px',
+        // Sous le tiroir panier (60) et l'aperçu rapide (65) : elle masquait le bouton « Commander ».
+        position: 'fixed', left: 16, right: 16, bottom: 16, zIndex: 54, maxWidth: '900px',
         margin: '0 auto', background: '#fff', border: '1px solid #E7E3DA', borderRadius: '14px',
         boxShadow: '0 20px 50px -22px rgba(40,50,25,.45)', padding: '12px 16px',
         display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap',
@@ -47,9 +52,11 @@ export default function CompareBar() {
       }}
     >
       <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#5E6152' }}>{t('title')}</span>
-      <div style={{ display: 'flex', gap: '8px', flex: 1, flexWrap: 'wrap' }}>
+      {/* Vignettes sur une seule ligne (défilement horizontal) : sur mobile la barre restait
+          haute de 3 lignes et masquait la page. */}
+      <div style={{ display: 'flex', gap: '8px', flex: '1 1 200px', minWidth: 0, flexWrap: 'nowrap', overflowX: 'auto' }}>
         {rows.map((p) => (
-          <div key={p.id_product} style={{ display: 'flex', alignItems: 'center', gap: '7px', border: '1px solid #E2DECF', borderRadius: '8px', padding: '4px 8px 4px 4px', background: '#FAFAF7' }}>
+          <div key={p.id_product} style={{ flex: 'none', display: 'flex', alignItems: 'center', gap: '7px', border: '1px solid #E2DECF', borderRadius: '8px', padding: '4px 8px 4px 4px', background: '#FAFAF7' }}>
             {p.image ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img src={p.image} alt="" width={28} height={28} style={{ objectFit: 'contain', borderRadius: '4px' }} />

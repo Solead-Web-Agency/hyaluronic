@@ -757,5 +757,26 @@
     "title": "Uw winkelwagen",
     "loading": "Uw winkelwagen wordt hersteld…",
     "invalid": "Deze winkelwagenlink is ongeldig."
+  },
+  "offer": {
+    "inStock": "Op voorraad",
+    "backorder": "Op bestelling — verzending binnen 10 tot 15 dagen",
+    "backorderShort": "Op bestelling",
+    "unavailable": "Niet beschikbaar",
+    "shipInStock": "Vandaag verzonden bij bestelling vóór 15.00 uur (werkdagen) · levering in 24-48 u in Frankrijk",
+    "shipBackorder": "Verzending binnen 10 tot 15 dagen",
+    "vatFree": "geen btw verschuldigd",
+    "reference": "Ref. {reference}",
+    "shipping": "Verzending",
+    "shippingNextStep": "Wordt in de volgende stap berekend",
+    "vat": "Btw",
+    "totalInclNoShipping": "Totaal incl. btw, excl. verzending",
+    "checkout": "Bestellen · {amount} € incl. btw",
+    "freeShippingRemaining": "Nog maar <b>{amount} € excl. btw</b> tot gratis verzending",
+    "securePayment": "Veilig betalen met 3D-Secure · verzending met DHL Express & GLS",
+    "tileShipTitle": "Verzending met track & trace",
+    "tileShipSub": "DHL Express & GLS — gratis vanaf 400 € excl. btw",
+    "tilePayTitle": "Veilig betalen",
+    "tilePaySub": "Versleutelde 3D-Secure-transacties"
   }
 }

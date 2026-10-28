@@ -757,5 +757,26 @@
     "title": "Coșul dvs.",
     "loading": "Se restabilește coșul…",
     "invalid": "Acest link de coș nu este valid."
+  },
+  "offer": {
+    "inStock": "În stoc",
+    "backorder": "La comandă — expediere în 10–15 zile",
+    "backorderShort": "La comandă",
+    "unavailable": "Indisponibil",
+    "shipInStock": "Expediat astăzi pentru comenzile plasate înainte de ora 15:00 (zile lucrătoare) · livrare în 24–48 h în Franța",
+    "shipBackorder": "Expediere în 10–15 zile",
+    "vatFree": "TVA neaplicabil",
+    "reference": "Ref. {reference}",
+    "shipping": "Livrare",
+    "shippingNextStep": "Se calculează la pasul următor",
+    "vat": "TVA",
+    "totalInclNoShipping": "Total cu TVA, fără livrare",
+    "checkout": "Comandă · {amount} € cu TVA",
+    "freeShippingRemaining": "Doar <b>{amount} € fără TVA</b> până la livrarea gratuită",
+    "securePayment": "Plată securizată 3D-Secure · expediere prin DHL Express și GLS",
+    "tileShipTitle": "Livrare urmărită",
+    "tileShipSub": "DHL Express și GLS — gratuită de la 400 € fără TVA",
+    "tilePayTitle": "Plată securizată",
+    "tilePaySub": "Tranzacții criptate 3D-Secure"
   }
 }

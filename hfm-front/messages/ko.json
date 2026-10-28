@@ -757,5 +757,26 @@
     "title": "장바구니",
     "loading": "장바구니를 복원하는 중…",
     "invalid": "이 장바구니 링크가 유효하지 않습니다."
+  },
+  "offer": {
+    "inStock": "재고 있음",
+    "backorder": "주문 후 입고 — 10~15일 이내 발송",
+    "backorderShort": "주문 후 입고",
+    "unavailable": "구매 불가",
+    "shipInStock": "영업일 오후 3시 이전 주문 시 당일 발송 · 프랑스 내 24~48시간 배송",
+    "shipBackorder": "10~15일 이내 발송",
+    "vatFree": "부가세 면제",
+    "reference": "품번 {reference}",
+    "shipping": "배송비",
+    "shippingNextStep": "다음 단계에서 계산됩니다",
+    "vat": "부가세",
+    "totalInclNoShipping": "부가세 포함 합계 (배송비 별도)",
+    "checkout": "주문하기 · 부가세 포함 {amount} €",
+    "freeShippingRemaining": "무료 배송까지 <b>{amount} € (부가세 별도)</b> 남았습니다",
+    "securePayment": "3D-Secure 안전 결제 · DHL Express 및 GLS 배송",
+    "tileShipTitle": "추적 가능한 배송",
+    "tileShipSub": "DHL Express 및 GLS — 부가세 별도 400 € 이상 무료",
+    "tilePayTitle": "안전한 결제",
+    "tilePaySub": "3D-Secure 암호화 거래"
   }
 }

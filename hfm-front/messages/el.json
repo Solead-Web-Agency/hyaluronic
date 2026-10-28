@@ -757,5 +757,26 @@
     "title": "Το καλάθι σας",
     "loading": "Επαναφορά του καλαθιού σας…",
     "invalid": "Ο σύνδεσμος καλαθιού δεν είναι έγκυρος."
+  },
+  "offer": {
+    "inStock": "Σε απόθεμα",
+    "backorder": "Κατόπιν παραγγελίας — αποστολή σε 10 έως 15 ημέρες",
+    "backorderShort": "Κατόπιν παραγγελίας",
+    "unavailable": "Μη διαθέσιμο",
+    "shipInStock": "Αποστολή σήμερα για παραγγελίες έως τις 15:00 (εργάσιμες ημέρες) · παράδοση σε 24-48 ώρες στη Γαλλία",
+    "shipBackorder": "Αποστολή σε 10 έως 15 ημέρες",
+    "vatFree": "δεν χρεώνεται ΦΠΑ",
+    "reference": "Κωδ. {reference}",
+    "shipping": "Αποστολή",
+    "shippingNextStep": "Υπολογίζεται στο επόμενο βήμα",
+    "vat": "ΦΠΑ",
+    "totalInclNoShipping": "Σύνολο με ΦΠΑ, χωρίς μεταφορικά",
+    "checkout": "Παραγγελία · {amount} € με ΦΠΑ",
+    "freeShippingRemaining": "Μόνο <b>{amount} € χωρίς ΦΠΑ</b> ακόμη για δωρεάν παράδοση",
+    "securePayment": "Ασφαλής πληρωμή 3D-Secure · αποστολή με DHL Express & GLS",
+    "tileShipTitle": "Παράδοση με παρακολούθηση",
+    "tileShipSub": "DHL Express & GLS — δωρεάν από 400 € χωρίς ΦΠΑ",
+    "tilePayTitle": "Ασφαλής πληρωμή",
+    "tilePaySub": "Κρυπτογραφημένες συναλλαγές 3D-Secure"
   }
 }

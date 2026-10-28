@@ -757,5 +757,26 @@
     "title": "カート",
     "loading": "カートを復元しています…",
     "invalid": "このカートのリンクは無効です。"
+  },
+  "offer": {
+    "inStock": "在庫あり",
+    "backorder": "お取り寄せ — 10〜15日以内に発送",
+    "backorderShort": "お取り寄せ",
+    "unavailable": "入手不可",
+    "shipInStock": "平日15時までのご注文は当日発送 · フランス国内は24〜48時間でお届け",
+    "shipBackorder": "10〜15日以内に発送",
+    "vatFree": "VAT対象外",
+    "reference": "品番 {reference}",
+    "shipping": "配送料",
+    "shippingNextStep": "次のステップで計算されます",
+    "vat": "VAT",
+    "totalInclNoShipping": "合計(税込・送料別)",
+    "checkout": "注文する · {amount} €(税込)",
+    "freeShippingRemaining": "送料無料まであと <b>{amount} €(税抜)</b>",
+    "securePayment": "3Dセキュア対応の安全なお支払い · DHL Express・GLSで発送",
+    "tileShipTitle": "追跡可能な配送",
+    "tileShipSub": "DHL Express・GLS — 400 €(税抜)以上で送料無料",
+    "tilePayTitle": "安全なお支払い",
+    "tilePaySub": "3Dセキュアによる暗号化決済"
   }
 }

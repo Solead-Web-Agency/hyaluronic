@@ -757,5 +757,26 @@
     "title": "Ihr Warenkorb",
     "loading": "Ihr Warenkorb wird wiederhergestellt…",
     "invalid": "Dieser Warenkorb-Link ist ungültig."
+  },
+  "offer": {
+    "inStock": "Auf Lager",
+    "backorder": "Auf Bestellung — Versand innerhalb von 10 bis 15 Tagen",
+    "backorderShort": "Auf Bestellung",
+    "unavailable": "Nicht verfügbar",
+    "shipInStock": "Versand noch heute bei Bestellung vor 15 Uhr (Werktage) · Lieferung in 24-48 Std. in Frankreich",
+    "shipBackorder": "Versand innerhalb von 10 bis 15 Tagen",
+    "vatFree": "keine MwSt.",
+    "reference": "Art.-Nr. {reference}",
+    "shipping": "Versand",
+    "shippingNextStep": "Wird im nächsten Schritt berechnet",
+    "vat": "MwSt.",
+    "totalInclNoShipping": "Gesamt inkl. MwSt., zzgl. Versand",
+    "checkout": "Bestellen · {amount} € inkl. MwSt.",
+    "freeShippingRemaining": "Nur noch <b>{amount} € exkl. MwSt.</b> bis zur kostenlosen Lieferung",
+    "securePayment": "Sichere Zahlung mit 3D-Secure · Versand mit DHL Express & GLS",
+    "tileShipTitle": "Versand mit Sendungsverfolgung",
+    "tileShipSub": "DHL Express & GLS — kostenlos ab 400 € exkl. MwSt.",
+    "tilePayTitle": "Sichere Zahlung",
+    "tilePaySub": "Verschlüsselte 3D-Secure-Transaktionen"
   }
 }

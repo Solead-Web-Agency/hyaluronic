@@ -757,5 +757,26 @@
     "title": "Din varukorg",
     "loading": "Återställer din varukorg…",
     "invalid": "Den här varukorgslänken är ogiltig."
+  },
+  "offer": {
+    "inStock": "I lager",
+    "backorder": "Beställningsvara — skickas inom 10 till 15 dagar",
+    "backorderShort": "Beställningsvara",
+    "unavailable": "Ej tillgänglig",
+    "shipInStock": "Skickas i dag vid beställning före kl. 15 (vardagar) · leverans inom 24-48 h i Frankrike",
+    "shipBackorder": "Skickas inom 10 till 15 dagar",
+    "vatFree": "momsfritt",
+    "reference": "Art.nr {reference}",
+    "shipping": "Frakt",
+    "shippingNextStep": "Beräknas i nästa steg",
+    "vat": "Moms",
+    "totalInclNoShipping": "Totalt inkl. moms, exkl. frakt",
+    "checkout": "Beställ · {amount} € inkl. moms",
+    "freeShippingRemaining": "Endast <b>{amount} € exkl. moms</b> kvar till fri frakt",
+    "securePayment": "Säker betalning med 3D-Secure · skickas med DHL Express & GLS",
+    "tileShipTitle": "Spårbar leverans",
+    "tileShipSub": "DHL Express & GLS — fri frakt från 400 € exkl. moms",
+    "tilePayTitle": "Säker betalning",
+    "tilePaySub": "Krypterade 3D-Secure-transaktioner"
   }
 }

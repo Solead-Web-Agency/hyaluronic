@@ -757,5 +757,26 @@
     "title": "Vaša košarica",
     "loading": "Obnavljanje košarice…",
     "invalid": "Ta povezava do košarice ni veljavna."
+  },
+  "offer": {
+    "inStock": "Na zalogi",
+    "backorder": "Po naročilu — odprema v 10 do 15 dneh",
+    "backorderShort": "Po naročilu",
+    "unavailable": "Ni na voljo",
+    "shipInStock": "Odpremljeno danes za naročila pred 15. uro (delovni dnevi) · dostava v 24–48 urah v Franciji",
+    "shipBackorder": "Odprema v 10 do 15 dneh",
+    "vatFree": "DDV se ne obračuna",
+    "reference": "Šifra {reference}",
+    "shipping": "Dostava",
+    "shippingNextStep": "Izračunano v naslednjem koraku",
+    "vat": "DDV",
+    "totalInclNoShipping": "Skupaj z DDV, brez dostave",
+    "checkout": "Naroči · {amount} € z DDV",
+    "freeShippingRemaining": "Samo še <b>{amount} € brez DDV</b> do brezplačne dostave",
+    "securePayment": "Varno plačilo 3D-Secure · pošiljanje z DHL Express in GLS",
+    "tileShipTitle": "Sledljiva dostava",
+    "tileShipSub": "DHL Express in GLS — brezplačno od 400 € brez DDV",
+    "tilePayTitle": "Varno plačilo",
+    "tilePaySub": "Šifrirane transakcije 3D-Secure"
   }
 }

@@ -757,5 +757,26 @@
     "title": "Вашата количка",
     "loading": "Възстановяване на количката…",
     "invalid": "Тази връзка към количката е невалидна."
+  },
+  "offer": {
+    "inStock": "В наличност",
+    "backorder": "По поръчка — изпращане до 10–15 дни",
+    "backorderShort": "По поръчка",
+    "unavailable": "Няма наличност",
+    "shipInStock": "Изпраща се днес при поръчка до 15:00 ч. (работни дни) · доставка за 24–48 ч. във Франция",
+    "shipBackorder": "Изпращане до 10–15 дни",
+    "vatFree": "без начислен ДДС",
+    "reference": "Код {reference}",
+    "shipping": "Доставка",
+    "shippingNextStep": "Изчислява се в следващата стъпка",
+    "vat": "ДДС",
+    "totalInclNoShipping": "Общо с ДДС, без доставка",
+    "checkout": "Поръчай · {amount} € с ДДС",
+    "freeShippingRemaining": "Само <b>{amount} € без ДДС</b> до безплатна доставка",
+    "securePayment": "Сигурно плащане с 3D-Secure · доставка с DHL Express и GLS",
+    "tileShipTitle": "Проследима доставка",
+    "tileShipSub": "DHL Express и GLS — безплатна от 400 € без ДДС",
+    "tilePayTitle": "Сигурно плащане",
+    "tilePaySub": "Криптирани 3D-Secure транзакции"
   }
 }
