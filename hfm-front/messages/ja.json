@@ -96,9 +96,9 @@
   "home": {
     "badge": "10年 · 認可済み医療美容卸売業者",
     "heroTitle1": "信頼の注入製剤を、",
-    "heroTitle2": "翌日お届け。",
+    "heroTitle2": "当日発送。",
     "heroLead": "ヒアルロン酸、メソセラピー、ピーリング、リフトアップ糸 — 研究所から直接調達、各ロットにCEマーキングとトレーサビリティ。",
-    "ctaPractitionerRates": "施術者向け価格 →",
+    "ctaPractitionerRates": "カタログを見る →",
     "reviewsLine": "{count, number}件の認証済みレビュー",
     "brandsLine": "30以上のブランド",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "ベストセラー",
     "heroImgLips": "唇",
     "heroImgSkin": "スキンブースター",
-    "trustShipTitle": "本日発送",
-    "trustShipSub": "15時までのご注文 · DHL & Colissimo",
+    "trustShipTitle": "当日発送",
+    "trustShipSub": "15時までのご注文（営業日）· DHL Express & GLS",
     "trustCeTitle": "CEマーキング",
     "trustCeSub": "ロットの完全なトレーサビリティ",
     "trustSupportTitle": "週5日サポート",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "完全なトレーサビリティ",
     "editoFeat1Sub": "各製品にロット番号とCEマーキング。",
     "editoFeat2Title": "管理された低温輸送",
-    "editoFeat2Sub": "保冷輸送、DHL & Colissimo Express。",
+    "editoFeat2Sub": "保冷輸送、DHL Express & GLS。",
     "editoCta": "カタログを見る →",
     "editoBadgeDelay": "24〜48時間",
-    "editoBadgeDelaySub": "ヨーロッパ全域へお届け",
+    "editoBadgeDelaySub": "フランス国内 · ヨーロッパは48〜72時間",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number}件の認証済みレビュー <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "専門知識",
     "expertiseTitle": "専門家のノウハウ",
@@ -368,11 +368,29 @@
       "invalid_email": "メールアドレスが無効です。",
       "password_too_short": "パスワードが短すぎます(8文字以上)。",
       "generic": "エラーが発生しました。",
-      "network": "ネットワークエラー。"
+      "network": "ネットワークエラー。",
+      "invalid_rpps": "RPPS番号（11桁）またはADELI番号（9桁）が正しくありません。",
+      "invalid_profession": "職種を選択してください。"
     },
     "forgotPassword": "パスワードをお忘れですか？",
     "editAddress": "編集",
-    "editAddressTitle": "住所を編集"
+    "editAddressTitle": "住所を編集",
+    "profession": "職種",
+    "professionChoose": "職種を選択してください",
+    "professions": {
+      "medecin": "医師",
+      "chirurgien-dentiste": "歯科医師",
+      "pharmacien": "薬剤師",
+      "infirmier": "看護師",
+      "autre": "その他の医療従事者"
+    },
+    "company": "会社名・クリニック名（任意）",
+    "companyPlaceholder": "マルタン・クリニック",
+    "rpps": "RPPS / ADELI番号（任意）",
+    "rppsPlaceholder": "11桁（RPPS）または9桁（ADELI）",
+    "rppsHelp": "ここで入力しない場合、医師専用製品のご注文時にRPPS/ADELI番号の入力が必要になります。",
+    "newsletterOptIn": "ニュースレター（新製品、研修、特典）の受信に同意します。配信停止はワンクリックで可能です。",
+    "guestTracking": "アカウントなしでご注文されましたか？<a>こちらで注文を追跡</a>"
   },
   "addressForm": {
     "address": "住所",
@@ -586,7 +604,8 @@
     "title": "お気に入り",
     "count": "{count, plural, other {#点のお気に入り製品}}",
     "emptyLead": "気に入った製品をここで見つけられます。",
-    "emptyTitle": "まだお気に入りはありません"
+    "emptyTitle": "まだお気に入りはありません",
+    "localLead": "お気に入りはこの端末に保存されています。ログインするとアカウントに保存され、どこからでも確認できます。"
   },
   "brand": {
     "fallbackName": "ブランド",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "氏名",
+    "phone": "電話番号（任意）",
+    "orderReference": "注文番号（任意）",
+    "orderReferencePlaceholder": "例：XKBKNABJK",
+    "errName": "氏名を入力してください。",
+    "errPhone": "電話番号が正しくありません。",
+    "errEmail": "メールアドレスが正しくありません。",
+    "coordsTitle": "会社情報",
+    "coordsCountry": "フランス"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "カート",
     "loading": "カートを復元しています…",
     "invalid": "このカートのリンクは無効です。"
+  },
+  "consent": {
+    "label": "Cookieの同意",
+    "text": "当サイトでは、利便性向上のためにアクセス解析および広告のパーソナライズ用のCookieを使用しています。同意または拒否を選択できます。詳しくは<a>プライバシーポリシー</a>をご覧ください。",
+    "refuse": "拒否する",
+    "accept": "同意する"
+  },
+  "orderTracking": {
+    "title": "注文状況の確認",
+    "lead": "アカウントなしでご注文された方は、注文番号とご注文時のメールアドレスを入力してください。",
+    "reference": "注文番号",
+    "referencePlaceholder": "例：XKBKNABJK",
+    "referenceHint": "英字9文字。確認メールに記載されています。",
+    "email": "注文時のメールアドレス",
+    "emailPlaceholder": "you@clinic.jp",
+    "submit": "注文を確認する",
+    "searching": "検索中…",
+    "errInvalid": "有効な注文番号とメールアドレスを入力してください。",
+    "errNotFound": "この注文番号とメールアドレスに一致する注文はありません。入力内容をご確認ください。",
+    "errGeneric": "現在、注文状況を確認できません。数分後に再度お試しください。",
+    "orderTitle": "注文 {reference}",
+    "placedOn": "{date} にご注文",
+    "stepReceived": "受付済み",
+    "stepShipped": "発送済み",
+    "stepDelivered": "配達済み",
+    "carrier": "配送業者",
+    "trackingNumber": "追跡番号",
+    "trackingPending": "発送後に表示されます",
+    "total": "お支払い合計",
+    "ttc": "税込",
+    "trackParcel": "配送業者のサイトで荷物を追跡",
+    "products": "商品",
+    "haveAccount": "アカウントをお持ちの方は<a>すべての注文を確認</a>",
+    "needHelp": "ご注文についてのご質問は<a>お問い合わせ</a>ください"
   }
 }

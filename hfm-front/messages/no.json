@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 år · autorisert grossist innen medisinsk estetikk",
     "heroTitle1": "Den ledende injiserbare,",
-    "heroTitle2": "levert allerede i morgen.",
+    "heroTitle2": "sendt samme dag.",
     "heroLead": "Hyaluronsyre, mesoterapi, peelinger og trådløft — sourcet direkte fra laboratoriene, CE-merking og sporbarhet på hvert parti.",
-    "ctaPractitionerRates": "Priser for behandlere →",
+    "ctaPractitionerRates": "Se katalogen →",
     "reviewsLine": "{count, number} verifiserte anmeldelser",
     "brandsLine": "+30 merker",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Bestselgere",
     "heroImgLips": "Lepper",
     "heroImgSkin": "Skin boosters",
-    "trustShipTitle": "Sendes i dag",
-    "trustShipSub": "bestill før kl. 15 · DHL & Colissimo",
+    "trustShipTitle": "Sendes samme dag",
+    "trustShipSub": "bestill før kl. 15 (virkedager) · DHL Express & GLS",
     "trustCeTitle": "CE-merking",
     "trustCeSub": "full sporbarhet av partier",
     "trustSupportTitle": "Support 5 dager/uke",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Total sporbarhet",
     "editoFeat1Sub": "partinummer og CE-merking på hver referanse.",
     "editoFeat2Title": "Kontrollert kjølekjede",
-    "editoFeat2Sub": "isoterm forsendelse, DHL & Colissimo Express.",
+    "editoFeat2Sub": "isoterm forsendelse, DHL Express & GLS.",
     "editoCta": "Oppdag katalogen →",
     "editoBadgeDelay": "24–48 t",
-    "editoBadgeDelaySub": "levering i hele Europa",
+    "editoBadgeDelaySub": "levering i Frankrike · 48–72 t i Europa",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} verifiserte anmeldelser <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Ekspertise",
     "expertiseTitle": "Våre spesialisters kompetanse",
@@ -368,11 +368,29 @@
       "invalid_email": "Ugyldig e-post.",
       "password_too_short": "Passordet er for kort (minst 8 tegn).",
       "generic": "Det oppstod en feil.",
-      "network": "Nettverksfeil."
+      "network": "Nettverksfeil.",
+      "invalid_rpps": "Ugyldig RPPS- (11 sifre) eller ADELI-nummer (9 sifre).",
+      "invalid_profession": "Oppgi yrket ditt."
     },
     "forgotPassword": "Glemt passord?",
     "editAddress": "Endre",
-    "editAddressTitle": "Endre adresse"
+    "editAddressTitle": "Endre adresse",
+    "profession": "Yrke",
+    "professionChoose": "Velg yrket ditt",
+    "professions": {
+      "medecin": "Lege",
+      "chirurgien-dentiste": "Tannlege",
+      "pharmacien": "Farmasøyt",
+      "infirmier": "Sykepleier",
+      "autre": "Annet helsepersonell"
+    },
+    "company": "Firma / klinikk (valgfritt)",
+    "companyPlaceholder": "Dr. Martins klinikk",
+    "rpps": "RPPS-/ADELI-nr. (valgfritt)",
+    "rppsPlaceholder": "11 sifre (RPPS) eller 9 sifre (ADELI)",
+    "rppsHelp": "Hvis det ikke oppgis her, blir RPPS/ADELI-nummeret etterspurt ved bestilling av produkter forbeholdt leger.",
+    "newsletterOptIn": "Jeg godtar å motta nyhetsbrevet (nyheter, kurs, tilbud). Avmelding med 1 klikk.",
+    "guestTracking": "Bestilt uten konto? <a>Spor bestillingen her</a>"
   },
   "addressForm": {
     "address": "Adresse",
@@ -586,7 +604,8 @@
     "title": "Mine favoritter",
     "count": "{count, plural, one {# produkt i favoritter} other {# produkter i favoritter}}",
     "emptyLead": "Her finner du produktene du liker.",
-    "emptyTitle": "Ingen favoritter ennå"
+    "emptyTitle": "Ingen favoritter ennå",
+    "localLead": "Favorittene dine lagres på denne enheten. Logg inn for å lagre dem på kontoen din og finne dem overalt."
   },
   "brand": {
     "fallbackName": "Merke",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Fullt navn",
+    "phone": "Telefon (valgfritt)",
+    "orderReference": "Ordrenr. (valgfritt)",
+    "orderReferencePlaceholder": "F.eks. XKBKNABJK",
+    "errName": "Oppgi navnet ditt.",
+    "errPhone": "Ugyldig telefonnummer.",
+    "errEmail": "Ugyldig e-postadresse.",
+    "coordsTitle": "Kontaktinformasjon",
+    "coordsCountry": "Frankrike"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Handlekurven din",
     "loading": "Gjenoppretter handlekurven…",
     "invalid": "Denne handlekurvlenken er ugyldig."
+  },
+  "consent": {
+    "label": "Samtykke til informasjonskapsler",
+    "text": "Vi bruker informasjonskapsler til trafikkmåling og tilpasset annonsering for å forbedre opplevelsen din. Du kan godta eller avslå. Se vår <a>personvernerklæring</a>.",
+    "refuse": "Avslå",
+    "accept": "Godta"
+  },
+  "orderTracking": {
+    "title": "Ordresporing",
+    "lead": "Bestilt uten konto? Skriv inn ordrereferansen og e-postadressen som ble brukt ved bestillingen.",
+    "reference": "Ordrereferanse",
+    "referencePlaceholder": "F.eks. XKBKNABJK",
+    "referenceHint": "9 bokstaver, oppgitt i bekreftelses-e-posten.",
+    "email": "Ordrens e-post",
+    "emailPlaceholder": "deg@klinikk.no",
+    "submit": "Spor bestillingen",
+    "searching": "Søker…",
+    "errInvalid": "Skriv inn en gyldig referanse og e-postadresse.",
+    "errNotFound": "Ingen bestilling samsvarer med denne referansen og e-posten. Kontroller opplysningene.",
+    "errGeneric": "Sporing er midlertidig utilgjengelig. Prøv igjen om noen minutter.",
+    "orderTitle": "Bestilling {reference}",
+    "placedOn": "Lagt inn {date}",
+    "stepReceived": "Mottatt",
+    "stepShipped": "Sendt",
+    "stepDelivered": "Levert",
+    "carrier": "Transportør",
+    "trackingNumber": "Sporingsnr.",
+    "trackingPending": "Tilgjengelig ved forsendelse",
+    "total": "Totalt betalt",
+    "ttc": "inkl. mva.",
+    "trackParcel": "Spor pakken hos transportøren",
+    "products": "Produkter",
+    "haveAccount": "Har du en konto? <a>Se alle bestillingene dine</a>",
+    "needHelp": "Spørsmål om bestillingen? <a>Kontakt oss</a>"
   }
 }

@@ -20,7 +20,10 @@ export default function ContactForm() {
   const locale = useLocale();
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [idContact, setIdContact] = useState<number>(0);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [orderRef, setOrderRef] = useState('');
   const [message, setMessage] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [state, setState] = useState<State>('idle');
@@ -43,7 +46,10 @@ export default function ContactForm() {
     setState('loading');
     try {
       const fd = new FormData();
+      fd.set('name', name);
       fd.set('email', email);
+      fd.set('phone', phone);
+      fd.set('order_reference', orderRef);
       fd.set('message', message);
       fd.set('id_contact', String(idContact));
       fd.set('locale', locale);
@@ -56,6 +62,9 @@ export default function ContactForm() {
         setErrKey(d.error === 'file_too_big' ? 'errFileBig'
           : d.error === 'invalid_file_extension' ? 'errFileType'
           : d.error === 'rate_limited' ? 'rateLimited'
+          : d.error === 'invalid_name' ? 'errName'
+          : d.error === 'invalid_phone' ? 'errPhone'
+          : d.error === 'invalid_email' ? 'errEmail'
           : 'error');
         setState('error');
         return;
@@ -88,12 +97,28 @@ export default function ContactForm() {
       ) : null}
 
       <label style={{ display: 'block' }}>
-        <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5E6152', marginBottom: '6px' }}>{t('email')}</span>
-        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} style={field} />
+        <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5E6152', marginBottom: '6px' }}>{t('name')} *</span>
+        <input required autoComplete="name" maxLength={120} value={name} onChange={(e) => setName(e.target.value)} style={field} />
+      </label>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '14px' }}>
+        <label style={{ display: 'block' }}>
+          <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5E6152', marginBottom: '6px' }}>{t('email')} *</span>
+          <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} style={field} />
+        </label>
+        <label style={{ display: 'block' }}>
+          <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5E6152', marginBottom: '6px' }}>{t('phone')}</span>
+          <input type="tel" autoComplete="tel" maxLength={32} value={phone} onChange={(e) => setPhone(e.target.value)} style={field} />
+        </label>
+      </div>
+
+      <label style={{ display: 'block' }}>
+        <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5E6152', marginBottom: '6px' }}>{t('orderReference')}</span>
+        <input autoComplete="off" maxLength={32} value={orderRef} onChange={(e) => setOrderRef(e.target.value.toUpperCase())} placeholder={t('orderReferencePlaceholder')} style={field} />
       </label>
 
       <label style={{ display: 'block' }}>
-        <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5E6152', marginBottom: '6px' }}>{t('message')}</span>
+        <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5E6152', marginBottom: '6px' }}>{t('message')} *</span>
         <textarea required rows={7} value={message} onChange={(e) => setMessage(e.target.value)} style={{ ...field, resize: 'vertical' }} />
       </label>
 

@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 anos · grossista autorizado em estética médica",
     "heroTitle1": "O injetável de referência,",
-    "heroTitle2": "entregue já amanhã.",
+    "heroTitle2": "enviado no próprio dia.",
     "heroLead": "Ácido hialurónico, mesoterapia, peelings e fios tensores — adquiridos diretamente aos laboratórios, marcação CE e rastreabilidade em cada lote.",
-    "ctaPractitionerRates": "Preços para profissionais →",
+    "ctaPractitionerRates": "Ver o catálogo →",
     "reviewsLine": "{count, number} avaliações verificadas",
     "brandsLine": "+30 marcas",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Best-sellers",
     "heroImgLips": "Lábios",
     "heroImgSkin": "Skin boosters",
-    "trustShipTitle": "Envio hoje",
-    "trustShipSub": "encomende antes das 15h · DHL & Colissimo",
+    "trustShipTitle": "Envio no próprio dia",
+    "trustShipSub": "encomende antes das 15h (dias úteis) · DHL Express & GLS",
     "trustCeTitle": "Marcação CE",
     "trustCeSub": "rastreabilidade completa dos lotes",
     "trustSupportTitle": "Apoio 5 dias/semana",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Rastreabilidade total",
     "editoFeat1Sub": "número de lote e marcação CE em cada referência.",
     "editoFeat2Title": "Cadeia de frio controlada",
-    "editoFeat2Sub": "envio isotérmico, DHL & Colissimo Express.",
+    "editoFeat2Sub": "envio isotérmico, DHL Express & GLS.",
     "editoCta": "Descobrir o catálogo →",
-    "editoBadgeDelay": "24-48h",
-    "editoBadgeDelaySub": "entrega em toda a Europa",
+    "editoBadgeDelay": "24-48 h",
+    "editoBadgeDelaySub": "entrega em França · 48-72 h na Europa",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} avaliações verificadas <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Especialização",
     "expertiseTitle": "O saber-fazer dos nossos especialistas",
@@ -368,11 +368,29 @@
       "invalid_email": "E-mail inválido.",
       "password_too_short": "Palavra-passe demasiado curta (8 caracteres mín.).",
       "generic": "Ocorreu um erro.",
-      "network": "Erro de rede."
+      "network": "Erro de rede.",
+      "invalid_rpps": "Número RPPS (11 dígitos) ou ADELI (9 dígitos) inválido.",
+      "invalid_profession": "Indique a sua profissão."
     },
     "forgotPassword": "Esqueceu-se da palavra-passe?",
     "editAddress": "Editar",
-    "editAddressTitle": "Editar morada"
+    "editAddressTitle": "Editar morada",
+    "profession": "Profissão",
+    "professionChoose": "Selecione a sua profissão",
+    "professions": {
+      "medecin": "Médico",
+      "chirurgien-dentiste": "Médico dentista",
+      "pharmacien": "Farmacêutico",
+      "infirmier": "Enfermeiro/a",
+      "autre": "Outro profissional de saúde"
+    },
+    "company": "Empresa / consultório (opcional)",
+    "companyPlaceholder": "Consultório do Dr. Martin",
+    "rpps": "N.º RPPS / ADELI (opcional)",
+    "rppsPlaceholder": "11 dígitos (RPPS) ou 9 dígitos (ADELI)",
+    "rppsHelp": "Se não o indicar aqui, o número RPPS/ADELI será pedido ao encomendar produtos reservados a médicos.",
+    "newsletterOptIn": "Aceito receber a newsletter (novidades, formações, ofertas). Cancelamento em 1 clique.",
+    "guestTracking": "Encomendou sem conta? <a>Acompanhe a encomenda aqui</a>"
   },
   "addressForm": {
     "address": "Endereço",
@@ -586,7 +604,8 @@
     "title": "Os meus favoritos",
     "count": "{count, plural, one {# produto favorito} other {# produtos favoritos}}",
     "emptyLead": "Encontre aqui os produtos que adora.",
-    "emptyTitle": "Ainda sem favoritos"
+    "emptyTitle": "Ainda sem favoritos",
+    "localLead": "Os seus favoritos ficam guardados neste dispositivo. Inicie sessão para os guardar na sua conta e encontrá-los em qualquer lugar."
   },
   "brand": {
     "fallbackName": "Marca",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Nome completo",
+    "phone": "Telefone (opcional)",
+    "orderReference": "N.º de encomenda (opcional)",
+    "orderReferencePlaceholder": "Ex.: XKBKNABJK",
+    "errName": "Indique o seu nome.",
+    "errPhone": "Número de telefone inválido.",
+    "errEmail": "Endereço de e-mail inválido.",
+    "coordsTitle": "Os nossos contactos",
+    "coordsCountry": "França"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "O seu carrinho",
     "loading": "A recuperar o seu carrinho…",
     "invalid": "Esta ligação de carrinho não é válida."
+  },
+  "consent": {
+    "label": "Consentimento de cookies",
+    "text": "Utilizamos cookies de medição de audiência e de personalização publicitária para melhorar a sua experiência. Pode aceitar ou recusar. Consulte a nossa <a>política de privacidade</a>.",
+    "refuse": "Recusar",
+    "accept": "Aceitar"
+  },
+  "orderTracking": {
+    "title": "Seguimento de encomenda",
+    "lead": "Encomendou sem conta? Introduza a referência da encomenda e o e-mail utilizado na encomenda.",
+    "reference": "Referência da encomenda",
+    "referencePlaceholder": "Ex.: XKBKNABJK",
+    "referenceHint": "9 letras, indicada no seu e-mail de confirmação.",
+    "email": "E-mail da encomenda",
+    "emailPlaceholder": "voce@consultorio.pt",
+    "submit": "Seguir a minha encomenda",
+    "searching": "A pesquisar…",
+    "errInvalid": "Introduza uma referência e um e-mail válidos.",
+    "errNotFound": "Nenhuma encomenda corresponde a esta referência e a este e-mail. Verifique os dados.",
+    "errGeneric": "O seguimento está temporariamente indisponível. Tente novamente dentro de alguns minutos.",
+    "orderTitle": "Encomenda {reference}",
+    "placedOn": "Efetuada a {date}",
+    "stepReceived": "Recebida",
+    "stepShipped": "Enviada",
+    "stepDelivered": "Entregue",
+    "carrier": "Transportadora",
+    "trackingNumber": "N.º de seguimento",
+    "trackingPending": "Disponível após o envio",
+    "total": "Total pago",
+    "ttc": "IVA incl.",
+    "trackParcel": "Seguir a encomenda no site da transportadora",
+    "products": "Produtos",
+    "haveAccount": "Tem conta? <a>Veja todas as suas encomendas</a>",
+    "needHelp": "Uma questão sobre a sua encomenda? <a>Contacte-nos</a>"
   }
 }

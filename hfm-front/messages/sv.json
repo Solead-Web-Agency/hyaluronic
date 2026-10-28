@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 år · auktoriserad grossist inom medicinsk estetik",
     "heroTitle1": "Den ledande injektionsprodukten,",
-    "heroTitle2": "levererad redan i morgon.",
+    "heroTitle2": "skickad samma dag.",
     "heroLead": "Hyaluronsyra, mesoterapi, peelings och trådlyft — sourcade direkt från laboratorierna, CE-märkning och spårbarhet på varje parti.",
-    "ctaPractitionerRates": "Priser för praktiker →",
+    "ctaPractitionerRates": "Se katalogen →",
     "reviewsLine": "{count, number} verifierade omdömen",
     "brandsLine": "+30 varumärken",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Bästsäljare",
     "heroImgLips": "Läppar",
     "heroImgSkin": "Skin boosters",
-    "trustShipTitle": "Skickas i dag",
-    "trustShipSub": "beställ före kl. 15 · DHL & Colissimo",
+    "trustShipTitle": "Skickas samma dag",
+    "trustShipSub": "beställ före kl. 15 (vardagar) · DHL Express & GLS",
     "trustCeTitle": "CE-märkning",
     "trustCeSub": "fullständig spårbarhet av partier",
     "trustSupportTitle": "Support 5 dagar/vecka",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Total spårbarhet",
     "editoFeat1Sub": "partinummer och CE-märkning på varje referens.",
     "editoFeat2Title": "Kontrollerad kylkedja",
-    "editoFeat2Sub": "isotermisk leverans, DHL & Colissimo Express.",
+    "editoFeat2Sub": "isotermisk leverans, DHL Express & GLS.",
     "editoCta": "Upptäck katalogen →",
     "editoBadgeDelay": "24–48 h",
-    "editoBadgeDelaySub": "leverans i hela Europa",
+    "editoBadgeDelaySub": "leverans i Frankrike · 48–72 h i Europa",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} verifierade omdömen <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Expertis",
     "expertiseTitle": "Våra specialisters kunnande",
@@ -368,11 +368,29 @@
       "invalid_email": "Ogiltig e-postadress.",
       "password_too_short": "Lösenordet är för kort (minst 8 tecken).",
       "generic": "Ett fel uppstod.",
-      "network": "Nätverksfel."
+      "network": "Nätverksfel.",
+      "invalid_rpps": "Ogiltigt RPPS- (11 siffror) eller ADELI-nummer (9 siffror).",
+      "invalid_profession": "Ange ditt yrke."
     },
     "forgotPassword": "Glömt lösenordet?",
     "editAddress": "Ändra",
-    "editAddressTitle": "Ändra adress"
+    "editAddressTitle": "Ändra adress",
+    "profession": "Yrke",
+    "professionChoose": "Välj ditt yrke",
+    "professions": {
+      "medecin": "Läkare",
+      "chirurgien-dentiste": "Tandläkare",
+      "pharmacien": "Farmaceut",
+      "infirmier": "Sjuksköterska",
+      "autre": "Annan vårdpersonal"
+    },
+    "company": "Företag / mottagning (valfritt)",
+    "companyPlaceholder": "Dr Martins mottagning",
+    "rpps": "RPPS-/ADELI-nr (valfritt)",
+    "rppsPlaceholder": "11 siffror (RPPS) eller 9 siffror (ADELI)",
+    "rppsHelp": "Om det inte anges här efterfrågas RPPS/ADELI-numret vid beställning av produkter som är förbehållna läkare.",
+    "newsletterOptIn": "Jag godkänner att få nyhetsbrevet (nyheter, utbildningar, erbjudanden). Avregistrering med 1 klick.",
+    "guestTracking": "Beställt utan konto? <a>Spåra din beställning här</a>"
   },
   "addressForm": {
     "address": "Adress",
@@ -586,7 +604,8 @@
     "title": "Mina favoriter",
     "count": "{count, plural, one {# favoritprodukt} other {# favoritprodukter}}",
     "emptyLead": "Här hittar du de produkter du gillar.",
-    "emptyTitle": "Inga favoriter ännu"
+    "emptyTitle": "Inga favoriter ännu",
+    "localLead": "Dina favoriter sparas på den här enheten. Logga in för att spara dem på ditt konto och hitta dem överallt."
   },
   "brand": {
     "fallbackName": "Varumärke",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "För- och efternamn",
+    "phone": "Telefon (valfritt)",
+    "orderReference": "Ordernr (valfritt)",
+    "orderReferencePlaceholder": "T.ex. XKBKNABJK",
+    "errName": "Ange ditt namn.",
+    "errPhone": "Ogiltigt telefonnummer.",
+    "errEmail": "Ogiltig e-postadress.",
+    "coordsTitle": "Våra kontaktuppgifter",
+    "coordsCountry": "Frankrike"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Din varukorg",
     "loading": "Återställer din varukorg…",
     "invalid": "Den här varukorgslänken är ogiltig."
+  },
+  "consent": {
+    "label": "Samtycke till cookies",
+    "text": "Vi använder cookies för besöksmätning och anpassad annonsering för att förbättra din upplevelse. Du kan godkänna eller avböja. Se vår <a>integritetspolicy</a>.",
+    "refuse": "Avböj",
+    "accept": "Godkänn"
+  },
+  "orderTracking": {
+    "title": "Spåra order",
+    "lead": "Beställt utan konto? Ange orderreferensen och e-postadressen som användes vid beställningen.",
+    "reference": "Orderreferens",
+    "referencePlaceholder": "T.ex. XKBKNABJK",
+    "referenceHint": "9 bokstäver, anges i ditt bekräftelsemejl.",
+    "email": "Orderns e-post",
+    "emailPlaceholder": "du@mottagning.se",
+    "submit": "Spåra min order",
+    "searching": "Söker…",
+    "errInvalid": "Ange en giltig referens och e-postadress.",
+    "errNotFound": "Ingen order matchar denna referens och e-post. Kontrollera uppgifterna.",
+    "errGeneric": "Spårningen är tillfälligt otillgänglig. Försök igen om några minuter.",
+    "orderTitle": "Order {reference}",
+    "placedOn": "Lagd {date}",
+    "stepReceived": "Mottagen",
+    "stepShipped": "Skickad",
+    "stepDelivered": "Levererad",
+    "carrier": "Transportör",
+    "trackingNumber": "Spårningsnr",
+    "trackingPending": "Tillgängligt när ordern skickats",
+    "total": "Totalt betalt",
+    "ttc": "inkl. moms",
+    "trackParcel": "Spåra paketet hos transportören",
+    "products": "Produkter",
+    "haveAccount": "Har du ett konto? <a>Se alla dina ordrar</a>",
+    "needHelp": "Fråga om din order? <a>Kontakta oss</a>"
   }
 }

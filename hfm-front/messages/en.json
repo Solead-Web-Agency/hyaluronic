@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 years · licensed medical aesthetics wholesaler",
     "heroTitle1": "The reference injectable,",
-    "heroTitle2": "delivered tomorrow.",
+    "heroTitle2": "shipped the same day.",
     "heroLead": "Hyaluronic acid, mesotherapy, peelings and tensor threads — sourced directly from laboratories, CE marking and traceability on every batch.",
-    "ctaPractitionerRates": "Practitioner rates →",
+    "ctaPractitionerRates": "View the catalogue →",
     "reviewsLine": "{count, number} verified reviews",
     "brandsLine": "+30 brands",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Best-sellers",
     "heroImgLips": "Lips",
     "heroImgSkin": "Skin boosters",
-    "trustShipTitle": "Shipped today",
-    "trustShipSub": "order before 3pm · DHL & Colissimo",
+    "trustShipTitle": "Same-day shipping",
+    "trustShipSub": "order before 3 pm (business days) · DHL Express & GLS",
     "trustCeTitle": "CE marking",
     "trustCeSub": "full batch traceability",
     "trustSupportTitle": "Support 5 days/week",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Full traceability",
     "editoFeat1Sub": "batch number and CE marking on every reference.",
     "editoFeat2Title": "Controlled cold chain",
-    "editoFeat2Sub": "insulated shipping, DHL & Colissimo Express.",
+    "editoFeat2Sub": "insulated shipping, DHL Express & GLS.",
     "editoCta": "Discover the catalogue →",
-    "editoBadgeDelay": "24-48h",
-    "editoBadgeDelaySub": "delivery across Europe",
+    "editoBadgeDelay": "24-48 h",
+    "editoBadgeDelaySub": "delivery in France · 48-72 h in Europe",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} verified reviews <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Expertise",
     "expertiseTitle": "The know-how of our specialists",
@@ -368,11 +368,29 @@
       "invalid_email": "Invalid email.",
       "password_too_short": "Password too short (8 characters min.).",
       "generic": "An error occurred.",
-      "network": "Network error."
+      "network": "Network error.",
+      "invalid_rpps": "Invalid RPPS (11 digits) or ADELI (9 digits) number.",
+      "invalid_profession": "Please select your profession."
     },
     "forgotPassword": "Forgot your password?",
     "editAddress": "Edit",
-    "editAddressTitle": "Edit address"
+    "editAddressTitle": "Edit address",
+    "profession": "Profession",
+    "professionChoose": "Select your profession",
+    "professions": {
+      "medecin": "Physician",
+      "chirurgien-dentiste": "Dental surgeon",
+      "pharmacien": "Pharmacist",
+      "infirmier": "Nurse",
+      "autre": "Other healthcare professional"
+    },
+    "company": "Company / practice (optional)",
+    "companyPlaceholder": "Dr Martin's practice",
+    "rpps": "RPPS / ADELI no. (optional)",
+    "rppsPlaceholder": "11 digits (RPPS) or 9 digits (ADELI)",
+    "rppsHelp": "If not provided here, the RPPS/ADELI number will be requested when ordering products reserved for physicians.",
+    "newsletterOptIn": "I agree to receive the newsletter (new products, training, offers). Unsubscribe in 1 click.",
+    "guestTracking": "Ordered without an account? <a>Track your order here</a>"
   },
   "addressForm": {
     "address": "Address",
@@ -586,7 +604,8 @@
     "title": "My favorites",
     "count": "{count, plural, one {# favorite product} other {# favorite products}}",
     "emptyLead": "Find here the products you love.",
-    "emptyTitle": "No favorites yet"
+    "emptyTitle": "No favorites yet",
+    "localLead": "Your favourites are kept on this device. Sign in to save them to your account and find them anywhere."
   },
   "brand": {
     "fallbackName": "Brand",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Full name",
+    "phone": "Phone (optional)",
+    "orderReference": "Order no. (optional)",
+    "orderReferencePlaceholder": "e.g. XKBKNABJK",
+    "errName": "Please enter your name.",
+    "errPhone": "Invalid phone number.",
+    "errEmail": "Invalid e-mail address.",
+    "coordsTitle": "Our details",
+    "coordsCountry": "France"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Your cart",
     "loading": "Restoring your cart…",
     "invalid": "This cart link is not valid."
+  },
+  "consent": {
+    "label": "Cookie consent",
+    "text": "We use audience measurement and ad personalisation cookies to improve your experience. You can accept or refuse. See our <a>privacy policy</a>.",
+    "refuse": "Refuse",
+    "accept": "Accept"
+  },
+  "orderTracking": {
+    "title": "Order tracking",
+    "lead": "Ordered without an account? Enter the order reference and the e-mail address used for the order.",
+    "reference": "Order reference",
+    "referencePlaceholder": "e.g. XKBKNABJK",
+    "referenceHint": "9 letters, shown in your confirmation e-mail.",
+    "email": "Order e-mail",
+    "emailPlaceholder": "you@practice.com",
+    "submit": "Track my order",
+    "searching": "Searching…",
+    "errInvalid": "Please enter a valid reference and e-mail address.",
+    "errNotFound": "No order matches this reference and e-mail. Please check your details.",
+    "errGeneric": "Tracking is temporarily unavailable. Please try again in a few minutes.",
+    "orderTitle": "Order {reference}",
+    "placedOn": "Placed on {date}",
+    "stepReceived": "Received",
+    "stepShipped": "Shipped",
+    "stepDelivered": "Delivered",
+    "carrier": "Carrier",
+    "trackingNumber": "Tracking no.",
+    "trackingPending": "Available once shipped",
+    "total": "Total paid",
+    "ttc": "incl. VAT",
+    "trackParcel": "Track the parcel on the carrier's site",
+    "products": "Products",
+    "haveAccount": "Have an account? <a>See all your orders</a>",
+    "needHelp": "A question about your order? <a>Contact us</a>"
   }
 }

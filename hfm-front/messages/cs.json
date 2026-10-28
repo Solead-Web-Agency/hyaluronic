@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 let · autorizovaný velkoobchod estetické medicíny",
     "heroTitle1": "Referenční injekční přípravek,",
-    "heroTitle2": "doručený už zítra.",
+    "heroTitle2": "odeslaný ještě týž den.",
     "heroLead": "Kyselina hyaluronová, mezoterapie, peelingy a liftingové nitě — získané přímo z laboratoří, označení CE a dohledatelnost u každé šarže.",
-    "ctaPractitionerRates": "Ceny pro odborníky →",
+    "ctaPractitionerRates": "Zobrazit katalog →",
     "reviewsLine": "{count, number} ověřených recenzí",
     "brandsLine": "+30 značek",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Bestsellery",
     "heroImgLips": "Rty",
     "heroImgSkin": "Skin boostery",
-    "trustShipTitle": "Odeslání dnes",
-    "trustShipSub": "objednejte do 15:00 · DHL & Colissimo",
+    "trustShipTitle": "Odeslání týž den",
+    "trustShipSub": "objednejte do 15:00 (pracovní dny) · DHL Express & GLS",
     "trustCeTitle": "Označení CE",
     "trustCeSub": "plná dohledatelnost šarží",
     "trustSupportTitle": "Podpora 5 dní v týdnu",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Úplná dohledatelnost",
     "editoFeat1Sub": "číslo šarže a označení CE u každého produktu.",
     "editoFeat2Title": "Řízený chladicí řetězec",
-    "editoFeat2Sub": "izotermické odeslání, DHL & Colissimo Express.",
+    "editoFeat2Sub": "izotermické odeslání, DHL Express & GLS.",
     "editoCta": "Objevit katalog →",
-    "editoBadgeDelay": "24-48h",
-    "editoBadgeDelaySub": "doručení po celé Evropě",
+    "editoBadgeDelay": "24-48 h",
+    "editoBadgeDelaySub": "doručení ve Francii · 48-72 h v Evropě",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} ověřených recenzí <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Odbornost",
     "expertiseTitle": "Know-how našich specialistů",
@@ -368,11 +368,29 @@
       "invalid_email": "Neplatný e-mail.",
       "password_too_short": "Heslo je příliš krátké (min. 8 znaků).",
       "generic": "Došlo k chybě.",
-      "network": "Chyba sítě."
+      "network": "Chyba sítě.",
+      "invalid_rpps": "Neplatné číslo RPPS (11 číslic) nebo ADELI (9 číslic).",
+      "invalid_profession": "Uveďte prosím svou profesi."
     },
     "forgotPassword": "Zapomněli jste heslo?",
     "editAddress": "Upravit",
-    "editAddressTitle": "Upravit adresu"
+    "editAddressTitle": "Upravit adresu",
+    "profession": "Profese",
+    "professionChoose": "Vyberte svou profesi",
+    "professions": {
+      "medecin": "Lékař",
+      "chirurgien-dentiste": "Zubní lékař",
+      "pharmacien": "Farmaceut",
+      "infirmier": "Zdravotní sestra / bratr",
+      "autre": "Jiný zdravotnický pracovník"
+    },
+    "company": "Firma / ordinace (nepovinné)",
+    "companyPlaceholder": "Ordinace MUDr. Martina",
+    "rpps": "Č. RPPS / ADELI (nepovinné)",
+    "rppsPlaceholder": "11 číslic (RPPS) nebo 9 číslic (ADELI)",
+    "rppsHelp": "Pokud ho neuvedete zde, číslo RPPS/ADELI bude vyžádáno při objednávce produktů vyhrazených lékařům.",
+    "newsletterOptIn": "Souhlasím se zasíláním newsletteru (novinky, školení, nabídky). Odhlášení 1 kliknutím.",
+    "guestTracking": "Objednali jste bez účtu? <a>Sledujte objednávku zde</a>"
   },
   "addressForm": {
     "address": "Adresa",
@@ -586,7 +604,8 @@
     "title": "Moje oblíbené",
     "count": "{count, plural, one {# oblíbený produkt} few {# oblíbené produkty} many {# oblíbeného produktu} other {# oblíbených produktů}}",
     "emptyLead": "Zde najdete produkty, které máte rádi.",
-    "emptyTitle": "Zatím žádné oblíbené"
+    "emptyTitle": "Zatím žádné oblíbené",
+    "localLead": "Vaše oblíbené položky jsou uložené v tomto zařízení. Přihlaste se, abyste je uložili do účtu a měli je všude."
   },
   "brand": {
     "fallbackName": "Značka",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Jméno a příjmení",
+    "phone": "Telefon (nepovinné)",
+    "orderReference": "Č. objednávky (nepovinné)",
+    "orderReferencePlaceholder": "Např. XKBKNABJK",
+    "errName": "Uveďte své jméno.",
+    "errPhone": "Neplatné telefonní číslo.",
+    "errEmail": "Neplatná e-mailová adresa.",
+    "coordsTitle": "Naše kontakty",
+    "coordsCountry": "Francie"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Váš košík",
     "loading": "Obnovujeme váš košík…",
     "invalid": "Tento odkaz na košík není platný."
+  },
+  "consent": {
+    "label": "Souhlas s cookies",
+    "text": "Používáme cookies pro měření návštěvnosti a personalizaci reklamy, abychom zlepšili vaše prostředí. Můžete je přijmout nebo odmítnout. Viz naše <a>zásady ochrany osobních údajů</a>.",
+    "refuse": "Odmítnout",
+    "accept": "Přijmout"
+  },
+  "orderTracking": {
+    "title": "Sledování objednávky",
+    "lead": "Objednali jste bez účtu? Zadejte referenci objednávky a e-mail použitý při objednávce.",
+    "reference": "Reference objednávky",
+    "referencePlaceholder": "Např. XKBKNABJK",
+    "referenceHint": "9 písmen, uvedená v potvrzovacím e-mailu.",
+    "email": "E-mail objednávky",
+    "emailPlaceholder": "vy@ordinace.cz",
+    "submit": "Sledovat objednávku",
+    "searching": "Hledání…",
+    "errInvalid": "Zadejte platnou referenci a e-mailovou adresu.",
+    "errNotFound": "Této referenci a e-mailu neodpovídá žádná objednávka. Zkontrolujte zadané údaje.",
+    "errGeneric": "Sledování je dočasně nedostupné. Zkuste to znovu za několik minut.",
+    "orderTitle": "Objednávka {reference}",
+    "placedOn": "Vytvořena {date}",
+    "stepReceived": "Přijata",
+    "stepShipped": "Odeslána",
+    "stepDelivered": "Doručena",
+    "carrier": "Dopravce",
+    "trackingNumber": "Číslo zásilky",
+    "trackingPending": "K dispozici po odeslání",
+    "total": "Celkem zaplaceno",
+    "ttc": "vč. DPH",
+    "trackParcel": "Sledovat zásilku u dopravce",
+    "products": "Produkty",
+    "haveAccount": "Máte účet? <a>Zobrazit všechny objednávky</a>",
+    "needHelp": "Dotaz k objednávce? <a>Kontaktujte nás</a>"
   }
 }

@@ -111,9 +111,9 @@
   "home": {
     "badge": "10 ans · grossiste agréé esthétique médicale",
     "heroTitle1": "L'injectable de référence,",
-    "heroTitle2": "livré dès demain.",
+    "heroTitle2": "expédié le jour même.",
     "heroLead": "Acide hyaluronique, mésothérapie, peelings et fils tenseurs — sourcés en direct des laboratoires, marquage CE et traçabilité sur chaque lot.",
-    "ctaPractitionerRates": "Tarifs praticiens →",
+    "ctaPractitionerRates": "Voir le catalogue →",
     "reviewsLine": "{count, number} avis vérifiés",
     "brandsLine": "+30 marques",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -121,8 +121,8 @@
     "heroImgTopSub": "Best-sellers",
     "heroImgLips": "Lèvres",
     "heroImgSkin": "Skin boosters",
-    "trustShipTitle": "Expédition aujourd'hui",
-    "trustShipSub": "commande avant 15h · DHL & Colissimo",
+    "trustShipTitle": "Expédition le jour même",
+    "trustShipSub": "commande avant 15 h (jours ouvrés) · DHL Express & GLS",
     "trustCeTitle": "Marquage CE",
     "trustCeSub": "traçabilité complète des lots",
     "trustSupportTitle": "Support 5j/7",
@@ -145,10 +145,10 @@
     "editoFeat1Title": "Traçabilité totale",
     "editoFeat1Sub": "numéro de lot et marquage CE sur chaque référence.",
     "editoFeat2Title": "Chaîne du froid maîtrisée",
-    "editoFeat2Sub": "expédition isotherme, DHL & Colissimo Express.",
+    "editoFeat2Sub": "expédition isotherme, DHL Express & GLS.",
     "editoCta": "Découvrir le catalogue →",
-    "editoBadgeDelay": "24-48h",
-    "editoBadgeDelaySub": "livraison partout en Europe",
+    "editoBadgeDelay": "24-48 h",
+    "editoBadgeDelaySub": "livraison en France · 48-72 h en Europe",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} avis vérifiés <span>· Société des Avis Garantis</span>",
     "expertiseEyebrow": "Expertise",
     "expertiseTitle": "Le savoir-faire de nos spécialistes",
@@ -384,10 +384,28 @@
       "invalid_email": "E-mail invalide.",
       "password_too_short": "Mot de passe trop court (8 caractères min.).",
       "generic": "Une erreur est survenue.",
-      "network": "Erreur réseau."
+      "network": "Erreur réseau.",
+      "invalid_rpps": "N° RPPS (11 chiffres) ou ADELI (9 chiffres) invalide.",
+      "invalid_profession": "Veuillez indiquer votre profession."
     },
     "editAddress": "Modifier",
-    "editAddressTitle": "Modifier l’adresse"
+    "editAddressTitle": "Modifier l’adresse",
+    "profession": "Profession",
+    "professionChoose": "Choisissez votre profession",
+    "professions": {
+      "medecin": "Médecin",
+      "chirurgien-dentiste": "Chirurgien-dentiste",
+      "pharmacien": "Pharmacien",
+      "infirmier": "Infirmier / infirmière",
+      "autre": "Autre professionnel de santé"
+    },
+    "company": "Société / cabinet (facultatif)",
+    "companyPlaceholder": "Cabinet du Dr Martin",
+    "rpps": "N° RPPS / ADELI (facultatif)",
+    "rppsPlaceholder": "11 chiffres (RPPS) ou 9 chiffres (ADELI)",
+    "rppsHelp": "Le RPPS/ADELI sera demandé à la commande des produits réservés aux médecins s'il n'est pas fourni ici.",
+    "newsletterOptIn": "J'accepte de recevoir la newsletter (nouveautés, formations, offres). Désinscription en 1 clic.",
+    "guestTracking": "Commande passée sans compte ? <a>Suivez-la ici</a>"
   },
   "password": {
     "forgot": {
@@ -644,7 +662,8 @@
     "title": "Mes favoris",
     "count": "{count, plural, one {# produit en favori} other {# produits en favori}}",
     "emptyLead": "Retrouvez ici les produits que vous aimez.",
-    "emptyTitle": "Aucun favori pour l'instant"
+    "emptyTitle": "Aucun favori pour l'instant",
+    "localLead": "Vos favoris sont gardés sur cet appareil. Connectez-vous pour les enregistrer dans votre compte et les retrouver partout."
   },
   "brand": {
     "fallbackName": "Marque",
@@ -723,7 +742,16 @@
     "sent": "Merci, votre message est bien reçu. Notre équipe vous répond sous 24 h ouvrées.",
     "error": "L'envoi a échoué. Réessayez.",
     "errFileBig": "Fichier trop lourd (2 Mo max).",
-    "errFileType": "Type de fichier non accepté."
+    "errFileType": "Type de fichier non accepté.",
+    "name": "Nom et prénom",
+    "phone": "Téléphone (facultatif)",
+    "orderReference": "N° de commande (facultatif)",
+    "orderReferencePlaceholder": "Ex. : XKBKNABJK",
+    "errName": "Indiquez votre nom.",
+    "errPhone": "Numéro de téléphone invalide.",
+    "errEmail": "Adresse e-mail invalide.",
+    "coordsTitle": "Nos coordonnées",
+    "coordsCountry": "France"
   },
   "compare": {
     "button": "Comparer",
@@ -757,5 +785,39 @@
     "title": "Votre panier",
     "loading": "Récupération de votre panier…",
     "invalid": "Ce lien de panier n'est pas valide."
+  },
+  "consent": {
+    "label": "Consentement aux cookies",
+    "text": "Nous utilisons des cookies de mesure d'audience et de personnalisation publicitaire pour améliorer votre expérience. Vous pouvez accepter ou refuser. Voir notre <a>politique de confidentialité</a>.",
+    "refuse": "Refuser",
+    "accept": "Accepter"
+  },
+  "orderTracking": {
+    "title": "Suivi de commande",
+    "lead": "Commande passée sans compte ? Saisissez sa référence et l'adresse e-mail utilisée lors de la commande.",
+    "reference": "Référence de commande",
+    "referencePlaceholder": "Ex. : XKBKNABJK",
+    "referenceHint": "9 lettres, indiquée dans votre e-mail de confirmation.",
+    "email": "E-mail de la commande",
+    "emailPlaceholder": "vous@cabinet.fr",
+    "submit": "Suivre ma commande",
+    "searching": "Recherche…",
+    "errInvalid": "Saisissez une référence et une adresse e-mail valides.",
+    "errNotFound": "Aucune commande ne correspond à cette référence et à cet e-mail. Vérifiez votre saisie.",
+    "errGeneric": "Le suivi est momentanément indisponible. Réessayez dans quelques minutes.",
+    "orderTitle": "Commande {reference}",
+    "placedOn": "Passée le {date}",
+    "stepReceived": "Reçue",
+    "stepShipped": "Expédiée",
+    "stepDelivered": "Livrée",
+    "carrier": "Transporteur",
+    "trackingNumber": "N° de suivi",
+    "trackingPending": "Disponible dès l'expédition",
+    "total": "Total payé",
+    "ttc": "TTC",
+    "trackParcel": "Suivre le colis chez le transporteur",
+    "products": "Produits",
+    "haveAccount": "Vous avez un compte ? <a>Retrouvez toutes vos commandes</a>",
+    "needHelp": "Une question sur votre commande ? <a>Contactez-nous</a>"
   }
 }

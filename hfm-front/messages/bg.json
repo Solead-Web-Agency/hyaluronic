@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 години · лицензиран търговец на едро за медицинска естетика",
     "heroTitle1": "Еталонният инжектируем продукт,",
-    "heroTitle2": "доставен още утре.",
+    "heroTitle2": "изпратен още същия ден.",
     "heroLead": "Хиалуронова киселина, мезотерапия, пилинги и подкожни нишки — снабдявани директно от лабораториите, CE маркировка и проследимост на всяка партида.",
-    "ctaPractitionerRates": "Цени за практикуващи →",
+    "ctaPractitionerRates": "Към каталога →",
     "reviewsLine": "{count, number} проверени отзива",
     "brandsLine": "+30 марки",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Бестселъри",
     "heroImgLips": "Устни",
     "heroImgSkin": "Скин бустери",
-    "trustShipTitle": "Експедиция днес",
-    "trustShipSub": "поръчка преди 15 ч. · DHL & Colissimo",
+    "trustShipTitle": "Експедиция в същия ден",
+    "trustShipSub": "поръчка преди 15 ч. (работни дни) · DHL Express & GLS",
     "trustCeTitle": "CE маркировка",
     "trustCeSub": "пълна проследимост на партидите",
     "trustSupportTitle": "Поддръжка 5 дни/седмица",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Пълна проследимост",
     "editoFeat1Sub": "номер на партида и CE маркировка на всяка референция.",
     "editoFeat2Title": "Контролирана хладилна верига",
-    "editoFeat2Sub": "изотермична експедиция, DHL & Colissimo Express.",
+    "editoFeat2Sub": "изотермична експедиция, DHL Express & GLS.",
     "editoCta": "Разгледайте каталога →",
     "editoBadgeDelay": "24-48 ч.",
-    "editoBadgeDelaySub": "доставка в цяла Европа",
+    "editoBadgeDelaySub": "доставка във Франция · 48-72 ч. в Европа",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} проверени отзива <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Експертиза",
     "expertiseTitle": "Ноу-хауто на нашите специалисти",
@@ -368,11 +368,29 @@
       "invalid_email": "Невалиден имейл.",
       "password_too_short": "Паролата е твърде кратка (мин. 8 символа).",
       "generic": "Възникна грешка.",
-      "network": "Мрежова грешка."
+      "network": "Мрежова грешка.",
+      "invalid_rpps": "Невалиден номер RPPS (11 цифри) или ADELI (9 цифри).",
+      "invalid_profession": "Моля, посочете професията си."
     },
     "forgotPassword": "Забравена парола?",
     "editAddress": "Редактиране",
-    "editAddressTitle": "Редактиране на адреса"
+    "editAddressTitle": "Редактиране на адреса",
+    "profession": "Професия",
+    "professionChoose": "Изберете професия",
+    "professions": {
+      "medecin": "Лекар",
+      "chirurgien-dentiste": "Лекар по дентална медицина",
+      "pharmacien": "Фармацевт",
+      "infirmier": "Медицинска сестра / брат",
+      "autre": "Друг медицински специалист"
+    },
+    "company": "Фирма / кабинет (по избор)",
+    "companyPlaceholder": "Кабинет на д-р Мартен",
+    "rpps": "№ RPPS / ADELI (по избор)",
+    "rppsPlaceholder": "11 цифри (RPPS) или 9 цифри (ADELI)",
+    "rppsHelp": "Ако не е посочен тук, номерът RPPS/ADELI ще бъде поискан при поръчка на продукти, запазени за лекари.",
+    "newsletterOptIn": "Съгласен/на съм да получавам бюлетина (новости, обучения, оферти). Отписване с 1 клик.",
+    "guestTracking": "Поръчахте без профил? <a>Проследете поръчката тук</a>"
   },
   "addressForm": {
     "address": "Адрес",
@@ -586,7 +604,8 @@
     "title": "Моите любими",
     "count": "{count, plural, one {# любим продукт} other {# любими продукта}}",
     "emptyLead": "Тук ще намерите продуктите, които харесвате.",
-    "emptyTitle": "Все още няма любими"
+    "emptyTitle": "Все още няма любими",
+    "localLead": "Любимите ви продукти се пазят на това устройство. Влезте, за да ги запазите в профила си и да ги намирате навсякъде."
   },
   "brand": {
     "fallbackName": "Марка",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Име и фамилия",
+    "phone": "Телефон (по избор)",
+    "orderReference": "№ на поръчка (по избор)",
+    "orderReferencePlaceholder": "Напр. XKBKNABJK",
+    "errName": "Моля, въведете името си.",
+    "errPhone": "Невалиден телефонен номер.",
+    "errEmail": "Невалиден имейл адрес.",
+    "coordsTitle": "Нашите данни",
+    "coordsCountry": "Франция"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Вашата количка",
     "loading": "Възстановяване на количката…",
     "invalid": "Тази връзка към количката е невалидна."
+  },
+  "consent": {
+    "label": "Съгласие за бисквитки",
+    "text": "Използваме бисквитки за измерване на аудиторията и персонализиране на рекламите, за да подобрим вашето изживяване. Можете да приемете или откажете. Вижте нашата <a>политика за поверителност</a>.",
+    "refuse": "Отказ",
+    "accept": "Приемам"
+  },
+  "orderTracking": {
+    "title": "Проследяване на поръчка",
+    "lead": "Поръчахте без профил? Въведете номера на поръчката и имейла, използван при поръчката.",
+    "reference": "Номер на поръчката",
+    "referencePlaceholder": "Напр. XKBKNABJK",
+    "referenceHint": "9 букви, посочени в имейла за потвърждение.",
+    "email": "Имейл на поръчката",
+    "emailPlaceholder": "vie@kabinet.bg",
+    "submit": "Проследи поръчката",
+    "searching": "Търсене…",
+    "errInvalid": "Въведете валиден номер и имейл адрес.",
+    "errNotFound": "Няма поръчка с този номер и имейл. Проверете въведените данни.",
+    "errGeneric": "Проследяването временно не е достъпно. Опитайте отново след няколко минути.",
+    "orderTitle": "Поръчка {reference}",
+    "placedOn": "Направена на {date}",
+    "stepReceived": "Получена",
+    "stepShipped": "Изпратена",
+    "stepDelivered": "Доставена",
+    "carrier": "Куриер",
+    "trackingNumber": "Номер за проследяване",
+    "trackingPending": "Наличен след изпращане",
+    "total": "Платена сума",
+    "ttc": "с ДДС",
+    "trackParcel": "Проследи пратката при куриера",
+    "products": "Продукти",
+    "haveAccount": "Имате профил? <a>Вижте всички поръчки</a>",
+    "needHelp": "Въпрос за поръчката? <a>Свържете се с нас</a>"
   }
 }

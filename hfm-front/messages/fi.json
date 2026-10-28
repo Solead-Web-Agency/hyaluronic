@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 vuotta · valtuutettu lääketieteellisen estetiikan tukkukauppias",
     "heroTitle1": "Johtava injektoitava tuote,",
-    "heroTitle2": "toimitettuna jo huomenna.",
+    "heroTitle2": "lähetettynä samana päivänä.",
     "heroLead": "Hyaluronihappo, mesoterapia, kuorinnat ja vaijerikohotus — hankittu suoraan laboratorioilta, CE-merkintä ja jäljitettävyys jokaisessa erässä.",
-    "ctaPractitionerRates": "Hoitajien hinnat →",
+    "ctaPractitionerRates": "Katso katalogi →",
     "reviewsLine": "{count, number} vahvistettua arvostelua",
     "brandsLine": "+30 merkkiä",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Bestsellerit",
     "heroImgLips": "Huulet",
     "heroImgSkin": "Skin boosterit",
-    "trustShipTitle": "Lähetetään tänään",
-    "trustShipSub": "tilaa ennen klo 15 · DHL & Colissimo",
+    "trustShipTitle": "Lähetys samana päivänä",
+    "trustShipSub": "tilaa ennen klo 15 (arkipäivät) · DHL Express & GLS",
     "trustCeTitle": "CE-merkintä",
     "trustCeSub": "erien täysi jäljitettävyys",
     "trustSupportTitle": "Tuki 5 pv/viikko",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Täysi jäljitettävyys",
     "editoFeat1Sub": "eränumero ja CE-merkintä jokaisessa tuotteessa.",
     "editoFeat2Title": "Hallittu kylmäketju",
-    "editoFeat2Sub": "isoterminen lähetys, DHL & Colissimo Express.",
+    "editoFeat2Sub": "isoterminen lähetys, DHL Express & GLS.",
     "editoCta": "Tutustu katalogiin →",
     "editoBadgeDelay": "24–48 h",
-    "editoBadgeDelaySub": "toimitus kaikkialle Eurooppaan",
+    "editoBadgeDelaySub": "toimitus Ranskaan · 48–72 h Eurooppaan",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} vahvistettua arvostelua <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Asiantuntemus",
     "expertiseTitle": "Asiantuntijoidemme osaaminen",
@@ -368,11 +368,29 @@
       "invalid_email": "Virheellinen sähköpostiosoite.",
       "password_too_short": "Salasana on liian lyhyt (vähintään 8 merkkiä).",
       "generic": "Tapahtui virhe.",
-      "network": "Verkkovirhe."
+      "network": "Verkkovirhe.",
+      "invalid_rpps": "Virheellinen RPPS- (11 numeroa) tai ADELI-numero (9 numeroa).",
+      "invalid_profession": "Valitse ammattisi."
     },
     "forgotPassword": "Unohditko salasanasi?",
     "editAddress": "Muokkaa",
-    "editAddressTitle": "Muokkaa osoitetta"
+    "editAddressTitle": "Muokkaa osoitetta",
+    "profession": "Ammatti",
+    "professionChoose": "Valitse ammattisi",
+    "professions": {
+      "medecin": "Lääkäri",
+      "chirurgien-dentiste": "Hammaslääkäri",
+      "pharmacien": "Farmaseutti / proviisori",
+      "infirmier": "Sairaanhoitaja",
+      "autre": "Muu terveydenhuollon ammattilainen"
+    },
+    "company": "Yritys / vastaanotto (valinnainen)",
+    "companyPlaceholder": "Tri Martinin vastaanotto",
+    "rpps": "RPPS-/ADELI-nro (valinnainen)",
+    "rppsPlaceholder": "11 numeroa (RPPS) tai 9 numeroa (ADELI)",
+    "rppsHelp": "Jos sitä ei anneta tässä, RPPS/ADELI-numeroa pyydetään tilattaessa lääkäreille varattuja tuotteita.",
+    "newsletterOptIn": "Haluan vastaanottaa uutiskirjeen (uutuudet, koulutukset, tarjoukset). Peruutus yhdellä napsautuksella.",
+    "guestTracking": "Tilasitko ilman tiliä? <a>Seuraa tilaustasi täällä</a>"
   },
   "addressForm": {
     "address": "Osoite",
@@ -586,7 +604,8 @@
     "title": "Suosikkini",
     "count": "{count, plural, one {# suosikkituote} other {# suosikkituotetta}}",
     "emptyLead": "Täältä löydät tuotteet, joista pidät.",
-    "emptyTitle": "Ei vielä suosikkeja"
+    "emptyTitle": "Ei vielä suosikkeja",
+    "localLead": "Suosikkisi säilytetään tällä laitteella. Kirjaudu sisään tallentaaksesi ne tilillesi ja löytääksesi ne mistä tahansa."
   },
   "brand": {
     "fallbackName": "Merkki",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Koko nimi",
+    "phone": "Puhelin (valinnainen)",
+    "orderReference": "Tilausnro (valinnainen)",
+    "orderReferencePlaceholder": "Esim. XKBKNABJK",
+    "errName": "Anna nimesi.",
+    "errPhone": "Virheellinen puhelinnumero.",
+    "errEmail": "Virheellinen sähköpostiosoite.",
+    "coordsTitle": "Yhteystietomme",
+    "coordsCountry": "Ranska"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Ostoskorisi",
     "loading": "Palautetaan ostoskoria…",
     "invalid": "Tämä ostoskorilinkki ei ole kelvollinen."
+  },
+  "consent": {
+    "label": "Evästeiden hyväksyntä",
+    "text": "Käytämme kävijämittauksen ja mainosten personoinnin evästeitä parantaaksemme käyttökokemustasi. Voit hyväksyä tai hylätä ne. Katso <a>tietosuojakäytäntömme</a>.",
+    "refuse": "Hylkää",
+    "accept": "Hyväksy"
+  },
+  "orderTracking": {
+    "title": "Tilauksen seuranta",
+    "lead": "Tilasitko ilman tiliä? Anna tilausviite ja tilauksessa käytetty sähköpostiosoite.",
+    "reference": "Tilausviite",
+    "referencePlaceholder": "Esim. XKBKNABJK",
+    "referenceHint": "9 kirjainta, mainittu vahvistussähköpostissa.",
+    "email": "Tilauksen sähköposti",
+    "emailPlaceholder": "sina@vastaanotto.fi",
+    "submit": "Seuraa tilausta",
+    "searching": "Haetaan…",
+    "errInvalid": "Anna kelvollinen viite ja sähköpostiosoite.",
+    "errNotFound": "Tällä viitteellä ja sähköpostilla ei löytynyt tilausta. Tarkista tiedot.",
+    "errGeneric": "Seuranta ei ole tilapäisesti käytettävissä. Yritä uudelleen muutaman minuutin kuluttua.",
+    "orderTitle": "Tilaus {reference}",
+    "placedOn": "Tehty {date}",
+    "stepReceived": "Vastaanotettu",
+    "stepShipped": "Lähetetty",
+    "stepDelivered": "Toimitettu",
+    "carrier": "Kuljetusyhtiö",
+    "trackingNumber": "Seurantanumero",
+    "trackingPending": "Saatavilla lähetyksen jälkeen",
+    "total": "Maksettu yhteensä",
+    "ttc": "sis. ALV",
+    "trackParcel": "Seuraa pakettia kuljetusyhtiön sivulla",
+    "products": "Tuotteet",
+    "haveAccount": "Onko sinulla tili? <a>Katso kaikki tilauksesi</a>",
+    "needHelp": "Kysyttävää tilauksesta? <a>Ota yhteyttä</a>"
   }
 }

@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 ani · distribuitor autorizat de estetică medicală",
     "heroTitle1": "Injectabilul de referință,",
-    "heroTitle2": "livrat de mâine.",
+    "heroTitle2": "expediat în aceeași zi.",
     "heroLead": "Acid hialuronic, mezoterapie, peelinguri și fire de lifting — procurate direct de la laboratoare, marcaj CE și trasabilitate pentru fiecare lot.",
-    "ctaPractitionerRates": "Prețuri pentru practicieni →",
+    "ctaPractitionerRates": "Vezi catalogul →",
     "reviewsLine": "{count, number} recenzii verificate",
     "brandsLine": "+30 de mărci",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Best-sellere",
     "heroImgLips": "Buze",
     "heroImgSkin": "Skin boostere",
-    "trustShipTitle": "Expediere astăzi",
-    "trustShipSub": "comandă înainte de ora 15:00 · DHL & Colissimo",
+    "trustShipTitle": "Expediere în aceeași zi",
+    "trustShipSub": "comandă înainte de ora 15:00 (zile lucrătoare) · DHL Express & GLS",
     "trustCeTitle": "Marcaj CE",
     "trustCeSub": "trasabilitate completă a loturilor",
     "trustSupportTitle": "Asistență 5 zile/săptămână",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Trasabilitate totală",
     "editoFeat1Sub": "număr de lot și marcaj CE la fiecare referință.",
     "editoFeat2Title": "Lanț de frig controlat",
-    "editoFeat2Sub": "expediere izotermică, DHL & Colissimo Express.",
+    "editoFeat2Sub": "expediere izotermică, DHL Express & GLS.",
     "editoCta": "Descoperă catalogul →",
-    "editoBadgeDelay": "24-48h",
-    "editoBadgeDelaySub": "livrare în toată Europa",
+    "editoBadgeDelay": "24-48 h",
+    "editoBadgeDelaySub": "livrare în Franța · 48-72 h în Europa",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} recenzii verificate <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Expertiză",
     "expertiseTitle": "Know-how-ul specialiștilor noștri",
@@ -368,11 +368,29 @@
       "invalid_email": "E-mail invalid.",
       "password_too_short": "Parolă prea scurtă (min. 8 caractere).",
       "generic": "A apărut o eroare.",
-      "network": "Eroare de rețea."
+      "network": "Eroare de rețea.",
+      "invalid_rpps": "Număr RPPS (11 cifre) sau ADELI (9 cifre) invalid.",
+      "invalid_profession": "Vă rugăm să indicați profesia."
     },
     "forgotPassword": "Ați uitat parola?",
     "editAddress": "Modifică",
-    "editAddressTitle": "Modifică adresa"
+    "editAddressTitle": "Modifică adresa",
+    "profession": "Profesie",
+    "professionChoose": "Alegeți profesia",
+    "professions": {
+      "medecin": "Medic",
+      "chirurgien-dentiste": "Medic dentist",
+      "pharmacien": "Farmacist",
+      "infirmier": "Asistent(ă) medical(ă)",
+      "autre": "Alt profesionist din domeniul sănătății"
+    },
+    "company": "Companie / cabinet (opțional)",
+    "companyPlaceholder": "Cabinetul Dr. Martin",
+    "rpps": "Nr. RPPS / ADELI (opțional)",
+    "rppsPlaceholder": "11 cifre (RPPS) sau 9 cifre (ADELI)",
+    "rppsHelp": "Dacă nu îl furnizați aici, numărul RPPS/ADELI va fi cerut la comanda produselor rezervate medicilor.",
+    "newsletterOptIn": "Accept să primesc newsletterul (noutăți, cursuri, oferte). Dezabonare cu 1 clic.",
+    "guestTracking": "Ați comandat fără cont? <a>Urmăriți comanda aici</a>"
   },
   "addressForm": {
     "address": "Adresă",
@@ -586,7 +604,8 @@
     "title": "Favoritele mele",
     "count": "{count, plural, one {# produs favorit} few {# produse favorite} other {# de produse favorite}}",
     "emptyLead": "Găsește aici produsele care îți plac.",
-    "emptyTitle": "Niciun favorit deocamdată"
+    "emptyTitle": "Niciun favorit deocamdată",
+    "localLead": "Favoritele sunt păstrate pe acest dispozitiv. Conectați-vă pentru a le salva în cont și a le regăsi oriunde."
   },
   "brand": {
     "fallbackName": "Marcă",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Nume și prenume",
+    "phone": "Telefon (opțional)",
+    "orderReference": "Nr. comandă (opțional)",
+    "orderReferencePlaceholder": "Ex.: XKBKNABJK",
+    "errName": "Vă rugăm să indicați numele.",
+    "errPhone": "Număr de telefon invalid.",
+    "errEmail": "Adresă de e-mail invalidă.",
+    "coordsTitle": "Datele noastre de contact",
+    "coordsCountry": "Franța"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Coșul dvs.",
     "loading": "Se restabilește coșul…",
     "invalid": "Acest link de coș nu este valid."
+  },
+  "consent": {
+    "label": "Consimțământ pentru cookie-uri",
+    "text": "Folosim cookie-uri de măsurare a audienței și de personalizare a reclamelor pentru a vă îmbunătăți experiența. Puteți accepta sau refuza. Consultați <a>politica noastră de confidențialitate</a>.",
+    "refuse": "Refuz",
+    "accept": "Accept"
+  },
+  "orderTracking": {
+    "title": "Urmărire comandă",
+    "lead": "Ați comandat fără cont? Introduceți referința comenzii și adresa de e-mail folosită la comandă.",
+    "reference": "Referința comenzii",
+    "referencePlaceholder": "Ex.: XKBKNABJK",
+    "referenceHint": "9 litere, indicată în e-mailul de confirmare.",
+    "email": "E-mailul comenzii",
+    "emailPlaceholder": "dvs@cabinet.ro",
+    "submit": "Urmărește comanda",
+    "searching": "Căutare…",
+    "errInvalid": "Introduceți o referință și o adresă de e-mail valide.",
+    "errNotFound": "Nicio comandă nu corespunde acestei referințe și acestui e-mail. Verificați datele.",
+    "errGeneric": "Urmărirea este momentan indisponibilă. Reîncercați în câteva minute.",
+    "orderTitle": "Comanda {reference}",
+    "placedOn": "Plasată pe {date}",
+    "stepReceived": "Primită",
+    "stepShipped": "Expediată",
+    "stepDelivered": "Livrată",
+    "carrier": "Curier",
+    "trackingNumber": "Nr. de urmărire",
+    "trackingPending": "Disponibil după expediere",
+    "total": "Total plătit",
+    "ttc": "cu TVA",
+    "trackParcel": "Urmărește coletul pe site-ul curierului",
+    "products": "Produse",
+    "haveAccount": "Aveți cont? <a>Vedeți toate comenzile</a>",
+    "needHelp": "O întrebare despre comandă? <a>Contactați-ne</a>"
   }
 }

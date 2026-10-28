@@ -96,9 +96,9 @@
   "home": {
     "badge": "10년 · 의료 미용 인증 도매업체",
     "heroTitle1": "기준이 되는 주사 제품,",
-    "heroTitle2": "내일 바로 배송.",
+    "heroTitle2": "당일 발송.",
     "heroLead": "히알루론산, 메조테라피, 필링, 리프팅 실 — 연구소에서 직접 소싱하며, 모든 배치에 CE 인증과 추적성을 보장합니다.",
-    "ctaPractitionerRates": "시술자 가격 →",
+    "ctaPractitionerRates": "카탈로그 보기 →",
     "reviewsLine": "{count, number}개의 검증된 후기",
     "brandsLine": "30+ 브랜드",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -107,7 +107,7 @@
     "heroImgLips": "입술",
     "heroImgSkin": "스킨 부스터",
     "trustShipTitle": "당일 발송",
-    "trustShipSub": "오후 3시 이전 주문 · DHL & Colissimo",
+    "trustShipSub": "오후 3시 이전 주문 (영업일) · DHL Express & GLS",
     "trustCeTitle": "CE 인증",
     "trustCeSub": "배치 완전 추적성",
     "trustSupportTitle": "주 5일 지원",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "완전한 추적성",
     "editoFeat1Sub": "모든 제품에 배치 번호와 CE 인증 표시.",
     "editoFeat2Title": "철저한 콜드체인 관리",
-    "editoFeat2Sub": "단열 포장 배송, DHL & Colissimo Express.",
+    "editoFeat2Sub": "단열 포장 배송, DHL Express & GLS.",
     "editoCta": "카탈로그 둘러보기 →",
     "editoBadgeDelay": "24-48시간",
-    "editoBadgeDelaySub": "유럽 전역 배송",
+    "editoBadgeDelaySub": "프랑스 배송 · 유럽 48-72시간",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number}개의 검증된 후기 <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "전문성",
     "expertiseTitle": "전문가들의 노하우",
@@ -368,11 +368,29 @@
       "invalid_email": "유효하지 않은 이메일입니다.",
       "password_too_short": "비밀번호가 너무 짧습니다 (최소 8자).",
       "generic": "오류가 발생했습니다.",
-      "network": "네트워크 오류입니다."
+      "network": "네트워크 오류입니다.",
+      "invalid_rpps": "유효하지 않은 RPPS(11자리) 또는 ADELI(9자리) 번호입니다.",
+      "invalid_profession": "직업을 선택해 주세요."
     },
     "forgotPassword": "비밀번호를 잊으셨나요?",
     "editAddress": "수정",
-    "editAddressTitle": "주소 수정"
+    "editAddressTitle": "주소 수정",
+    "profession": "직업",
+    "professionChoose": "직업을 선택하세요",
+    "professions": {
+      "medecin": "의사",
+      "chirurgien-dentiste": "치과의사",
+      "pharmacien": "약사",
+      "infirmier": "간호사",
+      "autre": "기타 의료 전문가"
+    },
+    "company": "회사 / 클리닉 (선택)",
+    "companyPlaceholder": "마르탱 클리닉",
+    "rpps": "RPPS / ADELI 번호 (선택)",
+    "rppsPlaceholder": "11자리 (RPPS) 또는 9자리 (ADELI)",
+    "rppsHelp": "여기에 입력하지 않으면, 의사 전용 제품 주문 시 RPPS/ADELI 번호를 요청합니다.",
+    "newsletterOptIn": "뉴스레터(신제품, 교육, 혜택) 수신에 동의합니다. 클릭 한 번으로 수신 거부 가능.",
+    "guestTracking": "계정 없이 주문하셨나요? <a>여기에서 주문 조회</a>"
   },
   "addressForm": {
     "address": "주소",
@@ -586,7 +604,8 @@
     "title": "내 즐겨찾기",
     "count": "{count, plural, other {#개 즐겨찾기 제품}}",
     "emptyLead": "여기에서 좋아하는 제품을 확인하세요.",
-    "emptyTitle": "아직 즐겨찾기가 없습니다"
+    "emptyTitle": "아직 즐겨찾기가 없습니다",
+    "localLead": "관심 상품은 이 기기에 저장됩니다. 로그인하면 계정에 저장되어 어디서나 확인할 수 있습니다."
   },
   "brand": {
     "fallbackName": "브랜드",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "이름",
+    "phone": "전화번호 (선택)",
+    "orderReference": "주문 번호 (선택)",
+    "orderReferencePlaceholder": "예: XKBKNABJK",
+    "errName": "이름을 입력해 주세요.",
+    "errPhone": "유효하지 않은 전화번호입니다.",
+    "errEmail": "유효하지 않은 이메일 주소입니다.",
+    "coordsTitle": "연락처",
+    "coordsCountry": "프랑스"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "장바구니",
     "loading": "장바구니를 복원하는 중…",
     "invalid": "이 장바구니 링크가 유효하지 않습니다."
+  },
+  "consent": {
+    "label": "쿠키 동의",
+    "text": "더 나은 이용 경험을 위해 방문자 분석 및 맞춤형 광고 쿠키를 사용합니다. 동의 또는 거부를 선택할 수 있습니다. <a>개인정보 처리방침</a>을 확인하세요.",
+    "refuse": "거부",
+    "accept": "동의"
+  },
+  "orderTracking": {
+    "title": "주문 조회",
+    "lead": "계정 없이 주문하셨나요? 주문 번호와 주문 시 사용한 이메일을 입력하세요.",
+    "reference": "주문 번호",
+    "referencePlaceholder": "예: XKBKNABJK",
+    "referenceHint": "영문 9자, 주문 확인 이메일에 기재되어 있습니다.",
+    "email": "주문 이메일",
+    "emailPlaceholder": "you@clinic.kr",
+    "submit": "주문 조회하기",
+    "searching": "조회 중…",
+    "errInvalid": "유효한 주문 번호와 이메일을 입력하세요.",
+    "errNotFound": "이 주문 번호와 이메일에 해당하는 주문이 없습니다. 입력 내용을 확인해 주세요.",
+    "errGeneric": "현재 조회를 이용할 수 없습니다. 몇 분 후 다시 시도해 주세요.",
+    "orderTitle": "주문 {reference}",
+    "placedOn": "{date} 주문",
+    "stepReceived": "접수",
+    "stepShipped": "발송",
+    "stepDelivered": "배송 완료",
+    "carrier": "택배사",
+    "trackingNumber": "운송장 번호",
+    "trackingPending": "발송 후 확인 가능",
+    "total": "결제 금액",
+    "ttc": "VAT 포함",
+    "trackParcel": "택배사 사이트에서 배송 조회",
+    "products": "상품",
+    "haveAccount": "계정이 있으신가요? <a>전체 주문 내역 보기</a>",
+    "needHelp": "주문 관련 문의가 있으신가요? <a>문의하기</a>"
   }
 }

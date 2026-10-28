@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 lat · autoryzowany hurtownik medycyny estetycznej",
     "heroTitle1": "Wzorcowy produkt iniekcyjny,",
-    "heroTitle2": "dostarczony już jutro.",
+    "heroTitle2": "wysłany tego samego dnia.",
     "heroLead": "Kwas hialuronowy, mezoterapia, peelingi i nici liftingujące — pozyskiwane bezpośrednio z laboratoriów, oznakowanie CE i identyfikowalność każdej partii.",
-    "ctaPractitionerRates": "Ceny dla specjalistów →",
+    "ctaPractitionerRates": "Zobacz katalog →",
     "reviewsLine": "{count, number} zweryfikowanych opinii",
     "brandsLine": "+30 marek",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Bestsellery",
     "heroImgLips": "Usta",
     "heroImgSkin": "Skin boostery",
-    "trustShipTitle": "Wysyłka dzisiaj",
-    "trustShipSub": "zamów przed 15:00 · DHL & Colissimo",
+    "trustShipTitle": "Wysyłka tego samego dnia",
+    "trustShipSub": "zamów przed 15:00 (dni robocze) · DHL Express & GLS",
     "trustCeTitle": "Oznakowanie CE",
     "trustCeSub": "pełna identyfikowalność partii",
     "trustSupportTitle": "Wsparcie 5 dni w tygodniu",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Pełna identyfikowalność",
     "editoFeat1Sub": "numer partii i oznakowanie CE przy każdej pozycji.",
     "editoFeat2Title": "Kontrolowany łańcuch chłodniczy",
-    "editoFeat2Sub": "wysyłka izotermiczna, DHL & Colissimo Express.",
+    "editoFeat2Sub": "wysyłka izotermiczna, DHL Express & GLS.",
     "editoCta": "Odkryj katalog →",
-    "editoBadgeDelay": "24-48h",
-    "editoBadgeDelaySub": "dostawa w całej Europie",
+    "editoBadgeDelay": "24-48 h",
+    "editoBadgeDelaySub": "dostawa we Francji · 48-72 h w Europie",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} zweryfikowanych opinii <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Ekspertyza",
     "expertiseTitle": "Wiedza naszych specjalistów",
@@ -368,11 +368,29 @@
       "invalid_email": "Nieprawidłowy e-mail.",
       "password_too_short": "Hasło zbyt krótkie (min. 8 znaków).",
       "generic": "Wystąpił błąd.",
-      "network": "Błąd sieci."
+      "network": "Błąd sieci.",
+      "invalid_rpps": "Nieprawidłowy numer RPPS (11 cyfr) lub ADELI (9 cyfr).",
+      "invalid_profession": "Podaj swój zawód."
     },
     "forgotPassword": "Nie pamiętasz hasła?",
     "editAddress": "Edytuj",
-    "editAddressTitle": "Edytuj adres"
+    "editAddressTitle": "Edytuj adres",
+    "profession": "Zawód",
+    "professionChoose": "Wybierz swój zawód",
+    "professions": {
+      "medecin": "Lekarz",
+      "chirurgien-dentiste": "Lekarz dentysta",
+      "pharmacien": "Farmaceuta",
+      "infirmier": "Pielęgniarka / pielęgniarz",
+      "autre": "Inny specjalista ochrony zdrowia"
+    },
+    "company": "Firma / gabinet (opcjonalnie)",
+    "companyPlaceholder": "Gabinet dr. Martina",
+    "rpps": "Nr RPPS / ADELI (opcjonalnie)",
+    "rppsPlaceholder": "11 cyfr (RPPS) lub 9 cyfr (ADELI)",
+    "rppsHelp": "Jeśli nie podasz go tutaj, numer RPPS/ADELI zostanie wymagany przy zamawianiu produktów zastrzeżonych dla lekarzy.",
+    "newsletterOptIn": "Zgadzam się na otrzymywanie newslettera (nowości, szkolenia, oferty). Rezygnacja jednym kliknięciem.",
+    "guestTracking": "Zamówienie bez konta? <a>Śledź je tutaj</a>"
   },
   "addressForm": {
     "address": "Adres",
@@ -586,7 +604,8 @@
     "title": "Moje ulubione",
     "count": "{count, plural, one {# ulubiony produkt} few {# ulubione produkty} many {# ulubionych produktów} other {# ulubionego produktu}}",
     "emptyLead": "Znajdź tutaj produkty, które lubisz.",
-    "emptyTitle": "Brak ulubionych na razie"
+    "emptyTitle": "Brak ulubionych na razie",
+    "localLead": "Ulubione są zapisane na tym urządzeniu. Zaloguj się, aby zapisać je na koncie i mieć do nich dostęp wszędzie."
   },
   "brand": {
     "fallbackName": "Marka",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Imię i nazwisko",
+    "phone": "Telefon (opcjonalnie)",
+    "orderReference": "Nr zamówienia (opcjonalnie)",
+    "orderReferencePlaceholder": "Np. XKBKNABJK",
+    "errName": "Podaj imię i nazwisko.",
+    "errPhone": "Nieprawidłowy numer telefonu.",
+    "errEmail": "Nieprawidłowy adres e-mail.",
+    "coordsTitle": "Dane kontaktowe",
+    "coordsCountry": "Francja"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Twój koszyk",
     "loading": "Przywracanie koszyka…",
     "invalid": "Ten link do koszyka jest nieprawidłowy."
+  },
+  "consent": {
+    "label": "Zgoda na pliki cookie",
+    "text": "Używamy plików cookie do pomiaru oglądalności i personalizacji reklam, aby ulepszyć Twoje doświadczenia. Możesz je zaakceptować lub odrzucić. Zobacz naszą <a>politykę prywatności</a>.",
+    "refuse": "Odrzuć",
+    "accept": "Akceptuj"
+  },
+  "orderTracking": {
+    "title": "Śledzenie zamówienia",
+    "lead": "Zamówienie bez konta? Wpisz numer referencyjny zamówienia i adres e-mail użyty przy zamówieniu.",
+    "reference": "Numer referencyjny zamówienia",
+    "referencePlaceholder": "Np. XKBKNABJK",
+    "referenceHint": "9 liter, podany w e-mailu potwierdzającym.",
+    "email": "E-mail zamówienia",
+    "emailPlaceholder": "ty@gabinet.pl",
+    "submit": "Śledź zamówienie",
+    "searching": "Wyszukiwanie…",
+    "errInvalid": "Wpisz prawidłowy numer referencyjny i adres e-mail.",
+    "errNotFound": "Żadne zamówienie nie odpowiada temu numerowi i adresowi e-mail. Sprawdź wprowadzone dane.",
+    "errGeneric": "Śledzenie jest chwilowo niedostępne. Spróbuj ponownie za kilka minut.",
+    "orderTitle": "Zamówienie {reference}",
+    "placedOn": "Złożone {date}",
+    "stepReceived": "Przyjęte",
+    "stepShipped": "Wysłane",
+    "stepDelivered": "Dostarczone",
+    "carrier": "Przewoźnik",
+    "trackingNumber": "Nr przesyłki",
+    "trackingPending": "Dostępny po wysyłce",
+    "total": "Zapłacono łącznie",
+    "ttc": "brutto",
+    "trackParcel": "Śledź paczkę u przewoźnika",
+    "products": "Produkty",
+    "haveAccount": "Masz konto? <a>Zobacz wszystkie zamówienia</a>",
+    "needHelp": "Pytanie dotyczące zamówienia? <a>Skontaktuj się z nami</a>"
   }
 }

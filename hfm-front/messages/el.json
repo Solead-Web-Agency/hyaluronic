@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 χρόνια · αδειοδοτημένος χονδρέμπορος ιατρικής αισθητικής",
     "heroTitle1": "Το ενέσιμο αναφοράς,",
-    "heroTitle2": "παραδοτέο από αύριο.",
+    "heroTitle2": "αποστέλλεται αυθημερόν.",
     "heroLead": "Υαλουρονικό οξύ, μεσοθεραπεία, peelings και νήματα σύσφιξης — με προμήθεια απευθείας από τα εργαστήρια, σήμανση CE και ιχνηλασιμότητα σε κάθε παρτίδα.",
-    "ctaPractitionerRates": "Τιμές για επαγγελματίες →",
+    "ctaPractitionerRates": "Δείτε τον κατάλογο →",
     "reviewsLine": "{count, number} επαληθευμένες κριτικές",
     "brandsLine": "+30 μάρκες",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Best-sellers",
     "heroImgLips": "Χείλη",
     "heroImgSkin": "Skin boosters",
-    "trustShipTitle": "Αποστολή σήμερα",
-    "trustShipSub": "παραγγελία πριν τις 15:00 · DHL & Colissimo",
+    "trustShipTitle": "Αποστολή αυθημερόν",
+    "trustShipSub": "παραγγελία πριν τις 15:00 (εργάσιμες) · DHL Express & GLS",
     "trustCeTitle": "Σήμανση CE",
     "trustCeSub": "πλήρης ιχνηλασιμότητα παρτίδων",
     "trustSupportTitle": "Υποστήριξη 5 ημέρες/εβδομάδα",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Πλήρης ιχνηλασιμότητα",
     "editoFeat1Sub": "αριθμός παρτίδας και σήμανση CE σε κάθε κωδικό.",
     "editoFeat2Title": "Ελεγχόμενη ψυκτική αλυσίδα",
-    "editoFeat2Sub": "ισοθερμική αποστολή, DHL & Colissimo Express.",
+    "editoFeat2Sub": "ισοθερμική αποστολή, DHL Express & GLS.",
     "editoCta": "Ανακαλύψτε τον κατάλογο →",
-    "editoBadgeDelay": "24-48ω",
-    "editoBadgeDelaySub": "παράδοση σε όλη την Ευρώπη",
+    "editoBadgeDelay": "24-48 ώρες",
+    "editoBadgeDelaySub": "παράδοση στη Γαλλία · 48-72 ώρες στην Ευρώπη",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} επαληθευμένες κριτικές <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Τεχνογνωσία",
     "expertiseTitle": "Η τεχνογνωσία των ειδικών μας",
@@ -368,11 +368,29 @@
       "invalid_email": "Μη έγκυρο e-mail.",
       "password_too_short": "Πολύ σύντομος κωδικός πρόσβασης (8 χαρακτήρες ελάχ.).",
       "generic": "Παρουσιάστηκε σφάλμα.",
-      "network": "Σφάλμα δικτύου."
+      "network": "Σφάλμα δικτύου.",
+      "invalid_rpps": "Μη έγκυρος αριθμός RPPS (11 ψηφία) ή ADELI (9 ψηφία).",
+      "invalid_profession": "Παρακαλούμε δηλώστε το επάγγελμά σας."
     },
     "forgotPassword": "Ξεχάσατε τον κωδικό σας;",
     "editAddress": "Επεξεργασία",
-    "editAddressTitle": "Επεξεργασία διεύθυνσης"
+    "editAddressTitle": "Επεξεργασία διεύθυνσης",
+    "profession": "Επάγγελμα",
+    "professionChoose": "Επιλέξτε το επάγγελμά σας",
+    "professions": {
+      "medecin": "Ιατρός",
+      "chirurgien-dentiste": "Οδοντίατρος",
+      "pharmacien": "Φαρμακοποιός",
+      "infirmier": "Νοσηλευτής / νοσηλεύτρια",
+      "autre": "Άλλος επαγγελματίας υγείας"
+    },
+    "company": "Εταιρεία / ιατρείο (προαιρετικό)",
+    "companyPlaceholder": "Ιατρείο Δρ. Martin",
+    "rpps": "Αρ. RPPS / ADELI (προαιρετικό)",
+    "rppsPlaceholder": "11 ψηφία (RPPS) ή 9 ψηφία (ADELI)",
+    "rppsHelp": "Αν δεν δοθεί εδώ, ο αριθμός RPPS/ADELI θα ζητηθεί κατά την παραγγελία προϊόντων που προορίζονται για ιατρούς.",
+    "newsletterOptIn": "Αποδέχομαι να λαμβάνω το newsletter (νέα προϊόντα, εκπαιδεύσεις, προσφορές). Διαγραφή με 1 κλικ.",
+    "guestTracking": "Παραγγείλατε χωρίς λογαριασμό; <a>Παρακολουθήστε την εδώ</a>"
   },
   "addressForm": {
     "address": "Διεύθυνση",
@@ -586,7 +604,8 @@
     "title": "Τα αγαπημένα μου",
     "count": "{count, plural, one {# αγαπημένο προϊόν} other {# αγαπημένα προϊόντα}}",
     "emptyLead": "Βρείτε εδώ τα προϊόντα που αγαπάτε.",
-    "emptyTitle": "Κανένα αγαπημένο προς το παρόν"
+    "emptyTitle": "Κανένα αγαπημένο προς το παρόν",
+    "localLead": "Τα αγαπημένα σας αποθηκεύονται σε αυτή τη συσκευή. Συνδεθείτε για να τα αποθηκεύσετε στον λογαριασμό σας και να τα βρίσκετε παντού."
   },
   "brand": {
     "fallbackName": "Μάρκα",
@@ -644,7 +663,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Ονοματεπώνυμο",
+    "phone": "Τηλέφωνο (προαιρετικό)",
+    "orderReference": "Αρ. παραγγελίας (προαιρετικό)",
+    "orderReferencePlaceholder": "Π.χ. XKBKNABJK",
+    "errName": "Εισαγάγετε το όνομά σας.",
+    "errPhone": "Μη έγκυρος αριθμός τηλεφώνου.",
+    "errEmail": "Μη έγκυρη διεύθυνση e-mail.",
+    "coordsTitle": "Στοιχεία επικοινωνίας",
+    "coordsCountry": "Γαλλία"
   },
   "compare": {
     "button": "Compare",
@@ -757,5 +785,39 @@
     "title": "Το καλάθι σας",
     "loading": "Επαναφορά του καλαθιού σας…",
     "invalid": "Ο σύνδεσμος καλαθιού δεν είναι έγκυρος."
+  },
+  "consent": {
+    "label": "Συγκατάθεση για cookies",
+    "text": "Χρησιμοποιούμε cookies μέτρησης επισκεψιμότητας και εξατομίκευσης διαφημίσεων για να βελτιώσουμε την εμπειρία σας. Μπορείτε να τα αποδεχτείτε ή να τα απορρίψετε. Δείτε την <a>πολιτική απορρήτου</a> μας.",
+    "refuse": "Απόρριψη",
+    "accept": "Αποδοχή"
+  },
+  "orderTracking": {
+    "title": "Παρακολούθηση παραγγελίας",
+    "lead": "Παραγγείλατε χωρίς λογαριασμό; Εισαγάγετε τον κωδικό της παραγγελίας και το e-mail που χρησιμοποιήσατε.",
+    "reference": "Κωδικός παραγγελίας",
+    "referencePlaceholder": "Π.χ. XKBKNABJK",
+    "referenceHint": "9 γράμματα, αναγράφεται στο e-mail επιβεβαίωσης.",
+    "email": "E-mail παραγγελίας",
+    "emailPlaceholder": "esis@iatreio.gr",
+    "submit": "Παρακολούθηση παραγγελίας",
+    "searching": "Αναζήτηση…",
+    "errInvalid": "Εισαγάγετε έγκυρο κωδικό και διεύθυνση e-mail.",
+    "errNotFound": "Καμία παραγγελία δεν αντιστοιχεί σε αυτόν τον κωδικό και το e-mail. Ελέγξτε τα στοιχεία σας.",
+    "errGeneric": "Η παρακολούθηση δεν είναι προσωρινά διαθέσιμη. Δοκιμάστε ξανά σε λίγα λεπτά.",
+    "orderTitle": "Παραγγελία {reference}",
+    "placedOn": "Καταχωρίστηκε στις {date}",
+    "stepReceived": "Ελήφθη",
+    "stepShipped": "Απεστάλη",
+    "stepDelivered": "Παραδόθηκε",
+    "carrier": "Μεταφορέας",
+    "trackingNumber": "Αρ. αποστολής",
+    "trackingPending": "Διαθέσιμος μετά την αποστολή",
+    "total": "Σύνολο πληρωμής",
+    "ttc": "με ΦΠΑ",
+    "trackParcel": "Παρακολούθηση δέματος στον μεταφορέα",
+    "products": "Προϊόντα",
+    "haveAccount": "Έχετε λογαριασμό; <a>Δείτε όλες τις παραγγελίες σας</a>",
+    "needHelp": "Ερώτηση για την παραγγελία σας; <a>Επικοινωνήστε μαζί μας</a>"
   }
 }

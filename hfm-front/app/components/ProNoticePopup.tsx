@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { CONSENT_DECIDED_EVENT, hasConsentChoice } from './ConsentBanner';
 
 // Pays européens concernés (UE + EEE + Suisse + Royaume-Uni) : rappel que les dispositifs
-// médicaux sont réservés aux professionnels de santé. Affiché UNE fois par visiteur.
+// médicaux sont réservés aux professionnels de santé. Affiché UNE fois par visiteur et par an,
+// et seulement APRÈS le choix cookies (jamais deux fenêtres en même temps à la première visite).
 const EUROPE = new Set([
   'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT',
   'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', // UE
@@ -12,10 +14,20 @@ const EUROPE = new Set([
   'CH', 'GB', 'MC', 'AD', 'SM', 'VA',
 ]);
 const STORAGE_KEY = 'hfm_pro_notice_ack';
+// Acceptation mémorisée 12 mois (horodatage en ms), pas seulement le temps d'une session.
+const ACK_TTL_MS = 365 * 24 * 60 * 60 * 1000;
 
 function acknowledged(): boolean {
   try {
-    return localStorage.getItem(STORAGE_KEY) === '1';
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    if (raw === '1') {
+      // Ancien format (sans date) : on le date d'aujourd'hui plutôt que de reposer la question.
+      localStorage.setItem(STORAGE_KEY, String(Date.now()));
+      return true;
+    }
+    const at = Number(raw);
+    return Number.isFinite(at) && Date.now() - at < ACK_TTL_MS;
   } catch {
     return false;
   }
@@ -28,13 +40,27 @@ export default function ProNoticePopup() {
 
   useEffect(() => {
     if (acknowledged()) return;
-    const force = new URLSearchParams(window.location.search).get('country');
-    fetch(`/api/geo${force ? `?country=${encodeURIComponent(force)}` : ''}`)
-      .then((r) => r.json())
-      .then((d) => {
-        if (d?.country && EUROPE.has(String(d.country))) setOpen(true);
-      })
-      .catch(() => {});
+    let cancelled = false;
+    const check = () => {
+      const force = new URLSearchParams(window.location.search).get('country');
+      fetch(`/api/geo${force ? `?country=${encodeURIComponent(force)}` : ''}`)
+        .then((r) => r.json())
+        .then((d) => {
+          if (!cancelled && d?.country && EUROPE.has(String(d.country))) setOpen(true);
+        })
+        .catch(() => {});
+    };
+    // Bandeau cookies encore affiché : on attend le choix du visiteur.
+    if (hasConsentChoice()) {
+      check();
+      return () => { cancelled = true; };
+    }
+    const onDecided = () => check();
+    window.addEventListener(CONSENT_DECIDED_EVENT, onDecided, { once: true });
+    return () => {
+      cancelled = true;
+      window.removeEventListener(CONSENT_DECIDED_EVENT, onDecided);
+    };
   }, []);
 
   useEffect(() => {
@@ -49,7 +75,7 @@ export default function ProNoticePopup() {
 
   const close = () => {
     try {
-      localStorage.setItem(STORAGE_KEY, '1');
+      localStorage.setItem(STORAGE_KEY, String(Date.now()));
     } catch {
       /* stockage bloqué : le pop-up réapparaîtra, sans casser la page */
     }
