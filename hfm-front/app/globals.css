@@ -90,6 +90,12 @@ a{color:inherit;text-decoration:none;}
 @media (max-width:430px){
   .hfm-topbar{ font-size:10.5px !important; }
   .hfm-head{ padding:10px 14px !important; gap:9px !important; }
+  /* Débordement horizontal mobile (audit 27/10) : burger 40 + logo 18 px (≈193 px, flex:none) +
+     icônes langue/compte/panier (129 px) + gouttières dépassaient la largeur d'écran sur TOUTES
+     les pages (le header est commun). Logo ramené à 16 px et autorisé à rétrécir (retour à la
+     ligne) sur les très petits écrans plutôt que de pousser la page. */
+  .hfm-logo{ flex:0 1 auto !important; min-width:0 !important; }
+  .hfm-logo-name{ font-size:16px !important; }
 }
 
 /* ---------- Pages CMS (contenu éditorial : CGV, livraison, confidentialité) ---------- */

@@ -7,7 +7,7 @@ import { useRouter } from '@/i18n/navigation';
 import { useStore } from '../../store';
 import { fmt } from '@/lib/cardModel';
 import { trackPurchase, trackAdsConversion, type EcItem } from '@/lib/gtm';
-import AddressForm, { type Address } from '../../components/AddressForm';
+import AddressForm, { type Address, prettyCountry } from '../../components/AddressForm';
 import AmazonPayButton from '../../components/AmazonPayButton';
 
 type Carrier = {
@@ -59,6 +59,19 @@ const MISSING_RED = '#B42318';
 const VIVA_PAYMENT = 'Carte bancaire (Viva Wallet)';
 const PAYPAL_PAYMENT = 'PayPal';
 const AMAZON_PAYMENT = 'Amazon Pay';
+
+// Règle B1 (exonération de TVA) : la mention n'est affichée que pour une livraison HORS France
+// (Corse et Monaco = territoire de TVA française) ET (n° de TVA validé OU pays hors UE).
+const FR_VAT_TERRITORY = new Set(['FR', 'cos', 'MC']);
+const EU_ISO = new Set(['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE']);
+// E-mail : contrôle de forme minimal côté front (le bridge revalide).
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// RPPS = 11 chiffres, ADELI = 9 chiffres.
+const RPPS_RE = /^(\d{9}|\d{11})$/;
+// Bloc « montant HT en gros + soit X € TTC dessous » (règle M2).
+const ttcLine: React.CSSProperties = { display: 'block', fontSize: '11px', fontWeight: 500, color: '#8A8170', marginTop: '2px', whiteSpace: 'nowrap' };
+const errText: React.CSSProperties = { display: 'block', fontSize: '12px', color: MISSING_RED, marginTop: '6px', lineHeight: 1.45 };
+const fieldLabel: React.CSSProperties = { display: 'block', fontSize: '11px', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: '#8A8170', marginBottom: '6px' };
 
 const stepBadge = (n: number, active: boolean): React.CSSProperties => ({
   width: '24px',
@@ -147,6 +160,12 @@ export default function CheckoutClient() {
   const [guestErr, setGuestErr] = useState<string | null>(null);
   const [enteredAsGuest, setEnteredAsGuest] = useState(false); // identité saisie en invité → propose « Modifier »
   const [editIdentity, setEditIdentity] = useState(false); // rouvre le formulaire pour modifier les coordonnées invité
+  // Erreurs par champ du formulaire invité (affichées sous le champ, focus sur le premier).
+  const [guestFieldErr, setGuestFieldErr] = useState<{ first?: string; last?: string; email?: string }>({});
+  // Récapitulatif repliable en haut de page (mobile).
+  const [mobSumOpen, setMobSumOpen] = useState(false);
+  // id_country -> code ISO (pour la règle d'affichage de l'exonération de TVA).
+  const [countryIso, setCountryIso] = useState<Record<number, string>>({});
 
   const [payment, setPayment] = useState<string>(PAYMENTS[0]);
   const [acceptedTerms, setAcceptedTerms] = useState(false); // CGV + politique de confidentialité (obligatoire)
@@ -164,7 +183,7 @@ export default function CheckoutClient() {
   const [rppsValidated, setRppsValidated] = useState(false); // déjà validé pour ce compte / cet email
   const [editPro, setEditPro] = useState(false); // rouvrir le formulaire malgré une validation existante
   const rppsNeeded = cart.rpps_required;
-  const rppsValid = /^\d{9,13}$/.test(rpps.trim()); // permissif : 9 à 13 chiffres
+  const rppsValid = RPPS_RE.test(rpps.trim()); // RPPS 11 chiffres ou ADELI 9 chiffres
   // Exigence satisfaite : déjà validé (compte/email) OU numéro RPPS valide OU attestation cochée.
   const rppsSatisfied = rppsValidated || (rppsMode === 'pro' ? attestation : rppsValid);
   const PRO_CONTACT_EMAIL = 'sales@hyaluronicfillermarket.com';
@@ -244,7 +263,12 @@ export default function CheckoutClient() {
     const v = rpps.trim();
     setRppsInfo(null);
     setRppsSoftNote(false);
-    if (!v || !/^\d{9,13}$/.test(v)) return;
+    if (!v) return;
+    // Format invalide (ex. « 123 ») : message clair sous le champ, sans appel au bridge.
+    if (!RPPS_RE.test(v)) {
+      setRppsErr(t('rppsInvalid'));
+      return;
+    }
     setRppsChecking(true);
     try {
       const r = await fetch('/api/customer', {
@@ -257,6 +281,8 @@ export default function CheckoutClient() {
         setRppsErr(null);
         if (d.practitioner) setRppsInfo(d.practitioner);
         else setRppsSoftNote(true); // non trouvé au registre -> vérifié ensuite par l'équipe
+      } else if (d.error === 'invalid_rpps' || d.detail?.error === 'invalid_rpps') {
+        setRppsErr(t('rppsInvalid')); // refusé par le bridge (format RPPS/ADELI invalide)
       }
     } catch {
       /* silencieux */
@@ -362,6 +388,23 @@ export default function CheckoutClient() {
   useEffect(() => {
     if (customer) loadAddresses();
   }, [customer, loadAddresses]);
+
+  // Codes ISO des pays (réponse publique mise en cache, partagée avec le formulaire d'adresse).
+  useEffect(() => {
+    let alive = true;
+    fetch('/api/taxonomy?action=countries')
+      .then((r) => (r.ok ? r.json() : { countries: [] }))
+      .then((d) => {
+        if (!alive) return;
+        const m: Record<number, string> = {};
+        for (const c of (d.countries ?? []) as { id_country: number; iso_code: string }[]) m[c.id_country] = c.iso_code;
+        setCountryIso(m);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   // Changement d'IDENTITÉ en cours de tunnel (e-mail invité modifié -> nouvelle fiche invitée) :
   // le bridge rattache le panier au nouveau client et remet son adresse à zéro, et les adresses de
@@ -648,13 +691,11 @@ export default function CheckoutClient() {
     }
   };
 
-  // DHL présélectionné par défaut (demande client) : « DHL Express » en priorité, sinon le premier
-  // transporteur DHL proposé pour l'adresse. Ne s'applique que tant qu'aucun transporteur n'est
+  // Transporteur présélectionné = le MOINS CHER (audit 27/10 : le plus cher, DHL Express, l'était) ;
+  // à prix égal, le premier de la liste. Ne s'applique que tant qu'aucun transporteur n'est
   // choisi : un choix manuel du client n'est jamais écrasé.
-  const defaultCarrier = (list: Carrier[]): Carrier | undefined => {
-    const norm = (n: string) => n.trim().toLowerCase();
-    return list.find((c) => norm(c.name) === 'dhl express') ?? list.find((c) => /\bdhl\b/i.test(c.name));
-  };
+  const defaultCarrier = (list: Carrier[]): Carrier | undefined =>
+    list.reduce<Carrier | undefined>((best, c) => (!best || c.price_excl_tax < best.price_excl_tax ? c : best), undefined);
 
   // Sélection d'une adresse -> set-address puis (re)chargement des transporteurs.
   const chooseAddress = async (id_address: number) => {
@@ -698,8 +739,8 @@ export default function CheckoutClient() {
 
   useEffect(() => {
     if (selCarrier || !selAddress || !carriers.length) return;
-    const dhl = defaultCarrier(carriers);
-    if (dhl) void chooseCarrier(dhl.id_carrier);
+    const cheapest = defaultCarrier(carriers);
+    if (cheapest) void chooseCarrier(cheapest.id_carrier);
     // chooseCarrier/defaultCarrier sont recréés à chaque rendu : on ne réagit qu'aux données.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carriers, selCarrier, selAddress]);
@@ -746,6 +787,10 @@ export default function CheckoutClient() {
         setRppsErr(t('rppsRequiredError'));
         return false;
       }
+      if (err === 'invalid_rpps') {
+        setRppsErr(t('rppsInvalid'));
+        return false;
+      }
       setOrderErr(err);
       return false;
     }
@@ -774,6 +819,13 @@ export default function CheckoutClient() {
     if (!idCart || !selAddress || !selCarrier) return;
     if (rppsNeeded && !rppsSatisfied) {
       setRppsErr(t(rppsMode === 'pro' ? 'attestationRequired' : 'rppsInvalid'));
+      if (rppsMode === 'number') document.getElementById('rpps')?.focus();
+      return;
+    }
+    // Numéro saisi mais mal formé (même facultatif) : on le signale au lieu de l'envoyer.
+    if ((!rppsNeeded || rppsMode === 'number') && rpps.trim() && !rppsValid) {
+      setRppsErr(t('rppsInvalid'));
+      document.getElementById('rpps')?.focus();
       return;
     }
     setPlacing(true);
@@ -863,21 +915,37 @@ export default function CheckoutClient() {
   const submitGuest = async (e: React.FormEvent) => {
     e.preventDefault();
     setGuestErr(null);
-    if (!guestEmail.trim() || !guestFirst.trim() || !guestLast.trim()) {
-      setGuestErr(t('missingFields'));
+    // Validation par champ : message sous le champ concerné, focus sur le premier en erreur.
+    const errs: { first?: string; last?: string; email?: string } = {};
+    if (!guestFirst.trim()) errs.first = t('fieldRequired');
+    if (!guestLast.trim()) errs.last = t('fieldRequired');
+    if (!guestEmail.trim()) errs.email = t('fieldRequired');
+    else if (!EMAIL_RE.test(guestEmail.trim())) errs.email = t('guestInvalidEmail');
+    const focusFirst = (e: typeof errs) => {
+      const first = e.first ? 'guest-first' : e.last ? 'guest-last' : e.email ? 'guest-email' : null;
+      if (first) requestAnimationFrame(() => document.getElementById(first)?.focus());
+    };
+    setGuestFieldErr(errs);
+    if (errs.first || errs.last || errs.email) {
+      focusFirst(errs);
       return;
     }
     setGuestBusy(true);
     const res = await guestCheckout({ email: guestEmail.trim(), firstname: guestFirst.trim(), lastname: guestLast.trim() });
     setGuestBusy(false);
     if (!res.ok) {
-      setGuestErr(
-        res.error === 'email_already_exists' ? t('guestEmailExists')
-        : res.error === 'invalid_name' ? t('guestInvalidName')
-        : res.error === 'invalid_email' ? t('guestInvalidEmail')
-        : res.error === 'rate_limited' ? tc('rateLimited')
-        : tc('networkError')
-      );
+      // Erreurs du bridge rattachées au champ quand c'est possible, sinon message général.
+      const fe: typeof errs =
+        res.error === 'email_already_exists' ? { email: t('guestEmailExists') }
+        : res.error === 'invalid_email' ? { email: t('guestInvalidEmail') }
+        : res.error === 'invalid_name' ? { first: t('guestInvalidName') }
+        : {};
+      if (fe.first || fe.email) {
+        setGuestFieldErr(fe);
+        focusFirst(fe);
+      } else {
+        setGuestErr(res.error === 'rate_limited' ? tc('rateLimited') : tc('networkError'));
+      }
     } else {
       setEnteredAsGuest(true);
       setEditIdentity(false);
@@ -985,6 +1053,17 @@ export default function CheckoutClient() {
     return [{ rate: null, base: null, amount: totalTax }];
   })();
   const taxExempt = !!totals && taxRows.every((l) => l.amount === 0) && subtotalHT > 0;
+  // B1 : mention « Exonération de TVA appliquée » UNIQUEMENT si une adresse de livraison hors de
+  // France est choisie ET (n° de TVA validé OU pays hors UE). Sans adresse : aucune mention.
+  const selAddr = addresses.find((a) => a.id_address === selAddress) ?? null;
+  const selIso = selAddr ? countryIso[selAddr.id_country] ?? '' : '';
+  const showVatExempt =
+    taxExempt && !!selAddr && !!selIso && !FR_VAT_TERRITORY.has(selIso) && (!!selAddr.vat_valid || !EU_ISO.has(selIso));
+  // Total HT affiché = total TTC − TVA affichée (cohérent ligne à ligne avec le récapitulatif).
+  const taxSum = taxRows.reduce((a, l) => a + l.amount, 0);
+  const grandHT = Math.max(0, grandTTC - taxSum);
+  const shippingTTC = shipping;
+  const itemCount = cart.products.reduce((a, l) => a + l.quantity, 0);
   // Produits interdits dans le pays de livraison (règles par pays) : commande impossible.
   const blockedItems = cart.blocked_products ?? [];
   // Exigence « pro » remplie pour le pays de livraison (RPPS, déclaration confirmée, pas d'interdiction).
@@ -993,6 +1072,42 @@ export default function CheckoutClient() {
   const glsNeeded = !!carriers.find((c) => c.id_carrier === selCarrier)?.gls_relay;
   const glsOk = !glsNeeded || !!glsSelected;
   const canOrder = !!selAddress && !!selCarrier && !!payment && !placing && proOk && glsOk && acceptedTerms && !blockedItems.length;
+
+  // Montant « HT en gros + soit X € TTC dessous » (règle M2), aligné à droite.
+  const htTtc = (ht: number, ttc: number, strong = true) => (
+    <span style={{ textAlign: 'right', flex: 'none' }}>
+      <span style={{ color: '#1B2433', fontWeight: strong ? 600 : 500, whiteSpace: 'nowrap' }}>{fmt(ht)} € {t('excl')}</span>
+      <span style={ttcLine}>{tc('inclTaxShort', { amount: fmt(ttc) })}</span>
+    </span>
+  );
+  const rowStyle: React.CSSProperties = { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', fontSize: '13px', color: '#55606F', marginTop: '6px' };
+  const TotalsRows = (
+    <>
+      <div style={{ ...rowStyle, marginTop: 0 }}><span>{t('subtotalExcl')}</span>{htTtc(subtotalHT, totals?.products_incl_tax ?? cart.total_incl_tax)}</div>
+      {discount > 0 ? <div style={{ ...rowStyle, color: '#3F7256' }}><span>{t('discount')}</span><span style={{ fontWeight: 600, whiteSpace: 'nowrap' }}>−{fmt(totals?.discounts_excl_tax ?? discount)} €{totals?.discounts_excl_tax != null ? ` ${t('excl')}` : ''}</span></div> : null}
+      <div style={rowStyle}>
+        <span>{t('shipping')}</span>
+        {shippingTTC === null ? (
+          <span style={{ color: '#8A8170', fontWeight: 600 }}>{t('shippingToCalculate')}</span>
+        ) : shippingTTC ? (
+          htTtc(shippingHT ?? shippingTTC, shippingTTC)
+        ) : (
+          <span style={{ color: '#3F7256', fontWeight: 600 }}>{t('shippingFree')}</span>
+        )}
+      </div>
+      <div style={rowStyle}><span style={{ fontWeight: 600, color: '#34352F' }}>{t('totalExcl')}</span><span style={{ color: '#1B2433', fontWeight: 700, whiteSpace: 'nowrap' }}>{fmt(grandHT)} € {t('excl')}</span></div>
+      {/* Détail de la TVA (demande client) : par taux tant qu'aucune remise ne fausse la ventilation,
+          sinon TVA globale exacte. */}
+      {taxRows.map((l, i) => (
+        <div key={i} style={rowStyle}>
+          <span>{l.rate === null ? t('vat') : t('vatRate', { rate: fmtRate(l.rate) })}{l.base !== null ? <span style={{ color: '#9A9A9A' }}> · {t('vatBase', { base: fmt(l.base) })}</span> : null}</span>
+          <span style={{ color: '#1B2433', fontWeight: 600, whiteSpace: 'nowrap' }}>{fmt(l.amount)} €</span>
+        </div>
+      ))}
+      {showVatExempt ? <div style={{ fontSize: '11.5px', color: '#3F7256', marginTop: '4px' }}>{t('vatExempt')}</div> : null}
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', fontSize: '17px', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #E7E3DA' }}><span style={{ fontWeight: 600, color: '#2B2B2B' }}>{t('totalIncl')}</span><span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, color: '#434343', whiteSpace: 'nowrap' }}>{fmt(grandTTC)} €</span></div>
+    </>
+  );
 
   const ShieldBadge = (
     <span style={{ ...stepBadge(0, true), background: '#434343' }} aria-hidden="true">
@@ -1066,9 +1181,15 @@ export default function CheckoutClient() {
       ) : (
         <div style={{ fontSize: '12px', color: MISSING_RED, fontWeight: 600, marginBottom: '10px' }}>{t('glsRelayRequired')}</div>
       )}
-      <form onSubmit={(e) => { e.preventDefault(); void searchGlsRelays(glsPostcode.trim(), glsCity.trim()); }} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '10px' }}>
-        <input value={glsPostcode} onChange={(e) => setGlsPostcode(e.target.value)} placeholder={t('glsRelayPostcode')} style={{ flex: '1 1 110px', minWidth: 0, height: '38px', padding: '0 10px', fontSize: '13px', border: '1px solid #E2DECF', borderRadius: '6px', background: '#fff' }} />
-        <input value={glsCity} onChange={(e) => setGlsCity(e.target.value)} placeholder={t('glsRelayCity')} style={{ flex: '2 1 150px', minWidth: 0, height: '38px', padding: '0 10px', fontSize: '13px', border: '1px solid #E2DECF', borderRadius: '6px', background: '#fff' }} />
+      <form onSubmit={(e) => { e.preventDefault(); void searchGlsRelays(glsPostcode.trim(), glsCity.trim()); }} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'flex-end', marginBottom: '10px' }}>
+        <div style={{ flex: '1 1 110px', minWidth: 0 }}>
+          <label htmlFor="gls-postcode" style={fieldLabel}>{t('glsRelayPostcode')}</label>
+          <input id="gls-postcode" value={glsPostcode} onChange={(e) => setGlsPostcode(e.target.value)} autoComplete="postal-code" style={{ width: '100%', boxSizing: 'border-box', height: '38px', padding: '0 10px', fontSize: '13px', border: '1px solid #E2DECF', borderRadius: '6px', background: '#fff' }} />
+        </div>
+        <div style={{ flex: '2 1 150px', minWidth: 0 }}>
+          <label htmlFor="gls-city" style={fieldLabel}>{t('glsRelayCity')}</label>
+          <input id="gls-city" value={glsCity} onChange={(e) => setGlsCity(e.target.value)} autoComplete="address-level2" style={{ width: '100%', boxSizing: 'border-box', height: '38px', padding: '0 10px', fontSize: '13px', border: '1px solid #E2DECF', borderRadius: '6px', background: '#fff' }} />
+        </div>
         <button type="submit" disabled={glsLoading || !glsPostcode.trim()} style={{ height: '38px', padding: '0 14px', borderRadius: '6px', background: 'rgba(140,198,63,0.1)', border: '1px solid rgba(155,209,89,.7)', color: '#5E8E1F', fontSize: '13px', fontWeight: 600, cursor: glsLoading || !glsPostcode.trim() ? 'not-allowed' : 'pointer', opacity: glsLoading || !glsPostcode.trim() ? 0.5 : 1 }}>{t('glsRelaySearch')}</button>
       </form>
       {glsLoading ? <div style={{ fontSize: '12.5px', color: '#8A8170' }}>{tc('loading')}</div> : null}
@@ -1095,9 +1216,44 @@ export default function CheckoutClient() {
 
   return (
     <main data-screen-label="Commande" className="hfm-wrap" style={{ maxWidth: '1180px', margin: '0 auto', padding: '34px 28px 70px' }}>
-      <div style={{ fontSize: '12.5px', color: '#9A9A9A', marginBottom: '18px' }}><Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  <Link href="/catalogue" style={{ cursor: 'pointer' }}>{tc('catalogue')}</Link>  /  {t('breadcrumb')}</div>
+      {/* Mise en page : 2 colonnes ; sous 720 px, une colonne + récapitulatif repliable en haut. */}
+      <style>{`.hfm-co-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}.hfm-co-mobsum{display:none}.hfm-co-grid input,.hfm-co-grid select{scroll-margin-top:150px}@media (max-width:719px){.hfm-co-grid{grid-template-columns:minmax(0,1fr);gap:28px}.hfm-co-mobsum{display:block}}`}</style>
+      <nav aria-label="breadcrumb" style={{ fontSize: '12.5px', color: '#9A9A9A', marginBottom: '18px' }}><Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  <span aria-current="page">{t('breadcrumb')}</span></nav>
       <h1 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(25px,3.6vw,34px)', color: '#2B2B2B', margin: '0 0 28px' }}>{t('finalize')}</h1>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '40px', alignItems: 'start' }}>
+      {/* Récapitulatif repliable (mobile uniquement, M7) : mêmes données que le récapitulatif du bas. */}
+      <div className="hfm-co-mobsum" style={{ background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', marginBottom: '22px', overflow: 'hidden' }}>
+        <button
+          type="button"
+          onClick={() => setMobSumOpen((o) => !o)}
+          aria-expanded={mobSumOpen}
+          aria-controls="hfm-co-mobsum-body"
+          style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 16px', background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: "'Hanken Grotesk',sans-serif" }}
+        >
+          <span style={{ flex: 1, minWidth: 0, fontSize: '13.5px', color: '#34352F', lineHeight: 1.35 }}>
+            <b style={{ fontWeight: 700 }}>{t('mobileSummaryTitle')}</b>
+            <span style={{ color: '#8A8170' }}> · {t('itemCount', { count: itemCount })}</span>
+          </span>
+          <span style={{ flex: 'none', fontSize: '14px', fontWeight: 700, color: '#434343', whiteSpace: 'nowrap' }}>{fmt(grandTTC)} € {t('incl')}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flex: 'none', color: '#5E8E1F', transition: 'transform .2s ease', transform: mobSumOpen ? 'rotate(180deg)' : 'none' }}><path d="M6 9l6 6 6-6" /></svg>
+        </button>
+        {mobSumOpen ? (
+          <div id="hfm-co-mobsum-body" style={{ borderTop: '1px solid #ECEAE3', padding: '14px 16px 16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '14px' }}>
+              {cart.products.map((ci) => (
+                <div key={ci.id_product} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                  <span style={{ width: '40px', height: '40px', flex: 'none', borderRadius: '6px', overflow: 'hidden', background: '#F7F6F2', border: '1px solid #ECEAE3', display: 'block' }}>
+                    {ci.image ? <img src={ci.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /> : null}
+                  </span>
+                  <span style={{ flex: 1, minWidth: 0, fontSize: '12.5px', color: '#34352F', lineHeight: 1.35 }}>{ci.name}<span style={{ color: '#8A8170' }}> × {ci.quantity}</span></span>
+                  <span style={{ fontSize: '12.5px' }}>{htTtc(ci.total_excl_tax, ci.total_incl_tax)}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ borderTop: '1px solid #E7E3DA', paddingTop: '12px' }}>{TotalsRows}</div>
+          </div>
+        ) : null}
+      </div>
+      <div className="hfm-co-grid">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
 
           {/* Étape 1 — Coordonnées */}
@@ -1110,19 +1266,31 @@ export default function CheckoutClient() {
                   <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '4px' }}>{customer.email}</div>
                 </div>
                 {enteredAsGuest || customer.is_guest ? (
-                  <button type="button" onClick={() => { setGuestFirst(customer.firstname); setGuestLast(customer.lastname); setGuestEmail(customer.email); setGuestErr(null); setEditIdentity(true); }} style={{ background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline', flex: 'none' }}>{t('rppsModify')}</button>
+                  <button type="button" onClick={() => { setGuestFirst(customer.firstname); setGuestLast(customer.lastname); setGuestEmail(customer.email); setGuestErr(null); setGuestFieldErr({}); setEditIdentity(true); }} style={{ background: 'none', border: 'none', padding: 0, color: '#5E8E1F', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline', flex: 'none' }}>{t('rppsModify')}</button>
                 ) : null}
               </div>
             ) : (
               <>
                 <p style={{ fontSize: '13.5px', color: '#55606F', margin: '0 0 14px' }}>{t('guestSubtitle')}</p>
-                <form onSubmit={submitGuest} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                    <input value={guestFirst} onChange={(e) => setGuestFirst(e.target.value)} placeholder={t('firstname')} style={gInput} />
-                    <input value={guestLast} onChange={(e) => setGuestLast(e.target.value)} placeholder={t('lastname')} style={gInput} />
+                <form onSubmit={submitGuest} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: '12px' }}>
+                    <div>
+                      <label htmlFor="guest-first" style={fieldLabel}>{t('firstname')} *</label>
+                      <input id="guest-first" value={guestFirst} onChange={(e) => { setGuestFirst(e.target.value); if (guestFieldErr.first) setGuestFieldErr((c) => ({ ...c, first: undefined })); }} autoComplete="given-name" aria-invalid={guestFieldErr.first ? true : undefined} aria-describedby={guestFieldErr.first ? 'guest-first-err' : undefined} style={{ ...gInput, ...(guestFieldErr.first ? { borderColor: MISSING_RED } : {}) }} />
+                      {guestFieldErr.first ? <span id="guest-first-err" role="alert" style={errText}>{guestFieldErr.first}</span> : null}
+                    </div>
+                    <div>
+                      <label htmlFor="guest-last" style={fieldLabel}>{t('lastname')} *</label>
+                      <input id="guest-last" value={guestLast} onChange={(e) => { setGuestLast(e.target.value); if (guestFieldErr.last) setGuestFieldErr((c) => ({ ...c, last: undefined })); }} autoComplete="family-name" aria-invalid={guestFieldErr.last ? true : undefined} aria-describedby={guestFieldErr.last ? 'guest-last-err' : undefined} style={{ ...gInput, ...(guestFieldErr.last ? { borderColor: MISSING_RED } : {}) }} />
+                      {guestFieldErr.last ? <span id="guest-last-err" role="alert" style={errText}>{guestFieldErr.last}</span> : null}
+                    </div>
                   </div>
-                  <input type="email" value={guestEmail} onChange={(e) => setGuestEmail(e.target.value)} placeholder={t('emailLabel')} style={gInput} />
-                  {guestErr ? <div style={{ fontSize: '13px', color: '#A8503A' }}>{guestErr}</div> : null}
+                  <div>
+                    <label htmlFor="guest-email" style={fieldLabel}>{t('emailLabel')} *</label>
+                    <input id="guest-email" type="email" value={guestEmail} onChange={(e) => { setGuestEmail(e.target.value); if (guestFieldErr.email) setGuestFieldErr((c) => ({ ...c, email: undefined })); }} autoComplete="email" inputMode="email" aria-invalid={guestFieldErr.email ? true : undefined} aria-describedby={guestFieldErr.email ? 'guest-email-err' : undefined} style={{ ...gInput, ...(guestFieldErr.email ? { borderColor: MISSING_RED } : {}) }} />
+                    {guestFieldErr.email ? <span id="guest-email-err" role="alert" style={errText}>{guestFieldErr.email}</span> : null}
+                  </div>
+                  {guestErr ? <div role="alert" style={{ fontSize: '13px', color: MISSING_RED }}>{guestErr}</div> : null}
                   <button type="submit" disabled={guestBusy} style={{ height: '48px', borderRadius: '999px', color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, cursor: guestBusy ? 'default' : 'pointer', opacity: guestBusy ? 0.7 : 1 }}>
                     {guestBusy ? tc('loading') : t('guestContinue')}
                   </button>
@@ -1156,7 +1324,7 @@ export default function CheckoutClient() {
                         <span>
                           <span style={{ display: 'block', fontSize: '13.5px', fontWeight: 600, color: '#1B2433' }}>{a.alias || `${a.firstname} ${a.lastname}`.trim() || 'Adresse'}</span>
                           {a.company ? <span style={{ display: 'block', fontSize: '12.5px', color: '#1B2433', marginTop: '2px' }}>{a.company}</span> : null}
-                          <span style={{ display: 'block', fontSize: '12.5px', color: '#6E7585', marginTop: '3px', lineHeight: 1.45 }}>{a.address1}, {a.postcode} {a.city} · {a.country}</span>
+                          <span style={{ display: 'block', fontSize: '12.5px', color: '#6E7585', marginTop: '3px', lineHeight: 1.45 }}>{a.address1}, {a.postcode} {a.city} · {prettyCountry(a.country)}</span>
                           {a.vat_number ? (
                             a.vat_checkable === false ? (
                               // Pays non soumis à validation (ex. livraison France) : pas d'exonération possible.
@@ -1269,22 +1437,22 @@ export default function CheckoutClient() {
                       type="text"
                       inputMode="numeric"
                       value={rpps}
-                      onChange={(e) => { setRpps(e.target.value.replace(/\D/g, '').slice(0, 13)); if (rppsErr) setRppsErr(null); if (rppsInfo) setRppsInfo(null); if (rppsSoftNote) setRppsSoftNote(false); }}
+                      onChange={(e) => { setRpps(e.target.value.replace(/\D/g, '').slice(0, 11)); if (rppsErr) setRppsErr(null); if (rppsInfo) setRppsInfo(null); if (rppsSoftNote) setRppsSoftNote(false); }}
                       onBlur={verifyRppsField}
                       placeholder={t('rppsPlaceholder')}
-                      style={{ width: '100%', boxSizing: 'border-box', height: '46px', padding: '0 14px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', color: '#34352F', background: '#fff', border: `1px solid ${rppsErr && rppsMode === 'number' ? '#A8503A' : rppsInfo ? '#3F7256' : '#E2DECF'}`, borderRadius: '6px', outline: 'none' }}
+                      aria-invalid={rppsErr && rppsMode === 'number' ? true : undefined}
+                      aria-describedby={rppsErr && rppsMode === 'number' ? 'rpps-err' : undefined}
+                      style={{ width: '100%', boxSizing: 'border-box', height: '46px', padding: '0 14px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', color: '#34352F', background: '#fff', border: `1px solid ${rppsErr && rppsMode === 'number' ? MISSING_RED : rppsInfo ? '#3F7256' : '#E2DECF'}`, borderRadius: '6px', outline: 'none' }}
                     />
                     {rppsChecking ? (
                       <div style={{ fontSize: '12px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsChecking')}</div>
                     ) : rppsInfo ? (
                       <div style={{ fontSize: '12.5px', color: '#3F7256', marginTop: '8px', fontWeight: 600 }}>✓ {[rppsInfo.prenom, rppsInfo.nom].filter(Boolean).join(' ')}{rppsInfo.profession ? ` — ${rppsInfo.profession}` : ''}</div>
                     ) : rppsErr && rppsMode === 'number' ? (
-                      <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div>
+                      <div id="rpps-err" role="alert" style={{ fontSize: '12px', color: MISSING_RED, marginTop: '8px' }}>{rppsErr}</div>
                     ) : rppsSoftNote ? (
                       <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsWillBeVerified')}</div>
-                    ) : (
-                      <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '8px' }}>{t('rppsPlaceholder')}</div>
-                    )}
+                    ) : null}
                   </>
                 ) : null}
   
@@ -1327,7 +1495,7 @@ export default function CheckoutClient() {
                           <span style={{ fontSize: '13px', color: '#5E8E1F', fontWeight: 700 }}>{PRO_CONTACT_EMAIL}</span>
                         </span>
                       </a>
-                      <div style={{ fontSize: '11.5px', color: '#9A9A9A', marginTop: '10px', lineHeight: 1.5 }}>{t('attestationAfterOrder')}</div>
+                      <div style={{ fontSize: '12px', color: '#6E7585', marginTop: '10px', lineHeight: 1.5 }}>{t('attestationAfterOrder')}</div>
                     </div>
                     {rppsErr && rppsMode === 'pro' ? <div style={{ fontSize: '12px', color: '#A8503A', marginTop: '8px' }}>{rppsErr}</div> : null}
                   </div>
@@ -1362,7 +1530,14 @@ export default function CheckoutClient() {
                         <span style={{ display: 'block', fontSize: '13.5px', fontWeight: 600, color: '#1B2433' }}>{c.name.trim()}</span>
                         {c.delay ? <span style={{ display: 'block', fontSize: '12px', color: '#8A8170', marginTop: '2px', lineHeight: 1.4 }}>{c.delay}</span> : null}
                       </span>
-                      <span style={{ fontSize: '13.5px', fontWeight: 700, color: c.price_incl_tax ? '#434343' : '#3F7256', flex: 'none' }}>{c.price_incl_tax ? `${fmt(c.price_incl_tax)} €` : t('free')}</span>
+                      {c.price_incl_tax ? (
+                        <span style={{ flex: 'none', textAlign: 'right' }}>
+                          <span style={{ display: 'block', fontSize: '13.5px', fontWeight: 700, color: '#434343', whiteSpace: 'nowrap' }}>{fmt(c.price_excl_tax)} € {t('excl')}</span>
+                          <span style={ttcLine}>{tc('inclTaxShort', { amount: fmt(c.price_incl_tax) })}</span>
+                        </span>
+                      ) : (
+                        <span style={{ fontSize: '13.5px', fontWeight: 700, color: '#3F7256', flex: 'none' }}>{t('free')}</span>
+                      )}
                     </button>
                   );
                   if (!(active && c.gls_relay)) return carrierBtn;
@@ -1510,15 +1685,16 @@ export default function CheckoutClient() {
                     </button>
                   </div>
                 </div>
-                <span style={{ fontSize: '13px', fontWeight: 600, color: '#434343', flex: 'none' }}>{fmt(ci.total_excl_tax)} €</span>
+                <span style={{ fontSize: '13px' }}>{htTtc(ci.total_excl_tax, ci.total_incl_tax)}</span>
               </div>
             ))}
           </div>
           {/* Code promo */}
           <div style={{ borderTop: '1px solid #E7E3DA', marginTop: '16px', paddingTop: '16px' }}>
-            <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F', marginBottom: '8px' }}>{t('voucherLabel')}</label>
+            <label htmlFor="voucher-code" style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#34352F', marginBottom: '8px' }}>{t('voucherLabel')}</label>
             <div style={{ display: 'flex', gap: '8px' }}>
               <input
+                id="voucher-code"
                 type="text"
                 value={voucherCode}
                 onChange={(e) => setVoucherCode(e.target.value)}
@@ -1538,19 +1714,7 @@ export default function CheckoutClient() {
           </div>
 
           <div style={{ borderTop: '1px solid #E7E3DA', marginTop: '16px', paddingTop: '16px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#55606F' }}><span>{t('subtotalExcl')}</span><span style={{ color: '#1B2433', fontWeight: 600 }}>{fmt(subtotalHT)} €</span></div>
-            {discount > 0 ? <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#3F7256', marginTop: '6px' }}><span>{t('discount')}</span><span style={{ fontWeight: 600 }}>−{fmt(totals?.discounts_excl_tax ?? discount)} €{totals?.discounts_excl_tax != null ? ` ${t('excl')}` : ''}</span></div> : null}
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#55606F', marginTop: '6px' }}><span>{t('shipping')}{shippingHT !== null && shippingHT > 0 ? ` (${t('excl')})` : ''}</span><span style={{ color: shipping ? '#1B2433' : '#8A8170', fontWeight: 600 }}>{shipping === null ? t('shippingToCalculate') : shipping ? `${fmt(shippingHT ?? shipping)} €` : t('shippingFree')}</span></div>
-            {/* Détail de la TVA (demande client) : par taux tant qu'aucune remise ne fausse la ventilation,
-                sinon TVA globale exacte. Exonération (VIES / export) -> ligne TVA à 0. */}
-            {taxRows.map((l, i) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#55606F', marginTop: '6px' }}>
-                <span>{l.rate === null ? t('vat') : t('vatRate', { rate: fmtRate(l.rate) })}{l.base !== null ? <span style={{ color: '#9A9A9A' }}> · {t('vatBase', { base: fmt(l.base) })}</span> : null}</span>
-                <span style={{ color: '#1B2433', fontWeight: 600 }}>{fmt(l.amount)} €</span>
-              </div>
-            ))}
-            {taxExempt ? <div style={{ fontSize: '11.5px', color: '#3F7256', marginTop: '4px' }}>{t('vatExempt')}</div> : null}
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '17px', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #E7E3DA' }}><span style={{ fontWeight: 600, color: '#2B2B2B' }}>{t('totalIncl')}</span><span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, color: '#434343' }}>{fmt(grandTTC)} €</span></div>
+            {TotalsRows}
           </div>
           {blockedItems.length ? (
             <div role="alert" style={{ fontSize: '13px', lineHeight: 1.45, color: '#B42318', background: 'rgba(180,35,24,.06)', border: '1px solid rgba(180,35,24,.25)', borderRadius: '8px', padding: '10px 12px', marginTop: '14px' }}>
