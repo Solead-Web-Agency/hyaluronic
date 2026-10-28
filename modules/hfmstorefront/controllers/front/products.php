@@ -844,6 +844,9 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                 'brand' => $b['id_manufacturer'] ? $b['brand'] : null,
                 'price_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, true), 2),
                 'price_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, false), 2),
+                // Prix avant remise : prix barré des cartes (page Promotions, audit 27/10 M6).
+                'price_without_reduction_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, true, null, 2, null, false, false), 2),
+                'price_without_reduction_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($id, false, null, 2, null, false, false), 2),
                 'image' => $idImage ? $this->context->link->getImageLink($slug, $idImage, 'home_default') : null,
                 'quantity' => $qty,
                 'available' => $availability !== 'unavailable',
@@ -1226,7 +1229,9 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                 'reference' => $c['reference'],
                 'default' => $c['default'],
                 'quantity' => $qty,
-                'available' => $qty > 0,
+                // Même règle que le produit (vente hors stock du produit / réglage boutique).
+                'availability' => $this->availability($idProduct, $qty),
+                'available' => $this->availability($idProduct, $qty) !== 'unavailable',
                 'price_incl_tax' => (float) Tools::ps_round(Product::getPriceStatic($idProduct, true, $id), 2),
                 'price_excl_tax' => (float) Tools::ps_round(Product::getPriceStatic($idProduct, false, $id), 2),
             ];
@@ -1360,6 +1365,10 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             // (l'ancien site les affichait ; sans ça la promo s'applique mais ne se voit pas).
             'price_without_reduction_incl_tax' => (float) Tools::ps_round(
                 Product::getPriceStatic($idProduct, true, null, 2, null, false, false),
+                2
+            ),
+            'price_without_reduction_excl_tax' => (float) Tools::ps_round(
+                Product::getPriceStatic($idProduct, false, null, 2, null, false, false),
                 2
             ),
             // Paliers dégressifs publics (l'ancien site affichait le tableau « 2 → x € »).
