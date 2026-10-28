@@ -275,6 +275,11 @@ export default function ProductCard({ product }: { product: Card }) {
           <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '10.5px', fontWeight: 700, color: '#8A8170', letterSpacing: '.06em' }}>
             {tc('exclTax')}
           </span>
+          {product.htBefore ? (
+            <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '12.5px', color: '#8A8170', textDecoration: 'line-through' }}>
+              {fmt(product.htBefore)} €
+            </span>
+          ) : null}
         </div>
         <TaxLine ht={product.ht} ttc={product.ttc} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '11.5px', color: '#9C9686' }} />
         {canBuy ? (

@@ -184,6 +184,7 @@ export type ProductCard = {
   brand: string | null;
   price_incl_tax: number;
   price_excl_tax: number;
+  price_without_reduction_excl_tax?: number;
   image: string | null;
   quantity: number;
   available: boolean;

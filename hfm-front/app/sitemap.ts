@@ -53,6 +53,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Pages à URL invariante par langue (même chemin pour les 22 locales).
     entry('', 'daily', 1),
     entry('/catalogue', 'daily', 0.9),
+    // Index des marques et pages de rubrique (audit 27/10, M4).
+    entry('/marque', 'weekly', 0.7),
+    entry('/par-zone', 'weekly', 0.6),
+    entry('/par-effet', 'weekly', 0.6),
     entry('/blog', 'weekly', 0.7),
     // (Les anciennes pages /zone/{clé} redirigent désormais vers les catégories éditoriales,
     //  déjà présentes dans le sitemap : on ne les déclare plus.)

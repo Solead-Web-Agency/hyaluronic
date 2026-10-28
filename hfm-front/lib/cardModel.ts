@@ -9,6 +9,8 @@ export type Card = {
   img: string | null;
   ht: number;
   ttc: number;
+  // Prix HT avant remise, seulement s'il y a une vraie remise (prix barré des promotions).
+  htBefore: number | null;
   // Statut unique (voir stockStatus) : repris tel quel par carte, aperçu, fiche et comparateur.
   stock: StockStatus;
   link_rewrite: string;
@@ -75,6 +77,7 @@ export function toCard(p: ProductCard): Card {
     img: p.image,
     ht: p.price_excl_tax,
     ttc: p.price_incl_tax,
+    htBefore: (p.price_without_reduction_excl_tax ?? 0) > p.price_excl_tax + 0.009 ? p.price_without_reduction_excl_tax! : null,
     stock: stockStatus(p.availability, p.available),
     link_rewrite: p.link_rewrite,
     category: p.category ?? null,

@@ -21,6 +21,7 @@ const LEGAL_LINKS: { key: string; href: string; external?: boolean }[] = [
   { key: 'serviceTerms', href: '/content/conditions-generales-de-ventes' },
   { key: 'servicePrivacy', href: '/content/politique-de-confidentialite' },
   { key: 'serviceLegal', href: '/content/mentions-legales' },
+  { key: 'serviceTracking', href: '/suivi-commande' },
   { key: 'serviceContact', href: '/contact' },
 ];
 
