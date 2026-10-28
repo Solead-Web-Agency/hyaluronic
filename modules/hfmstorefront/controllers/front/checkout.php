@@ -280,7 +280,7 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             // Exigence satisfaite par un RPPS valide OU une attestation pro (la validité réelle
             // est confirmée en back-office via la bannière/annotation de commande).
             if (!$this->proRequirementMet($idCust)) {
-                return ['error' => 'rpps_required', 'detail' => 'numéro RPPS (9 à 13 chiffres) ou attestation professionnelle requis'];
+                return ['error' => 'rpps_required', 'detail' => 'numéro RPPS (11 chiffres) ou ADELI (9 chiffres) ou attestation professionnelle requis'];
             }
         }
         // Idempotence : si une commande existe déjà pour ce panier (ex. retour + webhook), on la renvoie.

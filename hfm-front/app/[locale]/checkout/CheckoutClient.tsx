@@ -691,11 +691,14 @@ export default function CheckoutClient() {
     }
   };
 
-  // Transporteur présélectionné = le MOINS CHER (audit 27/10 : le plus cher, DHL Express, l'était) ;
-  // à prix égal, le premier de la liste. Ne s'applique que tant qu'aucun transporteur n'est
-  // choisi : un choix manuel du client n'est jamais écrasé.
-  const defaultCarrier = (list: Carrier[]): Carrier | undefined =>
-    list.reduce<Carrier | undefined>((best, c) => (!best || c.price_excl_tax < best.price_excl_tax ? c : best), undefined);
+  // DHL présélectionné par défaut (demande client) : « DHL Express » en priorité, sinon le premier
+  // transporteur DHL proposé pour l'adresse. L'audit du 27/10 suggère le moins cher : décision HMD
+  // en attente. Ne s'applique que tant qu'aucun transporteur n'est choisi : un choix manuel du
+  // client n'est jamais écrasé.
+  const defaultCarrier = (list: Carrier[]): Carrier | undefined => {
+    const norm = (n: string) => n.trim().toLowerCase();
+    return list.find((c) => norm(c.name) === 'dhl express') ?? list.find((c) => /\bdhl\b/i.test(c.name));
+  };
 
   // Sélection d'une adresse -> set-address puis (re)chargement des transporteurs.
   const chooseAddress = async (id_address: number) => {
@@ -739,8 +742,8 @@ export default function CheckoutClient() {
 
   useEffect(() => {
     if (selCarrier || !selAddress || !carriers.length) return;
-    const cheapest = defaultCarrier(carriers);
-    if (cheapest) void chooseCarrier(cheapest.id_carrier);
+    const dhl = defaultCarrier(carriers);
+    if (dhl) void chooseCarrier(dhl.id_carrier);
     // chooseCarrier/defaultCarrier sont recréés à chaque rendu : on ne réagit qu'aux données.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carriers, selCarrier, selAddress]);
