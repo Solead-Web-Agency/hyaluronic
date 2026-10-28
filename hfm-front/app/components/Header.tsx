@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { idLangFor } from '@/lib/i18n-config';
+import { ROOT_BRANDS, categoryHref, rootHref, visibleMenu } from '@/lib/menu';
 import { useStore } from '../store';
 import { useWishlist } from '../wishlist';
 import LocaleSwitcher from './LocaleSwitcher';
@@ -33,6 +34,25 @@ const acctItemStyle: React.CSSProperties = {
 type Cat = { id_category: number; id_parent: number; name: string; link_rewrite: string; nb_products: number };
 type MenuCat = Cat & { children: Cat[] };
 
+// Nombre de produits des listes dynamiques « Promos & Top » susceptibles d'être VIDES (promotions,
+// nouveautés) : une entrée vide est masquée. Mémorisé au niveau du module (survit aux navigations
+// côté client) pour ne pas refaire les appels à chaque page.
+type DynCounts = { promo: number; new: number };
+let dynCountsMemo: { at: number; value: DynCounts } | null = null;
+const DYN_COUNTS_TTL_MS = 10 * 60 * 1000;
+async function loadDynCounts(idLang: number): Promise<DynCounts> {
+  if (dynCountsMemo && Date.now() - dynCountsMemo.at < DYN_COUNTS_TTL_MS) return dynCountsMemo.value;
+  const total = (filter: string) =>
+    fetch(`/api/products?filter=${filter}&limit=1&id_lang=${idLang}`)
+      .then((r) => r.json())
+      .then((d) => Number(d?.total) || 0)
+      .catch(() => 0);
+  const [promo, fresh] = await Promise.all([total('promo'), total('new')]);
+  const value = { promo, new: fresh };
+  dynCountsMemo = { at: Date.now(), value };
+  return value;
+}
+
 export default function Header() {
   const t = useTranslations('header');
   const tc = useTranslations('common');
@@ -47,6 +67,7 @@ export default function Header() {
   const [menu, setMenu] = useState<MenuCat[]>([]);
   const [acctOpen, setAcctOpen] = useState(false);
   const [openCat, setOpenCat] = useState<number | null>(null);
+  const [dyn, setDyn] = useState<DynCounts | null>(dynCountsMemo?.value ?? null);
 
   // Hover-intent du méga-menu : délai de grâce avant fermeture (évite que le menu se ferme
   // quand la souris descend vite en diagonale du déclencheur vers le panneau).
@@ -70,25 +91,34 @@ export default function Header() {
     // Méga-menu = arbre réel des catégories actives (racines + sous-catégories), dans la langue courante.
     fetch(`/api/taxonomy?action=menu&id_lang=${idLangFor(locale)}`)
       .then((r) => r.json())
-      .then((d) => setMenu(d.menu ?? []))
+      // Entrées sans produit masquées, doublons fusionnés (jamais de lien vers « 0 produits »).
+      .then((d) => setMenu(visibleMenu(d.menu ?? [])))
       .catch(() => {});
   }, [locale]);
 
-  // Lien d'une catégorie : sa page si elle a des produits, sinon « recherche proche » sur son nom
-  // (rubriques éditoriales encore sans produit rattaché → jamais de page vide).
-  const catHref = (c: { id_category: number; name: string; nb_products: number }) =>
-    c.nb_products > 0 ? `/catalogue?category=${c.id_category}` : `/catalogue?q=${encodeURIComponent(c.name)}`;
-  // Lien d'une racine éditoriale : sa page si produits directs (ex. MARQUES), sinon le catalogue complet.
-  const rootHref = (c: { id_category: number; nb_products: number }) =>
-    c.nb_products > 0 ? `/catalogue?category=${c.id_category}` : '/catalogue';
-  // Onglet « Promos & Top » : filtres dynamiques (pas des catégories).
+  useEffect(() => {
+    let alive = true;
+    loadDynCounts(idLangFor(locale)).then((v) => { if (alive) setDyn(v); });
+    return () => { alive = false; };
+  }, [locale]);
+
+  // Onglet « Promos & Top » : filtres dynamiques (pas des catégories). Promotions et nouveautés
+  // n'apparaissent que si la liste contient au moins un produit ; tant qu'on ne sait pas, on ne
+  // promet rien (onglet « Sélections », lien vers les meilleures ventes).
+  const hasPromo = (dyn?.promo ?? 0) > 0;
   const PROMOS = [
-    { label: t('promoBest'), href: '/catalogue?filter=best' },
-    { label: t('promoSales'), href: '/catalogue?filter=promo' },
-    { label: t('promoNew'), href: '/catalogue?filter=new' },
-    { label: t('promoLido'), href: `/catalogue?q=${encodeURIComponent('lidocaïne')}` },
-    { label: t('promoNoLido'), href: '/catalogue?filter=nolido' },
-  ];
+    { label: t('promoBest'), href: '/catalogue?filter=best', show: true },
+    { label: t('promoSales'), href: '/catalogue?filter=promo', show: hasPromo },
+    { label: t('promoNew'), href: '/catalogue?filter=new', show: (dyn?.new ?? 0) > 0 },
+    { label: t('promoLido'), href: `/catalogue?q=${encodeURIComponent('lidocaïne')}`, show: true },
+    { label: t('promoNoLido'), href: '/catalogue?filter=nolido', show: true },
+  ].filter((p) => p.show);
+  const promoTabHref = hasPromo ? '/catalogue?filter=promo' : '/catalogue?filter=best';
+  const promoTabLabel = hasPromo ? t('promosTab') : t('selectionTab');
+  // Sous-titre d'une racine : nombre de marques pour « Marques », sinon nombre de produits.
+  const rootCount = (cat: MenuCat) =>
+    cat.id_category === ROOT_BRANDS ? t('brandsCount', { count: (cat.children ?? []).length })
+      : cat.nb_products ? tcat('productsCount', { count: cat.nb_products }) : '';
 
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 40 }}>
@@ -182,12 +212,12 @@ export default function Header() {
                     <div onMouseEnter={() => openMenu(cat.id_category)} onMouseLeave={scheduleCloseMenu} style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', borderTop: '1px solid #ECEAE3', boxShadow: '0 30px 50px -28px rgba(40,50,25,.45)', zIndex: 38 }}>
                       <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '26px 28px 30px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                          <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8A8170' }}>{cat.name}{cat.nb_products ? ` · ${cat.nb_products}` : ''}</div>
+                          <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8A8170' }}>{cat.name}{rootCount(cat) ? ` · ${rootCount(cat)}` : ''}</div>
                           <Link href={rootHref(cat)} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', fontSize: '12.5px', fontWeight: 600, color: '#5E8E1F' }}>{t('seeAll')}</Link>
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`, gap: '2px 24px' }}>
                           {subs.map((sub) => (
-                            <Link key={sub.id_category} href={catHref(sub)} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', fontSize: '13.5px', color: '#3A3A36', padding: '7px 0', borderBottom: '1px solid #F4F2EC', transition: 'color .15s ease' }}>
+                            <Link key={sub.id_category} href={categoryHref(sub)} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', fontSize: '13.5px', color: '#3A3A36', padding: '7px 0', borderBottom: '1px solid #F4F2EC', transition: 'color .15s ease' }}>
                               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sub.name}</span>
                               {sub.nb_products ? <span style={{ flex: 'none', fontSize: '11.5px', color: '#B0A99A' }}>{sub.nb_products}</span> : null}
                             </Link>
@@ -204,14 +234,14 @@ export default function Header() {
               onMouseLeave={scheduleCloseMenu}
               style={{ position: 'static', display: 'flex', alignItems: 'center', marginLeft: '6px' }}
             >
-              <Link href="/catalogue?filter=promo" className="hfm-navlink" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', color: '#A8503A', fontSize: '13.5px', fontWeight: 600, padding: '8px 15px', borderRadius: '999px', background: openCat === -1 ? 'rgba(168,80,58,.16)' : 'rgba(168,80,58,.09)', border: '1px solid rgba(168,80,58,.2)', transition: 'background .2s ease' }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#A8503A' }} />{t('promosTab')}
+              <Link href={promoTabHref} className="hfm-navlink" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', color: '#A8503A', fontSize: '13.5px', fontWeight: 600, padding: '8px 15px', borderRadius: '999px', background: openCat === -1 ? 'rgba(168,80,58,.16)' : 'rgba(168,80,58,.09)', border: '1px solid rgba(168,80,58,.2)', transition: 'background .2s ease' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#A8503A' }} />{promoTabLabel}
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" style={{ transition: 'transform .2s ease', transform: openCat === -1 ? 'rotate(180deg)' : 'none' }}><path d="M6 9l6 6 6-6" /></svg>
               </Link>
               {openCat === -1 ? (
                 <div onMouseEnter={() => openMenu(-1)} onMouseLeave={scheduleCloseMenu} style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', borderTop: '1px solid #ECEAE3', boxShadow: '0 30px 50px -28px rgba(40,50,25,.45)', zIndex: 38 }}>
                   <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '26px 28px 30px' }}>
-                    <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8A8170', marginBottom: '16px' }}>{t('promosTab')}</div>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8A8170', marginBottom: '16px' }}>{promoTabLabel}</div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: '2px 24px' }}>
                       {PROMOS.map((pr) => (
                         <Link key={pr.href} href={pr.href} onClick={() => setOpenCat(null)} style={{ cursor: 'pointer', fontSize: '13.5px', color: '#3A3A36', padding: '7px 0', borderBottom: '1px solid #F4F2EC', transition: 'color .15s ease' }}>{pr.label}</Link>
@@ -241,7 +271,7 @@ export default function Header() {
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Link href={rootHref(cat)} onClick={closeMenu} style={{ cursor: 'pointer', flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: '13px', padding: '12px 13px' }}>
                       <span style={{ flex: 'none', width: '38px', height: '38px', borderRadius: '11px', background: 'rgba(140,198,63,.13)', color: '#5E8E1F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12z" /></svg></span>
-                      <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: 'block', fontSize: '15.5px', fontWeight: 600, color: '#34352F', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cat.name}</span>{cat.nb_products ? <span style={{ display: 'block', fontSize: '12px', color: '#9A9A9A', marginTop: '1px' }}>{tcat('productsCount', { count: cat.nb_products })}</span> : null}</span>
+                      <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: 'block', fontSize: '15.5px', fontWeight: 600, color: '#34352F', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cat.name}</span>{rootCount(cat) ? <span style={{ display: 'block', fontSize: '12px', color: '#9A9A9A', marginTop: '1px' }}>{rootCount(cat)}</span> : null}</span>
                     </Link>
                     {subs.length ? (
                       <button type="button" onClick={() => setOpenCat(open ? null : cat.id_category)} aria-label={cat.name} style={{ flex: 'none', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: '#9A9A9A' }}>
@@ -254,7 +284,7 @@ export default function Header() {
                   {open && subs.length ? (
                     <div style={{ borderTop: '1px solid #F1EFE8', padding: '2px 14px 8px 64px', display: 'flex', flexDirection: 'column' }}>
                       {subs.map((sub) => (
-                        <Link key={sub.id_category} href={catHref(sub)} onClick={closeMenu} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', padding: '9px 0', fontSize: '14px', color: '#4A4A44', borderBottom: '1px solid #F6F4EE' }}>
+                        <Link key={sub.id_category} href={categoryHref(sub)} onClick={closeMenu} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', padding: '9px 0', fontSize: '14px', color: '#4A4A44', borderBottom: '1px solid #F6F4EE' }}>
                           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sub.name}</span>
                           {sub.nb_products ? <span style={{ flex: 'none', fontSize: '11.5px', color: '#B0A99A' }}>{sub.nb_products}</span> : null}
                         </Link>
@@ -266,11 +296,11 @@ export default function Header() {
             })}
             <div style={{ borderRadius: '14px', background: 'rgba(168,80,58,.06)', border: '1px solid rgba(168,80,58,.22)', overflow: 'hidden' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Link href="/catalogue?filter=promo" onClick={closeMenu} style={{ cursor: 'pointer', flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: '13px', padding: '12px 13px' }}>
+                <Link href={promoTabHref} onClick={closeMenu} style={{ cursor: 'pointer', flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: '13px', padding: '12px 13px' }}>
                   <span style={{ flex: 'none', width: '38px', height: '38px', borderRadius: '11px', background: 'rgba(168,80,58,.12)', color: '#A8503A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round"><path d="M19 5L5 19" /><circle cx="7.5" cy="7.5" r="2" /><circle cx="16.5" cy="16.5" r="2" /></svg></span>
-                  <span style={{ flex: 1 }}><span style={{ display: 'block', fontSize: '15.5px', fontWeight: 700, color: '#A8503A' }}>{t('promosTab')}</span><span style={{ display: 'block', fontSize: '12px', color: '#B57767', marginTop: '1px' }}>{t('mPromosSub')}</span></span>
+                  <span style={{ flex: 1 }}><span style={{ display: 'block', fontSize: '15.5px', fontWeight: 700, color: '#A8503A' }}>{promoTabLabel}</span><span style={{ display: 'block', fontSize: '12px', color: '#B57767', marginTop: '1px' }}>{t('mPromosSub')}</span></span>
                 </Link>
-                <button type="button" onClick={() => setOpenCat(openCat === -1 ? null : -1)} aria-label={t('promosTab')} style={{ flex: 'none', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: '#A8503A' }}>
+                <button type="button" onClick={() => setOpenCat(openCat === -1 ? null : -1)} aria-label={promoTabLabel} style={{ flex: 'none', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: '#A8503A' }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ transition: 'transform .2s ease', transform: openCat === -1 ? 'rotate(90deg)' : 'none' }}><path d="M9 6l6 6-6 6" /></svg>
                 </button>
               </div>

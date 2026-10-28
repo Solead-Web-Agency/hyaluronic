@@ -25,7 +25,7 @@
     "rateLimited": "尝试次数过多，请几分钟后再试。"
   },
   "header": {
-    "topbarShipping": "当日发货 — 15点前下单 · DHL 与 Colissimo Express",
+    "topbarShipping": "工作日 15 点前下单当天发货 · DHL Express 与 GLS",
     "topbarFreeShipping": "不含税满 400 € 免运费",
     "topbarCe": "CE 认证 · 完整可追溯",
     "logoSub": "医美注射专家",
@@ -41,13 +41,13 @@
     "navAccessories": "配件",
     "navThreads": "提拉线",
     "allBrands": "所有品牌",
-    "brandsCount": "{count} 个品牌",
+    "brandsCount": "{count, plural, other {# 个品牌}}",
     "seeAll": "查看全部 →",
     "featured": "焦点推荐",
     "discovery": "发现",
     "see": "查看 →",
     "promosTop": "促销与热销",
-    "ceDelivery": "CE / ANSM · 24-48 小时送达",
+    "ceDelivery": "法国境内 24-48 小时送达",
     "mFillersTitle": "HA 填充剂",
     "mFillersSub": "交联透明质酸",
     "mMesoTitle": "中胚层疗法",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "按品牌",
     "mByBrandSub": "Juvéderm、Teoxane、Vivacy…",
     "mPromosTitle": "促销",
-    "mPromosSub": "本周低至 −30%",
+    "mPromosSub": "畅销与精选",
     "loginPractitioner": "执业者登录",
     "tagCe": "✓ CE 认证",
     "tagDelay": "⚡ 24-48 小时",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "精选"
   },
   "footer": {
     "logoSub": "医美注射专家",
@@ -87,9 +88,9 @@
     "serviceLegal": "法律声明",
     "serviceContact": "联系我们",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "银行卡（Visa、Mastercard、CB） · PayPal · Amazon Pay · 银行转账 · 3-D Secure 安全支付",
+    "zonesTitle": "按部位",
+    "effectsTitle": "按功效",
     "allBrands": "All brands",
     "serviceCookies": "管理 Cookie"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "产品目录",
     "heading": "产品目录",
     "searchHeading": "搜索「{query}」",
-    "productsCount": "{count} 款产品",
+    "productsCount": "{count, plural, other {# 款产品}}",
     "filterAndSort": "筛选与排序",
     "filters": "筛选",
     "searchLabel": "搜索",
@@ -322,12 +323,23 @@
     "categoryLabel": "类别",
     "all": "全部",
     "brandLabel": "品牌",
-    "seeProducts": "查看 {count} 款产品",
-    "resultsCount": "{count} 条结果",
+    "seeProducts": "{count, plural, =0 {暂无产品} other {查看 # 款产品}}",
+    "resultsCount": "{count, plural, other {# 条结果}}",
     "sortPop": "热门",
     "sortPriceAsc": "价格 ↑",
     "sortPriceDesc": "价格 ↓",
-    "noResults": "没有产品符合此筛选条件。"
+    "noResults": "没有产品符合此筛选条件。",
+    "zoneLabel": "部位",
+    "effectLabel": "功效",
+    "availabilityLabel": "库存状态",
+    "priceLabel": "价格（不含税）",
+    "unavailable": "无货",
+    "priceUnder": "{max} € 以下（不含税）",
+    "priceBetween": "{min} – {max} €（不含税）",
+    "priceOver": "{min} € 以上（不含税）",
+    "clearFilters": "清除筛选",
+    "sortLabel": "排序方式",
+    "rubricCount": "{count, plural, other {# 个类别}}"
   },
   "account": {
     "breadcrumb": "我的账户",
@@ -628,7 +640,10 @@
       "croma": "奥地利品牌，高纯度填充剂与水光针。",
       "teoxane": "瑞士透明质酸标杆，采用 Resilient Hyaluronic Acid 配方。",
       "mccm": "中胚层疗法营养混合剂与专业注射溶液。"
-    }
+    },
+    "indexTitle": "所有品牌",
+    "indexIntro": "我们经销的实验室与品牌，以及每个品牌的在售产品数量。",
+    "brandsCount": "{count, plural, other {# 个品牌}}"
   },
   "zone": {
     "breadcrumbByZone": "按部位",

@@ -25,7 +25,7 @@
     "rateLimited": "Zbyt wiele prób. Spróbuj ponownie za kilka minut."
   },
   "header": {
-    "topbarShipping": "Wysyłka tego samego dnia — zamów przed 15:00 · DHL & Colissimo Express",
+    "topbarShipping": "Wysyłka tego samego dnia przy zamówieniu przed 15:00 (w dni robocze) · DHL Express i GLS",
     "topbarFreeShipping": "Darmowa dostawa od 400 € netto",
     "topbarCe": "Oznakowanie CE · pełna identyfikowalność",
     "logoSub": "Specjalista w zakresie iniekcji estetycznych",
@@ -41,13 +41,13 @@
     "navAccessories": "Akcesoria",
     "navThreads": "Nici liftingujące",
     "allBrands": "Wszystkie marki",
-    "brandsCount": "{count} producentów",
+    "brandsCount": "{count, plural, one {# producent} few {# producenci} many {# producentów} other {# producenta}}",
     "seeAll": "Zobacz wszystko →",
     "featured": "Wyróżnione",
     "discovery": "Odkrycia",
     "see": "Zobacz →",
     "promosTop": "Promocje & Top",
-    "ceDelivery": "CE / ANSM · Dostawa 24-48 h",
+    "ceDelivery": "Dostawa w 24-48 h we Francji",
     "mFillersTitle": "Wypełniacze HA",
     "mFillersSub": "Usieciowany kwas hialuronowy",
     "mMesoTitle": "Mezoterapia",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Według marki",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Promocje",
-    "mPromosSub": "Do −30 % w tym tygodniu",
+    "mPromosSub": "Bestsellery i wybrane produkty",
     "loginPractitioner": "Logowanie dla specjalistów",
     "tagCe": "✓ Oznakowanie CE",
     "tagDelay": "⚡ 24-48 h",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Wybrane"
   },
   "footer": {
     "logoSub": "Specjalista w zakresie iniekcji estetycznych",
@@ -87,9 +88,9 @@
     "serviceLegal": "Nota prawna",
     "serviceContact": "Kontakt",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Karta płatnicza (Visa, Mastercard, CB) · PayPal · Amazon Pay · Przelew bankowy · Bezpieczna płatność 3-D Secure",
+    "zonesTitle": "Według obszaru",
+    "effectsTitle": "Według efektu",
     "allBrands": "All brands",
     "serviceCookies": "Zarządzaj plikami cookie"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Katalog",
     "heading": "Katalog",
     "searchHeading": "Wyszukiwanie « {query} »",
-    "productsCount": "{count} produktów",
+    "productsCount": "{count, plural, one {# produkt} few {# produkty} many {# produktów} other {# produktu}}",
     "filterAndSort": "Filtruj & sortuj",
     "filters": "Filtry",
     "searchLabel": "Wyszukiwanie",
@@ -322,12 +323,23 @@
     "categoryLabel": "Kategoria",
     "all": "Wszystkie",
     "brandLabel": "Marka",
-    "seeProducts": "Zobacz {count} produktów",
-    "resultsCount": "{count} wyników",
+    "seeProducts": "{count, plural, =0 {Brak produktów} one {Zobacz # produkt} few {Zobacz # produkty} many {Zobacz # produktów} other {Zobacz # produktu}}",
+    "resultsCount": "{count, plural, one {# wynik} few {# wyniki} many {# wyników} other {# wyniku}}",
     "sortPop": "Popularne",
     "sortPriceAsc": "Cena ↑",
     "sortPriceDesc": "Cena ↓",
-    "noResults": "Żaden produkt nie odpowiada temu filtrowi."
+    "noResults": "Żaden produkt nie odpowiada temu filtrowi.",
+    "zoneLabel": "Obszar",
+    "effectLabel": "Efekt",
+    "availabilityLabel": "Dostępność",
+    "priceLabel": "Cena netto",
+    "unavailable": "Niedostępny",
+    "priceUnder": "Poniżej {max} € netto",
+    "priceBetween": "{min} – {max} € netto",
+    "priceOver": "Powyżej {min} € netto",
+    "clearFilters": "Wyczyść filtry",
+    "sortLabel": "Sortuj według",
+    "rubricCount": "{count, plural, one {# dział} few {# działy} many {# działów} other {# działu}}"
   },
   "account": {
     "breadcrumb": "Moje konto",
@@ -628,7 +640,10 @@
       "croma": "Austriacki producent, wypełniacze i skin boostery o wysokiej czystości.",
       "teoxane": "Szwajcarski punkt odniesienia w dziedzinie kwasu hialuronowego, formuły Resilient Hyaluronic Acid.",
       "mccm": "Koktajle do mezoterapii i profesjonalne roztwory iniekcyjne."
-    }
+    },
+    "indexTitle": "Wszystkie marki",
+    "indexIntro": "Laboratoria i marki, które dystrybuujemy, wraz z liczbą dostępnych produktów każdej z nich.",
+    "brandsCount": "{count, plural, one {# marka} few {# marki} many {# marek} other {# marki}}"
   },
   "zone": {
     "breadcrumbByZone": "Według strefy",

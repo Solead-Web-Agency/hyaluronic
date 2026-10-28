@@ -25,7 +25,7 @@
     "rateLimited": "Zu viele Versuche. Bitte versuchen Sie es in einigen Minuten erneut."
   },
   "header": {
-    "topbarShipping": "Versand am selben Tag — Bestellung vor 15 Uhr · DHL & Colissimo Express",
+    "topbarShipping": "Versand am selben Tag bei Bestellung vor 15 Uhr (an Werktagen) · DHL Express & GLS",
     "topbarFreeShipping": "Kostenlose Lieferung ab 400 € exkl. MwSt.",
     "topbarCe": "CE-Kennzeichnung · vollständige Rückverfolgbarkeit",
     "logoSub": "Spezialist für ästhetische Injektionen",
@@ -41,13 +41,13 @@
     "navAccessories": "Zubehör",
     "navThreads": "Fadenlifting",
     "allBrands": "Alle Marken",
-    "brandsCount": "{count} Häuser",
+    "brandsCount": "{count, plural, one {# Haus} other {# Häuser}}",
     "seeAll": "Alle ansehen →",
     "featured": "Im Fokus",
     "discovery": "Entdeckung",
     "see": "Ansehen →",
     "promosTop": "Angebote & Top",
-    "ceDelivery": "CE / ANSM · Lieferung 24-48 Std.",
+    "ceDelivery": "Lieferung in 24-48 Std. in Frankreich",
     "mFillersTitle": "HA-Filler",
     "mFillersSub": "Vernetzte Hyaluronsäure",
     "mMesoTitle": "Mesotherapie",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Nach Marke",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Angebote",
-    "mPromosSub": "Bis zu −30 % diese Woche",
+    "mPromosSub": "Bestseller & Auswahl",
     "loginPractitioner": "Anmeldung für Fachleute",
     "tagCe": "✓ CE-Kennzeichnung",
     "tagDelay": "⚡ 24-48 Std.",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Auswahl"
   },
   "footer": {
     "logoSub": "Spezialist für ästhetische Injektionen",
@@ -87,9 +88,9 @@
     "serviceLegal": "Impressum",
     "serviceContact": "Kontakt",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Bankkarte (Visa, Mastercard, CB) · PayPal · Amazon Pay · Banküberweisung · Sichere Zahlung mit 3-D Secure",
+    "zonesTitle": "Nach Zone",
+    "effectsTitle": "Nach Wirkung",
     "allBrands": "All brands",
     "serviceCookies": "Cookies verwalten"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Katalog",
     "heading": "Katalog",
     "searchHeading": "Suche « {query} »",
-    "productsCount": "{count} Produkte",
+    "productsCount": "{count, plural, one {# Produkt} other {# Produkte}}",
     "filterAndSort": "Filtern & sortieren",
     "filters": "Filter",
     "searchLabel": "Suche",
@@ -322,12 +323,23 @@
     "categoryLabel": "Kategorie",
     "all": "Alle",
     "brandLabel": "Marke",
-    "seeProducts": "{count} Produkte ansehen",
-    "resultsCount": "{count} Ergebnisse",
+    "seeProducts": "{count, plural, =0 {Keine Produkte} one {# Produkt ansehen} other {# Produkte ansehen}}",
+    "resultsCount": "{count, plural, one {# Ergebnis} other {# Ergebnisse}}",
     "sortPop": "Beliebt",
     "sortPriceAsc": "Preis ↑",
     "sortPriceDesc": "Preis ↓",
-    "noResults": "Kein Produkt entspricht diesem Filter."
+    "noResults": "Kein Produkt entspricht diesem Filter.",
+    "zoneLabel": "Zone",
+    "effectLabel": "Wirkung",
+    "availabilityLabel": "Verfügbarkeit",
+    "priceLabel": "Preis exkl. MwSt.",
+    "unavailable": "Nicht verfügbar",
+    "priceUnder": "Unter {max} € exkl. MwSt.",
+    "priceBetween": "{min} – {max} € exkl. MwSt.",
+    "priceOver": "Über {min} € exkl. MwSt.",
+    "clearFilters": "Filter zurücksetzen",
+    "sortLabel": "Sortieren nach",
+    "rubricCount": "{count, plural, one {# Rubrik} other {# Rubriken}}"
   },
   "account": {
     "breadcrumb": "Mein Konto",
@@ -628,7 +640,10 @@
       "croma": "Österreichisches Haus, Filler und Skin Booster von hoher Reinheit.",
       "teoxane": "Schweizer Referenz für Hyaluronsäure, Formeln mit Resilient Hyaluronic Acid.",
       "mccm": "Mesotherapie-Cocktails und professionelle injizierbare Lösungen."
-    }
+    },
+    "indexTitle": "Alle Marken",
+    "indexIntro": "Die Labore und Marken, die wir vertreiben, mit der Anzahl der jeweils verfügbaren Produkte.",
+    "brandsCount": "{count, plural, one {# Marke} other {# Marken}}"
   },
   "zone": {
     "breadcrumbByZone": "Nach Zone",

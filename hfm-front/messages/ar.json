@@ -25,7 +25,7 @@
     "rateLimited": "محاولات كثيرة جدًا. يُرجى المحاولة مرة أخرى بعد بضع دقائق."
   },
   "header": {
-    "topbarShipping": "الشحن في نفس اليوم — اطلب قبل الساعة 15:00 · DHL و Colissimo Express",
+    "topbarShipping": "شحن في نفس اليوم للطلبات قبل الساعة 15:00 (أيام العمل) · DHL Express و GLS",
     "topbarFreeShipping": "شحن مجاني ابتداءً من 400 € بدون ضريبة",
     "topbarCe": "علامة CE · تتبّع كامل",
     "logoSub": "خبير في الحقن التجميلية",
@@ -41,13 +41,13 @@
     "navAccessories": "الملحقات",
     "navThreads": "خيوط الشد",
     "allBrands": "جميع العلامات التجارية",
-    "brandsCount": "{count} علامة تجارية",
+    "brandsCount": "{count, plural, zero {لا علامات تجارية} one {علامة تجارية واحدة} two {علامتان تجاريتان} few {# علامات تجارية} many {# علامة تجارية} other {# علامة تجارية}}",
     "seeAll": "عرض الكل →",
     "featured": "المميّز",
     "discovery": "اكتشاف",
     "see": "عرض →",
     "promosTop": "العروض والأكثر مبيعًا",
-    "ceDelivery": "CE / ANSM · توصيل خلال 24-48 ساعة",
+    "ceDelivery": "توصيل خلال 24-48 ساعة في فرنسا",
     "mFillersTitle": "فيلر HA",
     "mFillersSub": "حمض الهيالورونيك المتشابك",
     "mMesoTitle": "الميزوثيرابي",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "حسب العلامة التجارية",
     "mByBrandSub": "Juvéderm، Teoxane، Vivacy…",
     "mPromosTitle": "العروض",
-    "mPromosSub": "حتى −30٪ هذا الأسبوع",
+    "mPromosSub": "الأكثر مبيعًا ومختارات",
     "loginPractitioner": "دخول الممارس",
     "tagCe": "✓ علامة CE",
     "tagDelay": "⚡ 24-48 ساعة",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "مختارات"
   },
   "footer": {
     "logoSub": "خبير في الحقن التجميلية",
@@ -87,9 +88,9 @@
     "serviceLegal": "الإشعار القانوني",
     "serviceContact": "اتصل بنا",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "بطاقة مصرفية (Visa، Mastercard، CB) · PayPal · Amazon Pay · تحويل مصرفي · دفع آمن 3-D Secure",
+    "zonesTitle": "حسب المنطقة",
+    "effectsTitle": "حسب التأثير",
     "allBrands": "All brands",
     "serviceCookies": "إدارة ملفات تعريف الارتباط"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "الكتالوج",
     "heading": "الكتالوج",
     "searchHeading": "بحث «{query}»",
-    "productsCount": "{count} منتج",
+    "productsCount": "{count, plural, zero {لا منتجات} one {منتج واحد} two {منتجان} few {# منتجات} many {# منتجًا} other {# منتج}}",
     "filterAndSort": "تصفية وترتيب",
     "filters": "عوامل التصفية",
     "searchLabel": "البحث",
@@ -322,12 +323,23 @@
     "categoryLabel": "الفئة",
     "all": "الكل",
     "brandLabel": "العلامة التجارية",
-    "seeProducts": "عرض {count} منتج",
-    "resultsCount": "{count} نتيجة",
+    "seeProducts": "{count, plural, =0 {لا منتجات} one {عرض منتج واحد} two {عرض منتجين} few {عرض # منتجات} many {عرض # منتجًا} other {عرض # منتج}}",
+    "resultsCount": "{count, plural, zero {لا نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجة} other {# نتيجة}}",
     "sortPop": "الأكثر رواجًا",
     "sortPriceAsc": "السعر ↑",
     "sortPriceDesc": "السعر ↓",
-    "noResults": "لا يوجد منتج يطابق هذا المرشّح."
+    "noResults": "لا يوجد منتج يطابق هذا المرشّح.",
+    "zoneLabel": "المنطقة",
+    "effectLabel": "التأثير",
+    "availabilityLabel": "التوفر",
+    "priceLabel": "السعر بدون ضريبة",
+    "unavailable": "غير متوفر",
+    "priceUnder": "أقل من {max} € بدون ضريبة",
+    "priceBetween": "{min} – {max} € بدون ضريبة",
+    "priceOver": "أكثر من {min} € بدون ضريبة",
+    "clearFilters": "مسح عوامل التصفية",
+    "sortLabel": "ترتيب حسب",
+    "rubricCount": "{count, plural, zero {لا أقسام} one {قسم واحد} two {قسمان} few {# أقسام} many {# قسمًا} other {# قسم}}"
   },
   "account": {
     "breadcrumb": "حسابي",
@@ -628,7 +640,10 @@
       "croma": "علامة نمساوية، فيلر ومعزّزات بشرة عالية النقاء.",
       "teoxane": "المرجع السويسري لحمض الهيالورونيك، تركيبات Resilient Hyaluronic Acid.",
       "mccm": "كوكتيلات ميزوثيرابي ومحاليل حقن احترافية."
-    }
+    },
+    "indexTitle": "جميع العلامات التجارية",
+    "indexIntro": "المختبرات والعلامات التجارية التي نوزعها، مع عدد المنتجات المتاحة لكل منها.",
+    "brandsCount": "{count, plural, zero {لا علامات تجارية} one {علامة تجارية واحدة} two {علامتان تجاريتان} few {# علامات تجارية} many {# علامة تجارية} other {# علامة تجارية}}"
   },
   "zone": {
     "breadcrumbByZone": "حسب المنطقة",

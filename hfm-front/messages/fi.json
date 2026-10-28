@@ -25,7 +25,7 @@
     "rateLimited": "Liian monta yritystä. Yritä uudelleen muutaman minuutin kuluttua."
   },
   "header": {
-    "topbarShipping": "Toimitus samana päivänä — tilaa ennen klo 15 · DHL & Colissimo Express",
+    "topbarShipping": "Lähetys samana päivänä ennen klo 15 tehdyille tilauksille (arkipäivisin) · DHL Express & GLS",
     "topbarFreeShipping": "Ilmainen toimitus alkaen 400 € (alv 0 %)",
     "topbarCe": "CE-merkintä · täysi jäljitettävyys",
     "logoSub": "Esteettisten injektioiden asiantuntija",
@@ -41,13 +41,13 @@
     "navAccessories": "Tarvikkeet",
     "navThreads": "Vaijerikohotus",
     "allBrands": "Kaikki merkit",
-    "brandsCount": "{count} merkkiä",
+    "brandsCount": "{count, plural, one {# merkki} other {# merkkiä}}",
     "seeAll": "Näytä kaikki →",
     "featured": "Esillä",
     "discovery": "Tutustu",
     "see": "Katso →",
     "promosTop": "Tarjoukset & Suosituimmat",
-    "ceDelivery": "CE / ANSM · Toimitus 24–48 h",
+    "ceDelivery": "Toimitus 24–48 h Ranskassa",
     "mFillersTitle": "HA-täyteaineet",
     "mFillersSub": "Ristisilloitettu hyaluronihappo",
     "mMesoTitle": "Mesoterapia",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Merkin mukaan",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Tarjoukset",
-    "mPromosSub": "Jopa −30 % tällä viikolla",
+    "mPromosSub": "Myydyimmät & valikoimat",
     "loginPractitioner": "Hoitajien kirjautuminen",
     "tagCe": "✓ CE-merkintä",
     "tagDelay": "⚡ 24–48 h",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Valikoimat"
   },
   "footer": {
     "logoSub": "Esteettisten injektioiden asiantuntija",
@@ -87,9 +88,9 @@
     "serviceLegal": "Oikeudelliset tiedot",
     "serviceContact": "Ota yhteyttä",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Pankkikortti (Visa, Mastercard, CB) · PayPal · Amazon Pay · Tilisiirto · Turvallinen maksu 3-D Secure",
+    "zonesTitle": "Alueittain",
+    "effectsTitle": "Vaikutuksen mukaan",
     "allBrands": "All brands",
     "serviceCookies": "Hallitse evästeitä"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Katalogi",
     "heading": "Katalogi",
     "searchHeading": "Haku « {query} »",
-    "productsCount": "{count} tuotetta",
+    "productsCount": "{count, plural, one {# tuote} other {# tuotetta}}",
     "filterAndSort": "Suodata & lajittele",
     "filters": "Suodattimet",
     "searchLabel": "Haku",
@@ -322,12 +323,23 @@
     "categoryLabel": "Kategoria",
     "all": "Kaikki",
     "brandLabel": "Merkki",
-    "seeProducts": "Näytä {count} tuotetta",
-    "resultsCount": "{count} tulosta",
+    "seeProducts": "{count, plural, =0 {Ei tuotteita} one {Näytä # tuote} other {Näytä # tuotetta}}",
+    "resultsCount": "{count, plural, one {# tulos} other {# tulosta}}",
     "sortPop": "Suositut",
     "sortPriceAsc": "Hinta ↑",
     "sortPriceDesc": "Hinta ↓",
-    "noResults": "Mikään tuote ei vastaa tätä suodatinta."
+    "noResults": "Mikään tuote ei vastaa tätä suodatinta.",
+    "zoneLabel": "Alue",
+    "effectLabel": "Vaikutus",
+    "availabilityLabel": "Saatavuus",
+    "priceLabel": "Hinta alv 0 %",
+    "unavailable": "Ei saatavilla",
+    "priceUnder": "Alle {max} € (alv 0 %)",
+    "priceBetween": "{min} – {max} € (alv 0 %)",
+    "priceOver": "Yli {min} € (alv 0 %)",
+    "clearFilters": "Tyhjennä suodattimet",
+    "sortLabel": "Lajittele",
+    "rubricCount": "{count, plural, one {# osio} other {# osiota}}"
   },
   "account": {
     "breadcrumb": "Oma tili",
@@ -628,7 +640,10 @@
       "croma": "Itävaltalainen merkki, korkean puhtauden täyteaineet ja skin boosterit.",
       "teoxane": "Sveitsiläinen hyaluronihapon edelläkävijä, Resilient Hyaluronic Acid -formulaatiot.",
       "mccm": "Mesoterapiacocktailit ja ammattilaisten injektoitavat liuokset."
-    }
+    },
+    "indexTitle": "Kaikki merkit",
+    "indexIntro": "Jakelemamme laboratoriot ja merkit sekä kunkin saatavilla olevien tuotteiden määrä.",
+    "brandsCount": "{count, plural, one {# merkki} other {# merkkiä}}"
   },
   "zone": {
     "breadcrumbByZone": "Alueen mukaan",

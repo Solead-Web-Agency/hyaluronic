@@ -25,7 +25,7 @@
     "rateLimited": "Demasiadas tentativas. Tente novamente dentro de alguns minutos."
   },
   "header": {
-    "topbarShipping": "Envio no próprio dia — encomende antes das 15h · DHL & Colissimo Express",
+    "topbarShipping": "Envio no próprio dia para encomendas feitas antes das 15h (dias úteis) · DHL Express e GLS",
     "topbarFreeShipping": "Envio gratuito a partir de 400 € s/ IVA",
     "topbarCe": "Marcação CE · rastreabilidade completa",
     "logoSub": "Especialista em injetáveis estéticos",
@@ -41,13 +41,13 @@
     "navAccessories": "Acessórios",
     "navThreads": "Fios tensores",
     "allBrands": "Todas as marcas",
-    "brandsCount": "{count} laboratórios",
+    "brandsCount": "{count, plural, one {# laboratório} other {# laboratórios}}",
     "seeAll": "Ver tudo →",
     "featured": "Em destaque",
     "discovery": "Descoberta",
     "see": "Ver →",
     "promosTop": "Promoções & Top",
-    "ceDelivery": "CE / ANSM · Entrega 24-48 h",
+    "ceDelivery": "Entrega em 24-48 h em França",
     "mFillersTitle": "Fillers HA",
     "mFillersSub": "Ácido hialurónico reticulado",
     "mMesoTitle": "Mesoterapia",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Por marca",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Promoções",
-    "mPromosSub": "Até −30 % esta semana",
+    "mPromosSub": "Mais vendidos e seleções",
     "loginPractitioner": "Acesso de profissional",
     "tagCe": "✓ Marcação CE",
     "tagDelay": "⚡ 24-48 h",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Seleções"
   },
   "footer": {
     "logoSub": "Especialista em injetáveis estéticos",
@@ -87,9 +88,9 @@
     "serviceLegal": "Aviso legal",
     "serviceContact": "Contacte-nos",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Cartão bancário (Visa, Mastercard, CB) · PayPal · Amazon Pay · Transferência bancária · Pagamento seguro 3-D Secure",
+    "zonesTitle": "Por zona",
+    "effectsTitle": "Por efeito",
     "allBrands": "All brands",
     "serviceCookies": "Gerir cookies"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Catálogo",
     "heading": "Catálogo",
     "searchHeading": "Pesquisa « {query} »",
-    "productsCount": "{count} produtos",
+    "productsCount": "{count, plural, one {# produto} other {# produtos}}",
     "filterAndSort": "Filtrar & ordenar",
     "filters": "Filtros",
     "searchLabel": "Pesquisa",
@@ -322,12 +323,23 @@
     "categoryLabel": "Categoria",
     "all": "Todas",
     "brandLabel": "Marca",
-    "seeProducts": "Ver os {count} produtos",
-    "resultsCount": "{count} resultados",
+    "seeProducts": "{count, plural, =0 {Nenhum produto} one {Ver # produto} other {Ver os # produtos}}",
+    "resultsCount": "{count, plural, one {# resultado} other {# resultados}}",
     "sortPop": "Populares",
     "sortPriceAsc": "Preço ↑",
     "sortPriceDesc": "Preço ↓",
-    "noResults": "Nenhum produto corresponde a este filtro."
+    "noResults": "Nenhum produto corresponde a este filtro.",
+    "zoneLabel": "Zona",
+    "effectLabel": "Efeito",
+    "availabilityLabel": "Disponibilidade",
+    "priceLabel": "Preço s/ IVA",
+    "unavailable": "Indisponível",
+    "priceUnder": "Menos de {max} € s/ IVA",
+    "priceBetween": "{min} – {max} € s/ IVA",
+    "priceOver": "Mais de {min} € s/ IVA",
+    "clearFilters": "Limpar filtros",
+    "sortLabel": "Ordenar por",
+    "rubricCount": "{count, plural, one {# secção} other {# secções}}"
   },
   "account": {
     "breadcrumb": "A minha conta",
@@ -628,7 +640,10 @@
       "croma": "Laboratório austríaco, fillers e skin boosters de elevada pureza.",
       "teoxane": "Referência suíça do ácido hialurónico, fórmulas Resilient Hyaluronic Acid.",
       "mccm": "Cocktails de mesoterapia e soluções injetáveis profissionais."
-    }
+    },
+    "indexTitle": "Todas as marcas",
+    "indexIntro": "Os laboratórios e marcas que distribuímos, com o número de produtos disponíveis para cada uma.",
+    "brandsCount": "{count, plural, one {# marca} other {# marcas}}"
   },
   "zone": {
     "breadcrumbByZone": "Por zona",

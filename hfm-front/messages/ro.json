@@ -25,7 +25,7 @@
     "rateLimited": "Prea multe încercări. Vă rugăm să încercați din nou peste câteva minute."
   },
   "header": {
-    "topbarShipping": "Expediere în aceeași zi — comandă înainte de ora 15:00 · DHL & Colissimo Express",
+    "topbarShipping": "Expediere în aceeași zi pentru comenzile plasate înainte de ora 15:00 (zile lucrătoare) · DHL Express și GLS",
     "topbarFreeShipping": "Livrare gratuită de la 400 € fără TVA",
     "topbarCe": "Marcaj CE · trasabilitate completă",
     "logoSub": "Specialist în injectabile estetice",
@@ -41,13 +41,13 @@
     "navAccessories": "Accesorii",
     "navThreads": "Fire de lifting",
     "allBrands": "Toate mărcile",
-    "brandsCount": "{count} producători",
+    "brandsCount": "{count, plural, one {# producător} few {# producători} other {# de producători}}",
     "seeAll": "Vezi tot →",
     "featured": "Recomandate",
     "discovery": "Descoperă",
     "see": "Vezi →",
     "promosTop": "Promoții & Top",
-    "ceDelivery": "CE / ANSM · Livrare 24-48 h",
+    "ceDelivery": "Livrare în 24-48 h în Franța",
     "mFillersTitle": "Fillere HA",
     "mFillersSub": "Acid hialuronic reticulat",
     "mMesoTitle": "Mezoterapie",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "După marcă",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Promoții",
-    "mPromosSub": "Până la −30 % săptămâna aceasta",
+    "mPromosSub": "Cele mai vândute și selecții",
     "loginPractitioner": "Autentificare practician",
     "tagCe": "✓ Marcaj CE",
     "tagDelay": "⚡ 24-48 h",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Selecții"
   },
   "footer": {
     "logoSub": "Specialist în injectabile estetice",
@@ -87,9 +88,9 @@
     "serviceLegal": "Informații legale",
     "serviceContact": "Contactează-ne",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Card bancar (Visa, Mastercard, CB) · PayPal · Amazon Pay · Transfer bancar · Plată securizată 3-D Secure",
+    "zonesTitle": "După zonă",
+    "effectsTitle": "După efect",
     "allBrands": "All brands",
     "serviceCookies": "Gestionează modulele cookie"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Catalog",
     "heading": "Catalog",
     "searchHeading": "Căutare « {query} »",
-    "productsCount": "{count} produse",
+    "productsCount": "{count, plural, one {# produs} few {# produse} other {# de produse}}",
     "filterAndSort": "Filtrează & sortează",
     "filters": "Filtre",
     "searchLabel": "Căutare",
@@ -322,12 +323,23 @@
     "categoryLabel": "Categorie",
     "all": "Toate",
     "brandLabel": "Marcă",
-    "seeProducts": "Vezi {count} produse",
-    "resultsCount": "{count} rezultate",
+    "seeProducts": "{count, plural, =0 {Niciun produs} one {Vezi # produs} few {Vezi # produse} other {Vezi # de produse}}",
+    "resultsCount": "{count, plural, one {# rezultat} few {# rezultate} other {# de rezultate}}",
     "sortPop": "Populare",
     "sortPriceAsc": "Preț ↑",
     "sortPriceDesc": "Preț ↓",
-    "noResults": "Niciun produs nu corespunde acestui filtru."
+    "noResults": "Niciun produs nu corespunde acestui filtru.",
+    "zoneLabel": "Zonă",
+    "effectLabel": "Efect",
+    "availabilityLabel": "Disponibilitate",
+    "priceLabel": "Preț fără TVA",
+    "unavailable": "Indisponibil",
+    "priceUnder": "Sub {max} € fără TVA",
+    "priceBetween": "{min} – {max} € fără TVA",
+    "priceOver": "Peste {min} € fără TVA",
+    "clearFilters": "Șterge filtrele",
+    "sortLabel": "Sortează după",
+    "rubricCount": "{count, plural, one {# secțiune} few {# secțiuni} other {# de secțiuni}}"
   },
   "account": {
     "breadcrumb": "Contul meu",
@@ -628,7 +640,10 @@
       "croma": "Producător austriac, fillere și skin boostere de înaltă puritate.",
       "teoxane": "Referință elvețiană în domeniul acidului hialuronic, formule Resilient Hyaluronic Acid.",
       "mccm": "Cocktailuri de mezoterapie și soluții injectabile profesionale."
-    }
+    },
+    "indexTitle": "Toate mărcile",
+    "indexIntro": "Laboratoarele și mărcile pe care le distribuim, cu numărul de produse disponibile pentru fiecare.",
+    "brandsCount": "{count, plural, one {# marcă} few {# mărci} other {# de mărci}}"
   },
   "zone": {
     "breadcrumbByZone": "După zonă",

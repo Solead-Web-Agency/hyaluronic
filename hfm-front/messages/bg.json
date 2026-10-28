@@ -25,7 +25,7 @@
     "rateLimited": "Твърде много опити. Моля, опитайте отново след няколко минути."
   },
   "header": {
-    "topbarShipping": "Експедиция в същия ден — поръчка преди 15 ч. · DHL & Colissimo Express",
+    "topbarShipping": "Експедиция в същия ден за поръчки, направени преди 15 ч. (в работни дни) · DHL Express и GLS",
     "topbarFreeShipping": "Безплатна доставка от 400 € без ДДС",
     "topbarCe": "CE маркировка · пълна проследимост",
     "logoSub": "Експерт по естетични инжекции",
@@ -41,13 +41,13 @@
     "navAccessories": "Аксесоари",
     "navThreads": "Подкожни нишки",
     "allBrands": "Всички марки",
-    "brandsCount": "{count} марки",
+    "brandsCount": "{count, plural, one {# марка} other {# марки}}",
     "seeAll": "Виж всички →",
     "featured": "На фокус",
     "discovery": "Открийте",
     "see": "Виж →",
     "promosTop": "Промоции & Топ",
-    "ceDelivery": "CE / ANSM · Доставка 24-48 ч.",
+    "ceDelivery": "Доставка за 24-48 ч. във Франция",
     "mFillersTitle": "Филъри HA",
     "mFillersSub": "Омрежена хиалуронова киселина",
     "mMesoTitle": "Мезотерапия",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "По марка",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Промоции",
-    "mPromosSub": "До −30 % тази седмица",
+    "mPromosSub": "Най-продавани и подбрани",
     "loginPractitioner": "Вход за практикуващи",
     "tagCe": "✓ CE маркировка",
     "tagDelay": "⚡ 24-48 ч.",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Подбрани"
   },
   "footer": {
     "logoSub": "Експерт по естетични инжекции",
@@ -87,9 +88,9 @@
     "serviceLegal": "Правна информация",
     "serviceContact": "Свържете се с нас",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Банкова карта (Visa, Mastercard, CB) · PayPal · Amazon Pay · Банков превод · Сигурно плащане 3-D Secure",
+    "zonesTitle": "По зона",
+    "effectsTitle": "По ефект",
     "allBrands": "All brands",
     "serviceCookies": "Управление на бисквитките"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Каталог",
     "heading": "Каталог",
     "searchHeading": "Търсене « {query} »",
-    "productsCount": "{count} продукта",
+    "productsCount": "{count, plural, one {# продукт} other {# продукта}}",
     "filterAndSort": "Филтриране & сортиране",
     "filters": "Филтри",
     "searchLabel": "Търсене",
@@ -322,12 +323,23 @@
     "categoryLabel": "Категория",
     "all": "Всички",
     "brandLabel": "Марка",
-    "seeProducts": "Виж {count} продукта",
-    "resultsCount": "{count} резултата",
+    "seeProducts": "{count, plural, =0 {Няма продукти} one {Виж # продукт} other {Виж # продукта}}",
+    "resultsCount": "{count, plural, one {# резултат} other {# резултата}}",
     "sortPop": "Популярни",
     "sortPriceAsc": "Цена ↑",
     "sortPriceDesc": "Цена ↓",
-    "noResults": "Няма продукт, който да отговаря на този филтър."
+    "noResults": "Няма продукт, който да отговаря на този филтър.",
+    "zoneLabel": "Зона",
+    "effectLabel": "Ефект",
+    "availabilityLabel": "Наличност",
+    "priceLabel": "Цена без ДДС",
+    "unavailable": "Неналичен",
+    "priceUnder": "Под {max} € без ДДС",
+    "priceBetween": "{min} – {max} € без ДДС",
+    "priceOver": "Над {min} € без ДДС",
+    "clearFilters": "Изчисти филтрите",
+    "sortLabel": "Сортиране по",
+    "rubricCount": "{count, plural, one {# раздел} other {# раздела}}"
   },
   "account": {
     "breadcrumb": "Моят профил",
@@ -628,7 +640,10 @@
       "croma": "Австрийска марка, филъри и скин бустери с висока чистота.",
       "teoxane": "Швейцарски еталон в хиалуроновата киселина, формули Resilient Hyaluronic Acid.",
       "mccm": "Коктейли за мезотерапия и професионални инжектируеми разтвори."
-    }
+    },
+    "indexTitle": "Всички марки",
+    "indexIntro": "Лабораториите и марките, които дистрибутираме, с броя на наличните продукти за всяка от тях.",
+    "brandsCount": "{count, plural, one {# марка} other {# марки}}"
   },
   "zone": {
     "breadcrumbByZone": "По зона",

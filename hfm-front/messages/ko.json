@@ -25,7 +25,7 @@
     "rateLimited": "시도 횟수가 너무 많습니다. 몇 분 후에 다시 시도해 주세요."
   },
   "header": {
-    "topbarShipping": "당일 발송 — 오후 3시 이전 주문 · DHL & Colissimo Express",
+    "topbarShipping": "오후 3시 이전 주문 시 당일 발송(영업일 기준) · DHL Express & GLS",
     "topbarFreeShipping": "부가세 별도 400 € 이상 무료 배송",
     "topbarCe": "CE 인증 · 완전한 추적성",
     "logoSub": "미용 주사 전문가",
@@ -41,13 +41,13 @@
     "navAccessories": "액세서리",
     "navThreads": "리프팅 실",
     "allBrands": "모든 브랜드",
-    "brandsCount": "{count}개 브랜드",
+    "brandsCount": "{count, plural, other {#개 브랜드}}",
     "seeAll": "전체 보기 →",
     "featured": "추천",
     "discovery": "발견",
     "see": "보기 →",
     "promosTop": "프로모션 & 인기",
-    "ceDelivery": "CE / ANSM · 24-48시간 배송",
+    "ceDelivery": "프랑스 내 24-48시간 배송",
     "mFillersTitle": "HA 필러",
     "mFillersSub": "가교 히알루론산",
     "mMesoTitle": "메조테라피",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "브랜드별",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "프로모션",
-    "mPromosSub": "이번 주 최대 −30%",
+    "mPromosSub": "베스트셀러 및 추천 상품",
     "loginPractitioner": "시술자 로그인",
     "tagCe": "✓ CE 인증",
     "tagDelay": "⚡ 24-48시간",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "추천"
   },
   "footer": {
     "logoSub": "미용 주사 전문가",
@@ -87,9 +88,9 @@
     "serviceLegal": "법적 고지",
     "serviceContact": "문의하기",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "카드 결제(Visa, Mastercard, CB) · PayPal · Amazon Pay · 계좌 이체 · 3-D Secure 안전 결제",
+    "zonesTitle": "부위별",
+    "effectsTitle": "효과별",
     "allBrands": "All brands",
     "serviceCookies": "쿠키 관리"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "카탈로그",
     "heading": "카탈로그",
     "searchHeading": "검색 「{query}」",
-    "productsCount": "{count}개 제품",
+    "productsCount": "{count, plural, other {#개 제품}}",
     "filterAndSort": "필터 & 정렬",
     "filters": "필터",
     "searchLabel": "검색",
@@ -322,12 +323,23 @@
     "categoryLabel": "카테고리",
     "all": "전체",
     "brandLabel": "브랜드",
-    "seeProducts": "{count}개 제품 보기",
-    "resultsCount": "{count}개 결과",
+    "seeProducts": "{count, plural, =0 {제품 없음} other {#개 제품 보기}}",
+    "resultsCount": "{count, plural, other {#개 결과}}",
     "sortPop": "인기순",
     "sortPriceAsc": "가격 ↑",
     "sortPriceDesc": "가격 ↓",
-    "noResults": "이 필터에 해당하는 제품이 없습니다."
+    "noResults": "이 필터에 해당하는 제품이 없습니다.",
+    "zoneLabel": "부위",
+    "effectLabel": "효과",
+    "availabilityLabel": "재고 여부",
+    "priceLabel": "가격(부가세 별도)",
+    "unavailable": "구매 불가",
+    "priceUnder": "{max} € 미만(부가세 별도)",
+    "priceBetween": "{min}–{max} €(부가세 별도)",
+    "priceOver": "{min} € 초과(부가세 별도)",
+    "clearFilters": "필터 초기화",
+    "sortLabel": "정렬 기준",
+    "rubricCount": "{count, plural, other {#개 카테고리}}"
   },
   "account": {
     "breadcrumb": "내 계정",
@@ -628,7 +640,10 @@
       "croma": "오스트리아 브랜드, 고순도 필러와 스킨 부스터.",
       "teoxane": "스위스 히알루론산의 기준, Resilient Hyaluronic Acid 포뮬러.",
       "mccm": "메조테라피 칵테일과 전문가용 주사 솔루션."
-    }
+    },
+    "indexTitle": "모든 브랜드",
+    "indexIntro": "저희가 유통하는 연구소와 브랜드, 그리고 브랜드별 구매 가능한 제품 수입니다.",
+    "brandsCount": "{count, plural, other {#개 브랜드}}"
   },
   "zone": {
     "breadcrumbByZone": "부위별",

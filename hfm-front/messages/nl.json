@@ -25,7 +25,7 @@
     "rateLimited": "Te veel pogingen. Probeer het over een paar minuten opnieuw."
   },
   "header": {
-    "topbarShipping": "Dezelfde dag verzonden — bestel vóór 15.00 uur · DHL & Colissimo Express",
+    "topbarShipping": "Verzending op dezelfde dag voor bestellingen vóór 15.00 uur (werkdagen) · DHL Express & GLS",
     "topbarFreeShipping": "Gratis verzending vanaf € 400 excl. btw",
     "topbarCe": "CE-markering · volledige traceerbaarheid",
     "logoSub": "Specialist in esthetische injecties",
@@ -41,13 +41,13 @@
     "navAccessories": "Accessoires",
     "navThreads": "Liftingdraden",
     "allBrands": "Alle merken",
-    "brandsCount": "{count} merken",
+    "brandsCount": "{count, plural, one {# merk} other {# merken}}",
     "seeAll": "Alles bekijken →",
     "featured": "Uitgelicht",
     "discovery": "Ontdekking",
     "see": "Bekijken →",
     "promosTop": "Aanbiedingen & Top",
-    "ceDelivery": "CE / ANSM · Levering 24-48 u",
+    "ceDelivery": "Levering in 24-48 u in Frankrijk",
     "mFillersTitle": "HA-fillers",
     "mFillersSub": "Gecrosslinkt hyaluronzuur",
     "mMesoTitle": "Mesotherapie",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Per merk",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Aanbiedingen",
-    "mPromosSub": "Tot −30 % deze week",
+    "mPromosSub": "Bestsellers & selecties",
     "loginPractitioner": "Inloggen voor behandelaars",
     "tagCe": "✓ CE-markering",
     "tagDelay": "⚡ 24-48 u",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Selecties"
   },
   "footer": {
     "logoSub": "Specialist in esthetische injecties",
@@ -87,9 +88,9 @@
     "serviceLegal": "Juridische informatie",
     "serviceContact": "Contact",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Bankkaart (Visa, Mastercard, CB) · PayPal · Amazon Pay · Bankoverschrijving · Veilig betalen met 3-D Secure",
+    "zonesTitle": "Per zone",
+    "effectsTitle": "Per effect",
     "allBrands": "All brands",
     "serviceCookies": "Cookies beheren"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Catalogus",
     "heading": "Catalogus",
     "searchHeading": "Zoeken « {query} »",
-    "productsCount": "{count} producten",
+    "productsCount": "{count, plural, one {# product} other {# producten}}",
     "filterAndSort": "Filteren & sorteren",
     "filters": "Filters",
     "searchLabel": "Zoeken",
@@ -322,12 +323,23 @@
     "categoryLabel": "Categorie",
     "all": "Alle",
     "brandLabel": "Merk",
-    "seeProducts": "Bekijk de {count} producten",
-    "resultsCount": "{count} resultaten",
+    "seeProducts": "{count, plural, =0 {Geen producten} one {Bekijk # product} other {Bekijk de # producten}}",
+    "resultsCount": "{count, plural, one {# resultaat} other {# resultaten}}",
     "sortPop": "Populair",
     "sortPriceAsc": "Prijs ↑",
     "sortPriceDesc": "Prijs ↓",
-    "noResults": "Geen product komt overeen met dit filter."
+    "noResults": "Geen product komt overeen met dit filter.",
+    "zoneLabel": "Zone",
+    "effectLabel": "Effect",
+    "availabilityLabel": "Beschikbaarheid",
+    "priceLabel": "Prijs excl. btw",
+    "unavailable": "Niet beschikbaar",
+    "priceUnder": "Minder dan {max} € excl. btw",
+    "priceBetween": "{min} – {max} € excl. btw",
+    "priceOver": "Meer dan {min} € excl. btw",
+    "clearFilters": "Filters wissen",
+    "sortLabel": "Sorteren op",
+    "rubricCount": "{count, plural, one {# rubriek} other {# rubrieken}}"
   },
   "account": {
     "breadcrumb": "Mijn account",
@@ -628,7 +640,10 @@
       "croma": "Oostenrijks merk, fillers en skin boosters van hoge zuiverheid.",
       "teoxane": "Zwitserse referentie in hyaluronzuur, Resilient Hyaluronic Acid-formules.",
       "mccm": "Mesotherapie-cocktails en professionele injecteerbare oplossingen."
-    }
+    },
+    "indexTitle": "Alle merken",
+    "indexIntro": "De laboratoria en merken die wij distribueren, met het aantal beschikbare producten per merk.",
+    "brandsCount": "{count, plural, one {# merk} other {# merken}}"
   },
   "zone": {
     "breadcrumbByZone": "Per zone",

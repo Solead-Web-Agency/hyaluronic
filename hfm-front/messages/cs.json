@@ -25,7 +25,7 @@
     "rateLimited": "Příliš mnoho pokusů. Zkuste to prosím znovu za několik minut."
   },
   "header": {
-    "topbarShipping": "Odeslání týž den — objednejte do 15:00 · DHL & Colissimo Express",
+    "topbarShipping": "Odeslání týž den u objednávek do 15:00 (v pracovní dny) · DHL Express a GLS",
     "topbarFreeShipping": "Doprava zdarma od 400 € bez DPH",
     "topbarCe": "Označení CE · plná dohledatelnost",
     "logoSub": "Specialista na estetické injekce",
@@ -41,13 +41,13 @@
     "navAccessories": "Příslušenství",
     "navThreads": "Liftingové nitě",
     "allBrands": "Všechny značky",
-    "brandsCount": "{count} výrobců",
+    "brandsCount": "{count, plural, one {# výrobce} few {# výrobci} many {# výrobce} other {# výrobců}}",
     "seeAll": "Zobrazit vše →",
     "featured": "Doporučujeme",
     "discovery": "Objevte",
     "see": "Zobrazit →",
     "promosTop": "Akce & Top",
-    "ceDelivery": "CE / ANSM · Doručení 24-48 h",
+    "ceDelivery": "Doručení do 24-48 h ve Francii",
     "mFillersTitle": "Výplně HA",
     "mFillersSub": "Zesíťovaná kyselina hyaluronová",
     "mMesoTitle": "Mezoterapie",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Podle značky",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Akce",
-    "mPromosSub": "Až −30 % tento týden",
+    "mPromosSub": "Nejprodávanější a výběry",
     "loginPractitioner": "Přihlášení pro odborníky",
     "tagCe": "✓ Označení CE",
     "tagDelay": "⚡ 24-48 h",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Výběry"
   },
   "footer": {
     "logoSub": "Specialista na estetické injekce",
@@ -87,9 +88,9 @@
     "serviceLegal": "Právní informace",
     "serviceContact": "Kontaktujte nás",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Platební karta (Visa, Mastercard, CB) · PayPal · Amazon Pay · Bankovní převod · Zabezpečená platba 3-D Secure",
+    "zonesTitle": "Podle oblasti",
+    "effectsTitle": "Podle účinku",
     "allBrands": "All brands",
     "serviceCookies": "Spravovat cookies"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Katalog",
     "heading": "Katalog",
     "searchHeading": "Hledání « {query} »",
-    "productsCount": "{count} produktů",
+    "productsCount": "{count, plural, one {# produkt} few {# produkty} many {# produktu} other {# produktů}}",
     "filterAndSort": "Filtrovat & řadit",
     "filters": "Filtry",
     "searchLabel": "Hledání",
@@ -322,12 +323,23 @@
     "categoryLabel": "Kategorie",
     "all": "Všechny",
     "brandLabel": "Značka",
-    "seeProducts": "Zobrazit {count} produktů",
-    "resultsCount": "{count} výsledků",
+    "seeProducts": "{count, plural, =0 {Žádné produkty} one {Zobrazit # produkt} few {Zobrazit # produkty} many {Zobrazit # produktu} other {Zobrazit # produktů}}",
+    "resultsCount": "{count, plural, one {# výsledek} few {# výsledky} many {# výsledku} other {# výsledků}}",
     "sortPop": "Oblíbené",
     "sortPriceAsc": "Cena ↑",
     "sortPriceDesc": "Cena ↓",
-    "noResults": "Žádný produkt neodpovídá tomuto filtru."
+    "noResults": "Žádný produkt neodpovídá tomuto filtru.",
+    "zoneLabel": "Oblast",
+    "effectLabel": "Účinek",
+    "availabilityLabel": "Dostupnost",
+    "priceLabel": "Cena bez DPH",
+    "unavailable": "Nedostupné",
+    "priceUnder": "Do {max} € bez DPH",
+    "priceBetween": "{min} – {max} € bez DPH",
+    "priceOver": "Nad {min} € bez DPH",
+    "clearFilters": "Zrušit filtry",
+    "sortLabel": "Řadit podle",
+    "rubricCount": "{count, plural, one {# rubrika} few {# rubriky} many {# rubriky} other {# rubrik}}"
   },
   "account": {
     "breadcrumb": "Můj účet",
@@ -628,7 +640,10 @@
       "croma": "Rakouský výrobce, výplně a skin boostery vysoké čistoty.",
       "teoxane": "Švýcarská reference v oblasti kyseliny hyaluronové, vzorce Resilient Hyaluronic Acid.",
       "mccm": "Koktejly pro mezoterapii a profesionální injekční roztoky."
-    }
+    },
+    "indexTitle": "Všechny značky",
+    "indexIntro": "Laboratoře a značky, které distribuujeme, s počtem dostupných produktů u každé z nich.",
+    "brandsCount": "{count, plural, one {# značka} few {# značky} many {# značky} other {# značek}}"
   },
   "zone": {
     "breadcrumbByZone": "Podle oblasti",

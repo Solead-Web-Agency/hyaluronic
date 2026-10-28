@@ -40,7 +40,7 @@
     "catalogue": "Parcourir le catalogue"
   },
   "header": {
-    "topbarShipping": "Expédition le jour même — commande avant 15h · DHL & Colissimo Express",
+    "topbarShipping": "Expédition le jour même pour toute commande avant 15 h (jours ouvrés) · DHL Express & GLS",
     "topbarFreeShipping": "Livraison offerte dès 400 € HT",
     "topbarCe": "Marquage CE · traçabilité complète",
     "logoSub": "Expert en injections esthétiques",
@@ -56,13 +56,13 @@
     "navAccessories": "Accessoires",
     "navThreads": "Fils tenseurs",
     "allBrands": "Toutes les marques",
-    "brandsCount": "{count} maisons",
+    "brandsCount": "{count, plural, one {# maison} other {# maisons}}",
     "seeAll": "Voir tout →",
     "featured": "À la une",
     "discovery": "Découverte",
     "see": "Voir →",
     "promosTop": "Promos & Top",
-    "ceDelivery": "CE / ANSM · Livraison 24-48 h",
+    "ceDelivery": "Livraison 24-48 h en France",
     "mFillersTitle": "Fillers HA",
     "mFillersSub": "Acide hyaluronique réticulé",
     "mMesoTitle": "Mésothérapie",
@@ -70,7 +70,7 @@
     "mByBrandTitle": "Par marque",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Promos",
-    "mPromosSub": "Jusqu'à −30 % cette semaine",
+    "mPromosSub": "Meilleures ventes & sélections",
     "loginPractitioner": "Connexion praticien",
     "tagCe": "✓ Marquage CE",
     "tagDelay": "⚡ 24-48 h",
@@ -80,7 +80,8 @@
     "promoSales": "Promotions",
     "promoNew": "Nouveautés",
     "promoLido": "Avec lidocaïne",
-    "promoNoLido": "Sans lidocaïne"
+    "promoNoLido": "Sans lidocaïne",
+    "selectionTab": "Sélections"
   },
   "footer": {
     "logoSub": "Expert en injections esthétiques",
@@ -102,7 +103,7 @@
     "serviceLegal": "Mentions légales",
     "serviceContact": "Nous contacter",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
+    "payments": "Carte bancaire (Visa, Mastercard, CB) · PayPal · Amazon Pay · Virement bancaire · Paiement sécurisé 3-D Secure",
     "zonesTitle": "Par zone",
     "effectsTitle": "Par effet",
     "allBrands": "Toutes les marques",
@@ -329,7 +330,7 @@
     "breadcrumb": "Catalogue",
     "heading": "Catalogue",
     "searchHeading": "Recherche « {query} »",
-    "productsCount": "{count} produits",
+    "productsCount": "{count, plural, one {# produit} other {# produits}}",
     "filterAndSort": "Filtrer & trier",
     "filters": "Filtres",
     "searchLabel": "Recherche",
@@ -337,12 +338,23 @@
     "categoryLabel": "Catégorie",
     "all": "Toutes",
     "brandLabel": "Marque",
-    "seeProducts": "Voir les {count} produits",
-    "resultsCount": "{count} résultats",
+    "seeProducts": "{count, plural, =0 {Aucun produit} one {Voir # produit} other {Voir les # produits}}",
+    "resultsCount": "{count, plural, one {# résultat} other {# résultats}}",
     "sortPop": "Populaires",
     "sortPriceAsc": "Prix ↑",
     "sortPriceDesc": "Prix ↓",
-    "noResults": "Aucun produit ne correspond à ce filtre."
+    "noResults": "Aucun produit ne correspond à ce filtre.",
+    "zoneLabel": "Zone",
+    "effectLabel": "Effet",
+    "availabilityLabel": "Disponibilité",
+    "priceLabel": "Prix HT",
+    "unavailable": "Indisponible",
+    "priceUnder": "Moins de {max} € HT",
+    "priceBetween": "{min} – {max} € HT",
+    "priceOver": "Plus de {min} € HT",
+    "clearFilters": "Effacer les filtres",
+    "sortLabel": "Trier par",
+    "rubricCount": "{count, plural, one {# rubrique} other {# rubriques}}"
   },
   "account": {
     "breadcrumb": "Mon compte",
@@ -686,7 +698,10 @@
       "croma": "Maison autrichienne, fillers et skin boosters de haute pureté.",
       "teoxane": "Référence suisse de l'acide hyaluronique, formules Resilient Hyaluronic Acid.",
       "mccm": "Cocktails de mésothérapie et solutions injectables professionnelles."
-    }
+    },
+    "indexTitle": "Toutes les marques",
+    "indexIntro": "Les laboratoires et maisons que nous distribuons, avec le nombre de produits disponibles pour chacune.",
+    "brandsCount": "{count, plural, one {# marque} other {# marques}}"
   },
   "zone": {
     "breadcrumbByZone": "Par zone",
