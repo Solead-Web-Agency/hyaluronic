@@ -300,7 +300,13 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
     protected function isValidRpps($rpps)
     {
         $rpps = preg_replace('/\s+/', '', (string) $rpps);
-        return (bool) preg_match('/^\d{9,13}$/', $rpps);
+        // RPPS : 11 chiffres dont une clé de Luhn (vérifié sur le registre officiel : 100 % des
+        // numéros la respectent). ADELI : 9 chiffres. Avant, 9 à 13 chiffres quelconques passaient
+        // (« 12345678901 » enregistré par l'audit du 27/10, P0-3).
+        if (preg_match('/^\d{11}$/', $rpps)) {
+            return $this->luhnValid($rpps);
+        }
+        return (bool) preg_match('/^\d{9}$/', $rpps);
     }
 
     /**

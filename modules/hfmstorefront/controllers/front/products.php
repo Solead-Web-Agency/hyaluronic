@@ -190,7 +190,19 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
 
         $total = 0;
         $blocked = HfmCountryRules::blockedForVisitor();
-        if ($blocked && $q === '') {
+        if ($q === '' && $filter === '' && $order === 'position') {
+            // Tri par défaut : ordre du catalogue, mais produits achetables d'abord (en stock, puis
+            // sur commande, puis indisponibles) — audit parcours 27/10, M6 : « Juvederm Volite
+            // indisponible en 1re position ». Le classement doit précéder la pagination : on prend
+            // tous les ids dans l'ordre (SQL léger), on classe, puis on découpe la page.
+            $allIds = $this->defaultOrderIds($idCategory, $idManufacturer, $idLang);
+            if ($blocked) {
+                $allIds = array_values(array_diff($allIds, $blocked));
+            }
+            $allIds = $this->availableFirst($allIds);
+            $total = count($allIds);
+            $rows = array_map(function ($id) { return ['id_product' => $id]; }, array_slice($allIds, $start, $limit));
+        } elseif ($blocked && $q === '') {
             // Pays avec produits interdits (aujourd'hui US/JP) : on récupère la liste complète du
             // filtre courant, on retire les interdits, PUIS on pagine -> total et pages exacts.
             if ($filter !== '') {
@@ -220,6 +232,13 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             $total = count($allIds);
             $ids = array_slice($allIds, $start, $limit);
             $rows = array_map(function ($id) { return ['id_product' => $id]; }, $ids);
+        } elseif ($filter === 'promo') {
+            // Promotions (M6) : seulement des produits achetables (5 sur 6 étaient indisponibles),
+            // sans doublon, en stock d'abord.
+            $allIds = array_values(array_unique(array_map(function ($r) { return (int) $r['id_product']; }, $this->filtered('promo', $idLang, 1, 1000))));
+            $allIds = array_values(array_diff($this->availableFirst($allIds), $this->unavailableIds($allIds)));
+            $total = count($allIds);
+            $rows = array_map(function ($id) { return ['id_product' => $id]; }, array_slice($allIds, $start, $limit));
         } elseif ($filter !== '') {
             $rows = $this->filtered($filter, $idLang, $page, $limit);
             $total = $this->filteredTotal($filter, $idLang);
@@ -252,8 +271,12 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
 
     /**
      * Ids des produits actifs, visibles en recherche (visibility both|search), dont CHAQUE mot de la
-     * requête apparaît dans le nom (langue courante), la marque, la référence ou l'EAN. Ordre :
-     * nom commençant par la requête d'abord, puis alphabétique. Plafond 1000 (garde-fou).
+     * requête apparaît dans le nom (langue courante), la marque, la référence, l'EAN ou la
+     * description (« canule » : 9 résultats sur le nom seul contre 35 avec les descriptions, le
+     * site actuel en trouvait 37 — audit parcours 27/10). Ordre : nom commençant par la requête,
+     * puis tous les mots dans le nom, puis le reste ; alphabétique à égalité. Avec moins de 5
+     * résultats, une recherche tolérante aux fautes de frappe complète (« profilo » -> Profhilo).
+     * Plafond 1000 (garde-fou).
      */
     protected function searchIds($q, $idLang)
     {
@@ -265,23 +288,82 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
         }
         $words = array_slice($words, 0, 6);
         $conds = [];
+        $inName = [];
         foreach ($words as $w) {
             $like = '\'%' . pSQL(addcslashes($w, '%_')) . '%\'';
-            $conds[] = '(pl.name LIKE ' . $like . ' OR m.name LIKE ' . $like . ' OR p.reference LIKE ' . $like . ' OR p.ean13 LIKE ' . $like . ')';
+            $conds[] = '(pl.name LIKE ' . $like . ' OR m.name LIKE ' . $like . ' OR p.reference LIKE ' . $like
+                . ' OR p.ean13 LIKE ' . $like . ' OR pl.description_short LIKE ' . $like . ' OR pl.description LIKE ' . $like . ')';
+            $inName[] = '(pl.name LIKE ' . $like . ' OR m.name LIKE ' . $like . ')';
         }
         $prefix = '\'' . pSQL(addcslashes(Tools::strtolower(trim((string) $q)), '%_')) . '%\'';
         $idShop = (int) $this->context->shop->id;
         $rows = Db::getInstance()->executeS(
-            'SELECT DISTINCT p.id_product, pl.name, (pl.name LIKE ' . $prefix . ') AS starts
+            'SELECT DISTINCT p.id_product, pl.name, (pl.name LIKE ' . $prefix . ') AS starts, (' . implode(' AND ', $inName) . ') AS in_name
              FROM `' . _DB_PREFIX_ . 'product` p
              INNER JOIN `' . _DB_PREFIX_ . 'product_shop` ps ON ps.id_product = p.id_product AND ps.id_shop = ' . $idShop . '
              INNER JOIN `' . _DB_PREFIX_ . 'product_lang` pl ON pl.id_product = p.id_product AND pl.id_lang = ' . (int) $idLang . ' AND pl.id_shop = ' . $idShop . '
              LEFT JOIN `' . _DB_PREFIX_ . 'manufacturer` m ON m.id_manufacturer = p.id_manufacturer
              WHERE ps.active = 1 AND ps.visibility IN (\'both\', \'search\') AND ' . implode(' AND ', $conds) . '
-             ORDER BY starts DESC, pl.name ASC
+             ORDER BY starts DESC, in_name DESC, pl.name ASC
              LIMIT 1000'
         );
-        return array_map(function ($r) { return (int) $r['id_product']; }, (array) $rows);
+        $ids = array_map(function ($r) { return (int) $r['id_product']; }, (array) $rows);
+        if (count($ids) < 5) {
+            // Peu ou pas de résultats exacts : on complète avec les noms proches.
+            $ids = array_values(array_unique(array_merge($ids, $this->fuzzySearchIds($words, $idLang))));
+        }
+        return $ids;
+    }
+
+    /**
+     * Repli tolérant aux fautes : chaque mot de 4 lettres ou plus doit être proche (distance de
+     * Levenshtein ≤ 1, ≤ 2 à partir de 7 lettres) d'un mot du nom ou de la marque d'un produit.
+     * Calculé en PHP sur les noms des produits actifs (quelques centaines).
+     */
+    protected function fuzzySearchIds(array $words, $idLang)
+    {
+        $words = array_values(array_filter($words, function ($w) { return Tools::strlen($w) >= 4; }));
+        if (!$words) {
+            return [];
+        }
+        $idShop = (int) $this->context->shop->id;
+        $rows = Db::getInstance()->executeS(
+            'SELECT p.id_product, pl.name, IFNULL(m.name, \'\') AS brand
+             FROM `' . _DB_PREFIX_ . 'product` p
+             INNER JOIN `' . _DB_PREFIX_ . 'product_shop` ps ON ps.id_product = p.id_product AND ps.id_shop = ' . $idShop . '
+             INNER JOIN `' . _DB_PREFIX_ . 'product_lang` pl ON pl.id_product = p.id_product AND pl.id_lang = ' . (int) $idLang . ' AND pl.id_shop = ' . $idShop . '
+             LEFT JOIN `' . _DB_PREFIX_ . 'manufacturer` m ON m.id_manufacturer = p.id_manufacturer
+             WHERE ps.active = 1 AND ps.visibility IN (\'both\', \'search\')
+             ORDER BY pl.name ASC'
+        );
+        $norm = function ($s) {
+            $s = Tools::strtolower(Tools::replaceAccentedChars((string) $s));
+            return preg_split('/[^a-z0-9]+/', $s, -1, PREG_SPLIT_NO_EMPTY);
+        };
+        $queryWords = array_map(function ($w) use ($norm) { return implode('', $norm($w)); }, $words);
+        $ids = [];
+        foreach ((array) $rows as $r) {
+            $tokens = $norm($r['name'] . ' ' . $r['brand']);
+            $all = true;
+            foreach ($queryWords as $qw) {
+                $max = Tools::strlen($qw) >= 7 ? 2 : 1;
+                $hit = false;
+                foreach ($tokens as $t) {
+                    if (abs(Tools::strlen($t) - Tools::strlen($qw)) <= $max && levenshtein($qw, $t) <= $max) {
+                        $hit = true;
+                        break;
+                    }
+                }
+                if (!$hit) {
+                    $all = false;
+                    break;
+                }
+            }
+            if ($all) {
+                $ids[] = (int) $r['id_product'];
+            }
+        }
+        return array_slice($ids, 0, 1000);
     }
 
     /**
@@ -314,6 +396,82 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                 // Pour un fabricant, PS remappe lui-même « position » -> nom.
                 return $source === 'all' ? ['id_product', 'DESC'] : ['position', 'ASC'];
         }
+    }
+
+    /**
+     * Ids dans l'ordre « position » (même population que Category::getProducts /
+     * Manufacturer::getProducts / Product::getProducts en front : actifs, visibles en catalogue).
+     * Catégorie : position du BO ; marque : nom ; catalogue complet : plus récents d'abord.
+     */
+    protected function defaultOrderIds($idCategory, $idManufacturer, $idLang)
+    {
+        $p = _DB_PREFIX_;
+        $idShop = (int) $this->context->shop->id;
+        $base = "FROM `{$p}product` pr
+                 INNER JOIN `{$p}product_shop` ps ON ps.id_product = pr.id_product AND ps.id_shop = $idShop
+                    AND ps.active = 1 AND ps.visibility IN ('both', 'catalog')";
+        if ($idCategory) {
+            $sql = "SELECT pr.id_product $base
+                    INNER JOIN `{$p}category_product` cp ON cp.id_product = pr.id_product AND cp.id_category = " . (int) $idCategory . '
+                    ORDER BY cp.position ASC, pr.id_product DESC';
+        } elseif ($idManufacturer) {
+            $sql = "SELECT pr.id_product $base
+                    INNER JOIN `{$p}product_lang` pl ON pl.id_product = pr.id_product AND pl.id_lang = " . (int) $idLang . " AND pl.id_shop = $idShop
+                    WHERE pr.id_manufacturer = " . (int) $idManufacturer . '
+                    ORDER BY pl.name ASC';
+        } else {
+            $sql = "SELECT pr.id_product $base ORDER BY pr.id_product DESC";
+        }
+        return array_map('intval', array_column((array) Db::getInstance()->executeS($sql . ' LIMIT 2000'), 'id_product'));
+    }
+
+    /**
+     * Classement stable : en stock, puis sur commande (vente hors stock autorisée), puis
+     * indisponibles — même règle que availability() et que le panier.
+     */
+    protected function availableFirst(array $ids)
+    {
+        if (!$ids) {
+            return [];
+        }
+        $globalAllow = (int) Configuration::get('PS_ORDER_OUT_OF_STOCK') === 1;
+        $rank = [];
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_product, quantity, out_of_stock FROM `' . _DB_PREFIX_ . 'stock_available`
+             WHERE id_product_attribute = 0
+               AND id_product IN (' . implode(',', array_map('intval', $ids)) . ')'
+        ) as $r) {
+            $oos = (int) $r['out_of_stock'];
+            $rank[(int) $r['id_product']] = (int) $r['quantity'] > 0 ? 0
+                : (($oos === 1 || ($oos === 2 && $globalAllow)) ? 1 : 2);
+        }
+        $pos = array_flip($ids);
+        usort($ids, function ($a, $b) use ($rank, $pos) {
+            $ra = isset($rank[$a]) ? $rank[$a] : 2;
+            $rb = isset($rank[$b]) ? $rank[$b] : 2;
+            return $ra === $rb ? $pos[$a] - $pos[$b] : $ra - $rb;
+        });
+        return $ids;
+    }
+
+    /** Parmi $ids, ceux qui ne sont ni en stock ni vendables hors stock. */
+    protected function unavailableIds(array $ids)
+    {
+        if (!$ids) {
+            return [];
+        }
+        $globalAllow = (int) Configuration::get('PS_ORDER_OUT_OF_STOCK') === 1;
+        $out = [];
+        foreach ((array) Db::getInstance()->executeS(
+            'SELECT id_product, quantity, out_of_stock FROM `' . _DB_PREFIX_ . 'stock_available`
+             WHERE id_product_attribute = 0 AND id_product IN (' . implode(',', array_map('intval', $ids)) . ')'
+        ) as $r) {
+            $oos = (int) $r['out_of_stock'];
+            if ((int) $r['quantity'] <= 0 && !($oos === 1 || ($oos === 2 && $globalAllow))) {
+                $out[] = (int) $r['id_product'];
+            }
+        }
+        return $out;
     }
 
     /** Total du catalogue complet (mêmes conditions que Product::getProducts en front : actif + visible). */

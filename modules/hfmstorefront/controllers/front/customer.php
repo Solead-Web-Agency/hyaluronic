@@ -52,12 +52,71 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         if ($action === 'addresses') {
             return ['addresses' => $this->listAddresses($idCustomer)];
         }
+        if ($action === 'track-order') {
+            return $this->trackOrder();
+        }
         // me
         $customer = new Customer($idCustomer);
         if (!Validate::isLoadedObject($customer)) {
             return ['error' => 'customer_not_found'];
         }
         return ['customer' => $this->customerPayload($customer)];
+    }
+
+    /**
+     * Suivi de commande sans compte (audit parcours 27/10, M9) : référence + e-mail de la commande.
+     * Réponse identique si la référence ou l'e-mail est faux (ne rien révéler) ; le front limite
+     * le nombre d'essais. Pas d'adresse ni de données personnelles dans la réponse.
+     */
+    protected function trackOrder()
+    {
+        $reference = Tools::strtoupper(trim((string) $this->in('reference')));
+        $email = Tools::strtolower(trim((string) $this->in('email')));
+        $notFound = ['error' => 'not_found'];
+        if (!preg_match('/^[A-Z]{9}$/', $reference) || !Validate::isEmail($email)) {
+            return $notFound;
+        }
+        $idOrder = (int) Db::getInstance()->getValue(
+            'SELECT o.id_order FROM `' . _DB_PREFIX_ . 'orders` o
+             INNER JOIN `' . _DB_PREFIX_ . 'customer` c ON c.id_customer = o.id_customer
+             WHERE o.reference = \'' . pSQL($reference) . '\' AND LOWER(c.email) = \'' . pSQL($email) . '\'
+             ORDER BY o.id_order DESC'
+        );
+        $order = $idOrder ? new Order($idOrder) : null;
+        if (!$order || !Validate::isLoadedObject($order)) {
+            return $notFound;
+        }
+        $idLang = (int) $this->context->language->id;
+        $state = new OrderState((int) $order->current_state, $idLang);
+        $carrier = $order->id_carrier ? new Carrier((int) $order->id_carrier, $idLang) : null;
+        $tracking = trim((string) $order->getShippingNumber());
+        if ($tracking === '') {
+            $tracking = trim((string) Db::getInstance()->getValue(
+                'SELECT tracking_number FROM `' . _DB_PREFIX_ . 'order_carrier` WHERE id_order = ' . (int) $order->id
+                . ' AND tracking_number <> \'\' ORDER BY id_order_carrier DESC'
+            ));
+        }
+        $trackingUrl = '';
+        if ($tracking !== '' && $carrier && Validate::isLoadedObject($carrier) && $carrier->url) {
+            $trackingUrl = str_replace('@', rawurlencode($tracking), $carrier->url);
+        }
+        $products = [];
+        foreach ($order->getProducts() as $p) {
+            $products[] = ['name' => (string) $p['product_name'], 'quantity' => (int) $p['product_quantity']];
+        }
+        return ['ok' => true, 'order' => [
+            'reference' => $order->reference,
+            'date_add' => substr((string) $order->date_add, 0, 16),
+            'status' => Validate::isLoadedObject($state) ? $state->name : '',
+            'shipped' => Validate::isLoadedObject($state) && (bool) $state->shipped,
+            'delivered' => Validate::isLoadedObject($state) && (bool) $state->delivery
+                && (int) $order->current_state === (int) Configuration::get('PS_OS_DELIVERED'),
+            'total_paid_incl_tax' => (float) Tools::ps_round($order->total_paid_tax_incl, 2),
+            'carrier' => $carrier && Validate::isLoadedObject($carrier) ? $carrier->name : '',
+            'tracking_number' => $tracking,
+            'tracking_url' => $trackingUrl,
+            'products' => $products,
+        ]];
     }
 
     protected function login()
@@ -84,6 +143,22 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         if (Customer::customerExists($email)) {
             return ['error' => 'email_already_exists'];
         }
+        // Informations professionnelles (audit parcours 27/10, M9) : toutes facultatives sauf la
+        // profession, demandée par le front. Le RPPS/ADELI, s'il est donné, doit être valide.
+        $rpps = preg_replace('/\s+/', '', (string) $this->in('rpps', ''));
+        if ($rpps !== '' && !$this->isValidRpps($rpps)) {
+            return ['error' => 'invalid_rpps'];
+        }
+        $professions = [
+            'medecin' => 'Médecin',
+            'chirurgien-dentiste' => 'Chirurgien-dentiste',
+            'pharmacien' => 'Pharmacien',
+            'infirmier' => 'Infirmier',
+            'autre' => 'Autre',
+        ];
+        $profession = (string) $this->in('profession', '');
+        $company = trim((string) $this->in('company', ''));
+
         $customer = new Customer();
         $customer->email = $email;
         $customer->passwd = $this->hashPassword($password);
@@ -92,8 +167,26 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         $customer->id_lang = (int) ($this->in('id_lang') ?: $this->context->language->id);
         $customer->id_shop = (int) $this->context->shop->id;
         $customer->id_shop_group = (int) $this->context->shop->id_shop_group;
+        if ($company !== '' && Validate::isGenericName($company)) {
+            $customer->company = Tools::substr($company, 0, 255);
+        }
+        if (isset($professions[$profession])) {
+            // Pas de champ « profession » dans PS : note privée visible sur la fiche client du BO.
+            $customer->note = 'Profession déclarée à l\'inscription : ' . $professions[$profession];
+        }
+        if ((int) $this->in('newsletter') === 1) {
+            $customer->newsletter = 1;
+            $customer->newsletter_date_add = date('Y-m-d H:i:s');
+            $ip = (string) $this->in('client_ip', '');
+            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                $customer->ip_registration_newsletter = $ip; // colonne PS limitée à 15 car. (IPv4)
+            }
+        }
         if (!$customer->add()) {
             return ['error' => 'create_failed'];
+        }
+        if ($rpps !== '') {
+            $this->setCustomerRpps((int) $customer->id, $rpps);
         }
         return ['created' => true, 'customer' => $this->customerPayload($customer)];
     }
