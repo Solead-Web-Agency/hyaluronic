@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 سنوات · موزّع تجميل طبي معتمد",
     "heroTitle1": "منتج الحقن المرجعي،",
-    "heroTitle2": "يُوصَّل غدًا.",
+    "heroTitle2": "يُشحن في اليوم نفسه.",
     "heroLead": "حمض الهيالورونيك والميزوثيرابي والتقشير وخيوط الشد — مصادر مباشرة من المختبرات، مع علامة CE وتتبّع لكل دفعة.",
-    "ctaPractitionerRates": "أسعار الممارسين →",
+    "ctaPractitionerRates": "عرض الكتالوج →",
     "reviewsLine": "{count, number} تقييمًا موثّقًا",
     "brandsLine": "أكثر من 30 علامة تجارية",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "الأكثر مبيعًا",
     "heroImgLips": "الشفاه",
     "heroImgSkin": "معزّزات البشرة",
-    "trustShipTitle": "الشحن اليوم",
-    "trustShipSub": "اطلب قبل الساعة 15:00 · DHL و Colissimo",
+    "trustShipTitle": "الشحن في اليوم نفسه",
+    "trustShipSub": "اطلب قبل الساعة 15:00 (أيام العمل) · DHL Express و GLS",
     "trustCeTitle": "علامة CE",
     "trustCeSub": "تتبّع كامل للدفعات",
     "trustSupportTitle": "دعم 5 أيام في الأسبوع",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "تتبّع كامل",
     "editoFeat1Sub": "رقم الدفعة وعلامة CE على كل مرجع.",
     "editoFeat2Title": "سلسلة تبريد محكمة",
-    "editoFeat2Sub": "شحن معزول حراريًا، DHL و Colissimo Express.",
+    "editoFeat2Sub": "شحن معزول حراريًا، DHL Express و GLS.",
     "editoCta": "اكتشف الكتالوج →",
     "editoBadgeDelay": "24-48 ساعة",
-    "editoBadgeDelaySub": "التوصيل في جميع أنحاء أوروبا",
+    "editoBadgeDelaySub": "التوصيل في فرنسا · 48-72 ساعة في أوروبا",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} تقييمًا موثّقًا <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "الخبرة",
     "expertiseTitle": "خبرة اختصاصيينا",
@@ -368,11 +368,29 @@
       "invalid_email": "بريد إلكتروني غير صالح.",
       "password_too_short": "كلمة المرور قصيرة جدًا (8 أحرف على الأقل).",
       "generic": "حدث خطأ.",
-      "network": "خطأ في الشبكة."
+      "network": "خطأ في الشبكة.",
+      "invalid_rpps": "رقم RPPS (11 رقمًا) أو ADELI (9 أرقام) غير صالح.",
+      "invalid_profession": "يرجى تحديد مهنتك."
     },
     "forgotPassword": "هل نسيت كلمة المرور؟",
     "editAddress": "تعديل",
-    "editAddressTitle": "تعديل العنوان"
+    "editAddressTitle": "تعديل العنوان",
+    "profession": "المهنة",
+    "professionChoose": "اختر مهنتك",
+    "professions": {
+      "medecin": "طبيب",
+      "chirurgien-dentiste": "جرّاح أسنان",
+      "pharmacien": "صيدلي",
+      "infirmier": "ممرض / ممرضة",
+      "autre": "مهني صحي آخر"
+    },
+    "company": "الشركة / العيادة (اختياري)",
+    "companyPlaceholder": "عيادة د. مارتن",
+    "rpps": "رقم RPPS / ADELI (اختياري)",
+    "rppsPlaceholder": "11 رقمًا (RPPS) أو 9 أرقام (ADELI)",
+    "rppsHelp": "إذا لم يُذكر هنا، سيُطلب رقم RPPS/ADELI عند طلب المنتجات المخصصة للأطباء.",
+    "newsletterOptIn": "أوافق على تلقي النشرة الإخبارية (منتجات جديدة، تدريبات، عروض). إلغاء الاشتراك بنقرة واحدة.",
+    "guestTracking": "طلبت دون حساب؟ <a>تتبّع طلبك من هنا</a>"
   },
   "addressForm": {
     "address": "العنوان",
@@ -593,7 +611,8 @@
     "title": "مفضّلتي",
     "count": "{count, plural, zero {لا منتجات مفضّلة} one {منتج مفضّل واحد} two {منتجان مفضّلان} few {# منتجات مفضّلة} many {# منتجًا مفضّلًا} other {# منتج مفضّل}}",
     "emptyLead": "اعثر هنا على المنتجات التي تحبّها.",
-    "emptyTitle": "لا توجد مفضّلة حتى الآن"
+    "emptyTitle": "لا توجد مفضّلة حتى الآن",
+    "localLead": "تُحفظ مفضلاتك على هذا الجهاز. سجّل الدخول لحفظها في حسابك والوصول إليها من أي مكان."
   },
   "brand": {
     "fallbackName": "العلامة التجارية",
@@ -651,7 +670,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "الاسم الكامل",
+    "phone": "الهاتف (اختياري)",
+    "orderReference": "رقم الطلب (اختياري)",
+    "orderReferencePlaceholder": "مثال: XKBKNABJK",
+    "errName": "يرجى إدخال اسمك.",
+    "errPhone": "رقم هاتف غير صالح.",
+    "errEmail": "بريد إلكتروني غير صالح.",
+    "coordsTitle": "بيانات الاتصال",
+    "coordsCountry": "فرنسا"
   },
   "compare": {
     "button": "Compare",
@@ -785,5 +813,39 @@
     "tileShipSub": "DHL Express و GLS — مجاني ابتداءً من 400 € بدون ضريبة",
     "tilePayTitle": "دفع آمن",
     "tilePaySub": "معاملات مشفّرة 3D-Secure"
+  },
+  "consent": {
+    "label": "الموافقة على ملفات تعريف الارتباط",
+    "text": "نستخدم ملفات تعريف الارتباط لقياس الجمهور وتخصيص الإعلانات لتحسين تجربتك. يمكنك القبول أو الرفض. اطّلع على <a>سياسة الخصوصية</a>.",
+    "refuse": "رفض",
+    "accept": "قبول"
+  },
+  "orderTracking": {
+    "title": "تتبّع الطلب",
+    "lead": "طلبت دون حساب؟ أدخل مرجع الطلب والبريد الإلكتروني المستخدم عند الطلب.",
+    "reference": "مرجع الطلب",
+    "referencePlaceholder": "مثال: XKBKNABJK",
+    "referenceHint": "9 أحرف، مذكور في رسالة التأكيد.",
+    "email": "البريد الإلكتروني للطلب",
+    "emailPlaceholder": "you@clinic.com",
+    "submit": "تتبّع طلبي",
+    "searching": "جارٍ البحث…",
+    "errInvalid": "أدخل مرجعًا وبريدًا إلكترونيًا صالحين.",
+    "errNotFound": "لا يوجد طلب يطابق هذا المرجع وهذا البريد الإلكتروني. تحقّق من البيانات.",
+    "errGeneric": "التتبّع غير متاح مؤقتًا. حاول مجددًا بعد بضع دقائق.",
+    "orderTitle": "الطلب {reference}",
+    "placedOn": "بتاريخ {date}",
+    "stepReceived": "مُستلَم",
+    "stepShipped": "مشحون",
+    "stepDelivered": "تم التسليم",
+    "carrier": "شركة الشحن",
+    "trackingNumber": "رقم التتبّع",
+    "trackingPending": "متاح بعد الشحن",
+    "total": "المبلغ المدفوع",
+    "ttc": "شامل الضريبة",
+    "trackParcel": "تتبّع الطرد لدى شركة الشحن",
+    "products": "المنتجات",
+    "haveAccount": "لديك حساب؟ <a>اطّلع على جميع طلباتك</a>",
+    "needHelp": "سؤال حول طلبك؟ <a>تواصل معنا</a>"
   }
 }

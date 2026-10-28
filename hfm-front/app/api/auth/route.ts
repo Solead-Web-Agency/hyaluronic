@@ -7,6 +7,21 @@ import { SITE_URL } from '@/lib/seo';
 import { clientIp, hitAll, LIMITS } from '@/lib/rateLimit';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// Professions acceptées à l'inscription (contrat bridge `customer` action=register).
+const PROFESSIONS = new Set(['medecin', 'chirurgien-dentiste', 'pharmacien', 'infirmier', 'autre']);
+
+// RPPS = 11 chiffres avec clé de Luhn (même contrôle que le bridge) ; ADELI = 9 chiffres.
+function validRpps(v: string): boolean {
+  if (/^\d{9}$/.test(v)) return true;
+  if (!/^\d{11}$/.test(v)) return false;
+  let sum = 0;
+  for (let i = 0; i < 11; i++) {
+    let d = Number(v[10 - i]);
+    if (i % 2 === 1) { d *= 2; if (d > 9) d -= 9; }
+    sum += d;
+  }
+  return sum % 10 === 0;
+}
 
 // Authentification / session : JAMAIS de cache.
 export const dynamic = 'force-dynamic';
@@ -125,8 +140,38 @@ export async function POST(req: NextRequest) {
     return res;
   }
 
+  // Inscription professionnelle : champs en liste blanche, validés ici avant le bridge (qui revalide).
+  let payload: Record<string, unknown> = body;
+  if (action === 'register') {
+    const profession = String(body.profession || '');
+    if (!PROFESSIONS.has(profession)) {
+      return NextResponse.json({ error: 'invalid_profession' }, { status: 400, headers: NO_STORE });
+    }
+    const rpps = String(body.rpps || '').replace(/\s+/g, '');
+    // Facultatif à l'inscription ; s'il est donné, il doit être valide.
+    if (rpps && !validRpps(rpps)) {
+      return NextResponse.json({ error: 'invalid_rpps' }, { status: 400, headers: NO_STORE });
+    }
+    const company = String(body.company || '').trim().slice(0, 255);
+    const newsletter = body.newsletter === true || body.newsletter === 1 || body.newsletter === '1';
+    payload = {
+      action: 'register',
+      email: String(body.email || '').trim(),
+      password: String(body.password || ''),
+      firstname: String(body.firstname || '').trim(),
+      lastname: String(body.lastname || '').trim(),
+      id_lang: Number(body.id_lang) || idLangFor(String(body.locale || 'fr')),
+      profession,
+      ...(company ? { company } : {}),
+      ...(rpps ? { rpps } : {}),
+      // Consentement newsletter EXPLICITE (case non cochée par défaut) ; IP conservée comme preuve.
+      newsletter: newsletter ? 1 : 0,
+      ...(newsletter ? { client_ip: ip } : {}),
+    };
+  }
+
   if (action === 'login' || action === 'register' || action === 'guest') {
-    const data = await bridgePost('customer', body);
+    const data = await bridgePost('customer', payload);
     const c = data?.customer;
     // login -> authenticated ; guest -> client présent (créé OU réutilisé en édition) ; register -> created.
     const ok = action === 'login' ? data?.authenticated && c : action === 'guest' ? !!c : data?.created && c;

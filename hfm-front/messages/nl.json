@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 jaar · erkende groothandel in medische esthetiek",
     "heroTitle1": "Het injecteerbare referentieproduct,",
-    "heroTitle2": "morgen al geleverd.",
+    "heroTitle2": "dezelfde dag verzonden.",
     "heroLead": "Hyaluronzuur, mesotherapie, peelings en liftingdraden — rechtstreeks bij de laboratoria ingekocht, met CE-markering en traceerbaarheid op elke partij.",
-    "ctaPractitionerRates": "Tarieven voor behandelaars →",
+    "ctaPractitionerRates": "Bekijk de catalogus →",
     "reviewsLine": "{count, number} geverifieerde beoordelingen",
     "brandsLine": "+30 merken",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Bestsellers",
     "heroImgLips": "Lippen",
     "heroImgSkin": "Skin boosters",
-    "trustShipTitle": "Vandaag verzonden",
-    "trustShipSub": "bestel vóór 15.00 uur · DHL & Colissimo",
+    "trustShipTitle": "Verzending op dezelfde dag",
+    "trustShipSub": "bestel vóór 15.00 uur (werkdagen) · DHL Express & GLS",
     "trustCeTitle": "CE-markering",
     "trustCeSub": "volledige traceerbaarheid van partijen",
     "trustSupportTitle": "Support 5 dagen/week",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Volledige traceerbaarheid",
     "editoFeat1Sub": "partijnummer en CE-markering op elke referentie.",
     "editoFeat2Title": "Beheerste koudeketen",
-    "editoFeat2Sub": "isothermische verzending, DHL & Colissimo Express.",
+    "editoFeat2Sub": "isothermische verzending, DHL Express & GLS.",
     "editoCta": "Ontdek de catalogus →",
     "editoBadgeDelay": "24-48 u",
-    "editoBadgeDelaySub": "levering in heel Europa",
+    "editoBadgeDelaySub": "levering in Frankrijk · 48-72 u in Europa",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} geverifieerde beoordelingen <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Expertise",
     "expertiseTitle": "De vakkennis van onze specialisten",
@@ -368,11 +368,29 @@
       "invalid_email": "Ongeldig e-mailadres.",
       "password_too_short": "Wachtwoord te kort (min. 8 tekens).",
       "generic": "Er is een fout opgetreden.",
-      "network": "Netwerkfout."
+      "network": "Netwerkfout.",
+      "invalid_rpps": "Ongeldig RPPS- (11 cijfers) of ADELI-nummer (9 cijfers).",
+      "invalid_profession": "Geef uw beroep op."
     },
     "forgotPassword": "Wachtwoord vergeten?",
     "editAddress": "Wijzigen",
-    "editAddressTitle": "Adres wijzigen"
+    "editAddressTitle": "Adres wijzigen",
+    "profession": "Beroep",
+    "professionChoose": "Kies uw beroep",
+    "professions": {
+      "medecin": "Arts",
+      "chirurgien-dentiste": "Tandarts",
+      "pharmacien": "Apotheker",
+      "infirmier": "Verpleegkundige",
+      "autre": "Andere zorgprofessional"
+    },
+    "company": "Bedrijf / praktijk (optioneel)",
+    "companyPlaceholder": "Praktijk dr. Martin",
+    "rpps": "RPPS-/ADELI-nr. (optioneel)",
+    "rppsPlaceholder": "11 cijfers (RPPS) of 9 cijfers (ADELI)",
+    "rppsHelp": "Als u het hier niet invult, wordt het RPPS-/ADELI-nummer gevraagd bij het bestellen van producten die voorbehouden zijn aan artsen.",
+    "newsletterOptIn": "Ik wil de nieuwsbrief ontvangen (nieuwe producten, opleidingen, aanbiedingen). Afmelden met 1 klik.",
+    "guestTracking": "Besteld zonder account? <a>Volg uw bestelling hier</a>"
   },
   "addressForm": {
     "address": "Adres",
@@ -593,7 +611,8 @@
     "title": "Mijn favorieten",
     "count": "{count, plural, one {# favoriet product} other {# favoriete producten}}",
     "emptyLead": "Vind hier de producten die u mooi vindt.",
-    "emptyTitle": "Nog geen favorieten"
+    "emptyTitle": "Nog geen favorieten",
+    "localLead": "Uw favorieten worden op dit apparaat bewaard. Log in om ze in uw account op te slaan en overal terug te vinden."
   },
   "brand": {
     "fallbackName": "Merk",
@@ -651,7 +670,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Voor- en achternaam",
+    "phone": "Telefoon (optioneel)",
+    "orderReference": "Bestelnr. (optioneel)",
+    "orderReferencePlaceholder": "Bijv. XKBKNABJK",
+    "errName": "Vul uw naam in.",
+    "errPhone": "Ongeldig telefoonnummer.",
+    "errEmail": "Ongeldig e-mailadres.",
+    "coordsTitle": "Onze gegevens",
+    "coordsCountry": "Frankrijk"
   },
   "compare": {
     "button": "Compare",
@@ -785,5 +813,39 @@
     "tileShipSub": "DHL Express & GLS — gratis vanaf 400 € excl. btw",
     "tilePayTitle": "Veilig betalen",
     "tilePaySub": "Versleutelde 3D-Secure-transacties"
+  },
+  "consent": {
+    "label": "Cookietoestemming",
+    "text": "Wij gebruiken cookies voor bezoekersmeting en gepersonaliseerde advertenties om uw ervaring te verbeteren. U kunt accepteren of weigeren. Zie ons <a>privacybeleid</a>.",
+    "refuse": "Weigeren",
+    "accept": "Accepteren"
+  },
+  "orderTracking": {
+    "title": "Bestelling volgen",
+    "lead": "Besteld zonder account? Vul de bestelreferentie en het e-mailadres van de bestelling in.",
+    "reference": "Bestelreferentie",
+    "referencePlaceholder": "Bijv. XKBKNABJK",
+    "referenceHint": "9 letters, vermeld in uw bevestigingsmail.",
+    "email": "E-mailadres van de bestelling",
+    "emailPlaceholder": "u@praktijk.nl",
+    "submit": "Volg mijn bestelling",
+    "searching": "Zoeken…",
+    "errInvalid": "Vul een geldige referentie en een geldig e-mailadres in.",
+    "errNotFound": "Geen bestelling gevonden met deze referentie en dit e-mailadres. Controleer uw gegevens.",
+    "errGeneric": "Volgen is tijdelijk niet beschikbaar. Probeer het over enkele minuten opnieuw.",
+    "orderTitle": "Bestelling {reference}",
+    "placedOn": "Geplaatst op {date}",
+    "stepReceived": "Ontvangen",
+    "stepShipped": "Verzonden",
+    "stepDelivered": "Bezorgd",
+    "carrier": "Vervoerder",
+    "trackingNumber": "Trackingnummer",
+    "trackingPending": "Beschikbaar na verzending",
+    "total": "Totaal betaald",
+    "ttc": "incl. btw",
+    "trackParcel": "Volg het pakket bij de vervoerder",
+    "products": "Producten",
+    "haveAccount": "Heeft u een account? <a>Bekijk al uw bestellingen</a>",
+    "needHelp": "Een vraag over uw bestelling? <a>Neem contact op</a>"
   }
 }

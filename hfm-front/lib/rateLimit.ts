@@ -25,6 +25,8 @@ export const LIMITS = {
   reset: { max: 10, windowSec: 60 * 60 },
   contact: { max: 5, windowSec: 60 * 60 },
   newsletter: { max: 10, windowSec: 60 * 60 },
+  // Suivi de commande sans compte (référence + e-mail) : borne l'énumération de références.
+  orderTracking: { max: 10, windowSec: 15 * 60 },
 } satisfies Record<string, Limit>;
 
 const memory = new Map<string, { count: number; resetAt: number }>();

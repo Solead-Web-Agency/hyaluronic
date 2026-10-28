@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 år · autoriseret grossist inden for medicinsk æstetik",
     "heroTitle1": "Den førende injicerbare,",
-    "heroTitle2": "leveret allerede i morgen.",
+    "heroTitle2": "afsendt samme dag.",
     "heroLead": "Hyaluronsyre, mesoterapi, peelings og trådløft — sourcet direkte fra laboratorierne, CE-mærkning og sporbarhed på hvert parti.",
-    "ctaPractitionerRates": "Priser for behandlere →",
+    "ctaPractitionerRates": "Se kataloget →",
     "reviewsLine": "{count, number} verificerede anmeldelser",
     "brandsLine": "+30 mærker",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Bestsellere",
     "heroImgLips": "Læber",
     "heroImgSkin": "Skin boosters",
-    "trustShipTitle": "Afsendes i dag",
-    "trustShipSub": "bestil før kl. 15 · DHL & Colissimo",
+    "trustShipTitle": "Afsendelse samme dag",
+    "trustShipSub": "bestil før kl. 15 (hverdage) · DHL Express & GLS",
     "trustCeTitle": "CE-mærkning",
     "trustCeSub": "fuld sporbarhed af partier",
     "trustSupportTitle": "Support 5 dage/uge",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Fuld sporbarhed",
     "editoFeat1Sub": "partinummer og CE-mærkning på hver reference.",
     "editoFeat2Title": "Kontrolleret kølekæde",
-    "editoFeat2Sub": "isotermisk afsendelse, DHL & Colissimo Express.",
+    "editoFeat2Sub": "isotermisk afsendelse, DHL Express & GLS.",
     "editoCta": "Udforsk kataloget →",
     "editoBadgeDelay": "24-48 t",
-    "editoBadgeDelaySub": "levering i hele Europa",
+    "editoBadgeDelaySub": "levering i Frankrig · 48-72 t i Europa",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} verificerede anmeldelser <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Ekspertise",
     "expertiseTitle": "Vores specialisters knowhow",
@@ -368,11 +368,29 @@
       "invalid_email": "Ugyldig e-mail.",
       "password_too_short": "Adgangskoden er for kort (mindst 8 tegn).",
       "generic": "Der opstod en fejl.",
-      "network": "Netværksfejl."
+      "network": "Netværksfejl.",
+      "invalid_rpps": "Ugyldigt RPPS- (11 cifre) eller ADELI-nummer (9 cifre).",
+      "invalid_profession": "Angiv venligst din profession."
     },
     "forgotPassword": "Glemt adgangskode?",
     "editAddress": "Rediger",
-    "editAddressTitle": "Rediger adresse"
+    "editAddressTitle": "Rediger adresse",
+    "profession": "Profession",
+    "professionChoose": "Vælg din profession",
+    "professions": {
+      "medecin": "Læge",
+      "chirurgien-dentiste": "Tandlæge",
+      "pharmacien": "Farmaceut",
+      "infirmier": "Sygeplejerske",
+      "autre": "Anden sundhedsprofessionel"
+    },
+    "company": "Firma / klinik (valgfrit)",
+    "companyPlaceholder": "Dr. Martins klinik",
+    "rpps": "RPPS-/ADELI-nr. (valgfrit)",
+    "rppsPlaceholder": "11 cifre (RPPS) eller 9 cifre (ADELI)",
+    "rppsHelp": "Hvis det ikke angives her, bliver RPPS/ADELI-nummeret krævet ved bestilling af produkter forbeholdt læger.",
+    "newsletterOptIn": "Jeg accepterer at modtage nyhedsbrevet (nyheder, kurser, tilbud). Afmelding med 1 klik.",
+    "guestTracking": "Bestilt uden konto? <a>Følg din ordre her</a>"
   },
   "addressForm": {
     "address": "Adresse",
@@ -593,7 +611,8 @@
     "title": "Mine favoritter",
     "count": "{count, plural, one {# produkt i favoritter} other {# produkter i favoritter}}",
     "emptyLead": "Her finder du de produkter, du kan lide.",
-    "emptyTitle": "Ingen favoritter endnu"
+    "emptyTitle": "Ingen favoritter endnu",
+    "localLead": "Dine favoritter gemmes på denne enhed. Log ind for at gemme dem på din konto og finde dem overalt."
   },
   "brand": {
     "fallbackName": "Mærke",
@@ -651,7 +670,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Fulde navn",
+    "phone": "Telefon (valgfrit)",
+    "orderReference": "Ordrenr. (valgfrit)",
+    "orderReferencePlaceholder": "F.eks. XKBKNABJK",
+    "errName": "Angiv dit navn.",
+    "errPhone": "Ugyldigt telefonnummer.",
+    "errEmail": "Ugyldig e-mailadresse.",
+    "coordsTitle": "Vores kontaktoplysninger",
+    "coordsCountry": "Frankrig"
   },
   "compare": {
     "button": "Compare",
@@ -785,5 +813,39 @@
     "tileShipSub": "DHL Express & GLS — gratis fra 400 € ekskl. moms",
     "tilePayTitle": "Sikker betaling",
     "tilePaySub": "Krypterede 3D-Secure-transaktioner"
+  },
+  "consent": {
+    "label": "Samtykke til cookies",
+    "text": "Vi bruger cookies til trafikmåling og personaliserede annoncer for at forbedre din oplevelse. Du kan acceptere eller afvise. Se vores <a>privatlivspolitik</a>.",
+    "refuse": "Afvis",
+    "accept": "Accepter"
+  },
+  "orderTracking": {
+    "title": "Ordresporing",
+    "lead": "Bestilt uden konto? Indtast ordrereferencen og den e-mailadresse, der blev brugt ved bestillingen.",
+    "reference": "Ordrereference",
+    "referencePlaceholder": "F.eks. XKBKNABJK",
+    "referenceHint": "9 bogstaver, angivet i din bekræftelsesmail.",
+    "email": "Ordrens e-mail",
+    "emailPlaceholder": "dig@klinik.dk",
+    "submit": "Følg min ordre",
+    "searching": "Søger…",
+    "errInvalid": "Indtast en gyldig reference og e-mailadresse.",
+    "errNotFound": "Ingen ordre matcher denne reference og e-mail. Kontrollér dine oplysninger.",
+    "errGeneric": "Sporing er midlertidigt utilgængelig. Prøv igen om et par minutter.",
+    "orderTitle": "Ordre {reference}",
+    "placedOn": "Afgivet {date}",
+    "stepReceived": "Modtaget",
+    "stepShipped": "Afsendt",
+    "stepDelivered": "Leveret",
+    "carrier": "Fragtfirma",
+    "trackingNumber": "Sporingsnr.",
+    "trackingPending": "Tilgængeligt ved afsendelse",
+    "total": "Betalt i alt",
+    "ttc": "inkl. moms",
+    "trackParcel": "Følg pakken hos fragtfirmaet",
+    "products": "Produkter",
+    "haveAccount": "Har du en konto? <a>Se alle dine ordrer</a>",
+    "needHelp": "Spørgsmål om din ordre? <a>Kontakt os</a>"
   }
 }

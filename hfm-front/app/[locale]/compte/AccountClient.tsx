@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import { useStore } from '../../store';
 import AddressForm, { type Address } from '../../components/AddressForm';
+import { idLangFor } from '@/lib/i18n-config';
 
 const inputStyle: React.CSSProperties = {
   height: '46px',
@@ -62,7 +63,25 @@ const KNOWN_ERROR_CODES = new Set([
   'invalid_name',
   'invalid_email',
   'password_too_short',
+  'invalid_rpps',
+  'invalid_profession',
 ]);
+
+// Professions proposées à l'inscription (contrat bridge `customer` action=register).
+const PROFESSIONS = ['medecin', 'chirurgien-dentiste', 'pharmacien', 'infirmier', 'autre'] as const;
+
+// RPPS = 11 chiffres avec clé de Luhn (même contrôle que le bridge) ; ADELI = 9 chiffres.
+function validRpps(v: string): boolean {
+  if (/^\d{9}$/.test(v)) return true;
+  if (!/^\d{11}$/.test(v)) return false;
+  let sum = 0;
+  for (let i = 0; i < 11; i++) {
+    let d = Number(v[10 - i]);
+    if (i % 2 === 1) { d *= 2; if (d > 9) d -= 9; }
+    sum += d;
+  }
+  return sum % 10 === 0;
+}
 
 const navLinkStyle: React.CSSProperties = {
   display: 'inline-flex',
@@ -83,6 +102,7 @@ const navLinkStyle: React.CSSProperties = {
 export default function AccountClient() {
   const t = useTranslations('account');
   const tc = useTranslations('common');
+  const locale = useLocale();
   const mapError = (e?: string) => {
     if (!e) return t('errors.generic');
     if (e === 'rate_limited') return tc('rateLimited');
@@ -103,6 +123,11 @@ export default function AccountClient() {
   const [rLast, setRLast] = useState('');
   const [rEmail, setREmail] = useState('');
   const [rPassword, setRPassword] = useState('');
+  // Informations professionnelles : profession obligatoire ; société et RPPS/ADELI facultatifs.
+  const [rProfession, setRProfession] = useState('');
+  const [rCompany, setRCompany] = useState('');
+  const [rRpps, setRRpps] = useState('');
+  const [rNewsletter, setRNewsletter] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -199,8 +224,23 @@ export default function AccountClient() {
   const doRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (!rProfession) {
+      setError(t('errors.invalid_profession'));
+      return;
+    }
+    const rpps = rRpps.replace(/\s+/g, '');
+    if (rpps && !validRpps(rpps)) {
+      setError(t('errors.invalid_rpps'));
+      return;
+    }
     setBusy(true);
-    const res = await register({ email: rEmail, password: rPassword, firstname: rFirst, lastname: rLast });
+    // Champs pro transmis tels quels par le store à /api/auth (qui les valide en liste blanche).
+    const data = {
+      email: rEmail, password: rPassword, firstname: rFirst, lastname: rLast,
+      id_lang: idLangFor(locale), profession: rProfession, company: rCompany.trim(), rpps,
+      newsletter: rNewsletter ? 1 : 0,
+    };
+    const res = await register(data);
     setBusy(false);
     if (!res.ok) setError(mapError(res.error));
     else afterAuth();
@@ -284,11 +324,35 @@ export default function AccountClient() {
                 <label style={labelStyle}>{t('password')}</label>
                 <input type="password" value={rPassword} onChange={(e) => setRPassword(e.target.value)} placeholder={t('passwordMin')} style={inputStyle} />
               </div>
+              <div>
+                <label htmlFor="reg-profession" style={labelStyle}>{t('profession')} *</label>
+                <select id="reg-profession" required value={rProfession} onChange={(e) => setRProfession(e.target.value)} style={{ ...inputStyle, appearance: 'auto' }}>
+                  <option value="" disabled>{t('professionChoose')}</option>
+                  {PROFESSIONS.map((p) => <option key={p} value={p}>{t(`professions.${p}`)}</option>)}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="reg-company" style={labelStyle}>{t('company')}</label>
+                <input id="reg-company" autoComplete="organization" value={rCompany} onChange={(e) => setRCompany(e.target.value)} placeholder={t('companyPlaceholder')} style={inputStyle} />
+              </div>
+              <div>
+                <label htmlFor="reg-rpps" style={labelStyle}>{t('rpps')}</label>
+                <input id="reg-rpps" inputMode="numeric" autoComplete="off" value={rRpps} onChange={(e) => setRRpps(e.target.value)} placeholder={t('rppsPlaceholder')} style={inputStyle} />
+                <span style={{ display: 'block', fontSize: '12px', color: '#8A8170', marginTop: '6px', lineHeight: 1.45 }}>{t('rppsHelp')}</span>
+              </div>
+              <label style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '13px', color: '#55606F', lineHeight: 1.45, cursor: 'pointer' }}>
+                <input type="checkbox" checked={rNewsletter} onChange={(e) => setRNewsletter(e.target.checked)} style={{ marginTop: '2px', flex: 'none', width: '16px', height: '16px', accentColor: '#5E8E1F' }} />
+                <span>{t('newsletterOptIn')}</span>
+              </label>
               {error ? <div style={{ fontSize: '13px', color: '#A8503A' }}>{error}</div> : null}
               <button type="submit" disabled={busy} style={{ ...primaryBtn, opacity: busy ? 0.7 : 1 }}>{busy ? t('creating') : t('createAccount')}</button>
             </form>
           )}
         </div>
+        {/* Commande passée sans compte (invité) : suivi par référence + e-mail. */}
+        <p style={{ fontSize: '13.5px', color: '#6E7585', marginTop: '20px', textAlign: 'center' }}>
+          {t.rich('guestTracking', { a: (c) => <Link href="/suivi-commande" style={{ color: '#5E8E1F', fontWeight: 600 }}>{c}</Link> })}
+        </p>
       </main>
     );
   }

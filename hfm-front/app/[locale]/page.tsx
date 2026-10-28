@@ -28,14 +28,18 @@ const ZONES = [
 
 // Avis BOUTIQUE réels (Société des Avis Garantis) servis par le bridge (`products?action=shop-reviews`).
 // Ne JAMAIS remettre de témoignages ou de chiffres codés en dur : ils n'existaient pas chez SAG.
+// UNE seule source pour toutes les langues : le compte SAG français (id_lang 1, celui de l'attestation
+// publique), et UNE seule échelle (/5). Les comptes SAG par langue (es 336 avis, en/he 244…) donnaient
+// des chiffres différents d'une langue à l'autre (audit 27/10, M8).
+const SAG_STATS_LANG = 1;
+// Articles « Expertise » : seuls ceux de moins de 12 mois sont mis en avant (sinon section masquée).
+const BLOG_MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000;
 type MenuNode = { id_category: number; link_rewrite?: string; nb_products?: number; children?: MenuNode[] };
 
 type ShopReviews = {
   stats: { rate10: number; rate5: number; count: number; certificateUrl: string | null } | null;
   items: { name: string; rate: number; review: string; date: string }[];
 };
-
-const BLOG_KEYS = [1, 2, 3] as const;
 
 const greenBtn: React.CSSProperties = {
   fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#fff',
@@ -87,10 +91,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   // 3 derniers articles du blog + avis boutique réels, en parallèle. Section non critique :
   // si le bridge ne répond pas, la section avis est simplement masquée (jamais de chiffre inventé).
   const [latestPosts, shopReviews, menu] = await Promise.all([
-    fetchBlogLatest(locale, 3),
+    fetchBlogLatest(locale, 6),
     bridgeGetCached(
       'products',
-      { action: 'shop-reviews', limit: 3, id_lang: idLangFor(locale) },
+      { action: 'shop-reviews', limit: 1, id_lang: SAG_STATS_LANG },
       { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
     ).then((d) => d as ShopReviews).catch((): ShopReviews => ({ stats: null, items: [] })),
     bridgeGetCached(
@@ -112,10 +116,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const cat = findCat(menu, z.catId);
     return { ...z, href: cat?.link_rewrite ? `/${cat.link_rewrite}` : `/zone/${z.key}`, count: cat?.nb_products ?? null };
   });
-  const revStats = shopReviews?.stats ?? null;
-  const revItems = shopReviews?.items ?? [];
-  const fmtRate = (n: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(n);
+  // Note sur 5 recalculée depuis la note SAG /10 (une décimale), identique partout sur la page.
+  const revStats = shopReviews?.stats
+    ? { ...shopReviews.stats, rate5: Math.round((shopReviews.stats.rate10 / 2) * 10) / 10 }
+    : null;
+  // Les avis individuels SAG (2022-2023) sont des avis de patients/consommateurs : pas affichés sur
+  // un site réservé aux professionnels. Seule la note globale certifiée est reprise.
+  const fmtRate = (n: number) => new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(n);
   const stars = (n: number) => '★'.repeat(Math.max(0, Math.min(5, Math.round(n)))) + '☆'.repeat(Math.max(0, 5 - Math.min(5, Math.round(n))));
+  const recentPosts = latestPosts
+    .filter((p) => {
+      const d = new Date((p.date || '').replace(' ', 'T'));
+      return !isNaN(d.getTime()) && Date.now() - d.getTime() < BLOG_MAX_AGE_MS;
+    })
+    .slice(0, 3);
   const blogDate = (raw: string) => {
     const d = new Date((raw || '').replace(' ', 'T'));
     if (isNaN(d.getTime())) return '';
@@ -169,14 +183,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <p style={{ fontSize: '17px', lineHeight: 1.6, color: '#55606F', maxWidth: '480px', margin: '22px 0 0' }}>{t('heroLead')}</p>
               <div style={{ display: 'flex', gap: '14px', marginTop: '30px', flexWrap: 'wrap' }}>
                 <a href="/catalogue" style={greenBtn}>{tc('discoverCatalogue')}</a>
-                <a href="/catalogue" style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#5E8E1F', background: 'rgba(140,198,63,0.08)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '15px 28px', cursor: 'pointer', textDecoration: 'none' }}>{t('ctaPractitionerRates')}</a>
+                <Link href="/catalogue" style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14.5px', fontWeight: 600, color: '#5E8E1F', background: 'rgba(140,198,63,0.08)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', border: '1px solid rgba(155,209,89,.7)', borderRadius: '999px', padding: '15px 28px', cursor: 'pointer', textDecoration: 'none' }}>{t('ctaPractitionerRates')}</Link>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '26px', marginTop: '34px', flexWrap: 'wrap' }}>
                 {revStats && (
                   <>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
                       <span style={{ color: '#8CC63F', fontSize: '14px', letterSpacing: '1px' }}>{stars(revStats.rate5)}</span>
-                      <span style={{ fontSize: '12.5px', color: '#6E7585' }}><b style={{ color: '#1B2433' }}>{fmtRate(revStats.rate5)}/5</b> · {t('reviewsLine', { count: revStats.count })}</span>
+                      <span style={{ fontSize: '12.5px', color: '#6E7585' }}><b style={{ color: '#1B2433' }}>{fmtRate(revStats.rate5)}/5</b> · {revStats.certificateUrl ? <a href={revStats.certificateUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>{t('reviewsLine', { count: revStats.count })}</a> : t('reviewsLine', { count: revStats.count })}</span>
                     </div>
                     <div style={{ width: '1px', height: '34px', background: '#E2DECF' }} />
                   </>
@@ -264,39 +278,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </section>
 
-        {/* REVIEWS — avis réels SAG uniquement ; section masquée sans données. */}
-        {revStats && revItems.length > 0 && (
-        <section style={{ background: '#fff', borderTop: '1px solid #E7E3DA', borderBottom: '1px solid #E7E3DA', marginTop: '64px' }}>
-          <div className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '56px 28px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-              <span style={{ color: '#8CC63F', fontSize: '18px', letterSpacing: '2px' }}>{stars(revStats.rate5)}</span>
-              <span style={{ fontSize: '14px', color: '#1B2433' }}>{t.rich('reviewsHeader', { rate: fmtRate(revStats.rate10), count: revStats.count, b: (c) => <b>{c}</b>, span: (c) => <span style={{ color: '#9A9A9A' }}>{c}</span> })}</span>
-              {revStats.certificateUrl && (
-                <a href={revStats.certificateUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: '#5E8E1F', fontWeight: 600 }}>{t('reviewsCertificate')}</a>
-              )}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '18px', marginTop: '28px' }}>
-              {revItems.map((r, i) => (
-                <div key={i} style={{ border: '1px solid #ECEAE3', borderRadius: '8px', padding: '24px' }}>
-                  <span style={{ color: '#8CC63F', fontSize: '13px', letterSpacing: '1px' }} aria-label={`${r.rate}/5`}>{stars(r.rate)}</span>
-                  <p style={{ fontFamily: "'Spectral',serif", fontSize: '16px', lineHeight: 1.5, color: '#2A3447', margin: '14px 0 16px' }}>« {r.review} »</p>
-                  <div style={{ fontSize: '12.5px', color: '#6E7585' }}><b style={{ color: '#1B2433' }}>{r.name}</b>{r.date ? <> · {blogDate(r.date)}</> : null}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        )}
-
-        {/* EXPERTISE / BLOG */}
+        {/* EXPERTISE / BLOG — articles de moins de 12 mois uniquement ; section masquée sinon. */}
+        {recentPosts.length > 0 && (
         <section className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '64px 28px 8px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '20px' }}>
             <div><div style={{ fontSize: '11.5px', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#8CC63F' }}>{t('expertiseEyebrow')}</div><h2 style={{ fontFamily: "'Spectral',serif", fontWeight: 400, fontSize: 'clamp(25px,3.6vw,34px)', color: '#2B2B2B', margin: '8px 0 0' }}>{t('expertiseTitle')}</h2></div>
-            <Link href="/blog" style={{ cursor: 'pointer', fontSize: '13.5px', fontWeight: 600, color: '#434343', textDecoration: 'none' }}>{t('allBlog')} →</Link>
+            <Link href="/blog" style={{ cursor: 'pointer', fontSize: '13.5px', fontWeight: 600, color: '#434343', textDecoration: 'none' }}>{t('allBlog')}</Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '18px', marginTop: '28px' }}>
-            {latestPosts.length > 0
-              ? latestPosts.map((post) => (
+            {recentPosts.map((post) => (
                   <Link key={post.id} href={`/blog/${post.category.slug}/${post.slug}`} style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', overflow: 'hidden', textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }}>
                       {post.cover?.wide || post.cover?.src ? (
@@ -307,18 +297,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                       <div style={{ display: 'flex', gap: '10px', fontSize: '11px', color: '#8A8170', textTransform: 'uppercase', letterSpacing: '.06em' }}><span style={{ color: '#8CC63F', fontWeight: 600 }}>{post.category.name}</span><span>·</span><span>{blogDate(post.date)}</span></div>
                       <div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', lineHeight: 1.3, color: '#1B2433', marginTop: '10px' }}>{post.title}</div>
                       <div style={{ fontSize: '13.5px', color: '#6E7062', lineHeight: 1.55, marginTop: '10px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{textFromHtml(post.excerpt, 120)}</div>
-                      <div style={{ fontSize: '13px', fontWeight: 600, color: '#5E8E1F', marginTop: 'auto', paddingTop: '14px' }}>{t('readArticle')} →</div>
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: '#5E8E1F', marginTop: 'auto', paddingTop: '14px' }}>{t('readArticle')}</div>
                     </div>
                   </Link>
-                ))
-              : BLOG_KEYS.map((i) => (
-                  <div key={i} style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', overflow: 'hidden' }}>
-                    <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#F7F6F2' }}><img src={`/blog/blog${i}.png`} alt={t(`blog${i}Title`)} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-                    <div style={{ padding: '20px' }}><div style={{ display: 'flex', gap: '10px', fontSize: '11px', color: '#8A8170', textTransform: 'uppercase', letterSpacing: '.06em' }}><span style={{ color: '#8CC63F', fontWeight: 600 }}>{t(`blog${i}Cat`)}</span><span>·</span><span>{t(`blog${i}Date`)}</span></div><div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', lineHeight: 1.3, color: '#1B2433', marginTop: '10px' }}>{t(`blog${i}Title`)}</div><div style={{ fontSize: '13px', fontWeight: 600, color: '#434343', marginTop: '14px' }}>{t('readArticle')}</div></div>
-                  </div>
                 ))}
           </div>
         </section>
+        )}
 
         {/* NEWSLETTER */}
         <section className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '64px 28px' }}>

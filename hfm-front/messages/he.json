@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 שנים · סיטונאי מורשה לאסתטיקה רפואית",
     "heroTitle1": "מוצר ההזרקה המוביל,",
-    "heroTitle2": "מסופק כבר מחר.",
+    "heroTitle2": "נשלח באותו היום.",
     "heroLead": "חומצה היאלורונית, מזותרפיה, פילינג וחוטי מתיחה — נרכשים ישירות מהמעבדות, עם תקן CE ומעקב על כל אצווה.",
-    "ctaPractitionerRates": "מחירי מטפלים →",
+    "ctaPractitionerRates": "לצפייה בקטלוג →",
     "reviewsLine": "{count, number} ביקורות מאומתות",
     "brandsLine": "30+ מותגים",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "רבי-מכר",
     "heroImgLips": "שפתיים",
     "heroImgSkin": "סקין בוסטרים",
-    "trustShipTitle": "משלוח היום",
-    "trustShipSub": "הזמינו לפני 15:00 · DHL ו-Colissimo",
+    "trustShipTitle": "משלוח באותו היום",
+    "trustShipSub": "הזמינו לפני 15:00 (ימי עסקים) · DHL Express ו-GLS",
     "trustCeTitle": "תקן CE",
     "trustCeSub": "מעקב מלא אחר אצוות",
     "trustSupportTitle": "תמיכה 5 ימים בשבוע",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "מעקב מלא",
     "editoFeat1Sub": "מספר אצווה ותקן CE על כל פריט.",
     "editoFeat2Title": "שרשרת קור מבוקרת",
-    "editoFeat2Sub": "משלוח איזותרמי, DHL ו-Colissimo Express.",
+    "editoFeat2Sub": "משלוח איזותרמי, DHL Express ו-GLS.",
     "editoCta": "גלו את הקטלוג →",
     "editoBadgeDelay": "24-48 שעות",
-    "editoBadgeDelaySub": "משלוח לכל רחבי אירופה",
+    "editoBadgeDelaySub": "משלוח בצרפת · 48-72 שעות באירופה",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} ביקורות מאומתות <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "מומחיות",
     "expertiseTitle": "הידע של המומחים שלנו",
@@ -368,11 +368,29 @@
       "invalid_email": "דוא\"ל לא תקין.",
       "password_too_short": "הסיסמה קצרה מדי (8 תווים לפחות).",
       "generic": "אירעה שגיאה.",
-      "network": "שגיאת רשת."
+      "network": "שגיאת רשת.",
+      "invalid_rpps": "מספר RPPS (11 ספרות) או ADELI (9 ספרות) לא תקין.",
+      "invalid_profession": "נא לציין את המקצוע שלכם."
     },
     "forgotPassword": "שכחת את הסיסמה?",
     "editAddress": "עריכה",
-    "editAddressTitle": "עריכת כתובת"
+    "editAddressTitle": "עריכת כתובת",
+    "profession": "מקצוע",
+    "professionChoose": "בחרו את המקצוע שלכם",
+    "professions": {
+      "medecin": "רופא/ה",
+      "chirurgien-dentiste": "רופא/ת שיניים",
+      "pharmacien": "רוקח/ת",
+      "infirmier": "אח/ות",
+      "autre": "איש/אשת מקצוע אחר/ת בתחום הבריאות"
+    },
+    "company": "חברה / מרפאה (רשות)",
+    "companyPlaceholder": "המרפאה של ד\"ר מרטן",
+    "rpps": "מס' RPPS / ADELI (רשות)",
+    "rppsPlaceholder": "11 ספרות (RPPS) או 9 ספרות (ADELI)",
+    "rppsHelp": "אם לא יוזן כאן, מספר ה-RPPS/ADELI יידרש בעת הזמנת מוצרים המיועדים לרופאים בלבד.",
+    "newsletterOptIn": "אני מסכים/ה לקבל את הניוזלטר (חידושים, הדרכות, מבצעים). הסרה בלחיצה אחת.",
+    "guestTracking": "הזמנתם ללא חשבון? <a>עקבו אחר ההזמנה כאן</a>"
   },
   "addressForm": {
     "address": "כתובת",
@@ -593,7 +611,8 @@
     "title": "המועדפים שלי",
     "count": "{count, plural, one {מוצר מועדף אחד} two {# מוצרים מועדפים} many {# מוצרים מועדפים} other {# מוצרים מועדפים}}",
     "emptyLead": "מצאו כאן את המוצרים שאתם אוהבים.",
-    "emptyTitle": "אין מועדפים כרגע"
+    "emptyTitle": "אין מועדפים כרגע",
+    "localLead": "המועדפים שלכם נשמרים במכשיר זה. התחברו כדי לשמור אותם בחשבון ולמצוא אותם בכל מקום."
   },
   "brand": {
     "fallbackName": "מותג",
@@ -651,7 +670,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "שם מלא",
+    "phone": "טלפון (רשות)",
+    "orderReference": "מס' הזמנה (רשות)",
+    "orderReferencePlaceholder": "לדוגמה: XKBKNABJK",
+    "errName": "נא להזין את שמכם.",
+    "errPhone": "מספר טלפון לא תקין.",
+    "errEmail": "כתובת דוא\"ל לא תקינה.",
+    "coordsTitle": "פרטי התקשרות",
+    "coordsCountry": "צרפת"
   },
   "compare": {
     "button": "Compare",
@@ -785,5 +813,39 @@
     "tileShipSub": "DHL Express ו-GLS — חינם החל מ-400 € ללא מע\"מ",
     "tilePayTitle": "תשלום מאובטח",
     "tilePaySub": "עסקאות מוצפנות 3D-Secure"
+  },
+  "consent": {
+    "label": "הסכמה לעוגיות",
+    "text": "אנו משתמשים בעוגיות למדידת קהל ולהתאמה אישית של פרסומות כדי לשפר את חוויית הגלישה. ניתן לאשר או לסרב. ראו את <a>מדיניות הפרטיות</a> שלנו.",
+    "refuse": "סירוב",
+    "accept": "אישור"
+  },
+  "orderTracking": {
+    "title": "מעקב הזמנה",
+    "lead": "הזמנתם ללא חשבון? הזינו את מספר ההזמנה ואת כתובת הדוא\"ל ששימשה בהזמנה.",
+    "reference": "מספר הזמנה",
+    "referencePlaceholder": "לדוגמה: XKBKNABJK",
+    "referenceHint": "9 אותיות, מופיע בדוא\"ל האישור.",
+    "email": "דוא\"ל ההזמנה",
+    "emailPlaceholder": "you@clinic.co.il",
+    "submit": "מעקב אחר ההזמנה",
+    "searching": "מחפש…",
+    "errInvalid": "נא להזין מספר הזמנה וכתובת דוא\"ל תקינים.",
+    "errNotFound": "לא נמצאה הזמנה התואמת למספר ולדוא\"ל אלה. בדקו את הפרטים.",
+    "errGeneric": "המעקב אינו זמין כרגע. נסו שוב בעוד כמה דקות.",
+    "orderTitle": "הזמנה {reference}",
+    "placedOn": "בוצעה ב-{date}",
+    "stepReceived": "התקבלה",
+    "stepShipped": "נשלחה",
+    "stepDelivered": "נמסרה",
+    "carrier": "חברת שילוח",
+    "trackingNumber": "מספר מעקב",
+    "trackingPending": "יהיה זמין לאחר המשלוח",
+    "total": "סה\"כ שולם",
+    "ttc": "כולל מע\"מ",
+    "trackParcel": "מעקב אחר החבילה באתר חברת השילוח",
+    "products": "מוצרים",
+    "haveAccount": "יש לכם חשבון? <a>לכל ההזמנות שלכם</a>",
+    "needHelp": "שאלה לגבי ההזמנה? <a>צרו קשר</a>"
   }
 }

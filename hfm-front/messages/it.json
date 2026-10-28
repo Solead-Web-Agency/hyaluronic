@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 anni · grossista autorizzato di estetica medica",
     "heroTitle1": "L'iniettabile di riferimento,",
-    "heroTitle2": "consegnato già da domani.",
+    "heroTitle2": "spedito in giornata.",
     "heroLead": "Acido ialuronico, mesoterapia, peeling e fili di trazione — acquistati direttamente dai laboratori, con marcatura CE e tracciabilità su ogni lotto.",
-    "ctaPractitionerRates": "Tariffe professionisti →",
+    "ctaPractitionerRates": "Vedi il catalogo →",
     "reviewsLine": "{count, number} recensioni verificate",
     "brandsLine": "+30 marche",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Best seller",
     "heroImgLips": "Labbra",
     "heroImgSkin": "Skin booster",
-    "trustShipTitle": "Spedito oggi",
-    "trustShipSub": "ordini entro le 15:00 · DHL & Colissimo",
+    "trustShipTitle": "Spedizione in giornata",
+    "trustShipSub": "ordini entro le 15:00 (giorni lavorativi) · DHL Express & GLS",
     "trustCeTitle": "Marcatura CE",
     "trustCeSub": "tracciabilità completa dei lotti",
     "trustSupportTitle": "Assistenza 5 giorni/settimana",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Tracciabilità totale",
     "editoFeat1Sub": "numero di lotto e marcatura CE su ogni referenza.",
     "editoFeat2Title": "Catena del freddo controllata",
-    "editoFeat2Sub": "spedizione isotermica, DHL & Colissimo Express.",
+    "editoFeat2Sub": "spedizione isotermica, DHL Express & GLS.",
     "editoCta": "Scopri il catalogo →",
     "editoBadgeDelay": "24-48 h",
-    "editoBadgeDelaySub": "consegna in tutta Europa",
+    "editoBadgeDelaySub": "consegna in Francia · 48-72 h in Europa",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} recensioni verificate <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Competenza",
     "expertiseTitle": "Il know-how dei nostri specialisti",
@@ -368,11 +368,29 @@
       "invalid_email": "E-mail non valida.",
       "password_too_short": "Password troppo corta (min. 8 caratteri).",
       "generic": "Si è verificato un errore.",
-      "network": "Errore di rete."
+      "network": "Errore di rete.",
+      "invalid_rpps": "Numero RPPS (11 cifre) o ADELI (9 cifre) non valido.",
+      "invalid_profession": "Indica la tua professione."
     },
     "forgotPassword": "Password dimenticata?",
     "editAddress": "Modifica",
-    "editAddressTitle": "Modifica indirizzo"
+    "editAddressTitle": "Modifica indirizzo",
+    "profession": "Professione",
+    "professionChoose": "Seleziona la tua professione",
+    "professions": {
+      "medecin": "Medico",
+      "chirurgien-dentiste": "Odontoiatra",
+      "pharmacien": "Farmacista",
+      "infirmier": "Infermiere/a",
+      "autre": "Altro professionista sanitario"
+    },
+    "company": "Società / studio (facoltativo)",
+    "companyPlaceholder": "Studio del Dott. Martin",
+    "rpps": "N. RPPS / ADELI (facoltativo)",
+    "rppsPlaceholder": "11 cifre (RPPS) o 9 cifre (ADELI)",
+    "rppsHelp": "Se non lo indichi qui, il numero RPPS/ADELI ti verrà richiesto all'ordine dei prodotti riservati ai medici.",
+    "newsletterOptIn": "Accetto di ricevere la newsletter (novità, formazione, offerte). Disiscrizione in 1 clic.",
+    "guestTracking": "Hai ordinato senza account? <a>Segui qui il tuo ordine</a>"
   },
   "addressForm": {
     "address": "Indirizzo",
@@ -593,7 +611,8 @@
     "title": "I miei preferiti",
     "count": "{count, plural, one {# prodotto preferito} other {# prodotti preferiti}}",
     "emptyLead": "Ritrova qui i prodotti che ami.",
-    "emptyTitle": "Ancora nessun preferito"
+    "emptyTitle": "Ancora nessun preferito",
+    "localLead": "I tuoi preferiti sono salvati su questo dispositivo. Accedi per salvarli nel tuo account e ritrovarli ovunque."
   },
   "brand": {
     "fallbackName": "Marca",
@@ -651,7 +670,16 @@
     "sent": "Grazie, il tuo messaggio è stato ricevuto. Rispondiamo entro 24 ore lavorative.",
     "error": "Invio non riuscito. Riprova.",
     "errFileBig": "File troppo grande (max 2 MB).",
-    "errFileType": "Tipo di file non accettato."
+    "errFileType": "Tipo di file non accettato.",
+    "name": "Nome e cognome",
+    "phone": "Telefono (facoltativo)",
+    "orderReference": "N. ordine (facoltativo)",
+    "orderReferencePlaceholder": "Es.: XKBKNABJK",
+    "errName": "Indica il tuo nome.",
+    "errPhone": "Numero di telefono non valido.",
+    "errEmail": "Indirizzo e-mail non valido.",
+    "coordsTitle": "I nostri recapiti",
+    "coordsCountry": "Francia"
   },
   "compare": {
     "button": "Confronta",
@@ -785,5 +813,39 @@
     "tileShipSub": "DHL Express e GLS — gratuita da 400 € IVA escl.",
     "tilePayTitle": "Pagamento sicuro",
     "tilePaySub": "Transazioni crittografate 3D-Secure"
+  },
+  "consent": {
+    "label": "Consenso ai cookie",
+    "text": "Utilizziamo cookie di misurazione dell'audience e di personalizzazione pubblicitaria per migliorare la tua esperienza. Puoi accettare o rifiutare. Consulta la nostra <a>informativa sulla privacy</a>.",
+    "refuse": "Rifiuta",
+    "accept": "Accetta"
+  },
+  "orderTracking": {
+    "title": "Traccia ordine",
+    "lead": "Hai ordinato senza account? Inserisci il riferimento dell'ordine e l'e-mail usata per l'ordine.",
+    "reference": "Riferimento ordine",
+    "referencePlaceholder": "Es.: XKBKNABJK",
+    "referenceHint": "9 lettere, indicato nell'e-mail di conferma.",
+    "email": "E-mail dell'ordine",
+    "emailPlaceholder": "tu@studio.it",
+    "submit": "Traccia il mio ordine",
+    "searching": "Ricerca…",
+    "errInvalid": "Inserisci un riferimento e un indirizzo e-mail validi.",
+    "errNotFound": "Nessun ordine corrisponde a questo riferimento e a questa e-mail. Controlla i dati inseriti.",
+    "errGeneric": "Il tracciamento è momentaneamente non disponibile. Riprova tra qualche minuto.",
+    "orderTitle": "Ordine {reference}",
+    "placedOn": "Effettuato il {date}",
+    "stepReceived": "Ricevuto",
+    "stepShipped": "Spedito",
+    "stepDelivered": "Consegnato",
+    "carrier": "Corriere",
+    "trackingNumber": "N. di tracciamento",
+    "trackingPending": "Disponibile alla spedizione",
+    "total": "Totale pagato",
+    "ttc": "IVA incl.",
+    "trackParcel": "Traccia il pacco sul sito del corriere",
+    "products": "Prodotti",
+    "haveAccount": "Hai un account? <a>Vedi tutti i tuoi ordini</a>",
+    "needHelp": "Una domanda sul tuo ordine? <a>Contattaci</a>"
   }
 }

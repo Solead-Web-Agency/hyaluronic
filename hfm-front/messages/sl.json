@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 let · pooblaščeni veletrgovec medicinske estetike",
     "heroTitle1": "Referenčni injektabilni izdelek,",
-    "heroTitle2": "dostavljen že jutri.",
+    "heroTitle2": "odposlan isti dan.",
     "heroLead": "Hialuronska kislina, mezoterapija, pilingi in liftinški niti — nabavljeni neposredno iz laboratorijev, oznaka CE in sledljivost na vsaki seriji.",
-    "ctaPractitionerRates": "Cene za praktike →",
+    "ctaPractitionerRates": "Oglejte si katalog →",
     "reviewsLine": "{count, number} preverjenih mnenj",
     "brandsLine": "+30 znamk",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Uspešnice",
     "heroImgLips": "Ustnice",
     "heroImgSkin": "Skin boosterji",
-    "trustShipTitle": "Odprema danes",
-    "trustShipSub": "naročilo do 15. ure · DHL & Colissimo",
+    "trustShipTitle": "Odprema isti dan",
+    "trustShipSub": "naročilo do 15. ure (delovni dnevi) · DHL Express & GLS",
     "trustCeTitle": "Oznaka CE",
     "trustCeSub": "popolna sledljivost serij",
     "trustSupportTitle": "Podpora 5 dni/teden",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Popolna sledljivost",
     "editoFeat1Sub": "številka serije in oznaka CE na vsaki referenci.",
     "editoFeat2Title": "Nadzorovana hladna veriga",
-    "editoFeat2Sub": "izotermna odprema, DHL & Colissimo Express.",
+    "editoFeat2Sub": "izotermna odprema, DHL Express & GLS.",
     "editoCta": "Odkrijte katalog →",
     "editoBadgeDelay": "24–48 h",
-    "editoBadgeDelaySub": "dostava po vsej Evropi",
+    "editoBadgeDelaySub": "dostava v Franciji · 48–72 h v Evropi",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} preverjenih mnenj <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Strokovnost",
     "expertiseTitle": "Znanje naših specialistov",
@@ -368,11 +368,29 @@
       "invalid_email": "Neveljavna e-pošta.",
       "password_too_short": "Geslo je prekratko (najmanj 8 znakov).",
       "generic": "Prišlo je do napake.",
-      "network": "Napaka omrežja."
+      "network": "Napaka omrežja.",
+      "invalid_rpps": "Neveljavna številka RPPS (11 števk) ali ADELI (9 števk).",
+      "invalid_profession": "Navedite svoj poklic."
     },
     "forgotPassword": "Ste pozabili geslo?",
     "editAddress": "Uredi",
-    "editAddressTitle": "Uredi naslov"
+    "editAddressTitle": "Uredi naslov",
+    "profession": "Poklic",
+    "professionChoose": "Izberite svoj poklic",
+    "professions": {
+      "medecin": "Zdravnik",
+      "chirurgien-dentiste": "Zobozdravnik",
+      "pharmacien": "Farmacevt",
+      "infirmier": "Medicinska sestra / brat",
+      "autre": "Drug zdravstveni delavec"
+    },
+    "company": "Podjetje / ordinacija (neobvezno)",
+    "companyPlaceholder": "Ordinacija dr. Martina",
+    "rpps": "Št. RPPS / ADELI (neobvezno)",
+    "rppsPlaceholder": "11 števk (RPPS) ali 9 števk (ADELI)",
+    "rppsHelp": "Če ga ne navedete tukaj, bo številka RPPS/ADELI zahtevana ob naročilu izdelkov, namenjenih zdravnikom.",
+    "newsletterOptIn": "Strinjam se s prejemanjem e-novic (novosti, izobraževanja, ponudbe). Odjava z 1 klikom.",
+    "guestTracking": "Ste naročili brez računa? <a>Sledite naročilu tukaj</a>"
   },
   "addressForm": {
     "address": "Naslov",
@@ -593,7 +611,8 @@
     "title": "Moji priljubljeni",
     "count": "{count, plural, one {# priljubljen izdelek} two {# priljubljena izdelka} few {# priljubljeni izdelki} other {# priljubljenih izdelkov}}",
     "emptyLead": "Tukaj najdete izdelke, ki so vam všeč.",
-    "emptyTitle": "Zaenkrat ni priljubljenih"
+    "emptyTitle": "Zaenkrat ni priljubljenih",
+    "localLead": "Vaše priljubljene izdelke hranimo v tej napravi. Prijavite se, da jih shranite v račun in jih najdete povsod."
   },
   "brand": {
     "fallbackName": "Znamka",
@@ -651,7 +670,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "Ime in priimek",
+    "phone": "Telefon (neobvezno)",
+    "orderReference": "Št. naročila (neobvezno)",
+    "orderReferencePlaceholder": "Npr. XKBKNABJK",
+    "errName": "Vnesite svoje ime.",
+    "errPhone": "Neveljavna telefonska številka.",
+    "errEmail": "Neveljaven e-poštni naslov.",
+    "coordsTitle": "Naši podatki",
+    "coordsCountry": "Francija"
   },
   "compare": {
     "button": "Compare",
@@ -785,5 +813,39 @@
     "tileShipSub": "DHL Express in GLS — brezplačno od 400 € brez DDV",
     "tilePayTitle": "Varno plačilo",
     "tilePaySub": "Šifrirane transakcije 3D-Secure"
+  },
+  "consent": {
+    "label": "Soglasje za piškotke",
+    "text": "Uporabljamo piškotke za merjenje obiska in prilagajanje oglasov, da izboljšamo vašo izkušnjo. Lahko jih sprejmete ali zavrnete. Oglejte si naš <a>pravilnik o zasebnosti</a>.",
+    "refuse": "Zavrni",
+    "accept": "Sprejmi"
+  },
+  "orderTracking": {
+    "title": "Sledenje naročilu",
+    "lead": "Ste naročili brez računa? Vnesite sklic naročila in e-poštni naslov, uporabljen pri naročilu.",
+    "reference": "Sklic naročila",
+    "referencePlaceholder": "Npr. XKBKNABJK",
+    "referenceHint": "9 črk, naveden v potrditvenem e-sporočilu.",
+    "email": "E-pošta naročila",
+    "emailPlaceholder": "vi@ordinacija.si",
+    "submit": "Sledi naročilu",
+    "searching": "Iskanje…",
+    "errInvalid": "Vnesite veljaven sklic in e-poštni naslov.",
+    "errNotFound": "Nobeno naročilo se ne ujema s tem sklicem in e-pošto. Preverite vnesene podatke.",
+    "errGeneric": "Sledenje trenutno ni na voljo. Poskusite znova čez nekaj minut.",
+    "orderTitle": "Naročilo {reference}",
+    "placedOn": "Oddano {date}",
+    "stepReceived": "Prejeto",
+    "stepShipped": "Odposlano",
+    "stepDelivered": "Dostavljeno",
+    "carrier": "Prevoznik",
+    "trackingNumber": "Številka pošiljke",
+    "trackingPending": "Na voljo po odpremi",
+    "total": "Skupaj plačano",
+    "ttc": "z DDV",
+    "trackParcel": "Sledite paketu pri prevozniku",
+    "products": "Izdelki",
+    "haveAccount": "Imate račun? <a>Oglejte si vsa naročila</a>",
+    "needHelp": "Vprašanje o naročilu? <a>Pišite nam</a>"
   }
 }

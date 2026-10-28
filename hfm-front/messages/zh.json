@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 年 · 医美持证批发商",
     "heroTitle1": "标杆级注射产品，",
-    "heroTitle2": "次日送达。",
+    "heroTitle2": "当日发货。",
     "heroLead": "透明质酸、中胚层疗法、化学换肤与提拉线 — 直接采购自实验室，每一批次均带 CE 认证与可追溯性。",
-    "ctaPractitionerRates": "执业者价格 →",
+    "ctaPractitionerRates": "查看产品目录 →",
     "reviewsLine": "{count, number} 条已验证评价",
     "brandsLine": "30+ 个品牌",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -107,7 +107,7 @@
     "heroImgLips": "唇部",
     "heroImgSkin": "水光针",
     "trustShipTitle": "当日发货",
-    "trustShipSub": "15点前下单 · DHL 与 Colissimo",
+    "trustShipSub": "15点前下单（工作日）· DHL Express 与 GLS",
     "trustCeTitle": "CE 认证",
     "trustCeSub": "批次完整可追溯",
     "trustSupportTitle": "每周 5 天支持",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "全程可追溯",
     "editoFeat1Sub": "每款产品均带批号与 CE 认证。",
     "editoFeat2Title": "严控冷链",
-    "editoFeat2Sub": "保温配送，DHL 与 Colissimo Express。",
+    "editoFeat2Sub": "保温配送，DHL Express 与 GLS。",
     "editoCta": "探索产品目录 →",
     "editoBadgeDelay": "24-48 小时",
-    "editoBadgeDelaySub": "配送至全欧洲",
+    "editoBadgeDelaySub": "法国境内送达 · 欧洲 48-72 小时",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} 条已验证评价 <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "专业知识",
     "expertiseTitle": "我们专家的专业造诣",
@@ -368,11 +368,29 @@
       "invalid_email": "电子邮箱无效。",
       "password_too_short": "密码太短（至少 8 个字符）。",
       "generic": "发生错误。",
-      "network": "网络错误。"
+      "network": "网络错误。",
+      "invalid_rpps": "RPPS（11 位）或 ADELI（9 位）编号无效。",
+      "invalid_profession": "请选择您的职业。"
     },
     "forgotPassword": "忘记密码？",
     "editAddress": "修改",
-    "editAddressTitle": "修改地址"
+    "editAddressTitle": "修改地址",
+    "profession": "职业",
+    "professionChoose": "请选择您的职业",
+    "professions": {
+      "medecin": "医生",
+      "chirurgien-dentiste": "牙科医生",
+      "pharmacien": "药剂师",
+      "infirmier": "护士",
+      "autre": "其他医疗专业人员"
+    },
+    "company": "公司 / 诊所（选填）",
+    "companyPlaceholder": "马丁医生诊所",
+    "rpps": "RPPS / ADELI 编号（选填）",
+    "rppsPlaceholder": "11 位（RPPS）或 9 位（ADELI）",
+    "rppsHelp": "如未在此填写，订购医生专用产品时将要求提供 RPPS/ADELI 编号。",
+    "newsletterOptIn": "我同意接收新闻通讯（新品、培训、优惠）。一键退订。",
+    "guestTracking": "未注册账户下单？<a>在此查询订单</a>"
   },
   "addressForm": {
     "address": "地址",
@@ -593,7 +611,8 @@
     "title": "我的收藏",
     "count": "{count, plural, other {# 件收藏产品}}",
     "emptyLead": "在此找回您喜欢的产品。",
-    "emptyTitle": "暂无收藏"
+    "emptyTitle": "暂无收藏",
+    "localLead": "您的收藏保存在此设备上。登录后即可保存到账户，随时随地查看。"
   },
   "brand": {
     "fallbackName": "品牌",
@@ -651,7 +670,16 @@
     "sent": "Thank you, your message has been received. We reply within 24 business hours.",
     "error": "Sending failed. Please try again.",
     "errFileBig": "File too large (2 MB max).",
-    "errFileType": "File type not accepted."
+    "errFileType": "File type not accepted.",
+    "name": "姓名",
+    "phone": "电话（选填）",
+    "orderReference": "订单编号（选填）",
+    "orderReferencePlaceholder": "例如：XKBKNABJK",
+    "errName": "请输入您的姓名。",
+    "errPhone": "电话号码无效。",
+    "errEmail": "电子邮箱无效。",
+    "coordsTitle": "联系方式",
+    "coordsCountry": "法国"
   },
   "compare": {
     "button": "Compare",
@@ -785,5 +813,39 @@
     "tileShipSub": "DHL Express 和 GLS — 不含税满 400 € 免运费",
     "tilePayTitle": "安全支付",
     "tilePaySub": "3D-Secure 加密交易"
+  },
+  "consent": {
+    "label": "Cookie 同意",
+    "text": "我们使用受众统计和广告个性化 Cookie 来改善您的体验。您可以选择接受或拒绝。请参阅我们的<a>隐私政策</a>。",
+    "refuse": "拒绝",
+    "accept": "接受"
+  },
+  "orderTracking": {
+    "title": "订单查询",
+    "lead": "未注册账户下单？请输入订单编号和下单时使用的电子邮箱。",
+    "reference": "订单编号",
+    "referencePlaceholder": "例如：XKBKNABJK",
+    "referenceHint": "9 个字母，见订单确认邮件。",
+    "email": "下单邮箱",
+    "emailPlaceholder": "you@clinic.cn",
+    "submit": "查询订单",
+    "searching": "查询中…",
+    "errInvalid": "请输入有效的订单编号和电子邮箱。",
+    "errNotFound": "没有与该订单编号和邮箱匹配的订单，请检查输入。",
+    "errGeneric": "订单查询暂时不可用，请几分钟后重试。",
+    "orderTitle": "订单 {reference}",
+    "placedOn": "下单日期：{date}",
+    "stepReceived": "已接收",
+    "stepShipped": "已发货",
+    "stepDelivered": "已送达",
+    "carrier": "承运商",
+    "trackingNumber": "运单号",
+    "trackingPending": "发货后可查看",
+    "total": "实付金额",
+    "ttc": "含税",
+    "trackParcel": "在承运商网站追踪包裹",
+    "products": "商品",
+    "haveAccount": "已有账户？<a>查看全部订单</a>",
+    "needHelp": "对订单有疑问？<a>联系我们</a>"
   }
 }

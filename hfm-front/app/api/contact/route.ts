@@ -28,11 +28,20 @@ export async function POST(req: NextRequest) {
   if (!form) {
     return NextResponse.json({ error: 'invalid_request' }, { status: 400, headers: NO_STORE });
   }
+  const name = String(form.get('name') ?? '').replace(/\s+/g, ' ').trim().slice(0, 120);
   const email = String(form.get('email') ?? '').trim();
+  const phone = String(form.get('phone') ?? '').trim().slice(0, 32);
+  const orderReference = String(form.get('order_reference') ?? '').trim().toUpperCase().slice(0, 32);
   const message = String(form.get('message') ?? '').trim();
   const idContact = Number(form.get('id_contact') ?? 0);
   const locale = String(form.get('locale') ?? 'fr');
 
+  if (!name || /[<>{}]/.test(name)) {
+    return NextResponse.json({ error: 'invalid_name' }, { status: 400, headers: NO_STORE });
+  }
+  if (phone && !/^\+?[\d\s().\-]{6,}$/.test(phone)) {
+    return NextResponse.json({ error: 'invalid_phone' }, { status: 400, headers: NO_STORE });
+  }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
     return NextResponse.json({ error: 'invalid_email' }, { status: 400, headers: NO_STORE });
   }
@@ -59,9 +68,21 @@ export async function POST(req: NextRequest) {
   // id_customer imposé par la SESSION (jamais par le navigateur) : rattache le fil au compte.
   const user = await getSessionUser();
 
+  // Le fil Service Client natif n'a ni nom, ni téléphone, ni référence de commande : on les place
+  // en tête du message (lisibles par l'équipe dans le BO et dans l'e-mail de notification).
+  // La référence n'est PAS convertie en id_order : elle n'est pas vérifiée contre l'e-mail.
+  const header = [
+    `Nom : ${name}`,
+    phone ? `Téléphone : ${phone}` : '',
+    orderReference ? `N° de commande : ${orderReference.replace(/[^A-Z0-9#\-]/g, '')}` : '',
+  ].filter(Boolean).join('\n');
+
   const res = await bridgePost('contact', {
     email,
-    message,
+    message: `${header}\n\n${message}`,
+    name,
+    ...(phone ? { phone } : {}),
+    ...(orderReference ? { order_reference: orderReference } : {}),
     id_contact: idContact,
     id_lang: idLangFor(locale),
     user_agent: req.headers.get('user-agent') ?? '',

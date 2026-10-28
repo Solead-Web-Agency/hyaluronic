@@ -96,9 +96,9 @@
   "home": {
     "badge": "10 Jahre · zugelassener Großhändler für medizinische Ästhetik",
     "heroTitle1": "Das Injektabel der Wahl,",
-    "heroTitle2": "geliefert ab morgen.",
+    "heroTitle2": "noch am selben Tag versandt.",
     "heroLead": "Hyaluronsäure, Mesotherapie, Peelings und Fadenlifting — direkt von den Laboren bezogen, CE-Kennzeichnung und Rückverfolgbarkeit für jede Charge.",
-    "ctaPractitionerRates": "Preise für Fachleute →",
+    "ctaPractitionerRates": "Zum Katalog →",
     "reviewsLine": "{count, number} verifizierte Bewertungen",
     "brandsLine": "+30 Marken",
     "brandsSub": "Galderma · Allergan · Teoxane…",
@@ -106,8 +106,8 @@
     "heroImgTopSub": "Bestseller",
     "heroImgLips": "Lippen",
     "heroImgSkin": "Skin Booster",
-    "trustShipTitle": "Heute versandt",
-    "trustShipSub": "Bestellung vor 15 Uhr · DHL & Colissimo",
+    "trustShipTitle": "Versand am selben Tag",
+    "trustShipSub": "Bestellung vor 15 Uhr (Werktage) · DHL Express & GLS",
     "trustCeTitle": "CE-Kennzeichnung",
     "trustCeSub": "vollständige Chargenrückverfolgbarkeit",
     "trustSupportTitle": "Support 5 Tage/Woche",
@@ -130,10 +130,10 @@
     "editoFeat1Title": "Vollständige Rückverfolgbarkeit",
     "editoFeat1Sub": "Chargennummer und CE-Kennzeichnung für jeden Artikel.",
     "editoFeat2Title": "Beherrschte Kühlkette",
-    "editoFeat2Sub": "isothermischer Versand, DHL & Colissimo Express.",
+    "editoFeat2Sub": "isothermischer Versand, DHL Express & GLS.",
     "editoCta": "Katalog entdecken →",
     "editoBadgeDelay": "24-48 Std.",
-    "editoBadgeDelaySub": "Lieferung in ganz Europa",
+    "editoBadgeDelaySub": "Lieferung in Frankreich · 48-72 Std. in Europa",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} verifizierte Bewertungen <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Fachwissen",
     "expertiseTitle": "Das Know-how unserer Spezialisten",
@@ -368,11 +368,29 @@
       "invalid_email": "Ungültige E-Mail-Adresse.",
       "password_too_short": "Passwort zu kurz (mind. 8 Zeichen).",
       "generic": "Ein Fehler ist aufgetreten.",
-      "network": "Netzwerkfehler."
+      "network": "Netzwerkfehler.",
+      "invalid_rpps": "Ungültige RPPS- (11 Ziffern) oder ADELI-Nummer (9 Ziffern).",
+      "invalid_profession": "Bitte geben Sie Ihren Beruf an."
     },
     "forgotPassword": "Passwort vergessen?",
     "editAddress": "Bearbeiten",
-    "editAddressTitle": "Adresse bearbeiten"
+    "editAddressTitle": "Adresse bearbeiten",
+    "profession": "Beruf",
+    "professionChoose": "Wählen Sie Ihren Beruf",
+    "professions": {
+      "medecin": "Arzt / Ärztin",
+      "chirurgien-dentiste": "Zahnarzt / Zahnärztin",
+      "pharmacien": "Apotheker/in",
+      "infirmier": "Pflegekraft",
+      "autre": "Andere Gesundheitsfachkraft"
+    },
+    "company": "Firma / Praxis (optional)",
+    "companyPlaceholder": "Praxis Dr. Martin",
+    "rpps": "RPPS-/ADELI-Nr. (optional)",
+    "rppsPlaceholder": "11 Ziffern (RPPS) oder 9 Ziffern (ADELI)",
+    "rppsHelp": "Wird die RPPS-/ADELI-Nummer hier nicht angegeben, wird sie bei der Bestellung von Ärzten vorbehaltenen Produkten abgefragt.",
+    "newsletterOptIn": "Ich möchte den Newsletter erhalten (Neuheiten, Schulungen, Angebote). Abmeldung mit 1 Klick.",
+    "guestTracking": "Ohne Konto bestellt? <a>Hier Ihre Bestellung verfolgen</a>"
   },
   "addressForm": {
     "address": "Adresse",
@@ -593,7 +611,8 @@
     "title": "Meine Favoriten",
     "count": "{count, plural, one {# Lieblingsprodukt} other {# Lieblingsprodukte}}",
     "emptyLead": "Hier finden Sie die Produkte, die Ihnen gefallen.",
-    "emptyTitle": "Noch keine Favoriten"
+    "emptyTitle": "Noch keine Favoriten",
+    "localLead": "Ihre Favoriten werden auf diesem Gerät gespeichert. Melden Sie sich an, um sie in Ihrem Konto zu sichern und überall wiederzufinden."
   },
   "brand": {
     "fallbackName": "Marke",
@@ -651,7 +670,16 @@
     "sent": "Vielen Dank, Ihre Nachricht ist eingegangen. Wir antworten innerhalb von 24 Werkstunden.",
     "error": "Senden fehlgeschlagen. Bitte erneut versuchen.",
     "errFileBig": "Datei zu groß (max. 2 MB).",
-    "errFileType": "Dateityp nicht zulässig."
+    "errFileType": "Dateityp nicht zulässig.",
+    "name": "Vor- und Nachname",
+    "phone": "Telefon (optional)",
+    "orderReference": "Bestellnr. (optional)",
+    "orderReferencePlaceholder": "z. B. XKBKNABJK",
+    "errName": "Bitte geben Sie Ihren Namen an.",
+    "errPhone": "Ungültige Telefonnummer.",
+    "errEmail": "Ungültige E-Mail-Adresse.",
+    "coordsTitle": "Kontaktdaten",
+    "coordsCountry": "Frankreich"
   },
   "compare": {
     "button": "Vergleichen",
@@ -785,5 +813,39 @@
     "tileShipSub": "DHL Express & GLS — kostenlos ab 400 € exkl. MwSt.",
     "tilePayTitle": "Sichere Zahlung",
     "tilePaySub": "Verschlüsselte 3D-Secure-Transaktionen"
+  },
+  "consent": {
+    "label": "Cookie-Einwilligung",
+    "text": "Wir verwenden Cookies zur Reichweitenmessung und zur Personalisierung von Werbung, um Ihr Erlebnis zu verbessern. Sie können zustimmen oder ablehnen. Siehe unsere <a>Datenschutzerklärung</a>.",
+    "refuse": "Ablehnen",
+    "accept": "Akzeptieren"
+  },
+  "orderTracking": {
+    "title": "Sendungsverfolgung",
+    "lead": "Ohne Konto bestellt? Geben Sie die Bestellreferenz und die bei der Bestellung verwendete E-Mail-Adresse ein.",
+    "reference": "Bestellreferenz",
+    "referencePlaceholder": "z. B. XKBKNABJK",
+    "referenceHint": "9 Buchstaben, in Ihrer Bestätigungs-E-Mail angegeben.",
+    "email": "E-Mail der Bestellung",
+    "emailPlaceholder": "sie@praxis.de",
+    "submit": "Bestellung verfolgen",
+    "searching": "Suche…",
+    "errInvalid": "Bitte geben Sie eine gültige Referenz und E-Mail-Adresse ein.",
+    "errNotFound": "Keine Bestellung entspricht dieser Referenz und E-Mail. Bitte prüfen Sie Ihre Eingabe.",
+    "errGeneric": "Die Verfolgung ist vorübergehend nicht verfügbar. Bitte versuchen Sie es in einigen Minuten erneut.",
+    "orderTitle": "Bestellung {reference}",
+    "placedOn": "Aufgegeben am {date}",
+    "stepReceived": "Eingegangen",
+    "stepShipped": "Versandt",
+    "stepDelivered": "Zugestellt",
+    "carrier": "Versanddienstleister",
+    "trackingNumber": "Sendungsnummer",
+    "trackingPending": "Verfügbar ab Versand",
+    "total": "Bezahlter Betrag",
+    "ttc": "inkl. MwSt.",
+    "trackParcel": "Paket beim Versanddienstleister verfolgen",
+    "products": "Produkte",
+    "haveAccount": "Sie haben ein Konto? <a>Alle Ihre Bestellungen ansehen</a>",
+    "needHelp": "Eine Frage zu Ihrer Bestellung? <a>Kontaktieren Sie uns</a>"
   }
 }
