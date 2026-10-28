@@ -108,7 +108,11 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             'reference' => $order->reference,
             'date_add' => substr((string) $order->date_add, 0, 16),
             'status' => Validate::isLoadedObject($state) ? $state->name : '',
-            'shipped' => Validate::isLoadedObject($state) && (bool) $state->shipped,
+            // Le drapeau « shipped » de PS est déjà vrai en « En cours de préparation » dans cette
+            // boutique : expédiée = n° de suivi connu ou statut Expédié / Livré.
+            'shipped' => $tracking !== '' || in_array((int) $order->current_state, [
+                (int) Configuration::get('PS_OS_SHIPPING'), (int) Configuration::get('PS_OS_DELIVERED'),
+            ], true),
             'delivered' => Validate::isLoadedObject($state) && (bool) $state->delivery
                 && (int) $order->current_state === (int) Configuration::get('PS_OS_DELIVERED'),
             'total_paid_incl_tax' => (float) Tools::ps_round($order->total_paid_tax_incl, 2),

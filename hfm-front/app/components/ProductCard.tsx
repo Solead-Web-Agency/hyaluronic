@@ -12,7 +12,7 @@ import { useWishlist } from '../wishlist';
 import { COMPARE_EVENT, COMPARE_MAX, readCompare, toggleCompare } from '@/lib/compare';
 
 export default function ProductCard({ product }: { product: Card }) {
-  const { addToCart, openQuick, customer } = useStore();
+  const { addToCart, openQuick } = useStore();
   const { has, toggle } = useWishlist();
   // Comparateur : la sélection vit en localStorage. On la relit sur l'évènement global pour que
   // toutes les cartes ET la barre flottante restent synchronisées (arbres React distincts).
@@ -39,10 +39,8 @@ export default function ProductCard({ product }: { product: Card }) {
   const onFav = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    if (!customer) {
-      router.push('/compte?next=/favoris');
-      return;
-    }
+    // Visiteur non connecté : le store garde le favori en local et le fusionne au compte à la
+    // connexion (audit 27/10, M9 : le favori était perdu après un renvoi vers la connexion).
     toggle(product.id);
   };
   const [added, setAdded] = useState(false);
