@@ -25,7 +25,7 @@
     "rateLimited": "Troppi tentativi. Riprova tra qualche minuto."
   },
   "header": {
-    "topbarShipping": "Spedizione in giornata — ordini entro le 15:00 · DHL & Colissimo Express",
+    "topbarShipping": "Spedizione in giornata per ordini effettuati entro le 15:00 (giorni lavorativi) · DHL Express e GLS",
     "topbarFreeShipping": "Spedizione gratuita da 400 € IVA escl.",
     "topbarCe": "Marcatura CE · tracciabilità completa",
     "logoSub": "Specialista in iniezioni estetiche",
@@ -41,13 +41,13 @@
     "navAccessories": "Accessori",
     "navThreads": "Fili di trazione",
     "allBrands": "Tutte le marche",
-    "brandsCount": "{count} aziende",
+    "brandsCount": "{count, plural, one {# azienda} other {# aziende}}",
     "seeAll": "Vedi tutto →",
     "featured": "In evidenza",
     "discovery": "Scoperta",
     "see": "Vedi →",
     "promosTop": "Promo & Top",
-    "ceDelivery": "CE / ANSM · Consegna 24-48 h",
+    "ceDelivery": "Consegna in 24-48 h in Francia",
     "mFillersTitle": "Filler HA",
     "mFillersSub": "Acido ialuronico reticolato",
     "mMesoTitle": "Mesoterapia",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Per marca",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Promo",
-    "mPromosSub": "Fino al −30 % questa settimana",
+    "mPromosSub": "Più venduti e selezioni",
     "loginPractitioner": "Accesso professionisti",
     "tagCe": "✓ Marcatura CE",
     "tagDelay": "⚡ 24-48 h",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Selezioni"
   },
   "footer": {
     "logoSub": "Specialista in iniezioni estetiche",
@@ -87,9 +88,9 @@
     "serviceLegal": "Note legali",
     "serviceContact": "Contattaci",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Carta bancaria (Visa, Mastercard, CB) · PayPal · Amazon Pay · Bonifico bancario · Pagamento sicuro 3-D Secure",
+    "zonesTitle": "Per zona",
+    "effectsTitle": "Per effetto",
     "allBrands": "All brands",
     "serviceCookies": "Gestisci i cookie"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Catalogo",
     "heading": "Catalogo",
     "searchHeading": "Ricerca « {query} »",
-    "productsCount": "{count} prodotti",
+    "productsCount": "{count, plural, one {# prodotto} other {# prodotti}}",
     "filterAndSort": "Filtra e ordina",
     "filters": "Filtri",
     "searchLabel": "Ricerca",
@@ -322,12 +323,23 @@
     "categoryLabel": "Categoria",
     "all": "Tutte",
     "brandLabel": "Marca",
-    "seeProducts": "Vedi i {count} prodotti",
-    "resultsCount": "{count} risultati",
+    "seeProducts": "{count, plural, =0 {Nessun prodotto} one {Vedi # prodotto} other {Vedi i # prodotti}}",
+    "resultsCount": "{count, plural, one {# risultato} other {# risultati}}",
     "sortPop": "Popolari",
     "sortPriceAsc": "Prezzo ↑",
     "sortPriceDesc": "Prezzo ↓",
-    "noResults": "Nessun prodotto corrisponde a questo filtro."
+    "noResults": "Nessun prodotto corrisponde a questo filtro.",
+    "zoneLabel": "Zona",
+    "effectLabel": "Effetto",
+    "availabilityLabel": "Disponibilità",
+    "priceLabel": "Prezzo IVA escl.",
+    "unavailable": "Non disponibile",
+    "priceUnder": "Meno di {max} € IVA escl.",
+    "priceBetween": "{min} – {max} € IVA escl.",
+    "priceOver": "Oltre {min} € IVA escl.",
+    "clearFilters": "Cancella filtri",
+    "sortLabel": "Ordina per",
+    "rubricCount": "{count, plural, one {# sezione} other {# sezioni}}"
   },
   "account": {
     "breadcrumb": "Il mio account",
@@ -602,7 +614,10 @@
       "croma": "Azienda austriaca, filler e skin booster ad alta purezza.",
       "teoxane": "Riferimento svizzero dell'acido ialuronico, formule Resilient Hyaluronic Acid.",
       "mccm": "Cocktail di mesoterapia e soluzioni iniettabili professionali."
-    }
+    },
+    "indexTitle": "Tutte le marche",
+    "indexIntro": "I laboratori e le marche che distribuiamo, con il numero di prodotti disponibili per ciascuna.",
+    "brandsCount": "{count, plural, one {# marca} other {# marche}}"
   },
   "zone": {
     "breadcrumbByZone": "Per zona",

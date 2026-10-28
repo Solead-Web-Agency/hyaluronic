@@ -10,17 +10,20 @@ import type { ProductCard } from '@/lib/ps';
 import ProductCardComp from './ProductCard';
 
 const QUICK_CHIPS = ['Juvéderm', 'Profhilo', 'Lèvres', 'Mésothérapie', 'Peelings'];
+// Raccourcis vers les VRAIES catégories du méga-menu (typologies) — le catalogue redirige
+// ?category={id} vers l'URL de la catégorie dans la langue courante.
 const SEARCH_CATS = [
-  { icon: '💧', labelKey: 'catFillers' },
-  { icon: '✦', labelKey: 'catSkinBoosters' },
-  { icon: '○', labelKey: 'catMeso' },
-  { icon: '◇', labelKey: 'catPeelings' },
-  { icon: '⋔', labelKey: 'catThreads' },
+  { icon: '💧', labelKey: 'catFillers', id: 311 },
+  { icon: '✦', labelKey: 'catSkinBoosters', id: 313 },
+  { icon: '○', labelKey: 'catMeso', id: 314 },
+  { icon: '◇', labelKey: 'catPeelings', id: 317 },
+  { icon: '⋔', labelKey: 'catThreads', id: 316 },
 ];
 
 export default function SearchOverlay() {
   const t = useTranslations('search');
   const tcat = useTranslations('catalogue');
+  const tc = useTranslations('common');
   const { searchOpen, closeSearch } = useStore();
   const router = useRouter();
   const locale = useLocale();
@@ -103,7 +106,7 @@ export default function SearchOverlay() {
                 </div>
                 <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.11em', textTransform: 'uppercase', color: '#8A8170', margin: '26px 0 13px' }}>{t('categories')}</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {SEARCH_CATS.map((c) => <div key={c.labelKey} onClick={() => { closeSearch(); router.push('/catalogue'); }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '12px', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '11px', padding: '12px 15px', transition: 'border-color .2s ease, background .2s ease' }}><span style={{ width: '32px', height: '32px', flex: 'none', borderRadius: '8px', background: 'rgba(140,198,63,.14)', color: '#5E8E1F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px' }}>{c.icon}</span><span style={{ fontFamily: "'Spectral',serif", fontSize: '15px', color: '#34352F', flex: 1 }}>{t(c.labelKey)}</span><span style={{ color: '#C9C2AF', fontSize: '16px' }}>›</span></div>)}
+                  {SEARCH_CATS.map((c) => <div key={c.labelKey} onClick={() => { closeSearch(); router.push(`/${locale}/catalogue?category=${c.id}`); }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '12px', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '11px', padding: '12px 15px', transition: 'border-color .2s ease, background .2s ease' }}><span style={{ width: '32px', height: '32px', flex: 'none', borderRadius: '8px', background: 'rgba(140,198,63,.14)', color: '#5E8E1F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px' }}>{c.icon}</span><span style={{ fontFamily: "'Spectral',serif", fontSize: '15px', color: '#34352F', flex: 1 }}>{t(c.labelKey)}</span><span style={{ color: '#C9C2AF', fontSize: '16px' }}>›</span></div>)}
                 </div>
               </div>
               <div>
@@ -112,7 +115,7 @@ export default function SearchOverlay() {
                   {pop.map((p) => <div key={p.id} onClick={() => { closeSearch(); router.push(`/produit/${p.id}`); }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '13px', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '11px', padding: '10px 13px', transition: 'border-color .2s ease' }}><div style={{ width: '46px', height: '46px', flex: 'none', borderRadius: '8px', overflow: 'hidden', background: '#F2F0EA' }}>{p.img ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={p.img} alt="" loading="lazy" decoding="async" width={46} height={46} style={{ width: '46px', height: '46px', objectFit: 'cover', display: 'block' }} />
-                  ) : null}</div><div style={{ flex: 1, minWidth: 0 }}>{p.brand ? <div style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '.07em', textTransform: 'uppercase', color: '#8A8170' }}>{p.brand}</div> : null}<div style={{ fontFamily: "'Spectral',serif", fontSize: '14px', color: '#34352F', lineHeight: 1.25, marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div></div><span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '13.5px', color: '#434343', whiteSpace: 'nowrap' }}>{fmt(p.ht)} €</span></div>)}
+                  ) : null}</div><div style={{ flex: 1, minWidth: 0 }}>{p.brand ? <div style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '.07em', textTransform: 'uppercase', color: '#8A8170' }}>{p.brand}</div> : null}<div style={{ fontFamily: "'Spectral',serif", fontSize: '14px', color: '#34352F', lineHeight: 1.25, marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div></div><span style={{ flex: 'none', textAlign: 'right', whiteSpace: 'nowrap' }}><span style={{ display: 'block', fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '13.5px', color: '#434343' }}>{fmt(p.ht)} € <span style={{ fontSize: '11px', fontWeight: 600, color: '#8A8170' }}>{tc('exclTax')}</span></span><span style={{ display: 'block', fontSize: '11px', color: '#9A9A9A', marginTop: '1px' }}>{tc('inclTaxShort', { amount: fmt(p.ttc) })}</span></span></div>)}
                 </div>
               </div>
             </div>

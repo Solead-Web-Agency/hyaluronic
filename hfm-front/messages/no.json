@@ -25,7 +25,7 @@
     "rateLimited": "For mange forsøk. Prøv igjen om noen minutter."
   },
   "header": {
-    "topbarShipping": "Sendes samme dag — bestill før kl. 15 · DHL & Colissimo Express",
+    "topbarShipping": "Sendes samme dag ved bestilling før kl. 15 (virkedager) · DHL Express & GLS",
     "topbarFreeShipping": "Gratis levering fra 400 € eks. mva.",
     "topbarCe": "CE-merking · full sporbarhet",
     "logoSub": "Ekspert på estetiske injeksjoner",
@@ -41,13 +41,13 @@
     "navAccessories": "Tilbehør",
     "navThreads": "Trådløft",
     "allBrands": "Alle merker",
-    "brandsCount": "{count} merker",
+    "brandsCount": "{count, plural, one {# merke} other {# merker}}",
     "seeAll": "Se alle →",
     "featured": "I fokus",
     "discovery": "Oppdag",
     "see": "Se →",
     "promosTop": "Tilbud & Topp",
-    "ceDelivery": "CE / ANSM · Levering 24–48 t",
+    "ceDelivery": "Levering på 24–48 t i Frankrike",
     "mFillersTitle": "HA-fillere",
     "mFillersSub": "Tverrbundet hyaluronsyre",
     "mMesoTitle": "Mesoterapi",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Etter merke",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Tilbud",
-    "mPromosSub": "Opptil −30 % denne uken",
+    "mPromosSub": "Bestselgere & utvalg",
     "loginPractitioner": "Innlogging for behandlere",
     "tagCe": "✓ CE-merking",
     "tagDelay": "⚡ 24–48 t",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Utvalg"
   },
   "footer": {
     "logoSub": "Ekspert på estetiske injeksjoner",
@@ -87,9 +88,9 @@
     "serviceLegal": "Juridisk informasjon",
     "serviceContact": "Kontakt oss",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Bankkort (Visa, Mastercard, CB) · PayPal · Amazon Pay · Bankoverføring · Sikker betaling med 3-D Secure",
+    "zonesTitle": "Etter område",
+    "effectsTitle": "Etter effekt",
     "allBrands": "All brands",
     "serviceCookies": "Administrer informasjonskapsler"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Katalog",
     "heading": "Katalog",
     "searchHeading": "Søk « {query} »",
-    "productsCount": "{count} produkter",
+    "productsCount": "{count, plural, one {# produkt} other {# produkter}}",
     "filterAndSort": "Filtrer & sorter",
     "filters": "Filtre",
     "searchLabel": "Søk",
@@ -322,12 +323,23 @@
     "categoryLabel": "Kategori",
     "all": "Alle",
     "brandLabel": "Merke",
-    "seeProducts": "Se {count} produkter",
-    "resultsCount": "{count} resultater",
+    "seeProducts": "{count, plural, =0 {Ingen produkter} one {Se # produkt} other {Se # produkter}}",
+    "resultsCount": "{count, plural, one {# resultat} other {# resultater}}",
     "sortPop": "Populære",
     "sortPriceAsc": "Pris ↑",
     "sortPriceDesc": "Pris ↓",
-    "noResults": "Ingen produkter samsvarer med dette filteret."
+    "noResults": "Ingen produkter samsvarer med dette filteret.",
+    "zoneLabel": "Område",
+    "effectLabel": "Effekt",
+    "availabilityLabel": "Tilgjengelighet",
+    "priceLabel": "Pris eks. mva.",
+    "unavailable": "Ikke tilgjengelig",
+    "priceUnder": "Under {max} € eks. mva.",
+    "priceBetween": "{min} – {max} € eks. mva.",
+    "priceOver": "Over {min} € eks. mva.",
+    "clearFilters": "Fjern filtre",
+    "sortLabel": "Sorter etter",
+    "rubricCount": "{count, plural, one {# kategori} other {# kategorier}}"
   },
   "account": {
     "breadcrumb": "Min konto",
@@ -602,7 +614,10 @@
       "croma": "Østerriksk merke, fillere og skin boosters med høy renhet.",
       "teoxane": "Sveitsisk referanse innen hyaluronsyre, formler med Resilient Hyaluronic Acid.",
       "mccm": "Mesoterapicocktailer og profesjonelle injiserbare løsninger."
-    }
+    },
+    "indexTitle": "Alle merker",
+    "indexIntro": "Laboratoriene og merkene vi distribuerer, med antall tilgjengelige produkter for hvert merke.",
+    "brandsCount": "{count, plural, one {# merke} other {# merker}}"
   },
   "zone": {
     "breadcrumbByZone": "Etter sone",

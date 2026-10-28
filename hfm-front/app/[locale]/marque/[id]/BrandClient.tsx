@@ -2,16 +2,16 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { type Card } from '@/lib/cardModel';
-import { useAutoLoad } from '@/lib/useAutoLoad';
-import ProductCard from '../../../components/ProductCard';
+import type { ProductCard as ProductCardData } from '@/lib/ps';
+import type { ListingFacets } from '@/lib/facets';
+import ProductListing from '../../catalogue/ProductListing';
 
 export type Manu = { id_manufacturer: number; name: string; nb_products: number };
 
 // Marques disposant d'une accroche dédiée ; à défaut, le texte générique.
 const KNOWN_BLURBS = new Set(['vivacy', 'croma', 'teoxane', 'mccm']);
 
-export default function BrandClient({ manu, products }: { manu: Manu | null; products: Card[] }) {
+export default function BrandClient({ manu, products, facets }: { manu: Manu | null; products: ProductCardData[]; facets: ListingFacets }) {
   const t = useTranslations('brand');
   const tc = useTranslations('common');
 
@@ -19,12 +19,11 @@ export default function BrandClient({ manu, products }: { manu: Manu | null; pro
   const blurbKey = name.toLowerCase();
   const blurb = KNOWN_BLURBS.has(blurbKey) ? t(`blurbs.${blurbKey}`) : t('defaultBlurb');
   const count = products.length;
-  const { visible, sentinelRef } = useAutoLoad(count);
 
   return (
     <main data-screen-label="Marque" className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '34px 28px 70px' }}>
       <div style={{ fontSize: '12.5px', color: '#9A9A9A', marginBottom: '18px' }}>
-        <Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  <Link href="/catalogue" style={{ cursor: 'pointer' }}>{t('breadcrumbBrands')}</Link>  /  {name}
+        <Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  <Link href="/marque" style={{ cursor: 'pointer' }}>{t('breadcrumbBrands')}</Link>  /  {name}
       </div>
 
       <div className="hfm-banner" style={{ background: '#434343', borderRadius: '12px', padding: '44px 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '30px', flexWrap: 'wrap' }}>
@@ -45,12 +44,7 @@ export default function BrandClient({ manu, products }: { manu: Manu | null; pro
           {t('noProducts')}
         </div>
       ) : (
-        <>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: '18px', marginTop: '30px' }}>
-            {products.slice(0, visible).map((item) => <ProductCard key={item.id} product={item} />)}
-          </div>
-          <div ref={sentinelRef} aria-hidden="true" style={{ height: '1px' }} />
-        </>
+        <ProductListing products={products} facets={facets} />
       )}
     </main>
   );

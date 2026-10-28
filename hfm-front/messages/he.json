@@ -25,7 +25,7 @@
     "rateLimited": "יותר מדי ניסיונות. נסו שוב בעוד כמה דקות."
   },
   "header": {
-    "topbarShipping": "משלוח באותו יום — הזמינו לפני 15:00 · DHL ו-Colissimo Express",
+    "topbarShipping": "משלוח באותו יום להזמנות שבוצעו לפני 15:00 (בימי עבודה) · DHL Express ו-GLS",
     "topbarFreeShipping": "משלוח חינם מ-400 € ללא מע\"מ",
     "topbarCe": "תקן CE · מעקב מלא",
     "logoSub": "מומחה בהזרקות אסתטיות",
@@ -41,13 +41,13 @@
     "navAccessories": "אביזרים",
     "navThreads": "חוטי מתיחה",
     "allBrands": "כל המותגים",
-    "brandsCount": "{count} מותגים",
+    "brandsCount": "{count, plural, one {מותג אחד} other {# מותגים}}",
     "seeAll": "לצפייה בהכול →",
     "featured": "מומלצים",
     "discovery": "גילוי",
     "see": "לצפייה →",
     "promosTop": "מבצעים ורבי-מכר",
-    "ceDelivery": "CE / ANSM · משלוח תוך 24-48 שעות",
+    "ceDelivery": "משלוח תוך 24-48 שעות בצרפת",
     "mFillersTitle": "פילרי HA",
     "mFillersSub": "חומצה היאלורונית מצולבת",
     "mMesoTitle": "מזותרפיה",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "לפי מותג",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "מבצעים",
-    "mPromosSub": "עד −30% השבוע",
+    "mPromosSub": "רבי מכר ומבחרים",
     "loginPractitioner": "התחברות מטפלים",
     "tagCe": "✓ תקן CE",
     "tagDelay": "⚡ 24-48 שעות",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "מבחרים"
   },
   "footer": {
     "logoSub": "מומחה בהזרקות אסתטיות",
@@ -87,9 +88,9 @@
     "serviceLegal": "מידע משפטי",
     "serviceContact": "צרו קשר",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "כרטיס אשראי (Visa, Mastercard, CB) · PayPal · Amazon Pay · העברה בנקאית · תשלום מאובטח 3-D Secure",
+    "zonesTitle": "לפי אזור",
+    "effectsTitle": "לפי השפעה",
     "allBrands": "All brands",
     "serviceCookies": "ניהול קובצי Cookie"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "קטלוג",
     "heading": "קטלוג",
     "searchHeading": "חיפוש «{query}»",
-    "productsCount": "{count} מוצרים",
+    "productsCount": "{count, plural, one {מוצר אחד} two {# מוצרים} many {# מוצרים} other {# מוצרים}}",
     "filterAndSort": "סינון ומיון",
     "filters": "מסננים",
     "searchLabel": "חיפוש",
@@ -322,12 +323,23 @@
     "categoryLabel": "קטגוריה",
     "all": "הכול",
     "brandLabel": "מותג",
-    "seeProducts": "לצפייה ב-{count} מוצרים",
-    "resultsCount": "{count} תוצאות",
+    "seeProducts": "{count, plural, =0 {אין מוצרים} one {לצפייה במוצר אחד} other {לצפייה ב-# מוצרים}}",
+    "resultsCount": "{count, plural, one {תוצאה אחת} other {# תוצאות}}",
     "sortPop": "פופולריים",
     "sortPriceAsc": "מחיר ↑",
     "sortPriceDesc": "מחיר ↓",
-    "noResults": "אין מוצר התואם לסינון זה."
+    "noResults": "אין מוצר התואם לסינון זה.",
+    "zoneLabel": "אזור",
+    "effectLabel": "השפעה",
+    "availabilityLabel": "זמינות",
+    "priceLabel": "מחיר ללא מע\"מ",
+    "unavailable": "לא זמין",
+    "priceUnder": "עד {max} € ללא מע\"מ",
+    "priceBetween": "{min} – {max} € ללא מע\"מ",
+    "priceOver": "מעל {min} € ללא מע\"מ",
+    "clearFilters": "ניקוי מסננים",
+    "sortLabel": "מיון לפי",
+    "rubricCount": "{count, plural, one {מדור אחד} other {# מדורים}}"
   },
   "account": {
     "breadcrumb": "החשבון שלי",
@@ -602,7 +614,10 @@
       "croma": "מותג אוסטרי, פילרים וסקין בוסטרים בטוהר גבוה.",
       "teoxane": "ההפניה השוויצרית לחומצה היאלורונית, נוסחאות Resilient Hyaluronic Acid.",
       "mccm": "קוקטיילים למזותרפיה ותמיסות הזרקה מקצועיות."
-    }
+    },
+    "indexTitle": "כל המותגים",
+    "indexIntro": "המעבדות והמותגים שאנו מפיצים, עם מספר המוצרים הזמינים לכל אחד מהם.",
+    "brandsCount": "{count, plural, one {מותג אחד} other {# מותגים}}"
   },
   "zone": {
     "breadcrumbByZone": "לפי אזור",

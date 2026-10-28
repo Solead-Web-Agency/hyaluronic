@@ -25,7 +25,7 @@
     "rateLimited": "試行回数が多すぎます。数分後にもう一度お試しください。"
   },
   "header": {
-    "topbarShipping": "当日発送 — 15時までのご注文 · DHL & Colissimo Express",
+    "topbarShipping": "15時までのご注文は当日発送（営業日） · DHL Express & GLS",
     "topbarFreeShipping": "税抜400 €以上で送料無料",
     "topbarCe": "CEマーキング · 完全なトレーサビリティ",
     "logoSub": "美容注入のスペシャリスト",
@@ -41,13 +41,13 @@
     "navAccessories": "アクセサリー",
     "navThreads": "リフトアップ糸",
     "allBrands": "すべてのブランド",
-    "brandsCount": "{count}社",
+    "brandsCount": "{count, plural, other {#社}}",
     "seeAll": "すべて見る →",
     "featured": "注目",
     "discovery": "発見",
     "see": "見る →",
     "promosTop": "セール & トップ",
-    "ceDelivery": "CE / ANSM · お届け 24〜48時間",
+    "ceDelivery": "フランス国内 24〜48時間でお届け",
     "mFillersTitle": "HAフィラー",
     "mFillersSub": "架橋ヒアルロン酸",
     "mMesoTitle": "メソセラピー",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "ブランド別",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "セール",
-    "mPromosSub": "今週は最大 −30 %",
+    "mPromosSub": "売れ筋・セレクション",
     "loginPractitioner": "施術者ログイン",
     "tagCe": "✓ CEマーキング",
     "tagDelay": "⚡ 24〜48時間",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "セレクション"
   },
   "footer": {
     "logoSub": "美容注入のスペシャリスト",
@@ -87,9 +88,9 @@
     "serviceLegal": "法的表示",
     "serviceContact": "お問い合わせ",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "クレジットカード（Visa、Mastercard、CB） · PayPal · Amazon Pay · 銀行振込 · 3-Dセキュア対応の安全な決済",
+    "zonesTitle": "部位別",
+    "effectsTitle": "効果別",
     "allBrands": "All brands",
     "serviceCookies": "Cookieの管理"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "カタログ",
     "heading": "カタログ",
     "searchHeading": "検索 «{query}»",
-    "productsCount": "{count}点の商品",
+    "productsCount": "{count, plural, other {#点の商品}}",
     "filterAndSort": "絞り込み & 並べ替え",
     "filters": "絞り込み",
     "searchLabel": "検索",
@@ -322,12 +323,23 @@
     "categoryLabel": "カテゴリー",
     "all": "すべて",
     "brandLabel": "ブランド",
-    "seeProducts": "{count}点の商品を見る",
-    "resultsCount": "{count}件の結果",
+    "seeProducts": "{count, plural, =0 {商品がありません} other {#点の商品を見る}}",
+    "resultsCount": "{count, plural, other {#件の結果}}",
     "sortPop": "人気順",
     "sortPriceAsc": "価格 ↑",
     "sortPriceDesc": "価格 ↓",
-    "noResults": "この条件に該当する商品はありません。"
+    "noResults": "この条件に該当する商品はありません。",
+    "zoneLabel": "部位",
+    "effectLabel": "効果",
+    "availabilityLabel": "在庫状況",
+    "priceLabel": "価格（税抜）",
+    "unavailable": "在庫なし",
+    "priceUnder": "{max} €未満（税抜）",
+    "priceBetween": "{min}〜{max} €（税抜）",
+    "priceOver": "{min} €以上（税抜）",
+    "clearFilters": "フィルターをクリア",
+    "sortLabel": "並べ替え",
+    "rubricCount": "{count, plural, other {#カテゴリー}}"
   },
   "account": {
     "breadcrumb": "マイアカウント",
@@ -602,7 +614,10 @@
       "croma": "オーストリアのメーカー、高純度のフィラーとスキンブースター。",
       "teoxane": "ヒアルロン酸のスイスの基準、Resilient Hyaluronic Acid製剤。",
       "mccm": "メソセラピーのカクテルとプロ用注入ソリューション。"
-    }
+    },
+    "indexTitle": "すべてのブランド",
+    "indexIntro": "当社が取り扱うラボとブランド、および各ブランドの取扱商品数です。",
+    "brandsCount": "{count, plural, other {#ブランド}}"
   },
   "zone": {
     "breadcrumbByZone": "部位別",

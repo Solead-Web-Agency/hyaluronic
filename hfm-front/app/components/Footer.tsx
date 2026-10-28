@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { idLangFor } from '@/lib/i18n-config';
+import { ROOT_BRANDS, ROOT_EFFECTS, ROOT_TYPOLOGIES, ROOT_ZONES, categoryHref, visibleMenu } from '@/lib/menu';
 import { CONSENT_EVENT } from './ConsentBanner';
 
-type Cat = { id_category: number; name: string; nb_products: number };
+type Cat = { id_category: number; name: string; link_rewrite: string; nb_products: number };
 type MenuCat = Cat & { children: Cat[] };
 
 const colTitle: React.CSSProperties = { fontSize: '12px', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: '#fff', marginBottom: '14px' };
@@ -23,9 +24,6 @@ const LEGAL_LINKS: { key: string; href: string; external?: boolean }[] = [
   { key: 'serviceContact', href: '/contact' },
 ];
 
-// Lien d'une catégorie : sa page si elle a des produits, sinon recherche sur son nom (jamais de page vide).
-const catHref = (c: Cat) => (c.nb_products > 0 ? `/catalogue?category=${c.id_category}` : `/catalogue?q=${encodeURIComponent(c.name)}`);
-
 export default function Footer() {
   const t = useTranslations('footer');
   const locale = useLocale();
@@ -34,15 +32,16 @@ export default function Footer() {
   useEffect(() => {
     fetch(`/api/taxonomy?action=menu&id_lang=${idLangFor(locale)}`)
       .then((r) => r.json())
-      .then((d) => setMenu(d.menu ?? []))
+      // Entrées sans produit masquées, doublons fusionnés : chaque lien mène à une page non vide.
+      .then((d) => setMenu(visibleMenu(d.menu ?? [])))
       .catch(() => {});
   }, [locale]);
 
   const byId = (id: number) => menu.find((c) => c.id_category === id);
-  const brands = (byId(30)?.children ?? []).slice(0, 14);
-  const typologies = byId(301)?.children ?? [];
-  const zones = byId(302)?.children ?? [];
-  const effects = byId(303)?.children ?? [];
+  const brands = (byId(ROOT_BRANDS)?.children ?? []).slice(0, 14);
+  const typologies = byId(ROOT_TYPOLOGIES)?.children ?? [];
+  const zones = byId(ROOT_ZONES)?.children ?? [];
+  const effects = byId(ROOT_EFFECTS)?.children ?? [];
 
   // Rend une colonne de liens catégories (avec repli sur libellés statiques si l'arbre n'est pas encore chargé).
   const linkCol = (title: string, items: Cat[]) => (
@@ -50,7 +49,7 @@ export default function Footer() {
       <div style={colTitle}>{title}</div>
       <div style={colWrap}>
         {items.map((c) => (
-          <Link key={c.id_category} href={catHref(c)} className="hfm-footlink" style={linkStyle}>{c.name}</Link>
+          <Link key={c.id_category} href={categoryHref(c)} className="hfm-footlink" style={linkStyle}>{c.name}</Link>
         ))}
       </div>
     </div>
@@ -76,9 +75,9 @@ export default function Footer() {
           <div style={colTitle}>{t('brandsTitle')}</div>
           <div style={colWrap}>
             {brands.map((b) => (
-              <Link key={b.id_category} href={catHref(b)} className="hfm-footlink" style={linkStyle}>{b.name}</Link>
+              <Link key={b.id_category} href={categoryHref(b)} className="hfm-footlink" style={linkStyle}>{b.name}</Link>
             ))}
-            <Link href="/catalogue?category=30" className="hfm-footlink" style={{ ...linkStyle, color: '#8CC63F', fontWeight: 600, marginTop: '2px' }}>{t('allBrands')} →</Link>
+            <Link href="/marque" className="hfm-footlink" style={{ ...linkStyle, color: '#8CC63F', fontWeight: 600, marginTop: '2px' }}>{t('allBrands')} →</Link>
           </div>
         </div>
       </div>

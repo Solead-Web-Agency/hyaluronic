@@ -25,7 +25,7 @@
     "rateLimited": "Πάρα πολλές προσπάθειες. Δοκιμάστε ξανά σε λίγα λεπτά."
   },
   "header": {
-    "topbarShipping": "Αποστολή την ίδια ημέρα — παραγγελία πριν τις 15:00 · DHL & Colissimo Express",
+    "topbarShipping": "Αποστολή την ίδια ημέρα για παραγγελίες πριν τις 15:00 (εργάσιμες ημέρες) · DHL Express & GLS",
     "topbarFreeShipping": "Δωρεάν παράδοση από 400 € χωρίς ΦΠΑ",
     "topbarCe": "Σήμανση CE · πλήρης ιχνηλασιμότητα",
     "logoSub": "Ειδικός στις αισθητικές ενέσεις",
@@ -41,13 +41,13 @@
     "navAccessories": "Αξεσουάρ",
     "navThreads": "Νήματα σύσφιξης",
     "allBrands": "Όλες οι μάρκες",
-    "brandsCount": "{count} οίκοι",
+    "brandsCount": "{count, plural, one {# οίκος} other {# οίκοι}}",
     "seeAll": "Δείτε όλα →",
     "featured": "Προβεβλημένα",
     "discovery": "Ανακάλυψη",
     "see": "Δείτε →",
     "promosTop": "Προσφορές & Top",
-    "ceDelivery": "CE / ANSM · Παράδοση 24-48 ώρες",
+    "ceDelivery": "Παράδοση σε 24-48 ώρες στη Γαλλία",
     "mFillersTitle": "Fillers HA",
     "mFillersSub": "Σταυροδεσμευμένο υαλουρονικό οξύ",
     "mMesoTitle": "Μεσοθεραπεία",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Ανά μάρκα",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Προσφορές",
-    "mPromosSub": "Έως −30 % αυτή την εβδομάδα",
+    "mPromosSub": "Best sellers & επιλογές",
     "loginPractitioner": "Σύνδεση επαγγελματία",
     "tagCe": "✓ Σήμανση CE",
     "tagDelay": "⚡ 24-48 ώρες",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Επιλογές"
   },
   "footer": {
     "logoSub": "Ειδικός στις αισθητικές ενέσεις",
@@ -87,9 +88,9 @@
     "serviceLegal": "Νομικές πληροφορίες",
     "serviceContact": "Επικοινωνία",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Τραπεζική κάρτα (Visa, Mastercard, CB) · PayPal · Amazon Pay · Τραπεζική μεταφορά · Ασφαλής πληρωμή 3-D Secure",
+    "zonesTitle": "Ανά περιοχή",
+    "effectsTitle": "Ανά αποτέλεσμα",
     "allBrands": "All brands",
     "serviceCookies": "Διαχείριση cookies"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Κατάλογος",
     "heading": "Κατάλογος",
     "searchHeading": "Αναζήτηση « {query} »",
-    "productsCount": "{count} προϊόντα",
+    "productsCount": "{count, plural, one {# προϊόν} other {# προϊόντα}}",
     "filterAndSort": "Φιλτράρισμα & ταξινόμηση",
     "filters": "Φίλτρα",
     "searchLabel": "Αναζήτηση",
@@ -322,12 +323,23 @@
     "categoryLabel": "Κατηγορία",
     "all": "Όλες",
     "brandLabel": "Μάρκα",
-    "seeProducts": "Δείτε τα {count} προϊόντα",
-    "resultsCount": "{count} αποτελέσματα",
+    "seeProducts": "{count, plural, =0 {Κανένα προϊόν} one {Δείτε # προϊόν} other {Δείτε τα # προϊόντα}}",
+    "resultsCount": "{count, plural, one {# αποτέλεσμα} other {# αποτελέσματα}}",
     "sortPop": "Δημοφιλή",
     "sortPriceAsc": "Τιμή ↑",
     "sortPriceDesc": "Τιμή ↓",
-    "noResults": "Κανένα προϊόν δεν αντιστοιχεί σε αυτό το φίλτρο."
+    "noResults": "Κανένα προϊόν δεν αντιστοιχεί σε αυτό το φίλτρο.",
+    "zoneLabel": "Περιοχή",
+    "effectLabel": "Αποτέλεσμα",
+    "availabilityLabel": "Διαθεσιμότητα",
+    "priceLabel": "Τιμή χωρίς ΦΠΑ",
+    "unavailable": "Μη διαθέσιμο",
+    "priceUnder": "Κάτω από {max} € χωρίς ΦΠΑ",
+    "priceBetween": "{min} – {max} € χωρίς ΦΠΑ",
+    "priceOver": "Πάνω από {min} € χωρίς ΦΠΑ",
+    "clearFilters": "Καθαρισμός φίλτρων",
+    "sortLabel": "Ταξινόμηση κατά",
+    "rubricCount": "{count, plural, one {# ενότητα} other {# ενότητες}}"
   },
   "account": {
     "breadcrumb": "Ο λογαριασμός μου",
@@ -602,7 +614,10 @@
       "croma": "Αυστριακός οίκος, fillers και skin boosters υψηλής καθαρότητας.",
       "teoxane": "Ελβετική αναφορά στο υαλουρονικό οξύ, φόρμουλες Resilient Hyaluronic Acid.",
       "mccm": "Κοκτέιλ μεσοθεραπείας και επαγγελματικά ενέσιμα διαλύματα."
-    }
+    },
+    "indexTitle": "Όλες οι μάρκες",
+    "indexIntro": "Τα εργαστήρια και οι μάρκες που διανέμουμε, με τον αριθμό των διαθέσιμων προϊόντων για καθεμία.",
+    "brandsCount": "{count, plural, one {# μάρκα} other {# μάρκες}}"
   },
   "zone": {
     "breadcrumbByZone": "Ανά περιοχή",

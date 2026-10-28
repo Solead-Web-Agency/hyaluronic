@@ -25,7 +25,7 @@
     "rateLimited": "Preveč poskusov. Poskusite znova čez nekaj minut."
   },
   "header": {
-    "topbarShipping": "Odprema še isti dan — naročilo do 15. ure · DHL & Colissimo Express",
+    "topbarShipping": "Odprema še isti dan za naročila, oddana do 15. ure (delovni dnevi) · DHL Express in GLS",
     "topbarFreeShipping": "Brezplačna dostava od 400 € brez DDV",
     "topbarCe": "Oznaka CE · popolna sledljivost",
     "logoSub": "Strokovnjak za estetske injekcije",
@@ -41,13 +41,13 @@
     "navAccessories": "Pripomočki",
     "navThreads": "Liftinški niti",
     "allBrands": "Vse znamke",
-    "brandsCount": "{count} hiš",
+    "brandsCount": "{count, plural, one {# hiša} two {# hiši} few {# hiše} other {# hiš}}",
     "seeAll": "Prikaži vse →",
     "featured": "Izpostavljeno",
     "discovery": "Odkrivanje",
     "see": "Ogled →",
     "promosTop": "Akcije in najboljše",
-    "ceDelivery": "CE / ANSM · Dostava 24–48 h",
+    "ceDelivery": "Dostava v 24–48 h v Franciji",
     "mFillersTitle": "HA polnila",
     "mFillersSub": "Zamrežena hialuronska kislina",
     "mMesoTitle": "Mezoterapija",
@@ -55,7 +55,7 @@
     "mByBrandTitle": "Po znamki",
     "mByBrandSub": "Juvéderm, Teoxane, Vivacy…",
     "mPromosTitle": "Akcije",
-    "mPromosSub": "Do −30 % ta teden",
+    "mPromosSub": "Najbolje prodajani in izbori",
     "loginPractitioner": "Prijava za praktike",
     "tagCe": "✓ Oznaka CE",
     "tagDelay": "⚡ 24–48 h",
@@ -65,7 +65,8 @@
     "promoSales": "On sale",
     "promoNew": "New",
     "promoLido": "With lidocaine",
-    "promoNoLido": "Without lidocaine"
+    "promoNoLido": "Without lidocaine",
+    "selectionTab": "Izbori"
   },
   "footer": {
     "logoSub": "Strokovnjak za estetske injekcije",
@@ -87,9 +88,9 @@
     "serviceLegal": "Pravno obvestilo",
     "serviceContact": "Kontaktirajte nas",
     "copyright": "© 2026 Hyaluronic Filler Market — HMD Distribution",
-    "payments": "VISA · Mastercard · AMEX · SEPA · 3D-Secure",
-    "zonesTitle": "By area",
-    "effectsTitle": "By concern",
+    "payments": "Bančna kartica (Visa, Mastercard, CB) · PayPal · Amazon Pay · Bančno nakazilo · Varno plačilo 3-D Secure",
+    "zonesTitle": "Po predelu",
+    "effectsTitle": "Po učinku",
     "allBrands": "All brands",
     "serviceCookies": "Upravljanje piškotkov"
   },
@@ -314,7 +315,7 @@
     "breadcrumb": "Katalog",
     "heading": "Katalog",
     "searchHeading": "Iskanje « {query} »",
-    "productsCount": "{count} izdelkov",
+    "productsCount": "{count, plural, one {# izdelek} two {# izdelka} few {# izdelki} other {# izdelkov}}",
     "filterAndSort": "Filtriraj in razvrsti",
     "filters": "Filtri",
     "searchLabel": "Iskanje",
@@ -322,12 +323,23 @@
     "categoryLabel": "Kategorija",
     "all": "Vse",
     "brandLabel": "Znamka",
-    "seeProducts": "Oglejte si {count} izdelkov",
-    "resultsCount": "{count} zadetkov",
+    "seeProducts": "{count, plural, =0 {Ni izdelkov} one {Oglejte si # izdelek} two {Oglejte si # izdelka} few {Oglejte si # izdelke} other {Oglejte si # izdelkov}}",
+    "resultsCount": "{count, plural, one {# zadetek} two {# zadetka} few {# zadetki} other {# zadetkov}}",
     "sortPop": "Priljubljeni",
     "sortPriceAsc": "Cena ↑",
     "sortPriceDesc": "Cena ↓",
-    "noResults": "Noben izdelek ne ustreza temu filtru."
+    "noResults": "Noben izdelek ne ustreza temu filtru.",
+    "zoneLabel": "Predel",
+    "effectLabel": "Učinek",
+    "availabilityLabel": "Razpoložljivost",
+    "priceLabel": "Cena brez DDV",
+    "unavailable": "Ni na voljo",
+    "priceUnder": "Pod {max} € brez DDV",
+    "priceBetween": "{min} – {max} € brez DDV",
+    "priceOver": "Nad {min} € brez DDV",
+    "clearFilters": "Počisti filtre",
+    "sortLabel": "Razvrsti po",
+    "rubricCount": "{count, plural, one {# rubrika} two {# rubriki} few {# rubrike} other {# rubrik}}"
   },
   "account": {
     "breadcrumb": "Moj račun",
@@ -602,7 +614,10 @@
       "croma": "Avstrijska hiša, polnila in skin boosterji visoke čistosti.",
       "teoxane": "Švicarska referenca na področju hialuronske kisline, formule Resilient Hyaluronic Acid.",
       "mccm": "Koktajli za mezoterapijo in profesionalne injektabilne raztopine."
-    }
+    },
+    "indexTitle": "Vse znamke",
+    "indexIntro": "Laboratoriji in znamke, ki jih distribuiramo, s številom izdelkov, ki so na voljo za vsako.",
+    "brandsCount": "{count, plural, one {# znamka} two {# znamki} few {# znamke} other {# znamk}}"
   },
   "zone": {
     "breadcrumbByZone": "Po področju",
