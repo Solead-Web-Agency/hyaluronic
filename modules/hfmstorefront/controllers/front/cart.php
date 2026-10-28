@@ -231,9 +231,11 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
     }
 
     /**
-     * Produit commandable ? Aligné sur l'affichage front "available" :
-     * stock > 0, OU le produit autorise explicitement la vente hors stock (out_of_stock = 1).
-     * (On n'utilise PAS le réglage global pour rester cohérent avec le bouton "M'alerter au retour".)
+     * Produit commandable ? MÊME règle que la disponibilité affichée par le catalogue
+     * (products.php::availability) : stock > 0, OU vente hors stock autorisée pour le produit,
+     * réglage par défaut de la boutique compris (out_of_stock = 2 -> PS_ORDER_OUT_OF_STOCK).
+     * Avant, le réglage par défaut était ignoré : 49 produits affichés « Sur commande » étaient
+     * refusés au panier (audit parcours 27/10, B3), alors que le site actuel les vend.
      */
     protected function isProductOrderable($idProduct, $idAttribute)
     {
@@ -241,8 +243,7 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
         if ($qty > 0) {
             return true;
         }
-        $p = new Product((int) $idProduct);
-        return Validate::isLoadedObject($p) && (int) $p->out_of_stock === 1;
+        return Product::isAvailableWhenOutOfStock((int) StockAvailable::outOfStock((int) $idProduct));
     }
 
     /** Lien image (cover) d'un produit du panier. */

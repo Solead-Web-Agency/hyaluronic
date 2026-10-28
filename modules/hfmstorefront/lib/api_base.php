@@ -112,6 +112,15 @@ abstract class HfmStorefrontApiController extends ModuleFrontController
         // Pays du visiteur (géolocalisation transmise par le front) : sert aux règles de prix et
         // aux produits interdits par pays tant que le panier n'a pas d'adresse de livraison.
         HfmCountryRules::setPricingCountryIso((string) $this->in('country', ''));
+        // Le pays du contexte ne vient JAMAIS de la géolocalisation PrestaShop : elle verrait l'IP du
+        // serveur du front (Vercel / AWS, souvent classée « US ») et appliquerait au hasard la
+        // majoration US +30 % et une TVA à 0 % (audit parcours 27/10, B1/B2). Sans adresse de
+        // livraison, PS calcule taxes et règles sur ce pays : celui transmis par le front, sinon
+        // le pays par défaut de la boutique.
+        $idCountry = (int) HfmCountryRules::pricingCountryId() ?: (int) Configuration::get('PS_COUNTRY_DEFAULT');
+        if ($idCountry && (!isset($ctx->country->id) || (int) $ctx->country->id !== $idCountry)) {
+            $ctx->country = new Country($idCountry, isset($ctx->language->id) ? (int) $ctx->language->id : null);
+        }
     }
 
     protected function in($key, $default = null)
