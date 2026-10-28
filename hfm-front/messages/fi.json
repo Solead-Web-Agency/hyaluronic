@@ -757,5 +757,26 @@
     "title": "Ostoskorisi",
     "loading": "Palautetaan ostoskoria…",
     "invalid": "Tämä ostoskorilinkki ei ole kelvollinen."
+  },
+  "offer": {
+    "inStock": "Varastossa",
+    "backorder": "Tilaustuote — lähetys 10–15 päivässä",
+    "backorderShort": "Tilaustuote",
+    "unavailable": "Ei saatavilla",
+    "shipInStock": "Lähetetään samana päivänä ennen klo 15 tehdyille tilauksille (arkipäivisin) · toimitus 24–48 h Ranskassa",
+    "shipBackorder": "Lähetys 10–15 päivässä",
+    "vatFree": "ei arvonlisäveroa",
+    "reference": "Tuotenro {reference}",
+    "shipping": "Toimitus",
+    "shippingNextStep": "Lasketaan seuraavassa vaiheessa",
+    "vat": "ALV",
+    "totalInclNoShipping": "Yhteensä sis. alv, ilman toimitusta",
+    "checkout": "Tilaa · {amount} € sis. alv",
+    "freeShippingRemaining": "Enää <b>{amount} € (alv 0 %)</b> ilmaiseen toimitukseen",
+    "securePayment": "Turvallinen 3D-Secure-maksu · lähetys DHL Expressillä ja GLS:llä",
+    "tileShipTitle": "Seurattava toimitus",
+    "tileShipSub": "DHL Express ja GLS — ilmainen 400 € (alv 0 %) alkaen",
+    "tilePayTitle": "Turvallinen maksu",
+    "tilePaySub": "Salatut 3D-Secure-maksutapahtumat"
   }
 }

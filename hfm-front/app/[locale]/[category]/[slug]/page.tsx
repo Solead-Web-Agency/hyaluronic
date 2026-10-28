@@ -10,7 +10,7 @@ import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
 import ProductDetail, { type ProductView } from '../../produit/[id]/ProductDetail';
 import { type RelatedView } from '../../produit/[id]/RelatedSections';
-import { toCard } from '@/lib/cardModel';
+import { stockStatus, toCard } from '@/lib/cardModel';
 import type { ProductCard as ProductCardData } from '@/lib/ps';
 
 type RawFeature = { name?: string; value?: string };
@@ -176,10 +176,8 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     brand: p.manufacturer || p.brand || null,
     ht: p.price_excl_tax ?? 0,
     ttc: p.price_incl_tax ?? 0,
-    availabilityState: p.availability === 'in_stock' ? 'in'
-      : p.availability === 'backorder' ? 'backorder'
-      : p.availability === 'unavailable' ? 'out'
-      : (p.available ?? (p.quantity ?? 0) > 0) ? 'in' : 'out',
+    // Statut unique (lib/cardModel.ts) : le même que carte, aperçu rapide et comparateur.
+    availabilityState: stockStatus(p.availability, p.available ?? (p.quantity ?? 0) > 0),
     descriptionShort: sanitizeCatalogHtml(p.description_short || ''),
     description: structureDescription(p.description || p.description_short || ''),
     images: Array.isArray(p.images) ? p.images : [],
@@ -200,6 +198,8 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     priceWithoutReductionTtc: p.price_without_reduction_incl_tax ?? undefined,
     quantityDiscounts: Array.isArray(p.quantity_discounts) ? p.quantity_discounts : [],
     canonicalUrl: urlFor(locale, path),
+    // Catégorie par défaut du produit (fil d'Ariane) : fournie par le bridge (category + category_name).
+    category: canonicalCat && p.category_name ? { slug: canonicalCat, name: String(p.category_name) } : null,
   };
 
   const rel = await bridgeGetCached(

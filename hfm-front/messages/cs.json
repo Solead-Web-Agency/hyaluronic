@@ -757,5 +757,26 @@
     "title": "Váš košík",
     "loading": "Obnovujeme váš košík…",
     "invalid": "Tento odkaz na košík není platný."
+  },
+  "offer": {
+    "inStock": "Skladem",
+    "backorder": "Na objednávku — expedice do 10 až 15 dnů",
+    "backorderShort": "Na objednávku",
+    "unavailable": "Nedostupné",
+    "shipInStock": "Odesíláme ještě dnes při objednávce do 15:00 (pracovní dny) · doručení do 24–48 h ve Francii",
+    "shipBackorder": "Expedice do 10 až 15 dnů",
+    "vatFree": "DPH se neúčtuje",
+    "reference": "Kód {reference}",
+    "shipping": "Doprava",
+    "shippingNextStep": "Vypočítá se v dalším kroku",
+    "vat": "DPH",
+    "totalInclNoShipping": "Celkem s DPH, bez dopravy",
+    "checkout": "Objednat · {amount} € s DPH",
+    "freeShippingRemaining": "Už jen <b>{amount} € bez DPH</b> do dopravy zdarma",
+    "securePayment": "Bezpečná platba 3D-Secure · doprava DHL Express a GLS",
+    "tileShipTitle": "Sledovaná zásilka",
+    "tileShipSub": "DHL Express a GLS — zdarma od 400 € bez DPH",
+    "tilePayTitle": "Bezpečná platba",
+    "tilePaySub": "Šifrované transakce 3D-Secure"
   }
 }

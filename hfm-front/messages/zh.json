@@ -757,5 +757,26 @@
     "title": "您的购物车",
     "loading": "正在恢复您的购物车…",
     "invalid": "此购物车链接无效。"
+  },
+  "offer": {
+    "inStock": "现货",
+    "backorder": "需订购 — 10至15天内发货",
+    "backorderShort": "需订购",
+    "unavailable": "暂不可售",
+    "shipInStock": "工作日15点前下单当天发货 · 法国境内24-48小时送达",
+    "shipBackorder": "10至15天内发货",
+    "vatFree": "免增值税",
+    "reference": "货号 {reference}",
+    "shipping": "运费",
+    "shippingNextStep": "将在下一步计算",
+    "vat": "增值税",
+    "totalInclNoShipping": "含税总计(不含运费)",
+    "checkout": "结算 · 含税 {amount} €",
+    "freeShippingRemaining": "再消费 <b>{amount} €(不含税)</b> 即可享免运费",
+    "securePayment": "3D-Secure 安全支付 · 由 DHL Express 和 GLS 发货",
+    "tileShipTitle": "可追踪配送",
+    "tileShipSub": "DHL Express 和 GLS — 不含税满 400 € 免运费",
+    "tilePayTitle": "安全支付",
+    "tilePaySub": "3D-Secure 加密交易"
   }
 }

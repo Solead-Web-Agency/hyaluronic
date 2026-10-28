@@ -757,5 +757,26 @@
     "title": "سلتك",
     "loading": "جارٍ استعادة سلتك…",
     "invalid": "رابط السلة هذا غير صالح."
+  },
+  "offer": {
+    "inStock": "متوفر",
+    "backorder": "حسب الطلب — الشحن خلال 10 إلى 15 يومًا",
+    "backorderShort": "حسب الطلب",
+    "unavailable": "غير متوفر",
+    "shipInStock": "يُشحن اليوم للطلبات قبل الساعة 15:00 (أيام العمل) · التوصيل خلال 24-48 ساعة في فرنسا",
+    "shipBackorder": "الشحن خلال 10 إلى 15 يومًا",
+    "vatFree": "معفى من ضريبة القيمة المضافة",
+    "reference": "المرجع {reference}",
+    "shipping": "الشحن",
+    "shippingNextStep": "يُحسب في الخطوة التالية",
+    "vat": "ضريبة القيمة المضافة",
+    "totalInclNoShipping": "الإجمالي شامل الضريبة، بدون الشحن",
+    "checkout": "إتمام الطلب · {amount} € شامل الضريبة",
+    "freeShippingRemaining": "تبقّى <b>{amount} € بدون ضريبة</b> فقط للحصول على شحن مجاني",
+    "securePayment": "دفع آمن 3D-Secure · الشحن عبر DHL Express و GLS",
+    "tileShipTitle": "توصيل قابل للتتبع",
+    "tileShipSub": "DHL Express و GLS — مجاني ابتداءً من 400 € بدون ضريبة",
+    "tilePayTitle": "دفع آمن",
+    "tilePaySub": "معاملات مشفّرة 3D-Secure"
   }
 }

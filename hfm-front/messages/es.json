@@ -757,5 +757,26 @@
     "title": "Su carrito",
     "loading": "Recuperando su carrito…",
     "invalid": "Este enlace de carrito no es válido."
+  },
+  "offer": {
+    "inStock": "En stock",
+    "backorder": "Bajo pedido — envío en 10 a 15 días",
+    "backorderShort": "Bajo pedido",
+    "unavailable": "No disponible",
+    "shipInStock": "Enviado hoy para pedidos realizados antes de las 15:00 (días laborables) · entrega en 24-48 h en Francia",
+    "shipBackorder": "Envío en 10 a 15 días",
+    "vatFree": "IVA no aplicable",
+    "reference": "Ref. {reference}",
+    "shipping": "Envío",
+    "shippingNextStep": "Se calcula en el siguiente paso",
+    "vat": "IVA",
+    "totalInclNoShipping": "Total con IVA, sin envío",
+    "checkout": "Tramitar pedido · {amount} € con IVA",
+    "freeShippingRemaining": "Solo te faltan <b>{amount} € sin IVA</b> para el envío gratis",
+    "securePayment": "Pago seguro 3D-Secure · envío con DHL Express y GLS",
+    "tileShipTitle": "Envío con seguimiento",
+    "tileShipSub": "DHL Express y GLS — gratis desde 400 € sin IVA",
+    "tilePayTitle": "Pago seguro",
+    "tilePaySub": "Transacciones cifradas 3D-Secure"
   }
 }

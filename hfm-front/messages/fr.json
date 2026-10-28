@@ -757,5 +757,26 @@
     "title": "Votre panier",
     "loading": "Récupération de votre panier…",
     "invalid": "Ce lien de panier n'est pas valide."
+  },
+  "offer": {
+    "inStock": "En stock",
+    "backorder": "Sur commande — expédition sous 10 à 15 jours",
+    "backorderShort": "Sur commande",
+    "unavailable": "Indisponible",
+    "shipInStock": "Expédié aujourd’hui pour toute commande avant 15 h (jours ouvrés) · livraison 24-48 h en France",
+    "shipBackorder": "Expédition sous 10 à 15 jours",
+    "vatFree": "hors TVA",
+    "reference": "Réf. {reference}",
+    "shipping": "Livraison",
+    "shippingNextStep": "Calculée à l’étape suivante",
+    "vat": "TVA",
+    "totalInclNoShipping": "Total TTC hors livraison",
+    "checkout": "Commander · {amount} € TTC",
+    "freeShippingRemaining": "Plus que <b>{amount} € HT</b> pour la livraison offerte",
+    "securePayment": "Paiement sécurisé 3D-Secure · expédition DHL Express & GLS",
+    "tileShipTitle": "Livraison suivie",
+    "tileShipSub": "DHL Express & GLS — offerte dès 400 € HT",
+    "tilePayTitle": "Paiement sécurisé",
+    "tilePaySub": "Transactions chiffrées 3D-Secure"
   }
 }

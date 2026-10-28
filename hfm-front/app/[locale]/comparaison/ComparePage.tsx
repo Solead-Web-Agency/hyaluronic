@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { fmt, productHref } from '@/lib/cardModel';
+import { canBuyStatus, displayReference, fmt, productHref, stockStatus } from '@/lib/cardModel';
+import { DeliveryPromise, StockStatusLine, TaxLine } from '../../components/Availability';
 import { idLangFor } from '@/lib/i18n-config';
 import { COMPARE_EVENT, clearCompare, readCompare, removeCompare } from '@/lib/compare';
 import { useStore } from '../../store';
@@ -20,7 +21,7 @@ type Item = {
   image: string | null;
   price_incl_tax: number;
   price_excl_tax: number;
-  availability: string;
+  availability?: string;
   available: boolean;
   features: { name: string; value: string }[];
 };
@@ -38,6 +39,7 @@ const td: React.CSSProperties = {
 export default function ComparePage() {
   const t = useTranslations('compare');
   const tc = useTranslations('common');
+  const to = useTranslations('offer');
   const locale = useLocale();
   const { addToCart } = useStore();
   const [items, setItems] = useState<Item[]>([]);
@@ -112,8 +114,9 @@ export default function ComparePage() {
               <th style={th}>{t('price')}</th>
               {items.map((it) => (
                 <td key={it.id_product} style={td}>
-                  <div style={{ fontSize: '18px', fontWeight: 700, color: '#2B2B2B' }}>{fmt(it.price_incl_tax)} €</div>
-                  <div style={{ fontSize: '12.5px', color: '#6E7585' }}>{fmt(it.price_excl_tax)} € HT</div>
+                  {/* Mêmes champs et même règle que la carte et la fiche : HT en gros, TTC dessous. */}
+                  <div style={{ fontSize: '18px', fontWeight: 700, color: '#2B2B2B' }}>{fmt(it.price_excl_tax)} € <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#8A8170', letterSpacing: '.04em' }}>{tc('exclTax')}</span></div>
+                  <TaxLine ht={it.price_excl_tax} ttc={it.price_incl_tax} style={{ fontSize: '12.5px', color: '#6E7585' }} />
                 </td>
               ))}
             </tr>
@@ -123,15 +126,16 @@ export default function ComparePage() {
             </tr>
             <tr>
               <th style={th}>{t('reference')}</th>
-              {items.map((it) => <td key={it.id_product} style={td}>{it.reference || '—'}</td>)}
+              {items.map((it) => <td key={it.id_product} style={td}>{displayReference(it.reference) || '—'}</td>)}
             </tr>
             <tr>
               <th style={th}>{t('availability')}</th>
               {items.map((it) => (
                 <td key={it.id_product} style={td}>
-                  <span style={{ fontWeight: 600, color: it.available ? '#3F7256' : '#A8503A' }}>
-                    {it.available ? t('inStock') : t('outOfStock')}
-                  </span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <StockStatusLine status={stockStatus(it.availability, it.available)} />
+                    <DeliveryPromise status={stockStatus(it.availability, it.available)} size={12} afterStatus />
+                  </div>
                 </td>
               ))}
             </tr>
@@ -145,7 +149,7 @@ export default function ComparePage() {
               <th style={th} />
               {items.map((it) => (
                 <td key={it.id_product} style={td}>
-                  {it.available ? (
+                  {canBuyStatus(stockStatus(it.availability, it.available)) ? (
                     <button
                       type="button"
                       onClick={() => addToCart({ id: it.id_product, quantity: 1 })}
@@ -153,7 +157,15 @@ export default function ComparePage() {
                     >
                       {tc('addToCart')}
                     </button>
-                  ) : null}
+                  ) : (
+                    <button
+                      type="button"
+                      disabled
+                      style={{ width: '100%', color: '#6E7585', background: 'rgba(242,240,234,.7)', border: '1px solid rgba(226,222,207,.9)', borderRadius: '999px', padding: '11px 14px', fontSize: '13.5px', fontWeight: 600, cursor: 'default' }}
+                    >
+                      {to('unavailable')}
+                    </button>
+                  )}
                 </td>
               ))}
             </tr>

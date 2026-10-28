@@ -757,5 +757,26 @@
     "title": "Handlekurven din",
     "loading": "Gjenoppretter handlekurven…",
     "invalid": "Denne handlekurvlenken er ugyldig."
+  },
+  "offer": {
+    "inStock": "På lager",
+    "backorder": "Bestillingsvare — sendes innen 10 til 15 dager",
+    "backorderShort": "Bestillingsvare",
+    "unavailable": "Ikke tilgjengelig",
+    "shipInStock": "Sendes i dag ved bestilling før kl. 15 (virkedager) · levering på 24-48 timer i Frankrike",
+    "shipBackorder": "Sendes innen 10 til 15 dager",
+    "vatFree": "momsfritt",
+    "reference": "Ref. {reference}",
+    "shipping": "Frakt",
+    "shippingNextStep": "Beregnes i neste steg",
+    "vat": "Mva.",
+    "totalInclNoShipping": "Totalt inkl. mva., ekskl. frakt",
+    "checkout": "Bestill · {amount} € inkl. mva.",
+    "freeShippingRemaining": "Bare <b>{amount} € eks. mva.</b> igjen til gratis levering",
+    "securePayment": "Sikker betaling med 3D-Secure · sendes med DHL Express & GLS",
+    "tileShipTitle": "Sporbar levering",
+    "tileShipSub": "DHL Express & GLS — gratis fra 400 € eks. mva.",
+    "tilePayTitle": "Sikker betaling",
+    "tilePaySub": "Krypterte 3D-Secure-transaksjoner"
   }
 }

@@ -5,7 +5,9 @@ import { useTranslations, useLocale } from 'next-intl';
 import { trackViewItem } from '@/lib/gtm';
 import { Link } from '@/i18n/navigation';
 import { useStore } from '../../../store';
-import { fmt } from '@/lib/cardModel';
+import { canBuyStatus, comboStockStatus, fmt, type StockStatus } from '@/lib/cardModel';
+import { DeliveryPromise, StockStatusLine, TaxLine } from '../../../components/Availability';
+import MobileBuyBar from './MobileBuyBar';
 import RelatedSections, { type RelatedView } from './RelatedSections';
 import ViewedProducts from '../../../components/ViewedProducts';
 import { pushViewed } from '@/lib/viewed';
@@ -18,8 +20,8 @@ export type ProductView = {
   brand: string | null;
   ht: number;
   ttc: number;
-  // 'backorder' = épuisé mais commandable (précommande) ; 'out' = non commandable.
-  availabilityState: 'in' | 'backorder' | 'out';
+  // Statut unique calculé par stockStatus() (lib/cardModel.ts).
+  availabilityState: StockStatus;
   descriptionShort: string;
   description: string;
   images: string[];
@@ -39,6 +41,8 @@ export type ProductView = {
   quantityDiscounts?: { from_quantity: number; price_incl_tax: number; price_excl_tax: number }[];
   // URL canonique absolue : sert aux liens de partage (corrects dès le rendu serveur).
   canonicalUrl?: string;
+  // Catégorie par défaut du produit (fil d'Ariane), si le bridge la fournit.
+  category?: { slug: string; name: string } | null;
 };
 
 // Une déclinaison vendable. Son prix vient du moteur PS (promos incluses), pas d'un simple impact.
@@ -87,6 +91,7 @@ const icons = {
 export default function ProductDetail({ product, related }: { product: ProductView; related: RelatedView }) {
   const t = useTranslations('product');
   const tc = useTranslations('common');
+  const to = useTranslations('offer');
   const { addToCart } = useStore();
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState<TabKey>('description');
@@ -101,6 +106,11 @@ export default function ProductDetail({ product, related }: { product: ProductVi
   const priceHt = combo ? combo.price_excl_tax : product.ht;
   // Promo = prix avant remise strictement supérieur au prix courant (tolérance centime).
   const hasPromo = (product.priceWithoutReductionTtc ?? 0) > product.ttc + 0.009;
+  // Le bridge ne fournit le prix avant remise qu'en TTC : on le ramène en HT avec le taux du
+  // produit (même règle de taxe), pour afficher le barré dans la même unité que le prix (HT).
+  const priceWithoutReductionHt = hasPromo && product.ttc > 0
+    ? Math.round(product.priceWithoutReductionTtc! * (product.ht / product.ttc) * 100) / 100
+    : 0;
   const tiers = product.quantityDiscounts ?? [];
   const tabsRef = useRef<HTMLElement>(null);
   // GA4 view_item (dataLayer) à l'affichage de la fiche.
@@ -160,18 +170,16 @@ export default function ProductDetail({ product, related }: { product: ProductVi
 
   // Avec déclinaisons, la dispo est celle de la variante choisie (le produit peut être « en
   // stock » globalement alors que la variante sélectionnée est épuisée).
-  const canBuy = !product.blocked_country && (combo ? combo.available : product.availabilityState !== 'out');
-  const availability = product.availabilityState === 'in'
-    ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#3F7256' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#5FA33C' }} />{t('inStockShipToday')}</span>
-    : product.availabilityState === 'backorder'
-      ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#B07B2A' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#D89B3D' }} />{t('onOrderDelay')}</span>
-      : <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '13px', fontWeight: 600, color: '#A8503A' }}><span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#C0664E' }} />{t('unavailableLine')}</span>;
+  const status: StockStatus = combo ? comboStockStatus(combo) : product.availabilityState;
+  const canBuy = !product.blocked_country && canBuyStatus(status);
+  const addCurrent = () => addToCart({ id: product.id, quantity: qty, id_product_attribute: comboId ?? undefined });
 
   const card: React.CSSProperties = { background: '#fff', border: '1px solid #ECEAE3', borderRadius: '10px' };
 
   return (
     <main data-screen-label="Fiche produit" className="hfm-wrap" style={{ maxWidth: '1340px', margin: '0 auto', padding: '34px 28px 70px' }}>
-      <div style={{ fontSize: '12.5px', color: '#9A9A9A', marginBottom: '24px' }}><Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  <Link href="/catalogue" style={{ cursor: 'pointer' }}>{tc('catalogue')}</Link>  /  {product.name}</div>
+      {/* Fil d'Ariane : catégorie par défaut du produit (comme le JSON-LD), catalogue à défaut. */}
+      <nav aria-label="breadcrumb" style={{ fontSize: '12.5px', color: '#9A9A9A', marginBottom: '24px' }}><Link href="/" style={{ cursor: 'pointer' }}>{tc('home')}</Link>  /  {product.category ? <Link href={`/${product.category.slug}`} style={{ cursor: 'pointer' }}>{product.category.name}</Link> : <Link href="/catalogue" style={{ cursor: 'pointer' }}>{tc('catalogue')}</Link>}  /  <span aria-current="page">{product.name}</span></nav>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: '54px', alignItems: 'start' }}>
         {/* Galerie */}
@@ -217,23 +225,25 @@ export default function ProductDetail({ product, related }: { product: ProductVi
 
           {/* Panneau prix */}
           <div style={{ ...card, padding: '20px 22px', marginTop: '22px' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px' }}>
-              <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '34px', color: '#2B2B2B' }}>{fmt(priceTtc)} €</span>
-              <span style={{ fontSize: '12.5px', color: '#8A8170', fontWeight: 600 }}>{t('ttcPerUnit')}</span>
+            {/* Règle prix commune : HT en gros, toujours étiqueté, puis « soit X € TTC » (ou « hors
+                TVA » si aucune TVA n'est facturée). */}
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', flexWrap: 'wrap' }}>
+              <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '34px', color: '#2B2B2B' }}>{fmt(priceHt)} €</span>
+              <span style={{ fontSize: '13px', color: '#8A8170', fontWeight: 700, letterSpacing: '.04em' }}>{tc('exclTax')}</span>
             </div>
-            <div style={{ fontSize: '13.5px', color: '#6E7585', marginTop: '4px' }}>{t('htB2b', { amount: fmt(priceHt) })}</div>
+            <TaxLine ht={priceHt} ttc={priceTtc} style={{ display: 'block', fontSize: '13.5px', color: '#6E7585', marginTop: '4px' }} />
             {/* Promo : prix barré + montant économisé. La remise était bien APPLIQUÉE mais
                 invisible ; l'ancien site l'affichait. Masqué dès qu'une déclinaison est choisie
                 (le prix barré porte sur le produit, pas sur la variante). */}
             {!combo && hasPromo ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '8px' }}>
-                <span style={{ fontSize: '15px', color: '#8A8170', textDecoration: 'line-through' }}>{fmt(product.priceWithoutReductionTtc!)} €</span>
+                <span style={{ fontSize: '15px', color: '#8A8170', textDecoration: 'line-through' }}>{fmt(priceWithoutReductionHt)} € {tc('exclTax')}</span>
                 <span style={{ fontSize: '12px', fontWeight: 700, color: '#fff', background: '#C0664E', borderRadius: '999px', padding: '3px 10px' }}>
-                  −{fmt(product.priceWithoutReductionTtc! - priceTtc)} €
+                  −{fmt(priceWithoutReductionHt - priceHt)} € {tc('exclTax')}
                 </span>
               </div>
             ) : null}
-            <div style={{ marginTop: '12px' }}>{availability}</div>
+            <div style={{ marginTop: '12px' }}><StockStatusLine status={status} /></div>
             {/* Paliers dégressifs : le moteur les applique au panier, encore faut-il que le
                 client B2B sache qu'ils existent. */}
             {tiers.length ? (
@@ -243,7 +253,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
                   {tiers.map((d) => (
                     <div key={d.from_quantity} style={{ border: '1px solid #E2DECF', borderRadius: '7px', padding: '7px 11px', background: '#FAFAF7' }}>
                       <div style={{ fontSize: '11.5px', color: '#8A8170' }}>{t('fromQty', { qty: d.from_quantity })}</div>
-                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#3F7256' }}>{fmt(d.price_incl_tax)} €</div>
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#3F7256' }}>{fmt(d.price_excl_tax)} € <span style={{ fontSize: '10.5px', color: '#8A8170' }}>{tc('exclTax')}</span></div>
                     </div>
                   ))}
                 </div>
@@ -251,10 +261,9 @@ export default function ProductDetail({ product, related }: { product: ProductVi
             ) : null}
           </div>
 
-          {product.availabilityState === 'in' ? (
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', marginTop: '14px', padding: '9px 14px', background: 'rgba(140,198,63,.1)', border: '1px solid rgba(140,198,63,.28)', borderRadius: '999px', fontSize: '12.5px', fontWeight: 600, color: '#3F7256' }}>
-              <span style={{ display: 'inline-flex', color: '#5E8E1F' }}>{icons.truck}</span>{t('deliveredTomorrow')}
-            </div>
+          {/* Promesse de livraison : composant unique, dépend du statut (rien si indisponible). */}
+          {!product.blocked_country && status !== 'out' ? (
+            <div style={{ marginTop: '14px' }}><DeliveryPromise status={status} variant="pill" afterStatus /></div>
           ) : null}
 
           {product.blocked_country ? (
@@ -321,7 +330,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
                     >
                       <span style={{ display: 'block' }}>{c.label}</span>
                       <span style={{ display: 'block', fontWeight: 400, fontSize: '12.5px', color: '#6E7585', marginTop: '2px' }}>
-                        {fmt(c.price_incl_tax)} €{c.available ? '' : ` · ${t('unavailableLine')}`}
+                        {fmt(c.price_excl_tax)} € {tc('exclTax')}{c.available ? '' : ` · ${t('unavailableLine')}`}
                       </span>
                     </button>
                   );
@@ -336,7 +345,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
             {/* En stock ou précommande : achat (bouton vert identique, la ligne de
                 disponibilité porte le délai). Indisponible : alerte retour. */}
             {canBuy ? (
-              <button onClick={() => addToCart({ id: product.id, quantity: qty, id_product_attribute: comboId ?? undefined })} style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', cursor: 'pointer', transition: 'background .2s ease' }}>{tc('addToCart')}</button>
+              <button onClick={addCurrent} style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', cursor: 'pointer', transition: 'background .2s ease' }}>{tc('addToCart')}</button>
             ) : (
               <button disabled style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#6E7585', background: 'rgba(242,240,234,.7)', border: '1px solid rgba(226,222,207,.9)', borderRadius: '999px', cursor: 'default' }}>{t('notifyOnReturn')}</button>
             )}
@@ -345,8 +354,8 @@ export default function ProductDetail({ product, related }: { product: ProductVi
           {/* Tuiles réassurance */}
           <div style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', marginTop: '22px', overflow: 'hidden' }}>
             {[
-              { icon: icons.truck, title: t('tile1Title'), sub: t('tile1Sub') },
-              { icon: icons.box, title: t('tile2Title'), sub: t('tile2Sub') },
+              { icon: icons.truck, title: to('tileShipTitle'), sub: to('tileShipSub') },
+              { icon: icons.box, title: to('tilePayTitle'), sub: to('tilePaySub') },
               { icon: icons.shield, title: t('tile3Title'), sub: t('tile3Sub') },
             ].map((tile, i) => (
               <div key={i} style={{ padding: '16px 14px', textAlign: 'center', borderLeft: i ? '1px solid #F1EFE8' : 'none' }}>
@@ -370,7 +379,9 @@ export default function ProductDetail({ product, related }: { product: ProductVi
 
           {/* Conformité */}
           <div style={{ ...card, padding: '16px 20px', marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {[t('comp1'), t('comp2'), t('comp3'), t('comp4'), t('comp5')].map((line, i) => (
+            {/* comp2 (« livraison express UE 24h ») retiré : la promesse de livraison passe
+                uniquement par <DeliveryPromise>. */}
+            {[t('comp1'), t('comp3'), t('comp4'), t('comp5')].map((line, i) => (
               <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '13px', color: '#3A3A36' }}>
                 <span style={{ color: '#5E8E1F', flex: 'none', fontSize: '13px', lineHeight: 1.5 }}>✓</span>{line}
               </div>
@@ -485,6 +496,14 @@ export default function ProductDetail({ product, related }: { product: ProductVi
       {/* Cross-selling + encadré réglementaire */}
       <RelatedSections related={related} />
       <ViewedProducts excludeId={product.id} />
+
+      {/* Mobile : barre d'achat fixe en bas (parité ancien site). */}
+      <MobileBuyBar
+        ht={priceHt}
+        ttc={priceTtc}
+        canBuy={canBuy}
+        onAdd={addCurrent}
+      />
     </main>
   );
 }

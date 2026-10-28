@@ -757,5 +757,26 @@
     "title": "Your cart",
     "loading": "Restoring your cart…",
     "invalid": "This cart link is not valid."
+  },
+  "offer": {
+    "inStock": "In stock",
+    "backorder": "On order — ships within 10 to 15 days",
+    "backorderShort": "On order",
+    "unavailable": "Unavailable",
+    "shipInStock": "Shipped today for orders placed before 3 pm (business days) · 24-48 h delivery in France",
+    "shipBackorder": "Ships within 10 to 15 days",
+    "vatFree": "no VAT charged",
+    "reference": "Ref. {reference}",
+    "shipping": "Shipping",
+    "shippingNextStep": "Calculated at the next step",
+    "vat": "VAT",
+    "totalInclNoShipping": "Total incl. VAT, excl. shipping",
+    "checkout": "Checkout · {amount} € incl. VAT",
+    "freeShippingRemaining": "Only <b>{amount} € excl. VAT</b> away from free delivery",
+    "securePayment": "Secure 3D-Secure payment · shipped by DHL Express & GLS",
+    "tileShipTitle": "Tracked delivery",
+    "tileShipSub": "DHL Express & GLS — free from 400 € excl. VAT",
+    "tilePayTitle": "Secure payment",
+    "tilePaySub": "Encrypted 3D-Secure transactions"
   }
 }

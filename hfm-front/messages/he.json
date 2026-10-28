@@ -757,5 +757,26 @@
     "title": "העגלה שלכם",
     "loading": "משחזרים את העגלה…",
     "invalid": "קישור העגלה אינו תקין."
+  },
+  "offer": {
+    "inStock": "במלאי",
+    "backorder": "בהזמנה — משלוח תוך 10 עד 15 ימים",
+    "backorderShort": "בהזמנה",
+    "unavailable": "לא זמין",
+    "shipInStock": "נשלח היום בהזמנה עד 15:00 (ימי עסקים) · משלוח תוך 24-48 שעות בצרפת",
+    "shipBackorder": "משלוח תוך 10 עד 15 ימים",
+    "vatFree": "פטור ממע\"מ",
+    "reference": "מק\"ט {reference}",
+    "shipping": "משלוח",
+    "shippingNextStep": "יחושב בשלב הבא",
+    "vat": "מע\"מ",
+    "totalInclNoShipping": "סה\"כ כולל מע\"מ, ללא משלוח",
+    "checkout": "להזמנה · {amount} € כולל מע\"מ",
+    "freeShippingRemaining": "עוד <b>{amount} € ללא מע\"מ</b> בלבד למשלוח חינם",
+    "securePayment": "תשלום מאובטח 3D-Secure · משלוח עם DHL Express ו-GLS",
+    "tileShipTitle": "משלוח עם מעקב",
+    "tileShipSub": "DHL Express ו-GLS — חינם החל מ-400 € ללא מע\"מ",
+    "tilePayTitle": "תשלום מאובטח",
+    "tilePaySub": "עסקאות מוצפנות 3D-Secure"
   }
 }
