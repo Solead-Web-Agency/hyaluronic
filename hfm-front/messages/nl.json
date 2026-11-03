@@ -47,7 +47,7 @@
     "discovery": "Ontdekking",
     "see": "Bekijken →",
     "promosTop": "Aanbiedingen & Top",
-    "ceDelivery": "Levering in 24-48 u in Frankrijk",
+    "ceDelivery": "Levering in 24-48 u in Frankrijk (behalve in het weekend)",
     "mFillersTitle": "HA-fillers",
     "mFillersSub": "Gecrosslinkt hyaluronzuur",
     "mMesoTitle": "Mesotherapie",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "isothermische verzending, DHL Express & GLS.",
     "editoCta": "Ontdek de catalogus →",
     "editoBadgeDelay": "24-48 u",
-    "editoBadgeDelaySub": "levering in Frankrijk · 48-72 u in Europa",
+    "editoBadgeDelaySub": "levering in Frankrijk · 48-72 u in Europa (behalve in het weekend)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} geverifieerde beoordelingen <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Expertise",
     "expertiseTitle": "De vakkennis van onze specialisten",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Gepubliceerd op",
     "reviewsReply": "Antwoord van de verkoper",
     "reviewsTranslated": "Vertaalde beoordeling",
-    "blockedCountry": "Dit product is in uw land niet te koop."
+    "blockedCountry": "Dit product is in uw land niet te koop.",
+    "payWithAmazon": "Betalen met"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Er is een fout opgetreden.",
       "network": "Netwerkfout.",
       "invalid_rpps": "Ongeldig RPPS- (11 cijfers) of ADELI-nummer (9 cijfers).",
-      "invalid_profession": "Geef uw beroep op."
+      "invalid_profession": "Geef uw beroep op.",
+      "invalid_siret": "Ongeldig SIRET-nummer: 14 cijfers verwacht.",
+      "invalid_company": "Ongeldige bedrijfsnaam."
     },
     "forgotPassword": "Wachtwoord vergeten?",
     "editAddress": "Wijzigen",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 cijfers (RPPS) of 9 cijfers (ADELI)",
     "rppsHelp": "Als u het hier niet invult, wordt het RPPS-/ADELI-nummer gevraagd bij het bestellen van producten die voorbehouden zijn aan artsen.",
     "newsletterOptIn": "Ik wil de nieuwsbrief ontvangen (nieuwe producten, opleidingen, aanbiedingen). Afmelden met 1 klik.",
-    "guestTracking": "Besteld zonder account? <a>Volg uw bestelling hier</a>"
+    "guestTracking": "Besteld zonder account? <a>Volg uw bestelling hier</a>",
+    "siret": "SIRET-nummer (optioneel, Frankrijk)",
+    "siretPlaceholder": "14 cijfers",
+    "siretHelp": "Identificeert uw onderneming (SIREN) op uw facturen, met name voor Franse e-facturatie.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Adres",
@@ -808,7 +815,7 @@
     "backorder": "Op bestelling — verzending binnen 10 tot 15 dagen",
     "backorderShort": "Op bestelling",
     "unavailable": "Niet beschikbaar",
-    "shipInStock": "Vandaag verzonden bij bestelling vóór 15.00 uur (werkdagen) · levering in 24-48 u in Frankrijk",
+    "shipInStock": "Vandaag verzonden bij bestelling vóór 15.00 uur (werkdagen) · levering in 24-48 u in Frankrijk (behalve in het weekend)",
     "shipBackorder": "Verzending binnen 10 tot 15 dagen",
     "vatFree": "geen btw verschuldigd",
     "reference": "Ref. {reference}",

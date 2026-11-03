@@ -47,7 +47,7 @@
     "discovery": "اكتشاف",
     "see": "عرض →",
     "promosTop": "العروض والأكثر مبيعًا",
-    "ceDelivery": "توصيل خلال 24-48 ساعة في فرنسا",
+    "ceDelivery": "توصيل خلال 24-48 ساعة في فرنسا (باستثناء عطلات نهاية الأسبوع)",
     "mFillersTitle": "فيلر HA",
     "mFillersSub": "حمض الهيالورونيك المتشابك",
     "mMesoTitle": "الميزوثيرابي",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "شحن معزول حراريًا، DHL Express و GLS.",
     "editoCta": "اكتشف الكتالوج →",
     "editoBadgeDelay": "24-48 ساعة",
-    "editoBadgeDelaySub": "التوصيل في فرنسا · 48-72 ساعة في أوروبا",
+    "editoBadgeDelaySub": "التوصيل في فرنسا · 48-72 ساعة في أوروبا (باستثناء عطلات نهاية الأسبوع)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} تقييمًا موثّقًا <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "الخبرة",
     "expertiseTitle": "خبرة اختصاصيينا",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "نُشر في",
     "reviewsReply": "رد البائع",
     "reviewsTranslated": "تقييم مترجم",
-    "blockedCountry": "هذا المنتج غير متاح للبيع في بلدك."
+    "blockedCountry": "هذا المنتج غير متاح للبيع في بلدك.",
+    "payWithAmazon": "ادفع باستخدام"
   },
   "quickView": {
     "refStock": "المرجع {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "حدث خطأ.",
       "network": "خطأ في الشبكة.",
       "invalid_rpps": "رقم RPPS (11 رقمًا) أو ADELI (9 أرقام) غير صالح.",
-      "invalid_profession": "يرجى تحديد مهنتك."
+      "invalid_profession": "يرجى تحديد مهنتك.",
+      "invalid_siret": "رقم SIRET غير صالح: يلزم 14 رقمًا.",
+      "invalid_company": "اسم الشركة غير صالح."
     },
     "forgotPassword": "هل نسيت كلمة المرور؟",
     "editAddress": "تعديل",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 رقمًا (RPPS) أو 9 أرقام (ADELI)",
     "rppsHelp": "إذا لم يُذكر هنا، سيُطلب رقم RPPS/ADELI عند طلب المنتجات المخصصة للأطباء.",
     "newsletterOptIn": "أوافق على تلقي النشرة الإخبارية (منتجات جديدة، تدريبات، عروض). إلغاء الاشتراك بنقرة واحدة.",
-    "guestTracking": "طلبت دون حساب؟ <a>تتبّع طلبك من هنا</a>"
+    "guestTracking": "طلبت دون حساب؟ <a>تتبّع طلبك من هنا</a>",
+    "siret": "رقم SIRET (اختياري، فرنسا)",
+    "siretPlaceholder": "14 رقمًا",
+    "siretHelp": "يحدد مؤسستك (SIREN) على فواتيرك، لا سيما للفوترة الإلكترونية الفرنسية.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "العنوان",
@@ -808,7 +815,7 @@
     "backorder": "حسب الطلب — الشحن خلال 10 إلى 15 يومًا",
     "backorderShort": "حسب الطلب",
     "unavailable": "غير متوفر",
-    "shipInStock": "يُشحن اليوم للطلبات قبل الساعة 15:00 (أيام العمل) · التوصيل خلال 24-48 ساعة في فرنسا",
+    "shipInStock": "يُشحن اليوم للطلبات قبل الساعة 15:00 (أيام العمل) · التوصيل خلال 24-48 ساعة في فرنسا (باستثناء عطلات نهاية الأسبوع)",
     "shipBackorder": "الشحن خلال 10 إلى 15 يومًا",
     "vatFree": "معفى من ضريبة القيمة المضافة",
     "reference": "المرجع {reference}",

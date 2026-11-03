@@ -496,7 +496,9 @@ export default function CheckoutClient() {
         setPaypalConfigured(ppOk);
         setAmazonConfigured(azOk);
         // Sélection par défaut préférée : CB > PayPal > Amazon Pay > (virement/chèque), sans écraser un choix manuel.
-        setPayment((cur) => (cur === PAYMENTS[0] ? (vivaOk ? VIVA_PAYMENT : ppOk ? PAYPAL_PAYMENT : azOk ? AMAZON_PAYMENT : cur) : cur));
+        // Arrivée depuis le bouton Amazon Pay de la fiche produit (?pay=amazon) : Amazon Pay présélectionné.
+        const wantsAmazon = azOk && new URLSearchParams(window.location.search).get('pay') === 'amazon';
+        setPayment((cur) => (cur === PAYMENTS[0] ? (wantsAmazon ? AMAZON_PAYMENT : vivaOk ? VIVA_PAYMENT : ppOk ? PAYPAL_PAYMENT : azOk ? AMAZON_PAYMENT : cur) : cur));
       })
       .catch(() => {});
     return () => {
@@ -1561,7 +1563,26 @@ export default function CheckoutClient() {
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}><span style={stepBadge(4, !!selCarrier)}>4</span><span style={titleStyle}>{t('stepPayment')}</span></div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {/* 1. Carte bancaire (Viva Wallet) — en premier */}
+              {/* 1. Amazon Pay en première ligne (demande client 21/10), puis les autres moyens */}
+              {amazonConfigured ? (
+                <>
+                  <button
+                    onClick={() => setPayment(AMAZON_PAYMENT)}
+                    style={{ textAlign: 'left', cursor: 'pointer', background: payment === AMAZON_PAYMENT ? 'rgba(140,198,63,0.06)' : '#fff', border: payment === AMAZON_PAYMENT ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px', display: 'flex', gap: '12px', alignItems: 'center' }}
+                  >
+                    <span style={{ width: '15px', height: '15px', borderRadius: '50%', border: payment === AMAZON_PAYMENT ? '5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
+                    {AmazonLogo}
+                    <span style={{ flex: 1 }} />
+                  </button>
+                  {payment === AMAZON_PAYMENT ? (
+                    <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
+                      <div style={{ fontSize: '12px', color: '#6E7585' }}>{t('amazonRedirect')}</div>
+                    </div>
+                  ) : null}
+                </>
+              ) : null}
+
+              {/* 2. Carte bancaire (Viva Wallet) */}
               {cardConfigured ? (
                 <>
                   <button
@@ -1584,7 +1605,7 @@ export default function CheckoutClient() {
                 <div style={{ fontSize: '12px', color: '#9A9A9A', background: '#FAFAF7', border: '1px dashed #E2DECF', borderRadius: '7px', padding: '12px 14px' }}>{t('cardSoon')}</div>
               )}
 
-              {/* 2. PayPal */}
+              {/* 3. PayPal (optionnel : affiché seulement s'il est configuré) */}
               {paypalConfigured ? (
                 <>
                   <button
@@ -1598,25 +1619,6 @@ export default function CheckoutClient() {
                   {payment === PAYPAL_PAYMENT ? (
                     <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
                       <div style={{ fontSize: '12px', color: '#6E7585' }}>{t('paypalRedirect')}</div>
-                    </div>
-                  ) : null}
-                </>
-              ) : null}
-
-              {/* 3. Amazon Pay */}
-              {amazonConfigured ? (
-                <>
-                  <button
-                    onClick={() => setPayment(AMAZON_PAYMENT)}
-                    style={{ textAlign: 'left', cursor: 'pointer', background: payment === AMAZON_PAYMENT ? 'rgba(140,198,63,0.06)' : '#fff', border: payment === AMAZON_PAYMENT ? '1.5px solid #434343' : '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px', display: 'flex', gap: '12px', alignItems: 'center' }}
-                  >
-                    <span style={{ width: '15px', height: '15px', borderRadius: '50%', border: payment === AMAZON_PAYMENT ? '5px solid #434343' : '1.5px solid #C9C2AF', flex: 'none' }} />
-                    {AmazonLogo}
-                    <span style={{ flex: 1 }} />
-                  </button>
-                  {payment === AMAZON_PAYMENT ? (
-                    <div style={{ background: '#FAFAF7', border: '1px solid #E2DECF', borderRadius: '7px', padding: '14px 16px' }}>
-                      <div style={{ fontSize: '12px', color: '#6E7585' }}>{t('amazonRedirect')}</div>
                     </div>
                   ) : null}
                 </>

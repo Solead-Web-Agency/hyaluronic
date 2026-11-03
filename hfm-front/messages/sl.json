@@ -47,7 +47,7 @@
     "discovery": "Odkrivanje",
     "see": "Ogled →",
     "promosTop": "Akcije in najboljše",
-    "ceDelivery": "Dostava v 24–48 h v Franciji",
+    "ceDelivery": "Dostava v 24–48 h v Franciji (razen ob koncih tedna)",
     "mFillersTitle": "HA polnila",
     "mFillersSub": "Zamrežena hialuronska kislina",
     "mMesoTitle": "Mezoterapija",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "izotermna odprema, DHL Express & GLS.",
     "editoCta": "Odkrijte katalog →",
     "editoBadgeDelay": "24–48 h",
-    "editoBadgeDelaySub": "dostava v Franciji · 48–72 h v Evropi",
+    "editoBadgeDelaySub": "dostava v Franciji · 48–72 h v Evropi (razen ob koncih tedna)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} preverjenih mnenj <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Strokovnost",
     "expertiseTitle": "Znanje naših specialistov",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Objavljeno",
     "reviewsReply": "Odgovor prodajalca",
     "reviewsTranslated": "Prevedeno mnenje",
-    "blockedCountry": "Ta izdelek v vaši državi ni naprodaj."
+    "blockedCountry": "Ta izdelek v vaši državi ni naprodaj.",
+    "payWithAmazon": "Plačaj z"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Prišlo je do napake.",
       "network": "Napaka omrežja.",
       "invalid_rpps": "Neveljavna številka RPPS (11 števk) ali ADELI (9 števk).",
-      "invalid_profession": "Navedite svoj poklic."
+      "invalid_profession": "Navedite svoj poklic.",
+      "invalid_siret": "Neveljavna številka SIRET: pričakovanih je 14 števk.",
+      "invalid_company": "Neveljavno ime podjetja."
     },
     "forgotPassword": "Ste pozabili geslo?",
     "editAddress": "Uredi",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 števk (RPPS) ali 9 števk (ADELI)",
     "rppsHelp": "Če ga ne navedete tukaj, bo številka RPPS/ADELI zahtevana ob naročilu izdelkov, namenjenih zdravnikom.",
     "newsletterOptIn": "Strinjam se s prejemanjem e-novic (novosti, izobraževanja, ponudbe). Odjava z 1 klikom.",
-    "guestTracking": "Ste naročili brez računa? <a>Sledite naročilu tukaj</a>"
+    "guestTracking": "Ste naročili brez računa? <a>Sledite naročilu tukaj</a>",
+    "siret": "Številka SIRET (neobvezno, Francija)",
+    "siretPlaceholder": "14 števk",
+    "siretHelp": "Identificira vaše podjetje (SIREN) na računih, zlasti za francosko e-izdajanje računov.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Naslov",
@@ -808,7 +815,7 @@
     "backorder": "Po naročilu — odprema v 10 do 15 dneh",
     "backorderShort": "Po naročilu",
     "unavailable": "Ni na voljo",
-    "shipInStock": "Odpremljeno danes za naročila pred 15. uro (delovni dnevi) · dostava v 24–48 urah v Franciji",
+    "shipInStock": "Odpremljeno danes za naročila pred 15. uro (delovni dnevi) · dostava v 24–48 urah v Franciji (razen ob koncih tedna)",
     "shipBackorder": "Odprema v 10 do 15 dneh",
     "vatFree": "DDV se ne obračuna",
     "reference": "Šifra {reference}",

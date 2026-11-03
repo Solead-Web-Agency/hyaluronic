@@ -47,7 +47,7 @@
     "discovery": "גילוי",
     "see": "לצפייה →",
     "promosTop": "מבצעים ורבי-מכר",
-    "ceDelivery": "משלוח תוך 24-48 שעות בצרפת",
+    "ceDelivery": "משלוח תוך 24-48 שעות בצרפת (לא כולל סופי שבוע)",
     "mFillersTitle": "פילרי HA",
     "mFillersSub": "חומצה היאלורונית מצולבת",
     "mMesoTitle": "מזותרפיה",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "משלוח איזותרמי, DHL Express ו-GLS.",
     "editoCta": "גלו את הקטלוג →",
     "editoBadgeDelay": "24-48 שעות",
-    "editoBadgeDelaySub": "משלוח בצרפת · 48-72 שעות באירופה",
+    "editoBadgeDelaySub": "משלוח בצרפת · 48-72 שעות באירופה (לא כולל סופי שבוע)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} ביקורות מאומתות <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "מומחיות",
     "expertiseTitle": "הידע של המומחים שלנו",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "פורסם ב־",
     "reviewsReply": "תגובת המוכר",
     "reviewsTranslated": "ביקורת מתורגמת",
-    "blockedCountry": "מוצר זה אינו זמין למכירה במדינה שלכם."
+    "blockedCountry": "מוצר זה אינו זמין למכירה במדינה שלכם.",
+    "payWithAmazon": "שלם באמצעות"
   },
   "quickView": {
     "refStock": "מק\"ט {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "אירעה שגיאה.",
       "network": "שגיאת רשת.",
       "invalid_rpps": "מספר RPPS (11 ספרות) או ADELI (9 ספרות) לא תקין.",
-      "invalid_profession": "נא לציין את המקצוע שלכם."
+      "invalid_profession": "נא לציין את המקצוע שלכם.",
+      "invalid_siret": "מספר SIRET לא תקין: נדרשות 14 ספרות.",
+      "invalid_company": "שם חברה לא תקין."
     },
     "forgotPassword": "שכחת את הסיסמה?",
     "editAddress": "עריכה",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 ספרות (RPPS) או 9 ספרות (ADELI)",
     "rppsHelp": "אם לא יוזן כאן, מספר ה-RPPS/ADELI יידרש בעת הזמנת מוצרים המיועדים לרופאים בלבד.",
     "newsletterOptIn": "אני מסכים/ה לקבל את הניוזלטר (חידושים, הדרכות, מבצעים). הסרה בלחיצה אחת.",
-    "guestTracking": "הזמנתם ללא חשבון? <a>עקבו אחר ההזמנה כאן</a>"
+    "guestTracking": "הזמנתם ללא חשבון? <a>עקבו אחר ההזמנה כאן</a>",
+    "siret": "מספר SIRET (אופציונלי, צרפת)",
+    "siretPlaceholder": "14 ספרות",
+    "siretHelp": "מזהה את העסק שלך (SIREN) בחשבוניות, במיוחד עבור חשבונית אלקטרונית בצרפת.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "כתובת",
@@ -808,7 +815,7 @@
     "backorder": "בהזמנה — משלוח תוך 10 עד 15 ימים",
     "backorderShort": "בהזמנה",
     "unavailable": "לא זמין",
-    "shipInStock": "נשלח היום בהזמנה עד 15:00 (ימי עסקים) · משלוח תוך 24-48 שעות בצרפת",
+    "shipInStock": "נשלח היום בהזמנה עד 15:00 (ימי עסקים) · משלוח תוך 24-48 שעות בצרפת (לא כולל סופי שבוע)",
     "shipBackorder": "משלוח תוך 10 עד 15 ימים",
     "vatFree": "פטור ממע\"מ",
     "reference": "מק\"ט {reference}",

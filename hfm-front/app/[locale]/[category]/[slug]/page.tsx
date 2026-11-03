@@ -197,6 +197,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     combinations: Array.isArray(p.combinations) ? p.combinations : [],
     priceWithoutReductionTtc: p.price_without_reduction_incl_tax ?? undefined,
     priceWithoutReductionHt: p.price_without_reduction_excl_tax ?? undefined,
+    amazonButton: !!p.amazon_product_button,
     quantityDiscounts: Array.isArray(p.quantity_discounts) ? p.quantity_discounts : [],
     canonicalUrl: urlFor(locale, path),
     // Catégorie par défaut du produit (fil d'Ariane) : fournie par le bridge (category + category_name).

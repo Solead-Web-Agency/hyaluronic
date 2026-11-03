@@ -47,7 +47,7 @@
     "discovery": "Entdeckung",
     "see": "Ansehen →",
     "promosTop": "Angebote & Top",
-    "ceDelivery": "Lieferung in 24-48 Std. in Frankreich",
+    "ceDelivery": "Lieferung in 24-48 Std. in Frankreich (außer am Wochenende)",
     "mFillersTitle": "HA-Filler",
     "mFillersSub": "Vernetzte Hyaluronsäure",
     "mMesoTitle": "Mesotherapie",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "isothermischer Versand, DHL Express & GLS.",
     "editoCta": "Katalog entdecken →",
     "editoBadgeDelay": "24-48 Std.",
-    "editoBadgeDelaySub": "Lieferung in Frankreich · 48-72 Std. in Europa",
+    "editoBadgeDelaySub": "Lieferung in Frankreich · 48-72 Std. in Europa (außer am Wochenende)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} verifizierte Bewertungen <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Fachwissen",
     "expertiseTitle": "Das Know-how unserer Spezialisten",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Veröffentlicht am",
     "reviewsReply": "Antwort des Verkäufers",
     "reviewsTranslated": "Übersetzte Bewertung",
-    "blockedCountry": "Dieses Produkt ist in Ihrem Land nicht erhältlich."
+    "blockedCountry": "Dieses Produkt ist in Ihrem Land nicht erhältlich.",
+    "payWithAmazon": "Bezahlen mit"
   },
   "quickView": {
     "refStock": "Art. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Ein Fehler ist aufgetreten.",
       "network": "Netzwerkfehler.",
       "invalid_rpps": "Ungültige RPPS- (11 Ziffern) oder ADELI-Nummer (9 Ziffern).",
-      "invalid_profession": "Bitte geben Sie Ihren Beruf an."
+      "invalid_profession": "Bitte geben Sie Ihren Beruf an.",
+      "invalid_siret": "Ungültige SIRET-Nummer: 14 Ziffern erwartet.",
+      "invalid_company": "Ungültiger Firmenname."
     },
     "forgotPassword": "Passwort vergessen?",
     "editAddress": "Bearbeiten",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 Ziffern (RPPS) oder 9 Ziffern (ADELI)",
     "rppsHelp": "Wird die RPPS-/ADELI-Nummer hier nicht angegeben, wird sie bei der Bestellung von Ärzten vorbehaltenen Produkten abgefragt.",
     "newsletterOptIn": "Ich möchte den Newsletter erhalten (Neuheiten, Schulungen, Angebote). Abmeldung mit 1 Klick.",
-    "guestTracking": "Ohne Konto bestellt? <a>Hier Ihre Bestellung verfolgen</a>"
+    "guestTracking": "Ohne Konto bestellt? <a>Hier Ihre Bestellung verfolgen</a>",
+    "siret": "SIRET-Nummer (optional, Frankreich)",
+    "siretPlaceholder": "14 Ziffern",
+    "siretHelp": "Identifiziert Ihr Unternehmen (SIREN) auf Ihren Rechnungen, insbesondere für die E-Rechnung in Frankreich.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Adresse",
@@ -808,7 +815,7 @@
     "backorder": "Auf Bestellung — Versand innerhalb von 10 bis 15 Tagen",
     "backorderShort": "Auf Bestellung",
     "unavailable": "Nicht verfügbar",
-    "shipInStock": "Versand noch heute bei Bestellung vor 15 Uhr (Werktage) · Lieferung in 24-48 Std. in Frankreich",
+    "shipInStock": "Versand noch heute bei Bestellung vor 15 Uhr (Werktage) · Lieferung in 24-48 Std. in Frankreich (außer am Wochenende)",
     "shipBackorder": "Versand innerhalb von 10 bis 15 Tagen",
     "vatFree": "keine MwSt.",
     "reference": "Art.-Nr. {reference}",

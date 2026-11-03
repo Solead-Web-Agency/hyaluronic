@@ -123,6 +123,24 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         ]];
     }
 
+    /**
+     * SIRET transmis (demande client 29/10 : identifier le client pro par son SIREN pour la
+     * facturation électronique ; le SIRET le contient). null = absent, '' = effacement,
+     * false = invalide (14 chiffres avec clé de contrôle, comme Validate::isSiret).
+     */
+    protected function siretInput()
+    {
+        $raw = $this->in('siret');
+        if ($raw === null) {
+            return null;
+        }
+        $siret = preg_replace('/\D+/', '', (string) $raw);
+        if ($siret === '') {
+            return '';
+        }
+        return Validate::isSiret($siret) ? $siret : false;
+    }
+
     protected function login()
     {
         $email = (string) $this->in('email');
@@ -162,6 +180,10 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         ];
         $profession = (string) $this->in('profession', '');
         $company = trim((string) $this->in('company', ''));
+        $siret = $this->siretInput();
+        if ($siret === false) {
+            return ['error' => 'invalid_siret'];
+        }
 
         $customer = new Customer();
         $customer->email = $email;
@@ -173,6 +195,9 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         $customer->id_shop_group = (int) $this->context->shop->id_shop_group;
         if ($company !== '' && Validate::isGenericName($company)) {
             $customer->company = Tools::substr($company, 0, 255);
+        }
+        if ($siret !== null && $siret !== '') {
+            $customer->siret = $siret;
         }
         if (isset($professions[$profession])) {
             // Pas de champ « profession » dans PS : note privée visible sur la fiche client du BO.
@@ -447,6 +472,21 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
         $customer->firstname = $firstname;
         $customer->lastname = $lastname;
         $customer->email = $email;
+        // SIRET (facturation électronique : SIREN de l'acheteur pro) et société, si transmis.
+        $siret = $this->siretInput();
+        if ($siret === false) {
+            return ['error' => 'invalid_siret'];
+        }
+        if ($siret !== null) {
+            $customer->siret = $siret;
+        }
+        if ($this->in('company') !== null) {
+            $company = trim((string) $this->in('company'));
+            if ($company !== '' && !Validate::isGenericName($company)) {
+                return ['error' => 'invalid_company'];
+            }
+            $customer->company = Tools::substr($company, 0, 255);
+        }
         $newPassword = (string) $this->in('password', '');
         if ($newPassword !== '') {
             if (Tools::strlen($newPassword) < 5) {
@@ -773,6 +813,8 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             'is_guest' => (int) $c->is_guest,
             'groups' => array_map('intval', $c->getGroups()),
             'id_default_group' => (int) $c->id_default_group,
+            'company' => (string) $c->company,
+            'siret' => (string) $c->siret,
             'rpps' => $pro['rpps'],
             'pro_attestation' => (int) $pro['attestation'],
             'rpps_validated' => $validated,

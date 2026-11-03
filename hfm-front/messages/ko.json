@@ -47,7 +47,7 @@
     "discovery": "발견",
     "see": "보기 →",
     "promosTop": "프로모션 & 인기",
-    "ceDelivery": "프랑스 내 24-48시간 배송",
+    "ceDelivery": "프랑스 내 24-48시간 배송 (주말 제외)",
     "mFillersTitle": "HA 필러",
     "mFillersSub": "가교 히알루론산",
     "mMesoTitle": "메조테라피",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "단열 포장 배송, DHL Express & GLS.",
     "editoCta": "카탈로그 둘러보기 →",
     "editoBadgeDelay": "24-48시간",
-    "editoBadgeDelaySub": "프랑스 배송 · 유럽 48-72시간",
+    "editoBadgeDelaySub": "프랑스 배송 · 유럽 48-72시간 (주말 제외)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number}개의 검증된 후기 <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "전문성",
     "expertiseTitle": "전문가들의 노하우",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "게시일",
     "reviewsReply": "판매자 답변",
     "reviewsTranslated": "번역된 리뷰",
-    "blockedCountry": "이 제품은 고객님의 국가에서 판매되지 않습니다."
+    "blockedCountry": "이 제품은 고객님의 국가에서 판매되지 않습니다.",
+    "payWithAmazon": "결제 수단:"
   },
   "quickView": {
     "refStock": "품번 {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "오류가 발생했습니다.",
       "network": "네트워크 오류입니다.",
       "invalid_rpps": "유효하지 않은 RPPS(11자리) 또는 ADELI(9자리) 번호입니다.",
-      "invalid_profession": "직업을 선택해 주세요."
+      "invalid_profession": "직업을 선택해 주세요.",
+      "invalid_siret": "유효하지 않은 SIRET 번호: 14자리가 필요합니다.",
+      "invalid_company": "유효하지 않은 회사명입니다."
     },
     "forgotPassword": "비밀번호를 잊으셨나요?",
     "editAddress": "수정",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11자리 (RPPS) 또는 9자리 (ADELI)",
     "rppsHelp": "여기에 입력하지 않으면, 의사 전용 제품 주문 시 RPPS/ADELI 번호를 요청합니다.",
     "newsletterOptIn": "뉴스레터(신제품, 교육, 혜택) 수신에 동의합니다. 클릭 한 번으로 수신 거부 가능.",
-    "guestTracking": "계정 없이 주문하셨나요? <a>여기에서 주문 조회</a>"
+    "guestTracking": "계정 없이 주문하셨나요? <a>여기에서 주문 조회</a>",
+    "siret": "SIRET 번호 (선택, 프랑스)",
+    "siretPlaceholder": "14자리",
+    "siretHelp": "청구서에서 귀사(SIREN)를 식별하며, 특히 프랑스 전자 청구에 사용됩니다.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "주소",
@@ -808,7 +815,7 @@
     "backorder": "주문 후 입고 — 10~15일 이내 발송",
     "backorderShort": "주문 후 입고",
     "unavailable": "구매 불가",
-    "shipInStock": "영업일 오후 3시 이전 주문 시 당일 발송 · 프랑스 내 24~48시간 배송",
+    "shipInStock": "영업일 오후 3시 이전 주문 시 당일 발송 · 프랑스 내 24~48시간 배송 (주말 제외)",
     "shipBackorder": "10~15일 이내 발송",
     "vatFree": "부가세 면제",
     "reference": "품번 {reference}",

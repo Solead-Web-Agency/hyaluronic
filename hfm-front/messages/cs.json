@@ -47,7 +47,7 @@
     "discovery": "Objevte",
     "see": "Zobrazit →",
     "promosTop": "Akce & Top",
-    "ceDelivery": "Doručení do 24-48 h ve Francii",
+    "ceDelivery": "Doručení do 24-48 h ve Francii (kromě víkendů)",
     "mFillersTitle": "Výplně HA",
     "mFillersSub": "Zesíťovaná kyselina hyaluronová",
     "mMesoTitle": "Mezoterapie",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "izotermické odeslání, DHL Express & GLS.",
     "editoCta": "Objevit katalog →",
     "editoBadgeDelay": "24-48 h",
-    "editoBadgeDelaySub": "doručení ve Francii · 48-72 h v Evropě",
+    "editoBadgeDelaySub": "doručení ve Francii · 48-72 h v Evropě (kromě víkendů)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} ověřených recenzí <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Odbornost",
     "expertiseTitle": "Know-how našich specialistů",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Zveřejněno",
     "reviewsReply": "Odpověď prodejce",
     "reviewsTranslated": "Přeložené hodnocení",
-    "blockedCountry": "Tento produkt se ve vaší zemi neprodává."
+    "blockedCountry": "Tento produkt se ve vaší zemi neprodává.",
+    "payWithAmazon": "Zaplatit přes"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Došlo k chybě.",
       "network": "Chyba sítě.",
       "invalid_rpps": "Neplatné číslo RPPS (11 číslic) nebo ADELI (9 číslic).",
-      "invalid_profession": "Uveďte prosím svou profesi."
+      "invalid_profession": "Uveďte prosím svou profesi.",
+      "invalid_siret": "Neplatné číslo SIRET: očekává se 14 číslic.",
+      "invalid_company": "Neplatný název firmy."
     },
     "forgotPassword": "Zapomněli jste heslo?",
     "editAddress": "Upravit",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 číslic (RPPS) nebo 9 číslic (ADELI)",
     "rppsHelp": "Pokud ho neuvedete zde, číslo RPPS/ADELI bude vyžádáno při objednávce produktů vyhrazených lékařům.",
     "newsletterOptIn": "Souhlasím se zasíláním newsletteru (novinky, školení, nabídky). Odhlášení 1 kliknutím.",
-    "guestTracking": "Objednali jste bez účtu? <a>Sledujte objednávku zde</a>"
+    "guestTracking": "Objednali jste bez účtu? <a>Sledujte objednávku zde</a>",
+    "siret": "Číslo SIRET (nepovinné, Francie)",
+    "siretPlaceholder": "14 číslic",
+    "siretHelp": "Identifikuje vaši firmu (SIREN) na fakturách, zejména pro francouzskou e-fakturaci.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Adresa",
@@ -808,7 +815,7 @@
     "backorder": "Na objednávku — expedice do 10 až 15 dnů",
     "backorderShort": "Na objednávku",
     "unavailable": "Nedostupné",
-    "shipInStock": "Odesíláme ještě dnes při objednávce do 15:00 (pracovní dny) · doručení do 24–48 h ve Francii",
+    "shipInStock": "Odesíláme ještě dnes při objednávce do 15:00 (pracovní dny) · doručení do 24–48 h ve Francii (kromě víkendů)",
     "shipBackorder": "Expedice do 10 až 15 dnů",
     "vatFree": "DPH se neúčtuje",
     "reference": "Kód {reference}",

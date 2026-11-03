@@ -47,7 +47,7 @@
     "discovery": "Upptäck",
     "see": "Visa →",
     "promosTop": "Kampanjer & Topp",
-    "ceDelivery": "Leverans inom 24–48 h i Frankrike",
+    "ceDelivery": "Leverans inom 24–48 h i Frankrike (utom helger)",
     "mFillersTitle": "HA-fillers",
     "mFillersSub": "Tvärbunden hyaluronsyra",
     "mMesoTitle": "Mesoterapi",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "isotermisk leverans, DHL Express & GLS.",
     "editoCta": "Upptäck katalogen →",
     "editoBadgeDelay": "24–48 h",
-    "editoBadgeDelaySub": "leverans i Frankrike · 48–72 h i Europa",
+    "editoBadgeDelaySub": "leverans i Frankrike · 48–72 h i Europa (utom helger)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} verifierade omdömen <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Expertis",
     "expertiseTitle": "Våra specialisters kunnande",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Publicerad den",
     "reviewsReply": "Säljarens svar",
     "reviewsTranslated": "Översatt omdöme",
-    "blockedCountry": "Den här produkten säljs inte i ditt land."
+    "blockedCountry": "Den här produkten säljs inte i ditt land.",
+    "payWithAmazon": "Betala med"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Ett fel uppstod.",
       "network": "Nätverksfel.",
       "invalid_rpps": "Ogiltigt RPPS- (11 siffror) eller ADELI-nummer (9 siffror).",
-      "invalid_profession": "Ange ditt yrke."
+      "invalid_profession": "Ange ditt yrke.",
+      "invalid_siret": "Ogiltigt SIRET-nummer: 14 siffror förväntas.",
+      "invalid_company": "Ogiltigt företagsnamn."
     },
     "forgotPassword": "Glömt lösenordet?",
     "editAddress": "Ändra",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 siffror (RPPS) eller 9 siffror (ADELI)",
     "rppsHelp": "Om det inte anges här efterfrågas RPPS/ADELI-numret vid beställning av produkter som är förbehållna läkare.",
     "newsletterOptIn": "Jag godkänner att få nyhetsbrevet (nyheter, utbildningar, erbjudanden). Avregistrering med 1 klick.",
-    "guestTracking": "Beställt utan konto? <a>Spåra din beställning här</a>"
+    "guestTracking": "Beställt utan konto? <a>Spåra din beställning här</a>",
+    "siret": "SIRET-nummer (valfritt, Frankrike)",
+    "siretPlaceholder": "14 siffror",
+    "siretHelp": "Identifierar ditt företag (SIREN) på dina fakturor, särskilt för fransk e-fakturering.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Adress",
@@ -808,7 +815,7 @@
     "backorder": "Beställningsvara — skickas inom 10 till 15 dagar",
     "backorderShort": "Beställningsvara",
     "unavailable": "Ej tillgänglig",
-    "shipInStock": "Skickas i dag vid beställning före kl. 15 (vardagar) · leverans inom 24-48 h i Frankrike",
+    "shipInStock": "Skickas i dag vid beställning före kl. 15 (vardagar) · leverans inom 24-48 h i Frankrike (utom helger)",
     "shipBackorder": "Skickas inom 10 till 15 dagar",
     "vatFree": "momsfritt",
     "reference": "Art.nr {reference}",

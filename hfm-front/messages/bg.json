@@ -47,7 +47,7 @@
     "discovery": "Открийте",
     "see": "Виж →",
     "promosTop": "Промоции & Топ",
-    "ceDelivery": "Доставка за 24-48 ч. във Франция",
+    "ceDelivery": "Доставка за 24-48 ч. във Франция (без почивните дни)",
     "mFillersTitle": "Филъри HA",
     "mFillersSub": "Омрежена хиалуронова киселина",
     "mMesoTitle": "Мезотерапия",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "изотермична експедиция, DHL Express & GLS.",
     "editoCta": "Разгледайте каталога →",
     "editoBadgeDelay": "24-48 ч.",
-    "editoBadgeDelaySub": "доставка във Франция · 48-72 ч. в Европа",
+    "editoBadgeDelaySub": "доставка във Франция · 48-72 ч. в Европа (без почивните дни)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} проверени отзива <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Експертиза",
     "expertiseTitle": "Ноу-хауто на нашите специалисти",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Публикувано на",
     "reviewsReply": "Отговор на продавача",
     "reviewsTranslated": "Преведен отзив",
-    "blockedCountry": "Този продукт не се продава във вашата държава."
+    "blockedCountry": "Този продукт не се продава във вашата държава.",
+    "payWithAmazon": "Плати с"
   },
   "quickView": {
     "refStock": "Реф. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Възникна грешка.",
       "network": "Мрежова грешка.",
       "invalid_rpps": "Невалиден номер RPPS (11 цифри) или ADELI (9 цифри).",
-      "invalid_profession": "Моля, посочете професията си."
+      "invalid_profession": "Моля, посочете професията си.",
+      "invalid_siret": "Невалиден номер SIRET: очакват се 14 цифри.",
+      "invalid_company": "Невалидно име на фирма."
     },
     "forgotPassword": "Забравена парола?",
     "editAddress": "Редактиране",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 цифри (RPPS) или 9 цифри (ADELI)",
     "rppsHelp": "Ако не е посочен тук, номерът RPPS/ADELI ще бъде поискан при поръчка на продукти, запазени за лекари.",
     "newsletterOptIn": "Съгласен/на съм да получавам бюлетина (новости, обучения, оферти). Отписване с 1 клик.",
-    "guestTracking": "Поръчахте без профил? <a>Проследете поръчката тук</a>"
+    "guestTracking": "Поръчахте без профил? <a>Проследете поръчката тук</a>",
+    "siret": "Номер SIRET (по избор, Франция)",
+    "siretPlaceholder": "14 цифри",
+    "siretHelp": "Идентифицира вашата фирма (SIREN) във фактурите, особено за френското електронно фактуриране.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Адрес",
@@ -808,7 +815,7 @@
     "backorder": "По поръчка — изпращане до 10–15 дни",
     "backorderShort": "По поръчка",
     "unavailable": "Няма наличност",
-    "shipInStock": "Изпраща се днес при поръчка до 15:00 ч. (работни дни) · доставка за 24–48 ч. във Франция",
+    "shipInStock": "Изпраща се днес при поръчка до 15:00 ч. (работни дни) · доставка за 24–48 ч. във Франция (без почивните дни)",
     "shipBackorder": "Изпращане до 10–15 дни",
     "vatFree": "без начислен ДДС",
     "reference": "Код {reference}",

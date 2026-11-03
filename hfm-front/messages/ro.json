@@ -47,7 +47,7 @@
     "discovery": "Descoperă",
     "see": "Vezi →",
     "promosTop": "Promoții & Top",
-    "ceDelivery": "Livrare în 24-48 h în Franța",
+    "ceDelivery": "Livrare în 24-48 h în Franța (exclusiv weekendurile)",
     "mFillersTitle": "Fillere HA",
     "mFillersSub": "Acid hialuronic reticulat",
     "mMesoTitle": "Mezoterapie",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "expediere izotermică, DHL Express & GLS.",
     "editoCta": "Descoperă catalogul →",
     "editoBadgeDelay": "24-48 h",
-    "editoBadgeDelaySub": "livrare în Franța · 48-72 h în Europa",
+    "editoBadgeDelaySub": "livrare în Franța · 48-72 h în Europa (exclusiv weekendurile)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} recenzii verificate <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Expertiză",
     "expertiseTitle": "Know-how-ul specialiștilor noștri",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Publicat la",
     "reviewsReply": "Răspunsul vânzătorului",
     "reviewsTranslated": "Recenzie tradusă",
-    "blockedCountry": "Acest produs nu este disponibil la vânzare în țara dvs."
+    "blockedCountry": "Acest produs nu este disponibil la vânzare în țara dvs.",
+    "payWithAmazon": "Plătește cu"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "A apărut o eroare.",
       "network": "Eroare de rețea.",
       "invalid_rpps": "Număr RPPS (11 cifre) sau ADELI (9 cifre) invalid.",
-      "invalid_profession": "Vă rugăm să indicați profesia."
+      "invalid_profession": "Vă rugăm să indicați profesia.",
+      "invalid_siret": "Număr SIRET invalid: sunt necesare 14 cifre.",
+      "invalid_company": "Denumire firmă invalidă."
     },
     "forgotPassword": "Ați uitat parola?",
     "editAddress": "Modifică",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 cifre (RPPS) sau 9 cifre (ADELI)",
     "rppsHelp": "Dacă nu îl furnizați aici, numărul RPPS/ADELI va fi cerut la comanda produselor rezervate medicilor.",
     "newsletterOptIn": "Accept să primesc newsletterul (noutăți, cursuri, oferte). Dezabonare cu 1 clic.",
-    "guestTracking": "Ați comandat fără cont? <a>Urmăriți comanda aici</a>"
+    "guestTracking": "Ați comandat fără cont? <a>Urmăriți comanda aici</a>",
+    "siret": "Număr SIRET (opțional, Franța)",
+    "siretPlaceholder": "14 cifre",
+    "siretHelp": "Identifică firma dvs. (SIREN) pe facturi, în special pentru facturarea electronică franceză.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Adresă",
@@ -808,7 +815,7 @@
     "backorder": "La comandă — expediere în 10–15 zile",
     "backorderShort": "La comandă",
     "unavailable": "Indisponibil",
-    "shipInStock": "Expediat astăzi pentru comenzile plasate înainte de ora 15:00 (zile lucrătoare) · livrare în 24–48 h în Franța",
+    "shipInStock": "Expediat astăzi pentru comenzile plasate înainte de ora 15:00 (zile lucrătoare) · livrare în 24–48 h în Franța (exclusiv weekendurile)",
     "shipBackorder": "Expediere în 10–15 zile",
     "vatFree": "TVA neaplicabil",
     "reference": "Ref. {reference}",

@@ -47,7 +47,7 @@
     "discovery": "发现",
     "see": "查看 →",
     "promosTop": "促销与热销",
-    "ceDelivery": "法国境内 24-48 小时送达",
+    "ceDelivery": "法国境内 24-48 小时送达 (周末除外)",
     "mFillersTitle": "HA 填充剂",
     "mFillersSub": "交联透明质酸",
     "mMesoTitle": "中胚层疗法",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "保温配送，DHL Express 与 GLS。",
     "editoCta": "探索产品目录 →",
     "editoBadgeDelay": "24-48 小时",
-    "editoBadgeDelaySub": "法国境内送达 · 欧洲 48-72 小时",
+    "editoBadgeDelaySub": "法国境内送达 · 欧洲 48-72 小时 (周末除外)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} 条已验证评价 <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "专业知识",
     "expertiseTitle": "我们专家的专业造诣",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "发布于",
     "reviewsReply": "卖家回复",
     "reviewsTranslated": "翻译后的评价",
-    "blockedCountry": "该产品在您所在的国家/地区不予销售。"
+    "blockedCountry": "该产品在您所在的国家/地区不予销售。",
+    "payWithAmazon": "使用以下方式支付"
   },
   "quickView": {
     "refStock": "货号 {reference} · {status}。",
@@ -377,7 +378,9 @@
       "generic": "发生错误。",
       "network": "网络错误。",
       "invalid_rpps": "RPPS（11 位）或 ADELI（9 位）编号无效。",
-      "invalid_profession": "请选择您的职业。"
+      "invalid_profession": "请选择您的职业。",
+      "invalid_siret": "SIRET 号码无效：需要 14 位数字。",
+      "invalid_company": "公司名称无效。"
     },
     "forgotPassword": "忘记密码？",
     "editAddress": "修改",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 位（RPPS）或 9 位（ADELI）",
     "rppsHelp": "如未在此填写，订购医生专用产品时将要求提供 RPPS/ADELI 编号。",
     "newsletterOptIn": "我同意接收新闻通讯（新品、培训、优惠）。一键退订。",
-    "guestTracking": "未注册账户下单？<a>在此查询订单</a>"
+    "guestTracking": "未注册账户下单？<a>在此查询订单</a>",
+    "siret": "SIRET 号码（可选，法国）",
+    "siretPlaceholder": "14 位数字",
+    "siretHelp": "用于在发票上识别您的企业（SIREN），尤其适用于法国电子发票。",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "地址",
@@ -808,7 +815,7 @@
     "backorder": "需订购 — 10至15天内发货",
     "backorderShort": "需订购",
     "unavailable": "暂不可售",
-    "shipInStock": "工作日15点前下单当天发货 · 法国境内24-48小时送达",
+    "shipInStock": "工作日15点前下单当天发货 · 法国境内24-48小时送达 (周末除外)",
     "shipBackorder": "10至15天内发货",
     "vatFree": "免增值税",
     "reference": "货号 {reference}",

@@ -1371,6 +1371,9 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                 Product::getPriceStatic($idProduct, false, null, 2, null, false, false),
                 2
             ),
+            // Bouton Amazon Pay sur la fiche : réglage global de l'ancien module (BO > Amazon Pay >
+            // emplacement « fiche produit »), conservé comme interrupteur (demande client 21/10).
+            'amazon_product_button' => (bool) (int) Configuration::get('AMAZONPAY_PLACEMENT_PRODUCT'),
             // Paliers dégressifs publics (l'ancien site affichait le tableau « 2 → x € »).
             'quantity_discounts' => $this->quantityDiscounts($idProduct),
         ]];

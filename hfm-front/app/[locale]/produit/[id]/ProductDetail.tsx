@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { trackViewItem } from '@/lib/gtm';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { useStore } from '../../../store';
 import { canBuyStatus, comboStockStatus, fmt, type StockStatus } from '@/lib/cardModel';
 import { DeliveryPromise, StockStatusLine, TaxLine } from '../../../components/Availability';
@@ -38,6 +38,8 @@ export type ProductView = {
   // Prix AVANT remise : si > au prix courant, on affiche le barré + le badge (parité ancien site).
   priceWithoutReductionTtc?: number;
   priceWithoutReductionHt?: number;
+  // Bouton Amazon Pay sur la fiche : réglage global du BO (module Amazon Pay, « fiche produit »).
+  amazonButton?: boolean;
   // Paliers dégressifs publics (« dès 10 : 51,40 € »).
   quantityDiscounts?: { from_quantity: number; price_incl_tax: number; price_excl_tax: number }[];
   // URL canonique absolue : sert aux liens de partage (corrects dès le rendu serveur).
@@ -175,6 +177,21 @@ export default function ProductDetail({ product, related }: { product: ProductVi
   const status: StockStatus = combo ? comboStockStatus(combo) : product.availabilityState;
   const canBuy = !product.blocked_country && canBuyStatus(status);
   const addCurrent = () => addToCart({ id: product.id, quantity: qty, id_product_attribute: comboId ?? undefined });
+  // Amazon Pay depuis la fiche (demande client 21/10, interrupteur global comme l'ancien module) :
+  // ajout au panier puis tunnel avec Amazon Pay présélectionné — les étapes adresse, transporteur
+  // et vérification professionnelle restent obligatoires.
+  const router = useRouter();
+  const [amazonReady, setAmazonReady] = useState(false);
+  useEffect(() => {
+    if (!product.amazonButton) return;
+    let alive = true;
+    fetch('/api/payment').then((r) => (r.ok ? r.json() : null)).then((d) => { if (alive) setAmazonReady(!!d?.amazon?.configured); }).catch(() => {});
+    return () => { alive = false; };
+  }, [product.amazonButton]);
+  const payWithAmazon = async () => {
+    await addCurrent();
+    router.push('/checkout?pay=amazon');
+  };
 
   const card: React.CSSProperties = { background: '#fff', border: '1px solid #ECEAE3', borderRadius: '10px' };
 
@@ -352,6 +369,12 @@ export default function ProductDetail({ product, related }: { product: ProductVi
               <button disabled style={{ flex: 1, height: '52px', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '15px', fontWeight: 600, color: '#6E7585', background: 'rgba(242,240,234,.7)', border: '1px solid rgba(226,222,207,.9)', borderRadius: '999px', cursor: 'default' }}>{t('notifyOnReturn')}</button>
             )}
           </div>
+          {canBuy && amazonReady ? (
+            <button onClick={payWithAmazon} aria-label={`${t('payWithAmazon')} Amazon Pay`} style={{ marginTop: '12px', width: '100%', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', background: '#FFD814', border: '1px solid #F2C200', borderRadius: '999px', cursor: 'pointer', fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '14px', fontWeight: 600, color: '#0F1111' }}>
+              <span>{t('payWithAmazon')}</span>
+              <img src="/pay/amazonpay.png" alt="" style={{ height: '18px', width: 'auto' }} />
+            </button>
+          ) : null}
 
           {/* Tuiles réassurance */}
           <div style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', marginTop: '22px', overflow: 'hidden' }}>

@@ -47,7 +47,7 @@
     "discovery": "Scoperta",
     "see": "Vedi →",
     "promosTop": "Promo & Top",
-    "ceDelivery": "Consegna in 24-48 h in Francia",
+    "ceDelivery": "Consegna in 24-48 h in Francia (esclusi i fine settimana)",
     "mFillersTitle": "Filler HA",
     "mFillersSub": "Acido ialuronico reticolato",
     "mMesoTitle": "Mesoterapia",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "spedizione isotermica, DHL Express & GLS.",
     "editoCta": "Scopri il catalogo →",
     "editoBadgeDelay": "24-48 h",
-    "editoBadgeDelaySub": "consegna in Francia · 48-72 h in Europa",
+    "editoBadgeDelaySub": "consegna in Francia · 48-72 h in Europa (esclusi i fine settimana)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} recensioni verificate <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Competenza",
     "expertiseTitle": "Il know-how dei nostri specialisti",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Pubblicato il",
     "reviewsReply": "Risposta del venditore",
     "reviewsTranslated": "Recensione tradotta",
-    "blockedCountry": "Questo prodotto non è in vendita nel tuo paese."
+    "blockedCountry": "Questo prodotto non è in vendita nel tuo paese.",
+    "payWithAmazon": "Paga con"
   },
   "quickView": {
     "refStock": "Rif. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Si è verificato un errore.",
       "network": "Errore di rete.",
       "invalid_rpps": "Numero RPPS (11 cifre) o ADELI (9 cifre) non valido.",
-      "invalid_profession": "Indica la tua professione."
+      "invalid_profession": "Indica la tua professione.",
+      "invalid_siret": "Numero SIRET non valido: sono attese 14 cifre.",
+      "invalid_company": "Nome della società non valido."
     },
     "forgotPassword": "Password dimenticata?",
     "editAddress": "Modifica",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 cifre (RPPS) o 9 cifre (ADELI)",
     "rppsHelp": "Se non lo indichi qui, il numero RPPS/ADELI ti verrà richiesto all'ordine dei prodotti riservati ai medici.",
     "newsletterOptIn": "Accetto di ricevere la newsletter (novità, formazione, offerte). Disiscrizione in 1 clic.",
-    "guestTracking": "Hai ordinato senza account? <a>Segui qui il tuo ordine</a>"
+    "guestTracking": "Hai ordinato senza account? <a>Segui qui il tuo ordine</a>",
+    "siret": "Numero SIRET (facoltativo, Francia)",
+    "siretPlaceholder": "14 cifre",
+    "siretHelp": "Identifica la vostra struttura (SIREN) sulle fatture, in particolare per la fatturazione elettronica francese.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Indirizzo",
@@ -808,7 +815,7 @@
     "backorder": "Su ordinazione — spedizione entro 10-15 giorni",
     "backorderShort": "Su ordinazione",
     "unavailable": "Non disponibile",
-    "shipInStock": "Spedito oggi per ordini effettuati entro le 15:00 (giorni lavorativi) · consegna in 24-48 h in Francia",
+    "shipInStock": "Spedito oggi per ordini effettuati entro le 15:00 (giorni lavorativi) · consegna in 24-48 h in Francia (esclusi i fine settimana)",
     "shipBackorder": "Spedizione entro 10-15 giorni",
     "vatFree": "IVA non applicata",
     "reference": "Rif. {reference}",

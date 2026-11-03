@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { normalizeSiret, validSiret } from '@/lib/siret';
 import { bridgeGet, bridgePost } from '@/lib/ps';
 import { signSession, getSessionUser, SESSION_COOKIE, type SessionUser } from '@/lib/session';
 import { NO_STORE } from '@/lib/cacheContract';
@@ -153,6 +154,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'invalid_rpps' }, { status: 400, headers: NO_STORE });
     }
     const company = String(body.company || '').trim().slice(0, 255);
+    // SIRET facultatif (SIREN du client pro pour la facturation électronique) ; valide s'il est donné.
+    const siret = normalizeSiret(String(body.siret || ''));
+    if (siret && !validSiret(siret)) {
+      return NextResponse.json({ error: 'invalid_siret' }, { status: 400, headers: NO_STORE });
+    }
     const newsletter = body.newsletter === true || body.newsletter === 1 || body.newsletter === '1';
     payload = {
       action: 'register',
@@ -163,6 +169,7 @@ export async function POST(req: NextRequest) {
       id_lang: Number(body.id_lang) || idLangFor(String(body.locale || 'fr')),
       profession,
       ...(company ? { company } : {}),
+      ...(siret ? { siret } : {}),
       ...(rpps ? { rpps } : {}),
       // Consentement newsletter EXPLICITE (case non cochée par défaut) ; IP conservée comme preuve.
       newsletter: newsletter ? 1 : 0,

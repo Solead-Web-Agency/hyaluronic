@@ -341,9 +341,10 @@ class Hfmstorefront extends PaymentModule
 
     /**
      * Mentions légales de la facture (remplacent PS_INVOICE_LEGAL_FREE_TEXT, qui affichait en
-     * anglais le n° de TVA d'une autre société) : exonération avec le BON article du CGI, état du
-     * règlement, conditions de retard entre professionnels. Texte brut (le modèle échappe et
-     * passe à la ligne).
+     * anglais le n° de TVA d'une autre société) : exonération avec le BON article du CGI, SIREN de
+     * l'acheteur pro (facturation électronique), état du règlement, conditions de retard entre
+     * professionnels. En français ; traduction anglaise en dessous si la commande est dans une
+     * autre langue. Texte brut (le modèle échappe et passe à la ligne).
      */
     public function hookDisplayInvoiceLegalFreeText($params)
     {
@@ -351,9 +352,15 @@ class Hfmstorefront extends PaymentModule
         if (!$order instanceof Order || !Validate::isLoadedObject($order)) {
             return '';
         }
-        $lines = [];
+        $mentions = [];
         if ($exemption = $this->vatExemptionMention($order)) {
-            $lines[] = $exemption;
+            $mentions[] = $exemption;
+        }
+        $customer = new Customer((int) $order->id_customer);
+        $siret = Validate::isLoadedObject($customer) ? preg_replace('/\D+/', '', (string) $customer->siret) : '';
+        if (Tools::strlen($siret) === 14) {
+            $siren = substr($siret, 0, 3) . ' ' . substr($siret, 3, 3) . ' ' . substr($siret, 6, 3);
+            $mentions[] = ['SIREN de l\'acheteur : ' . $siren . ' (SIRET ' . $siret . ').', 'Buyer SIREN: ' . $siren . ' (SIRET ' . $siret . ').'];
         }
         $paid = 0.0;
         $paidOn = '';
@@ -362,14 +369,19 @@ class Hfmstorefront extends PaymentModule
             $paidOn = $paidOn ?: (string) $payment->date_add;
         }
         if ($paid + 0.01 >= (float) $order->total_paid_tax_incl && $paidOn !== '') {
-            $lines[] = 'Facture acquittée le ' . date('d/m/Y', strtotime($paidOn)) . ' (' . $order->payment . ').';
+            $d = date('d/m/Y', strtotime($paidOn));
+            $mentions[] = ['Facture acquittée le ' . $d . ' (' . $order->payment . ').', 'Invoice paid on ' . $d . ' (' . $order->payment . ').'];
         } else {
-            $lines[] = 'Règlement à réception de facture (' . $order->payment . ').';
+            $mentions[] = ['Règlement à réception de facture (' . $order->payment . ').', 'Payment due upon receipt of invoice (' . $order->payment . ').'];
         }
-        $lines[] = 'Pas d\'escompte pour paiement anticipé. Tout retard de paiement entraîne des pénalités au taux de trois fois '
-            . 'le taux d\'intérêt légal et une indemnité forfaitaire pour frais de recouvrement de 40 € '
-            . '(articles L441-10 et D441-5 du Code de commerce).';
-        return implode("\n", $lines);
+        $mentions[] = [
+            'Pas d\'escompte pour paiement anticipé. Tout retard de paiement entraîne des pénalités au taux de trois fois '
+                . 'le taux d\'intérêt légal et une indemnité forfaitaire pour frais de recouvrement de 40 € '
+                . '(articles L441-10 et D441-5 du Code de commerce).',
+            'No discount for early payment. Late payment incurs penalties at three times the French legal interest rate '
+                . 'and a fixed recovery fee of €40 (French Commercial Code, articles L441-10 and D441-5).',
+        ];
+        return implode("\n", $this->bilingual($mentions, $order));
     }
 
     /**
@@ -383,47 +395,75 @@ class Hfmstorefront extends PaymentModule
         if (!$order || !Validate::isLoadedObject($order)) {
             return '';
         }
-        $lines = [];
+        $mentions = [];
         $invoice = $order->hasInvoice() ? $order->getInvoicesCollection()->getFirst() : null;
         if ($invoice && Validate::isLoadedObject($invoice)) {
-            $lines[] = 'Avoir relatif à la facture n° ' . $invoice->getInvoiceNumberFormatted((int) $order->id_lang, (int) $order->id_shop)
-                . ' du ' . date('d/m/Y', strtotime((string) $invoice->date_add)) . ' (commande ' . $order->reference . ').';
+            $number = $invoice->getInvoiceNumberFormatted((int) $order->id_lang, (int) $order->id_shop);
+            $d = date('d/m/Y', strtotime((string) $invoice->date_add));
+            $mentions[] = [
+                'Avoir relatif à la facture n° ' . $number . ' du ' . $d . ' (commande ' . $order->reference . ').',
+                'Credit note for invoice ' . $number . ' dated ' . $d . ' (order ' . $order->reference . ').',
+            ];
         } else {
-            $lines[] = 'Avoir relatif à la commande ' . $order->reference . '.';
+            $mentions[] = ['Avoir relatif à la commande ' . $order->reference . '.', 'Credit note for order ' . $order->reference . '.'];
         }
         if ($exemption = $this->vatExemptionMention($order)) {
-            $lines[] = $exemption;
+            $mentions[] = $exemption;
         }
         return '<table style="width:100%;font-size:8pt;color:#444"><tr><td>'
-            . implode('<br />', array_map(function ($l) { return htmlspecialchars($l, ENT_QUOTES, 'UTF-8'); }, $lines))
+            . implode('<br />', array_map(function ($l) { return htmlspecialchars($l, ENT_QUOTES, 'UTF-8'); }, $this->bilingual($mentions, $order)))
             . '</td></tr></table>';
     }
 
     /**
-     * Mention d'exonération de TVA d'une commande vendue sans TVA, selon la destination :
+     * [fr, en] -> lignes : le français (langue légale de la facture), plus l'anglais entre
+     * parenthèses pour une commande passée dans une autre langue (question client 28/10).
+     */
+    protected function bilingual(array $mentions, Order $order)
+    {
+        $foreign = Tools::strtolower((string) Language::getIsoById((int) $order->id_lang)) !== 'fr';
+        $out = [];
+        foreach ($mentions as $m) {
+            $out[] = $m[0];
+            if ($foreign) {
+                $out[] = '(' . $m[1] . ')';
+            }
+        }
+        return $out;
+    }
+
+    /**
+     * Mention d'exonération de TVA [fr, en] d'une commande vendue sans TVA, selon la destination :
      * livraison intracommunautaire de biens (262 ter I, n° de TVA de l'acquéreur) ou exportation
-     * hors UE (262 I). Rien si la commande porte de la TVA.
+     * hors UE (262 I). null si la commande porte de la TVA.
      */
     protected function vatExemptionMention(Order $order)
     {
         $tax = (float) $order->total_paid_tax_incl - (float) $order->total_paid_tax_excl;
         if ($tax > 0.01 || (float) $order->total_paid_tax_excl <= 0) {
-            return '';
+            return null;
         }
         $delivery = new Address((int) $order->id_address_delivery);
         $iso = Validate::isLoadedObject($delivery) ? Tools::strtoupper((string) Country::getIsoById((int) $delivery->id_country)) : '';
         if ($iso === '' || $iso === 'FR' || $iso === 'COS' || $iso === 'MC') {
-            return '';
+            return null;
         }
         $eu = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT',
             'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'];
         if (in_array($iso, $eu, true)) {
             $invoiceAddress = new Address((int) $order->id_address_invoice);
             $vat = Validate::isLoadedObject($invoiceAddress) ? trim((string) $invoiceAddress->vat_number) : '';
-            return 'Exonération de TVA : livraison intracommunautaire de biens (article 262 ter I du CGI)'
-                . ($vat !== '' ? ' — n° de TVA intracommunautaire de l\'acquéreur : ' . $vat : '') . '.';
+            return [
+                'Exonération de TVA : livraison intracommunautaire de biens (article 262 ter I du CGI)'
+                    . ($vat !== '' ? ' — n° de TVA intracommunautaire de l\'acquéreur : ' . $vat : '') . '.',
+                'VAT exempt: intra-Community supply of goods (article 138 of Directive 2006/112/EC)'
+                    . ($vat !== '' ? ' — buyer VAT number: ' . $vat : '') . '.',
+            ];
         }
-        return 'Exonération de TVA : exportation hors de l\'Union européenne (article 262 I du CGI).';
+        return [
+            'Exonération de TVA : exportation hors de l\'Union européenne (article 262 I du CGI).',
+            'VAT exempt: export outside the European Union (article 146 of Directive 2006/112/EC).',
+        ];
     }
 
     /** Stock modifié (rupture / réappro) -> 'quantity' et 'available' des produits. */

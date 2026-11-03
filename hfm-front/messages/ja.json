@@ -47,7 +47,7 @@
     "discovery": "発見",
     "see": "見る →",
     "promosTop": "セール & トップ",
-    "ceDelivery": "フランス国内 24〜48時間でお届け",
+    "ceDelivery": "フランス国内 24〜48時間でお届け (週末を除く)",
     "mFillersTitle": "HAフィラー",
     "mFillersSub": "架橋ヒアルロン酸",
     "mMesoTitle": "メソセラピー",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "保冷輸送、DHL Express & GLS。",
     "editoCta": "カタログを見る →",
     "editoBadgeDelay": "24〜48時間",
-    "editoBadgeDelaySub": "フランス国内 · ヨーロッパは48〜72時間",
+    "editoBadgeDelaySub": "フランス国内 · ヨーロッパは48〜72時間 (週末を除く)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number}件の認証済みレビュー <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "専門知識",
     "expertiseTitle": "専門家のノウハウ",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "公開日",
     "reviewsReply": "販売者からの返信",
     "reviewsTranslated": "翻訳されたレビュー",
-    "blockedCountry": "この製品はお住まいの国では販売していません。"
+    "blockedCountry": "この製品はお住まいの国では販売していません。",
+    "payWithAmazon": "支払い："
   },
   "quickView": {
     "refStock": "品番 {reference} · {status}。",
@@ -377,7 +378,9 @@
       "generic": "エラーが発生しました。",
       "network": "ネットワークエラー。",
       "invalid_rpps": "RPPS番号（11桁）またはADELI番号（9桁）が正しくありません。",
-      "invalid_profession": "職種を選択してください。"
+      "invalid_profession": "職種を選択してください。",
+      "invalid_siret": "SIRET番号が無効です：14桁が必要です。",
+      "invalid_company": "会社名が無効です。"
     },
     "forgotPassword": "パスワードをお忘れですか？",
     "editAddress": "編集",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11桁（RPPS）または9桁（ADELI）",
     "rppsHelp": "ここで入力しない場合、医師専用製品のご注文時にRPPS/ADELI番号の入力が必要になります。",
     "newsletterOptIn": "ニュースレター（新製品、研修、特典）の受信に同意します。配信停止はワンクリックで可能です。",
-    "guestTracking": "アカウントなしでご注文されましたか？<a>こちらで注文を追跡</a>"
+    "guestTracking": "アカウントなしでご注文されましたか？<a>こちらで注文を追跡</a>",
+    "siret": "SIRET番号（任意・フランス）",
+    "siretPlaceholder": "14桁",
+    "siretHelp": "請求書上で事業者（SIREN）を識別します。特にフランスの電子請求に使用されます。",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "住所",
@@ -808,7 +815,7 @@
     "backorder": "お取り寄せ — 10〜15日以内に発送",
     "backorderShort": "お取り寄せ",
     "unavailable": "入手不可",
-    "shipInStock": "平日15時までのご注文は当日発送 · フランス国内は24〜48時間でお届け",
+    "shipInStock": "平日15時までのご注文は当日発送 · フランス国内は24〜48時間でお届け (週末を除く)",
     "shipBackorder": "10〜15日以内に発送",
     "vatFree": "VAT対象外",
     "reference": "品番 {reference}",

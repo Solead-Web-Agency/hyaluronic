@@ -47,7 +47,7 @@
     "discovery": "Tutustu",
     "see": "Katso →",
     "promosTop": "Tarjoukset & Suosituimmat",
-    "ceDelivery": "Toimitus 24–48 h Ranskassa",
+    "ceDelivery": "Toimitus 24–48 h Ranskassa (viikonloppuja lukuun ottamatta)",
     "mFillersTitle": "HA-täyteaineet",
     "mFillersSub": "Ristisilloitettu hyaluronihappo",
     "mMesoTitle": "Mesoterapia",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "isoterminen lähetys, DHL Express & GLS.",
     "editoCta": "Tutustu katalogiin →",
     "editoBadgeDelay": "24–48 h",
-    "editoBadgeDelaySub": "toimitus Ranskaan · 48–72 h Eurooppaan",
+    "editoBadgeDelaySub": "toimitus Ranskaan · 48–72 h Eurooppaan (viikonloppuja lukuun ottamatta)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} vahvistettua arvostelua <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Asiantuntemus",
     "expertiseTitle": "Asiantuntijoidemme osaaminen",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Julkaistu",
     "reviewsReply": "Myyjän vastaus",
     "reviewsTranslated": "Käännetty arvostelu",
-    "blockedCountry": "Tätä tuotetta ei myydä maassasi."
+    "blockedCountry": "Tätä tuotetta ei myydä maassasi.",
+    "payWithAmazon": "Maksa palvelulla"
   },
   "quickView": {
     "refStock": "Koodi {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Tapahtui virhe.",
       "network": "Verkkovirhe.",
       "invalid_rpps": "Virheellinen RPPS- (11 numeroa) tai ADELI-numero (9 numeroa).",
-      "invalid_profession": "Valitse ammattisi."
+      "invalid_profession": "Valitse ammattisi.",
+      "invalid_siret": "Virheellinen SIRET-numero: 14 numeroa vaaditaan.",
+      "invalid_company": "Virheellinen yrityksen nimi."
     },
     "forgotPassword": "Unohditko salasanasi?",
     "editAddress": "Muokkaa",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 numeroa (RPPS) tai 9 numeroa (ADELI)",
     "rppsHelp": "Jos sitä ei anneta tässä, RPPS/ADELI-numeroa pyydetään tilattaessa lääkäreille varattuja tuotteita.",
     "newsletterOptIn": "Haluan vastaanottaa uutiskirjeen (uutuudet, koulutukset, tarjoukset). Peruutus yhdellä napsautuksella.",
-    "guestTracking": "Tilasitko ilman tiliä? <a>Seuraa tilaustasi täällä</a>"
+    "guestTracking": "Tilasitko ilman tiliä? <a>Seuraa tilaustasi täällä</a>",
+    "siret": "SIRET-numero (valinnainen, Ranska)",
+    "siretPlaceholder": "14 numeroa",
+    "siretHelp": "Yksilöi yrityksesi (SIREN) laskuissa, erityisesti Ranskan sähköistä laskutusta varten.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Osoite",
@@ -808,7 +815,7 @@
     "backorder": "Tilaustuote — lähetys 10–15 päivässä",
     "backorderShort": "Tilaustuote",
     "unavailable": "Ei saatavilla",
-    "shipInStock": "Lähetetään samana päivänä ennen klo 15 tehdyille tilauksille (arkipäivisin) · toimitus 24–48 h Ranskassa",
+    "shipInStock": "Lähetetään samana päivänä ennen klo 15 tehdyille tilauksille (arkipäivisin) · toimitus 24–48 h Ranskassa (viikonloppuja lukuun ottamatta)",
     "shipBackorder": "Lähetys 10–15 päivässä",
     "vatFree": "ei arvonlisäveroa",
     "reference": "Tuotenro {reference}",

@@ -47,7 +47,7 @@
     "discovery": "Descubrimiento",
     "see": "Ver →",
     "promosTop": "Ofertas & Top",
-    "ceDelivery": "Entrega en 24-48 h en Francia",
+    "ceDelivery": "Entrega en 24-48 h en Francia (excepto fines de semana)",
     "mFillersTitle": "Fillers HA",
     "mFillersSub": "Ácido hialurónico reticulado",
     "mMesoTitle": "Mesoterapia",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "envío isotérmico, DHL Express & GLS.",
     "editoCta": "Descubrir el catálogo →",
     "editoBadgeDelay": "24-48 h",
-    "editoBadgeDelaySub": "entrega en Francia · 48-72 h en Europa",
+    "editoBadgeDelaySub": "entrega en Francia · 48-72 h en Europa (excepto fines de semana)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} opiniones verificadas <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Experiencia",
     "expertiseTitle": "El saber hacer de nuestros especialistas",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Publicado el",
     "reviewsReply": "Respuesta del vendedor",
     "reviewsTranslated": "Opinión traducida",
-    "blockedCountry": "Este producto no está disponible para la venta en su país."
+    "blockedCountry": "Este producto no está disponible para la venta en su país.",
+    "payWithAmazon": "Pagar con"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Se ha producido un error.",
       "network": "Error de red.",
       "invalid_rpps": "Número RPPS (11 dígitos) o ADELI (9 dígitos) no válido.",
-      "invalid_profession": "Indique su profesión."
+      "invalid_profession": "Indique su profesión.",
+      "invalid_siret": "Número SIRET no válido: se esperan 14 dígitos.",
+      "invalid_company": "Nombre de empresa no válido."
     },
     "forgotPassword": "¿Olvidó su contraseña?",
     "editAddress": "Modificar",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 dígitos (RPPS) o 9 dígitos (ADELI)",
     "rppsHelp": "Si no lo indica aquí, el número RPPS/ADELI se le pedirá al comprar productos reservados a médicos.",
     "newsletterOptIn": "Acepto recibir la newsletter (novedades, formación, ofertas). Baja en 1 clic.",
-    "guestTracking": "¿Ha comprado sin cuenta? <a>Siga su pedido aquí</a>"
+    "guestTracking": "¿Ha comprado sin cuenta? <a>Siga su pedido aquí</a>",
+    "siret": "Número SIRET (opcional, Francia)",
+    "siretPlaceholder": "14 dígitos",
+    "siretHelp": "Identifica su empresa (SIREN) en sus facturas, en particular para la facturación electrónica francesa.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Dirección",
@@ -808,7 +815,7 @@
     "backorder": "Bajo pedido — envío en 10 a 15 días",
     "backorderShort": "Bajo pedido",
     "unavailable": "No disponible",
-    "shipInStock": "Enviado hoy para pedidos realizados antes de las 15:00 (días laborables) · entrega en 24-48 h en Francia",
+    "shipInStock": "Enviado hoy para pedidos realizados antes de las 15:00 (días laborables) · entrega en 24-48 h en Francia (excepto fines de semana)",
     "shipBackorder": "Envío en 10 a 15 días",
     "vatFree": "IVA no aplicable",
     "reference": "Ref. {reference}",

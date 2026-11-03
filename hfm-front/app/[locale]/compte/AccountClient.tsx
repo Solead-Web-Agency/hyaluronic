@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { validSiret } from '@/lib/siret';
 import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
@@ -64,6 +65,8 @@ const KNOWN_ERROR_CODES = new Set([
   'invalid_email',
   'password_too_short',
   'invalid_rpps',
+  'invalid_siret',
+  'invalid_company',
   'invalid_profession',
 ]);
 
@@ -127,6 +130,7 @@ export default function AccountClient() {
   const [rProfession, setRProfession] = useState('');
   const [rCompany, setRCompany] = useState('');
   const [rRpps, setRRpps] = useState('');
+  const [rSiret, setRSiret] = useState('');
   const [rNewsletter, setRNewsletter] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -143,6 +147,9 @@ export default function AccountClient() {
   const [pLast, setPLast] = useState('');
   const [pEmail, setPEmail] = useState('');
   const [pPassword, setPPassword] = useState('');
+  const [pCompany, setPCompany] = useState('');
+  const [pSiret, setPSiret] = useState('');
+  const [proInfo, setProInfo] = useState<{ company: string; siret: string } | null>(null);
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [profileBusy, setProfileBusy] = useState(false);
   const [profileError, setProfileError] = useState<string | null>(null);
@@ -154,6 +161,17 @@ export default function AccountClient() {
       setPFirst(customer.firstname);
       setPLast(customer.lastname);
       setPEmail(customer.email);
+      // Société et SIRET : lus dans la fiche client du back (pas dans la session).
+      fetch('/api/customer')
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          const c = d?.customer;
+          if (!c) return;
+          setProInfo({ company: String(c.company || ''), siret: String(c.siret || '') });
+          setPCompany(String(c.company || ''));
+          setPSiret(String(c.siret || ''));
+        })
+        .catch(() => {});
     }
   }, [customer]);
 
@@ -161,6 +179,10 @@ export default function AccountClient() {
     e.preventDefault();
     setProfileError(null);
     setProfileOk(false);
+    if (pSiret.trim() && !validSiret(pSiret)) {
+      setProfileError(t('errors.invalid_siret'));
+      return;
+    }
     setProfileBusy(true);
     try {
       const r = await fetch('/api/customer', {
@@ -171,6 +193,8 @@ export default function AccountClient() {
           firstname: pFirst,
           lastname: pLast,
           email: pEmail,
+          company: pCompany.trim(),
+          siret: pSiret.trim(),
           ...(pPassword ? { password: pPassword } : {}),
         }),
       });
@@ -185,6 +209,7 @@ export default function AccountClient() {
         lastname: c.lastname ?? pLast,
         email: c.email ?? pEmail,
       });
+      setProInfo({ company: String(c.company ?? pCompany), siret: String(c.siret ?? pSiret) });
       setPPassword('');
       setProfileOk(true);
       setShowProfileForm(false);
@@ -233,11 +258,15 @@ export default function AccountClient() {
       setError(t('errors.invalid_rpps'));
       return;
     }
+    if (rSiret.trim() && !validSiret(rSiret)) {
+      setError(t('errors.invalid_siret'));
+      return;
+    }
     setBusy(true);
     // Champs pro transmis tels quels par le store à /api/auth (qui les valide en liste blanche).
     const data = {
       email: rEmail, password: rPassword, firstname: rFirst, lastname: rLast,
-      id_lang: idLangFor(locale), profession: rProfession, company: rCompany.trim(), rpps,
+      id_lang: idLangFor(locale), profession: rProfession, company: rCompany.trim(), siret: rSiret.trim(), rpps,
       newsletter: rNewsletter ? 1 : 0,
     };
     const res = await register(data);
@@ -336,6 +365,11 @@ export default function AccountClient() {
                 <input id="reg-company" autoComplete="organization" value={rCompany} onChange={(e) => setRCompany(e.target.value)} placeholder={t('companyPlaceholder')} style={inputStyle} />
               </div>
               <div>
+                <label htmlFor="reg-siret" style={labelStyle}>{t('siret')}</label>
+                <input id="reg-siret" inputMode="numeric" autoComplete="off" value={rSiret} onChange={(e) => setRSiret(e.target.value)} placeholder={t('siretPlaceholder')} style={inputStyle} />
+                <span style={{ display: 'block', fontSize: '12px', color: '#8A8170', marginTop: '6px', lineHeight: 1.45 }}>{t('siretHelp')}</span>
+              </div>
+              <div>
                 <label htmlFor="reg-rpps" style={labelStyle}>{t('rpps')}</label>
                 <input id="reg-rpps" inputMode="numeric" autoComplete="off" value={rRpps} onChange={(e) => setRRpps(e.target.value)} placeholder={t('rppsPlaceholder')} style={inputStyle} />
                 <span style={{ display: 'block', fontSize: '12px', color: '#8A8170', marginTop: '6px', lineHeight: 1.45 }}>{t('rppsHelp')}</span>
@@ -378,6 +412,8 @@ export default function AccountClient() {
         </div>
         <div style={{ fontSize: '15px', color: '#34352F', fontWeight: 600 }}>{profile?.firstname} {profile?.lastname}</div>
         <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '4px' }}>{profile?.email}</div>
+        {proInfo?.company ? <div style={{ fontSize: '14px', color: '#6E7585', marginTop: '4px' }}>{proInfo.company}</div> : null}
+        {proInfo?.siret ? <div style={{ fontSize: '13px', color: '#8A8170', marginTop: '4px' }}>{t('siretShort')} {proInfo.siret}</div> : null}
         {profileOk && !showProfileForm ? <div style={{ fontSize: '13px', color: '#5E8E1F', marginTop: '10px' }}>{t('profileUpdated')}</div> : null}
 
         {showProfileForm ? (
@@ -395,6 +431,16 @@ export default function AccountClient() {
             <div>
               <label style={labelStyle}>{t('email')}</label>
               <input type="email" value={pEmail} onChange={(e) => setPEmail(e.target.value)} style={inputStyle} />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div>
+                <label htmlFor="pro-company" style={labelStyle}>{t('company')}</label>
+                <input id="pro-company" autoComplete="organization" value={pCompany} onChange={(e) => setPCompany(e.target.value)} style={inputStyle} />
+              </div>
+              <div>
+                <label htmlFor="pro-siret" style={labelStyle}>{t('siret')}</label>
+                <input id="pro-siret" inputMode="numeric" autoComplete="off" value={pSiret} onChange={(e) => setPSiret(e.target.value)} placeholder={t('siretPlaceholder')} style={inputStyle} />
+              </div>
             </div>
             <div>
               <label style={labelStyle}>{t('newPasswordOptional')}</label>

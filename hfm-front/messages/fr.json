@@ -62,7 +62,7 @@
     "discovery": "Découverte",
     "see": "Voir →",
     "promosTop": "Promos & Top",
-    "ceDelivery": "Livraison 24-48 h en France",
+    "ceDelivery": "Livraison 24-48 h en France (hors week-ends)",
     "mFillersTitle": "Fillers HA",
     "mFillersSub": "Acide hyaluronique réticulé",
     "mMesoTitle": "Mésothérapie",
@@ -149,7 +149,7 @@
     "editoFeat2Sub": "expédition isotherme, DHL Express & GLS.",
     "editoCta": "Découvrir le catalogue →",
     "editoBadgeDelay": "24-48 h",
-    "editoBadgeDelaySub": "livraison en France · 48-72 h en Europe",
+    "editoBadgeDelaySub": "livraison en France · 48-72 h en Europe (hors week-ends)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} avis vérifiés <span>· Société des Avis Garantis</span>",
     "expertiseEyebrow": "Expertise",
     "expertiseTitle": "Le savoir-faire de nos spécialistes",
@@ -284,7 +284,8 @@
     "viewedTitle": "Déjà vus",
     "compare": "Comparer",
     "compareFull": "Comparateur : 4 produits maximum.",
-    "blockedCountry": "Ce produit n'est pas disponible à la vente dans votre pays."
+    "blockedCountry": "Ce produit n'est pas disponible à la vente dans votre pays.",
+    "payWithAmazon": "Payer avec"
   },
   "quickView": {
     "refStock": "Réf. {reference} · {status}.",
@@ -393,7 +394,9 @@
       "generic": "Une erreur est survenue.",
       "network": "Erreur réseau.",
       "invalid_rpps": "N° RPPS (11 chiffres) ou ADELI (9 chiffres) invalide.",
-      "invalid_profession": "Veuillez indiquer votre profession."
+      "invalid_profession": "Veuillez indiquer votre profession.",
+      "invalid_siret": "Numéro SIRET invalide : 14 chiffres attendus.",
+      "invalid_company": "Nom de société invalide."
     },
     "editAddress": "Modifier",
     "editAddressTitle": "Modifier l’adresse",
@@ -412,7 +415,11 @@
     "rppsPlaceholder": "11 chiffres (RPPS) ou 9 chiffres (ADELI)",
     "rppsHelp": "Le RPPS/ADELI sera demandé à la commande des produits réservés aux médecins s'il n'est pas fourni ici.",
     "newsletterOptIn": "J'accepte de recevoir la newsletter (nouveautés, formations, offres). Désinscription en 1 clic.",
-    "guestTracking": "Commande passée sans compte ? <a>Suivez-la ici</a>"
+    "guestTracking": "Commande passée sans compte ? <a>Suivez-la ici</a>",
+    "siret": "N° SIRET (facultatif)",
+    "siretPlaceholder": "14 chiffres",
+    "siretHelp": "Il identifie votre structure (SIREN) sur vos factures, notamment pour la facturation électronique.",
+    "siretShort": "SIRET"
   },
   "password": {
     "forgot": {
@@ -808,7 +815,7 @@
     "backorder": "Sur commande — expédition sous 10 à 15 jours",
     "backorderShort": "Sur commande",
     "unavailable": "Indisponible",
-    "shipInStock": "Expédié aujourd’hui pour toute commande avant 15 h (jours ouvrés) · livraison 24-48 h en France",
+    "shipInStock": "Expédié aujourd’hui pour toute commande avant 15 h (jours ouvrés) · livraison 24-48 h en France (hors week-ends)",
     "shipBackorder": "Expédition sous 10 à 15 jours",
     "vatFree": "hors TVA",
     "reference": "Réf. {reference}",

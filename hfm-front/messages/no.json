@@ -47,7 +47,7 @@
     "discovery": "Oppdag",
     "see": "Se →",
     "promosTop": "Tilbud & Topp",
-    "ceDelivery": "Levering på 24–48 t i Frankrike",
+    "ceDelivery": "Levering på 24–48 t i Frankrike (unntatt helger)",
     "mFillersTitle": "HA-fillere",
     "mFillersSub": "Tverrbundet hyaluronsyre",
     "mMesoTitle": "Mesoterapi",
@@ -134,7 +134,7 @@
     "editoFeat2Sub": "isoterm forsendelse, DHL Express & GLS.",
     "editoCta": "Oppdag katalogen →",
     "editoBadgeDelay": "24–48 t",
-    "editoBadgeDelaySub": "levering i Frankrike · 48–72 t i Europa",
+    "editoBadgeDelaySub": "levering i Frankrike · 48–72 t i Europa (unntatt helger)",
     "reviewsHeader": "<b>{rate} / 10</b> — {count, number} verifiserte anmeldelser <span>· Guaranteed Reviews</span>",
     "expertiseEyebrow": "Ekspertise",
     "expertiseTitle": "Våre spesialisters kompetanse",
@@ -269,7 +269,8 @@
     "reviewsPublishedOn": "Publisert den",
     "reviewsReply": "Selgerens svar",
     "reviewsTranslated": "Oversatt anmeldelse",
-    "blockedCountry": "Dette produktet selges ikke i ditt land."
+    "blockedCountry": "Dette produktet selges ikke i ditt land.",
+    "payWithAmazon": "Betal med"
   },
   "quickView": {
     "refStock": "Ref. {reference} · {status}.",
@@ -377,7 +378,9 @@
       "generic": "Det oppstod en feil.",
       "network": "Nettverksfeil.",
       "invalid_rpps": "Ugyldig RPPS- (11 sifre) eller ADELI-nummer (9 sifre).",
-      "invalid_profession": "Oppgi yrket ditt."
+      "invalid_profession": "Oppgi yrket ditt.",
+      "invalid_siret": "Ugyldig SIRET-nummer: 14 sifre forventet.",
+      "invalid_company": "Ugyldig firmanavn."
     },
     "forgotPassword": "Glemt passord?",
     "editAddress": "Endre",
@@ -397,7 +400,11 @@
     "rppsPlaceholder": "11 sifre (RPPS) eller 9 sifre (ADELI)",
     "rppsHelp": "Hvis det ikke oppgis her, blir RPPS/ADELI-nummeret etterspurt ved bestilling av produkter forbeholdt leger.",
     "newsletterOptIn": "Jeg godtar å motta nyhetsbrevet (nyheter, kurs, tilbud). Avmelding med 1 klikk.",
-    "guestTracking": "Bestilt uten konto? <a>Spor bestillingen her</a>"
+    "guestTracking": "Bestilt uten konto? <a>Spor bestillingen her</a>",
+    "siret": "SIRET-nummer (valgfritt, Frankrike)",
+    "siretPlaceholder": "14 sifre",
+    "siretHelp": "Identifiserer virksomheten din (SIREN) på fakturaene, særlig for fransk e-fakturering.",
+    "siretShort": "SIRET"
   },
   "addressForm": {
     "address": "Adresse",
@@ -808,7 +815,7 @@
     "backorder": "Bestillingsvare — sendes innen 10 til 15 dager",
     "backorderShort": "Bestillingsvare",
     "unavailable": "Ikke tilgjengelig",
-    "shipInStock": "Sendes i dag ved bestilling før kl. 15 (virkedager) · levering på 24-48 timer i Frankrike",
+    "shipInStock": "Sendes i dag ved bestilling før kl. 15 (virkedager) · levering på 24-48 timer i Frankrike (unntatt helger)",
     "shipBackorder": "Sendes innen 10 til 15 dager",
     "vatFree": "momsfritt",
     "reference": "Ref. {reference}",
