@@ -1,3 +1,11 @@
+/* HFM (PS9) : jQuery 3 n'a plus .live() ; l'alias .live=.on du module n'attache pas les éléments chargés après coup
+   (lignes de la grille) -> édition sur place inopérante. liveDelegate reproduit .live par délégation. */
+if (typeof jQuery !== 'undefined' && typeof jQuery.fn.liveDelegate === 'undefined') {
+    jQuery.fn.liveDelegate = function (sel, types, data, fn) {
+        if (typeof types === 'object') return this.on(types, sel);
+        return this.on(types, sel, data, fn);
+    };
+}
 /**
  * 2007-2016 PrestaShop
  *
@@ -121,7 +129,7 @@ function positionCalendar(el)
     }
 }
 
-$('.ui-priority-primary').live('click', function () {
+$(document).liveDelegate('.ui-priority-primary', 'click', function () {
     $.ajax({
         url: ajax_url,
         type: 'POST',
@@ -140,22 +148,22 @@ $('.ui-priority-primary').live('click', function () {
     });
 })
 
-$('[name=id_manufacturer], [name=condition], [name=date_add]').live('change', function (e) {
+$(document).liveDelegate('[name=id_manufacturer], [name=condition], [name=date_add]', 'change', function (e) {
     e.preventDefault();
     self = this;
 });
-$('[name=location]').live('change', function (e) {
+$(document).liveDelegate('[name=location]', 'change', function (e) {
     console.log($this);
     e.preventDefault();
     self = this;
 });
 
 // close lng input
-$('.dropdown-menu').live('click', function (e) {
+$(document).liveDelegate('.dropdown-menu', 'click', function (e) {
     $(this).parent('div').find('.dropdown-toggle').trigger( "click" );
 });
 
-$('.table-product_td, .table.configuration td').live('click', function (e) {
+$(document).liveDelegate('.table-product_td, .table.configuration td', 'click', function (e) {
 
     var this_var = $(this).find('.edit_field');
 
@@ -246,7 +254,7 @@ $(document).ready(function () {
         })
     });
 
-    $('.form_edit_field [data-event-save=1]').live('save_field', function () {
+    $(document).liveDelegate('.form_edit_field [data-event-save=1]', 'save_field', function () {
         var self = this;
         if (!$(self).closest('.form_edit_field').is(':visible'))
             return false;
@@ -398,7 +406,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.save_bool').live({
+    $(document).liveDelegate('.save_bool', {
         click: function (e)
         {
             e.preventDefault();
@@ -439,7 +447,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.save_bool_specific_price').live('click', function (e) {
+    $(document).liveDelegate('.save_bool_specific_price', 'click', function (e) {
         e.preventDefault();
         var self = this;
         if (parseInt($(self).val('value')))
@@ -487,7 +495,7 @@ $(document).ready(function () {
     });
     $('.edit_field').disableSelection();
 
-    $('.edit_field_select').live('change', function () {
+    $(document).liveDelegate('.edit_field_select', 'change', function () {
         var editable_value = $(this).val();
         var view_value = $(this).find('option:selected').text();
         var td = $(this).closest('td');
@@ -495,7 +503,7 @@ $(document).ready(function () {
         td.find('.form_edit_field').find('textarea').val(editable_value);
     });
 
-    $('.edit_field_specific_price').live('click', function () {
+    $(document).liveDelegate('.edit_field_specific_price', 'click', function () {
         if ($(this).is(':checked'))
             $(this).prev().attr('readonly', true).val(-1);
         else
@@ -505,7 +513,7 @@ $(document).ready(function () {
 
 $('html').keyup(updateFormField);
 
-$('.table-product_td, .table.configuration td').live('click', updateFormField);
+$(document).liveDelegate('.table-product_td, .table.configuration td', 'click', updateFormField);
 
 function updateFormField(event) {
     if(event.keyCode === undefined || event.keyCode == 13)
@@ -555,16 +563,16 @@ function updateFormField(event) {
     }
 }
 
-$('.type_price').live('change', function () {
+$(document).liveDelegate('.type_price', 'change', function () {
     $(this).val($(this).val().replace(/,/g, '.'));
 });
 
-$('.box_categories_stage, .cancel_change_category').live('click', function () {
+$(document).liveDelegate('.box_categories_stage, .cancel_change_category', 'click', function () {
     $(this).closest('.box_categories').hide();
     scrollTolastEditProduct();
 });
 
-$('.viewCombinations').live({
+$(document).liveDelegate('.viewCombinations', {
     click: function(e)
     {
         e.preventDefault();
@@ -619,7 +627,7 @@ function initFormCombination(response, id_product)
     $('.product_images').html(product_images);
 }
 
-$('.add_combination').live('click', function (e) {
+$(document).liveDelegate('.add_combination', 'click', function (e) {
     e.preventDefault();
     var form_combination = $('.form_create_combination');
     if (form_combination.is(':hidden'))
@@ -628,11 +636,11 @@ $('.add_combination').live('click', function (e) {
     $('.ajax_form_edit_attributes').html('');
 });
 
-$('#attribute_price_impact').live('change', function () {
+$(document).liveDelegate('#attribute_price_impact', 'change', function () {
     viewFinalPriceCombinationFromImpactPrice();
 });
 
-$('#attribute_price').live('blur keyup', function () {
+$(document).liveDelegate('#attribute_price', 'blur keyup', function () {
     viewFinalPriceCombinationFromImpactPrice();
 });
 
@@ -667,7 +675,7 @@ function viewFinalPriceCombinationFromImpactPrice()
 
 
 
-$('.close_form_combinations').live({
+$(document).liveDelegate('.close_form_combinations', {
     click: function (e) {
         e.preventDefault();
         $('.stage_combinations, .form_combinations').fadeOut(500);
@@ -677,7 +685,7 @@ $('.close_form_combinations').live({
 });
 
 /*edit images*/
-$('.edit_image').live('click', function (e) {
+$(document).liveDelegate('.edit_image', 'click', function (e) {
     e.preventDefault();
     var self = this;
     $.ajax({
@@ -697,13 +705,13 @@ $('.edit_image').live('click', function (e) {
         }
     });
 });
-$('.stage_images, .close_form_images').live({
+$(document).liveDelegate('.stage_images, .close_form_images', {
     click: function (e) {
         e.preventDefault();
         $('.stage_images, .form_images, .form_location, .stage_location').fadeOut(500);
     }
 });
-$('.delete_image').live('click', function (e) {
+$(document).liveDelegate('.delete_image', 'click', function (e) {
     e.preventDefault();
     var self = this;
     $.ajax({
@@ -731,7 +739,7 @@ $('.delete_image').live('click', function (e) {
         }
     });
 });
-$('.set_cover').live('click', function (e) {
+$(document).liveDelegate('.set_cover', 'click', function (e) {
     e.preventDefault();
 
     if ($(this).find('img').attr('alt') == 'enabled.gif') {
@@ -832,11 +840,11 @@ function uploadImages(images)
 }
 
 
-$('.add_image_input').live('change', function () {
+$(document).liveDelegate('.add_image_input', 'change', function () {
     var files = $(this).prop('files');
     uploadImages(files);
 });
-$('.in_combination').live('change', function () {
+$(document).liveDelegate('.in_combination', 'change', function () {
     var self = this;
     $.ajax({
         url: ajax_url,
@@ -854,7 +862,7 @@ $('.in_combination').live('change', function () {
 /*edit images*/
 
 /*edit features*/
-$('.viewFeatures').live('click', function (e) {
+$(document).liveDelegate('.viewFeatures', 'click', function (e) {
     e.preventDefault();
     var id_product = $(this).data('id');
 
@@ -880,12 +888,12 @@ $('.viewFeatures').live('click', function (e) {
         }
     });
 });
-$('.stage_features, .close_form_features').live('click', function (e) {
+$(document).liveDelegate('.stage_features, .close_form_features', 'click', function (e) {
     e.preventDefault();
     $('.stage_features, .form_features').stop(true, true).fadeOut(500);
     scrollTolastEditProduct();
 });
-$('.saveFeatures').live('click', function () {
+$(document).liveDelegate('.saveFeatures', 'click', function () {
     $.ajax({
         url: ajax_url,
         type: 'POST',
@@ -912,7 +920,7 @@ $('.saveFeatures').live('click', function () {
 
 
 /*edit metatags*/
-$('.viewMetaTags').live('click', function (e) {
+$(document).liveDelegate('.viewMetaTags', 'click', function (e) {
     e.preventDefault();
     var id_product = $(this).data('id');
     current_id_product = id_product;
@@ -936,12 +944,12 @@ $('.viewMetaTags').live('click', function (e) {
         }
     });
 });
-$('.stage_seo, .close_form_seo').live('click', function (e) {
+$(document).liveDelegate('.stage_seo, .close_form_seo', 'click', function (e) {
     e.preventDefault();
     $('.stage_seo, .form_seo').stop(true, true).fadeOut(500);
     scrollTolastEditProduct();
 });
-$('.saveSeo').live('click', function () {
+$(document).liveDelegate('.saveSeo', 'click', function () {
     $('.form_seo_error').remove();
     $.ajax({
         url: ajax_url,
@@ -966,13 +974,13 @@ $('.saveSeo').live('click', function () {
 
 
 /*edit more*/
-$('.stage_popup_form, .close_form_popup').live('click', function (e) {
+$(document).liveDelegate('.stage_popup_form, .close_form_popup', 'click', function (e) {
     e.preventDefault();
     $('.stage_popup_form, .form_popup').stop(true, true).fadeOut(500);
     // tinyMCE.remove();
     scrollTolastEditProduct();
 });
-$('.viewAdditionalSettingProduct').live('click', function (e) {
+$(document).liveDelegate('.viewAdditionalSettingProduct', 'click', function (e) {
     e.preventDefault();
     var id_product = $(this).data('id');
     current_id_product = id_product;
@@ -1015,7 +1023,7 @@ $('.viewAdditionalSettingProduct').live('click', function (e) {
         }
     });
 });
-$('.saveAdditionalSettingProduct').live('click', function () {
+$(document).liveDelegate('.saveAdditionalSettingProduct', 'click', function () {
    // tinyMCE.triggerSave();
     var data = {};
     $('.autoload_rte').each(function (index, value) {
@@ -1070,7 +1078,7 @@ $('.saveAdditionalSettingProduct').live('click', function () {
     });
 });
 /*edit more*/
-$('.viewDescription').live('click', function (e) {
+$(document).liveDelegate('.viewDescription', 'click', function (e) {
     e.preventDefault();
     var id_product = $(this).data('id');
     var short = $(this).data('short');
@@ -1096,7 +1104,7 @@ $('.viewDescription').live('click', function (e) {
         }
     });
 });
-$('.saveDescription').live('click', function () {
+$(document).liveDelegate('.saveDescription', 'click', function () {
     var data = {};
 
     var field = 'description_';
@@ -1140,7 +1148,7 @@ $('.saveDescription').live('click', function () {
 });
 
 /*form specific price*/
-$('.viewSpecificPrices').live('click', function (e) {
+$(document).liveDelegate('.viewSpecificPrices', 'click', function (e) {
     e.preventDefault();
     var id_product = $(this).data('id');
     current_id_product = id_product;
@@ -1164,7 +1172,7 @@ $('.viewSpecificPrices').live('click', function (e) {
         }
     });
 });
-$('#form_specific_price').live('submit', function (e) {
+$(document).liveDelegate('#form_specific_price', 'submit', function (e) {
     e.preventDefault();
     var data = $(this).serialize();
     $.ajax({
@@ -1189,7 +1197,7 @@ $('#form_specific_price').live('submit', function (e) {
 /*form specific price*/
 
 /* tab more advanced stock management*/
-$('.advanced_stock_management').live('click', function(e)
+$(document).liveDelegate('.advanced_stock_management', 'click', function(e)
 {
     var val = 0;
     if ($(this).prop('checked'))
@@ -1211,7 +1219,7 @@ $('.advanced_stock_management').live('click', function(e)
 /*end tab more advanced stock management*/
 
 /*form advanced stock management*/
-$('.viewAdvancedStockManagement').live('click', function (e) {
+$(document).liveDelegate('.viewAdvancedStockManagement', 'click', function (e) {
     e.preventDefault();
     var id_product = $(this).data('id');
     var id_product_attribute = ($(this).data('id-pa') ? $(this).data('id-pa') : 0);
@@ -1243,7 +1251,7 @@ function initFormAdvancedStockManagement(id_product, id_product_attribute)
 }
 
 
-$('.applyQuantityAdvancedStock').live('click', function (e) {
+$(document).liveDelegate('.applyQuantityAdvancedStock', 'click', function (e) {
     var self = $(this);
     e.preventDefault();
     var data = $(this).closest('tr').find(':input').serialize();
@@ -1292,10 +1300,10 @@ if (typeof $.fn.setCenterPositionAbsoluteBlockGP == 'undefined')
         });
     };
 
-//$('[name^=categoryBox], [name=id_category_default]').live('change', function () {
+//$(document).liveDelegate('[name^=categoryBox], [name=id_category_default]', 'change', function () {
 //    $(this).closest('.box_categories_form').find('.save_form').show();
 //});
-$('.save_btn').live('click', function () {
+$(document).liveDelegate('.save_btn', 'click', function () {
     var self = this;
     $(self).attr('disabled', true);
     var data = $(this).closest('.box_categories_form').find('[name^=categoryBox], [name=id_category_default]').serialize();
@@ -1360,12 +1368,12 @@ $(window).scroll(function () {
 });
 
 
-$('._error').live('click', function () {
+$(document).liveDelegate('._error', 'click', function () {
     $(this).removeClass('_error');
 });
 
 // product activate for 1.5
-$('[src $="disabled.gif"], [src $="enabled.gif"]').live('click', function (e) {
+$(document).liveDelegate('[src $="disabled.gif"], [src $="enabled.gif"]', 'click', function (e) {
     if (!$(this).closest('.form_images').length) {
         var self = this;
         var id_product = $(this).closest('a').attr('href').replace(/.*id\_product\=([0-9]+).*/, '$1');
@@ -1391,7 +1399,7 @@ $('[src $="disabled.gif"], [src $="enabled.gif"]').live('click', function (e) {
 });
 
 
-$('.activ .list-action-enable').live('click', function (e) {
+$(document).liveDelegate('.activ .list-action-enable', 'click', function (e) {
     e.preventDefault();
     var self = this;
     var id_product = $(this).attr('href').replace(/.*id\_product\=([0-9]+).*/, '$1');
@@ -1462,7 +1470,7 @@ $('.activ .list-action-enable').live('click', function (e) {
 });
 
 // [HFM] Bascule « soumis à RPPS » (caractéristique RPPS lue par le site headless).
-$('.rpps .list-action-enable').live('click', function (e) {
+$(document).liveDelegate('.rpps .list-action-enable', 'click', function (e) {
     e.preventDefault();
     var self = this;
     var id_product = $(this).attr('href').replace(/.*id\_product\=([0-9]+).*/, '$1');
@@ -1480,7 +1488,7 @@ $('.rpps .list-action-enable').live('click', function (e) {
     });
 });
 
-$('.order .list-action-enable').live('click', function (e) {
+$(document).liveDelegate('.order .list-action-enable', 'click', function (e) {
     e.preventDefault();
     var self = this;
     var id_product = $(this).attr('href').replace(/.*id\_product\=([0-9]+).*/, '$1');
@@ -1507,7 +1515,7 @@ $('.order .list-action-enable').live('click', function (e) {
     });
 });
 
-$('.legend_image').live('blur', function () {
+$(document).liveDelegate('.legend_image', 'blur', function () {
     var data = $(this).closest('td').find(':input').serialize();
     $.ajax({
         url: ajax_url,
@@ -1518,7 +1526,7 @@ $('.legend_image').live('blur', function () {
 });
 
 
-$('[data-switcher-translate]').live('change', function () {
+$(document).liveDelegate('[data-switcher-translate]', 'change', function () {
     var translate = $(this).closest('td').find('[data-translate]');
     translate.find('[data-lang]').hide();
     translate.find('[data-lang='+$(this).val()+']').show();
@@ -1583,12 +1591,12 @@ ValidateType = {
 };
 
 $(function () {
-    $('[name="attribute_group"]').live('change', function () {
+    $(document).liveDelegate('[name="attribute_group"]', 'change', function () {
         $('[data-group]').hide();
         $('[data-group="'+$(this).val()+'"]').show();
     });
 
-    $('.add_attr').live('click', function () {
+    $(document).liveDelegate('.add_attr', 'click', function () {
         var form_combination = $(this).closest('.form_cc');
         if (form_combination.find('[groupid="'+form_combination.find('[name=attribute_group]').val()+'"]').length)
         {
@@ -1600,13 +1608,13 @@ $(function () {
         }
         form_combination.find('[id=product_att_list]').append('<option value="'+form_combination.find('[data-group="'+form_combination.find('[name=attribute_group]').val()+'"] [name=attribute]').val()+'" groupid="'+form_combination.find('[name=attribute_group]').val()+'">'+form_combination.find('[name=attribute_group] option:selected').text()+'&nbsp;&nbsp; : '+form_combination.find('[data-group="'+form_combination.find('[name=attribute_group]').val()+'"] [name=attribute] option:selected').text()+'</option>');
     });
-    $('.delete_attr').live('click', function () {
+    $(document).liveDelegate('.delete_attr', 'click', function () {
         var form_combination = $(this).closest('.form_cc');
         form_combination.find('[id=product_att_list] option:selected').remove();
     });
     $('[name="attribute_group"]').trigger('change');
 
-    $('.delete-comb').live('click', function (e) {
+    $(document).liveDelegate('.delete-comb', 'click', function (e) {
         e.preventDefault();
         var that = this;
         $.ajax({
@@ -1620,12 +1628,12 @@ $(function () {
         });
     });
 
-    $('.cancelEditAttributes').live('click', function (e) {
+    $(document).liveDelegate('.cancelEditAttributes', 'click', function (e) {
         e.preventDefault();
         $('.ajax_form_edit_attributes').html('');
     });
 
-    $('.saveAttributes').live('click', function (e) {
+    $(document).liveDelegate('.saveAttributes', 'click', function (e) {
         e.preventDefault();
         $('.ajax_form_edit_attributes').find('.error').remove();
         var data = {
@@ -1657,7 +1665,7 @@ $(function () {
         });
     });
 
-    $('.saveMoreCombination').live('click', function (e) {
+    $(document).liveDelegate('.saveMoreCombination', 'click', function (e) {
         e.preventDefault();
         $('.ajax_form_edit_attributes').find('.error').remove();
         var data = {
@@ -1691,13 +1699,13 @@ $(function () {
     });
 });
 
-$('.cancelCreateCombination').live('click', function () {
+$(document).liveDelegate('.cancelCreateCombination', 'click', function () {
     $('.form_create_combination').stop(true, true).slideUp(300);
     $('#form_create_combination [name=attribute_group]').trigger('change');
     $('#product_att_list option').remove();
 });
 
-$('.createCombination').live('click', function ()
+$(document).liveDelegate('.createCombination', 'click', function ()
 {
     $('#form_create_combination .error').remove();
     var data = {};
@@ -1755,7 +1763,7 @@ $('.createCombination').live('click', function ()
     });
 });
 
-$('.edit_attributes').live('click', function (e) {
+$(document).liveDelegate('.edit_attributes', 'click', function (e) {
     e.preventDefault();
     var id = parseInt($(this).data('id'));
 
@@ -1777,7 +1785,7 @@ $('.edit_attributes').live('click', function (e) {
     });
 });
 
-$('.viewMoreSettingCombination').live('click', function (e) {
+$(document).liveDelegate('.viewMoreSettingCombination', 'click', function (e) {
     e.preventDefault();
     var id = parseInt($(this).data('id'));
 
@@ -1805,7 +1813,7 @@ $('.viewMoreSettingCombination').live('click', function (e) {
 
 
 $(function () {
-    $('#getCustomizationBlock').live('click', function () {
+    $(document).liveDelegate('#getCustomizationBlock', 'click', function () {
         var block = $('#customization');
         block.addClass('loading');
         var data = {id_product: id_product, action: 'get_customization_block', ajax: 1};
@@ -1837,10 +1845,10 @@ $(function () {
 });
 
 $(function () {
-    $('[name="sp_id_product_attribute"], [name="leave_bprice"], [name="sp_reduction_type"]').live('change', function () {
+    $(document).liveDelegate('[name="sp_id_product_attribute"], [name="leave_bprice"], [name="sp_reduction_type"]', 'change', function () {
         calcSPFinalPrice();
     });
-    $('[name="sp_reduction"], [name="sp_price"]').live('keyup', function () {
+    $(document).liveDelegate('[name="sp_reduction"], [name="sp_price"]', 'keyup', function () {
         calcSPFinalPrice();
     });
     function calcSPFinalPrice()
@@ -1909,7 +1917,7 @@ function isNumberKey(evt)
 }
 
 
-$('.com_location').live('click', function (e) {
+$(document).liveDelegate('.com_location', 'click', function (e) {
     e.preventDefault();
     console.log(ajax_url);
     var self = this;

@@ -1,3 +1,11 @@
+/* HFM (PS9) : jQuery 3 n'a plus .live() ; l'alias .live=.on du module n'attache pas les éléments chargés après coup
+   (lignes de la grille) -> édition sur place inopérante. liveDelegate reproduit .live par délégation. */
+if (typeof jQuery !== 'undefined' && typeof jQuery.fn.liveDelegate === 'undefined') {
+    jQuery.fn.liveDelegate = function (sel, types, data, fn) {
+        if (typeof types === 'object') return this.on(types, sel);
+        return this.on(types, sel, data, fn);
+    };
+}
 /**
 /**
  * 2007-2016 PrestaShop
@@ -28,7 +36,7 @@ $(function () {
     window.tree = new TreeCustom('.tree_custom .block_category_tree', '.tree_custom .tree_categories_header');
     window.tree.init();
 
-    $('#beginSearch').live('click', function (e, orderby, orderway) {
+    $(document).liveDelegate('#beginSearch', 'click', function (e, orderby, orderway) {
         test = location.href;
         test = test.replace('&conf=2', '');
         test = test.replace('#product','');
@@ -120,7 +128,7 @@ $(function () {
             + sort;
     }
 
-    $('#resetSearch').live('click', function () {
+    $(document).liveDelegate('#resetSearch', 'click', function () {
         location.href = location.href.match(/^[^&]+&[^&]+/i);
     });
 
@@ -166,7 +174,7 @@ $(function () {
         }
     });
 
-    $('[name="attribute_group"]').live('change', function () {
+    $(document).liveDelegate('[name="attribute_group"]', 'change', function () {
         $('[data-attribute-values]').hide();
         $('#btn_list').trigger( "click" );
         $("#btn_list").removeClass("btn-success").addClass("open btn-danger");

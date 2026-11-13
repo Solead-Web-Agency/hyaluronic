@@ -1,3 +1,11 @@
+/* HFM (PS9) : jQuery 3 n'a plus .live() ; l'alias .live=.on du module n'attache pas les éléments chargés après coup
+   (lignes de la grille) -> édition sur place inopérante. liveDelegate reproduit .live par délégation. */
+if (typeof jQuery !== 'undefined' && typeof jQuery.fn.liveDelegate === 'undefined') {
+    jQuery.fn.liveDelegate = function (sel, types, data, fn) {
+        if (typeof types === 'object') return this.on(types, sel);
+        return this.on(types, sel, data, fn);
+    };
+}
 /**
  * 2007-2016 PrestaShop
  *
@@ -31,12 +39,12 @@ $(function () {
             var available_options = elem.find('.available_options');
             var selected_options = elem.find('.selected_options');
 
-            elem.find('.select_options').live('click', function (e) {
+            elem.liveDelegate('.select_options', 'click', function (e) {
                 e.preventDefault();
                 selected_options.append(available_options.find('option:checked').remove());
             });
 
-            elem.find('.unselect_options').live('click', function (e) {
+            elem.liveDelegate('.unselect_options', 'click', function (e) {
                 e.preventDefault();
                 available_options.append(selected_options.find('option:checked').remove());
             });
