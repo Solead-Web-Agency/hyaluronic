@@ -7,7 +7,11 @@ const CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET || '';
 
 const API = ENV === 'sandbox' ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
 
-export const paypalConfigured = !!(CLIENT_ID && CLIENT_SECRET);
+// PayPal retiré des moyens de paiement pour le moment (demande client du 16/11/2026) : il n'est proposé
+// que si PAYPAL_ENABLED=1, même quand les clés sont présentes. Pour le remettre : poser PAYPAL_ENABLED=1
+// (et PAYPAL_ENV=live) puis redéployer, et rétablir « PayPal » dans la clé `payments` des messages.
+const ENABLED = process.env.PAYPAL_ENABLED === '1';
+export const paypalConfigured = ENABLED && !!(CLIENT_ID && CLIENT_SECRET);
 export const paypalEnv = ENV;
 
 // ---- Jeton d'accès OAuth2 (client_credentials), mis en cache jusqu'à expiration ----
