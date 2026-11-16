@@ -206,6 +206,12 @@ const VAR_SHOP = /shop|store|tienda|negozio|laden|geschäft|boutique|magasin|win
 const VAR_SUMMARY = /summary|resum|résum|riepilogo|sommario|zusammenfassung|samenvatting|description|descrip|beschreibung|概要|要約|説明/i;
 const VAR_NAME = /name|nom|nombre|product|produit|produkt|prodotto|製品|商品/i;
 
+/** Vrai si le texte contient une variable de modèle SEO (« %category-name%%separator%%shop-name% »). */
+export function hasSeoVars(s: string | null | undefined): boolean {
+  SEO_VAR.lastIndex = 0;
+  return SEO_VAR.test(s ?? '');
+}
+
 /**
  * Remplace les variables d'un modèle SEO. `kind` fixe le sens d'une variable inconnue :
  * dans un titre c'est le nom du produit, dans une description c'est son résumé.

@@ -241,4 +241,11 @@ export const DISCONTINUED_SLUGS: ReadonlySet<string> = new Set([
   "volumen-belotero",
   "zitronenflasche-skinbooster-6x35-revitalisierender-anti-aging-cocktail",
   "zitronenflasche-skinbooster-6x35ml-revitalisierender-anti-aging-cocktail",
+  // Supprimés mais absents des flux Google (repérés au second crawl du 16/11/2026).
+  "revitalash-revitabrow-soin-pour-les-sourcils-3-ml",
+  "revitalash-revitabrow-eyebrow-care-3ml",
+  "revitalash-revitabrow-augenbrauenpflege-3-ml",
+  "revitalash-revitabrow-cura-delle-sopracciglia-3ml",
+  "revitalash-revitabrow-cuidado-de-cejas-3ml",
+  "actipoche-cojin-termico-10-x-15-cm",
 ]);

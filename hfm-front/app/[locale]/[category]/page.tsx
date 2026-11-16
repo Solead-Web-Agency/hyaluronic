@@ -4,7 +4,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFromSlugs, breadcrumbJsonLd, itemListJsonLd, jsonLdString, socialMeta, textFromHtml, urlFor } from '@/lib/seo';
+import { alternatesFromSlugs, breadcrumbJsonLd, hasSeoVars, itemListJsonLd, jsonLdString, socialMeta, textFromHtml, urlFor } from '@/lib/seo';
 import { toCard, productHref } from '@/lib/cardModel';
 import { Link } from '@/i18n/navigation';
 import { fetchAllProducts, fetchMenu, listingFacets } from '@/lib/facets';
@@ -71,8 +71,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
   // Titre/description = ceux édités en BO, sinon les MÊMES replis que l'ancien site (crawl du
   // 16/11/2026) : le nom seul de la catégorie, et le texte de sa description sans balises.
-  const title = cat.meta_title?.trim() ? cat.meta_title : cat.name;
-  const description = cat.meta_description?.trim() || textFromHtml(cat.description || '', 300) || undefined;
+  // Un modèle à variables (« %category-name%%separator%%shop-name% », « %description% ») compte comme
+  // non saisi : l'ancien site affiche alors le nom seul et le texte de la catégorie.
+  const metaTitle = hasSeoVars(cat.meta_title) ? '' : (cat.meta_title ?? '').trim();
+  const metaDescription = hasSeoVars(cat.meta_description) ? '' : (cat.meta_description ?? '').trim();
+  const title = metaTitle || cat.name;
+  const description = metaDescription || textFromHtml(cat.description || '', 300) || undefined;
   return {
     title,
     description,
