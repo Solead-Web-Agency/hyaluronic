@@ -3,6 +3,8 @@ import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { locales, defaultLocale, idLangFor } from '@/lib/i18n-config';
 import { urlFor } from '@/lib/seo';
+import { LEGACY_REDIRECTS } from '@/lib/legacyRedirects';
+import { ROOT_BRANDS } from '@/lib/menu';
 
 type Cf = 'daily' | 'weekly' | 'monthly';
 // Slug par langue tel que renvoyé par les endpoints slugmap : { c: slug catégorie, s: slug page }.
@@ -69,10 +71,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { action: 'all_active', id_lang: idLangFor(defaultLocale) },
       { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
     );
+    // Une adresse qui REDIRIGE n'a rien à faire dans un sitemap (crawl du 16/11/2026) : la rubrique
+    // « Marques » renvoie vers /marque (déjà déclarée), et les catégories consolidées par les
+    // redirections historiques (galderma -> restylane…) sont remplacées par leur cible.
+    const legacy = new Map(LEGACY_REDIRECTS.map((r) => [r.source, r.destination]));
     for (const c of taxo.categories ?? []) {
-      if (c?.link_rewrite) {
+      if (c?.link_rewrite && c.id_category !== ROOT_BRANDS) {
         const fr = `/${c.link_rewrite}`;
-        out.push(entry(fr, 'weekly', 0.7, localePathsSimple(c.alternates, (s) => `/${s}`, fr)));
+        if (legacy.has(`/${defaultLocale}${fr}`)) {
+          continue;
+        }
+        const alt = localePathsSimple(c.alternates, (s) => `/${s}`, fr);
+        for (const l of locales) {
+          const target = legacy.get(`/${l}${alt[l]}`);
+          if (target) {
+            alt[l] = target.slice(l.length + 1);
+          }
+        }
+        out.push(entry(fr, 'weekly', 0.7, alt));
       }
     }
   } catch {

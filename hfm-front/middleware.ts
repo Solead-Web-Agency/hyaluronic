@@ -1,6 +1,7 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
+import { LEGACY_PAGES } from './lib/legacyRedirects';
 
 const intl = createMiddleware(routing);
 
@@ -22,6 +23,18 @@ function legacyRedirect(req: NextRequest): NextResponse | null {
   if (/dmae/i.test(pathname)) {
     const url = req.nextUrl.clone();
     url.pathname = pathname.replace(/dmae/gi, 'dma-e');
+    return NextResponse.redirect(url, 308);
+  }
+
+  // Pages techniques de l'ancien site (suivi de livraison, paniers enregistrés, slugs japonais).
+  let decoded = pathname;
+  try { decoded = decodeURIComponent(pathname); } catch { /* chemin déjà décodé */ }
+  const page = LEGACY_PAGES[decoded.replace(/\/+$/, '')];
+  if (page) {
+    const [path, query] = page.split('?');
+    const url = req.nextUrl.clone();
+    url.pathname = path;
+    url.search = query ? `?${query}` : '';
     return NextResponse.redirect(url, 308);
   }
 

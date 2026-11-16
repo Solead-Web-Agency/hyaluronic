@@ -190,3 +190,41 @@ export function textFromHtml(html: string, max = 300): string {
     .trim()
     .slice(0, max);
 }
+
+// ---------------------------------------------------------------------------------------------
+// Modèles SEO de l'ancien site (module ets_seo) : le titre / la description saisis en BO peuvent
+// être des MODÈLES à variables — « %product-name% | %shop-name% », « %summary% » — que l'ancien
+// site remplaçait à l'affichage. Sans ce remplacement, Google afficherait la variable brute
+// (crawl du 16/11/2026 : 520 pages concernées, 71 produits par langue). Les traductions
+// automatiques ont en plus traduit les variables elles-mêmes (« %Produktname% | %Laden Name% »,
+// « %nome-prodotto% », « %製品名% », « %resumen% »…) : on raisonne donc par famille de mots, pas
+// par nom exact. Un « % » précédé d'un chiffre (« acide lactique 45% ») n'est jamais une variable.
+// ---------------------------------------------------------------------------------------------
+export const SHOP_NAME = 'Hyaluronic Filler Market';
+const SEO_VAR = /(?<![0-9])%(?![\s0-9])[^%<>\n]{1,38}%/g;
+const VAR_SHOP = /shop|store|tienda|negozio|laden|geschäft|boutique|magasin|winkel|ショップ|店/i;
+const VAR_SUMMARY = /summary|resum|résum|riepilogo|sommario|zusammenfassung|samenvatting|description|descrip|beschreibung|概要|要約|説明/i;
+const VAR_NAME = /name|nom|nombre|product|produit|produkt|prodotto|製品|商品/i;
+
+/**
+ * Remplace les variables d'un modèle SEO. `kind` fixe le sens d'une variable inconnue :
+ * dans un titre c'est le nom du produit, dans une description c'est son résumé.
+ * Renvoie '' si le modèle est vide ou ne produit rien (l'appelant applique alors son repli).
+ */
+export function fillSeoVars(
+  template: string | null | undefined,
+  vars: { name: string; summary: string },
+  kind: 'title' | 'description',
+): string {
+  const tpl = (template ?? '').trim();
+  if (!tpl) return '';
+  return tpl
+    .replace(SEO_VAR, (v) => {
+      if (VAR_SHOP.test(v)) return SHOP_NAME;
+      if (kind === 'title') return VAR_SUMMARY.test(v) ? vars.summary : vars.name;
+      return VAR_NAME.test(v) && !VAR_SUMMARY.test(v) ? vars.name : vars.summary;
+    })
+    .replace(/\s+/g, ' ')
+    .replace(/^\s*[|·—-]\s*|\s*[|·—-]\s*$/g, '')
+    .trim();
+}

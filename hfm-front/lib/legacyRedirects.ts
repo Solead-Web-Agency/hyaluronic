@@ -50,3 +50,22 @@ export const LEGACY_REDIRECTS: { source: string; destination: string }[] = [
   { source: '/it/contattaci', destination: '/it/contact' },
   { source: '/es/contacto-con-nosotros', destination: '/es/contact' },
 ];
+
+/**
+ * Pages TECHNIQUES de l'ancien site encore présentes dans son sitemap (crawl du 16/11/2026) et sans
+ * équivalent au même chemin : suivi de livraison, paniers enregistrés, pages japonaises au slug
+ * non latin. Clé = chemin DÉCODÉ (le middleware décode l'URL avant de chercher), valeur = cible.
+ */
+export const LEGACY_PAGES: Record<string, string> = {
+  ...Object.fromEntries(['fr', 'en', 'de', 'es', 'it', 'ja'].map((l) => [`/${l}/my-shopping-carts`, `/${l}/compte`])),
+  '/fr/suivi-de-livraison': '/fr/suivi-commande',
+  '/en/delivery-tracking': '/en/suivi-commande',
+  '/de/sendungsverfolgung': '/de/suivi-commande',
+  '/es/seguimiento-de-entrega': '/es/suivi-commande',
+  '/it/tracciamento-della-consegna': '/it/suivi-commande',
+  '/ja/delivery-tracking': '/ja/suivi-commande',
+  '/ja/fabricants': '/ja/marque',
+  '/ja/お問合せ': '/ja/contact',
+  '/ja/ベストセラー': '/ja/catalogue?filter=best',
+  '/ja/住所': '/ja/compte',
+};

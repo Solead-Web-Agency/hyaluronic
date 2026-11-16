@@ -52,7 +52,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!page) {
     return { title: 'Hyaluronic Filler Market', robots: { index: false } };
   }
-  const title = `${page.title} — Hyaluronic Filler Market`;
+  // Parité ancien site : le titre de la page seul (« RGPD », « Paiement sécurisé »), sans suffixe.
+  const title = page.title;
   const description = page.meta_description || undefined;
   // Canonique = slug de la locale (PAS celui demandé) : une vieille URL localisée servie sous une
   // autre locale ne doit pas devenir une variante auto-canonique concurrente.

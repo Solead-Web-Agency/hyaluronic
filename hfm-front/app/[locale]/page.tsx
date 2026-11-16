@@ -64,11 +64,29 @@ function imgSlot(src: string, href: string, label: string, sub?: string, priorit
 }
 
 // Canonique + hreflang des 22 locales + Open Graph/Twitter pour la page d'accueil.
+const HOME_TITLE: Record<string, string> = {
+  fr: "Hyaluronic Filler Market : Spécialiste des produits injectables d'acide hyaluronique",
+  ja: 'ヒアルロンフィラー市場：ヒアルロン酸注入剤のスペシャリスト',
+};
+const HOME_DESCRIPTION: Record<string, string> = {
+  fr: "Spécialiste des produits injectables d'acide hyaluronique depuis plus de 10 ans",
+  de: 'Spezialist für injizierbare Hyaluronsäureprodukte seit über 10 Jahren',
+  it: 'Specialista in prodotti iniettabili di acido ialuronico da oltre 10 anni',
+  es: 'Especialista en productos inyectables de ácido hialurónico desde hace más de 10 años',
+  ja: '10年以上にわたるヒアルロン酸注入製品のスペシャリスト',
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const title = "Hyaluronic Filler Market — L'injectable de référence";
-  const description = 'La marketplace de référence des injectables esthétiques.';
+  // Titre et description de l'accueil = ceux de l'ancien site (table ps_meta_lang, page « index »,
+  // relevés le 16/11/2026) : c'est le résultat Google le plus visible, on ne le change pas à la
+  // bascule. L'ancien site n'a un titre propre qu'en français et en japonais (les autres langues
+  // affichent le titre français) et une description traduite en de / it / es / ja.
+  const title = HOME_TITLE[locale] ?? HOME_TITLE.fr;
+  const description = HOME_DESCRIPTION[locale] ?? HOME_DESCRIPTION.fr;
   return {
+    title,
+    description,
     alternates: alternatesFor(locale, ''),
     ...socialMeta(locale, '', title, description),
   };

@@ -4,7 +4,8 @@ import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { idLangFor } from '@/lib/i18n-config';
-import { alternatesFromSlugs, breadcrumbJsonLd, jsonLdString, ogLocale, textFromHtml, urlFor } from '@/lib/seo';
+import { alternatesFromSlugs, breadcrumbJsonLd, fillSeoVars, jsonLdString, ogLocale, textFromHtml, urlFor } from '@/lib/seo';
+import { DISCONTINUED_SLUGS } from '@/lib/discontinued';
 import { sanitizeCatalogHtml, structureDescription } from '@/lib/sanitize';
 import Chrome from '../../../components/Chrome';
 import Footer from '../../../components/Footer';
@@ -28,6 +29,17 @@ async function fetchProductBySlug(slug: string, locale: string) {
   return (data as { product?: Record<string, unknown> }).product ?? {};
 }
 
+// Titre et description SEO de la fiche (parité ancien site) : ceux saisis en BO, variables de modèle
+// remplacées (« %product-name% | %shop-name% », « %summary% »), sinon nom et résumé du produit.
+function productSeo(p: Record<string, any>): { title: string; description: string } {
+  const name = String(p.name ?? '');
+  const vars = { name, summary: textFromHtml(p.description_short || p.description || '', 300) };
+  return {
+    title: fillSeoVars(p.meta_title, vars, 'title') || name,
+    description: fillSeoVars(p.meta_description, vars, 'description') || textFromHtml(p.description_short || p.description || '', 160),
+  };
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
   const p = await fetchProductBySlug(slug, locale) as Record<string, any>;
@@ -35,8 +47,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     return { robots: { index: false } };
   }
 
-  const title = p.meta_title || p.name;
-  const description = p.meta_description || textFromHtml(p.description_short || p.description || '', 160);
+  const { title, description } = productSeo(p);
   // Canonique = catégorie CANONIQUE du produit (pas forcément celle de l'URL demandée).
   const path = `/${p.category || 'produit'}/${slug}`;
   const images = Array.isArray(p.images) && p.images.length ? [{ url: p.images[0] as string }] : undefined;
@@ -73,7 +84,7 @@ function jsonLd(p: Record<string, any>, path: string, locale: string, homeLabel:
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: p.name,
-    description: p.meta_description || textFromHtml(p.description_short || '', 500),
+    description: fillSeoVars(p.meta_description, { name: String(p.name ?? ''), summary: textFromHtml(p.description_short || '', 500) }, 'description') || textFromHtml(p.description_short || '', 500),
     image: Array.isArray(p.images) ? p.images : [],
     sku: p.reference || undefined,
     gtin13: /^\d{13}$/.test(String(p.ean13 ?? '')) ? p.ean13 : undefined,
@@ -152,6 +163,20 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     const catSlug = (tx as { discontinued_category?: string | null } | null)?.discontinued_category;
     if (catSlug) {
       permanentRedirect(`/${locale}/${catSlug}`);
+    }
+    // Produit SUPPRIMÉ de la base (liste du client, 10/11/2026) : le bridge ne le connaît plus.
+    // Son adresse est encore dans l'ancien sitemap et les annonces -> 301 vers la catégorie de
+    // l'adresse si elle vend encore quelque chose, sinon vers le catalogue (jamais de 404).
+    let wanted = slug;
+    try { wanted = decodeURIComponent(slug); } catch { /* slug déjà décodé */ }
+    if (DISCONTINUED_SLUGS.has(wanted)) {
+      const tc = await bridgeGetCached(
+        'taxonomy',
+        { action: 'category', slug: category, id_lang: idLangFor(locale) },
+        { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
+      ); // panne -> 5xx, pas 404
+      const c = (tc as { category?: { active?: boolean; nb_products?: number } | null } | null)?.category;
+      permanentRedirect(c && c.active && (c.nb_products ?? 0) > 0 ? `/${locale}/${category}` : `/${locale}/catalogue`);
     }
     notFound();
   }

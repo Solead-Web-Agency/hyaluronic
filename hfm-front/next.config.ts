@@ -45,6 +45,13 @@ const nextConfig: NextConfig = {
         destination: '/fr/produit/:productId',
         permanent: true,
       },
+      // Pages de l'ancien site sans équivalent (crawl du 16/11/2026) : fournisseurs -> catalogue,
+      // rubrique de pages CMS -> accueil, index « brand » -> index des marques. Les pages
+      // /brand/{slug} sont résolues par app/[locale]/brand/[slug] (marque encore vendue ou non).
+      { source: '/:locale([a-z]{2})/supplier', destination: '/:locale/catalogue', permanent: true },
+      { source: '/:locale([a-z]{2})/supplier/:slug', destination: '/:locale/catalogue', permanent: true },
+      { source: '/:locale([a-z]{2})/content/category/:slug*', destination: '/:locale', permanent: true },
+      { source: '/:locale([a-z]{2})/brand', destination: '/:locale/marque', permanent: true },
       // Recherche de l'ancien thème (module iqitsearch) -> recherche du catalogue.
       {
         source: '/:locale([a-z]{2})/module/iqitsearch/searchiqit',
