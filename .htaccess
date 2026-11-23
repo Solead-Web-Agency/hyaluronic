@@ -17,6 +17,16 @@
   </RequireAll>
 </IfModule>
 # === FIN HFM ===
+# === HFM 2026-11-17 : le back n'est PAS un site public ===
+# PrestaShop sert encore sa boutique native sur ce domaine (page d'accueil, fiches en index.php?…) :
+# sans cet en-tête, Google peut l'indexer en double du vrai site. Ne touche que les réponses PHP
+# (pages, API du front, back-office) ; les images restent explorables (Google Shopping).
+<IfModule mod_headers.c>
+  <FilesMatch "\.php$">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </FilesMatch>
+</IfModule>
+# === FIN HFM ===
 # Custom 2026-06-06: servir la variante .webp aux navigateurs compatibles (meme URL, negociation de contenu)
 AddType image/webp .webp
 <IfModule mod_expires.c>

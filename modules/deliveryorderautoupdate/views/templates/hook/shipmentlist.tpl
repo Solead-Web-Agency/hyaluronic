@@ -20,7 +20,7 @@
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *}
 <button class="button btn btn-primary pull-right add-shipment">{l s='Add a shipment' mod='deliveryorderautoupdate'}</button>
- {if count($shipments)}
+ {if !empty($shipments)}
  <table style="width: 100%" class="table dl_dashboard table_form table-shipment">
     <thead>
         <tr>

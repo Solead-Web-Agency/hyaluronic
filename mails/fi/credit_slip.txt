@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Tilaus {order_name} - Hyvitys
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Tilauksesi {order_name} on hyvitetty.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Summa palautetaan alkuperäiseen maksutapaasi muutaman arkipäivän kuluessa pankkisi käsittelyajoista riippuen.
 
 [{shop_name}]({shop_url})
 

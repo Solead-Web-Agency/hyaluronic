@@ -28,6 +28,8 @@ export default function ContactForm() {
   const [file, setFile] = useState<File | null>(null);
   const [state, setState] = useState<State>('idle');
   const [errKey, setErrKey] = useState<string>('error');
+  // Anti-robots : heure d'ouverture du formulaire (un humain met plus de quelques secondes à l'écrire).
+  const [openedAt] = useState(() => Date.now());
 
   useEffect(() => {
     fetch(`/api/contact?locale=${locale}`)
@@ -53,6 +55,10 @@ export default function ContactForm() {
       fd.set('message', message);
       fd.set('id_contact', String(idContact));
       fd.set('locale', locale);
+      // Anti-robots : champ piège invisible (rempli seulement par les robots) + temps passé sur le formulaire.
+      const trap = (e.currentTarget as HTMLFormElement).elements.namedItem('website') as HTMLInputElement | null;
+      fd.set('website', trap?.value ?? '');
+      fd.set('elapsed_ms', String(Date.now() - openedAt));
       if (file) fd.set('file', file);
       const r = await fetch('/api/contact', { method: 'POST', body: fd });
       const d = await r.json();
@@ -86,7 +92,9 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '620px' }}>
+    <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '620px', position: 'relative' }}>
+      {/* Champ piège anti-robots : invisible et hors tabulation, un humain ne le remplit jamais. */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" defaultValue="" style={{ position: 'absolute', left: '-10000px', top: 0, width: '1px', height: '1px', opacity: 0, pointerEvents: 'none' }} />
       {contacts.length > 1 ? (
         <label style={{ display: 'block' }}>
           <span style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#5E6152', marginBottom: '6px' }}>{t('subject')}</span>

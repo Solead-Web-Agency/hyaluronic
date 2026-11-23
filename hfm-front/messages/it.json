@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Spedizione in giornata per ordini effettuati entro le 15:00 (giorni lavorativi) · DHL Express e GLS",
-    "topbarFreeShipping": "Spedizione gratuita da 400 € IVA escl.",
     "topbarCe": "Marcatura CE · tracciabilità completa",
     "logoSub": "Specialista in iniezioni estetiche",
     "searchPlaceholder": "Cerca un prodotto, una marca…",
@@ -194,7 +193,6 @@
     "htB2b": "{amount} € IVA escl. (B2B) · IVA inclusa",
     "inStockShipToday": "Disponibile — spedizione oggi",
     "onOrderDelay": "Su ordinazione — 10-15 giorni",
-    "tile1Sub": "UE — gratuita da 400 € IVA escl.",
     "tile2Title": "Stock UE certificato",
     "tile2Sub": "5 magazzini — disponibilità immediata",
     "tile3Title": "Garanzia di autenticità",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Il tuo carrello",
     "empty": "Il tuo carrello è vuoto.",
-    "freeShippingUnlocked": "✓ Spedizione gratuita sbloccata",
-    "freeShippingRemaining": "Solo <b>{amount} €</b> per la spedizione gratuita",
     "subtotalExcl": "Subtotale IVA escl.",
     "vat": "IVA (20 %)",
     "totalIncl": "Totale IVA incl.",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Indice",
-    "updatedOn": "Aggiornato il"
+    "updatedOn": "Aggiornato il",
+    "geoNotice": "Per mostrare i prezzi e i prodotti disponibili nel suo Paese, questo viene stimato a partire dal suo indirizzo IP."
   },
   "contact": {
     "title": "Contattaci",
@@ -824,10 +821,9 @@
     "vat": "IVA",
     "totalInclNoShipping": "Totale IVA incl., spedizione esclusa",
     "checkout": "Ordina · {amount} € IVA incl.",
-    "freeShippingRemaining": "Solo <b>{amount} € IVA escl.</b> per la spedizione gratuita",
     "securePayment": "Pagamento sicuro 3D-Secure · spedizione con DHL Express e GLS",
     "tileShipTitle": "Spedizione tracciata",
-    "tileShipSub": "DHL Express e GLS — gratuita da 400 € IVA escl.",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Pagamento sicuro",
     "tilePaySub": "Transazioni crittografate 3D-Secure"
   },

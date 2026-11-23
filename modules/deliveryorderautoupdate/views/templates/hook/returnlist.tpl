@@ -20,7 +20,7 @@
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *}
 <button class="button btn btn-primary pull-right add-return">{l s='Create a return shipment' mod='deliveryorderautoupdate'}</button>
-{if count($returns)}
+{if !empty($returns)}
  <table style="width: 100%" class="table dl_dashboard table_form return">
     <thead>
         <tr>

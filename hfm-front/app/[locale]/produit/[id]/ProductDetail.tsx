@@ -20,6 +20,8 @@ export type ProductView = {
   brand: string | null;
   ht: number;
   ttc: number;
+  /** Robot Google (lib/bots.ts) : prix HT seul, sans la ligne « soit X € TTC » (comme l'ancien site). */
+  hideTaxLine?: boolean;
   // Statut unique calculé par stockStatus() (lib/cardModel.ts).
   availabilityState: StockStatus;
   descriptionShort: string;
@@ -250,7 +252,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
               <span style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontWeight: 700, fontSize: '34px', color: '#2B2B2B' }}>{fmt(priceHt)} €</span>
               <span style={{ fontSize: '13px', color: '#8A8170', fontWeight: 700, letterSpacing: '.04em' }}>{tc('exclTax')}</span>
             </div>
-            <TaxLine ht={priceHt} ttc={priceTtc} style={{ display: 'block', fontSize: '13.5px', color: '#6E7585', marginTop: '4px' }} />
+            {product.hideTaxLine ? null : <TaxLine ht={priceHt} ttc={priceTtc} style={{ display: 'block', fontSize: '13.5px', color: '#6E7585', marginTop: '4px' }} />}
             {/* Promo : prix barré + montant économisé. La remise était bien APPLIQUÉE mais
                 invisible ; l'ancien site l'affichait. Masqué dès qu'une déclinaison est choisie
                 (le prix barré porte sur le produit, pas sur la variante). */}
@@ -525,7 +527,7 @@ export default function ProductDetail({ product, related }: { product: ProductVi
       {/* Mobile : barre d'achat fixe en bas (parité ancien site). */}
       <MobileBuyBar
         ht={priceHt}
-        ttc={priceTtc}
+        ttc={product.hideTaxLine ? priceHt : priceTtc}
         canBuy={canBuy}
         onAdd={addCurrent}
       />

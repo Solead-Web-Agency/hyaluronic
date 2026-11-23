@@ -61,11 +61,10 @@ class HfmCountryRules
         if (!$id) {
             return '';
         }
-        $special = self::specialCountries();
-        if ($special === true) {
-            return 'c' . $id; // une règle s'applique à tous les pays : un compartiment par pays
-        }
-        return in_array($id, $special, true) ? 'c' . $id : '';
+        // Un compartiment par pays transmis : depuis le 18/11 le front envoie le pays de TOUT visiteur et
+        // le TTC suit la TVA de ce pays (DE 19 %, IT 22 %…). Partager le cache entre pays sans règle de
+        // prix servirait le TTC d'un pays à un autre.
+        return 'c' . $id;
     }
 
     /**
@@ -204,6 +203,53 @@ class HfmCountryRules
     public static function isBlocked($idProduct, $idCountry)
     {
         return in_array((int) $idProduct, self::blockedProductIds($idCountry), true);
+    }
+
+    /**
+     * [23/11/2026] Code ISO (majuscules) => ids des produits bloqués, pour chaque pays ayant au moins
+     * un blocage. Les « pays » sans code ISO à 2 lettres (ex. « cos », Corse) ne correspondent ni à
+     * une géolocalisation ni à une langue du site : ignorés ici (ils restent bloqués à la commande,
+     * selon l'adresse de livraison).
+     */
+    public static function blockedIdsByIso()
+    {
+        $idCountries = [];
+        foreach (['bpbc_products', 'bpbc_manufacturers', 'bpbc_categories', 'bpbc_suppliers'] as $t) {
+            if (self::tableExists($t)) {
+                foreach ((array) Db::getInstance()->executeS('SELECT DISTINCT id_country FROM `' . _DB_PREFIX_ . $t . '`') as $row) {
+                    $idCountries[(int) $row['id_country']] = true;
+                }
+            }
+        }
+        $out = [];
+        foreach (array_keys($idCountries) as $idCountry) {
+            $iso = Tools::strtoupper((string) Country::getIsoById((int) $idCountry));
+            if (!preg_match('/^[A-Z]{2}$/', $iso)) {
+                continue;
+            }
+            $ids = self::blockedProductIds($idCountry);
+            if ($ids) {
+                $out[$iso] = $ids;
+            }
+        }
+        ksort($out);
+        return $out;
+    }
+
+    /**
+     * [23/11/2026] id_product => codes ISO des pays où le produit est bloqué. Sert au sitemap : la
+     * fiche d'un produit bloqué répond 404 dans ce pays, on n'y déclare donc pas l'URL de la langue
+     * correspondante.
+     */
+    public static function blockedIsosByProduct()
+    {
+        $out = [];
+        foreach (self::blockedIdsByIso() as $iso => $ids) {
+            foreach ($ids as $idProduct) {
+                $out[(int) $idProduct][] = $iso;
+            }
+        }
+        return $out;
     }
 
     /** Produits bloqués pour le pays de tarification courant (catalogue). */

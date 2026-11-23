@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Afsendelse samme dag ved bestilling før kl. 15 (hverdage) · DHL Express & GLS",
-    "topbarFreeShipping": "Gratis levering fra 400 € ekskl. moms",
     "topbarCe": "CE-mærkning · fuld sporbarhed",
     "logoSub": "Ekspert i æstetiske injektioner",
     "searchPlaceholder": "Søg efter et produkt, et mærke…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Din kurv",
     "empty": "Din kurv er tom.",
-    "freeShippingUnlocked": "✓ Gratis levering låst op",
-    "freeShippingRemaining": "Kun <b>{amount} €</b> tilbage til gratis levering",
     "subtotalExcl": "Subtotal ekskl. moms",
     "vat": "Moms (20 %)",
     "totalIncl": "Total inkl. moms",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Indhold",
-    "updatedOn": "Opdateret den"
+    "updatedOn": "Opdateret den",
+    "geoNotice": "For at vise de priser og produkter, der er tilgængelige i dit land, anslås landet ud fra din IP-adresse."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "Moms",
     "totalInclNoShipping": "Total inkl. moms, ekskl. levering",
     "checkout": "Bestil · {amount} € inkl. moms",
-    "freeShippingRemaining": "Kun <b>{amount} € ekskl. moms</b> tilbage til gratis levering",
     "securePayment": "Sikker betaling med 3D-Secure · forsendelse med DHL Express & GLS",
     "tileShipTitle": "Levering med sporing",
-    "tileShipSub": "DHL Express & GLS — gratis fra 400 € ekskl. moms",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Sikker betaling",
     "tilePaySub": "Krypterede 3D-Secure-transaktioner"
   },

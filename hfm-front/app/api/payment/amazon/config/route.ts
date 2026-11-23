@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSessionUser } from '@/lib/session';
 import { buttonConfig, amazonConfigured, amazonEnv } from '@/lib/amazonpay';
+import { recordProConsent } from '@/lib/proConsent';
 
 const BASE = process.env.PUBLIC_BASE_URL || 'http://localhost:3000';
 
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
   const id_cart = Number(body.id_cart);
   if (!id_cart) return NextResponse.json({ error: 'missing_cart' }, { status: 400 });
   const locale = /^[a-z]{2}$/.test(String(body.locale || '')) ? String(body.locale) : 'fr';
+  await recordProConsent(req.headers, id_cart, user.id_customer, locale);
 
   // Amazon revient sur cette URL après login ; on y embarque panier + langue.
   const reviewUrl = `${BASE}/api/payment/amazon/review?cart=${id_cart}&lang=${locale}`;

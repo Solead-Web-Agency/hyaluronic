@@ -3,6 +3,7 @@ import { bridgePost } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { captureOrder } from '@/lib/paypal';
 import { locales, defaultLocale } from '@/lib/i18n-config';
+import { visitorIp } from '@/lib/geoip';
 
 // PayPal renvoie le navigateur ici après approbation : ?token=<orderId>&PayerID=...
 // On CAPTURE la commande, on vérifie COMPLETED, on crée la commande PS, puis on redirige.
@@ -37,6 +38,9 @@ export async function GET(req: NextRequest) {
     ...(user ? { id_customer: user.id_customer } : {}),
     paid: 1,
     payment_method: 'PayPal',
+    // Preuve de la déclaration professionnelle (fiche commande en BO) : le client revient ici lui-même.
+    client_ip: visitorIp(req.headers),
+    locale: lang,
     transaction_id: cap.captureId || String(orderId),
     // Montant réellement capturé (EUR) -> garde-fou montant côté bridge (anti sous-paiement).
     amount_paid: cap.amount,

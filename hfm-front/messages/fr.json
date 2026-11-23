@@ -41,7 +41,6 @@
   },
   "header": {
     "topbarShipping": "Expédition le jour même pour toute commande avant 15 h (jours ouvrés) · DHL Express & GLS",
-    "topbarFreeShipping": "Livraison offerte dès 400 € HT",
     "topbarCe": "Marquage CE · traçabilité complète",
     "logoSub": "Expert en injections esthétiques",
     "searchPlaceholder": "Rechercher un produit, une marque…",
@@ -209,7 +208,6 @@
     "htB2b": "{amount} € HT (B2B) · TVA incluse",
     "inStockShipToday": "En stock — expédié aujourd’hui",
     "onOrderDelay": "Sur commande — 10 à 15 jours",
-    "tile1Sub": "UE — gratuite dès 400 € HT",
     "tile2Title": "Stock UE certifié",
     "tile2Sub": "5 entrepôts — dispo immédiate",
     "tile3Title": "Garantie authentique",
@@ -297,8 +295,6 @@
   "cart": {
     "title": "Votre panier",
     "empty": "Votre panier est vide.",
-    "freeShippingUnlocked": "✓ Livraison offerte débloquée",
-    "freeShippingRemaining": "Plus que <b>{amount} €</b> pour la livraison offerte",
     "subtotalExcl": "Sous-total HT",
     "vat": "TVA (20 %)",
     "totalIncl": "Total TTC",
@@ -731,7 +727,8 @@
   },
   "content": {
     "summary": "Sommaire",
-    "updatedOn": "Mis à jour le"
+    "updatedOn": "Mis à jour le",
+    "geoNotice": "Pour afficher les prix et les produits disponibles dans votre pays, celui-ci est estimé à partir de votre adresse IP."
   },
   "blog": {
     "navLink": "Blog",
@@ -824,10 +821,9 @@
     "vat": "TVA",
     "totalInclNoShipping": "Total TTC hors livraison",
     "checkout": "Commander · {amount} € TTC",
-    "freeShippingRemaining": "Plus que <b>{amount} € HT</b> pour la livraison offerte",
     "securePayment": "Paiement sécurisé 3D-Secure · expédition DHL Express & GLS",
     "tileShipTitle": "Livraison suivie",
-    "tileShipSub": "DHL Express & GLS — offerte dès 400 € HT",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Paiement sécurisé",
     "tilePaySub": "Transactions chiffrées 3D-Secure"
   },

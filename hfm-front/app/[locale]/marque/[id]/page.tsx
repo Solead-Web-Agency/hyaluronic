@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { bridgeGetCached, type ProductCard } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
@@ -10,10 +11,12 @@ import Footer from '../../../components/Footer';
 import BrandClient, { type Manu } from './BrandClient';
 
 // Marque + produits, récupérés CÔTÉ SERVEUR (SEO).
-async function fetchBrand(id: string, locale: string): Promise<{ manu: Manu | null; products: ProductCard[] }> {
+// `hidden` : tous les produits de la marque sont bloqués dans le pays du visiteur -> page introuvable.
+async function fetchBrand(id: string, locale: string): Promise<{ manu: Manu | null; products: ProductCard[]; hidden: boolean }> {
   const idLang = idLangFor(locale);
   let manu: Manu | null = null;
   let products: ProductCard[] = [];
+  let hidden = false;
   try {
     const taxo = await bridgeGetCached(
       'taxonomy',
@@ -21,6 +24,7 @@ async function fetchBrand(id: string, locale: string): Promise<{ manu: Manu | nu
       { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
     );
     manu = ((taxo.manufacturers ?? []) as Manu[]).find((m) => String(m.id_manufacturer) === id) ?? null;
+    hidden = ((taxo.hidden_manufacturers ?? []) as number[]).some((h) => String(h) === id);
   } catch {
     manu = null;
   }
@@ -30,14 +34,14 @@ async function fetchBrand(id: string, locale: string): Promise<{ manu: Manu | nu
   } catch {
     products = [];
   }
-  return { manu, products };
+  return { manu, products, hidden };
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; id: string }> }): Promise<Metadata> {
   const { locale, id } = await params;
-  const { manu } = await fetchBrand(id, locale);
+  const { manu, hidden } = await fetchBrand(id, locale);
   const t = await getTranslations({ locale, namespace: 'brand' });
-  if (!manu) {
+  if (!manu || hidden) {
     return { robots: { index: false } };
   }
   const name = manu.name.trim();
@@ -52,7 +56,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function MarquePage({ params }: { params: Promise<{ locale: string; id: string }> }) {
   const { locale, id } = await params;
   setRequestLocale(locale);
-  const { manu, products } = await fetchBrand(id, locale);
+  const { manu, products, hidden } = await fetchBrand(id, locale);
+  if (hidden) {
+    notFound();
+  }
   const menuRaw = await fetchMenu(idLangFor(locale)).catch(() => []);
   const facets: ListingFacets = await listingFacets(products, menuRaw);
 

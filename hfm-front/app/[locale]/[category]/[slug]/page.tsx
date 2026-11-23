@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { bridgeGetCached } from '@/lib/ps';
+import { bridgeGetCached, isGoogleBotRequest } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { idLangFor } from '@/lib/i18n-config';
@@ -20,10 +20,17 @@ type RawCompo = { k?: string; v?: string };
 
 // Fiche produit par SLUG (URL « parité prod » /{categorie}/{slug}). Le bridge résout
 // le link_rewrite -> produit et renvoie sa catégorie canonique (pour le 301 éventuel).
-async function fetchProductBySlug(slug: string, locale: string) {
+// `pays` (paramètre ?pays=XX des liens des flux Google Shopping) : prix du pays du flux, pour TOUT
+// visiteur de cette adresse (humain ou robot), au lieu du pays géolocalisé. Une URL = un prix.
+function countryParam(raw: unknown): string | null {
+  const v = String(Array.isArray(raw) ? raw[0] : raw ?? '').trim().toUpperCase();
+  return /^[A-Z]{2}$/.test(v) ? v : null;
+}
+
+async function fetchProductBySlug(slug: string, locale: string, country: string | null = null) {
   const data = await bridgeGetCached(
     'products',
-    { link_rewrite: slug, id_lang: idLangFor(locale) },
+    { link_rewrite: slug, id_lang: idLangFor(locale), ...(country ? { country } : {}) },
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
   ); // pas de .catch : une panne du bridge remonte en 5xx (error.tsx), jamais en 404 (désindexation)
   return (data as { product?: Record<string, unknown> }).product ?? {};
@@ -43,7 +50,9 @@ function productSeo(p: Record<string, any>): { title: string; description: strin
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
   const p = await fetchProductBySlug(slug, locale) as Record<string, any>;
-  if (!p.name) {
+  // Produit inconnu, ou bloqué dans le pays du visiteur (la page répond alors 404) : ni titre ni
+  // description du produit dans l'en-tête.
+  if (!p.name || p.blocked_country) {
     return { robots: { index: false } };
   }
 
@@ -75,7 +84,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-function jsonLd(p: Record<string, any>, path: string, locale: string, homeLabel: string): object[] {
+function jsonLd(p: Record<string, any>, path: string, locale: string, homeLabel: string, googleBot = false): object[] {
   const availability = p.availability === 'in_stock' ? 'https://schema.org/InStock'
     : p.availability === 'backorder' ? 'https://schema.org/PreOrder'
     : 'https://schema.org/OutOfStock';
@@ -93,7 +102,9 @@ function jsonLd(p: Record<string, any>, path: string, locale: string, homeLabel:
       '@type': 'Offer',
       url: urlFor(locale, path),
       priceCurrency: 'EUR',
-      price: Number(p.price_incl_tax ?? 0).toFixed(2),
+      // Visiteur : prix TTC affiché (TVA de son pays, ou du pays ?pays= du lien du flux).
+      // Robot Google : prix HT, comme les flux Shopping et comme l'ancien site (lib/bots.ts).
+      price: Number((googleBot ? p.price_excl_tax : p.price_incl_tax) ?? 0).toFixed(2),
       availability,
       itemCondition: 'https://schema.org/NewCondition',
     },
@@ -147,10 +158,15 @@ function jsonLd(p: Record<string, any>, path: string, locale: string, homeLabel:
   return blocks;
 }
 
-export default async function ProductBySlugPage({ params }: { params: Promise<{ locale: string; category: string; slug: string }> }) {
+export default async function ProductBySlugPage({ params, searchParams }: {
+  params: Promise<{ locale: string; category: string; slug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const { locale, category, slug } = await params;
   setRequestLocale(locale);
-  const p = await fetchProductBySlug(slug, locale) as Record<string, any>;
+  const country = countryParam((await searchParams).pays);
+  const googleBot = await isGoogleBotRequest();
+  const p = await fetchProductBySlug(slug, locale, country) as Record<string, any>;
   if (!p.name) {
     // Produit discontinué (inactif/supprimé) : 301 vers SA catégorie par défaut (résolue même si
     // le produit est inactif), sinon 404. Préserve le jus SEO + l'UX. Si cette catégorie est
@@ -181,11 +197,34 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     notFound();
   }
 
+  // Produit bloqué dans le pays du visiteur (module « Bloquer les produits par pays ») : la fiche
+  // est introuvable (404), comme le produit l'est déjà dans les listes et la recherche (demande
+  // client du 23/11/2026 ; avant, la fiche s'affichait avec un encadré « non disponible »).
+  // Le pays est celui du visiteur (géolocalisation) ; pour un robot Google, celui du lien du flux
+  // (?pays=) sinon celui de la langue de l'URL (lib/bots.ts). Pour un humain, ?pays= ne fixe que
+  // le PRIX : il ne permet pas de contourner le blocage de son propre pays, ni ne bloque la fiche
+  // à un visiteur d'un autre pays.
+  let blockedHere = !!p.blocked_country;
+  if (country && !googleBot) {
+    const own = await fetchProductBySlug(slug, locale) as Record<string, any>;
+    blockedHere = !!own.blocked_country;
+  }
+  if (blockedHere) {
+    notFound();
+  }
+
   // Redirection 301 vers l'URL canonique si le segment catégorie ne correspond pas
   // (préserve les anciennes URLs indexées : /fr/accueil/{slug} -> /fr/{cat}/{slug}).
   const canonicalCat = (p.category as string) || '';
+  // Slug d'une autre langue sous ce préfixe (ex. /ro/riempitivi-dermici/sculptra-2-fiale, slug italien) :
+  // 301 vers le slug ET la catégorie de la langue demandée.
+  const ownSlug = typeof p.link_rewrite === 'string' ? p.link_rewrite : '';
+  if (p.slug_from_other_lang && ownSlug && ownSlug !== slug) {
+    permanentRedirect(`/${locale}/${canonicalCat || category}/${ownSlug}${country ? `?pays=${country}` : ''}`);
+  }
   if (canonicalCat && canonicalCat !== category) {
-    permanentRedirect(`/${locale}/${canonicalCat}/${slug}`);
+    // ?pays= conservé : sinon le lien du flux perdrait son pays (et son prix) à la redirection.
+    permanentRedirect(`/${locale}/${canonicalCat}/${slug}${country ? `?pays=${country}` : ''}`);
   }
   const path = `/${canonicalCat || 'produit'}/${slug}`;
 
@@ -201,6 +240,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     brand: p.manufacturer || p.brand || null,
     ht: p.price_excl_tax ?? 0,
     ttc: p.price_incl_tax ?? 0,
+    hideTaxLine: googleBot,
     // Statut unique (lib/cardModel.ts) : le même que carte, aperçu rapide et comparateur.
     availabilityState: stockStatus(p.availability, p.available ?? (p.quantity ?? 0) > 0),
     descriptionShort: sanitizeCatalogHtml(p.description_short || ''),
@@ -235,7 +275,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
   ).catch(() => ({} as Record<string, any>));
   const cards = (rows: unknown): ReturnType<typeof toCard>[] =>
-    Array.isArray(rows) ? (rows as ProductCardData[]).map(toCard) : [];
+    Array.isArray(rows) ? (rows as ProductCardData[]).map((r) => ({ ...toCard(r), hideTaxLine: googleBot })) : [];
   const related: RelatedView = {
     boughtTogether: cards(rel.bought_together),
     youMayLike: cards(rel.you_may_like),
@@ -248,7 +288,7 @@ export default async function ProductBySlugPage({ params }: { params: Promise<{ 
     <div style={{ fontFamily: "'Hanken Grotesk',sans-serif", color: '#34352F', background: 'radial-gradient(1100px 560px at 82% -6%, rgba(140,198,63,0.13), transparent 58%), radial-gradient(820px 520px at -8% 14%, rgba(95,184,154,0.10), transparent 55%), radial-gradient(700px 600px at 50% 118%, rgba(140,198,63,0.08), transparent 60%), #F3F4EF', minHeight: '100vh' }}>
       {/* og:type=product : Next n'émet pas ce type via Metadata -> balise brute hissée au <head> par React. */}
       <meta property="og:type" content="product" />
-      {jsonLd(p, path, locale, tc('breadcrumbHome')).map((block, i) => (
+      {jsonLd(p, path, locale, tc('breadcrumbHome'), googleBot).map((block, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(block) }} />
       ))}
       <Chrome />

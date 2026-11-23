@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "15時までのご注文は当日発送（営業日） · DHL Express & GLS",
-    "topbarFreeShipping": "税抜400 €以上で送料無料",
     "topbarCe": "CEマーキング · 完全なトレーサビリティ",
     "logoSub": "美容注入のスペシャリスト",
     "searchPlaceholder": "商品やブランドを検索…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "カート",
     "empty": "カートは空です。",
-    "freeShippingUnlocked": "✓ 送料無料が適用されました",
-    "freeShippingRemaining": "送料無料まであと <b>{amount} €</b>",
     "subtotalExcl": "小計(税抜)",
     "vat": "VAT(20 %)",
     "totalIncl": "合計(税込)",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "目次",
-    "updatedOn": "更新日"
+    "updatedOn": "更新日",
+    "geoNotice": "お住まいの国で利用可能な価格と商品を表示するため、IPアドレスから国を推定しています。"
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "VAT",
     "totalInclNoShipping": "合計(税込・送料別)",
     "checkout": "注文する · {amount} €(税込)",
-    "freeShippingRemaining": "送料無料まであと <b>{amount} €(税抜)</b>",
     "securePayment": "3Dセキュア対応の安全なお支払い · DHL Express・GLSで発送",
     "tileShipTitle": "追跡可能な配送",
-    "tileShipSub": "DHL Express・GLS — 400 €(税抜)以上で送料無料",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "安全なお支払い",
     "tilePaySub": "3Dセキュアによる暗号化決済"
   },

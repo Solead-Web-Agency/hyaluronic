@@ -5,6 +5,7 @@
 // plutôt que de bloquer les clients légitimes).
 import { Redis } from '@upstash/redis';
 import type { NextRequest } from 'next/server';
+import { visitorIp } from './geoip';
 
 const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
 const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -43,8 +44,10 @@ function memoryHit(key: string, limit: Limit): number {
   return cur.count;
 }
 
+// Adresse non falsifiable par le visiteur (voir visitorIp) : sinon un en-tête x-forwarded-for
+// inventé à chaque requête suffirait à contourner toutes les limites ci-dessus.
 export function clientIp(req: NextRequest): string {
-  return (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || req.headers.get('x-real-ip') || 'inconnu';
+  return visitorIp(req.headers) || 'inconnu';
 }
 
 /**

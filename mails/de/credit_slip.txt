@@ -2,11 +2,11 @@
 
 Hallo {firstname} {lastname},
 
-Bestellung {order_name} - Rechnungskorrektur
+Bestellung {order_name} - Rückerstattung
 
-Für die Bestellung mit der Referenz {order_name} wurde ein Einzahlungsschein in Ihrem Namen erstellt.
+Ihre Bestellung {order_name} wurde erstattet.
 
-Überprüfen Sie die Rechnungskorrektur und laden Sie sie in unserem Shop herunter, indem Sie zum Abschnitt [Rechnungskorrekturen]({history_url}) Ihres Kundenkontos gehen.
+Der Betrag wird Ihrem ursprünglichen Zahlungsmittel innerhalb weniger Werktage gutgeschrieben, abhängig von den Bearbeitungszeiten Ihrer Bank.
 
 [{shop_name}]({shop_url})
 

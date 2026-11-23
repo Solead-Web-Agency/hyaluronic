@@ -17,8 +17,6 @@ export default function CartDrawer() {
   // TVA réelle des produits (TTC − HT) : 0 en cas d'exonération, taux réduits pris en compte.
   const vat = Math.max(0, cart.total_incl_tax - subtotal);
   const ttc = cart.total_incl_tax;
-  const remain = Math.max(0, 400 - subtotal);
-  const pct = Math.min(100, (subtotal / 400) * 100);
   const hasItems = cart.products.length > 0;
 
   const goCheckout = () => {
@@ -46,14 +44,6 @@ export default function CartDrawer() {
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', padding: '40px' }}><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#C9C2AF" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 8h12l-1 11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /></svg><div style={{ fontSize: '14px', color: '#8A8170', textAlign: 'center' }}>{t('empty')}</div><button onClick={() => { closeCart(); router.push('/catalogue'); }} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '13.5px', fontWeight: 600, color: '#fff', background: 'linear-gradient(135deg,rgba(150,206,75,.95),rgba(116,176,51,.92))', border: '1px solid rgba(255,255,255,.42)', boxShadow: '0 12px 26px -10px rgba(116,176,51,.55)', backdropFilter: 'blur(8px) saturate(140%)', WebkitBackdropFilter: 'blur(8px) saturate(140%)', borderRadius: '999px', padding: '13px 24px', cursor: 'pointer' }}>{tc('browseCatalogue')}</button></div>
         ) : (
           <>
-            <div style={{ padding: '16px 24px', background: '#fff', borderBottom: '1px solid #E7E3DA' }}>
-              {subtotal >= 400 ? (
-                <div style={{ fontSize: '12.5px', color: '#3F7256', fontWeight: 600 }}>{t('freeShippingUnlocked')}</div>
-              ) : (
-                <div style={{ fontSize: '12.5px', color: '#55606F' }}>{to.rich('freeShippingRemaining', { amount: fmt(remain), b: (c) => <b style={{ color: '#434343' }}>{c}</b> })}</div>
-              )}
-              <div style={{ height: '7px', background: '#EFEDE5', borderRadius: '999px', marginTop: '10px', overflow: 'hidden' }}><div style={{ height: '100%', width: `${pct}%`, background: '#8CC63F', borderRadius: '999px', transition: 'width .4s ease' }} /></div>
-            </div>
             <div style={{ flex: 1, overflowY: 'auto', padding: '8px 24px' }}>
               {cart.products.map((ci) => (
                 <div key={ci.id_product} style={{ display: 'flex', gap: '14px', padding: '18px 0', borderBottom: '1px solid #E7E3DA' }}>

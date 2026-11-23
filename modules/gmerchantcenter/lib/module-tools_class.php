@@ -372,7 +372,13 @@ class BT_GmcModuleTools
         $idFr = (int) Language::getIdByIso('fr') ?: 1;
         $prod = $slug('product', 'id_product', $oProduct->id, $iLangId);
         if (!$healthy($prod)) {
-            $prod = $slug('product', 'id_product', $oProduct->id, $idFr);
+            // Slug français seulement s'il est sain lui-même : sinon on garde celui de la langue, qui
+            // résout bien sous /{langue}/ (ex. 6336 « -belotero-… » partout : le slug français sous /de/
+            // donnait une 404, crawl des flux du 18/11).
+            $fr = $slug('product', 'id_product', $oProduct->id, $idFr);
+            if ($healthy($fr)) {
+                $prod = $fr;
+            }
         }
         $cat = $slug('category', 'id_category', (int) $oProduct->id_category_default, $iLangId);
         if (!$healthy($cat)) {

@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Naročilo {order_name} - Vračilo
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Znesek za vaše naročilo {order_name} je bil vrnjen.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Znesek bo v nekaj delovnih dneh vrnjen na vaše prvotno plačilno sredstvo, odvisno od rokov vaše banke.
 
 [{shop_name}]({shop_url})
 

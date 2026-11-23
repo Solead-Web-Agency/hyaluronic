@@ -58,13 +58,44 @@ function legacyRedirect(req: NextRequest): NextResponse | null {
   return null;
 }
 
+// Images de l'ancien site (adresses « jolies » de PrestaShop, indexées par Google Images et Shopping) :
+// /1082-home_default/stylage.jpg -> image réelle sur le back (/img/p/1/0/8/2/1082-home_default.jpg).
+// Le back n'a pas la réécriture d'URL PrestaShop : on renvoie directement vers le fichier.
+const IMG_ORIGIN = 'https://back.hyaluronicfillermarket.com';
+function legacyImage(req: NextRequest): NextResponse | null {
+  const p = req.nextUrl.pathname;
+  let m = /^\/(\d+)-([a-z0-9_]+)\/[^/]+\.(?:jpe?g|png|webp|gif)$/i.exec(p);
+  if (m) {
+    return NextResponse.redirect(`${IMG_ORIGIN}/img/p/${m[1].split('').join('/')}/${m[1]}-${m[2]}.jpg`, 301);
+  }
+  m = /^\/c\/(\d+)-([a-z0-9_]+)\/[^/]+\.(?:jpe?g|png|webp|gif)$/i.exec(p);
+  if (m) {
+    return NextResponse.redirect(`${IMG_ORIGIN}/img/c/${m[1]}-${m[2]}.jpg`, 301);
+  }
+  if (p.startsWith('/img/')) {
+    return NextResponse.redirect(`${IMG_ORIGIN}${p}`, 301);
+  }
+  return null;
+}
+
 export default function middleware(req: NextRequest) {
+  const img = legacyImage(req);
+  if (img) return img;
   // Webhook Viva déclaré chez Viva sur l'URL de l'ancien module PrestaShop
   // (/module/vivawalletsmartcheckout/webhook?environment=live) : réécrit (pas redirigé, Viva poste
   // en POST) vers la route webhook, sinon le préfixe de langue le casserait après la bascule DNS.
   if (req.nextUrl.pathname === '/module/vivawalletsmartcheckout/webhook') {
     const url = req.nextUrl.clone();
     url.pathname = '/api/payment/webhook';
+    return NextResponse.rewrite(url);
+  }
+  // Retour du CLIENT après paiement Viva : la « source » du compte Viva peut encore pointer sur les
+  // pages de l'ancien module (/module/vivawalletsmartcheckout/success ou /failure, avec ou sans
+  // préfixe de langue, suivies de ?t=<transaction>&s=<ordre>). Sans cette réécriture : client débité
+  // puis page 404. La route de retour revérifie la transaction, un échec y est traité comme tel.
+  if (/^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?module\/vivawalletsmartcheckout\/(?:success|failure)\/?$/i.test(req.nextUrl.pathname)) {
+    const url = req.nextUrl.clone();
+    url.pathname = '/api/payment/return';
     return NextResponse.rewrite(url);
   }
   // Idem pour l'IPN Amazon Pay, déclarée chez Amazon sur /fr/module/amazonpay/ipn.
@@ -79,5 +110,11 @@ export default function middleware(req: NextRequest) {
 export const config = {
   // On exclut /api, /_next, /_vercel et tous les fichiers statiques (avec extension).
   // Les routes API restent donc non préfixées, accessibles sur /api/*.
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+  matcher: [
+    '/((?!api|_next|_vercel|.*\\..*).*)',
+    // Images de l'ancien site (voir legacyImage) : seuls chemins « avec extension » traités ici.
+    '/img/:path*',
+    '/c/:path*',
+    '/(\\d+-[a-zA-Z0-9_]+)/:file*',
+  ],
 };

@@ -17,13 +17,18 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
         $idShop = (int) $this->context->shop->id;
         $action = (string) $this->in('action', 'categories');
 
-        // Lecture publique, identique pour tous -> cacheable (tag taxonomy, TTL 3600).
+        // Lecture publique -> cacheable (tag taxonomy, TTL 3600).
         // Clé = action + params discriminants + id_lang + id_shop, versionnée par tag.
+        // [23/11/2026] Les comptes de produits excluent les produits bloqués dans le pays du visiteur
+        // (une marque ou catégorie dont tous les produits sont bloqués disparaît alors du menu et de
+        // l'index des marques). Compartiment de cache par pays UNIQUEMENT pour les pays ayant des
+        // blocages ; tous les autres visiteurs partagent le même cache.
         $key = HfmCache::key(HfmCache::TAG_TAXONOMY, $action, [
             'id_lang' => $idLang,
             'id_shop' => $idShop,
             'id_parent' => (int) $this->in('id_parent'),
             'slug' => (string) $this->in('slug'),
+            'blk' => HfmCountryRules::blockedForVisitor() ? (int) HfmCountryRules::pricingCountryId() : 0,
         ]);
 
         return HfmCache::remember($key, HfmCache::TTL_TAXONOMY, function () use ($action, $idLang) {
@@ -42,9 +47,17 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                         'countries' => HfmCountryRules::specialCountryIsos(),
                         // Groupes clients à tarif particulier : le front transmet alors le client.
                         'groups' => HfmCountryRules::specialGroupIds(),
+                        // Pays ayant des produits bloqués : le front ne transmet le pays aux lectures
+                        // de taxonomie (menu, marques…) que pour ceux-là.
+                        'block_countries' => array_keys(HfmCountryRules::blockedIdsByIso()),
                     ];
                 case 'manufacturers':
-                    return ['manufacturers' => $this->manufacturers($idLang)];
+                    return [
+                        'manufacturers' => $this->manufacturers($idLang),
+                        // Fabricants dont TOUS les produits sont bloqués dans le pays du visiteur :
+                        // absents de la liste ci-dessus, leur page /marque/{id} répond 404.
+                        'hidden_manufacturers' => $this->hiddenForVisitor('manufacturer'),
+                    ];
                 case 'countries':
                     return ['countries' => $this->countries($idLang)];
                 default:
@@ -81,7 +94,17 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
             'SELECT COUNT(*) FROM ' . _DB_PREFIX_ . 'category_product cp
              INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
                 ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1 AND ps.visibility != "none")
-             WHERE cp.id_category = ' . (int) $row['id_category']
+             WHERE cp.id_category = ' . (int) $row['id_category'] . $this->notBlockedSql('cp.id_product')
+        );
+        // Produits de la catégorie masqués par le blocage du pays du visiteur : si elle n'a plus aucun
+        // produit visible À CAUSE de lui, le front répond 404 (et non la redirection d'une catégorie vide).
+        $blocked = HfmCountryRules::blockedForVisitor();
+        $nbBlocked = !$blocked ? 0 : (int) Db::getInstance()->getValue(
+            'SELECT COUNT(*) FROM ' . _DB_PREFIX_ . 'category_product cp
+             INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1 AND ps.visibility != "none")
+             WHERE cp.id_category = ' . (int) $row['id_category'] . '
+               AND cp.id_product IN (' . implode(',', array_map('intval', $blocked)) . ')'
         );
         // Slugs par langue (id_lang => link_rewrite) pour des hreflang corrects : le slug catégorie
         // varie d'une langue à l'autre (ex. FR « comblement » -> EN « filler »).
@@ -101,6 +124,7 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
             'link_rewrite' => $row['link_rewrite'],
             'active' => (bool) (int) $row['active'],
             'nb_products' => $nbp,
+            'nb_blocked' => $nbBlocked,
             'id_parent' => (int) $row['id_parent'],
             'meta_title' => (string) $row['meta_title'],
             'meta_description' => (string) $row['meta_description'],
@@ -148,8 +172,14 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                 $altByCat[(int) $r['id_category']][(int) $r['id_lang']] = (string) $r['link_rewrite'];
             }
         }
+        // Pays (codes ISO) où TOUS les produits de la catégorie sont bloqués : sa page y répond 404, le
+        // sitemap ne déclare donc pas l'URL de la langue de ces pays.
+        $blockedIn = $this->fullyBlocked('category');
         foreach ($out as &$c) {
             $c['alternates'] = isset($altByCat[$c['id_category']]) ? $altByCat[$c['id_category']] : [];
+            if (!empty($blockedIn[$c['id_category']])) {
+                $c['blocked'] = $blockedIn[$c['id_category']];
+            }
         }
         unset($c);
         return $out;
@@ -176,7 +206,7 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                               ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ')
                           WHERE cp.id_category = c.id_category
                             AND ps.active = 1
-                            AND ps.visibility != "none") AS nb_products
+                            AND ps.visibility != "none"' . $this->notBlockedSql('cp.id_product') . ') AS nb_products
                 FROM ' . _DB_PREFIX_ . 'category c
                 INNER JOIN ' . _DB_PREFIX_ . 'category_lang cl
                     ON (cl.id_category = c.id_category AND cl.id_lang = ' . (int) $idLang . ' AND cl.id_shop = ' . $idShop . ')
@@ -232,7 +262,7 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
                               ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ')
                           WHERE cp.id_category = c.id_category
                             AND ps.active = 1
-                            AND ps.visibility != "none") AS nb_products
+                            AND ps.visibility != "none"' . $this->notBlockedSql('cp.id_product') . ') AS nb_products
                 FROM ' . _DB_PREFIX_ . 'category c
                 INNER JOIN ' . _DB_PREFIX_ . 'category_lang cl
                     ON (cl.id_category = c.id_category AND cl.id_lang = ' . (int) $idLang . ' AND cl.id_shop = ' . $idShop . ')
@@ -255,19 +285,88 @@ class HfmstorefrontTaxonomyModuleFrontController extends HfmStorefrontApiControl
     {
         $sql = 'SELECT m.id_manufacturer, m.name, COUNT(p.id_product) AS nb_products
                 FROM ' . _DB_PREFIX_ . 'manufacturer m
-                INNER JOIN ' . _DB_PREFIX_ . 'product p ON (p.id_manufacturer = m.id_manufacturer AND p.active = 1)
+                INNER JOIN ' . _DB_PREFIX_ . 'product p ON (p.id_manufacturer = m.id_manufacturer AND p.active = 1'
+                    . $this->notBlockedSql('p.id_product') . ')
                 WHERE m.active = 1
                 GROUP BY m.id_manufacturer
                 HAVING nb_products > 0
                 ORDER BY nb_products DESC, m.name ASC';
         $rows = Db::getInstance()->executeS($sql);
+        // Pays (codes ISO) où TOUS les produits du fabricant sont bloqués : pour le sitemap.
+        $blockedIn = $this->fullyBlocked('manufacturer');
         $out = [];
         foreach ((array) $rows as $r) {
-            $out[] = [
+            $row = [
                 'id_manufacturer' => (int) $r['id_manufacturer'],
                 'name' => $r['name'],
                 'nb_products' => (int) $r['nb_products'],
             ];
+            if (!empty($blockedIn[$row['id_manufacturer']])) {
+                $row['blocked'] = $blockedIn[$row['id_manufacturer']];
+            }
+            $out[] = $row;
+        }
+        return $out;
+    }
+
+    // ------------------------------------------------------------ blocage par pays (23/11/2026)
+
+    /** « AND {colonne} NOT IN (produits bloqués dans le pays du visiteur) », ou chaîne vide. */
+    protected function notBlockedSql($column)
+    {
+        $blocked = HfmCountryRules::blockedForVisitor();
+        return $blocked ? ' AND ' . $column . ' NOT IN (' . implode(',', array_map('intval', $blocked)) . ')' : '';
+    }
+
+    /**
+     * id => codes ISO des pays où TOUS les produits actifs de la catégorie (ou du fabricant) sont
+     * bloqués. Indépendant du visiteur : sert au sitemap (langues à ne pas déclarer) et à
+     * hiddenForVisitor().
+     */
+    protected function fullyBlocked($type)
+    {
+        static $memo = [];
+        if (isset($memo[$type])) {
+            return $memo[$type];
+        }
+        $idShop = (int) $this->context->shop->id;
+        $out = [];
+        foreach (HfmCountryRules::blockedIdsByIso() as $iso => $ids) {
+            $in = implode(',', array_map('intval', $ids));
+            if ($type === 'category') {
+                $sql = 'SELECT cp.id_category AS id, COUNT(*) AS total, SUM(cp.id_product IN (' . $in . ')) AS nb
+                        FROM ' . _DB_PREFIX_ . 'category_product cp
+                        INNER JOIN ' . _DB_PREFIX_ . 'product_shop ps
+                            ON (ps.id_product = cp.id_product AND ps.id_shop = ' . $idShop . ' AND ps.active = 1 AND ps.visibility != "none")
+                        GROUP BY cp.id_category
+                        HAVING total = nb';
+            } else {
+                $sql = 'SELECT p.id_manufacturer AS id, COUNT(*) AS total, SUM(p.id_product IN (' . $in . ')) AS nb
+                        FROM ' . _DB_PREFIX_ . 'product p
+                        WHERE p.active = 1 AND p.id_manufacturer > 0
+                        GROUP BY p.id_manufacturer
+                        HAVING total = nb';
+            }
+            foreach ((array) Db::getInstance()->executeS($sql) as $r) {
+                $out[(int) $r['id']][] = $iso;
+            }
+        }
+        return $memo[$type] = $out;
+    }
+
+    /** Ids (catégories ou fabricants) entièrement bloqués dans le pays du visiteur. */
+    protected function hiddenForVisitor($type)
+    {
+        $idCountry = (int) HfmCountryRules::pricingCountryId();
+        if (!$idCountry || !HfmCountryRules::blockedForVisitor()) {
+            return [];
+        }
+        $iso = Tools::strtoupper((string) Country::getIsoById($idCountry));
+        $out = [];
+        foreach ($this->fullyBlocked($type) as $id => $isos) {
+            if (in_array($iso, $isos, true)) {
+                $out[] = (int) $id;
+            }
         }
         return $out;
     }

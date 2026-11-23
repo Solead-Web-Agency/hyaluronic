@@ -28,7 +28,7 @@
             <th class="date">{l s='Date' mod='deliveryorderautoupdate'}</th>
         </tr>
         {/if}
-        {if count($events)}
+        {if !empty($events)}
         {foreach $events as $event}
         <tr>
             <td>

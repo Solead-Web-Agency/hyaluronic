@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Expediere în aceeași zi pentru comenzile plasate înainte de ora 15:00 (zile lucrătoare) · DHL Express și GLS",
-    "topbarFreeShipping": "Livrare gratuită de la 400 € fără TVA",
     "topbarCe": "Marcaj CE · trasabilitate completă",
     "logoSub": "Specialist în injectabile estetice",
     "searchPlaceholder": "Caută un produs, o marcă…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Coșul tău",
     "empty": "Coșul tău este gol.",
-    "freeShippingUnlocked": "✓ Livrare gratuită deblocată",
-    "freeShippingRemaining": "Doar <b>{amount} €</b> până la livrarea gratuită",
     "subtotalExcl": "Subtotal fără TVA",
     "vat": "TVA (20 %)",
     "totalIncl": "Total cu TVA",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Cuprins",
-    "updatedOn": "Actualizat la"
+    "updatedOn": "Actualizat la",
+    "geoNotice": "Pentru a afișa prețurile și produsele disponibile în țara dumneavoastră, aceasta este estimată pe baza adresei IP."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "TVA",
     "totalInclNoShipping": "Total cu TVA, fără livrare",
     "checkout": "Comandă · {amount} € cu TVA",
-    "freeShippingRemaining": "Doar <b>{amount} € fără TVA</b> până la livrarea gratuită",
     "securePayment": "Plată securizată 3D-Secure · expediere prin DHL Express și GLS",
     "tileShipTitle": "Livrare urmărită",
-    "tileShipSub": "DHL Express și GLS — gratuită de la 400 € fără TVA",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Plată securizată",
     "tilePaySub": "Tranzacții criptate 3D-Secure"
   },

@@ -5,6 +5,7 @@ import { createOrder, vivaConfigured, vivaEnv } from '@/lib/viva';
 import { paypalConfigured, paypalEnv } from '@/lib/paypal';
 import { amazonConfigured, amazonEnv } from '@/lib/amazonpay';
 import { NO_STORE } from '@/lib/cacheContract';
+import { recordProConsent } from '@/lib/proConsent';
 
 // Paiement (état PSP + création d'ordre) : JAMAIS de cache.
 export const dynamic = 'force-dynamic';
@@ -37,6 +38,7 @@ export async function POST(req: NextRequest) {
   const cart = await bridgeGet('cart', { id_cart, id_customer: user.id_customer });
   const total = Number(cart?.totals?.total_incl_tax ?? cart?.totals?.products_incl_tax ?? 0);
   if (total <= 0) return NextResponse.json({ error: 'empty_cart' }, { status: 400, headers: NO_STORE });
+  await recordProConsent(req.headers, id_cart, user.id_customer, locale);
 
   try {
     const { orderCode, checkoutUrl } = await createOrder({

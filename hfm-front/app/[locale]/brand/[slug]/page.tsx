@@ -21,7 +21,7 @@ export default async function LegacyBrandPage({ params }: { params: Promise<{ lo
   const { locale, slug } = await params;
   const d = await bridgeGetCached(
     'taxonomy',
-    { action: 'manufacturers', id_lang: idLangFor(locale) },
+    { action: 'manufacturers', id_lang: idLangFor(locale), country: '' }, // neutre : la cible /marque/{id} applique le blocage
     { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
   ); // pas de .catch : une panne du bridge remonte en 5xx, jamais en redirection hasardeuse
   const manus = (d as { manufacturers?: { id_manufacturer: number; name: string }[] }).manufacturers ?? [];

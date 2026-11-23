@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Αποστολή την ίδια ημέρα για παραγγελίες πριν τις 15:00 (εργάσιμες ημέρες) · DHL Express & GLS",
-    "topbarFreeShipping": "Δωρεάν παράδοση από 400 € χωρίς ΦΠΑ",
     "topbarCe": "Σήμανση CE · πλήρης ιχνηλασιμότητα",
     "logoSub": "Ειδικός στις αισθητικές ενέσεις",
     "searchPlaceholder": "Αναζήτηση προϊόντος, μάρκας…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Το καλάθι σας",
     "empty": "Το καλάθι σας είναι άδειο.",
-    "freeShippingUnlocked": "✓ Ξεκλειδώθηκε η δωρεάν παράδοση",
-    "freeShippingRemaining": "Μόνο <b>{amount} €</b> ακόμη για δωρεάν παράδοση",
     "subtotalExcl": "Υποσύνολο χωρίς ΦΠΑ",
     "vat": "ΦΠΑ (20 %)",
     "totalIncl": "Σύνολο με ΦΠΑ",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Περιεχόμενα",
-    "updatedOn": "Ενημερώθηκε στις"
+    "updatedOn": "Ενημερώθηκε στις",
+    "geoNotice": "Για να εμφανίζονται οι τιμές και τα προϊόντα που είναι διαθέσιμα στη χώρα σας, η χώρα εκτιμάται από τη διεύθυνση IP σας."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "ΦΠΑ",
     "totalInclNoShipping": "Σύνολο με ΦΠΑ, χωρίς μεταφορικά",
     "checkout": "Παραγγελία · {amount} € με ΦΠΑ",
-    "freeShippingRemaining": "Μόνο <b>{amount} € χωρίς ΦΠΑ</b> ακόμη για δωρεάν παράδοση",
     "securePayment": "Ασφαλής πληρωμή 3D-Secure · αποστολή με DHL Express & GLS",
     "tileShipTitle": "Παράδοση με παρακολούθηση",
-    "tileShipSub": "DHL Express & GLS — δωρεάν από 400 € χωρίς ΦΠΑ",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Ασφαλής πληρωμή",
     "tilePaySub": "Κρυπτογραφημένες συναλλαγές 3D-Secure"
   },

@@ -399,6 +399,9 @@ class AdminGlsPackingListController extends ModuleAdminController
                     'L'
                 );
                 $pdf->render('I');
+                // [HFM 18/11/2026] PrestaShop 9 : sans arrêt ici, le back-office emballe le PDF dans sa page HTML
+                // (PDF affiché en caractères illisibles au lieu d'être ouvert / téléchargé).
+                exit;
             }
         }
 

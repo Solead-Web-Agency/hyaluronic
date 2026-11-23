@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "شحن في نفس اليوم للطلبات قبل الساعة 15:00 (أيام العمل) · DHL Express و GLS",
-    "topbarFreeShipping": "شحن مجاني ابتداءً من 400 € بدون ضريبة",
     "topbarCe": "علامة CE · تتبّع كامل",
     "logoSub": "خبير في الحقن التجميلية",
     "searchPlaceholder": "ابحث عن منتج أو علامة تجارية…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "سلتك",
     "empty": "سلتك فارغة.",
-    "freeShippingUnlocked": "✓ تم تفعيل الشحن المجاني",
-    "freeShippingRemaining": "تبقّى <b>{amount} €</b> فقط للحصول على شحن مجاني",
     "subtotalExcl": "المجموع الفرعي بدون ضريبة",
     "vat": "ضريبة القيمة المضافة (20٪)",
     "totalIncl": "الإجمالي شامل الضريبة",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "المحتويات",
-    "updatedOn": "تاريخ التحديث"
+    "updatedOn": "تاريخ التحديث",
+    "geoNotice": "لعرض الأسعار والمنتجات المتاحة في بلدك، يتم تقدير البلد استنادًا إلى عنوان IP الخاص بك."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "ضريبة القيمة المضافة",
     "totalInclNoShipping": "الإجمالي شامل الضريبة، بدون الشحن",
     "checkout": "إتمام الطلب · {amount} € شامل الضريبة",
-    "freeShippingRemaining": "تبقّى <b>{amount} € بدون ضريبة</b> فقط للحصول على شحن مجاني",
     "securePayment": "دفع آمن 3D-Secure · الشحن عبر DHL Express و GLS",
     "tileShipTitle": "توصيل قابل للتتبع",
-    "tileShipSub": "DHL Express و GLS — مجاني ابتداءً من 400 € بدون ضريبة",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "دفع آمن",
     "tilePaySub": "معاملات مشفّرة 3D-Secure"
   },

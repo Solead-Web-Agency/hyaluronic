@@ -2,11 +2,11 @@
 
 Hola {firstname} {lastname},
 
-ID Pedido {order_name} - Factura por abono
+Pedido {order_name} - Reembolso
 
-Se ha creado un cupón de descuento a su nombre tras haber realizado el pedido con número de referencia {order_name}.
+Su pedido {order_name} ha sido reembolsado.
 
-Revise este abono y descargue su factura desde nuestra tienda, vaya a la sección [Facturas por abono]({history_url}) de su cuenta de cliente.
+El importe se abonará en su método de pago original en unos pocos días hábiles, según los plazos de su banco.
 
 [{shop_name}]({shop_url})
 

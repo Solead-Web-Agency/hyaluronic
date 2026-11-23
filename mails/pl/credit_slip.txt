@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Zamówienie {order_name} - Zwrot płatności
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Płatność za Twoje zamówienie {order_name} została zwrócona.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Kwota zostanie zwrócona na pierwotną metodę płatności w ciągu kilku dni roboczych, w zależności od terminów Twojego banku.
 
 [{shop_name}]({shop_url})
 

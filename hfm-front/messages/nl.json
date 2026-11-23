@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Verzending op dezelfde dag voor bestellingen vóór 15.00 uur (werkdagen) · DHL Express & GLS",
-    "topbarFreeShipping": "Gratis verzending vanaf € 400 excl. btw",
     "topbarCe": "CE-markering · volledige traceerbaarheid",
     "logoSub": "Specialist in esthetische injecties",
     "searchPlaceholder": "Zoek een product, een merk…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Uw winkelwagen",
     "empty": "Uw winkelwagen is leeg.",
-    "freeShippingUnlocked": "✓ Gratis verzending ontgrendeld",
-    "freeShippingRemaining": "Nog maar <b>{amount} €</b> tot gratis verzending",
     "subtotalExcl": "Subtotaal excl. btw",
     "vat": "Btw (20 %)",
     "totalIncl": "Totaal incl. btw",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Inhoud",
-    "updatedOn": "Bijgewerkt op"
+    "updatedOn": "Bijgewerkt op",
+    "geoNotice": "Om de prijzen en producten te tonen die in uw land beschikbaar zijn, wordt uw land geschat op basis van uw IP-adres."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "Btw",
     "totalInclNoShipping": "Totaal incl. btw, excl. verzending",
     "checkout": "Bestellen · {amount} € incl. btw",
-    "freeShippingRemaining": "Nog maar <b>{amount} € excl. btw</b> tot gratis verzending",
     "securePayment": "Veilig betalen met 3D-Secure · verzending met DHL Express & GLS",
     "tileShipTitle": "Verzending met track & trace",
-    "tileShipSub": "DHL Express & GLS — gratis vanaf 400 € excl. btw",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Veilig betalen",
     "tilePaySub": "Versleutelde 3D-Secure-transacties"
   },

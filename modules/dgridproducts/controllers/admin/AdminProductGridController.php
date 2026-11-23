@@ -76,6 +76,26 @@ class AdminProductGridController extends ModuleAdminController
 
         parent::__construct();
 
+        // [HFM 18/11/2026] Grille plafonnée à 300 lignes par page. Chaque ligne pèse ~165 Ko de HTML
+        // (listes des 296 marques, des règles de TVA, champs dans les 22 langues) : « 1000 par page »
+        // (= tout le catalogue) produisait ~100 Mo de page, que PrestaShop 9 copie plusieurs fois en
+        // mémoire -> « Allowed memory size exhausted » (512 Mo). Le choix étant mémorisé dans le cookie,
+        // la grille replantait ensuite à chaque ouverture : on ramène aussi une valeur mémorisée trop grande.
+        $this->_pagination = [20, 50, 100, 300];
+        $hfmMaxPerPage = 300;
+        $hfmList = $this->list_id ?: $this->table; // list_id n'est posé qu'au filtrage
+        if ((int) Tools::getValue($hfmList . '_pagination') > $hfmMaxPerPage) {
+            $_POST[$hfmList . '_pagination'] = $hfmMaxPerPage;
+        }
+        if (isset($this->context->cookie->{$hfmList . '_pagination'})
+            && (int) $this->context->cookie->{$hfmList . '_pagination'} > $hfmMaxPerPage) {
+            $this->context->cookie->{$hfmList . '_pagination'} = $hfmMaxPerPage;
+        }
+        if ((int) Tools::getValue('how_many_show') > $hfmMaxPerPage) {
+            $_GET['how_many_show'] = $hfmMaxPerPage;
+            $_POST['how_many_show'] = $hfmMaxPerPage;
+        }
+
         if (!Tools::getValue('id_product')) {
             $this->multishop_context_group = false;
         }
@@ -605,11 +625,14 @@ class AdminProductGridController extends ModuleAdminController
             // PS9 : la gestion avancée des stocks (ASM) a été retirée, dependsOnStock() n'existe plus -> toujours false.
             $item['depends_on_stock'] = false;
             $item['tag_product'] = Tag::getProductTags((int)$item['id_product']);
+            // [HFM 19/11/2026] PS9 : « AdminProducts » + id_product sans action est converti vers la
+            // LISTE des produits (admin_products_index), le « &updateproduct » ajouté ensuite étant
+            // ignoré -> le bouton Modifier n'ouvrait plus la fiche. Route Symfony d'édition explicite.
             $item['url_product'] = $this->context->link->getAdminLink(
                 'AdminProducts',
                 true,
-                ['id_product' => $item['id_product']]
-            ) . '&id_product=' . $item['id_product'] . '&updateproduct';
+                ['route' => 'admin_products_edit', 'productId' => (int) $item['id_product']]
+            );
 
             //$specific_price = SpecificPrice::getIdsByProductId($item['id_product']);
 
@@ -764,6 +787,12 @@ class AdminProductGridController extends ModuleAdminController
             $this->context->controller->addJS(_MODULE_DIR_ . 'dgridproducts/views/js/compatibility.js');
         }
         $this->context->controller->addJS(_MODULE_DIR_ . 'dgridproducts/views/js/dgridproducts.js');
+        // [HFM 19/11/2026] Douchette : parseur GS1 de fdlots (window.fdlotsParseScan, une seule source
+        // pour la commande, la fiche produit et la grille) + champ « Scan » par ligne.
+        if (Module::isEnabled('fdlots') && file_exists(_PS_MODULE_DIR_ . 'fdlots/views/js/lots.js')) {
+            $this->context->controller->addJS(_MODULE_DIR_ . 'fdlots/views/js/lots.js');
+        }
+        $this->context->controller->addJS(_MODULE_DIR_ . 'dgridproducts/views/js/hfm_scan.js');
         $this->context->controller->addJS(_MODULE_DIR_ . 'dgridproducts/views/js/tree_custom.js');
         $this->context->controller->addJS(_MODULE_DIR_ . 'dgridproducts/views/js/vendor/jquery.select2.js');
         if (version_compare(_PS_VERSION_, '1.6', '<')) {
@@ -2321,6 +2350,145 @@ class AdminProductGridController extends ModuleAdminController
             $this->hfmSetRpps($idProduct, !$this->hfmProductHasRpps($idProduct));
         }
         die(json_encode(array('rpps' => $this->hfmProductHasRpps($idProduct))));
+    }
+
+    /**
+     * [HFM 19/11/2026] Douchette dans la grille : un scan (1D ou QR / DataMatrix GS1, découpé côté
+     * navigateur par le parseur de fdlots) envoie gtin / lot / péremption pour UNE ligne produit.
+     *  - GTIN -> EAN-13 du produit (GTIN-14 « 0… » ramené à 13 chiffres, UPC-A complété d'un 0).
+     *    Jamais d'écrasement d'un EAN différent ni de doublon avec un autre produit sans confirmation
+     *    explicite (confirm=1) : un mauvais carton scanné sur la mauvaise ligne ne doit rien casser.
+     *  - Lot + péremption -> liste des lots du produit (fdlots, origine « fiche »).
+     * Rien n'est enregistré tant qu'une confirmation est attendue.
+     */
+    public function ajaxProcessHfmScan()
+    {
+        $reply = function (array $r) {
+            header('Content-Type: application/json; charset=utf-8');
+            die(json_encode($r, JSON_UNESCAPED_UNICODE));
+        };
+        if (!$this->access('edit')) {
+            $reply(array('ok' => false, 'error' => 'Droits insuffisants pour modifier les produits.'));
+        }
+        $idProduct = (int) Tools::getValue('id_product');
+        $product = new Product($idProduct, false, (int) $this->context->language->id);
+        if (!Validate::isLoadedObject($product)) {
+            $reply(array('ok' => false, 'error' => 'Produit introuvable.'));
+        }
+        $confirm = (int) Tools::getValue('confirm') === 1;
+        $gtin = preg_replace('/\D+/', '', (string) Tools::getValue('gtin'));
+        $lot = trim((string) Tools::getValue('lot'));
+        $expiry = trim((string) Tools::getValue('expiry'));
+        $out = array('ok' => true, 'id_product' => $idProduct, 'ean' => null, 'lot' => null);
+        $db = Db::getInstance();
+
+        // 1) GTIN -> EAN-13 : contrôles AVANT toute écriture.
+        $ean = '';
+        if ($gtin !== '') {
+            if (strlen($gtin) === 14 && $gtin[0] === '0') {
+                $ean = substr($gtin, 1);
+            } elseif (strlen($gtin) === 13) {
+                $ean = $gtin;
+            } elseif (strlen($gtin) === 12) {
+                $ean = '0' . $gtin;
+            }
+            if ($ean === '') {
+                $reply(array('ok' => false, 'error' => 'GTIN ' . $gtin . ' : GTIN-14 d\'emballage (indicateur ' . $gtin[0] . '), pas un EAN-13 de vente. Rien n\'a été enregistré.'));
+            }
+            if (!self::hfmGtinCheckDigitOk($ean)) {
+                $reply(array('ok' => false, 'error' => 'Code ' . $gtin . ' : clé de contrôle invalide (lecture erronée ?). Rescannez. Rien n\'a été enregistré.'));
+            }
+            $current = trim((string) $product->ean13);
+            $hasCombinations = (bool) $db->getValue('SELECT COUNT(*) FROM `' . _DB_PREFIX_ . 'product_attribute` WHERE id_product = ' . $idProduct);
+            if ($hasCombinations) {
+                $match = (int) $db->getValue('SELECT id_product_attribute FROM `' . _DB_PREFIX_ . 'product_attribute` WHERE id_product = ' . $idProduct . ' AND ean13 = \'' . pSQL($ean) . '\'');
+                $out['ean'] = array('status' => $match ? 'same' : 'combinations', 'value' => $ean);
+                if (!$match && !$confirm) {
+                    $out['ok'] = false;
+                    $out['confirm'] = 'Produit à déclinaisons : l\'EAN ' . $ean . ' n\'est sur aucune déclinaison et ne sera pas écrit (à saisir sur la déclinaison, bouton Modifier).'
+                        . ($lot !== '' ? ' Enregistrer quand même le lot ' . $lot . ' sur ce produit ?' : '');
+                    if ($lot === '') {
+                        $reply(array('ok' => false, 'error' => $out['confirm']));
+                    }
+                    $reply($out);
+                }
+                $ean = ''; // jamais d'EAN au niveau produit pour un produit à déclinaisons
+            } elseif ($current === $ean) {
+                $out['ean'] = array('status' => 'same', 'value' => $ean);
+                $ean = '';
+            } else {
+                $others = $db->executeS(
+                    'SELECT p.id_product, pl.name FROM `' . _DB_PREFIX_ . 'product` p
+                     LEFT JOIN `' . _DB_PREFIX_ . 'product_lang` pl ON pl.id_product = p.id_product AND pl.id_lang = ' . (int) $this->context->language->id . ' AND pl.id_shop = ' . (int) $this->context->shop->id . '
+                     WHERE p.ean13 = \'' . pSQL($ean) . '\' AND p.id_product <> ' . $idProduct . ' LIMIT 5'
+                ) ?: array();
+                $warn = array();
+                if ($current !== '') {
+                    $warn[] = 'Ce produit a déjà l\'EAN ' . $current . ' : le remplacer par ' . $ean . ' ?';
+                }
+                if ($others) {
+                    $names = array();
+                    foreach ($others as $o) {
+                        $names[] = '#' . (int) $o['id_product'] . ' ' . $o['name'];
+                    }
+                    $warn[] = 'L\'EAN ' . $ean . ' est déjà celui de : ' . implode(', ', $names) . '.';
+                }
+                if ($warn && !$confirm) {
+                    $reply(array('ok' => false, 'confirm' => implode("\n", $warn) . "\nConfirmer l'enregistrement" . ($lot !== '' ? ' (EAN et lot)' : '') . ' ?'));
+                }
+                $out['ean'] = array('status' => $current === '' ? 'set' : 'replaced', 'value' => $ean, 'previous' => $current);
+            }
+        }
+
+        // 2) Lot : validé AVANT d'écrire l'EAN (tout ou rien).
+        $fdlots = $lot !== '' && Module::isEnabled('fdlots') && file_exists(_PS_MODULE_DIR_ . 'fdlots/classes/FdLotsRepository.php');
+        if ($lot !== '') {
+            if (!$fdlots) {
+                $reply(array('ok' => false, 'error' => 'Module de traçabilité des lots (fdlots) indisponible : lot non enregistré.'));
+            }
+            require_once _PS_MODULE_DIR_ . 'fdlots/classes/FdLotsRepository.php';
+            $lot = FdLotsRepository::cleanLot($lot);
+            $expiry = FdLotsRepository::normalizeExpiry($expiry);
+            $udi = $gtin !== '' ? str_pad($gtin, 14, '0', STR_PAD_LEFT) : '';
+            if (($err = FdLotsRepository::invalidLot($lot, $expiry, $udi)) !== '') {
+                $reply(array('ok' => false, 'error' => 'Lot refusé : ' . rtrim($err, '. ') . '. Rien n\'a été enregistré.'));
+            }
+        }
+
+        // 3) Écritures.
+        if ($ean !== '') {
+            $db->update('product', array('ean13' => pSQL($ean), 'date_upd' => date('Y-m-d H:i:s')), 'id_product = ' . $idProduct);
+            $product = new Product($idProduct);
+            Hook::exec('actionObjectProductUpdateAfter', array('object' => $product));
+            Hook::exec('actionProductUpdate', array('id_product' => $idProduct, 'product' => $product));
+        }
+        if ($lot !== '') {
+            $wasHidden = FdLotsRepository::isLotHidden($idProduct, $lot);
+            if (!FdLotsRepository::rememberLot($idProduct, $lot, $expiry, $udi, 'fiche', true)) {
+                $reply(array('ok' => false, 'error' => 'Erreur base de données sur le lot.') + $out);
+            }
+            $known = FdLotsRepository::productLots(array($idProduct));
+            $out['lot'] = array(
+                'value' => $lot,
+                'expiry' => $expiry,
+                'revealed' => $wasHidden,
+                'count' => isset($known[$idProduct]) ? count($known[$idProduct]['lots']) : 0,
+            );
+        }
+        $reply($out);
+    }
+
+    /** Clé de contrôle GS1 (mod 10) d'un EAN-13. */
+    protected static function hfmGtinCheckDigitOk($code)
+    {
+        if (!preg_match('/^\d{13}$/', $code)) {
+            return false;
+        }
+        $sum = 0;
+        for ($i = 0; $i < 12; $i++) {
+            $sum += (int) $code[$i] * ($i % 2 ? 3 : 1);
+        }
+        return (10 - $sum % 10) % 10 === (int) $code[12];
     }
 
     protected function processBulkRppsOn()

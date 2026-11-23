@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Експедиция в същия ден за поръчки, направени преди 15 ч. (в работни дни) · DHL Express и GLS",
-    "topbarFreeShipping": "Безплатна доставка от 400 € без ДДС",
     "topbarCe": "CE маркировка · пълна проследимост",
     "logoSub": "Експерт по естетични инжекции",
     "searchPlaceholder": "Търсене на продукт, марка…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Вашата количка",
     "empty": "Вашата количка е празна.",
-    "freeShippingUnlocked": "✓ Безплатната доставка е отключена",
-    "freeShippingRemaining": "Само <b>{amount} €</b> до безплатна доставка",
     "subtotalExcl": "Междинна сума без ДДС",
     "vat": "ДДС (20 %)",
     "totalIncl": "Общо с ДДС",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Съдържание",
-    "updatedOn": "Актуализирано на"
+    "updatedOn": "Актуализирано на",
+    "geoNotice": "За да покажем цените и продуктите, налични във вашата държава, тя се определя приблизително по вашия IP адрес."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "ДДС",
     "totalInclNoShipping": "Общо с ДДС, без доставка",
     "checkout": "Поръчай · {amount} € с ДДС",
-    "freeShippingRemaining": "Само <b>{amount} € без ДДС</b> до безплатна доставка",
     "securePayment": "Сигурно плащане с 3D-Secure · доставка с DHL Express и GLS",
     "tileShipTitle": "Проследима доставка",
-    "tileShipSub": "DHL Express и GLS — безплатна от 400 € без ДДС",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Сигурно плащане",
     "tilePaySub": "Криптирани 3D-Secure транзакции"
   },

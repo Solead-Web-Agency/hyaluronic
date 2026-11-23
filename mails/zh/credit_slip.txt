@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+订单 {order_name} - 退款
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+您的订单 {order_name} 已退款。
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+退款金额将在几个工作日内退回您的原支付方式，具体时间视您的银行处理时间而定。
 
 [{shop_name}]({shop_url})
 

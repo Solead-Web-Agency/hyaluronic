@@ -13,7 +13,8 @@ export default async function ProductByIdRedirect({ params }: { params: Promise<
     { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
   ); // pas de .catch : une panne du bridge remonte en 5xx, jamais en 404
   const p = (data as { product?: Record<string, any> }).product;
-  if (!p?.link_rewrite) notFound();
+  // Produit inconnu, ou bloqué dans le pays du visiteur (cf. [category]/[slug]/page.tsx) : 404.
+  if (!p?.link_rewrite || p.blocked_country) notFound();
   const cat = p.category || 'produit';
   permanentRedirect(`/${locale}/${cat}/${p.link_rewrite}`);
 }

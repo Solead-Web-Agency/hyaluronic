@@ -7,7 +7,8 @@ import { useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import { useStore } from '../../store';
-import AddressForm, { type Address } from '../../components/AddressForm';
+import AddressForm, { type Address, prettyCountry } from '../../components/AddressForm';
+import { useCountryNames } from '@/lib/useCountries';
 import { idLangFor } from '@/lib/i18n-config';
 
 const inputStyle: React.CSSProperties = {
@@ -106,6 +107,8 @@ export default function AccountClient() {
   const t = useTranslations('account');
   const tc = useTranslations('common');
   const locale = useLocale();
+  // Noms des pays dans la langue de la page (adresses enregistrées).
+  const countryName = useCountryNames();
   const mapError = (e?: string) => {
     if (!e) return t('errors.generic');
     if (e === 'rate_limited') return tc('rateLimited');
@@ -466,7 +469,7 @@ export default function AccountClient() {
                 <div style={{ fontSize: '13px', color: '#55606F', marginTop: '6px', lineHeight: 1.5 }}>
                   {a.address1}<br />
                   {a.postcode} {a.city}{a.state ? `, ${a.state}` : ''}<br />
-                  {a.country}
+                  {prettyCountry(countryName[a.id_country] ?? a.country)}
                   {a.phone ? <><br />{a.phone}</> : null}
                   {a.company ? <><br />{a.company}</> : null}
                   {a.vat_number ? <><br />{a.vat_number}</> : null}

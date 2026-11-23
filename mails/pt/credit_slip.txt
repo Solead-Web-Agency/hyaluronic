@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Encomenda {order_name} - Reembolso
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+A sua encomenda {order_name} foi reembolsada.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+O montante será creditado no seu meio de pagamento original dentro de alguns dias úteis, consoante os prazos do seu banco.
 
 [{shop_name}]({shop_url})
 

@@ -182,6 +182,9 @@ class AdminDhlManifestController extends ModuleAdminController
                 $pdf->pdf_renderer->SetFooterMargin(80);
                 $pdf->pdf_renderer->SetAutoPageBreak(true, 87);
                 $pdf->render(true);
+                // [HFM 18/11/2026] PrestaShop 9 : sans arrêt ici, le back-office emballe le PDF dans sa page HTML
+                // (PDF affiché en caractères illisibles au lieu d'être ouvert / téléchargé).
+                exit;
             } else {
                 $this->errors = $this->module->l('Please select at leat one order.', 'AdminDhlManifest');
             }

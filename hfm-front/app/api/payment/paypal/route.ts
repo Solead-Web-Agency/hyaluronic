@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { bridgeGet } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { createOrder, paypalConfigured } from '@/lib/paypal';
+import { recordProConsent } from '@/lib/proConsent';
 
 const BASE = process.env.PUBLIC_BASE_URL || 'http://localhost:3000';
 
@@ -20,6 +21,7 @@ export async function POST(req: NextRequest) {
   const cart = await bridgeGet('cart', { id_cart, id_customer: user.id_customer });
   const total = Number(cart?.totals?.total_incl_tax ?? cart?.totals?.products_incl_tax ?? 0);
   if (total <= 0) return NextResponse.json({ error: 'empty_cart' }, { status: 400 });
+  await recordProConsent(req.headers, id_cart, user.id_customer, locale);
 
   try {
     const { orderId, approveUrl } = await createOrder({

@@ -12,6 +12,19 @@ export const dynamic = 'force-dynamic';
 // Garde-fou de charge : la pièce jointe transite en base64 (~+33 %), on borne la requête.
 const MAX_FILE_BYTES = 2_000_000;
 
+// Anti-robots (18/11/2026, spam reçu dès la mise en ligne : noms, références et messages en lettres
+// aléatoires du type « ovZdTcJQSFMYZlKxpbK », adresses Gmail pointées). Un « mot » aléatoire = une
+// seule suite de 10+ lettres sans espace qui change sans cesse de casse (un vrai nom en change 1 ou 2 fois).
+function looksRandom(s: string): boolean {
+  const t = s.trim();
+  if (!/^[A-Za-z]{10,}$/.test(t)) return false;
+  let switches = 0;
+  for (let i = 1; i < t.length; i++) {
+    if ((t[i] === t[i].toUpperCase()) !== (t[i - 1] === t[i - 1].toUpperCase())) switches++;
+  }
+  return switches >= 4;
+}
+
 export async function GET(req: NextRequest) {
   const locale = req.nextUrl.searchParams.get('locale') ?? 'fr';
   const d = await bridgeGet('contact', { id_lang: idLangFor(locale) }).catch(() => ({ contacts: [] }));
@@ -35,6 +48,17 @@ export async function POST(req: NextRequest) {
   const message = String(form.get('message') ?? '').trim();
   const idContact = Number(form.get('id_contact') ?? 0);
   const locale = String(form.get('locale') ?? 'fr');
+
+  // Robot détecté : on répond « envoyé » (il ne doit pas savoir qu'il est filtré) sans rien transmettre.
+  // - champ piège rempli ; - formulaire envoyé en moins de 3 s ; - nom ET message en lettres aléatoires.
+  const trap = String(form.get('website') ?? '').trim();
+  const elapsedRaw = form.get('elapsed_ms');
+  const elapsed = elapsedRaw === null ? null : Number(elapsedRaw);
+  const tooFast = elapsed !== null && Number.isFinite(elapsed) && elapsed < 3000;
+  if (trap !== '' || tooFast || (looksRandom(name) && looksRandom(message))) {
+    console.warn(`[contact] message robot ignoré (${trap ? 'piège' : tooFast ? 'trop rapide' : 'charabia'}) ip=${clientIp(req)} email=${email.slice(0, 80)}`);
+    return NextResponse.json({ ok: true }, { headers: NO_STORE });
+  }
 
   if (!name || /[<>{}]/.test(name)) {
     return NextResponse.json({ error: 'invalid_name' }, { status: 400, headers: NO_STORE });

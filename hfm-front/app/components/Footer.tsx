@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { idLangFor } from '@/lib/i18n-config';
 import { ROOT_BRANDS, ROOT_EFFECTS, ROOT_TYPOLOGIES, ROOT_ZONES, categoryHref, visibleMenu } from '@/lib/menu';
-import { CONSENT_EVENT } from './ConsentBanner';
+import { openConsentPreferences } from '@/lib/cookieConsent';
 
 type Cat = { id_category: number; name: string; link_rewrite: string; nb_products: number };
 type MenuCat = Cat & { children: Cat[] };
@@ -91,10 +91,10 @@ export default function Footer() {
           ) : (
             <Link key={s.key} href={s.href} className="hfm-footlink" style={{ ...linkStyle, color: '#94A580', fontSize: '12px' }}>{t(s.key)}</Link>
           ))}
-          {/* Retrait/modification du consentement (RGPD) : rouvre le bandeau cookies. */}
+          {/* Retrait/modification du consentement (RGPD) : rouvre les préférences CookieYes. */}
           <button
             type="button"
-            onClick={() => window.dispatchEvent(new Event(CONSENT_EVENT))}
+            onClick={openConsentPreferences}
             className="hfm-footlink"
             style={{ ...linkStyle, color: '#94A580', fontSize: '12px', background: 'none', border: 0, padding: 0, font: 'inherit' }}
           >

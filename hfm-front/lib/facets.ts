@@ -38,8 +38,10 @@ const CONCURRENCY = 6;
 
 type Membership = Record<string, number[]>; // id_category -> ids produits
 
-let memo: { at: number; value: Membership } | null = null;
-let inflight: Promise<Membership> | null = null;
+// Par jeu de catégories : le menu (donc la liste des catégories) dépend du pays du visiteur quand ce
+// pays a des produits bloqués ; un mémo unique servirait l'index d'un pays à un autre.
+const memos = new Map<string, { at: number; value: Membership }>();
+const inflights = new Map<string, Promise<Membership>>();
 
 export async function fetchMenu(idLang: number): Promise<MenuNode[]> {
   const d = await bridgeGetCached(
@@ -67,17 +69,22 @@ async function computeMembership(catIds: number[]): Promise<Membership> {
 }
 
 function loadMembership(catIds: number[]): Promise<Membership> {
+  const key = `hfm:facets:membership:${catIds.join(',')}`;
+  const memo = memos.get(key);
   if (memo && Date.now() - memo.at < MEMORY_TTL_MS) return Promise.resolve(memo.value);
+  let inflight = inflights.get(key);
   if (!inflight) {
-    const key = `hfm:facets:membership:${catIds.join(',')}`;
     inflight = cachedJson(key, MEMBERSHIP_TTL_S, [CACHE_TAGS.taxonomy], () => computeMembership(catIds))
       .then((value) => {
-        memo = { at: Date.now(), value };
+        // Peu de variantes (une par pays à blocages) ; on borne quand même la table.
+        if (memos.size > 20) memos.clear();
+        memos.set(key, { at: Date.now(), value });
         return value;
       })
       .finally(() => {
-        inflight = null;
+        inflights.delete(key);
       });
+    inflights.set(key, inflight);
   }
   return inflight;
 }

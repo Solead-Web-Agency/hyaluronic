@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Wysyłka tego samego dnia przy zamówieniu przed 15:00 (w dni robocze) · DHL Express i GLS",
-    "topbarFreeShipping": "Darmowa dostawa od 400 € netto",
     "topbarCe": "Oznakowanie CE · pełna identyfikowalność",
     "logoSub": "Specjalista w zakresie iniekcji estetycznych",
     "searchPlaceholder": "Szukaj produktu, marki…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Twój koszyk",
     "empty": "Twój koszyk jest pusty.",
-    "freeShippingUnlocked": "✓ Darmowa dostawa odblokowana",
-    "freeShippingRemaining": "Już tylko <b>{amount} €</b> do darmowej dostawy",
     "subtotalExcl": "Suma częściowa netto",
     "vat": "VAT (20 %)",
     "totalIncl": "Razem brutto",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Spis treści",
-    "updatedOn": "Zaktualizowano"
+    "updatedOn": "Zaktualizowano",
+    "geoNotice": "Aby wyświetlić ceny i produkty dostępne w Państwa kraju, kraj jest szacowany na podstawie adresu IP."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "VAT",
     "totalInclNoShipping": "Razem brutto, bez dostawy",
     "checkout": "Zamów · {amount} € brutto",
-    "freeShippingRemaining": "Już tylko <b>{amount} € netto</b> do darmowej dostawy",
     "securePayment": "Bezpieczna płatność 3D-Secure · wysyłka DHL Express i GLS",
     "tileShipTitle": "Przesyłka śledzona",
-    "tileShipSub": "DHL Express i GLS — gratis od 400 € netto",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Bezpieczna płatność",
     "tilePaySub": "Szyfrowane transakcje 3D-Secure"
   },

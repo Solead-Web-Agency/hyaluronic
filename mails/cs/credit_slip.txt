@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Objednávka {order_name} - Vrácení peněz
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Peníze za vaši objednávku {order_name} byly vráceny.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Částka bude připsána zpět na váš původní platební prostředek během několika pracovních dnů, v závislosti na lhůtách vaší banky.
 
 [{shop_name}]({shop_url})
 

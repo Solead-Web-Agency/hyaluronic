@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Versand am selben Tag bei Bestellung vor 15 Uhr (an Werktagen) · DHL Express & GLS",
-    "topbarFreeShipping": "Kostenlose Lieferung ab 400 € exkl. MwSt.",
     "topbarCe": "CE-Kennzeichnung · vollständige Rückverfolgbarkeit",
     "logoSub": "Spezialist für ästhetische Injektionen",
     "searchPlaceholder": "Produkt oder Marke suchen…",
@@ -194,7 +193,6 @@
     "htB2b": "{amount} € netto (B2B) · inkl. MwSt.",
     "inStockShipToday": "Auf Lager — Versand heute",
     "onOrderDelay": "Auf Bestellung — 10 bis 15 Tage",
-    "tile1Sub": "EU — kostenlos ab 400 € netto",
     "tile2Title": "Zertifizierter EU-Bestand",
     "tile2Sub": "5 Lager — sofort verfügbar",
     "tile3Title": "Echtheitsgarantie",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Ihr Warenkorb",
     "empty": "Ihr Warenkorb ist leer.",
-    "freeShippingUnlocked": "✓ Kostenlose Lieferung freigeschaltet",
-    "freeShippingRemaining": "Nur noch <b>{amount} €</b> bis zur kostenlosen Lieferung",
     "subtotalExcl": "Zwischensumme exkl. MwSt.",
     "vat": "MwSt. (20 %)",
     "totalIncl": "Gesamtsumme inkl. MwSt.",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Inhalt",
-    "updatedOn": "Aktualisiert am"
+    "updatedOn": "Aktualisiert am",
+    "geoNotice": "Um die in Ihrem Land verfügbaren Preise und Produkte anzuzeigen, wird Ihr Land anhand Ihrer IP-Adresse ermittelt."
   },
   "contact": {
     "title": "Kontakt",
@@ -824,10 +821,9 @@
     "vat": "MwSt.",
     "totalInclNoShipping": "Gesamt inkl. MwSt., zzgl. Versand",
     "checkout": "Bestellen · {amount} € inkl. MwSt.",
-    "freeShippingRemaining": "Nur noch <b>{amount} € exkl. MwSt.</b> bis zur kostenlosen Lieferung",
     "securePayment": "Sichere Zahlung mit 3D-Secure · Versand mit DHL Express & GLS",
     "tileShipTitle": "Versand mit Sendungsverfolgung",
-    "tileShipSub": "DHL Express & GLS — kostenlos ab 400 € exkl. MwSt.",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Sichere Zahlung",
     "tilePaySub": "Verschlüsselte 3D-Secure-Transaktionen"
   },

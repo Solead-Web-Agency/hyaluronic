@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Παραγγελία {order_name} - Επιστροφή χρημάτων
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Τα χρήματα για την παραγγελία σας {order_name} επιστράφηκαν.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Το ποσό θα πιστωθεί στον αρχικό τρόπο πληρωμής σας εντός λίγων εργάσιμων ημερών, ανάλογα με τους χρόνους της τράπεζάς σας.
 
 [{shop_name}]({shop_url})
 

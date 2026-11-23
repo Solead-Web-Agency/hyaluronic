@@ -255,6 +255,13 @@ abstract class BT_BaseXml
 
                     $this->data->step->url_default = $this->data->step->url;
 
+                    // [HFM] Le lien porte le pays du flux (?pays=XX) : la fiche affiche alors à tout visiteur
+                    // le prix TTC de ce pays, identique à celui du flux (pages /en/ partagées par US, CA, JP…).
+                    if (Configuration::get('HFM_FRONT_URL') && !empty($this->aParams['sCountryIso'])) {
+                        $this->data->step->url .= (strpos($this->data->step->url, '?') !== false ? '&' : '?')
+                            . 'pays=' . Tools::strtoupper($this->aParams['sCountryIso']);
+                    }
+
                     // format the current URL with currency or Google campaign parameters
                     // [HFM] pas de paramètres de devise vers le front headless (devise unique, URLs dupliquées)
                     if (!empty(GMerchantCenter::$conf['GMC_ADD_CURRENCY']) && !Configuration::get('HFM_FRONT_URL')) {

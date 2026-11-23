@@ -147,9 +147,15 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                 'id_shop' => $idShop,
                 'id_currency' => $idCurrency,
             ]);
-            return HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($idProduct, $idLang) {
+            $res = HfmCache::remember($key, HfmCache::TTL_PRODUCTS, function () use ($idProduct, $idLang) {
                 return $this->single($idProduct, $idLang);
             });
+            // Slug trouvé dans une AUTRE langue (étape 4 de productIdFromSlug) : le front redirige vers
+            // le slug de la langue demandée (sinon la même fiche répondrait sous deux URL).
+            if ($this->slugFromOtherLang && is_array($res) && isset($res['product']) && is_array($res['product'])) {
+                $res['product']['slug_from_other_lang'] = true;
+            }
+            return $res;
         }
 
         // Liste : clé = id_category|id_manufacturer|q|filter|order|page|limit|id_lang|id_currency.
@@ -981,6 +987,9 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
      * (2) FR/EN exact (le slug de repli qu'on a émis) ; sinon (3) FR/EN une fois les tirets
      * parasites rognés (repli « assaini »). FR est préféré à EN, puis le plus récent.
      */
+    /** Vrai quand le slug demandé n'a été trouvé que dans une autre langue (étape 4). */
+    protected $slugFromOtherLang = false;
+
     protected function productIdFromSlug($slug)
     {
         $idShop = (int) $this->context->shop->id;
@@ -1019,6 +1028,18 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
                  ORDER BY (pl.id_lang = 1) DESC, pl.id_product DESC'
             );
             if ($id) {
+                return $id;
+            }
+            // 4) Slug d'une AUTRE langue sous le mauvais préfixe (ex. /ro/riempitivi-dermici/sculptra-2-fiale :
+            //    slug italien sous /ro/, constaté le 18/11) : on retrouve le produit dans n'importe quelle
+            //    langue ; le front redirige ensuite (301) vers l'URL canonique de la langue demandée.
+            $id = (int) $db->getValue(
+                'SELECT pl.id_product FROM ' . _DB_PREFIX_ . 'product_lang pl' . $join . '
+                 WHERE pl.link_rewrite = \'' . $s . '\'
+                 ORDER BY pl.id_product DESC'
+            );
+            if ($id) {
+                $this->slugFromOtherLang = true;
                 return $id;
             }
         }
@@ -1153,6 +1174,10 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             }
         }
 
+        // [23/11/2026] Pays où le produit est bloqué (codes ISO) : sa fiche y répond 404, le sitemap
+        // ne déclare donc pas l'URL de la langue de ce pays.
+        $blockedIsos = HfmCountryRules::blockedIsosByProduct();
+
         $out = [];
         foreach ($prod as $id => $info) {
             $cat = $info['cat'];
@@ -1163,7 +1188,11 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             }
             unset($entry);
             if ($info['alt']) {
-                $out[] = ['id' => (int) $id, 'alt' => $info['alt']];
+                $row = ['id' => (int) $id, 'alt' => $info['alt']];
+                if (!empty($blockedIsos[(int) $id])) {
+                    $row['blocked'] = array_values(array_unique($blockedIsos[(int) $id]));
+                }
+                $out[] = $row;
             }
         }
         return $out;
@@ -1351,8 +1380,9 @@ class HfmstorefrontProductsModuleFrontController extends HfmStorefrontApiControl
             'available' => $this->availability($idProduct, (int) Product::getQuantity($idProduct)) !== 'unavailable',
             'availability' => $this->availability($idProduct, (int) Product::getQuantity($idProduct)),
             'rpps_required' => $this->productRequiresRpps($idProduct),
-            // Produit interdit à la vente dans le pays du visiteur : la fiche reste consultable
-            // (SEO) mais l'achat est désactivé côté front et refusé au panier.
+            // Produit interdit à la vente dans le pays du visiteur. Depuis le 23/11/2026 (demande
+            // client) le front répond 404 sur la fiche dans ce cas ; il a besoin de ce drapeau pour
+            // distinguer « bloqué ici » de « produit inexistant » (qui, lui, redirige en 301).
             'blocked_country' => HfmCountryRules::isBlocked($idProduct, (int) HfmCountryRules::pricingCountryId()),
             'images' => $images,
             'features' => $features,

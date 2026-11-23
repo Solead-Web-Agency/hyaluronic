@@ -466,7 +466,11 @@ class Deliveryorderautoupdate extends Module
     public function hookDisplayBackOfficeHeader()
     {
         $html = '';
-        $this->context->controller->addJquery();
+        // [HFM] PrestaShop 9 : sur les pages Symfony, le contrôleur est un LegacyControllerContext sans
+        // addJquery() (jQuery y est déjà chargé) -> l'appel faisait planter TOUT le back-office (17/11).
+        if (method_exists($this->context->controller, 'addJquery')) {
+            $this->context->controller->addJquery();
+        }
         $this->context->controller->addJqueryUI('ui.dialog');
         $this->context->controller->addJqueryPlugin('chosen');
         $this->context->controller->addJqueryPlugin('tagify');

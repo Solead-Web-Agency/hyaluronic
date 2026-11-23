@@ -32,8 +32,15 @@ class HfmstorefrontContactModuleFrontController extends HfmStorefrontApiControll
              INNER JOIN ' . _DB_PREFIX_ . 'contact_lang cl ON (cl.id_contact = c.id_contact AND cl.id_lang = ' . $idLang . ')
              ORDER BY c.position ASC'
         );
+        // Les « thèmes » du module fdsupport (tri interne des tickets du service client) sont aussi des
+        // contacts PrestaShop : on ne les propose pas aux clients dans le formulaire.
+        $themes = json_decode((string) Configuration::get('FDSUPPORT_THEME_CONTACTS'), true);
+        $hidden = is_array($themes) ? array_map('intval', array_values($themes)) : [];
         $out = [];
         foreach ((array) $rows as $r) {
+            if (in_array((int) $r['id_contact'], $hidden, true)) {
+                continue;
+            }
             $out[] = ['id_contact' => (int) $r['id_contact'], 'name' => $r['name']];
         }
         return ['contacts' => $out];

@@ -94,6 +94,7 @@ class Blockproductsbycountry extends Module
             $this->registerHook('displayBackOfficeHeader') &&
             $this->registerHook('displayAdminProductsExtra') &&
             $this->registerHook('actionProductUpdate') &&
+            $this->registerHook('actionAfterUpdateProductFormHandler') &&
             $this->registerHook('displayProductListReviews') &&
             $this->registerHook('displayProductAdditionalInfo') &&
             $this->registerTabs();
@@ -573,12 +574,45 @@ class Blockproductsbycountry extends Module
         return $output;
     }
     
+    /**
+     * [HFM 19/11/2026] actionProductUpdate est déclenché par TOUTE mise à jour de produit (grille,
+     * bascule RPPS, scan douchette, API…), pas seulement par la fiche produit. Sans le champ du module
+     * dans la requête, l'ancien code vidait les pays bloqués du produit. On n'agit donc que si le
+     * formulaire du module a été envoyé (champ caché bpbc_present de product.tpl).
+     */
     public function hookActionProductUpdate($params)
     {
+        if (!Tools::getIsset('bpbc_present')) {
+            return true;
+        }
         $id_product = (int)$params['id_product'];
         $blocked_countries = Tools::getValue('blocked_countries');
-        
+
         return self::updateProduct($id_product, $blocked_countries);
+    }
+
+    /**
+     * [HFM 19/11/2026] Fiche produit PS9 : actionProductUpdate n'est déclenché que si un champ du
+     * produit a changé -> modifier SEULEMENT les pays bloqués n'était jamais enregistré. Ce hook-ci est
+     * émis à chaque enregistrement de la fiche. Le site headless lit bpbc_* via son cache produits :
+     * on le purge (même chemin que les autres modifications produit).
+     */
+    public function hookActionAfterUpdateProductFormHandler($params)
+    {
+        if (!Tools::getIsset('bpbc_present') || empty($params['id'])) {
+            return;
+        }
+        $id_product = (int)$params['id'];
+        $blocked_countries = Tools::getValue('blocked_countries');
+        $before = Db::getInstance()->executeS('SELECT `id_country` FROM `'._DB_PREFIX_.'bpbc_products` WHERE `id_product` = '.$id_product.' ORDER BY `id_country`');
+        self::updateProduct($id_product, $blocked_countries);
+        $after = Db::getInstance()->executeS('SELECT `id_country` FROM `'._DB_PREFIX_.'bpbc_products` WHERE `id_product` = '.$id_product.' ORDER BY `id_country`');
+        if ($before != $after && Module::isEnabled('hfmstorefront')) {
+            $hfm = Module::getInstanceByName('hfmstorefront');
+            if ($hfm && method_exists($hfm, 'hookActionProductSave')) {
+                $hfm->hookActionProductSave(array('id_product' => $id_product));
+            }
+        }
     }
     
     public function hookDisplayHeader($params)

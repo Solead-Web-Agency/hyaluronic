@@ -17,6 +17,7 @@ if (!defined('_PS_VERSION_')) {
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/cache.php';
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/country_rules.php';
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/pro_rules.php';
+require_once __DIR__ . '/lib/viva_admin.php';
 
 class Hfmstorefront extends PaymentModule
 {
@@ -57,7 +58,7 @@ class Hfmstorefront extends PaymentModule
         $this->registerHook('paymentOptions');
         $this->registerHook('paymentReturn');
         // Affichage du RPPS praticien en haut de la fiche commande (back-office).
-        $this->registerHook('displayAdminOrderTop');
+        $this->registerHook('displayAdminOrderMain');
         // Franco « Livraison offerte dès N € HT » : on applique le seuil en HORS TAXES
         // (PrestaShop compare nativement en TTC). Seuil paramétrable, défaut 400 € HT.
         if (Configuration::get('HFM_FREE_SHIPPING_HT') === false) {
@@ -80,6 +81,8 @@ class Hfmstorefront extends PaymentModule
         }
         // Règles de prix par pays / groupe (table groupinc_configuration), cf. lib/country_rules.php.
         $this->registerHook('actionProductPriceCalculation');
+        // Boutique native (thème PrestaShop) renvoyée vers le front : voir hookActionDispatcherBefore.
+        $this->registerHook('actionDispatcherBefore');
 
         return true;
     }
@@ -128,6 +131,9 @@ class Hfmstorefront extends PaymentModule
             'actionObjectGroupincConfigurationAddAfter',
             'actionObjectGroupincConfigurationUpdateAfter',
             'actionObjectGroupincConfigurationDeleteAfter',
+            // Pays ouvert / fermé (International > Zones géographiques > Pays) : la liste des pays
+            // du formulaire d'adresse (taxonomy, action=countries) doit suivre tout de suite.
+            'actionObjectCountryUpdateAfter',
         ];
     }
 
@@ -138,8 +144,9 @@ class Hfmstorefront extends PaymentModule
      */
     protected function ensurePurgeHooksRegistered()
     {
+        $this->ensureVivaTab();
         // + hooks fonctionnels ajoutés après l'installation (règles de prix par pays/groupe).
-        foreach (array_merge($this->purgeHooks(), ['actionProductPriceCalculation', 'actionSetInvoice', 'displayInvoiceLegalFreeText', 'displayPDFOrderSlip']) as $hook) {
+        foreach (array_merge($this->purgeHooks(), ['actionProductPriceCalculation', 'actionSetInvoice', 'displayInvoiceLegalFreeText', 'displayPDFOrderSlip', 'actionDispatcherBefore', 'displayAdminOrderMain']) as $hook) {
             if (!$this->isRegisteredInHook($hook)) {
                 $this->registerHook($hook);
             }
@@ -151,6 +158,109 @@ class Hfmstorefront extends PaymentModule
      * (le front Next gère l'UI). On renvoie donc une liste vide tout en restant un module
      * de paiement valide pour validateOrder().
      */
+    /**
+     * Le back n'est PAS un site public. PrestaShop y sert pourtant encore sa boutique native (thème
+     * d'origine : accueil, fiches, création de compte…) sur le domaine du back. Toute page de cette
+     * boutique est renvoyée vers la page équivalente du front (HFM_FRONT_URL).
+     *
+     * Ne concerne QUE les contrôleurs natifs passés par index.php (Dispatcher::FC_FRONT). Restent
+     * intacts : l'API du front et tous les contrôleurs de modules (fc=module), le back-office, le
+     * webservice, les images et fichiers statiques, les scripts à la racine (flux Google…).
+     * Coupe-circuit sans déploiement : HFM_NATIVE_REDIRECT = 0 dans ps_configuration.
+     * 302 et non 301 : l'adresse du front change le jour de la bascule (pré-prod -> vrai domaine).
+     */
+    public function hookActionDispatcherBefore($params)
+    {
+        if ((int) ($params['controller_type'] ?? 0) !== Dispatcher::FC_FRONT || php_sapi_name() === 'cli') {
+            return;
+        }
+        if ((string) Configuration::get('HFM_NATIVE_REDIRECT') === '0') {
+            return;
+        }
+        $front = rtrim((string) Configuration::get('HFM_FRONT_URL'), '/');
+        $frontHost = (string) parse_url($front, PHP_URL_HOST);
+        // Pas d'adresse de front exploitable, ou front servi par CE domaine : on ne touche à rien
+        // (jamais de boucle de redirection).
+        if (!preg_match('#^https?://#i', $front) || $frontHost === ''
+            || strcasecmp($frontHost, (string) Tools::getHttpHost(false, false, true)) === 0) {
+            return;
+        }
+        $controller = Tools::strtolower(str_replace('-', '', (string) Dispatcher::getInstance()->getController()));
+        // Laissés à PrestaShop : la page 404 (un fichier ou une image manquante doit rester une vraie
+        // erreur 404, pas une redirection vers l'accueil) et les téléchargements de fichiers.
+        if (in_array($controller, ['404', 'pagenotfound', 'attachment', 'getfile', 'pdfinvoice', 'pdforderslip', 'pdforderreturn', 'upload', 'statistics'], true)) {
+            return;
+        }
+        header('Cache-Control: no-store');
+        header('X-Robots-Tag: noindex, nofollow');
+        header('Location: ' . $front . $this->nativePageToFrontPath($controller), true, 302);
+        exit;
+    }
+
+    /**
+     * Chemin du front équivalent à une page native. Sans préfixe de langue : le front choisit
+     * (cookie du visiteur, sinon langue du navigateur). Inconnu -> accueil.
+     */
+    protected function nativePageToFrontPath($controller)
+    {
+        $id = function ($name) {
+            return (int) Tools::getValue($name);
+        };
+        switch ($controller) {
+            case 'product':
+                return $id('id_product') > 0 ? '/produit/' . $id('id_product') : '/catalogue';
+            case 'category':
+                return $id('id_category') > 0 ? '/catalogue?category=' . $id('id_category') : '/catalogue';
+            case 'manufacturer':
+                return $id('id_manufacturer') > 0 ? '/marque/' . $id('id_manufacturer') : '/marque';
+            case 'search':
+                $q = trim((string) Tools::getValue('s', Tools::getValue('search_query', '')));
+
+                return $q !== '' ? '/catalogue?q=' . rawurlencode(Tools::substr($q, 0, 80)) : '/catalogue';
+            case 'supplier':
+            case 'bestsales':
+            case 'newproducts':
+            case 'pricesdrop':
+                return '/catalogue';
+            case 'cms':
+                // Le front résout le slug d'une page CMS dans n'importe quelle langue.
+                $slug = $id('id_cms') > 0 ? (string) Db::getInstance()->getValue(
+                    'SELECT link_rewrite FROM ' . _DB_PREFIX_ . 'cms_lang WHERE id_cms = ' . $id('id_cms')
+                    . ' AND id_lang = ' . (int) Configuration::get('PS_LANG_DEFAULT') . ' AND id_shop = ' . (int) $this->context->shop->id
+                ) : '';
+
+                return preg_match('/^[a-zA-Z0-9_-]+$/', $slug) ? '/content/' . $slug : '';
+            case 'contact':
+            case 'contactform':
+                return '/contact';
+            case 'cart':
+            case 'order':
+            case 'orderconfirmation':
+                return '/checkout';
+            case 'history':
+            case 'orderdetail':
+                return '/compte/commandes';
+            case 'auth':
+            case 'authentication':
+            case 'registration':
+            case 'myaccount':
+            case 'identity':
+            case 'address':
+            case 'addresses':
+            case 'discount':
+            case 'orderslip':
+            case 'orderfollow':
+            case 'orderreturn':
+                return '/compte';
+            case 'password':
+                return '/mot-de-passe-oublie';
+            case 'guesttracking':
+                return '/suivi-commande';
+            default:
+                return '';
+        }
+    }
+
     /**
      * Majorations / remises par pays, groupe, fabricant… (règles groupinc) appliquées par le
      * moteur de prix NATIF de PrestaShop 9 : catalogue, panier, commande et facture cohérents.
@@ -245,6 +355,12 @@ class Hfmstorefront extends PaymentModule
         $this->purge([HfmCache::TAG_PRODUCTS, HfmCache::TAG_TAXONOMY]);
     }
 
+    /** Pays modifié (ouvert / fermé) -> liste des pays du formulaire d'adresse (taxonomy). */
+    public function hookActionObjectCountryUpdateAfter($params)
+    {
+        $this->purge([HfmCache::TAG_TAXONOMY]);
+    }
+
     /** Catégorie modifiée -> menu/arbre (taxonomy) ET listes filtrées par catégorie. */
     public function hookActionObjectCategoryAddAfter($params)
     {
@@ -316,10 +432,24 @@ class Hfmstorefront extends PaymentModule
     public function hookActionSetInvoice($params)
     {
         $invoice = $params['OrderInvoice'] ?? null;
-        if (!empty($params['use_existing_payment']) || !$invoice instanceof OrderInvoice) {
+        if (!$invoice instanceof OrderInvoice) {
             return null;
         }
         $db = Db::getInstance();
+        // Bug du cœur PrestaShop (constaté le 18/11, commandes 51622-51624) : quand le bon de livraison est
+        // créé AVANT la facture (« Paiement accepté » a delivery=1 / invoice=0 sur cette boutique), setInvoice()
+        // réutilise la même ligne order_invoice et rappelle setInvoiceDetails() -> la TVA du transport (et de
+        // l'emballage) est enregistrée DEUX fois dans order_invoice_tax ; la facture affiche alors une ligne
+        // de TVA transport en trop (montant réparti en deux). Une ligne par (type, taxe) suffit : on retire
+        // les doublons.
+        foreach ($db->executeS('SELECT `type`, id_tax, COUNT(*) n FROM `' . _DB_PREFIX_ . 'order_invoice_tax`
+            WHERE id_order_invoice = ' . (int) $invoice->id . ' GROUP BY `type`, id_tax HAVING COUNT(*) > 1') ?: [] as $dup) {
+            $db->execute('DELETE FROM `' . _DB_PREFIX_ . 'order_invoice_tax` WHERE id_order_invoice = ' . (int) $invoice->id
+                . ' AND `type` = \'' . pSQL($dup['type']) . '\' AND id_tax = ' . (int) $dup['id_tax'] . ' LIMIT ' . ((int) $dup['n'] - 1));
+        }
+        if (!empty($params['use_existing_payment'])) {
+            return null;
+        }
         $payments = $db->executeS(
             'SELECT DISTINCT op.id_order_payment FROM `' . _DB_PREFIX_ . 'order_payment` op
              INNER JOIN `' . _DB_PREFIX_ . 'orders` o ON o.reference = op.order_reference
@@ -591,159 +721,326 @@ class Hfmstorefront extends PaymentModule
      * UNIQUEMENT si le client de la commande en a renseigné un (lecture conditionnelle,
      * aucune donnée ajoutée à la commande). Badge vert si rapproché au registre ANS local.
      */
-    public function hookDisplayAdminOrderTop($params)
+    /**
+     * Fiche commande : bloc Viva puis « Déclaration professionnelle », sous les onglets État /
+     * Documents / Transporteurs et AVANT la traçabilité des lots (fdlots, même crochet, position
+     * suivante) — ordre demandé le 17/11. Anciennement en haut de page (displayAdminOrderTop).
+     */
+    public function hookDisplayAdminOrderMain($params)
     {
         $idOrder = (int) (isset($params['id_order']) ? $params['id_order'] : 0);
-        return $this->rppsOrderBanner($params) . ($idOrder ? $this->proDeclarationCard($idOrder) : '');
+        return $idOrder ? $this->vivaOrderCard($idOrder) . $this->amazonOrderCard($idOrder) . $this->proDeclarationCard($idOrder) : '';
+    }
+
+    /** Onglet caché AdminHfmViva (action de remboursement du bloc Viva). Idempotent. */
+    protected function ensureVivaTab()
+    {
+        if ((int) Tab::getIdFromClassName('AdminHfmViva')) {
+            return;
+        }
+        $tab = new Tab();
+        $tab->class_name = 'AdminHfmViva';
+        $tab->module = $this->name;
+        $tab->id_parent = -1;
+        $tab->active = 1;
+        foreach (Language::getLanguages(false) as $l) {
+            $tab->name[(int) $l['id_lang']] = 'Remboursement Viva';
+        }
+        $tab->add();
     }
 
     /**
-     * Encart « Déclaration professionnelle » (journal lib/pro_rules.php) : règle appliquée au pays de
-     * livraison, champs saisis, double validation, produits concernés, date / IP / langue, version du texte.
+     * Bloc « Viva — paiement par carte » de la fiche commande (comme le bloc PayPlug de l'ancien site) :
+     * transaction, statut et montant lus chez Viva, remboursements déjà faits, et formulaire
+     * d'annulation / remboursement (total si le montant est vide).
+     */
+    protected function vivaOrderCard($idOrder)
+    {
+        $order = new Order((int) $idOrder);
+        if (!Validate::isLoadedObject($order) || !($tx = HfmVivaAdmin::orderTransaction($order))) {
+            return '';
+        }
+        $e = function ($v) {
+            return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
+        };
+        $money = function ($v) {
+            return number_format((float) $v, 2, ',', ' ') . ' EUR';
+        };
+        $flash = '';
+        $flashKey = 'HFM_VIVA_FLASH_' . (int) ($this->context->employee->id ?? 0);
+        if ((string) Configuration::getGlobalValue($flashKey) !== '') {
+            $f = (string) Configuration::getGlobalValue($flashKey);
+            Configuration::deleteByName($flashKey);
+            $flash = '<div class="alert ' . (strpos($f, 'Échec') === 0 ? 'alert-danger' : 'alert-success') . '">' . $e($f) . '</div>';
+        }
+        $env = HfmVivaAdmin::env();
+        $badge = '<span style="display:inline-block;margin-left:6px;padding:1px 6px;font-size:11px;font-weight:700;color:#fff;background:'
+            . ($env === 'live' ? '#1e7e34' : '#9a6700') . ';border-radius:2px;">' . strtoupper($env) . '</span>';
+        $info = HfmVivaAdmin::fetch($tx['transaction_id']);
+        $refunded = HfmVivaAdmin::refundedTotal((int) $order->id);
+        $paid = $info && $info['amount'] > 0 ? $info['amount'] : $tx['amount'];
+        $left = max(0, round($tx['amount'] - $refunded, 2));
+        $rows = [
+            'Transaction' => '<code>' . $e($tx['transaction_id']) . '</code>' . $badge,
+            'Montant capturé' => $e($money($paid)),
+            'Statut chez Viva' => $info ? $e(HfmVivaAdmin::statusLabel($info['status'])) : '<span class="text-muted">non lu (Viva injoignable ou identifiants absents)</span>',
+        ];
+        if ($info && $info['card'] !== '') {
+            $rows['Carte'] = $e(trim($info['card_type'] . ' ' . $info['card']));
+        }
+        if ($refunded > 0) {
+            $rows['Déjà remboursé'] = $e($money($refunded));
+        }
+        $html = '<div class="card mb-2" id="hfm-viva"><div class="card-header"><h3 class="card-header-title">'
+            . '<i class="material-icons">credit_card</i> Viva — paiement par carte</h3></div><div class="card-body">' . $flash
+            . '<table class="table table-sm" style="max-width:720px">';
+        foreach ($rows as $k => $v) {
+            $html .= '<tr><th style="width:200px;border-top:0">' . $e($k) . '</th><td style="border-top:0">' . $v . '</td></tr>';
+        }
+        $html .= '</table>';
+        foreach (HfmVivaAdmin::refunds((int) $order->id) as $r) {
+            $html .= '<div class="small text-muted">' . $e($r['date_add']) . ' — remboursé ' . $e($money($r['amount']))
+                . ($r['reason'] !== '' ? ' — ' . $e($r['reason']) : '') . '</div>';
+        }
+        if ($left > 0 && HfmVivaAdmin::configured()) {
+            $action = $this->context->link->getAdminLink('AdminHfmViva', true, [], ['id_order' => (int) $order->id]);
+            $html .= '<form method="post" action="' . $e($action) . '" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:12px"'
+                . ' onsubmit="var a=this.hfm_viva_amount.value.trim();return confirm(\'Rembourser \' + (a ? a + \' €\' : \'la totalité (' . number_format($left, 2, ',', ' ') . ' €)\') + \' au client via Viva ? Cette opération est définitive.\');">'
+                . '<div><label class="form-control-label" style="font-size:12px;text-transform:uppercase;color:#6c868e">Montant à rembourser (€)</label>'
+                . '<input class="form-control" name="hfm_viva_amount" inputmode="decimal" placeholder="(vide = total : ' . $e(number_format($left, 2, ',', ' ')) . ')" style="width:220px"></div>'
+                . '<div style="flex:1;min-width:240px"><label class="form-control-label" style="font-size:12px;text-transform:uppercase;color:#6c868e">Raison</label>'
+                . '<input class="form-control" name="hfm_viva_reason" maxlength="255" placeholder="ex : produit non disponible"></div>'
+                . '<button type="submit" name="submitHfmVivaRefund" value="1" class="btn btn-danger">Rembourser via Viva</button>'
+                . '</form><p class="small text-muted" style="margin:8px 0 0">Avant la compensation (en général le jour même), Viva annule la transaction ; après, il rembourse. '
+                . 'Un remboursement total passe la commande à l\'état « Remboursé » (e-mail au client) ; un partiel ajoute une note privée.</p>';
+        } elseif ($left <= 0) {
+            $html .= '<p class="text-muted" style="margin:8px 0 0">Transaction entièrement remboursée.</p>';
+        }
+        return $html . '</div></div>';
+    }
+
+    /**
+     * Bloc « Amazon Pay » de la fiche commande (18/11, même présentation que le bloc Viva) : paiement lu chez
+     * Amazon, remboursements journalisés (état relu chez Amazon : un remboursement Amazon est asynchrone)
+     * et formulaire de remboursement (total si le montant est vide).
+     */
+    protected function amazonOrderCard($idOrder)
+    {
+        require_once __DIR__ . '/lib/amazon_admin.php';
+        $order = new Order((int) $idOrder);
+        if (!Validate::isLoadedObject($order) || !($ch = HfmAmazonAdmin::orderCharge($order))) {
+            return '';
+        }
+        $e = function ($v) {
+            return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
+        };
+        $money = function ($v) {
+            return number_format((float) $v, 2, ',', ' ') . ' EUR';
+        };
+        $flash = '';
+        $flashKey = 'HFM_AMZ_FLASH_' . (int) ($this->context->employee->id ?? 0);
+        if ((string) Configuration::getGlobalValue($flashKey) !== '') {
+            $f = (string) Configuration::getGlobalValue($flashKey);
+            Configuration::deleteByName($flashKey);
+            $flash = '<div class="alert ' . (strpos($f, 'Échec') === 0 ? 'alert-danger' : 'alert-success') . '">' . $e($f) . '</div>';
+        }
+        $live = HfmAmazonAdmin::live();
+        $badge = '<span style="display:inline-block;margin-left:6px;padding:1px 6px;font-size:11px;font-weight:700;color:#fff;background:'
+            . ($live ? '#1e7e34' : '#9a6700') . ';border-radius:2px;">' . ($live ? 'LIVE' : 'SANDBOX') . '</span>';
+        $info = HfmAmazonAdmin::fetch($ch['charge_id']);
+        $logged = HfmAmazonAdmin::refunds((int) $order->id);
+        $captured = $info && $info['captured'] > 0 ? $info['captured'] : $ch['amount'];
+        $refunded = max($info ? $info['refunded'] : 0, HfmAmazonAdmin::refundedTotal((int) $order->id, $logged));
+        $left = max(0, round($captured - $refunded, 2));
+        $rows = [
+            'Paiement (charge)' => '<code>' . $e($ch['charge_id']) . '</code>' . $badge,
+            'Montant capturé' => $e($money($captured)),
+            'Statut chez Amazon' => $info ? $e(HfmAmazonAdmin::chargeStateLabel($info['state'])) . ($info['reason'] !== '' ? ' <span class="text-muted">(' . $e($info['reason']) . ')</span>' : '')
+                : '<span class="text-muted">non lu (Amazon injoignable ou clés absentes)</span>',
+        ];
+        if ($refunded > 0) {
+            $rows['Déjà remboursé'] = $e($money($refunded)) . ($info ? ' <span class="text-muted">(selon Amazon : ' . $e($money($info['refunded'])) . ')</span>' : '');
+        }
+        $html = '<div class="card mb-2" id="hfm-amazon"><div class="card-header"><h3 class="card-header-title">'
+            . '<i class="material-icons">account_balance_wallet</i> Amazon Pay</h3></div><div class="card-body">' . $flash
+            . '<table class="table table-sm" style="max-width:720px">';
+        foreach ($rows as $k => $v) {
+            $html .= '<tr><th style="width:200px;border-top:0">' . $e($k) . '</th><td style="border-top:0">' . $v . '</td></tr>';
+        }
+        $html .= '</table>';
+        foreach ($logged as $r) {
+            $html .= '<div class="small ' . ($r['state'] === 'Declined' ? 'text-danger' : 'text-muted') . '">' . $e($r['date_add']) . ' — remboursement de ' . $e($money($r['amount']))
+                . ' : ' . $e(HfmAmazonAdmin::refundStateLabel($r['state'])) . ($r['reason'] !== '' ? ' — ' . $e($r['reason']) : '') . '</div>';
+        }
+        if ($left > 0 && HfmAmazonAdmin::configured() && $info && $info['state'] === 'Captured') {
+            $action = $this->context->link->getAdminLink('AdminHfmViva', true, [], ['id_order' => (int) $order->id]);
+            $html .= '<form method="post" action="' . $e($action) . '" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:12px"'
+                . ' onsubmit="var a=this.hfm_amz_amount.value.trim();return confirm(\'Rembourser \' + (a ? a + \' €\' : \'la totalité (' . number_format($left, 2, ',', ' ') . ' €)\') + \' au client via Amazon Pay ? Cette opération est définitive.\');">'
+                . '<div><label class="form-control-label" style="font-size:12px;text-transform:uppercase;color:#6c868e">Montant à rembourser (€)</label>'
+                . '<input class="form-control" name="hfm_amz_amount" inputmode="decimal" placeholder="(vide = total : ' . $e(number_format($left, 2, ',', ' ')) . ')" style="width:220px"></div>'
+                . '<div style="flex:1;min-width:240px"><label class="form-control-label" style="font-size:12px;text-transform:uppercase;color:#6c868e">Raison</label>'
+                . '<input class="form-control" name="hfm_amz_reason" maxlength="255" placeholder="ex : produit non disponible"></div>'
+                . '<button type="submit" name="submitHfmAmazonRefund" value="1" class="btn btn-danger">Rembourser via Amazon Pay</button>'
+                . '</form><p class="small text-muted" style="margin:8px 0 0">Amazon traite le remboursement en quelques minutes (parfois quelques heures) ; son état se met à jour ici. '
+                . 'Un remboursement total passe la commande à l\'état « Remboursé » (e-mail au client) ; un partiel ajoute une note privée.</p>';
+        } elseif ($left <= 0) {
+            $html .= '<p class="text-muted" style="margin:8px 0 0">Paiement entièrement remboursé.</p>';
+        }
+        return $html . '</div></div>';
+    }
+
+    /**
+     * Encart unique « Déclaration professionnelle » de la fiche commande (demande du 17/11, présentation
+     * reprise du module fdrpps de Filler Distribution) : il remplace l'ancien bandeau « Professionnel de
+     * santé ». Rassemble le journal lib/pro_rules.php (règle du pays de livraison, déclaration, date / IP /
+     * langue), les données pro de la commande ou du client (RPPS, attestation, justificatif) et le
+     * rapprochement à l'annuaire RPPS importé (table hfm_rpps_registry).
      */
     protected function proDeclarationCard($idOrder)
     {
-        $d = HfmProRules::forOrder($idOrder);
-        if (!$d) {
+        $order = new Order((int) $idOrder);
+        if (!Validate::isLoadedObject($order)) {
             return '';
         }
-        $labels = [
-            HfmProRules::RULE_RPPS => 'Numéro RPPS (France)',
-            HfmProRules::RULE_DECLARATION => 'Déclaration sur l\'honneur (modèle Centrale Fillers)',
-            HfmProRules::RULE_FORBIDDEN => 'Pays interdit',
-        ];
-        $country = $d['country_iso'] ? Country::getNameById((int) $this->context->language->id, (int) Country::getByIso($d['country_iso'])) : '';
+        $d = HfmProRules::forOrder($idOrder) ?: [];
+        $pro = $this->orderProData($order);
+        $proProducts = $this->orderProProducts($order);
+        if (!$d && $pro['rpps'] === '' && !$pro['attestation'] && $pro['pro_doc'] === '') {
+            if (!$proProducts) {
+                return '';
+            }
+        }
+
         $dash = '—';
         $e = function ($v) use ($dash) {
             $v = trim((string) $v);
             return $v === '' ? $dash : htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
         };
-        $accepted = $d['date_accepted']
-            ? $e($d['date_accepted']) . ($d['ip'] ? ' — IP ' . $e($d['ip']) : '') . ($d['lang'] ? ' — langue ' . $e($d['lang']) : '')
-            : $dash;
-        $rows = [
-            'Règle appliquée' => $e($labels[$d['rule']] ?? $d['rule']),
-            'Pays de livraison' => $e($country ?: $d['country_iso']),
-            'RPPS' => $e($d['rpps']),
-            'Double validation (popup)' => $d['rule'] === HfmProRules::RULE_DECLARATION ? ((int) $d['double_validation'] ? 'oui' : 'non') : $dash,
-            'Profession' => $e($d['profession']),
-            'N° d\'inscription pro' => $e($d['pro_number']),
-            'N° fiscal (TVA / NIF)' => $e($d['tax_number']),
-            'Produits concernés' => $e($d['products']),
-            'Accepté le' => $accepted,
-            'Version du texte' => $e($d['text_version']),
-        ];
-        $html = '<div class="card mb-2"><div class="card-header"><h3 class="card-header-title">&#128737; Déclaration professionnelle</h3></div>'
-            . '<div class="card-body" style="padding:0;"><table class="table" style="margin:0;">';
-        foreach ($rows as $k => $v) {
-            $html .= '<tr><td style="width:240px;font-weight:600;">' . htmlspecialchars($k, ENT_QUOTES, 'UTF-8') . '</td><td>' . $v . '</td></tr>';
+        $db = Db::getInstance();
+        $rule = (string) ($d['rule'] ?? '');
+        $rpps = $pro['rpps'] !== '' ? $pro['rpps'] : (string) ($d['rpps'] ?? '');
+
+        // Rapprochement à l'annuaire RPPS (extraction publique de l'Annuaire Santé, importée en base).
+        $registry = null;
+        if ($rpps !== '') {
+            $hasReg = (bool) $db->getValue("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_rpps_registry'", false);
+            if ($hasReg) {
+                $registry = $db->getRow('SELECT nom, prenom, profession FROM `' . _DB_PREFIX_ . 'hfm_rpps_registry` WHERE rpps = \'' . pSQL($rpps) . '\'', false) ?: null;
+            }
         }
-        if (trim((string) $d['text']) !== '') {
-            $html .= '<tr><td style="font-weight:600;">Texte accepté</td><td style="font-size:12px;color:#55606F;">' . $e($d['text']) . '</td></tr>';
+
+        if ($rule === HfmProRules::RULE_DECLARATION) {
+            $ruleLabel = 'Déclaration sur l\'honneur (modèle Centrale Fillers)';
+        } elseif ($rule === HfmProRules::RULE_FORBIDDEN) {
+            $ruleLabel = 'Vente interdite vers ce pays';
+        } elseif ($rpps !== '') {
+            $ruleLabel = 'Numéro RPPS du praticien, rapproché de l\'annuaire';
+        } elseif ($pro['attestation']) {
+            $ruleLabel = 'Attestation sur l\'honneur de professionnel de santé';
+        } else {
+            $ruleLabel = 'Aucune déclaration enregistrée';
+        }
+
+        $iso = (string) ($d['country_iso'] ?? '');
+        $idCountry = $iso !== '' ? (int) Country::getByIso($iso) : (int) (new Address((int) $order->id_address_delivery))->id_country;
+        $country = $idCountry ? Country::getNameById((int) $this->context->language->id, $idCountry) : '';
+
+        if ($rpps === '') {
+            $rppsCell = $dash;
+        } elseif ($registry) {
+            $who = trim($registry['prenom'] . ' ' . $registry['nom']);
+            $rppsCell = $e($rpps) . ' — ' . $e($registry['profession'] ?: 'praticien') . ($who !== '' ? ' (' . $e($who) . ')' : '')
+                . ' <span style="color:#1e7e34;font-weight:600;">&#10003; trouvé dans l\'Annuaire Santé</span>';
+        } else {
+            $rppsCell = $e($rpps) . ' <span style="color:#9a6700;font-weight:600;">&#9888; non trouvé dans l\'Annuaire Santé — à vérifier</span>';
+        }
+
+        if ($pro['pro_doc'] !== '') {
+            $url = rtrim(Tools::getShopDomainSsl(true) . __PS_BASE_URI__, '/') . '/modules/hfmstorefront/pro_docs/' . rawurlencode($pro['pro_doc']);
+            $docCell = '<a href="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '" target="_blank"><strong>télécharger</strong></a> — à vérifier';
+        } elseif ($pro['attestation'] && $rpps === '') {
+            $docCell = '<span style="color:#9a6700;">Aucun justificatif joint — à recevoir par email / à vérifier</span>';
+        } else {
+            $docCell = $dash;
+        }
+
+        $profession = (string) ($d['profession'] ?? '');
+        if ($profession === '' && $registry) {
+            $profession = (string) $registry['profession'];
+        }
+        $products = (string) ($d['products'] ?? '');
+        if ($products === '' && $proProducts) {
+            $products = implode(' | ', $proProducts);
+        }
+        if (!empty($d['date_accepted'])) {
+            $accepted = $e($d['date_accepted']) . (!empty($d['ip']) ? ' — IP ' . $e($d['ip']) : '') . (!empty($d['lang']) ? ' — langue ' . $e($d['lang']) : '');
+        } else {
+            $accepted = $e($order->date_add) . ' <span style="color:#6b7280;">(date de la commande)</span>';
+        }
+
+        $rows = [
+            'Règle appliquée' => $e($ruleLabel),
+            'Pays de livraison' => $e($country ?: $iso),
+            'RPPS' => $rppsCell,
+            'Attestation professionnelle' => $pro['attestation'] ? 'oui (sur l\'honneur)' : $dash,
+            'Justificatif' => $docCell,
+            'Double validation (popup)' => $rule === HfmProRules::RULE_DECLARATION ? ((int) ($d['double_validation'] ?? 0) ? 'oui' : 'non') : $dash,
+            'Profession' => $e($profession),
+            'N° d\'inscription pro' => $e($d['pro_number'] ?? ''),
+            'N° fiscal (TVA / NIF)' => $e($d['tax_number'] ?? ''),
+            'Produits concernés' => $e($products),
+            'Accepté le' => $accepted,
+            'Version du texte' => $e($d['text_version'] ?? ''),
+        ];
+        $html = '<div class="card mb-2"><div class="card-header"><h3 class="card-header-title">'
+            . '<i class="material-icons">verified_user</i> Déclaration professionnelle</h3></div>'
+            . '<div class="card-body"><table class="table table-sm mb-0">';
+        foreach ($rows as $k => $v) {
+            $html .= '<tr><th style="width:220px">' . htmlspecialchars($k, ENT_QUOTES, 'UTF-8') . '</th><td>' . $v . '</td></tr>';
+        }
+        if (trim((string) ($d['text'] ?? '')) !== '') {
+            $html .= '<tr><th>Texte accepté</th><td style="font-size:12px;color:#55606F;">' . $e($d['text']) . '</td></tr>';
         }
         return $html . '</table></div></div>';
     }
 
-    /** Bandeau RPPS / attestation pro (données client ou commande invité). */
-    protected function rppsOrderBanner($params)
+    /** Données « pro » de la commande (invité) ou, à défaut, du client : RPPS, attestation, justificatif. */
+    protected function orderProData(Order $order)
     {
-        $idOrder = (int) (isset($params['id_order']) ? $params['id_order'] : 0);
-        if (!$idOrder) {
-            return '';
-        }
-        $order = new Order($idOrder);
-        if (!Validate::isLoadedObject($order)) {
-            return '';
-        }
         $db = Db::getInstance();
-        $rpps = '';
-        $attestation = 0;
-        $proDoc = '';
-
-        // 1) Données "pro" rattachées à la COMMANDE (cas commande invité).
-        $hasOrderTable = (bool) $db->getValue(
-            "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_order_pro_doc'",
-            false
-        );
-        if ($hasOrderTable) {
-            $orow = $db->getRow('SELECT rpps, attestation, pro_doc FROM `' . _DB_PREFIX_ . 'hfm_order_pro_doc` WHERE id_order = ' . (int) $idOrder, false);
-            if ($orow) {
-                $rpps = (string) $orow['rpps'];
-                $attestation = (int) $orow['attestation'];
-                $proDoc = $orow['pro_doc'] ? (string) $orow['pro_doc'] : '';
+        $out = ['rpps' => '', 'attestation' => 0, 'pro_doc' => ''];
+        $sources = [
+            ['hfm_order_pro_doc', 'id_order = ' . (int) $order->id],
+            ['hfm_customer_rpps', 'id_customer = ' . (int) $order->id_customer],
+        ];
+        foreach ($sources as list($table, $where)) {
+            $exists = (bool) $db->getValue("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . $table . "'", false);
+            if (!$exists) {
+                continue;
+            }
+            $row = $db->getRow('SELECT rpps, attestation, pro_doc FROM `' . _DB_PREFIX_ . $table . '` WHERE ' . $where, false);
+            if ($row && ((string) $row['rpps'] !== '' || (int) $row['attestation'] || (string) $row['pro_doc'] !== '')) {
+                return ['rpps' => (string) $row['rpps'], 'attestation' => (int) $row['attestation'], 'pro_doc' => (string) $row['pro_doc']];
             }
         }
+        return $out;
+    }
 
-        // 2) Sinon, données sur le CLIENT (cas client connecté, réutilisable).
-        if ($rpps === '' && !$attestation && $proDoc === '') {
-            $hasCustTable = (bool) $db->getValue(
-                "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_customer_rpps'",
-                false
-            );
-            if ($hasCustTable) {
-                $crow = $db->getRow('SELECT rpps, attestation, pro_doc FROM `' . _DB_PREFIX_ . 'hfm_customer_rpps` WHERE id_customer = ' . (int) $order->id_customer, false);
-                if ($crow) {
-                    $rpps = (string) $crow['rpps'];
-                    $attestation = (int) $crow['attestation'];
-                    $proDoc = $crow['pro_doc'] ? (string) $crow['pro_doc'] : '';
-                }
-            }
+    /** Produits de la commande réservés aux professionnels (caractéristique « RPPS »), « id:nom ×qté ». */
+    protected function orderProProducts(Order $order)
+    {
+        // Lecture directe des lignes de commande (Order::getProducts recalcule les prix : inutile ici).
+        $rows = Db::getInstance()->executeS(
+            'SELECT od.product_id, od.product_name, od.product_quantity FROM `' . _DB_PREFIX_ . 'order_detail` od
+             WHERE od.id_order = ' . (int) $order->id . ' AND EXISTS (SELECT 1 FROM `' . _DB_PREFIX_ . 'feature_product` fp
+               JOIN `' . _DB_PREFIX_ . 'feature_lang` fl ON fl.id_feature = fp.id_feature
+               WHERE fp.id_product = od.product_id AND fl.name = \'RPPS\')'
+        ) ?: [];
+        $out = [];
+        foreach ($rows as $p) {
+            $out[] = (int) $p['product_id'] . ':' . $p['product_name'] . ((int) $p['product_quantity'] > 1 ? ' ×' . (int) $p['product_quantity'] : '');
         }
-
-        if ($rpps === '' && !$attestation) {
-            return '';
-        }
-
-        // Cas 1 : numéro RPPS fourni -> rapprochement au registre local (si importé).
-        if ($rpps !== '') {
-            $found = false;
-            $praticien = '';
-            $hasReg = (bool) $db->getValue(
-                "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='" . _DB_PREFIX_ . "hfm_rpps_registry'",
-                false
-            );
-            if ($hasReg) {
-                $row = $db->getRow('SELECT nom, prenom, profession FROM `' . _DB_PREFIX_ . 'hfm_rpps_registry` WHERE rpps = \'' . pSQL($rpps) . '\'', false);
-                if ($row) {
-                    $found = true;
-                    $praticien = trim($row['prenom'] . ' ' . $row['nom'] . ($row['profession'] ? ' — ' . $row['profession'] : ''));
-                }
-            }
-
-            $rppsHtml = htmlspecialchars($rpps, ENT_QUOTES, 'UTF-8');
-            if ($found) {
-                $badge = '<span style="display:inline-flex;align-items:center;gap:6px;background:#e6f4ea;color:#1e7e34;border:1px solid #b7dfc3;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">&#10003; Vérifié au registre ANS</span>';
-                $detail = '<div style="font-size:12px;color:#5a6a52;margin-top:6px;">Praticien : <strong>' . htmlspecialchars($praticien, ENT_QUOTES, 'UTF-8') . '</strong></div>';
-                $accent = '#1e7e34';
-            } else {
-                $badge = '<span style="display:inline-flex;align-items:center;gap:6px;background:#fff4e5;color:#9a6700;border:1px solid #ffd8a8;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">&#9888; À confirmer manuellement</span>';
-                $detail = '<div style="font-size:12px;color:#9a6700;margin-top:6px;">Non rapproché au registre ANS — à vérifier.</div>';
-                $accent = '#9a6700';
-            }
-
-            return '<div class="card mb-2" style="border-left:4px solid ' . $accent . ';">'
-                . '<div class="card-body" style="padding:14px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">'
-                . '<div style="font-size:12px;font-weight:700;letter-spacing:.04em;color:#6b7280;text-transform:uppercase;">Numéro RPPS praticien</div>'
-                . '<div style="font-size:18px;font-weight:700;color:#1f2937;letter-spacing:.02em;">' . $rppsHtml . '</div>'
-                . $badge
-                . '<div style="flex-basis:100%;">' . $detail . '</div>'
-                . '</div></div>';
-        }
-
-        // Cas 2 : pas de numéro RPPS, mais attestation "professionnel de santé".
-        if ($proDoc !== '') {
-            $url = rtrim(Tools::getShopDomainSsl(true) . __PS_BASE_URI__, '/') . '/modules/hfmstorefront/pro_docs/' . rawurlencode($proDoc);
-            $docHtml = '<div style="font-size:12px;color:#5a6a52;margin-top:6px;">Justificatif fourni : <a href="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '" target="_blank"><strong>télécharger</strong></a> — à vérifier.</div>';
-        } else {
-            $docHtml = '<div style="font-size:12px;color:#9a6700;margin-top:6px;">Aucun justificatif joint — à recevoir par email / à vérifier.</div>';
-        }
-
-        return '<div class="card mb-2" style="border-left:4px solid #1e7e34;">'
-            . '<div class="card-body" style="padding:14px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">'
-            . '<div style="font-size:12px;font-weight:700;letter-spacing:.04em;color:#6b7280;text-transform:uppercase;">Professionnel de santé</div>'
-            . '<span style="display:inline-flex;align-items:center;gap:6px;background:#e6f4ea;color:#1e7e34;border:1px solid #b7dfc3;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">&#10003; Attestation sur l\'honneur</span>'
-            . '<div style="flex-basis:100%;">' . $docHtml . '</div>'
-            . '</div></div>';
+        return $out;
     }
 
     // ---------- Éditeur de pages CMS multilingues (table hfm_cms_i18n) ----------

@@ -38,6 +38,8 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                 return $this->voucher();
             case 'pro-declaration':
                 return $this->proDeclaration();
+            case 'pro-consent':
+                return $this->proConsent();
             case 'gls-relay':
                 return $this->glsSelectRelay();
             case 'order':
@@ -73,9 +75,29 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         return $cart;
     }
 
+    /**
+     * Pays de livraison fermé en back-office (Pays -> désactivé) ? Le formulaire d'adresse ne le
+     * propose plus, mais un client peut avoir une adresse ENREGISTRÉE dans ce pays (demande du 18/11) :
+     * on ne livre alors plus (aucun transporteur) et la commande est refusée.
+     */
+    protected function deliveryCountryClosed(Cart $cart)
+    {
+        if (!$cart->id_address_delivery) {
+            return false;
+        }
+        $idCountry = (int) (new Address((int) $cart->id_address_delivery))->id_country;
+        return $idCountry > 0 && !(bool) Db::getInstance()->getValue(
+            'SELECT active FROM `' . _DB_PREFIX_ . 'country` WHERE id_country = ' . $idCountry,
+            false
+        );
+    }
+
     protected function shipping()
     {
         $cart = $this->loadCart();
+        if ($this->deliveryCountryClosed($cart)) {
+            return ['id_cart' => (int) $cart->id, 'id_zone' => 0, 'carriers' => [], 'gls_relay' => null, 'country_closed' => true];
+        }
         $idZone = 0;
         if ($cart->id_address_delivery) {
             $idZone = (int) Address::getZoneById((int) $cart->id_address_delivery);
@@ -131,6 +153,12 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         }
         $cart->id_address_delivery = $idDelivery;
         $cart->id_address_invoice = $idInvoice;
+        // Pays fermé : on retire le transporteur éventuellement choisi pour une autre adresse,
+        // sinon un paiement pourrait partir sur ce panier.
+        if ($this->deliveryCountryClosed($cart)) {
+            $cart->id_carrier = 0;
+            $cart->delivery_option = '';
+        }
         $cart->update();
         return ['ok' => true, 'id_cart' => (int) $cart->id];
     }
@@ -138,6 +166,9 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
     protected function setCarrier()
     {
         $cart = $this->loadCart();
+        if ($this->deliveryCountryClosed($cart)) {
+            return ['error' => 'country_closed'];
+        }
         $idCarrier = (int) $this->in('id_carrier');
         $cart->setDeliveryOption([(int) $cart->id_address_delivery => $idCarrier . ',']);
         $cart->id_carrier = $idCarrier;
@@ -168,6 +199,24 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             'total_incl_tax' => (float) Tools::ps_round($cart->getOrderTotal(true, Cart::BOTH), 2),
             'discount' => (float) Tools::ps_round($cart->getOrderTotal(true, Cart::ONLY_DISCOUNTS), 2),
         ];
+    }
+
+    /**
+     * Preuve d'acceptation (IP + langue) posée AVANT le départ vers le prestataire de paiement (Viva,
+     * Amazon Pay, PayPal) par les routes serveur du front, le client étant présent. Si la commande est
+     * ensuite créée par la notification serveur (client parti avant de revenir sur le site), elle
+     * garde ainsi l'IP et la langue du client (demande du 18/11). Seulement pour les règles à numéro
+     * RPPS / attestation : la déclaration sur l'honneur enregistre déjà les siennes.
+     */
+    protected function proConsent()
+    {
+        $cart = $this->loadCart();
+        $rule = HfmProRules::proProducts($cart) ? HfmProRules::ruleForCart($cart) : HfmProRules::RULE_NONE;
+        if ($rule === HfmProRules::RULE_NONE || $rule === HfmProRules::RULE_DECLARATION || $rule === HfmProRules::RULE_FORBIDDEN) {
+            return ['ok' => true, 'skipped' => $rule];
+        }
+        HfmProRules::saveConsent($cart, $rule, (string) $this->in('client_ip'), (string) $this->in('locale'));
+        return ['ok' => true];
     }
 
     /**
@@ -216,7 +265,43 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
         return HfmGlsRelay::select($cart, (string) $this->in('relay_id'));
     }
 
+    /**
+     * Sérialise la création de commande PAR PANIER. Le retour navigateur et le webhook du PSP arrivent
+     * souvent dans la même seconde : sans verrou, les deux passent le contrôle d'idempotence
+     * (Order::getIdByCartId) avant que l'un ait créé la commande -> DEUX commandes pour un seul
+     * paiement (constaté le 19/11 : 51631 + 51632, panier 407823, même transaction Viva).
+     * GET_LOCK MySQL : le second appel attend la fin du premier puis trouve la commande existante.
+     */
     protected function createOrder()
+    {
+        $idCart = (int) $this->in('id_cart');
+        $lockName = 'hfm_order_cart_' . $idCart;
+        $db = Db::getInstance();
+        $locked = false;
+        if ($idCart > 0) {
+            try {
+                $locked = (int) $db->getValue('SELECT GET_LOCK(\'' . pSQL($lockName) . '\', 30)', false) === 1;
+            } catch (\Throwable $e) {
+                $locked = false;
+            }
+            if (!$locked) {
+                PrestaShopLogger::addLog('HFM checkout: verrou commande non obtenu, cart=' . $idCart, 2);
+            }
+        }
+        try {
+            return $this->createOrderLocked();
+        } finally {
+            if ($locked) {
+                try {
+                    $db->getValue('SELECT RELEASE_LOCK(\'' . pSQL($lockName) . '\')', false);
+                } catch (\Throwable $e) {
+                    // verrou libéré de toute façon à la fin de la connexion
+                }
+            }
+        }
+    }
+
+    protected function createOrderLocked()
     {
         // Chemin PSP ENCAISSÉ (retours/webhook Viva/PayPal/Amazon) : identifié par `paid==1` ET un
         // `transaction_id` non vide. Ce couple ne peut PROVENIR que d'une route serveur qui a déjà
@@ -239,6 +324,15 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
                     return ['error' => 'blocked_country', 'detail' => (string) $p['name']];
                 }
             }
+        }
+
+        // Pays de livraison fermé en back-office : plus de commande (une commande DÉJÀ PAYÉE n'est
+        // jamais refusée : elle est créée et tracée pour traitement en BO).
+        if ($this->deliveryCountryClosed($cart)) {
+            if (!$isPaidPsp) {
+                return ['error' => 'country_closed'];
+            }
+            PrestaShopLogger::addLog('HFM checkout: commande payée vers un pays fermé, cart=' . (int) $cart->id, 2);
         }
 
         // Relais GLS : un point relais doit être choisi (le module GLS en fait l'adresse de livraison).
@@ -392,9 +486,16 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
             }
         }
 
+        // Paiement PSP : PrestaShop enregistre parfois DEUX fois l'encaissement (validateOrder ajoute un
+        // paiement, puis le passage à l'état payé en ajoute un second pour le « reste à payer » de la
+        // facture). Constaté le 17/11 sur la 1re commande Viva réelle : 2 x 11,67 €, « payé » 23,34 €.
+        if ($isPaidPsp && Validate::isLoadedObject($order)) {
+            $this->keepSinglePspPayment($order, $paymentName);
+        }
+
         // Journal « déclaration professionnelle » de la commande (affiché en BO).
         if ($proRule !== HfmProRules::RULE_NONE) {
-            HfmProRules::recordForOrder($cart, $idOrder, $proRule, $orderRpps);
+            HfmProRules::recordForOrder($cart, $idOrder, $proRule, $orderRpps, ['ip' => $this->in('client_ip'), 'lang' => $this->in('locale')]);
         }
 
         // Rattachement "pro" (RPPS / attestation / justificatif) :
@@ -457,6 +558,58 @@ class HfmstorefrontCheckoutModuleFrontController extends HfmStorefrontApiControl
      * encaissées en PS_OS_PREPARATION, qui est logable ET paid=1 dans PrestaShop. On compare donc
      * explicitement à l'état « Paiement accepté ».
      */
+    /**
+     * Ne garde qu'UN paiement quand les paiements enregistrés dépassent le total de la commande
+     * (doublon créé par PrestaShop pendant la validation). Garde celui au libellé du moyen de paiement
+     * (« Carte bancaire (Viva Wallet) »), le rattache aux factures et remet le montant encaissé au bon
+     * chiffre. Ne touche à rien si les montants sont cohérents.
+     */
+    protected function keepSinglePspPayment(Order $order, $paymentName)
+    {
+        $payments = iterator_to_array(OrderPayment::getByOrderReference($order->reference));
+        if (count($payments) < 2) {
+            return;
+        }
+        $sum = 0.0;
+        foreach ($payments as $p) {
+            $sum += (float) $p->amount;
+        }
+        if ($sum <= (float) $order->total_paid_tax_incl + 0.01) {
+            return;
+        }
+        $keep = null;
+        foreach ($payments as $p) {
+            if ((string) $p->payment_method === (string) $paymentName) {
+                $keep = $p;
+                break;
+            }
+        }
+        $keep = $keep ?: reset($payments);
+        $db = Db::getInstance();
+        foreach ($payments as $p) {
+            if ((int) $p->id === (int) $keep->id) {
+                continue;
+            }
+            $db->delete('order_invoice_payment', 'id_order_payment = ' . (int) $p->id);
+            $p->delete();
+        }
+        foreach ($order->getInvoicesCollection() as $invoice) {
+            $linked = (int) $db->getValue('SELECT COUNT(*) FROM `' . _DB_PREFIX_ . 'order_invoice_payment`
+                WHERE id_order_invoice = ' . (int) $invoice->id . ' AND id_order_payment = ' . (int) $keep->id);
+            if (!$linked) {
+                $db->insert('order_invoice_payment', [
+                    'id_order_invoice' => (int) $invoice->id,
+                    'id_order_payment' => (int) $keep->id,
+                    'id_order' => (int) $order->id,
+                ]);
+            }
+        }
+        Cache::clean('order_invoice_paid_*');
+        $order->total_paid_real = (float) $keep->amount;
+        $order->update();
+        PrestaShopLogger::addLog('HFM checkout: paiement en double retiré (commande ' . (int) $order->id . ', ' . (count($payments) - 1) . ' ligne(s))', 1, null, 'Order', (int) $order->id, true);
+    }
+
     /**
      * État initial + variables d'email d'une commande payée HORS LIGNE.
      * `payment_method` vient du front (valeurs internes FR « Virement bancaire » / « Chèque »,

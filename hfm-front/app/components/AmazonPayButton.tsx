@@ -56,7 +56,9 @@ export default function AmazonPayButton({ idCart }: { idCart: number }) {
         productType: cfg.productType,
         placement: cfg.placement,
         buttonColor: 'Gold',
-        createCheckoutSessionConfig: { payloadJSON: cfg.payloadJSON, signature: cfg.signature, publicKeyId: cfg.publicKeyId },
+        // `algorithm` OBLIGATOIRE : la signature est en AMZN-PAY-RSASSA-PSS-V2 (lib/amazonpay.ts). Sans lui,
+        // Amazon la vérifie en V1 -> « InvalidSignatureError » (constaté en réel le 18/11).
+        createCheckoutSessionConfig: { payloadJSON: cfg.payloadJSON, signature: cfg.signature, publicKeyId: cfg.publicKeyId, algorithm: 'AMZN-PAY-RSASSA-PSS-V2' },
       });
     })();
     return () => { alive = false; };

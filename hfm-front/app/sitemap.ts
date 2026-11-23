@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { bridgeGetCached } from '@/lib/ps';
 import { CACHE_TAGS, CACHE_TTL } from '@/lib/cacheContract';
-import { locales, defaultLocale, idLangFor } from '@/lib/i18n-config';
+import { locales, defaultLocale, idLangFor, localeMeta, type Locale } from '@/lib/i18n-config';
 import { urlFor } from '@/lib/seo';
 import { LEGACY_REDIRECTS } from '@/lib/legacyRedirects';
 import { ROOT_BRANDS } from '@/lib/menu';
@@ -12,17 +12,34 @@ type Alt = Record<string, { c?: string | null; s?: string } | undefined>;
 
 // Un bloc hreflang par URL. `altByLocale` (optionnel) = chemin par locale quand le slug varie
 // d'une langue à l'autre (produit, catégorie, article) ; sinon même chemin pour les 22 langues.
-function entry(path: string, changeFrequency: Cf, priority: number, altByLocale?: Record<string, string>): MetadataRoute.Sitemap[number] {
+// `skip` (optionnel) = langues à ne PAS déclarer pour cette URL (produit bloqué dans le pays de la
+// langue : sa fiche y répond 404). L'adresse principale passe alors sur la première langue restante.
+function entry(path: string, changeFrequency: Cf, priority: number, altByLocale?: Record<string, string>, skip?: (l: string) => boolean): MetadataRoute.Sitemap[number] | null {
   const languages: Record<string, string> = {};
   for (const l of locales) {
+    if (skip?.(l)) continue;
     languages[l] = urlFor(l, altByLocale ? (altByLocale[l] ?? path) : path);
   }
+  const main = !skip?.(defaultLocale) ? defaultLocale : (!skip?.('en') ? 'en' : locales.find((l) => !skip?.(l)));
+  if (!main) return null;
   return {
-    url: urlFor(defaultLocale, altByLocale ? (altByLocale[defaultLocale] ?? path) : path),
+    url: urlFor(main, altByLocale ? (altByLocale[main] ?? path) : path),
     changeFrequency,
     priority,
     alternates: { languages },
   };
+}
+
+// Entrée toujours présente (aucune langue écartée) : garde le type non nul des appels existants.
+function page(path: string, changeFrequency: Cf, priority: number, altByLocale?: Record<string, string>): MetadataRoute.Sitemap[number] {
+  return entry(path, changeFrequency, priority, altByLocale) as MetadataRoute.Sitemap[number];
+}
+
+/** Langues dont le pays (drapeau, lib/i18n-config) figure dans la liste ISO des pays bloqués d'un produit. */
+function blockedLocales(blocked: unknown): ((l: string) => boolean) | undefined {
+  const isos = new Set((Array.isArray(blocked) ? blocked : []).map((c) => String(c).toUpperCase()));
+  if (!isos.size) return undefined;
+  return (l: string) => isos.has(String(localeMeta[l as Locale]?.country ?? '').toUpperCase());
 }
 
 // Convertit une map { id_lang: {c, s} } en { locale: chemin }, repli sur la langue par défaut
@@ -53,13 +70,13 @@ function localePathsSimple(alt: Record<string, string> | undefined, build: (s: s
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const out: MetadataRoute.Sitemap = [
     // Pages à URL invariante par langue (même chemin pour les 22 locales).
-    entry('', 'daily', 1),
-    entry('/catalogue', 'daily', 0.9),
+    page('', 'daily', 1),
+    page('/catalogue', 'daily', 0.9),
     // Index des marques et pages de rubrique (audit 27/10, M4).
-    entry('/marque', 'weekly', 0.7),
-    entry('/par-zone', 'weekly', 0.6),
-    entry('/par-effet', 'weekly', 0.6),
-    entry('/blog', 'weekly', 0.7),
+    page('/marque', 'weekly', 0.7),
+    page('/par-zone', 'weekly', 0.6),
+    page('/par-effet', 'weekly', 0.6),
+    page('/blog', 'weekly', 0.7),
     // (Les anciennes pages /zone/{clé} redirigent désormais vers les catégories éditoriales,
     //  déjà présentes dans le sitemap : on ne les déclare plus.)
   ];
@@ -71,6 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { action: 'all_active', id_lang: idLangFor(defaultLocale) },
       { ttl: CACHE_TTL.taxonomy, tags: [CACHE_TAGS.taxonomy] },
     );
+    // (`blocked` de chaque catégorie = pays où tous ses produits sont bloqués : sa page y répond 404.)
     // Une adresse qui REDIRIGE n'a rien à faire dans un sitemap (crawl du 16/11/2026) : la rubrique
     // « Marques » renvoie vers /marque (déjà déclarée), et les catégories consolidées par les
     // redirections historiques (galderma -> restylane…) sont remplacées par leur cible.
@@ -88,7 +106,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             alt[l] = target.slice(l.length + 1);
           }
         }
-        out.push(entry(fr, 'weekly', 0.7, alt));
+        const e = entry(fr, 'weekly', 0.7, alt, blockedLocales(c.blocked));
+        if (e) out.push(e);
       }
     }
   } catch {
@@ -110,7 +129,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         continue;
       }
       const canonical = `/blog/${fr.c}/${fr.s}`;
-      out.push(entry(canonical, 'monthly', 0.6, localePaths(alt, (c, s) => `/blog/${c || 'article'}/${s}`, canonical)));
+      out.push(page(canonical, 'monthly', 0.6, localePaths(alt, (c, s) => `/blog/${c || 'article'}/${s}`, canonical)));
       if (!catAlt.has(fr.c)) {
         const m: Record<string, string> = {};
         for (const [idLang, e] of Object.entries(alt ?? {})) {
@@ -121,7 +140,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
     for (const [frCat, alt] of catAlt) {
       const canonical = `/blog/${frCat}`;
-      out.push(entry(canonical, 'weekly', 0.5, localePathsSimple(alt, (s) => `/blog/${s}`, canonical)));
+      out.push(page(canonical, 'weekly', 0.5, localePathsSimple(alt, (s) => `/blog/${s}`, canonical)));
     }
   } catch {
     // Bridge indisponible : le sitemap reste valable sans les articles.
@@ -131,12 +150,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const taxo = await bridgeGetCached(
       'taxonomy',
-      { action: 'manufacturers', id_lang: idLangFor(defaultLocale) },
+      // country '' = lecture NEUTRE : toutes les marques, quel que soit le pays de celui qui demande
+      // le sitemap ; `blocked` indique les pays où la marque est entièrement bloquée (page en 404).
+      { action: 'manufacturers', id_lang: idLangFor(defaultLocale), country: '' },
       { ttl: CACHE_TTL.products, tags: [CACHE_TAGS.products] },
     );
     for (const m of taxo.manufacturers ?? []) {
       if (m?.id_manufacturer) {
-        out.push(entry(`/marque/${m.id_manufacturer}`, 'weekly', 0.6));
+        const e = entry(`/marque/${m.id_manufacturer}`, 'weekly', 0.6, undefined, blockedLocales(m.blocked));
+        if (e) out.push(e);
       }
     }
   } catch {
@@ -158,11 +180,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
       // Repli /produit/{id} (redirection 308) si pas de catégorie -> pas d'hreflang traduit.
       if (!fr.c) {
-        out.push(entry(`/produit/${it.id}`, 'weekly', 0.8));
+        out.push(page(`/produit/${it.id}`, 'weekly', 0.8));
         continue;
       }
       const canonical = `/${fr.c}/${fr.s}`;
-      out.push(entry(canonical, 'weekly', 0.8, localePaths(alt, (c, s) => `/${c || 'produit'}/${s}`, canonical)));
+      // Produit bloqué dans certains pays : on ne déclare pas les langues de ces pays (fiche en 404).
+      const e = entry(canonical, 'weekly', 0.8, localePaths(alt, (c, s) => `/${c || 'produit'}/${s}`, canonical), blockedLocales(it?.blocked));
+      if (e) out.push(e);
     }
   } catch {
     // Idem : dégradation propre.

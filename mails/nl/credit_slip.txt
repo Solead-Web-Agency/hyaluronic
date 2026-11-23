@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Bestelling {order_name} - Terugbetaling
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Uw bestelling {order_name} is terugbetaald.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Het bedrag wordt binnen enkele werkdagen teruggestort op uw oorspronkelijke betaalmethode, afhankelijk van de verwerkingstijd van uw bank.
 
 [{shop_name}]({shop_url})
 

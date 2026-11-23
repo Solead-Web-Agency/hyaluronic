@@ -150,7 +150,7 @@ class HfmProRules
      * Rattache la trace à la commande. Déclaration : la ligne saisie dans le tunnel. RPPS : une
      * ligne est créée avec le numéro (ou l'attestation) retenu, pour un journal homogène.
      */
-    public static function recordForOrder(Cart $cart, $idOrder, $rule, $rpps = '')
+    public static function recordForOrder(Cart $cart, $idOrder, $rule, $rpps = '', array $meta = [])
     {
         self::ensureTable();
         $db = Db::getInstance();
@@ -161,12 +161,50 @@ class HfmProRules
             );
             return;
         }
+        // Date, IP et langue du client au moment où il valide la commande (preuve, comme la déclaration).
+        // Commande créée par une notification serveur (webhook Viva, IPN Amazon) : pas d'IP dans la requête,
+        // on reprend celles posées sur le panier avant le départ vers le paiement (saveConsent).
+        if (trim((string) ($meta['ip'] ?? '')) === '' || trim((string) ($meta['lang'] ?? '')) === '') {
+            $prev = $db->getRow('SELECT ip, lang FROM `' . self::table() . '` WHERE id_cart = ' . (int) $cart->id);
+            if ($prev) {
+                $meta['ip'] = trim((string) ($meta['ip'] ?? '')) !== '' ? $meta['ip'] : $prev['ip'];
+                $meta['lang'] = trim((string) ($meta['lang'] ?? '')) !== '' ? $meta['lang'] : $prev['lang'];
+            }
+        }
+        $clip = function ($v, $n) {
+            return pSQL(Tools::substr(trim(strip_tags((string) $v)), 0, $n));
+        };
         $db->execute(
             'REPLACE INTO `' . self::table() . '`
-               (id_cart, id_order, id_customer, rule, country_iso, rpps, products, date_upd)
+               (id_cart, id_order, id_customer, rule, country_iso, rpps, products, ip, lang, date_accepted, date_upd)
              VALUES (' . (int) $cart->id . ', ' . (int) $idOrder . ', ' . (int) $cart->id_customer . ', \''
                 . pSQL($rule) . '\', \'' . pSQL(self::deliveryIso($cart)) . '\', \'' . pSQL(Tools::substr((string) $rpps, 0, 16))
-                . '\', \'' . pSQL(self::productsLabel($cart)) . '\', NOW())'
+                . '\', \'' . pSQL(self::productsLabel($cart)) . '\', \'' . $clip($meta['ip'] ?? '', 45) . '\', \''
+                . $clip($meta['lang'] ?? '', 8) . '\', NOW(), NOW())'
+        );
+    }
+
+    /**
+     * IP + langue du client posées sur le panier avant le départ vers le paiement (ligne sans commande,
+     * remplacée par recordForOrder). Ne touche pas une ligne déjà rattachée à une commande.
+     */
+    public static function saveConsent(Cart $cart, $rule, $ip, $lang)
+    {
+        self::ensureTable();
+        $ip = Tools::substr(trim(strip_tags((string) $ip)), 0, 45);
+        $lang = Tools::substr(trim(strip_tags((string) $lang)), 0, 8);
+        if ($ip === '' && $lang === '') {
+            return false;
+        }
+        return Db::getInstance()->execute(
+            'INSERT INTO `' . self::table() . '` (id_cart, id_order, id_customer, rule, country_iso, ip, lang, date_upd)
+             VALUES (' . (int) $cart->id . ', 0, ' . (int) $cart->id_customer . ', \'' . pSQL($rule) . '\', \''
+                . pSQL(self::deliveryIso($cart)) . '\', \'' . pSQL($ip) . '\', \'' . pSQL($lang) . '\', NOW())
+             ON DUPLICATE KEY UPDATE
+               ip = IF(id_order = 0 AND VALUES(ip) <> \'\', VALUES(ip), ip),
+               lang = IF(id_order = 0 AND VALUES(lang) <> \'\', VALUES(lang), lang),
+               rule = IF(id_order = 0, VALUES(rule), rule),
+               date_upd = IF(id_order = 0, NOW(), date_upd)'
         );
     }
 

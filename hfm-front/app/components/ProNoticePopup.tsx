@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { CONSENT_DECIDED_EVENT, hasConsentChoice } from './ConsentBanner';
+import { afterConsentChoice } from '@/lib/cookieConsent';
 
 // Pays européens concernés (UE + EEE + Suisse + Royaume-Uni) : rappel que les dispositifs
 // médicaux sont réservés aux professionnels de santé. Affiché UNE fois par visiteur et par an,
@@ -50,16 +50,11 @@ export default function ProNoticePopup() {
         })
         .catch(() => {});
     };
-    // Bandeau cookies encore affiché : on attend le choix du visiteur.
-    if (hasConsentChoice()) {
-      check();
-      return () => { cancelled = true; };
-    }
-    const onDecided = () => check();
-    window.addEventListener(CONSENT_DECIDED_EVENT, onDecided, { once: true });
+    // Une seule fenêtre à la fois : on attend le choix dans le bandeau cookies (CookieYes).
+    const cancelWait = afterConsentChoice(check);
     return () => {
       cancelled = true;
-      window.removeEventListener(CONSENT_DECIDED_EVENT, onDecided);
+      cancelWait();
     };
   }, []);
 

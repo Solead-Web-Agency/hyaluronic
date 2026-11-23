@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Beställning {order_name} - Återbetalning
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Din beställning {order_name} har återbetalats.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Beloppet återförs till ditt ursprungliga betalningssätt inom några bankdagar, beroende på din banks handläggningstid.
 
 [{shop_name}]({shop_url})
 

@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Sendes samme dag ved bestilling før kl. 15 (virkedager) · DHL Express & GLS",
-    "topbarFreeShipping": "Gratis levering fra 400 € eks. mva.",
     "topbarCe": "CE-merking · full sporbarhet",
     "logoSub": "Ekspert på estetiske injeksjoner",
     "searchPlaceholder": "Søk etter et produkt, et merke…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Handlekurven din",
     "empty": "Handlekurven din er tom.",
-    "freeShippingUnlocked": "✓ Gratis levering låst opp",
-    "freeShippingRemaining": "Bare <b>{amount} €</b> igjen til gratis levering",
     "subtotalExcl": "Delsum eks. mva.",
     "vat": "Mva. (20 %)",
     "totalIncl": "Totalt inkl. mva.",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Innhold",
-    "updatedOn": "Oppdatert"
+    "updatedOn": "Oppdatert",
+    "geoNotice": "For å vise prisene og produktene som er tilgjengelige i landet ditt, anslås landet ut fra IP-adressen din."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "Mva.",
     "totalInclNoShipping": "Totalt inkl. mva., ekskl. frakt",
     "checkout": "Bestill · {amount} € inkl. mva.",
-    "freeShippingRemaining": "Bare <b>{amount} € eks. mva.</b> igjen til gratis levering",
     "securePayment": "Sikker betaling med 3D-Secure · sendes med DHL Express & GLS",
     "tileShipTitle": "Sporbar levering",
-    "tileShipSub": "DHL Express & GLS — gratis fra 400 € eks. mva.",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Sikker betaling",
     "tilePaySub": "Krypterte 3D-Secure-transaksjoner"
   },

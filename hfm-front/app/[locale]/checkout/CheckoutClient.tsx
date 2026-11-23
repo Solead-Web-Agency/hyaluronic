@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useRouter } from '@/i18n/navigation';
@@ -8,6 +8,7 @@ import { useStore } from '../../store';
 import { fmt } from '@/lib/cardModel';
 import { trackPurchase, trackAdsConversion, type EcItem } from '@/lib/gtm';
 import AddressForm, { type Address, prettyCountry } from '../../components/AddressForm';
+import { useCountries } from '@/lib/useCountries';
 import AmazonPayButton from '../../components/AmazonPayButton';
 
 type Carrier = {
@@ -102,10 +103,14 @@ const titleStyle: React.CSSProperties = {
 
 // ---------- Logos des moyens de paiement (images officielles dans public/pay/) ----------
 const CardLogos: React.ReactElement = (
-  <span style={{ display: 'inline-flex', gap: '5px', flex: 'none', alignItems: 'center' }}>
+  <span style={{ display: 'inline-flex', flexWrap: 'wrap', gap: '5px', flex: '0 1 auto', alignItems: 'center' }}>
     <img src="/pay/visa.svg" alt="Visa" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
     <img src="/pay/mastercard.svg" alt="Mastercard" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
     <img src="/pay/cb.svg" alt="CB" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
+    {/* Portefeuilles proposés par la page de paiement Viva (même moyen « carte bancaire »). */}
+    <img src="/pay/applepay.svg" alt="Apple Pay" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
+    <img src="/pay/googlepay.svg" alt="Google Pay" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
+    <img src="/pay/samsungpay.svg" alt="Samsung Pay" loading="lazy" decoding="async" height={23} style={{ height: '23px', width: 'auto', display: 'block' }} />
   </span>
 );
 const PaypalLogo: React.ReactElement = (
@@ -130,7 +135,6 @@ export default function CheckoutClient() {
   const router = useRouter();
   const t = useTranslations('checkout');
   const tc = useTranslations('common');
-  const tcart = useTranslations('cart');
   const locale = useLocale();
 
   const paymentLabel = (p: string) =>
@@ -165,7 +169,19 @@ export default function CheckoutClient() {
   // Récapitulatif repliable en haut de page (mobile).
   const [mobSumOpen, setMobSumOpen] = useState(false);
   // id_country -> code ISO (pour la règle d'affichage de l'exonération de TVA).
-  const [countryIso, setCountryIso] = useState<Record<number, string>>({});
+  // Pays (lecture partagée avec le formulaire d'adresse, lib/useCountries.ts) : codes ISO, et noms
+  // dans la langue de la page pour afficher les adresses enregistrées.
+  const countryList = useCountries();
+  const countryIso = useMemo(() => {
+    const m: Record<number, string> = {};
+    for (const c of countryList) m[c.id_country] = c.iso_code;
+    return m;
+  }, [countryList]);
+  const countryName = useMemo(() => {
+    const m: Record<number, string> = {};
+    for (const c of countryList) m[c.id_country] = c.name;
+    return m;
+  }, [countryList]);
 
   const [payment, setPayment] = useState<string>(PAYMENTS[0]);
   const [acceptedTerms, setAcceptedTerms] = useState(false); // CGV + politique de confidentialité (obligatoire)
@@ -389,22 +405,6 @@ export default function CheckoutClient() {
     if (customer) loadAddresses();
   }, [customer, loadAddresses]);
 
-  // Codes ISO des pays (réponse publique mise en cache, partagée avec le formulaire d'adresse).
-  useEffect(() => {
-    let alive = true;
-    fetch('/api/taxonomy?action=countries')
-      .then((r) => (r.ok ? r.json() : { countries: [] }))
-      .then((d) => {
-        if (!alive) return;
-        const m: Record<number, string> = {};
-        for (const c of (d.countries ?? []) as { id_country: number; iso_code: string }[]) m[c.id_country] = c.iso_code;
-        setCountryIso(m);
-      })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
-  }, []);
 
   // Changement d'IDENTITÉ en cours de tunnel (e-mail invité modifié -> nouvelle fiche invitée) :
   // le bridge rattache le panier au nouveau client et remet son adresse à zéro, et les adresses de
@@ -469,8 +469,7 @@ export default function CheckoutClient() {
   }, [reloadTotals]);
 
   // Modif quantité / suppression d'un produit depuis le récapitulatif. On rafraîchit les totaux
-  // ET la liste des transporteurs : le franco (offert/payant par transporteur) dépend du total
-  // qui peut repasser au-dessus/au-dessous du seuil de 400 € HT.
+  // ET la liste des transporteurs (leurs tarifs dépendent du contenu du panier).
   const changeQty = async (id_product: number, quantity: number) => {
     if (quantity < 1) return;
     await updateLine(id_product, quantity);
@@ -783,7 +782,7 @@ export default function CheckoutClient() {
     const r = await fetch('/api/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'order', id_cart: idCart, payment_method: paymentMethod, ...(pro ? { pro_attestation: 1 } : trimmedRpps ? { rpps: trimmedRpps } : {}) }),
+      body: JSON.stringify({ action: 'order', id_cart: idCart, locale, payment_method: paymentMethod, ...(pro ? { pro_attestation: 1 } : trimmedRpps ? { rpps: trimmedRpps } : {}) }),
     });
     const d = await r.json();
     if (!r.ok || !d.ok) {
@@ -1031,9 +1030,6 @@ export default function CheckoutClient() {
 
   // Totaux affichés : transport + TTC global dès qu'un transporteur est choisi.
   const subtotalHT = totals?.products_excl_tax ?? cart.total_excl_tax;
-  // Compteur "livraison offerte" (seuil 400 € HT, identique au tiroir panier).
-  const freeShipRemain = Math.max(0, 400 - subtotalHT);
-  const freeShipPct = Math.min(100, (subtotalHT / 400) * 100);
   const shipping = selCarrier ? (totals?.shipping_incl_tax ?? 0) : null;
   const grandTTC = selCarrier ? (totals?.total_incl_tax ?? cart.total_incl_tax) : (totals?.products_incl_tax ?? cart.total_incl_tax);
   // Remise : préfère le total réel du panier, sinon le retour de l'API voucher.
@@ -1329,7 +1325,7 @@ export default function CheckoutClient() {
                         <span>
                           <span style={{ display: 'block', fontSize: '13.5px', fontWeight: 600, color: '#1B2433' }}>{a.alias || `${a.firstname} ${a.lastname}`.trim() || 'Adresse'}</span>
                           {a.company ? <span style={{ display: 'block', fontSize: '12.5px', color: '#1B2433', marginTop: '2px' }}>{a.company}</span> : null}
-                          <span style={{ display: 'block', fontSize: '12.5px', color: '#6E7585', marginTop: '3px', lineHeight: 1.45 }}>{a.address1}, {a.postcode} {a.city} · {prettyCountry(a.country)}</span>
+                          <span style={{ display: 'block', fontSize: '12.5px', color: '#6E7585', marginTop: '3px', lineHeight: 1.45 }}>{a.address1}, {a.postcode} {a.city} · {prettyCountry(countryName[a.id_country] ?? a.country)}</span>
                           {a.vat_number ? (
                             a.vat_checkable === false ? (
                               // Pays non soumis à validation (ex. livraison France) : pas d'exonération possible.
@@ -1657,20 +1653,6 @@ export default function CheckoutClient() {
         {/* Récapitulatif */}
         <div className="hfm-sticky" style={{ position: 'sticky', top: '130px', background: '#fff', border: '1px solid #ECEAE3', borderRadius: '8px', padding: '24px' }}>
           <div style={{ fontFamily: "'Spectral',serif", fontSize: '18px', color: '#2B2B2B', marginBottom: '16px' }}>{t('summary')}</div>
-          {/* Compteur livraison offerte (seuil 400 € HT) */}
-          <div style={{ background: 'rgba(168,80,58,0.06)', border: '1px solid rgba(168,80,58,0.2)', borderRadius: '10px', padding: '12px 14px', marginBottom: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ width: '30px', height: '30px', flex: 'none', borderRadius: '8px', background: '#fff', border: '1px solid rgba(168,80,58,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#A8503A' }} aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d="M3 6.5h10v9H3z" /><path d="M13 9.5h4l3 3v3h-7z" /><circle cx="7" cy="17.5" r="1.7" /><circle cx="17" cy="17.5" r="1.7" /></svg></span>
-              <span style={{ fontSize: '12.5px', lineHeight: 1.4, color: subtotalHT >= 400 ? '#3F7256' : '#7A3A2C' }}>
-                {subtotalHT >= 400
-                  ? tcart('freeShippingUnlocked')
-                  : tcart.rich('freeShippingRemaining', { amount: fmt(freeShipRemain), b: (c) => <b style={{ color: '#A8503A' }}>{c}</b> })}
-              </span>
-            </div>
-            <div style={{ height: '7px', background: 'rgba(168,80,58,0.12)', borderRadius: '999px', marginTop: '10px', overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: `${freeShipPct}%`, background: subtotalHT >= 400 ? '#3F7256' : 'linear-gradient(90deg,#E98A7A,#A8503A)', borderRadius: '999px', transition: 'width .4s ease' }} />
-            </div>
-          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '280px', overflowY: 'auto' }}>
             {cart.products.map((ci) => (
               <div key={ci.id_product} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>

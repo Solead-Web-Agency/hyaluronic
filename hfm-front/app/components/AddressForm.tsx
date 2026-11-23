@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useCountries, type CountryInfo } from '@/lib/useCountries';
 
 export type Address = {
   id_address: number;
@@ -24,19 +25,9 @@ export type Address = {
   vat_checkable?: boolean;
 };
 
-type State = { id_state: number; name: string; iso_code: string };
-// Règles d'adresse par pays, servies par le bridge (taxonomy action=countries).
-type Country = {
-  id_country: number;
-  name: string;
-  iso_code: string;
-  contains_states?: boolean;
-  states?: State[];
-  need_zip_code?: boolean;
-  zip_code_format?: string;
-  need_identification_number?: boolean;
-  vat_applicable?: boolean;
-};
+// Règles d'adresse par pays, servies par le bridge (taxonomy action=countries) ; noms dans la langue
+// de la page (lib/useCountries.ts).
+type Country = CountryInfo;
 
 // Exemples de n° de TVA intracommunautaire par pays (préfixe officiel ; la Grèce utilise « EL »).
 const VAT_EXAMPLES: Record<string, string> = {
@@ -138,7 +129,8 @@ export default function AddressForm({
   const uid = useId();
   const fid = (f: string) => `${uid}-${f}`;
   const editing = !!address;
-  const [countries, setCountries] = useState<Country[]>([]);
+  // Liste des pays dans la langue de la page, triée dans cette langue.
+  const countries: Country[] = useCountries();
   const [address1, setAddress1] = useState(address?.address1 ?? '');
   const [postcode, setPostcode] = useState(address?.postcode ?? '');
   const [city, setCity] = useState(address?.city ?? '');
@@ -155,20 +147,13 @@ export default function AddressForm({
   // Erreurs PAR CHAMP (audit 27/10 : un seul message global quel que soit le problème).
   const [fieldErr, setFieldErr] = useState<Partial<Record<Field, string>>>({});
 
+  // Défaut France uniquement en mode ajout (en édition, on garde le pays de l'adresse), et sans
+  // écraser un pays déjà choisi par le client.
   useEffect(() => {
-    fetch('/api/taxonomy?action=countries')
-      .then((r) => r.json())
-      .then((d) => {
-        const list: Country[] = d.countries ?? [];
-        setCountries(list);
-        // Défaut France uniquement en mode ajout (en édition, on garde le pays de l'adresse).
-        if (!address) {
-          const fr = list.find((c) => c.iso_code === 'FR');
-          if (fr) setIdCountry(fr.id_country);
-        }
-      })
-      .catch(() => {});
-  }, [address]);
+    if (address || !countries.length) return;
+    const fr = countries.find((c) => c.iso_code === 'FR');
+    if (fr) setIdCountry((cur) => (cur === '' ? fr.id_country : cur));
+  }, [address, countries]);
 
   // Pays sélectionné et ses règles (région, code postal, identifiant fiscal, TVA).
   const country = countries.find((c) => c.id_country === idCountry);

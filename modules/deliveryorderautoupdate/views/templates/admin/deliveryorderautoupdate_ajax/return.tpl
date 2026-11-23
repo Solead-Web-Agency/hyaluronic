@@ -23,7 +23,7 @@
 *  International Registered Trademark & Property of Helloshop
 *}
 
-{if $orders|count}
+{if !empty($orders)}
 {foreach $orders as $order}
 <tr class="tr_cols" id_return="{$order.id_return|escape:'htmlall':'UTF-8'}">
     <td class="text-center pointer fixed-width-xs center">

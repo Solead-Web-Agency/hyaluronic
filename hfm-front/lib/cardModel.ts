@@ -9,6 +9,8 @@ export type Card = {
   img: string | null;
   ht: number;
   ttc: number;
+  /** Robot Google (lib/bots.ts) : prix HT seul, sans « soit X € TTC ». */
+  hideTaxLine?: boolean;
   // Prix HT avant remise, seulement s'il y a une vraie remise (prix barré des promotions).
   htBefore: number | null;
   // Statut unique (voir stockStatus) : repris tel quel par carte, aperçu, fiche et comparateur.

@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Lähetys samana päivänä ennen klo 15 tehdyille tilauksille (arkipäivisin) · DHL Express & GLS",
-    "topbarFreeShipping": "Ilmainen toimitus alkaen 400 € (alv 0 %)",
     "topbarCe": "CE-merkintä · täysi jäljitettävyys",
     "logoSub": "Esteettisten injektioiden asiantuntija",
     "searchPlaceholder": "Etsi tuotetta tai merkkiä…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Ostoskorisi",
     "empty": "Ostoskorisi on tyhjä.",
-    "freeShippingUnlocked": "✓ Ilmainen toimitus avattu",
-    "freeShippingRemaining": "Enää <b>{amount} €</b> ilmaiseen toimitukseen",
     "subtotalExcl": "Välisumma (alv 0 %)",
     "vat": "ALV (20 %)",
     "totalIncl": "Yhteensä sis. alv",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Sisällys",
-    "updatedOn": "Päivitetty"
+    "updatedOn": "Päivitetty",
+    "geoNotice": "Maasi arvioidaan IP-osoitteesi perusteella, jotta voimme näyttää maassasi saatavilla olevat hinnat ja tuotteet."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "ALV",
     "totalInclNoShipping": "Yhteensä sis. alv, ilman toimitusta",
     "checkout": "Tilaa · {amount} € sis. alv",
-    "freeShippingRemaining": "Enää <b>{amount} € (alv 0 %)</b> ilmaiseen toimitukseen",
     "securePayment": "Turvallinen 3D-Secure-maksu · lähetys DHL Expressillä ja GLS:llä",
     "tileShipTitle": "Seurattava toimitus",
-    "tileShipSub": "DHL Express ja GLS — ilmainen 400 € (alv 0 %) alkaen",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Turvallinen maksu",
     "tilePaySub": "Salatut 3D-Secure-maksutapahtumat"
   },

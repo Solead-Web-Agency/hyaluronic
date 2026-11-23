@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Odprema še isti dan za naročila, oddana do 15. ure (delovni dnevi) · DHL Express in GLS",
-    "topbarFreeShipping": "Brezplačna dostava od 400 € brez DDV",
     "topbarCe": "Oznaka CE · popolna sledljivost",
     "logoSub": "Strokovnjak za estetske injekcije",
     "searchPlaceholder": "Iščite izdelek, znamko…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Vaša košarica",
     "empty": "Vaša košarica je prazna.",
-    "freeShippingUnlocked": "✓ Brezplačna dostava odklenjena",
-    "freeShippingRemaining": "Samo še <b>{amount} €</b> do brezplačne dostave",
     "subtotalExcl": "Vmesni seštevek brez DDV",
     "vat": "DDV (20 %)",
     "totalIncl": "Skupaj z DDV",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Kazalo",
-    "updatedOn": "Posodobljeno"
+    "updatedOn": "Posodobljeno",
+    "geoNotice": "Za prikaz cen in izdelkov, ki so na voljo v vaši državi, državo ocenimo na podlagi vašega naslova IP."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "DDV",
     "totalInclNoShipping": "Skupaj z DDV, brez dostave",
     "checkout": "Naroči · {amount} € z DDV",
-    "freeShippingRemaining": "Samo še <b>{amount} € brez DDV</b> do brezplačne dostave",
     "securePayment": "Varno plačilo 3D-Secure · pošiljanje z DHL Express in GLS",
     "tileShipTitle": "Sledljiva dostava",
-    "tileShipSub": "DHL Express in GLS — brezplačno od 400 € brez DDV",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Varno plačilo",
     "tilePaySub": "Šifrirane transakcije 3D-Secure"
   },

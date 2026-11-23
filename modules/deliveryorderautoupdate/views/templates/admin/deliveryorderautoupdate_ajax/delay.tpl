@@ -23,7 +23,7 @@
 *  International Registered Trademark & Property of Helloshop
 *}
 
-{if $orders|count}
+{if !empty($orders)}
 {foreach $orders as $order}
 <tr class="tr_cols " data-event_code="{if $order.event_code}{$order.event_code|escape:'htmlall':'UTF-8'}{else}0{/if}" id_order="{$order.id_order|escape:'htmlall':'UTF-8'}" id_carrier="{$order.id_carrier|escape:'htmlall':'UTF-8'}" carrier_reference="{$order.carrier_reference|escape:'htmlall':'UTF-8'}" data-track="{$order.tracking_number|escape:'htmlall':'UTF-8'}" order_reference={$order.reference|escape:'htmlall':'UTF-8'}>
 

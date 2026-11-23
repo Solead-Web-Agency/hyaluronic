@@ -534,7 +534,8 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             return ['error' => 'invalid_phone'];
         }
         $address->phone = $phone;
-        if (!Validate::isLoadedObject((new Country($address->id_country)))) {
+        $country = new Country($address->id_country);
+        if (!Validate::isLoadedObject($country) || !$country->active) {
             return ['error' => 'invalid_country'];
         }
         if ($err = $this->applyCountryRules($address, null)) {
@@ -565,7 +566,10 @@ class HfmstorefrontCustomerModuleFrontController extends HfmStorefrontApiControl
             return ['error' => 'invalid_phone'];
         }
         $idCountry = (int) $this->in('id_country', (int) $old->id_country);
-        if (!Validate::isLoadedObject(new Country($idCountry))) {
+        $country = new Country($idCountry);
+        // Pays fermé : refusé seulement si le client CHANGE de pays (corriger une adresse existante
+        // dans son pays reste possible, la commande sera de toute façon bloquée au tunnel).
+        if (!Validate::isLoadedObject($country) || (!$country->active && $idCountry !== (int) $old->id_country)) {
             return ['error' => 'invalid_country'];
         }
         // Si l'adresse est déjà rattachée à une commande, PrestaShop impose d'en créer une

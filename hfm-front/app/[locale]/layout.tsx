@@ -5,7 +5,6 @@ import { routing } from '@/i18n/routing';
 import { isRtl } from '@/lib/i18n-config';
 import { StoreProvider } from '../store';
 import { WishlistProvider } from '../wishlist';
-import ConsentBanner from '../components/ConsentBanner';
 import ProNoticePopup from '../components/ProNoticePopup';
 import CompareBar from '../components/CompareBar';
 import { ADS_ID } from '@/lib/gtm';
@@ -24,7 +23,8 @@ const GTM_ENABLED = !!GTM_ID && TRACKING_ON;
 // à ne pas oublier au cutover ; SITE_INDEXABLE suffit à garder le staging propre.
 const ADS_ENABLED = TRACKING_ON;
 
-// Consent Mode v2 : refus par défaut (EEA) AVANT tout chargement Google ; le bandeau met à jour.
+// Consent Mode v2 : refus par défaut (EEA) AVANT tout chargement Google ; le bandeau CookieYes
+// (chargé par le conteneur GTM de production) met ensuite le consentement à jour.
 const CONSENT_DEFAULT = `
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;
 gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
@@ -99,7 +99,6 @@ export default async function LocaleLayout({
           <StoreProvider>
             <WishlistProvider>{children}</WishlistProvider>
             <CompareBar />
-            <ConsentBanner />
             <ProNoticePopup />
           </StoreProvider>
         </NextIntlClientProvider>

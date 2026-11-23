@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "Same-day dispatch for orders placed before 3 pm (working days) · DHL Express & GLS",
-    "topbarFreeShipping": "Free delivery from €400 excl. VAT",
     "topbarCe": "CE marking · full traceability",
     "logoSub": "Aesthetic injection specialist",
     "searchPlaceholder": "Search for a product, a brand…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "Your cart",
     "empty": "Your cart is empty.",
-    "freeShippingUnlocked": "✓ Free delivery unlocked",
-    "freeShippingRemaining": "Only <b>{amount} €</b> away from free delivery",
     "subtotalExcl": "Subtotal excl. VAT",
     "vat": "VAT (20%)",
     "totalIncl": "Total incl. VAT",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "Contents",
-    "updatedOn": "Updated on"
+    "updatedOn": "Updated on",
+    "geoNotice": "To show the prices and products available in your country, we estimate it from your IP address."
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "VAT",
     "totalInclNoShipping": "Total incl. VAT, excl. shipping",
     "checkout": "Checkout · {amount} € incl. VAT",
-    "freeShippingRemaining": "Only <b>{amount} € excl. VAT</b> away from free delivery",
     "securePayment": "Secure 3D-Secure payment · shipped by DHL Express & GLS",
     "tileShipTitle": "Tracked delivery",
-    "tileShipSub": "DHL Express & GLS — free from 400 € excl. VAT",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "Secure payment",
     "tilePaySub": "Encrypted 3D-Secure transactions"
   },

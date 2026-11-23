@@ -3,6 +3,7 @@ import { bridgeGet, bridgePost } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { completeCheckoutSession, getCheckoutSession } from '@/lib/amazonpay';
 import { locales, defaultLocale } from '@/lib/i18n-config';
+import { visitorIp } from '@/lib/geoip';
 
 const BASE = process.env.PUBLIC_BASE_URL || 'http://localhost:3000';
 
@@ -53,6 +54,9 @@ export async function GET(req: NextRequest) {
     paid: 1,
     payment_method: 'Amazon Pay',
     transaction_id: chargeId || sessionId,
+    // Preuve de la déclaration professionnelle (fiche commande en BO) : le client revient ici lui-même.
+    client_ip: visitorIp(req.headers),
+    locale: lang,
     // Montant réellement facturé (EUR) -> garde-fou montant côté bridge (anti sous-paiement).
     amount_paid: sess.amount,
   }).catch(() => null);

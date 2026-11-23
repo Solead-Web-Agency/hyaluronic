@@ -4,6 +4,8 @@ import { cachedJson, cacheKey } from './cache';
 import { headers, cookies } from 'next/headers';
 import { unstable_rethrow } from 'next/navigation';
 import { getSessionUser } from './session';
+import { visitorCountryFrom } from './geoip';
+import { botCountryForIdLang, isGoogleBot } from './bots';
 
 const BASE = process.env.PS_URL || 'http://localhost:8080';
 const SECRET = process.env.HFM_BRIDGE_SECRET || '';
@@ -25,16 +27,23 @@ const WRITE_TIMEOUT_MS = 25000;
 // (liste servie par le bridge) : tous les autres visiteurs partagent le même cache.
 const COUNTRY_CONTROLLERS = new Set(['products', 'cart', 'checkout', 'wishlist']);
 const RULE_COUNTRIES_TTL_MS = 10 * 60 * 1000;
-let ruleCountries: { list: string[]; groups: number[]; at: number } | null = null;
+let ruleCountries: { list: string[]; groups: number[]; blocks: string[]; at: number } | null = null;
+
+// Lectures de taxonomie dont les comptes de produits dépendent du pays (23/11/2026) : une marque ou
+// une catégorie dont TOUS les produits sont bloqués dans le pays du visiteur disparaît du menu, de
+// l'index des marques et des filtres, et sa page répond 404. Le pays n'est transmis que s'il a des
+// blocages (liste servie par le bridge) : tous les autres visiteurs partagent le même cache.
+const COUNTRY_TAXONOMY_ACTIONS = new Set(['menu', 'category', 'categories', 'manufacturers']);
 
 async function ruleCountryList(): Promise<string[]> {
   return (await ruleInfo()).list;
 }
 
-async function ruleInfo(): Promise<{ list: string[]; groups: number[] }> {
+async function ruleInfo(): Promise<{ list: string[]; groups: number[]; blocks: string[] }> {
   if (ruleCountries && Date.now() - ruleCountries.at < RULE_COUNTRIES_TTL_MS) return ruleCountries;
   let list: string[] = ruleCountries?.list ?? [];
   let groups: number[] = ruleCountries?.groups ?? [];
+  let blocks: string[] = ruleCountries?.blocks ?? [];
   try {
     const r = await fetch(bridgeUrl('taxonomy', { action: 'rule-countries' }), {
       headers: { 'X-Storefront-Token': SECRET },
@@ -44,10 +53,11 @@ async function ruleInfo(): Promise<{ list: string[]; groups: number[] }> {
     const d = r.ok ? await r.json() : null;
     if (Array.isArray(d?.countries)) list = d.countries.map((c: unknown) => String(c).toUpperCase());
     if (Array.isArray(d?.groups)) groups = d.groups.map((g: unknown) => Number(g)).filter((g: number) => g > 0);
+    if (Array.isArray(d?.block_countries)) blocks = d.block_countries.map((c: unknown) => String(c).toUpperCase());
   } catch (e) {
     unstable_rethrow(e);
   }
-  ruleCountries = { list, groups, at: Date.now() };
+  ruleCountries = { list, groups, blocks, at: Date.now() };
   return ruleCountries;
 }
 
@@ -73,8 +83,9 @@ async function withGroup<T extends Record<string, unknown>>(controller: string, 
 async function visitorCountry(): Promise<string | null> {
   try {
     const h = await headers();
-    let c = h.get('x-vercel-ip-country');
-    // En local (pas d'en-tête Vercel) : cookie `hfm_geo=US` pour tester les règles.
+    // En-tête de l'hébergeur (Vercel) s'il existe, sinon recherche par adresse IP (lib/geoip.ts).
+    let c: string | null | undefined = visitorCountryFrom(h).country;
+    // En local (ni en-tête ni adresse publique) : cookie `hfm_geo=US` pour tester les règles.
     if (!c && process.env.NODE_ENV !== 'production') c = (await cookies()).get('hfm_geo')?.value ?? null;
     return c && /^[A-Za-z]{2}$/.test(c) ? c.toUpperCase() : null;
   } catch (e) {
@@ -84,13 +95,38 @@ async function visitorCountry(): Promise<string | null> {
   }
 }
 
+/** La requête en cours vient-elle d'un robot Google ? (faux hors requête, ex. pendant le build) */
+export async function isGoogleBotRequest(): Promise<boolean> {
+  try {
+    return isGoogleBot((await headers()).get('user-agent'));
+  } catch (e) {
+    unstable_rethrow(e);
+    return false;
+  }
+}
+
 async function withCountry<T extends Record<string, unknown>>(controller: string, params: T): Promise<T> {
   params = await withGroup(controller, params);
+  if (controller === 'taxonomy') return withBlockCountry(params);
   if (!COUNTRY_CONTROLLERS.has(controller) || 'country' in params) return params;
-  const c = await visitorCountry();
+  // Pays du visiteur transmis dans TOUS les cas (et plus seulement pour les pays à règles de prix) :
+  // le bridge calcule alors le TTC avec la TVA de son pays (DE 19 %, IT 22 %…), comme le panier une
+  // fois l'adresse saisie et comme les flux Google Shopping. Même traitement pour tout le monde.
+  // Robot Google : pays de la langue de la page, jamais sa géolocalisation (lib/bots.ts). Un ?pays= de
+  // lien de flux, transmis par la page, est déjà dans `params` et a priorité (retour plus haut).
+  const c = (await isGoogleBotRequest()) ? botCountryForIdLang(params.id_lang ?? DEFAULTS.id_lang) : await visitorCountry();
   if (!c) return params;
-  const list = await ruleCountryList();
-  if (!list.includes('*') && !list.includes(c)) return params;
+  return { ...params, country: c };
+}
+
+// Taxonomie : pays du visiteur (robot Google : pays de la langue de la page) transmis seulement
+// s'il a des produits bloqués. `country` déjà présent (même vide = lecture neutre, ex. sitemap) : inchangé.
+async function withBlockCountry<T extends Record<string, unknown>>(params: T): Promise<T> {
+  if ('country' in params || !COUNTRY_TAXONOMY_ACTIONS.has(String(params.action ?? 'categories'))) return params;
+  const { blocks } = await ruleInfo();
+  if (!blocks.length) return params;
+  const c = (await isGoogleBotRequest()) ? botCountryForIdLang(params.id_lang ?? DEFAULTS.id_lang) : await visitorCountry();
+  if (!c || !blocks.includes(c)) return params;
   return { ...params, country: c };
 }
 

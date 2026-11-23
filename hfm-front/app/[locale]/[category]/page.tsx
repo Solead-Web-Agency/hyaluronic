@@ -20,7 +20,8 @@ type Cat = {
   name: string;
   link_rewrite: string;
   active: boolean;
-  nb_products: number;
+  nb_products: number; // produits visibles dans le pays du visiteur
+  nb_blocked?: number; // produits masqués par le blocage de ce pays
   id_parent: number;
   meta_title?: string;
   meta_description?: string;
@@ -143,6 +144,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
         )}
       </RubricIndex>
     );
+  }
+
+  // Marque ou catégorie dont TOUS les produits sont bloqués dans le pays du visiteur : introuvable
+  // (404), comme ses produits. Pas la redirection permanente d'une catégorie vide : le navigateur la
+  // garderait en mémoire alors qu'elle ne vaut que pour ce pays.
+  if (cat.active && cat.nb_products === 0 && (cat.nb_blocked ?? 0) > 0) {
+    notFound();
   }
 
   // Catégorie désactivée par la recatégorisation ou vide -> 301 catalogue (évite le 404, garde le jus).

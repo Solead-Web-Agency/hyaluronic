@@ -15,7 +15,12 @@ export const dynamic = 'force-dynamic';
 // slug par langue. Une page CMS a un slug différent par langue (mentions-legales /
 // rechtlicher-hinweis / avviso-legale / aviso-legal) et le bridge résout n'importe lequel sous
 // n'importe quelle locale -> sans canonicalisation, chaque variante serait auto-canonique.
+// Page CMS « Mentions légales » du back (même numéro dans toutes les langues). On y affiche la mention
+// exigée par la licence de la base DB-IP, qui sert à estimer le pays du visiteur (lib/geoip.ts).
+const LEGAL_NOTICE_CMS_ID = 2;
+
 type CmsPage = {
+  id_cms?: number;
   title: string;
   meta_description?: string;
   content: string;
@@ -129,6 +134,12 @@ export default async function ContentPage({ params }: { params: Promise<{ locale
           )}
           <article className="hfm-cms" dangerouslySetInnerHTML={{ __html: html }} />
         </div>
+        {page.id_cms === LEGAL_NOTICE_CMS_ID && (
+          <p style={{ margin: '34px 0 0', paddingTop: '18px', borderTop: '1px solid rgba(52,53,47,0.12)', fontSize: '14px', lineHeight: 1.6, color: '#6B6C64' }}>
+            {t('geoNotice')}{' '}
+            <a href="https://db-ip.com" target="_blank" rel="noopener" style={{ color: 'inherit', textDecoration: 'underline' }}>IP Geolocation by DB-IP</a>
+          </p>
+        )}
       </main>
       <Footer />
     </div>

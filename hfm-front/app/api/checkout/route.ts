@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { bridgeGet, bridgePost } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { NO_STORE } from '@/lib/cacheContract';
+import { visitorIp } from '@/lib/geoip';
 
 // Tunnel de commande : nécessite une session. L'id_customer est injecté côté serveur ;
 // le bridge vérifie ensuite l'appartenance du panier + client+adresse+transporteur avant validateOrder().
@@ -43,8 +44,14 @@ export async function POST(req: NextRequest) {
   delete forwarded.transaction_id;
   // Déclaration pro : l'IP du client (preuve d'acceptation) est lue ici, jamais fournie par le navigateur.
   delete forwarded.client_ip;
-  if (action === 'pro-declaration') {
-    forwarded.client_ip = (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || req.headers.get('x-real-ip') || '';
+  // IP (posée par notre serveur, jamais celle envoyée par le navigateur) + langue : preuve de la
+  // déclaration professionnelle, affichée en back-office sur la fiche commande.
+  if (action === 'pro-declaration' || action === 'order') {
+    forwarded.client_ip = visitorIp(req.headers);
+  }
+  if (action === 'order' && !forwarded.locale) {
+    const loc = req.cookies.get('NEXT_LOCALE')?.value || '';
+    if (/^[a-z]{2}$/.test(loc)) forwarded.locale = loc;
   }
   return NextResponse.json(await bridgePost('checkout', forwarded), { headers: NO_STORE });
 }

@@ -4,7 +4,20 @@ import { LEGACY_REDIRECTS } from "./lib/legacyRedirects";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
+// Hébergement hors Vercel (serveur Node du Plesk) : `NEXT_OUTPUT=standalone next build` produit
+// .next/standalone/server.js, autonome. Sans cette variable (Vercel), rien ne change.
+const STANDALONE = process.env.NEXT_OUTPUT === "standalone";
+
 const nextConfig: NextConfig = {
+  ...(STANDALONE
+    ? {
+        output: "standalone" as const,
+        outputFileTracingRoot: __dirname,
+        // Fichiers lus sur le disque à l'exécution, que le traçage ne voit pas tout seul :
+        // content-cms/ (lib/cms.ts) et la table IP -> pays (lib/geoip.ts).
+        outputFileTracingIncludes: { "/*": ["./content-cms/**/*", "./data/ip-country.bin.gz"] },
+      }
+    : {}),
   turbopack: {
     // Le projet vit dans son propre dossier (plusieurs lockfiles existent sur la machine).
     root: __dirname,

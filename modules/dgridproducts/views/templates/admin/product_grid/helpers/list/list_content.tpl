@@ -487,6 +487,9 @@
             {if $has_actions}
                 <td class="text-right" style="white-space: nowrap;">
 
+                    {* [HFM 19/11/2026] Douchette : scan 1D ou QR / DataMatrix -> EAN-13 + lot du produit (views/js/hfm_scan.js). *}
+                    <input type="text" class="form-control hfm-scan" data-id-product="{$tr.id|intval}" autocomplete="off" spellcheck="false"
+                           placeholder="Scan" title="Douchette : code-barres (EAN) ou QR / DataMatrix de la boîte (EAN + lot + péremption)">
                     <a href="{$tr.url_product}" title="Edit" target="_blank" class="edit btn btn-default">
                         <i class="icon-pencil"></i>
                     </a>

@@ -3,6 +3,7 @@ import { bridgePost } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { getTransaction, VIVA_SUCCESS_STATUS } from '@/lib/viva';
 import { locales, defaultLocale } from '@/lib/i18n-config';
+import { visitorIp } from '@/lib/geoip';
 
 // URL de retour UNIQUE (locale-agnostique) configurée sur la Source Viva, valable pour
 // toutes les langues. Viva renvoie le navigateur ici avec ?t=<transactionId>&s=<orderCode>.
@@ -43,6 +44,9 @@ export async function GET(req: NextRequest) {
     paid: 1,
     payment_method: 'Carte bancaire (Viva Wallet)',
     transaction_id: String(t),
+    // Preuve de la déclaration professionnelle (fiche commande en BO) : le client revient ici lui-même.
+    client_ip: visitorIp(req.headers),
+    locale: lang,
     // Montant réellement encaissé (EUR) -> le bridge refuse de marquer "payé" s'il ne couvre
     // pas le total du panier (garde-fou anti « payer 50 recevoir 500 »). API classique Viva :
     // /api/transactions renvoie Amount en euros. Absent -> garde-fou inactif (fail-open) côté bridge.

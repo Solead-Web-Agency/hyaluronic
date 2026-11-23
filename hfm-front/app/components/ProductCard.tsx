@@ -281,7 +281,7 @@ export default function ProductCard({ product }: { product: Card }) {
             </span>
           ) : null}
         </div>
-        <TaxLine ht={product.ht} ttc={product.ttc} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '11.5px', color: '#9C9686' }} />
+        {product.hideTaxLine ? null : <TaxLine ht={product.ht} ttc={product.ttc} style={{ fontFamily: "'Hanken Grotesk',sans-serif", fontSize: '11.5px', color: '#9C9686' }} />}
         {canBuy ? (
           added ? (
             <button

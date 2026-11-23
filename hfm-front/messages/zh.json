@@ -26,7 +26,6 @@
   },
   "header": {
     "topbarShipping": "工作日 15 点前下单当天发货 · DHL Express 与 GLS",
-    "topbarFreeShipping": "不含税满 400 € 免运费",
     "topbarCe": "CE 认证 · 完整可追溯",
     "logoSub": "医美注射专家",
     "searchPlaceholder": "搜索产品或品牌…",
@@ -194,7 +193,6 @@
     "htB2b": "€{amount} excl. VAT (B2B) · VAT included",
     "inStockShipToday": "In stock — ships today",
     "onOrderDelay": "On order — 10 to 15 days",
-    "tile1Sub": "EU — free from €400 excl. VAT",
     "tile2Title": "Certified EU stock",
     "tile2Sub": "5 warehouses — immediate availability",
     "tile3Title": "Authenticity guaranteed",
@@ -282,8 +280,6 @@
   "cart": {
     "title": "您的购物车",
     "empty": "您的购物车是空的。",
-    "freeShippingUnlocked": "✓ 已解锁免运费",
-    "freeShippingRemaining": "再消费 <b>{amount} €</b> 即可享免运费",
     "subtotalExcl": "不含税小计",
     "vat": "增值税 (20%)",
     "totalIncl": "含税总计",
@@ -673,7 +669,8 @@
   },
   "content": {
     "summary": "目录",
-    "updatedOn": "更新于"
+    "updatedOn": "更新于",
+    "geoNotice": "为显示您所在国家/地区可用的价格和产品，我们会根据您的 IP 地址估算您所在的国家/地区。"
   },
   "contact": {
     "title": "Contact us",
@@ -824,10 +821,9 @@
     "vat": "增值税",
     "totalInclNoShipping": "含税总计(不含运费)",
     "checkout": "结算 · 含税 {amount} €",
-    "freeShippingRemaining": "再消费 <b>{amount} €(不含税)</b> 即可享免运费",
     "securePayment": "3D-Secure 安全支付 · 由 DHL Express 和 GLS 发货",
     "tileShipTitle": "可追踪配送",
-    "tileShipSub": "DHL Express 和 GLS — 不含税满 400 € 免运费",
+    "tileShipSub": "DHL Express & GLS",
     "tilePayTitle": "安全支付",
     "tilePaySub": "3D-Secure 加密交易"
   },

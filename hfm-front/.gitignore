@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# table IP -> pays (donnée DB-IP, régénérée par scripts/update-ip-country.mjs)
+/data/ip-country.bin.gz

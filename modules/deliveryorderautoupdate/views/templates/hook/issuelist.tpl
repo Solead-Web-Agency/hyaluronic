@@ -33,8 +33,8 @@
 <div class="status col-sm-6" id_issue="{$issue.id_issue|escape:'htmlall':'UTF-8'}">
     <div style="display: flex;">
         <label>{l s='Current status' mod='deliveryorderautoupdate'}:</label>
-        <div class="editable edit_issue_status" id_issue_status="{if $issue.histories && count($issue.histories)}{$issue.histories[0].status|escape:'htmlall':'UTF-8'}{/if}" style="position:relative;margin-left: 10px;flex:1">
-            <span class="status_name">{if $issue.histories && count($issue.histories)}{$issue.histories[0].status_name|escape:'htmlall':'UTF-8'}{/if}</span>
+        <div class="editable edit_issue_status" id_issue_status="{if $issue.histories && !empty($issue.histories)}{$issue.histories[0].status|escape:'htmlall':'UTF-8'}{/if}" style="position:relative;margin-left: 10px;flex:1">
+            <span class="status_name">{if $issue.histories && !empty($issue.histories)}{$issue.histories[0].status_name|escape:'htmlall':'UTF-8'}{/if}</span>
             <i class="icon-pencil openmenu"></i>
         </div>
     </div>
@@ -49,7 +49,7 @@
         </tr>
     </thead>
     <tbody>
-        {if count($issue.histories)}
+        {if !empty($issue.histories)}
         {include file='../hook/issue-row.tpl' histories=$issue.histories}
         {else}
         <tr class="no-status"><td colspan="2">{l s='No status' mod='deliveryorderautoupdate'}</td></tr>

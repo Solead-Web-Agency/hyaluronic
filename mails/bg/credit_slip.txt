@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Поръчка {order_name} - Възстановяване на сума
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Сумата за вашата поръчка {order_name} беше възстановена.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Сумата ще бъде върната по първоначалния ви начин на плащане в рамките на няколко работни дни, в зависимост от сроковете на вашата банка.
 
 [{shop_name}]({shop_url})
 

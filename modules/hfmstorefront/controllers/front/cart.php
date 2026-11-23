@@ -164,14 +164,36 @@ class HfmstorefrontCartModuleFrontController extends HfmStorefrontApiController
             $byRate[$key]['base'] += (float) $base;
             $byRate[$key]['amount'] += (float) $amount;
         };
+        // Taux AFFICHÉ = taux configuré (règle de taxe du produit / du transporteur pour l'adresse de
+        // livraison), et non TTC ÷ HT : déduit de montants arrondis, ce rapport donnait « 19,7 % » sur un
+        // produit à 1,925 € HT (1,93 HT -> 2,31 TTC). Pas de TVA facturée (exonération VIES, export) -> 0.
+        $idAddress = (int) $cart->id_address_delivery;
+        $guess = function ($incl, $excl) {
+            return $excl > 0 ? round(($incl / $excl - 1) * 100, 1) : 0.0;
+        };
         foreach ($cart->getProducts() as $p) {
             $excl = (float) $p['total'];
             $incl = (float) $p['total_wt'];
-            $rate = $excl > 0 ? round(($incl / $excl - 1) * 100, 1) : (float) ($p['rate'] ?? 0);
+            $rate = 0.0;
+            if ($incl > $excl) {
+                $rate = (float) Tax::getProductTaxRate((int) $p['id_product'], $idAddress ?: null);
+                if ($rate <= 0) {
+                    $rate = $guess($incl, $excl);
+                }
+            }
             $add($rate, $excl, $incl - $excl);
         }
         if ($shipExcl > 0) {
-            $add(round(($shipIncl / $shipExcl - 1) * 100, 1), $shipExcl, $shipIncl - $shipExcl);
+            $rate = 0.0;
+            if ($shipIncl > $shipExcl) {
+                $carrier = new Carrier((int) $cart->id_carrier);
+                $rate = Validate::isLoadedObject($carrier)
+                    ? (float) $carrier->getTaxesRate($idAddress ? new Address($idAddress) : null) : 0.0;
+                if ($rate <= 0) {
+                    $rate = $guess($shipIncl, $shipExcl);
+                }
+            }
+            $add($rate, $shipExcl, $shipIncl - $shipExcl);
         }
         $lines = [];
         foreach ($byRate as $l) {

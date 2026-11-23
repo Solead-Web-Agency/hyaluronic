@@ -3,6 +3,7 @@ import { bridgeGet } from '@/lib/ps';
 import { getSessionUser } from '@/lib/session';
 import { updateCheckoutSession } from '@/lib/amazonpay';
 import { locales, defaultLocale } from '@/lib/i18n-config';
+import { recordProConsent } from '@/lib/proConsent';
 
 const BASE = process.env.PUBLIC_BASE_URL || 'http://localhost:3000';
 
@@ -23,6 +24,7 @@ export async function GET(req: NextRequest) {
   const cart = await bridgeGet('cart', { id_cart, id_customer: user.id_customer }).catch(() => null);
   const total = Number(cart?.totals?.total_incl_tax ?? cart?.totals?.products_incl_tax ?? 0);
   if (total <= 0) return fail();
+  await recordProConsent(req.headers, id_cart, user.id_customer, lang);
 
   const resultUrl = `${BASE}/api/payment/amazon/return?cart=${id_cart}&lang=${lang}`;
   const upd = await updateCheckoutSession(sessionId, total, resultUrl, id_cart).catch(() => null);

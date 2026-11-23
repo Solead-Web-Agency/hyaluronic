@@ -126,8 +126,6 @@ export default function Header() {
         <div className="hfm-topbar" style={{ maxWidth: '1340px', margin: '0 auto', padding: '0 28px', height: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '26px', fontSize: '12px', letterSpacing: '.02em', overflow: 'hidden' }}>
           <span style={{ fontWeight: 600 }}>{t('topbarShipping')}</span>
           <span style={{ opacity: .4 }}>·</span>
-          <span style={{ opacity: .85 }}>{t('topbarFreeShipping')}</span>
-          <span style={{ opacity: .4 }}>·</span>
           <span style={{ opacity: .85 }}>{t('topbarCe')}</span>
         </div>
       </div>

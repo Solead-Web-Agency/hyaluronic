@@ -2,11 +2,11 @@
 
 Hi {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+Bestilling {order_name} - Tilbakebetaling
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Bestillingen din {order_name} er refundert.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Beløpet blir tilbakeført til den opprinnelige betalingsmåten din i løpet av noen virkedager, avhengig av bankens behandlingstid.
 
 [{shop_name}]({shop_url})
 
