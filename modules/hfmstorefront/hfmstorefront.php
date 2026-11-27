@@ -992,16 +992,45 @@ class Hfmstorefront extends PaymentModule
             'Accepté le' => $accepted,
             'Version du texte' => $e($d['text_version'] ?? ''),
         ];
-        $html = '<div class="card mb-2"><div class="card-header"><h3 class="card-header-title">'
+
+        // [26/11/2026] Saisie du RPPS par l'équipe (lib/rpps_admin.php) : auteur et date de la saisie,
+        // message de retour du formulaire, et formulaire en bas du bloc.
+        require_once __DIR__ . '/lib/rpps_admin.php';
+        if ($bo = HfmRppsAdmin::boEntry((int) $order->id)) {
+            $rows['RPPS saisi en back-office'] = 'par ' . $e($bo['employee'] ?: 'employé n° ' . (int) $bo['id_employee']) . ' le ' . $e($bo['date_bo']);
+        }
+        $flash = '';
+        $flashKey = 'HFM_RPPS_FLASH_' . (int) ($this->context->employee->id ?? 0);
+        if ((string) Configuration::getGlobalValue($flashKey) !== '') {
+            $f = (string) Configuration::getGlobalValue($flashKey);
+            Configuration::deleteByName($flashKey);
+            $flash = '<div class="alert ' . (strpos($f, 'Échec') === 0 ? 'alert-danger' : (strpos($f, 'ATTENTION') !== false ? 'alert-warning' : 'alert-success')) . '">'
+                . htmlspecialchars($f, ENT_QUOTES, 'UTF-8') . '</div>';
+        }
+
+        $html = '<div class="card mb-2" id="hfm-pro"><div class="card-header"><h3 class="card-header-title">'
             . '<i class="material-icons">verified_user</i> Déclaration professionnelle</h3></div>'
-            . '<div class="card-body"><table class="table table-sm mb-0">';
+            . '<div class="card-body">' . $flash . '<table class="table table-sm mb-0">';
         foreach ($rows as $k => $v) {
             $html .= '<tr><th style="width:220px">' . htmlspecialchars($k, ENT_QUOTES, 'UTF-8') . '</th><td>' . $v . '</td></tr>';
         }
         if (trim((string) ($d['text'] ?? '')) !== '') {
             $html .= '<tr><th>Texte accepté</th><td style="font-size:12px;color:#55606F;">' . $e($d['text']) . '</td></tr>';
         }
-        return $html . '</table></div></div>';
+        $html .= '</table>';
+
+        // Formulaire : renseigner ou corriger le RPPS du client (remplace la note dans le champ « Autre »
+        // de l'adresse). Enregistré sur la commande, sur le compte du client et par e-mail.
+        $action = $this->context->link->getAdminLink('AdminHfmViva', true, [], ['id_order' => (int) $order->id]);
+        $html .= '<form method="post" action="' . htmlspecialchars($action, ENT_QUOTES, 'UTF-8') . '" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:14px">'
+            . '<div><label class="form-control-label" style="font-size:12px;text-transform:uppercase;color:#6c868e">'
+            . ($rpps !== '' ? 'Corriger le n° RPPS' : 'Renseigner le n° RPPS du client') . '</label>'
+            . '<input class="form-control" name="hfm_rpps" inputmode="numeric" autocomplete="off" maxlength="20" style="width:240px"'
+            . ' placeholder="11 chiffres (ou ADELI : 9)" value="' . htmlspecialchars($rpps, ENT_QUOTES, 'UTF-8') . '"></div>'
+            . '<button type="submit" name="submitHfmRpps" value="1" class="btn btn-primary">Enregistrer le RPPS</button>'
+            . '</form><p class="small text-muted" style="margin:8px 0 0">Le numéro est vérifié (clé de contrôle, puis Annuaire Santé), enregistré sur cette commande et sur le client : '
+            . 'le site ne le lui redemandera pas à ses prochaines commandes. Plus besoin de le noter dans le champ « Autre » de l\'adresse.</p>';
+        return $html . '</div></div>';
     }
 
     /** Données « pro » de la commande (invité) ou, à défaut, du client : RPPS, attestation, justificatif. */

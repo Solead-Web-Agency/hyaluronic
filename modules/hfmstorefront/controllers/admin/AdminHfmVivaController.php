@@ -6,6 +6,7 @@
  */
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/viva_admin.php';
 require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/amazon_admin.php';
+require_once _PS_MODULE_DIR_ . 'hfmstorefront/lib/rpps_admin.php';
 
 class AdminHfmVivaController extends ModuleAdminController
 {
@@ -47,6 +48,20 @@ class AdminHfmVivaController extends ModuleAdminController
             }
             Configuration::updateGlobalValue('HFM_AMZ_FLASH_' . (int) $this->context->employee->id, $msg);
             Tools::redirectAdmin($this->context->link->getAdminLink('AdminOrders', true, [], ['id_order' => $idOrder, 'vieworder' => 1]) . '#hfm-amazon');
+        }
+        // [26/11/2026] Saisie du n° RPPS par l'équipe (bloc « Déclaration professionnelle »).
+        if (Tools::isSubmit('submitHfmRpps') && $idOrder) {
+            if (!$this->access('edit')) {
+                $msg = 'Échec : droits insuffisants pour modifier la commande.';
+            } else {
+                $order = new Order($idOrder);
+                $r = Validate::isLoadedObject($order)
+                    ? HfmRppsAdmin::saveForOrder($order, (string) Tools::getValue('hfm_rpps'), (int) $this->context->employee->id)
+                    : ['ok' => false, 'message' => 'Commande introuvable.'];
+                $msg = ($r['ok'] ? '' : 'Échec : ') . $r['message'];
+            }
+            Configuration::updateGlobalValue('HFM_RPPS_FLASH_' . (int) $this->context->employee->id, $msg);
+            Tools::redirectAdmin($this->context->link->getAdminLink('AdminOrders', true, [], ['id_order' => $idOrder, 'vieworder' => 1]) . '#hfm-pro');
         }
         Tools::redirectAdmin($this->context->link->getAdminLink('AdminOrders'));
     }
